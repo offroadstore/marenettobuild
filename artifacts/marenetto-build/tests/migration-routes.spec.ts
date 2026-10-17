@@ -31,6 +31,26 @@ const reviewLabels: Record<ArticleRoute['reviewStatus'], string> = {
   'summary-reviewed': 'Sintesi revisionata',
 };
 
+const publicPagePaths = [
+  '/',
+  '/servizi',
+  '/come-lavoriamo',
+  '/proprietari-all-estero',
+  '/richiesta',
+  '/contatti',
+  '/en/',
+  '/en/services',
+  '/en/how-we-work',
+  '/en/owners-abroad',
+  '/en/request',
+  '/en/contact',
+  '/articoli',
+  '/guide',
+  '/progetti',
+  '/ricerca',
+  ...articleRoutes.map(({ path }) => path),
+];
+
 async function followClientSidePath(page: Page, path: string) {
   await page.evaluate((target) => {
     window.history.pushState({}, '', target);
@@ -125,5 +145,57 @@ test.describe('ricerca e filtri dell’archivio', () => {
     await page.getByRole('tab', { name: 'Tutti' }).click();
     await expect(cards).toHaveCount(14);
     await expect(page.getByTestId('text-archive-count')).toHaveText('14 articoli');
+  });
+});
+
+test.describe('integrità dei link delle pagine pubbliche', () => {
+  test('ogni pagina pubblica e ogni link interno raggiungono una pagina valida', async ({ page }) => {
+    test.setTimeout(120_000);
+    await page.setViewportSize({ width: 390, height: 844 });
+
+    let appOrigin = '';
+    const internalTargets = new Map<string, { source: string; label: string; href: string }>();
+
+    for (const sourcePath of publicPagePaths) {
+      const response = await page.goto(sourcePath, { waitUntil: 'domcontentloaded' });
+      appOrigin ||= new URL(page.url()).origin;
+      expect(response?.status(), `La pagina pubblica ${sourcePath} non è raggiungibile`).toBeLessThan(400);
+      await expect(page.getByRole('heading', { name: '404 Page Not Found' }), `La pagina pubblica ${sourcePath} mostra una 404`).toHaveCount(0);
+      await expect(page.locator('main h1').first(), `La pagina pubblica ${sourcePath} non mostra il titolo`).toBeVisible();
+
+      const menuToggle = page.getByTestId('button-menu');
+      if (await menuToggle.isVisible()) {
+        await menuToggle.click();
+      }
+
+      const hrefs = await page.locator('a[href]').evaluateAll((anchors) =>
+        anchors.map((anchor) => ({
+          href: (anchor as HTMLAnchorElement).href,
+          label: (anchor.textContent ?? '').trim().replace(/\s+/g, ' ') || (anchor as HTMLAnchorElement).getAttribute('aria-label') || 'link senza etichetta',
+        })),
+      );
+
+      for (const { href, label } of hrefs) {
+        const target = new URL(href, page.url());
+        if (target.origin !== appOrigin || !['http:', 'https:'].includes(target.protocol)) continue;
+        const targetPath = `${target.pathname}${target.search}${target.hash}`;
+        if (!internalTargets.has(targetPath)) {
+          internalTargets.set(targetPath, { source: sourcePath, label, href: targetPath });
+        }
+      }
+    }
+
+    for (const target of internalTargets.values()) {
+      const response = await page.goto(target.href, { waitUntil: 'domcontentloaded' });
+      expect(response?.status(), `Il link "${target.label}" in ${target.source} non è raggiungibile: ${target.href}`).toBeLessThan(400);
+      await expect(
+        page.getByRole('heading', { name: '404 Page Not Found' }),
+        `Il link "${target.label}" in ${target.source} porta a una 404: ${target.href}`,
+      ).toHaveCount(0);
+      await expect(
+        page.locator('main h1').first(),
+        `Il link "${target.label}" in ${target.source} non mostra una pagina: ${target.href}`,
+      ).toBeVisible();
+    }
   });
 });
