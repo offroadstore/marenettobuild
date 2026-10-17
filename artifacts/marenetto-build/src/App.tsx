@@ -444,8 +444,11 @@ function Router() {
   const lang = getLang(path);
   const page = getPage(path);
   const trimmed = path.length > 1 && path.endsWith('/') && path !== '/en/' ? path.replace(/\/+$/, '') : path;
-  if (legacyRedirects[trimmed]) return <Redirect to={legacyRedirects[trimmed]} replace />;
-  if (trimmed !== path && (articleBySlug.has(trimmed.slice(1)) || ['/articoli', '/contatti', '/guide', '/progetti', '/ricerca'].includes(trimmed))) return <Redirect to={trimmed} replace />;
+  const queryAndFragment = `${window.location.search}${window.location.hash}`;
+  if (legacyRedirects[trimmed]) {
+    return <Redirect to={`${legacyRedirects[trimmed]}${queryAndFragment}`} replace />;
+  }
+  if (trimmed !== path && (articleBySlug.has(trimmed.slice(1)) || ['/articoli', '/contatti', '/guide', '/progetti', '/ricerca'].includes(trimmed))) return <Redirect to={`${trimmed}${queryAndFragment}`} replace />;
   const article = articleBySlug.get(trimmed.slice(1));
   if (article) return <RoutedErrorBoundary><LibraryShell page="articles"><ArticleDetailPage a={article} /></LibraryShell></RoutedErrorBoundary>;
   return <RoutedErrorBoundary><Switch>

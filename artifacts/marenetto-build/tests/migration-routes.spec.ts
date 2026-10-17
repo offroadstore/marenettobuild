@@ -58,14 +58,19 @@ async function followClientSidePath(page: Page, path: string) {
   }, path);
 }
 
-async function expectReplaceNavigation(page: Page, source: string, destination: string) {
-  await page.goto(source);
-  await expect(page).toHaveURL(new RegExp(`${destination.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}/?$`));
+async function expectReplaceNavigation(page: Page, source: string, destination: string, suffix = '') {
+  await page.goto(`${source}${suffix}`);
+  const expectedUrl = new URL(`${destination}${suffix}`, page.url());
+  const hasExpectedUrlParts = (url: URL) =>
+    url.pathname === expectedUrl.pathname
+    && JSON.stringify([...url.searchParams]) === JSON.stringify([...expectedUrl.searchParams])
+    && url.hash === expectedUrl.hash;
+  await expect(page).toHaveURL(hasExpectedUrlParts);
   await expect(page.locator('main h1').first()).toBeVisible();
 
   await page.goto('/');
-  await followClientSidePath(page, source);
-  await expect(page).toHaveURL(new RegExp(`${destination.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}/?$`));
+  await followClientSidePath(page, `${source}${suffix}`);
+  await expect(page).toHaveURL(hasExpectedUrlParts);
   await expect(page.locator('main h1').first()).toBeVisible();
   await page.goBack();
   await expect(page).toHaveURL(/\/$/);
@@ -96,7 +101,12 @@ test.describe('rotte articoli dalla migrazione', () => {
     });
 
     test(`${article.path}/ canonizza il percorso con replace`, async ({ page }) => {
-      await expectReplaceNavigation(page, `${article.path}/`, article.path);
+      await expectReplaceNavigation(
+        page,
+        `${article.path}/`,
+        article.path,
+        '?utm_source=legacy&utm_campaign=autunno%20build&ref=storico#preventivi',
+      );
     });
   }
 });
@@ -109,8 +119,13 @@ test.describe('redirect delle pagine storiche', () => {
   });
 
   for (const route of reportedRoutes) {
-    test(`${route.source} porta a ${route.destination} e sostituisce la cronologia`, async ({ page }) => {
-      await expectReplaceNavigation(page, route.source, route.destination);
+    test(`${route.source} conserva query e frammento su ${route.destination} e sostituisce la cronologia`, async ({ page }) => {
+      await expectReplaceNavigation(
+        page,
+        route.source,
+        route.destination,
+        '?utm_source=legacy&utm_campaign=autunno%20build&ref=storico#preventivi',
+      );
     });
   }
 });
