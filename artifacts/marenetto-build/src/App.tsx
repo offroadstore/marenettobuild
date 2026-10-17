@@ -11,8 +11,14 @@ import { Search } from 'lucide-react';
 import { articleBySlug, legacyRedirects } from '@/content/articles';
 import { usePageMeta } from '@/lib/meta';
 import { ArticleDetailPage, ArticlesPage, GuidesPage, ProjectsPage, SearchPage } from '@/pages/library';
+import { ClerkProvider, SignIn, SignUp, useClerk } from '@clerk/react';
+import { publishableKeyFromHost } from '@clerk/react/internal';
+import { shadcn } from '@clerk/themes';
+import { InternalEntry, OwnerDemo, PublishedCmsPage } from '@/pages/internal-surfaces';
 
 const queryClient = new QueryClient();
+
+const clerkPubKey = publishableKeyFromHost(window.location.hostname, import.meta.env.VITE_CLERK_PUBLISHABLE_KEY);
 type Lang = 'it' | 'en';
 type Page = 'home' | 'services' | 'process' | 'abroad' | 'request' | 'contact' | 'articles' | 'guides' | 'projects' | 'search';
 
@@ -302,7 +308,7 @@ function ContactPage({ lang }: { lang: Lang }) {
           <div className="contact-method"><Mail size={17} /><div><small>Email</small><a href={`mailto:info@marenettobuild.com?subject=${encodeURIComponent(it ? 'Richiesta informazioni — Marenetto Build' : 'Enquiry — Marenetto Build')}`} data-testid="link-email">info@marenettobuild.com<ArrowRight size={13} /></a></div></div>
           <div className="contact-method"><MessageCircle size={17} /><div><small>{it ? 'Telefono' : 'Phone'}</small><a href="tel:+393339363007" data-testid="link-phone">+39 333 936 3007</a></div></div>
           <div className="contact-method"><MapPin size={17} /><div><small>{it ? 'Indirizzo' : 'Address'}</small><span>SS 113 Settentrionale Sicula, 73b<br />90015 Cefalù, Palermo, Italia</span></div></div>
-          <div className="contact-note">{it ? 'La richiesta guidata è in anteprima: non inserire dati personali reali. Per un contatto effettivo, usa email, telefono o WhatsApp.' : 'The guided enquiry is a preview: do not enter real personal information. For a real enquiry, use email, phone or WhatsApp.'}</div>
+          <div className="contact-note">{it ? 'Anteprima sintetica: non inserire dati personali reali. Il modulo scarta i dettagli inseriti e crea solo un lead dimostrativo. Per un contatto effettivo, usa email, telefono o WhatsApp.' : 'Synthetic preview: do not enter real personal information. The form discards the details entered and creates only a demo lead. For a real enquiry, use email, phone or WhatsApp.'}</div>
         </aside>
         <div className="contact-content"><SectionLabel>{it ? 'Ci racconti' : 'Tell us'}</SectionLabel><h2 className="display-title">{it ? 'Che cosa ti serve?' : 'What do you need?'}</h2><p>{it ? 'Una richiesta specifica, un dubbio sulla manutenzione o una domanda prima di acquistare? Scegli il punto di partenza più adatto.' : 'A specific request, a maintenance question or something to ask before buying? Choose the starting point that suits you.'}</p>
           <div className="contact-cta-list">
@@ -357,7 +363,7 @@ function RequestPage({ lang }: { lang: Lang }) {
     <PageHero lang={lang} page="request" />
     <section className="section">
       <div className="container request-layout">
-        <aside className="request-aside"><SectionLabel>{it ? 'Un buon punto di partenza' : 'A useful place to start'}</SectionLabel><h2 className="display-title">{it ? 'Con calma, con i dettagli che hai.' : 'No rush. Share what you know.'}</h2><p>{it ? 'Il modulo salva richieste di prova in questa anteprima. Non è ancora collegato a notifiche interne o email: non inserire dati personali reali.' : 'This preview saves test enquiries only. It is not connected to internal or email notifications yet: do not enter real personal information.'}</p><p>{it ? 'Per un contatto effettivo, scrivi a info@marenettobuild.com, chiama o invia un messaggio WhatsApp al numero aziendale.' : 'For a real enquiry, email info@marenettobuild.com, call or send a WhatsApp message to the company number.'}</p><div className="language-note">{it ? 'Puoi indicare una lingua preferita fra quelle richieste; la risposta automatica non è ancora attiva.' : 'You can select any requested language; automated replies are not active yet.'}</div></aside>
+        <aside className="request-aside"><SectionLabel>{it ? 'Un buon punto di partenza' : 'A useful place to start'}</SectionLabel><h2 className="display-title">{it ? 'Con calma, con i dettagli che hai.' : 'No rush. Share what you know.'}</h2><p>{it ? 'Questa anteprima scarta i dati inseriti e conserva solo un lead sintetico. Non inserire dati personali reali. Le notifiche interne sono persistenti; gli invii email attendono l’approvazione del fornitore.' : 'This preview discards the details entered and stores only a synthetic lead. Do not enter real personal information. In-app notifications persist; email delivery awaits provider approval.'}</p><p>{it ? 'Per un contatto effettivo, scrivi a info@marenettobuild.com, chiama o invia un messaggio WhatsApp al numero aziendale.' : 'For a real enquiry, email info@marenettobuild.com, call or send a WhatsApp message to the company number.'}</p><div className="language-note">{it ? 'Puoi indicare una lingua preferita fra quelle richieste; la risposta automatica non è ancora attiva.' : 'You can select any requested language; automated replies are not active yet.'}</div></aside>
         <div>
           <form className="form-card" ref={formRef} onSubmit={submitRequest} noValidate={false}>
             <h2 className="form-section-title">{label.group1}</h2>
@@ -404,7 +410,7 @@ function RequestPage({ lang }: { lang: Lang }) {
               {create.isError && <div className="error-box" role="alert">{it ? 'Invio non riuscito. Puoi modificare i dettagli o riprovare; nessun dato è stato cancellato.' : 'Sending failed. Edit your details or try again; nothing has been cleared.'}</div>}
               <div className="form-footer"><button type="button" className="button outline" onClick={() => setReview(false)} data-testid="button-edit">{it ? 'Modifica' : 'Edit'}</button><button type="button" className="button" disabled={create.isPending} onClick={() => { if (formRef.current?.reportValidity()) formRef.current.requestSubmit(); }} data-testid="button-submit">{create.isPending ? label.sending : (it ? 'Invia richiesta' : 'Send enquiry')}<ArrowRight size={15} /></button></div>
             </div>}
-            {receipt && <div className="success-box" role="status" data-testid="status-success"><SectionLabel>{receipt.status === 'received' ? (it ? 'Richiesta ricevuta' : 'Enquiry received') : (it ? 'Richiesta registrata' : 'Enquiry recorded')}</SectionLabel><span className="success-code">{receipt.code}</span><p>{it ? 'Conserva questo codice di riferimento. La richiesta è stata registrata; ' : 'Keep this reference code. Your enquiry has been recorded; '}{receipt.notificationStatus === 'pending_provider' ? (it ? 'la notifica al fornitore è ancora in attesa.' : 'provider notification is still pending.') : (it ? 'lo stato della notifica è aggiornato.' : 'notification status has been updated.')}{it ? ' Non inviare nuovamente il modulo.' : ' There is no need to submit the form again.'}</p><p>{it ? 'Per ora non sono configurati invii email di conferma o caricamenti di allegati.' : 'Email confirmations and file uploads are not currently configured.'}</p></div>}
+            {receipt && <div className="success-box" role="status" data-testid="status-success"><SectionLabel>{receipt.status === 'received' ? (it ? 'Richiesta ricevuta' : 'Enquiry received') : (it ? 'Richiesta registrata' : 'Enquiry recorded')}</SectionLabel><span className="success-code">{receipt.code}</span><p>{it ? 'Conserva questo codice di riferimento. È stato creato un lead sintetico; i dettagli inseriti non sono stati conservati. ' : 'Keep this reference code. A synthetic lead was created; the details you entered were not retained. '}{receipt.notificationStatus === 'pending_provider' ? (it ? 'La notifica email al fornitore è in attesa di configurazione. ' : 'Email notification to the provider is awaiting configuration. ') : ''}{it ? 'Non inviare nuovamente il modulo.' : 'There is no need to submit the form again.'}</p><p>{it ? 'Gli allegati privati restano disabilitati finché privacy, fornitore e collaudo non sono approvati.' : 'Private attachments remain disabled until privacy, provider, and testing approvals are complete.'}</p></div>}
           </form>
           {!receipt && <div className="language-note">{it ? 'I dettagli vengono inviati solo dopo aver accettato l’informativa privacy. Per allegati o documenti, contattaci direttamente: il modulo non gestisce caricamenti.' : 'Your details are sent only after accepting the privacy notice. For documents or attachments, contact us directly: this form does not support uploads.'}</div>}
         </div>
@@ -443,6 +449,9 @@ function Router() {
   const article = articleBySlug.get(trimmed.slice(1));
   if (article) return <RoutedErrorBoundary><LibraryShell page="articles"><ArticleDetailPage a={article} /></LibraryShell></RoutedErrorBoundary>;
   return <RoutedErrorBoundary><Switch>
+    <Route path="/internal"><InternalEntry /></Route>
+    <Route path="/owner-demo"><OwnerDemo /></Route>
+    <Route path="/content/:locale/:slug">{params => <PublishedCmsPage params={params} />}</Route>
     <Route path="/articoli"><LibraryShell page="articles"><ArticlesPage /></LibraryShell></Route>
     <Route path="/guide"><LibraryShell page="guides"><GuidesPage /></LibraryShell></Route>
     <Route path="/progetti"><LibraryShell page="projects"><ProjectsPage /></LibraryShell></Route>
@@ -469,7 +478,114 @@ function RoutedErrorBoundary({ children }: { children: ReactNode }) {
 }
 
 function App() {
-  return <QueryClientProvider client={queryClient}><TooltipProvider><WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}><Router /></WouterRouter><Toaster /></TooltipProvider></QueryClientProvider>;
+  return <QueryClientProvider client={queryClient}><TooltipProvider><WouterRouter base={basePath}>{clerkPubKey ? <ClerkProviderWithRoutes /> : <Router />}<Toaster /></WouterRouter></TooltipProvider></QueryClientProvider>;
 }
 
+function SignInPage() {
+  useEffect(() => {
+    document.title = 'Team sign in | Marenetto Build';
+    document.querySelector('meta[name="robots"]')?.setAttribute('content', 'noindex, nofollow, noarchive');
+  }, []);
+  return <div className="access-screen"><SignIn routing="path" path={`${basePath}/sign-in`} signUpUrl={`${basePath}/sign-up`} /></div>;
+}
 export default App;
+
+function ClerkProviderWithRoutes() {
+  const [, setLocation] = useLocation();
+  if (!clerkPubKey) return <Router />;
+  return <ClerkProvider
+    publishableKey={clerkPubKey}
+    proxyUrl={clerkProxyUrl}
+    appearance={clerkAppearance}
+    signInUrl={`${basePath}/sign-in`}
+    signUpUrl={`${basePath}/sign-up`}
+    routerPush={(to) => setLocation(stripBase(to))}
+    routerReplace={(to) => setLocation(stripBase(to), { replace: true })}
+  >
+    <ClerkQueryClientCacheInvalidator />
+    <Switch>
+      <Route path="/sign-in/*?" component={SignInPage} />
+      <Route path="/sign-up/*?" component={SignUpPage} />
+      <Route><Router /></Route>
+    </Switch>
+  </ClerkProvider>;
+}
+
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+function SignUpPage() {
+  useEffect(() => {
+    document.title = 'Create team account | Marenetto Build';
+    document.querySelector('meta[name="robots"]')?.setAttribute('content', 'noindex, nofollow, noarchive');
+  }, []);
+  return <div className="access-screen"><SignUp routing="path" path={`${basePath}/sign-up`} signInUrl={`${basePath}/sign-in`} /></div>;
+}
+
+const clerkAppearance = {
+  theme: shadcn,
+  cssLayerName: 'clerk',
+  options: {
+    logoPlacement: 'inside' as const,
+    logoLinkUrl: basePath || '/',
+    logoImageUrl: `${window.location.origin}${basePath}/favicon.svg`,
+  },
+  variables: {
+    colorPrimary: '#9a634c',
+    colorForeground: '#25302a',
+    colorMutedForeground: '#69716a',
+    colorDanger: '#b53c35',
+    colorBackground: '#f8f6f0',
+    colorInput: '#fffdfa',
+    colorInputForeground: '#25302a',
+    colorNeutral: '#d9d5ca',
+    fontFamily: 'Manrope, sans-serif',
+    borderRadius: '0.35rem',
+  },
+  elements: {
+    rootBox: 'w-full flex justify-center',
+    cardBox: 'bg-[#f8f6f0] rounded-2xl w-[440px] max-w-full overflow-hidden',
+    card: '!shadow-none !border-0 !bg-transparent !rounded-none',
+    footer: '!shadow-none !border-0 !bg-transparent !rounded-none',
+    headerTitle: 'text-[#25302a] font-semibold',
+    headerSubtitle: 'text-[#69716a]',
+    socialButtonsBlockButtonText: 'text-[#25302a]',
+    formFieldLabel: 'text-[#25302a]',
+    footerActionLink: 'text-[#9a634c]',
+    footerActionText: 'text-[#69716a]',
+    dividerText: 'text-[#69716a]',
+    logoBox: 'mx-auto',
+    socialButtonsBlockButton: 'border-[#d9d5ca] bg-[#fffdfa]',
+    formButtonPrimary: 'bg-[#25302a] text-white hover:bg-[#9a634c]',
+    formFieldInput: 'bg-[#fffdfa] text-[#25302a] border-[#d9d5ca]',
+    footerAction: 'bg-transparent',
+    dividerLine: 'bg-[#d9d5ca]',
+    alert: 'border-[#b53c35]',
+    otpCodeFieldInput: 'bg-[#fffdfa] text-[#25302a]',
+    formFieldRow: 'text-[#25302a]',
+    main: 'text-[#25302a]',
+  },
+};
+
+function ClerkQueryClientCacheInvalidator() {
+  const { addListener } = useClerk();
+  const prevUserIdRef = useRef<string | null | undefined>(undefined);
+  useEffect(() => {
+    const unsubscribe = addListener(({ user }) => {
+      const userId = user?.id ?? null;
+      if (prevUserIdRef.current !== undefined && prevUserIdRef.current !== userId) {
+        queryClient.clear();
+      }
+      prevUserIdRef.current = userId;
+    });
+    return unsubscribe;
+  }, [addListener]);
+  return null;
+}
+
+function stripBase(path: string): string {
+  return basePath && path.startsWith(basePath)
+    ? path.slice(basePath.length) || '/'
+    : path;
+}
+
+const clerkProxyUrl = import.meta.env.VITE_CLERK_PROXY_URL;

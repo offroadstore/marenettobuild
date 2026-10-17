@@ -22,7 +22,12 @@ export const projectRequestsTable = pgTable(
     needsAccommodation: boolean("needs_accommodation").notNull().default(false),
     needsMobility: boolean("needs_mobility").notNull().default(false),
     privacyAccepted: boolean("privacy_accepted").notNull(),
+    isSynthetic: boolean("is_synthetic").notNull().default(false),
+    leadStatus: text("lead_status").notNull().default("new"),
+    assignedTo: text("assigned_to"),
+    internalNotes: text("internal_notes").notNull().default(""),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow().$onUpdate(() => new Date()),
   },
   (table) => [uniqueIndex("project_requests_idempotency_key_idx").on(table.idempotencyKey)],
 );

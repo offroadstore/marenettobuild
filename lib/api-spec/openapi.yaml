@@ -12,6 +12,10 @@ tags:
     description: Health operations
   - name: requests
     description: Project request operations
+  - name: internal
+    description: Invite-only internal operations for content and leads.
+  - name: storage
+    description: Private attachment upload and serving.
 paths:
   /healthz:
     get:
@@ -47,6 +51,399 @@ paths:
                 $ref: "#/components/schemas/ProjectRequestReceipt"
         "400":
           description: Invalid request
+  /cms/pages/{locale}/{slug}:
+    get:
+      operationId: getPublishedCmsPage
+      tags: [internal]
+      summary: Load a published CMS page
+      parameters:
+        - name: locale
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Published page
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CmsPage"
+        "404":
+          description: Published page not found
+  /internal/session:
+    get:
+      operationId: getInternalSession
+      tags: [internal]
+      summary: Get the current invite-only staff session
+      responses:
+        "200":
+          description: Authorized internal user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalSession"
+        "401":
+          description: Sign in required
+        "403":
+          description: The signed-in email has no active invitation
+  /internal/leads:
+    get:
+      operationId: listInternalLeads
+      tags: [internal]
+      summary: List project enquiries for the internal team
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema:
+            $ref: "#/components/schemas/LeadStatus"
+      responses:
+        "200":
+          description: Enquiries visible to the current staff member
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProjectLead"
+        "401":
+          description: Sign in required
+        "403":
+          description: Internal permission required
+  /internal/leads/{leadId}:
+    patch:
+      operationId: updateInternalLead
+      tags: [internal]
+      summary: Update lead status, assignment, or internal notes
+      parameters:
+        - name: leadId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LeadUpdate"
+      responses:
+        "200":
+          description: Updated enquiry
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectLead"
+        "400":
+          description: Invalid update
+        "401":
+          description: Sign in required
+        "403":
+          description: Internal permission required
+        "404":
+          description: Enquiry not found
+  /internal/cms/pages:
+    get:
+      operationId: listCmsPages
+      tags: [internal]
+      summary: List CMS pages
+      parameters:
+        - name: locale
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: CMS pages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CmsPage"
+        "401":
+          description: Sign in required
+        "403":
+          description: Internal permission required
+    post:
+      operationId: createCmsPage
+      tags: [internal]
+      summary: Create a CMS page draft
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CmsPageInput"
+      responses:
+        "201":
+          description: CMS draft created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CmsPage"
+        "400":
+          description: Invalid page
+        "401":
+          description: Sign in required
+        "403":
+          description: CMS permission required
+  /internal/cms/pages/{pageId}:
+    patch:
+      operationId: updateCmsPage
+      tags: [internal]
+      summary: Edit or publish a CMS page
+      parameters:
+        - name: pageId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CmsPageUpdate"
+      responses:
+        "200":
+          description: Updated CMS page
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CmsPage"
+        "400":
+          description: Invalid page update
+        "401":
+          description: Sign in required
+        "403":
+          description: CMS permission required
+        "404":
+          description: Page not found
+  /internal/notifications:
+    get:
+      operationId: listInternalNotifications
+      tags: [internal]
+      summary: List persistent internal notifications
+      responses:
+        "200":
+          description: Notifications, newest first
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/InternalNotification"
+        "401":
+          description: Sign in required
+        "403":
+          description: Internal permission required
+  /internal/notifications/{notificationId}:
+    patch:
+      operationId: updateInternalNotification
+      tags: [internal]
+      summary: Mark a notification read or unread
+      parameters:
+        - name: notificationId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NotificationUpdate"
+      responses:
+        "200":
+          description: Updated notification
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalNotification"
+        "401":
+          description: Sign in required
+        "403":
+          description: Internal permission required
+        "404":
+          description: Notification not found
+  /internal/members:
+    get:
+      operationId: listInternalMembers
+      tags: [internal]
+      summary: List invitations and team permissions
+      responses:
+        "200":
+          description: Team membership
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/InternalMember"
+        "401":
+          description: Sign in required
+        "403":
+          description: Owner permission required
+    post:
+      operationId: inviteInternalMember
+      tags: [internal]
+      summary: Invite a team member by email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InternalMemberInput"
+      responses:
+        "201":
+          description: Invitation saved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalMember"
+        "400":
+          description: Invalid invitation
+        "401":
+          description: Sign in required
+        "403":
+          description: Owner permission required
+  /internal/members/{memberId}:
+    patch:
+      operationId: updateInternalMember
+      tags: [internal]
+      summary: Change a member role or revoke access
+      parameters:
+        - name: memberId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InternalMemberUpdate"
+      responses:
+        "200":
+          description: Updated membership
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalMember"
+        "400":
+          description: Invalid membership update
+        "401":
+          description: Sign in required
+        "403":
+          description: Owner permission required
+        "404":
+          description: Member not found
+  /internal/attachments:
+    get:
+      operationId: listInternalAttachments
+      tags: [internal]
+      summary: List private attachments
+      parameters:
+        - name: leadId
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Attachment metadata only
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PrivateAttachment"
+        "401":
+          description: Sign in required
+        "403":
+          description: Internal permission required
+    post:
+      operationId: finalizeInternalAttachment
+      tags: [internal]
+      summary: Register an uploaded private attachment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AttachmentFinalizeInput"
+      responses:
+        "201":
+          description: Attachment metadata saved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PrivateAttachment"
+        "400":
+          description: Invalid attachment
+        "401":
+          description: Sign in required
+        "403":
+          description: Internal permission required
+  /internal/attachments/upload-url:
+    post:
+      operationId: requestInternalAttachmentUpload
+      tags: [internal]
+      summary: Request a short-lived private upload URL
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AttachmentUploadInput"
+      responses:
+        "200":
+          description: Upload URL generated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UploadUrlResponse"
+        "400":
+          description: Invalid attachment metadata
+        "401":
+          description: Sign in required
+        "403":
+          description: Internal permission required
+  /storage/objects/{objectPath}:
+    get:
+      operationId: getPrivateAttachment
+      tags: [storage]
+      summary: Stream a private attachment to an authorized team member
+      parameters:
+        - name: objectPath
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Private file bytes
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        "401":
+          description: Sign in required
+        "403":
+          description: Internal permission required
+        "404":
+          description: Attachment not found
 components:
   schemas:
     HealthStatus:
@@ -149,4 +546,153 @@ components:
         - status
         - createdAt
         - notificationStatus
+    LeadStatus:
+      type: string
+      enum: [new, reviewing, waiting, approved, closed]
+    InternalRole:
+      type: string
+      enum: [owner, editor, viewer]
+    MemberStatus:
+      type: string
+      enum: [invited, active, revoked]
+    InternalSession:
+      type: object
+      properties:
+        email: { type: string, format: email }
+        role: { $ref: "#/components/schemas/InternalRole" }
+        dataMode: { type: string, enum: [synthetic, live] }
+        permissions:
+          type: array
+          items: { type: string }
+      required: [email, role, dataMode, permissions]
+    ProjectLead:
+      type: object
+      properties:
+        id: { type: integer }
+        code: { type: string }
+        requestType: { type: string }
+        propertyType: { type: string }
+        service: { type: string }
+        location: { type: string }
+        projectStage: { type: string }
+        message: { type: string }
+        preferredLanguage: { type: string }
+        name: { type: string }
+        email: { type: ["string", "null"] }
+        phone: { type: ["string", "null"] }
+        preferredChannel: { type: string }
+        budget: { type: ["string", "null"] }
+        desiredPeriod: { type: ["string", "null"] }
+        needsAccommodation: { type: boolean }
+        needsMobility: { type: boolean }
+        leadStatus: { $ref: "#/components/schemas/LeadStatus" }
+        assignedTo: { type: ["string", "null"] }
+        internalNotes: { type: string }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+      required: [id, code, requestType, propertyType, service, location, projectStage, message, preferredLanguage, name, email, phone, preferredChannel, budget, desiredPeriod, needsAccommodation, needsMobility, leadStatus, assignedTo, internalNotes, createdAt, updatedAt]
+    LeadUpdate:
+      type: object
+      properties:
+        leadStatus: { $ref: "#/components/schemas/LeadStatus" }
+        assignedTo: { type: ["string", "null"], maxLength: 254 }
+        internalNotes: { type: string, maxLength: 5000 }
+    CmsPage:
+      type: object
+      properties:
+        id: { type: integer }
+        slug: { type: string }
+        locale: { type: string }
+        title: { type: string }
+        body: { type: string }
+        status: { type: string, enum: [draft, published] }
+        updatedBy: { type: string, format: email }
+        updatedAt: { type: string, format: date-time }
+      required: [id, slug, locale, title, body, status, updatedBy, updatedAt]
+    CmsPageInput:
+      type: object
+      properties:
+        slug: { type: string, minLength: 1, maxLength: 160 }
+        locale: { type: string, minLength: 2, maxLength: 10 }
+        title: { type: string, minLength: 1, maxLength: 200 }
+        body: { type: string, maxLength: 50000 }
+      required: [slug, locale, title, body]
+    CmsPageUpdate:
+      type: object
+      properties:
+        title: { type: string, minLength: 1, maxLength: 200 }
+        body: { type: string, maxLength: 50000 }
+        status: { type: string, enum: [draft, published] }
+    InternalNotification:
+      type: object
+      properties:
+        id: { type: integer }
+        type: { type: string }
+        title: { type: string }
+        message: { type: string }
+        projectRequestId: { type: ["integer", "null"] }
+        isRead: { type: boolean }
+        createdAt: { type: string, format: date-time }
+        readAt: { type: ["string", "null"], format: date-time }
+      required: [id, type, title, message, projectRequestId, isRead, createdAt, readAt]
+    NotificationUpdate:
+      type: object
+      required: [isRead]
+      properties:
+        isRead: { type: boolean }
+    InternalMember:
+      type: object
+      properties:
+        id: { type: integer }
+        email: { type: string, format: email }
+        role: { $ref: "#/components/schemas/InternalRole" }
+        status: { $ref: "#/components/schemas/MemberStatus" }
+        invitedBy: { type: ["string", "null"] }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+      required: [id, email, role, status, invitedBy, createdAt, updatedAt]
+    InternalMemberInput:
+      type: object
+      required: [email, role]
+      properties:
+        email: { type: string, format: email, maxLength: 254 }
+        role: { $ref: "#/components/schemas/InternalRole" }
+    InternalMemberUpdate:
+      type: object
+      properties:
+        role: { $ref: "#/components/schemas/InternalRole" }
+        status: { $ref: "#/components/schemas/MemberStatus" }
+    AttachmentUploadInput:
+      type: object
+      required: [fileName, contentType, size]
+      properties:
+        leadId: { type: ["integer", "null"] }
+        fileName: { type: string, minLength: 1, maxLength: 255 }
+        contentType: { type: string, minLength: 1, maxLength: 120 }
+        size: { type: integer, minimum: 1, maximum: 15728640 }
+    AttachmentFinalizeInput:
+      allOf:
+        - $ref: "#/components/schemas/AttachmentUploadInput"
+        - type: object
+          required: [objectPath]
+          properties:
+            objectPath: { type: string, minLength: 1, maxLength: 600 }
+    UploadUrlResponse:
+      type: object
+      properties:
+        uploadURL: { type: string, format: uri }
+        objectPath: { type: string }
+      required: [uploadURL, objectPath]
+    PrivateAttachment:
+      type: object
+      properties:
+        id: { type: integer }
+        projectRequestId: { type: ["integer", "null"] }
+        objectPath: { type: string }
+        fileName: { type: string }
+        contentType: { type: string }
+        size: { type: integer }
+        uploadedBy: { type: string, format: email }
+        createdAt: { type: string, format: date-time }
+      required: [id, projectRequestId, objectPath, fileName, contentType, size, uploadedBy, createdAt]
 

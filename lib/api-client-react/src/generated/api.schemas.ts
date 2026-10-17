@@ -110,3 +110,242 @@ export interface ProjectRequestReceipt {
   notificationStatus: ProjectRequestReceiptNotificationStatus;
 }
 
+export type LeadStatus = typeof LeadStatus[keyof typeof LeadStatus];
+
+
+export const LeadStatus = {
+  new: 'new',
+  reviewing: 'reviewing',
+  waiting: 'waiting',
+  approved: 'approved',
+  closed: 'closed',
+} as const;
+
+export type InternalRole = typeof InternalRole[keyof typeof InternalRole];
+
+
+export const InternalRole = {
+  owner: 'owner',
+  editor: 'editor',
+  viewer: 'viewer',
+} as const;
+
+export type MemberStatus = typeof MemberStatus[keyof typeof MemberStatus];
+
+
+export const MemberStatus = {
+  invited: 'invited',
+  active: 'active',
+  revoked: 'revoked',
+} as const;
+
+export type InternalSessionDataMode = typeof InternalSessionDataMode[keyof typeof InternalSessionDataMode];
+
+
+export const InternalSessionDataMode = {
+  synthetic: 'synthetic',
+  live: 'live',
+} as const;
+
+export interface InternalSession {
+  email: string;
+  role: InternalRole;
+  dataMode: InternalSessionDataMode;
+  permissions: string[];
+}
+
+export interface ProjectLead {
+  id: number;
+  code: string;
+  requestType: string;
+  propertyType: string;
+  service: string;
+  location: string;
+  projectStage: string;
+  message: string;
+  preferredLanguage: string;
+  name: string;
+  /** @nullable */
+  email: string | null;
+  /** @nullable */
+  phone: string | null;
+  preferredChannel: string;
+  /** @nullable */
+  budget: string | null;
+  /** @nullable */
+  desiredPeriod: string | null;
+  needsAccommodation: boolean;
+  needsMobility: boolean;
+  leadStatus: LeadStatus;
+  /** @nullable */
+  assignedTo: string | null;
+  internalNotes: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface LeadUpdate {
+  leadStatus?: LeadStatus;
+  /**
+     * @maxLength 254
+     * @nullable
+     */
+  assignedTo?: string | null;
+  /** @maxLength 5000 */
+  internalNotes?: string;
+}
+
+export type CmsPageStatus = typeof CmsPageStatus[keyof typeof CmsPageStatus];
+
+
+export const CmsPageStatus = {
+  draft: 'draft',
+  published: 'published',
+} as const;
+
+export interface CmsPage {
+  id: number;
+  slug: string;
+  locale: string;
+  title: string;
+  body: string;
+  status: CmsPageStatus;
+  updatedBy: string;
+  updatedAt: string;
+}
+
+export interface CmsPageInput {
+  /**
+     * @minLength 1
+     * @maxLength 160
+     */
+  slug: string;
+  /**
+     * @minLength 2
+     * @maxLength 10
+     */
+  locale: string;
+  /**
+     * @minLength 1
+     * @maxLength 200
+     */
+  title: string;
+  /** @maxLength 50000 */
+  body: string;
+}
+
+export type CmsPageUpdateStatus = typeof CmsPageUpdateStatus[keyof typeof CmsPageUpdateStatus];
+
+
+export const CmsPageUpdateStatus = {
+  draft: 'draft',
+  published: 'published',
+} as const;
+
+export interface CmsPageUpdate {
+  /**
+     * @minLength 1
+     * @maxLength 200
+     */
+  title?: string;
+  /** @maxLength 50000 */
+  body?: string;
+  status?: CmsPageUpdateStatus;
+}
+
+export interface InternalNotification {
+  id: number;
+  type: string;
+  title: string;
+  message: string;
+  /** @nullable */
+  projectRequestId: number | null;
+  isRead: boolean;
+  createdAt: string;
+  /** @nullable */
+  readAt: string | null;
+}
+
+export interface NotificationUpdate {
+  isRead: boolean;
+}
+
+export interface InternalMember {
+  id: number;
+  email: string;
+  role: InternalRole;
+  status: MemberStatus;
+  /** @nullable */
+  invitedBy: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface InternalMemberInput {
+  /** @maxLength 254 */
+  email: string;
+  role: InternalRole;
+}
+
+export interface InternalMemberUpdate {
+  role?: InternalRole;
+  status?: MemberStatus;
+}
+
+export interface AttachmentUploadInput {
+  /** @nullable */
+  leadId?: number | null;
+  /**
+     * @minLength 1
+     * @maxLength 255
+     */
+  fileName: string;
+  /**
+     * @minLength 1
+     * @maxLength 120
+     */
+  contentType: string;
+  /**
+     * @minimum 1
+     * @maximum 15728640
+     */
+  size: number;
+}
+
+export type AttachmentFinalizeInput = AttachmentUploadInput & {
+  /**
+     * @minLength 1
+     * @maxLength 600
+     */
+  objectPath: string;
+};
+
+export interface UploadUrlResponse {
+  uploadURL: string;
+  objectPath: string;
+}
+
+export interface PrivateAttachment {
+  id: number;
+  /** @nullable */
+  projectRequestId: number | null;
+  objectPath: string;
+  fileName: string;
+  contentType: string;
+  size: number;
+  uploadedBy: string;
+  createdAt: string;
+}
+
+export type ListInternalLeadsParams = {
+status?: LeadStatus;
+};
+
+export type ListCmsPagesParams = {
+locale?: string;
+};
+
+export type ListInternalAttachmentsParams = {
+leadId?: number;
+};
+

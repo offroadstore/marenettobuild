@@ -80,3 +80,385 @@ export const CreateProjectRequestResponse = zod.object({
 })
 
 
+/**
+ * @summary Load a published CMS page
+ */
+export const GetPublishedCmsPageParams = zod.object({
+  "locale": zod.coerce.string(),
+  "slug": zod.coerce.string()
+})
+
+export const GetPublishedCmsPageResponse = zod.object({
+  "id": zod.number().int(),
+  "slug": zod.string(),
+  "locale": zod.string(),
+  "title": zod.string(),
+  "body": zod.string(),
+  "status": zod.enum(['draft', 'published']),
+  "updatedBy": zod.string().email(),
+  "updatedAt": zod.coerce.date()
+})
+
+
+/**
+ * @summary Get the current invite-only staff session
+ */
+export const GetInternalSessionResponse = zod.object({
+  "email": zod.string().email(),
+  "role": zod.enum(['owner', 'editor', 'viewer']),
+  "dataMode": zod.enum(['synthetic', 'live']),
+  "permissions": zod.array(zod.string())
+})
+
+
+/**
+ * @summary List project enquiries for the internal team
+ */
+export const ListInternalLeadsQueryParams = zod.object({
+  "status": zod.enum(['new', 'reviewing', 'waiting', 'approved', 'closed']).optional()
+})
+
+export const ListInternalLeadsResponseItem = zod.object({
+  "id": zod.number().int(),
+  "code": zod.string(),
+  "requestType": zod.string(),
+  "propertyType": zod.string(),
+  "service": zod.string(),
+  "location": zod.string(),
+  "projectStage": zod.string(),
+  "message": zod.string(),
+  "preferredLanguage": zod.string(),
+  "name": zod.string(),
+  "email": zod.string().nullable(),
+  "phone": zod.string().nullable(),
+  "preferredChannel": zod.string(),
+  "budget": zod.string().nullable(),
+  "desiredPeriod": zod.string().nullable(),
+  "needsAccommodation": zod.boolean(),
+  "needsMobility": zod.boolean(),
+  "leadStatus": zod.enum(['new', 'reviewing', 'waiting', 'approved', 'closed']),
+  "assignedTo": zod.string().nullable(),
+  "internalNotes": zod.string(),
+  "createdAt": zod.coerce.date(),
+  "updatedAt": zod.coerce.date()
+})
+export const ListInternalLeadsResponse = zod.array(ListInternalLeadsResponseItem)
+
+
+/**
+ * @summary Update lead status, assignment, or internal notes
+ */
+export const UpdateInternalLeadParams = zod.object({
+  "leadId": zod.coerce.number().int()
+})
+
+export const updateInternalLeadBodyAssignedToMax = 254;
+
+export const updateInternalLeadBodyInternalNotesMax = 5000;
+
+
+
+export const UpdateInternalLeadBody = zod.object({
+  "leadStatus": zod.enum(['new', 'reviewing', 'waiting', 'approved', 'closed']).optional(),
+  "assignedTo": zod.string().max(updateInternalLeadBodyAssignedToMax).nullish(),
+  "internalNotes": zod.string().max(updateInternalLeadBodyInternalNotesMax).optional()
+})
+
+export const UpdateInternalLeadResponse = zod.object({
+  "id": zod.number().int(),
+  "code": zod.string(),
+  "requestType": zod.string(),
+  "propertyType": zod.string(),
+  "service": zod.string(),
+  "location": zod.string(),
+  "projectStage": zod.string(),
+  "message": zod.string(),
+  "preferredLanguage": zod.string(),
+  "name": zod.string(),
+  "email": zod.string().nullable(),
+  "phone": zod.string().nullable(),
+  "preferredChannel": zod.string(),
+  "budget": zod.string().nullable(),
+  "desiredPeriod": zod.string().nullable(),
+  "needsAccommodation": zod.boolean(),
+  "needsMobility": zod.boolean(),
+  "leadStatus": zod.enum(['new', 'reviewing', 'waiting', 'approved', 'closed']),
+  "assignedTo": zod.string().nullable(),
+  "internalNotes": zod.string(),
+  "createdAt": zod.coerce.date(),
+  "updatedAt": zod.coerce.date()
+})
+
+
+/**
+ * @summary List CMS pages
+ */
+export const ListCmsPagesQueryParams = zod.object({
+  "locale": zod.coerce.string().optional()
+})
+
+export const ListCmsPagesResponseItem = zod.object({
+  "id": zod.number().int(),
+  "slug": zod.string(),
+  "locale": zod.string(),
+  "title": zod.string(),
+  "body": zod.string(),
+  "status": zod.enum(['draft', 'published']),
+  "updatedBy": zod.string().email(),
+  "updatedAt": zod.coerce.date()
+})
+export const ListCmsPagesResponse = zod.array(ListCmsPagesResponseItem)
+
+
+/**
+ * @summary Create a CMS page draft
+ */
+export const createCmsPageBodySlugMax = 160;
+
+export const createCmsPageBodyLocaleMin = 2;
+export const createCmsPageBodyLocaleMax = 10;
+
+export const createCmsPageBodyTitleMax = 200;
+
+export const createCmsPageBodyBodyMax = 50000;
+
+
+
+export const CreateCmsPageBody = zod.object({
+  "slug": zod.string().min(1).max(createCmsPageBodySlugMax),
+  "locale": zod.string().min(createCmsPageBodyLocaleMin).max(createCmsPageBodyLocaleMax),
+  "title": zod.string().min(1).max(createCmsPageBodyTitleMax),
+  "body": zod.string().max(createCmsPageBodyBodyMax)
+})
+
+export const CreateCmsPageResponse = zod.object({
+  "id": zod.number().int(),
+  "slug": zod.string(),
+  "locale": zod.string(),
+  "title": zod.string(),
+  "body": zod.string(),
+  "status": zod.enum(['draft', 'published']),
+  "updatedBy": zod.string().email(),
+  "updatedAt": zod.coerce.date()
+})
+
+
+/**
+ * @summary Edit or publish a CMS page
+ */
+export const UpdateCmsPageParams = zod.object({
+  "pageId": zod.coerce.number().int()
+})
+
+export const updateCmsPageBodyTitleMax = 200;
+
+export const updateCmsPageBodyBodyMax = 50000;
+
+
+
+export const UpdateCmsPageBody = zod.object({
+  "title": zod.string().min(1).max(updateCmsPageBodyTitleMax).optional(),
+  "body": zod.string().max(updateCmsPageBodyBodyMax).optional(),
+  "status": zod.enum(['draft', 'published']).optional()
+})
+
+export const UpdateCmsPageResponse = zod.object({
+  "id": zod.number().int(),
+  "slug": zod.string(),
+  "locale": zod.string(),
+  "title": zod.string(),
+  "body": zod.string(),
+  "status": zod.enum(['draft', 'published']),
+  "updatedBy": zod.string().email(),
+  "updatedAt": zod.coerce.date()
+})
+
+
+/**
+ * @summary List persistent internal notifications
+ */
+export const ListInternalNotificationsResponseItem = zod.object({
+  "id": zod.number().int(),
+  "type": zod.string(),
+  "title": zod.string(),
+  "message": zod.string(),
+  "projectRequestId": zod.number().int().nullable(),
+  "isRead": zod.boolean(),
+  "createdAt": zod.coerce.date(),
+  "readAt": zod.coerce.date().nullable()
+})
+export const ListInternalNotificationsResponse = zod.array(ListInternalNotificationsResponseItem)
+
+
+/**
+ * @summary Mark a notification read or unread
+ */
+export const UpdateInternalNotificationParams = zod.object({
+  "notificationId": zod.coerce.number().int()
+})
+
+export const UpdateInternalNotificationBody = zod.object({
+  "isRead": zod.boolean()
+})
+
+export const UpdateInternalNotificationResponse = zod.object({
+  "id": zod.number().int(),
+  "type": zod.string(),
+  "title": zod.string(),
+  "message": zod.string(),
+  "projectRequestId": zod.number().int().nullable(),
+  "isRead": zod.boolean(),
+  "createdAt": zod.coerce.date(),
+  "readAt": zod.coerce.date().nullable()
+})
+
+
+/**
+ * @summary List invitations and team permissions
+ */
+export const ListInternalMembersResponseItem = zod.object({
+  "id": zod.number().int(),
+  "email": zod.string().email(),
+  "role": zod.enum(['owner', 'editor', 'viewer']),
+  "status": zod.enum(['invited', 'active', 'revoked']),
+  "invitedBy": zod.string().nullable(),
+  "createdAt": zod.coerce.date(),
+  "updatedAt": zod.coerce.date()
+})
+export const ListInternalMembersResponse = zod.array(ListInternalMembersResponseItem)
+
+
+/**
+ * @summary Invite a team member by email
+ */
+export const inviteInternalMemberBodyEmailMax = 254;
+
+
+
+export const InviteInternalMemberBody = zod.object({
+  "email": zod.string().email().max(inviteInternalMemberBodyEmailMax),
+  "role": zod.enum(['owner', 'editor', 'viewer'])
+})
+
+export const InviteInternalMemberResponse = zod.object({
+  "id": zod.number().int(),
+  "email": zod.string().email(),
+  "role": zod.enum(['owner', 'editor', 'viewer']),
+  "status": zod.enum(['invited', 'active', 'revoked']),
+  "invitedBy": zod.string().nullable(),
+  "createdAt": zod.coerce.date(),
+  "updatedAt": zod.coerce.date()
+})
+
+
+/**
+ * @summary Change a member role or revoke access
+ */
+export const UpdateInternalMemberParams = zod.object({
+  "memberId": zod.coerce.number().int()
+})
+
+export const UpdateInternalMemberBody = zod.object({
+  "role": zod.enum(['owner', 'editor', 'viewer']).optional(),
+  "status": zod.enum(['invited', 'active', 'revoked']).optional()
+})
+
+export const UpdateInternalMemberResponse = zod.object({
+  "id": zod.number().int(),
+  "email": zod.string().email(),
+  "role": zod.enum(['owner', 'editor', 'viewer']),
+  "status": zod.enum(['invited', 'active', 'revoked']),
+  "invitedBy": zod.string().nullable(),
+  "createdAt": zod.coerce.date(),
+  "updatedAt": zod.coerce.date()
+})
+
+
+/**
+ * @summary List private attachments
+ */
+export const ListInternalAttachmentsQueryParams = zod.object({
+  "leadId": zod.coerce.number().int().optional()
+})
+
+export const ListInternalAttachmentsResponseItem = zod.object({
+  "id": zod.number().int(),
+  "projectRequestId": zod.number().int().nullable(),
+  "objectPath": zod.string(),
+  "fileName": zod.string(),
+  "contentType": zod.string(),
+  "size": zod.number().int(),
+  "uploadedBy": zod.string().email(),
+  "createdAt": zod.coerce.date()
+})
+export const ListInternalAttachmentsResponse = zod.array(ListInternalAttachmentsResponseItem)
+
+
+/**
+ * @summary Register an uploaded private attachment
+ */
+export const finalizeInternalAttachmentBodyOneFileNameMax = 255;
+
+export const finalizeInternalAttachmentBodyOneContentTypeMax = 120;
+
+export const finalizeInternalAttachmentBodyOneSizeMax = 15728640;
+
+export const finalizeInternalAttachmentBodyTwoObjectPathMax = 600;
+
+
+
+export const FinalizeInternalAttachmentBody = zod.object({
+  "leadId": zod.number().int().nullish(),
+  "fileName": zod.string().min(1).max(finalizeInternalAttachmentBodyOneFileNameMax),
+  "contentType": zod.string().min(1).max(finalizeInternalAttachmentBodyOneContentTypeMax),
+  "size": zod.number().int().min(1).max(finalizeInternalAttachmentBodyOneSizeMax)
+}).and(zod.object({
+  "objectPath": zod.string().min(1).max(finalizeInternalAttachmentBodyTwoObjectPathMax)
+}))
+
+export const FinalizeInternalAttachmentResponse = zod.object({
+  "id": zod.number().int(),
+  "projectRequestId": zod.number().int().nullable(),
+  "objectPath": zod.string(),
+  "fileName": zod.string(),
+  "contentType": zod.string(),
+  "size": zod.number().int(),
+  "uploadedBy": zod.string().email(),
+  "createdAt": zod.coerce.date()
+})
+
+
+/**
+ * @summary Request a short-lived private upload URL
+ */
+export const requestInternalAttachmentUploadBodyFileNameMax = 255;
+
+export const requestInternalAttachmentUploadBodyContentTypeMax = 120;
+
+export const requestInternalAttachmentUploadBodySizeMax = 15728640;
+
+
+
+export const RequestInternalAttachmentUploadBody = zod.object({
+  "leadId": zod.number().int().nullish(),
+  "fileName": zod.string().min(1).max(requestInternalAttachmentUploadBodyFileNameMax),
+  "contentType": zod.string().min(1).max(requestInternalAttachmentUploadBodyContentTypeMax),
+  "size": zod.number().int().min(1).max(requestInternalAttachmentUploadBodySizeMax)
+})
+
+export const RequestInternalAttachmentUploadResponse = zod.object({
+  "uploadURL": zod.string().url(),
+  "objectPath": zod.string()
+})
+
+
+/**
+ * @summary Stream a private attachment to an authorized team member
+ */
+export const GetPrivateAttachmentParams = zod.object({
+  "objectPath": zod.coerce.string()
+})
+
+export const GetPrivateAttachmentResponse = zod.unknown()
+
+

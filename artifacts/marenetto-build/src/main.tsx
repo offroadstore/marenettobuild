@@ -10,8 +10,4 @@ createRoot(document.getElementById('root')!, {
   onCaughtError: (error, errorInfo) => {
     console.error(error, errorInfo.componentStack);
   },
-}).render(
-  <ErrorBoundary>
-    <App />
-  </ErrorBoundary>,
-);
+}).render(<ErrorBoundary><App /></ErrorBoundary>);

@@ -1,7 +1,11 @@
 import { randomBytes } from "node:crypto";
 import { Router, type IRouter } from "express";
 import { eq } from "drizzle-orm";
-import { db, projectRequestsTable } from "@workspace/db";
+import {
+  db,
+  notificationsTable,
+  projectRequestsTable,
+} from "@workspace/db";
 import {
   CreateProjectRequestBody,
   CreateProjectRequestResponse,
@@ -18,6 +22,59 @@ function requestAddress(address: string | undefined): string {
 
 function makeCode(): string {
   return `MB-${randomBytes(5).toString("hex").toUpperCase()}`;
+}
+
+function liveDataApproved(): boolean {
+  return (
+    process.env.MARENETTO_PRIVACY_APPROVED === "true" &&
+    process.env.MARENETTO_PROVIDERS_APPROVED === "true" &&
+    process.env.MARENETTO_TESTING_APPROVED === "true"
+  );
+}
+
+const syntheticPreviewLead = {
+  idempotencyKey: "marenetto-preview-synthetic-lead-v1",
+  requestType: "project",
+  propertyType: "Casa dimostrativa",
+  service: "Manutenzione preventiva",
+  location: "Cefalù (dato sintetico)",
+  projectStage: "Valutazione iniziale",
+  message: "Richiesta sintetica per collaudare il flusso in anteprima.",
+  preferredLanguage: "it",
+  name: "Contatto dimostrativo",
+  email: "demo@example.invalid",
+  phone: null,
+  preferredChannel: "email",
+  budget: null,
+  desiredPeriod: null,
+  needsAccommodation: false,
+  needsMobility: false,
+  privacyAccepted: true,
+  isSynthetic: true,
+};
+
+async function ensureLeadNotification(
+  leadId: number,
+  code: string,
+  isSynthetic: boolean,
+): Promise<void> {
+  const [existing] = await db
+    .select({ id: notificationsTable.id })
+    .from(notificationsTable)
+    .where(eq(notificationsTable.projectRequestId, leadId))
+    .limit(1);
+  if (existing) return;
+  await db
+    .insert(notificationsTable)
+    .values({
+      type: "lead",
+      title: isSynthetic ? "Lead dimostrativo" : `Nuova richiesta ${code}`,
+      message: isSynthetic
+        ? "È stato creato un lead sintetico per provare la gestione interna."
+        : `È arrivata una nuova richiesta (${code}).`,
+      projectRequestId: leadId,
+    })
+    .onConflictDoNothing();
 }
 
 router.post("/project-requests", async (req, res): Promise<void> => {
@@ -40,20 +97,32 @@ router.post("/project-requests", async (req, res): Promise<void> => {
   }
 
   const input = parsed.data;
-  const contactMatchesChannel =
-    (input.preferredChannel === "email" && Boolean(input.email)) ||
-    (input.preferredChannel !== "email" && Boolean(input.phone));
-  if (!contactMatchesChannel || input.privacyAccepted !== true) {
+  if (input.privacyAccepted !== true) {
     res.status(400).json({ error: "A valid contact method and privacy confirmation are required." });
+    return;
+  }
+
+  const liveMode = liveDataApproved();
+  const storedInput = liveMode ? input : syntheticPreviewLead;
+  const contactMatchesChannel =
+    (storedInput.preferredChannel === "email" && Boolean(storedInput.email)) ||
+    (storedInput.preferredChannel !== "email" && Boolean(storedInput.phone));
+  if (!contactMatchesChannel) {
+    res.status(400).json({ error: "A valid contact method is required." });
     return;
   }
 
   const existing = await db
     .select()
     .from(projectRequestsTable)
-    .where(eq(projectRequestsTable.idempotencyKey, input.idempotencyKey))
+    .where(eq(projectRequestsTable.idempotencyKey, storedInput.idempotencyKey))
     .limit(1);
   if (existing[0]) {
+    await ensureLeadNotification(
+      existing[0].id,
+      existing[0].code,
+      existing[0].isSynthetic,
+    );
     res.status(200).json(
       CreateProjectRequestResponse.parse({
         code: existing[0].code,
@@ -68,12 +137,13 @@ router.post("/project-requests", async (req, res): Promise<void> => {
   const [request] = await db
     .insert(projectRequestsTable)
     .values({
-      code: makeCode(),
-      ...input,
-      email: input.email ?? null,
-      phone: input.phone ?? null,
-      budget: input.budget ?? null,
-      desiredPeriod: input.desiredPeriod ?? null,
+      code: liveMode ? makeCode() : "DEMO-MB-001",
+      ...storedInput,
+      email: storedInput.email ?? null,
+      phone: storedInput.phone ?? null,
+      budget: storedInput.budget ?? null,
+      desiredPeriod: storedInput.desiredPeriod ?? null,
+      isSynthetic: !liveMode,
     })
     .onConflictDoNothing({ target: projectRequestsTable.idempotencyKey })
     .returning();
@@ -91,6 +161,8 @@ router.post("/project-requests", async (req, res): Promise<void> => {
     res.status(500).json({ error: "We could not save the request. Please try again." });
     return;
   }
+
+  await ensureLeadNotification(stored.id, stored.code, stored.isSynthetic);
 
   res.status(request ? 201 : 200).json(
     CreateProjectRequestResponse.parse({

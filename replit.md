@@ -32,7 +32,9 @@ Multilingual website and portal for Marenetto Build, helping owners understand s
 
 - The preview is deliberately `noindex`; change the HTML robots tag and `public/robots.txt` only at an approved production release.
 - Italian remains at root and translated routes use stable language prefixes.
-- The request form persists enquiries before returning a reference; outbound notifications are not yet configured and are not simulated.
+- The request form creates a fixed synthetic lead until privacy, provider, and end-to-end test approvals are all explicitly enabled. In-app notifications persist; outbound notifications are not configured or simulated.
+- Configure `INTERNAL_INVITES` as comma-separated `verified-email:owner|editor|viewer` entries before staff can enter `/internal`. With no configured owner, access remains closed; invitations do not send email.
+- Private attachments use App Storage and remain inaccessible until the same approvals are complete. Do not move private documents to public object paths.
 - Public IT/EN copy is live first; the remaining requested languages must not get empty or machine-published routes.
 
 ## Product
@@ -40,6 +42,8 @@ Multilingual website and portal for Marenetto Build, helping owners understand s
 - Responsive IT/EN public site with equivalent-page language switching
 - Service, working method, owners-abroad, contact, and guided request pages
 - Persistent project request submission with review and idempotent reference code
+- Invite-only internal lead/CMS management, permission checks, persistent notifications, and private App Storage attachments
+- A clearly labeled owner-portal demonstration at `/owner-demo` using fictional sample records only
 
 ## User preferences
 

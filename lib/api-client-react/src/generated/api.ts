@@ -20,9 +20,27 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  AttachmentFinalizeInput,
+  AttachmentUploadInput,
+  CmsPage,
+  CmsPageInput,
+  CmsPageUpdate,
   HealthStatus,
+  InternalMember,
+  InternalMemberInput,
+  InternalMemberUpdate,
+  InternalNotification,
+  InternalSession,
+  LeadUpdate,
+  ListCmsPagesParams,
+  ListInternalAttachmentsParams,
+  ListInternalLeadsParams,
+  NotificationUpdate,
+  PrivateAttachment,
+  ProjectLead,
   ProjectRequestInput,
-  ProjectRequestReceipt
+  ProjectRequestReceipt,
+  UploadUrlResponse
 } from './api.schemas';
 
 import { customFetch } from '../custom-fetch';
@@ -218,4 +236,1354 @@ export const useCreateProjectRequest = <TError = ErrorType<void>,
       > => {
       return useMutation(getCreateProjectRequestMutationOptions(options));
     }
+
+export const getGetPublishedCmsPageUrl = (locale: string,
+    slug: string,) => {
+
+
+
+
+  return `/api/cms/pages/${locale}/${slug}`
+}
+
+/**
+ * @summary Load a published CMS page
+ */
+export const getPublishedCmsPage = async (locale: string,
+    slug: string, options?: Parameters<typeof customFetch>[1]): Promise<CmsPage> => {
+
+  return customFetch<CmsPage>(getGetPublishedCmsPageUrl(locale,slug),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetPublishedCmsPageQueryKey = (locale: string,
+    slug: string,) => {
+    return [
+    `/api/cms/pages/${locale}/${slug}`
+    ] as const;
+    }
+
+
+export const getGetPublishedCmsPageQueryOptions = <TData = Awaited<ReturnType<typeof getPublishedCmsPage>>, TError = ErrorType<void>>(locale: string,
+    slug: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getPublishedCmsPage>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetPublishedCmsPageQueryKey(locale,slug);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getPublishedCmsPage>>> = ({ signal }) => getPublishedCmsPage(locale,slug, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, enabled: locale !== null && locale !== undefined && slug !== null && slug !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getPublishedCmsPage>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetPublishedCmsPageQueryResult = NonNullable<Awaited<ReturnType<typeof getPublishedCmsPage>>>
+export type GetPublishedCmsPageQueryError = ErrorType<void>
+
+
+/**
+ * @summary Load a published CMS page
+ */
+
+export function useGetPublishedCmsPage<TData = Awaited<ReturnType<typeof getPublishedCmsPage>>, TError = ErrorType<void>>(
+ locale: string,
+    slug: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getPublishedCmsPage>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetPublishedCmsPageQueryOptions(locale,slug,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getGetInternalSessionUrl = () => {
+
+
+
+
+  return `/api/internal/session`
+}
+
+/**
+ * @summary Get the current invite-only staff session
+ */
+export const getInternalSession = async ( options?: Parameters<typeof customFetch>[1]): Promise<InternalSession> => {
+
+  return customFetch<InternalSession>(getGetInternalSessionUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetInternalSessionQueryKey = () => {
+    return [
+    `/api/internal/session`
+    ] as const;
+    }
+
+
+export const getGetInternalSessionQueryOptions = <TData = Awaited<ReturnType<typeof getInternalSession>>, TError = ErrorType<void>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getInternalSession>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetInternalSessionQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getInternalSession>>> = ({ signal }) => getInternalSession({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getInternalSession>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetInternalSessionQueryResult = NonNullable<Awaited<ReturnType<typeof getInternalSession>>>
+export type GetInternalSessionQueryError = ErrorType<void>
+
+
+/**
+ * @summary Get the current invite-only staff session
+ */
+
+export function useGetInternalSession<TData = Awaited<ReturnType<typeof getInternalSession>>, TError = ErrorType<void>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getInternalSession>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetInternalSessionQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getListInternalLeadsUrl = (params?: ListInternalLeadsParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : String(value))
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/api/internal/leads?${stringifiedParams}` : `/api/internal/leads`
+}
+
+/**
+ * @summary List project enquiries for the internal team
+ */
+export const listInternalLeads = async (params?: ListInternalLeadsParams, options?: Parameters<typeof customFetch>[1]): Promise<ProjectLead[]> => {
+
+  return customFetch<ProjectLead[]>(getListInternalLeadsUrl(params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListInternalLeadsQueryKey = (params?: ListInternalLeadsParams,) => {
+    return [
+    `/api/internal/leads`, ...(params ? [params] : [])
+    ] as const;
+    }
+
+
+export const getListInternalLeadsQueryOptions = <TData = Awaited<ReturnType<typeof listInternalLeads>>, TError = ErrorType<void>>(params?: ListInternalLeadsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listInternalLeads>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListInternalLeadsQueryKey(params);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listInternalLeads>>> = ({ signal }) => listInternalLeads(params, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listInternalLeads>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ListInternalLeadsQueryResult = NonNullable<Awaited<ReturnType<typeof listInternalLeads>>>
+export type ListInternalLeadsQueryError = ErrorType<void>
+
+
+/**
+ * @summary List project enquiries for the internal team
+ */
+
+export function useListInternalLeads<TData = Awaited<ReturnType<typeof listInternalLeads>>, TError = ErrorType<void>>(
+ params?: ListInternalLeadsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listInternalLeads>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getListInternalLeadsQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getUpdateInternalLeadUrl = (leadId: number,) => {
+
+
+
+
+  return `/api/internal/leads/${leadId}`
+}
+
+/**
+ * @summary Update lead status, assignment, or internal notes
+ */
+export const updateInternalLead = async (leadId: number,
+    leadUpdate: LeadUpdate, options?: Parameters<typeof customFetch>[1]): Promise<ProjectLead> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<ProjectLead>(getUpdateInternalLeadUrl(leadId),
+  {
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(leadUpdate)
+  }
+);}
+
+
+
+
+
+export const getUpdateInternalLeadMutationKey = () => ['updateInternalLead'] as const;
+
+export const getUpdateInternalLeadMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateInternalLead>>, TError,UpdateInternalLeadMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateInternalLead>>, TError,UpdateInternalLeadMutationVariables, TContext> => {
+
+const mutationKey = getUpdateInternalLeadMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateInternalLead>>, UpdateInternalLeadMutationVariables> = (props) => {
+          const {leadId,data} = props ?? {};
+
+          return  updateInternalLead(leadId,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdateInternalLeadMutationResult = NonNullable<Awaited<ReturnType<typeof updateInternalLead>>>
+    export type UpdateInternalLeadMutationBody = BodyType<LeadUpdate>
+    export type UpdateInternalLeadMutationError = ErrorType<void>
+    export type UpdateInternalLeadMutationVariables = {leadId: number;data: BodyType<LeadUpdate>}
+
+    /**
+ * @summary Update lead status, assignment, or internal notes
+ */
+export const useUpdateInternalLead = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateInternalLead>>, TError,UpdateInternalLeadMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof updateInternalLead>>,
+        TError,
+        UpdateInternalLeadMutationVariables,
+        TContext
+      > => {
+      return useMutation(getUpdateInternalLeadMutationOptions(options));
+    }
+
+export const getListCmsPagesUrl = (params?: ListCmsPagesParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : String(value))
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/api/internal/cms/pages?${stringifiedParams}` : `/api/internal/cms/pages`
+}
+
+/**
+ * @summary List CMS pages
+ */
+export const listCmsPages = async (params?: ListCmsPagesParams, options?: Parameters<typeof customFetch>[1]): Promise<CmsPage[]> => {
+
+  return customFetch<CmsPage[]>(getListCmsPagesUrl(params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListCmsPagesQueryKey = (params?: ListCmsPagesParams,) => {
+    return [
+    `/api/internal/cms/pages`, ...(params ? [params] : [])
+    ] as const;
+    }
+
+
+export const getListCmsPagesQueryOptions = <TData = Awaited<ReturnType<typeof listCmsPages>>, TError = ErrorType<void>>(params?: ListCmsPagesParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listCmsPages>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListCmsPagesQueryKey(params);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listCmsPages>>> = ({ signal }) => listCmsPages(params, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listCmsPages>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ListCmsPagesQueryResult = NonNullable<Awaited<ReturnType<typeof listCmsPages>>>
+export type ListCmsPagesQueryError = ErrorType<void>
+
+
+/**
+ * @summary List CMS pages
+ */
+
+export function useListCmsPages<TData = Awaited<ReturnType<typeof listCmsPages>>, TError = ErrorType<void>>(
+ params?: ListCmsPagesParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listCmsPages>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getListCmsPagesQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getCreateCmsPageUrl = () => {
+
+
+
+
+  return `/api/internal/cms/pages`
+}
+
+/**
+ * @summary Create a CMS page draft
+ */
+export const createCmsPage = async (cmsPageInput: CmsPageInput, options?: Parameters<typeof customFetch>[1]): Promise<CmsPage> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<CmsPage>(getCreateCmsPageUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(cmsPageInput)
+  }
+);}
+
+
+
+
+
+export const getCreateCmsPageMutationKey = () => ['createCmsPage'] as const;
+
+export const getCreateCmsPageMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createCmsPage>>, TError,CreateCmsPageMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof createCmsPage>>, TError,CreateCmsPageMutationVariables, TContext> => {
+
+const mutationKey = getCreateCmsPageMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createCmsPage>>, CreateCmsPageMutationVariables> = (props) => {
+          const {data} = props ?? {};
+
+          return  createCmsPage(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CreateCmsPageMutationResult = NonNullable<Awaited<ReturnType<typeof createCmsPage>>>
+    export type CreateCmsPageMutationBody = BodyType<CmsPageInput>
+    export type CreateCmsPageMutationError = ErrorType<void>
+    export type CreateCmsPageMutationVariables = {data: BodyType<CmsPageInput>}
+
+    /**
+ * @summary Create a CMS page draft
+ */
+export const useCreateCmsPage = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createCmsPage>>, TError,CreateCmsPageMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof createCmsPage>>,
+        TError,
+        CreateCmsPageMutationVariables,
+        TContext
+      > => {
+      return useMutation(getCreateCmsPageMutationOptions(options));
+    }
+
+export const getUpdateCmsPageUrl = (pageId: number,) => {
+
+
+
+
+  return `/api/internal/cms/pages/${pageId}`
+}
+
+/**
+ * @summary Edit or publish a CMS page
+ */
+export const updateCmsPage = async (pageId: number,
+    cmsPageUpdate: CmsPageUpdate, options?: Parameters<typeof customFetch>[1]): Promise<CmsPage> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<CmsPage>(getUpdateCmsPageUrl(pageId),
+  {
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(cmsPageUpdate)
+  }
+);}
+
+
+
+
+
+export const getUpdateCmsPageMutationKey = () => ['updateCmsPage'] as const;
+
+export const getUpdateCmsPageMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateCmsPage>>, TError,UpdateCmsPageMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateCmsPage>>, TError,UpdateCmsPageMutationVariables, TContext> => {
+
+const mutationKey = getUpdateCmsPageMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateCmsPage>>, UpdateCmsPageMutationVariables> = (props) => {
+          const {pageId,data} = props ?? {};
+
+          return  updateCmsPage(pageId,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdateCmsPageMutationResult = NonNullable<Awaited<ReturnType<typeof updateCmsPage>>>
+    export type UpdateCmsPageMutationBody = BodyType<CmsPageUpdate>
+    export type UpdateCmsPageMutationError = ErrorType<void>
+    export type UpdateCmsPageMutationVariables = {pageId: number;data: BodyType<CmsPageUpdate>}
+
+    /**
+ * @summary Edit or publish a CMS page
+ */
+export const useUpdateCmsPage = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateCmsPage>>, TError,UpdateCmsPageMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof updateCmsPage>>,
+        TError,
+        UpdateCmsPageMutationVariables,
+        TContext
+      > => {
+      return useMutation(getUpdateCmsPageMutationOptions(options));
+    }
+
+export const getListInternalNotificationsUrl = () => {
+
+
+
+
+  return `/api/internal/notifications`
+}
+
+/**
+ * @summary List persistent internal notifications
+ */
+export const listInternalNotifications = async ( options?: Parameters<typeof customFetch>[1]): Promise<InternalNotification[]> => {
+
+  return customFetch<InternalNotification[]>(getListInternalNotificationsUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListInternalNotificationsQueryKey = () => {
+    return [
+    `/api/internal/notifications`
+    ] as const;
+    }
+
+
+export const getListInternalNotificationsQueryOptions = <TData = Awaited<ReturnType<typeof listInternalNotifications>>, TError = ErrorType<void>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listInternalNotifications>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListInternalNotificationsQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listInternalNotifications>>> = ({ signal }) => listInternalNotifications({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listInternalNotifications>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ListInternalNotificationsQueryResult = NonNullable<Awaited<ReturnType<typeof listInternalNotifications>>>
+export type ListInternalNotificationsQueryError = ErrorType<void>
+
+
+/**
+ * @summary List persistent internal notifications
+ */
+
+export function useListInternalNotifications<TData = Awaited<ReturnType<typeof listInternalNotifications>>, TError = ErrorType<void>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listInternalNotifications>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getListInternalNotificationsQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getUpdateInternalNotificationUrl = (notificationId: number,) => {
+
+
+
+
+  return `/api/internal/notifications/${notificationId}`
+}
+
+/**
+ * @summary Mark a notification read or unread
+ */
+export const updateInternalNotification = async (notificationId: number,
+    notificationUpdate: NotificationUpdate, options?: Parameters<typeof customFetch>[1]): Promise<InternalNotification> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<InternalNotification>(getUpdateInternalNotificationUrl(notificationId),
+  {
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(notificationUpdate)
+  }
+);}
+
+
+
+
+
+export const getUpdateInternalNotificationMutationKey = () => ['updateInternalNotification'] as const;
+
+export const getUpdateInternalNotificationMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateInternalNotification>>, TError,UpdateInternalNotificationMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateInternalNotification>>, TError,UpdateInternalNotificationMutationVariables, TContext> => {
+
+const mutationKey = getUpdateInternalNotificationMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateInternalNotification>>, UpdateInternalNotificationMutationVariables> = (props) => {
+          const {notificationId,data} = props ?? {};
+
+          return  updateInternalNotification(notificationId,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdateInternalNotificationMutationResult = NonNullable<Awaited<ReturnType<typeof updateInternalNotification>>>
+    export type UpdateInternalNotificationMutationBody = BodyType<NotificationUpdate>
+    export type UpdateInternalNotificationMutationError = ErrorType<void>
+    export type UpdateInternalNotificationMutationVariables = {notificationId: number;data: BodyType<NotificationUpdate>}
+
+    /**
+ * @summary Mark a notification read or unread
+ */
+export const useUpdateInternalNotification = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateInternalNotification>>, TError,UpdateInternalNotificationMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof updateInternalNotification>>,
+        TError,
+        UpdateInternalNotificationMutationVariables,
+        TContext
+      > => {
+      return useMutation(getUpdateInternalNotificationMutationOptions(options));
+    }
+
+export const getListInternalMembersUrl = () => {
+
+
+
+
+  return `/api/internal/members`
+}
+
+/**
+ * @summary List invitations and team permissions
+ */
+export const listInternalMembers = async ( options?: Parameters<typeof customFetch>[1]): Promise<InternalMember[]> => {
+
+  return customFetch<InternalMember[]>(getListInternalMembersUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListInternalMembersQueryKey = () => {
+    return [
+    `/api/internal/members`
+    ] as const;
+    }
+
+
+export const getListInternalMembersQueryOptions = <TData = Awaited<ReturnType<typeof listInternalMembers>>, TError = ErrorType<void>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listInternalMembers>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListInternalMembersQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listInternalMembers>>> = ({ signal }) => listInternalMembers({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listInternalMembers>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ListInternalMembersQueryResult = NonNullable<Awaited<ReturnType<typeof listInternalMembers>>>
+export type ListInternalMembersQueryError = ErrorType<void>
+
+
+/**
+ * @summary List invitations and team permissions
+ */
+
+export function useListInternalMembers<TData = Awaited<ReturnType<typeof listInternalMembers>>, TError = ErrorType<void>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listInternalMembers>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getListInternalMembersQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getInviteInternalMemberUrl = () => {
+
+
+
+
+  return `/api/internal/members`
+}
+
+/**
+ * @summary Invite a team member by email
+ */
+export const inviteInternalMember = async (internalMemberInput: InternalMemberInput, options?: Parameters<typeof customFetch>[1]): Promise<InternalMember> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<InternalMember>(getInviteInternalMemberUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(internalMemberInput)
+  }
+);}
+
+
+
+
+
+export const getInviteInternalMemberMutationKey = () => ['inviteInternalMember'] as const;
+
+export const getInviteInternalMemberMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof inviteInternalMember>>, TError,InviteInternalMemberMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof inviteInternalMember>>, TError,InviteInternalMemberMutationVariables, TContext> => {
+
+const mutationKey = getInviteInternalMemberMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof inviteInternalMember>>, InviteInternalMemberMutationVariables> = (props) => {
+          const {data} = props ?? {};
+
+          return  inviteInternalMember(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type InviteInternalMemberMutationResult = NonNullable<Awaited<ReturnType<typeof inviteInternalMember>>>
+    export type InviteInternalMemberMutationBody = BodyType<InternalMemberInput>
+    export type InviteInternalMemberMutationError = ErrorType<void>
+    export type InviteInternalMemberMutationVariables = {data: BodyType<InternalMemberInput>}
+
+    /**
+ * @summary Invite a team member by email
+ */
+export const useInviteInternalMember = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof inviteInternalMember>>, TError,InviteInternalMemberMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof inviteInternalMember>>,
+        TError,
+        InviteInternalMemberMutationVariables,
+        TContext
+      > => {
+      return useMutation(getInviteInternalMemberMutationOptions(options));
+    }
+
+export const getUpdateInternalMemberUrl = (memberId: number,) => {
+
+
+
+
+  return `/api/internal/members/${memberId}`
+}
+
+/**
+ * @summary Change a member role or revoke access
+ */
+export const updateInternalMember = async (memberId: number,
+    internalMemberUpdate: InternalMemberUpdate, options?: Parameters<typeof customFetch>[1]): Promise<InternalMember> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<InternalMember>(getUpdateInternalMemberUrl(memberId),
+  {
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(internalMemberUpdate)
+  }
+);}
+
+
+
+
+
+export const getUpdateInternalMemberMutationKey = () => ['updateInternalMember'] as const;
+
+export const getUpdateInternalMemberMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateInternalMember>>, TError,UpdateInternalMemberMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateInternalMember>>, TError,UpdateInternalMemberMutationVariables, TContext> => {
+
+const mutationKey = getUpdateInternalMemberMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateInternalMember>>, UpdateInternalMemberMutationVariables> = (props) => {
+          const {memberId,data} = props ?? {};
+
+          return  updateInternalMember(memberId,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdateInternalMemberMutationResult = NonNullable<Awaited<ReturnType<typeof updateInternalMember>>>
+    export type UpdateInternalMemberMutationBody = BodyType<InternalMemberUpdate>
+    export type UpdateInternalMemberMutationError = ErrorType<void>
+    export type UpdateInternalMemberMutationVariables = {memberId: number;data: BodyType<InternalMemberUpdate>}
+
+    /**
+ * @summary Change a member role or revoke access
+ */
+export const useUpdateInternalMember = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateInternalMember>>, TError,UpdateInternalMemberMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof updateInternalMember>>,
+        TError,
+        UpdateInternalMemberMutationVariables,
+        TContext
+      > => {
+      return useMutation(getUpdateInternalMemberMutationOptions(options));
+    }
+
+export const getListInternalAttachmentsUrl = (params?: ListInternalAttachmentsParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : String(value))
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/api/internal/attachments?${stringifiedParams}` : `/api/internal/attachments`
+}
+
+/**
+ * @summary List private attachments
+ */
+export const listInternalAttachments = async (params?: ListInternalAttachmentsParams, options?: Parameters<typeof customFetch>[1]): Promise<PrivateAttachment[]> => {
+
+  return customFetch<PrivateAttachment[]>(getListInternalAttachmentsUrl(params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListInternalAttachmentsQueryKey = (params?: ListInternalAttachmentsParams,) => {
+    return [
+    `/api/internal/attachments`, ...(params ? [params] : [])
+    ] as const;
+    }
+
+
+export const getListInternalAttachmentsQueryOptions = <TData = Awaited<ReturnType<typeof listInternalAttachments>>, TError = ErrorType<void>>(params?: ListInternalAttachmentsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listInternalAttachments>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListInternalAttachmentsQueryKey(params);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listInternalAttachments>>> = ({ signal }) => listInternalAttachments(params, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listInternalAttachments>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ListInternalAttachmentsQueryResult = NonNullable<Awaited<ReturnType<typeof listInternalAttachments>>>
+export type ListInternalAttachmentsQueryError = ErrorType<void>
+
+
+/**
+ * @summary List private attachments
+ */
+
+export function useListInternalAttachments<TData = Awaited<ReturnType<typeof listInternalAttachments>>, TError = ErrorType<void>>(
+ params?: ListInternalAttachmentsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listInternalAttachments>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getListInternalAttachmentsQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getFinalizeInternalAttachmentUrl = () => {
+
+
+
+
+  return `/api/internal/attachments`
+}
+
+/**
+ * @summary Register an uploaded private attachment
+ */
+export const finalizeInternalAttachment = async (attachmentFinalizeInput: AttachmentFinalizeInput, options?: Parameters<typeof customFetch>[1]): Promise<PrivateAttachment> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<PrivateAttachment>(getFinalizeInternalAttachmentUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(attachmentFinalizeInput)
+  }
+);}
+
+
+
+
+
+export const getFinalizeInternalAttachmentMutationKey = () => ['finalizeInternalAttachment'] as const;
+
+export const getFinalizeInternalAttachmentMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof finalizeInternalAttachment>>, TError,FinalizeInternalAttachmentMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof finalizeInternalAttachment>>, TError,FinalizeInternalAttachmentMutationVariables, TContext> => {
+
+const mutationKey = getFinalizeInternalAttachmentMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof finalizeInternalAttachment>>, FinalizeInternalAttachmentMutationVariables> = (props) => {
+          const {data} = props ?? {};
+
+          return  finalizeInternalAttachment(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type FinalizeInternalAttachmentMutationResult = NonNullable<Awaited<ReturnType<typeof finalizeInternalAttachment>>>
+    export type FinalizeInternalAttachmentMutationBody = BodyType<AttachmentFinalizeInput>
+    export type FinalizeInternalAttachmentMutationError = ErrorType<void>
+    export type FinalizeInternalAttachmentMutationVariables = {data: BodyType<AttachmentFinalizeInput>}
+
+    /**
+ * @summary Register an uploaded private attachment
+ */
+export const useFinalizeInternalAttachment = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof finalizeInternalAttachment>>, TError,FinalizeInternalAttachmentMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof finalizeInternalAttachment>>,
+        TError,
+        FinalizeInternalAttachmentMutationVariables,
+        TContext
+      > => {
+      return useMutation(getFinalizeInternalAttachmentMutationOptions(options));
+    }
+
+export const getRequestInternalAttachmentUploadUrl = () => {
+
+
+
+
+  return `/api/internal/attachments/upload-url`
+}
+
+/**
+ * @summary Request a short-lived private upload URL
+ */
+export const requestInternalAttachmentUpload = async (attachmentUploadInput: AttachmentUploadInput, options?: Parameters<typeof customFetch>[1]): Promise<UploadUrlResponse> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<UploadUrlResponse>(getRequestInternalAttachmentUploadUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(attachmentUploadInput)
+  }
+);}
+
+
+
+
+
+export const getRequestInternalAttachmentUploadMutationKey = () => ['requestInternalAttachmentUpload'] as const;
+
+export const getRequestInternalAttachmentUploadMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof requestInternalAttachmentUpload>>, TError,RequestInternalAttachmentUploadMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof requestInternalAttachmentUpload>>, TError,RequestInternalAttachmentUploadMutationVariables, TContext> => {
+
+const mutationKey = getRequestInternalAttachmentUploadMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof requestInternalAttachmentUpload>>, RequestInternalAttachmentUploadMutationVariables> = (props) => {
+          const {data} = props ?? {};
+
+          return  requestInternalAttachmentUpload(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type RequestInternalAttachmentUploadMutationResult = NonNullable<Awaited<ReturnType<typeof requestInternalAttachmentUpload>>>
+    export type RequestInternalAttachmentUploadMutationBody = BodyType<AttachmentUploadInput>
+    export type RequestInternalAttachmentUploadMutationError = ErrorType<void>
+    export type RequestInternalAttachmentUploadMutationVariables = {data: BodyType<AttachmentUploadInput>}
+
+    /**
+ * @summary Request a short-lived private upload URL
+ */
+export const useRequestInternalAttachmentUpload = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof requestInternalAttachmentUpload>>, TError,RequestInternalAttachmentUploadMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof requestInternalAttachmentUpload>>,
+        TError,
+        RequestInternalAttachmentUploadMutationVariables,
+        TContext
+      > => {
+      return useMutation(getRequestInternalAttachmentUploadMutationOptions(options));
+    }
+
+export const getGetPrivateAttachmentUrl = (objectPath: string,) => {
+
+
+
+
+  return `/api/storage/objects/${objectPath}`
+}
+
+/**
+ * @summary Stream a private attachment to an authorized team member
+ */
+export const getPrivateAttachment = async (objectPath: string, options?: Parameters<typeof customFetch>[1]): Promise<Blob> => {
+
+  return customFetch<Blob>(getGetPrivateAttachmentUrl(objectPath),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetPrivateAttachmentQueryKey = (objectPath: string,) => {
+    return [
+    `/api/storage/objects/${objectPath}`
+    ] as const;
+    }
+
+
+export const getGetPrivateAttachmentQueryOptions = <TData = Awaited<ReturnType<typeof getPrivateAttachment>>, TError = ErrorType<void>>(objectPath: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getPrivateAttachment>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetPrivateAttachmentQueryKey(objectPath);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getPrivateAttachment>>> = ({ signal }) => getPrivateAttachment(objectPath, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, enabled: objectPath !== null && objectPath !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getPrivateAttachment>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetPrivateAttachmentQueryResult = NonNullable<Awaited<ReturnType<typeof getPrivateAttachment>>>
+export type GetPrivateAttachmentQueryError = ErrorType<void>
+
+
+/**
+ * @summary Stream a private attachment to an authorized team member
+ */
+
+export function useGetPrivateAttachment<TData = Awaited<ReturnType<typeof getPrivateAttachment>>, TError = ErrorType<void>>(
+ objectPath: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getPrivateAttachment>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetPrivateAttachmentQueryOptions(objectPath,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
 
