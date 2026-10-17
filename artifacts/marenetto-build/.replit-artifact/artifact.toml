@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Marenetto Build"
+description = "Sito web multilingue per Marenetto Build a Cefalù: servizi, metodo di lavoro, contenuti per proprietari internazionali e invio di richieste."
+version = "1.0.0"
+id = "artifacts/marenetto-build"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19698
+
+[services.development]
+run = "pnpm --filter @workspace/marenetto-build run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/marenetto-build", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/marenetto-build/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19698"
+BASE_PATH = "/"
