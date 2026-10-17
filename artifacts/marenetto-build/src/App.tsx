@@ -6,20 +6,25 @@ import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
-import { Route, Switch, useLocation, Router as WouterRouter, Link } from 'wouter';
+import { Route, Switch, useLocation, Router as WouterRouter, Link, Redirect } from 'wouter';
+import { Search } from 'lucide-react';
+import { articleBySlug, legacyRedirects } from '@/content/articles';
+import { usePageMeta } from '@/lib/meta';
+import { ArticleDetailPage, ArticlesPage, GuidesPage, ProjectsPage, SearchPage } from '@/pages/library';
 
 const queryClient = new QueryClient();
 type Lang = 'it' | 'en';
-type Page = 'home' | 'services' | 'process' | 'abroad' | 'request' | 'contact';
+type Page = 'home' | 'services' | 'process' | 'abroad' | 'request' | 'contact' | 'articles' | 'guides' | 'projects' | 'search';
 
+type CorePage = 'home' | 'services' | 'process' | 'abroad' | 'request' | 'contact';
 const routes: Record<Lang, Record<Page, string>> = {
-  it: { home: '/', services: '/servizi', process: '/come-lavoriamo', abroad: '/proprietari-all-estero', request: '/richiesta', contact: '/contatti' },
-  en: { home: '/en/', services: '/en/services', process: '/en/how-we-work', abroad: '/en/owners-abroad', request: '/en/request', contact: '/en/contact' },
+  it: { home: '/', services: '/servizi', process: '/come-lavoriamo', abroad: '/proprietari-all-estero', request: '/richiesta', contact: '/contatti', articles: '/articoli', guides: '/guide', projects: '/progetti', search: '/ricerca' },
+  en: { home: '/en/', services: '/en/services', process: '/en/how-we-work', abroad: '/en/owners-abroad', request: '/en/request', contact: '/en/contact', articles: '/articoli', guides: '/guide', projects: '/progetti', search: '/ricerca' },
 };
 
 const copy = {
   it: {
-    nav: { services: 'Servizi', process: 'Come lavoriamo', abroad: 'Per chi vive all’estero', contact: 'Contatti', request: 'Parliamone' },
+    nav: { services: 'Servizi', process: 'Come lavoriamo', abroad: 'Per chi vive all’estero', articles: 'Articoli', projects: 'Progetti', contact: 'Contatti', request: 'Parliamone' },
     home: { eyebrow: 'MARENETTO BUILD · CEFALÙ E DINTORNI', title: <>Costruzioni, ristrutturazioni<br /><em>e cura della tua proprietà a Cefalù.</em></>, intro: 'Dalla prima valutazione alla consegna, realizziamo e coordiniamo gli interventi per case, ville e seconde abitazioni. Un referente locale anche quando vivi lontano.', primary: 'Raccontaci il tuo progetto', secondary: 'Guarda come lavoriamo', note: 'Un referente locale, anche quando vivi lontano.', figure: 'Una presenza concreta, sul posto.', proof1: 'Cefalù e territorio', proof2: 'Italiano · Inglese · Olandese · Spagnolo' },
     page: { services: ['Servizi', 'Dalla prima idea alla cura quotidiana.', 'Un riferimento locale per lavori, manutenzione e necessità legate alla tua casa. Ogni richiesta parte da un confronto chiaro, per capire cosa serve davvero.'], process: ['Come lavoriamo', 'Prima ci capiamo. Poi si parte.', 'Un percorso semplice per definire il bisogno, mettere a fuoco le opzioni e tenerti aggiornato, passo dopo passo.'], abroad: ['Proprietari all’estero', 'La distanza non deve complicare le cose.', 'Un contatto locale per seguire richieste, manutenzione e lavori sulla tua proprietà in Sicilia, con aggiornamenti comprensibili anche a distanza.'], contact: ['Contatti', 'Il primo passo è una conversazione.', 'Scrivici in italiano o in inglese. Condividi il contesto e ti aiuteremo a capire quale può essere il passo successivo.'], request: ['Richiesta', 'Da dove possiamo cominciare?', 'Raccontaci della proprietà e di ciò che ti serve. Più contesto ci dai, più concreto potrà essere il primo confronto.'] },
     services: { over: 'Un supporto concreto, senza promesse vaghe.', heading: 'Servizi per la tua proprietà', intro: 'Ogni immobile e ogni necessità sono diversi. Definiamo insieme il perimetro, le verifiche necessarie e chi svolge le attività prima di parlare di interventi.', groups: [
@@ -44,7 +49,7 @@ const copy = {
     ] },
   },
   en: {
-    nav: { services: 'Services', process: 'How we work', abroad: 'Owners abroad', contact: 'Contact', request: 'Start a conversation' },
+    nav: { services: 'Services', process: 'How we work', abroad: 'Owners abroad', articles: 'Articles (IT)', projects: 'Projects', contact: 'Contact', request: 'Start a conversation' },
     home: { eyebrow: 'MARENETTO BUILD · CEFALÙ AND SURROUNDING AREA', title: <>Construction, renovation<br /><em>and property care in Cefalù.</em></>, intro: 'From the first review to handover, we carry out and coordinate work for homes, villas and second properties. A local point of contact when you live abroad.', primary: 'Tell us about your project', secondary: 'See how we work', note: 'A local point of contact, even when you live abroad.', figure: 'A real presence, on the ground.', proof1: 'Cefalù and the surrounding area', proof2: 'Italian · English · Dutch · Spanish' },
     page: { services: ['Services', 'From the first idea to everyday care.', 'A local point of contact for building work, maintenance and the needs of your home. Every request starts with a clear conversation about what is actually needed.'], process: ['How we work', 'First we understand. Then we begin.', 'A straightforward way to define the need, consider the options and keep you informed at every step.'], abroad: ['Owners abroad', 'Distance should not make things harder.', 'A local contact for property requests, maintenance and building work in Sicily, with clear updates even when you are far away.'], contact: ['Contact', 'It starts with a conversation.', 'Write to us in Italian or English. Share the context and we will help you understand a sensible next step.'], request: ['Request', 'Where should we begin?', 'Tell us about the property and what you need. The more context you share, the more useful our first conversation can be.'] },
     services: { over: 'Practical support, without vague promises.', heading: 'Services for your property', intro: 'Every property and every need is different. We define the scope, checks required and people responsible before discussing the work.', groups: [
@@ -77,6 +82,10 @@ function getPage(path: string): Page {
   if (path === '/proprietari-all-estero' || path === '/en/owners-abroad') return 'abroad';
   if (path === '/richiesta' || path === '/en/request') return 'request';
   if (path === '/contatti' || path === '/en/contact') return 'contact';
+  if (path === '/articoli') return 'articles';
+  if (path === '/guide') return 'guides';
+  if (path === '/progetti') return 'projects';
+  if (path === '/ricerca') return 'search';
   return 'home';
 }
 function switchLanguagePath(path: string, target: Lang) {
@@ -91,7 +100,7 @@ function Header({ lang, page }: { lang: Lang; page: Page }) {
   const [path] = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const c = copy[lang].nav;
-  const items: [Page, string][] = [['services', c.services], ['process', c.process], ['abroad', c.abroad], ['contact', c.contact]];
+  const items: [Page, string][] = [['services', c.services], ['process', c.process], ['abroad', c.abroad], ['articles', c.articles], ['projects', c.projects], ['contact', c.contact]];
   return <header className="topbar">
     <div className="container nav-wrap">
       <Link href={routes[lang].home} className="wordmark" aria-label="Marenetto Build home" data-testid="link-logo">
@@ -101,6 +110,7 @@ function Header({ lang, page }: { lang: Lang; page: Page }) {
         {items.map(([key, label]) => <PageLink key={key} page={key} lang={lang} aria-current={page === key ? 'page' : undefined} data-testid={`nav-${key}`}>{label}</PageLink>)}
       </nav>
       <div className="nav-actions">
+        <Link href="/ricerca" className="nav-search" aria-label={lang === 'it' ? 'Cerca negli articoli' : 'Search articles'} aria-current={page === 'search' ? 'page' : undefined} data-testid="nav-search"><Search size={16} /></Link>
         <Link href={switchLanguagePath(path, lang === 'it' ? 'en' : 'it')} className="lang-switch" aria-label={lang === 'it' ? 'Switch to English' : 'Passa all’italiano'} data-testid="link-language">{lang === 'it' ? 'EN' : 'IT'} <ChevronDown size={12} /></Link>
         <PageLink page="request" lang={lang} className="button" data-testid="nav-request">{c.request}<ArrowRight size={14} /></PageLink>
         <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} data-testid="button-menu">{menuOpen ? <X size={18} /> : <Menu size={18} />}</button>
@@ -108,6 +118,8 @@ function Header({ lang, page }: { lang: Lang; page: Page }) {
     </div>
     {menuOpen && <nav className="mobile-nav" aria-label={lang === 'it' ? 'Menu' : 'Menu'}>
       {items.map(([key, label]) => <PageLink key={key} page={key} lang={lang} onClick={() => setMenuOpen(false)} data-testid={`mobile-nav-${key}`}>{label}</PageLink>)}
+      <PageLink page="guides" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-guides">{lang === 'it' ? 'Guide pratiche' : 'Practical guides (IT)'}</PageLink>
+      <PageLink page="search" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-search">{lang === 'it' ? 'Ricerca' : 'Search (IT)'}</PageLink>
       <PageLink page="request" lang={lang} className="button" onClick={() => setMenuOpen(false)}>{c.request}<ArrowRight size={14} /></PageLink>
     </nav>}
   </header>;
@@ -129,6 +141,12 @@ function Footer({ lang }: { lang: Lang }) {
           <PageLink lang={lang} page="abroad">{it ? 'Proprietari all’estero' : 'Owners abroad'}</PageLink>
           <PageLink lang={lang} page="request">{it ? 'Invia una richiesta' : 'Send an enquiry'}</PageLink>
         </div></div>
+        <div><h3>{it ? 'Approfondire' : 'Read (in Italian)'}</h3><div className="footer-links">
+          <PageLink lang={lang} page="articles" data-testid="link-footer-articles">{it ? 'Articoli' : 'Articles'}</PageLink>
+          <PageLink lang={lang} page="guides" data-testid="link-footer-guides">{it ? 'Guide pratiche' : 'Practical guides'}</PageLink>
+          <PageLink lang={lang} page="projects" data-testid="link-footer-projects">{it ? 'Progetti' : 'Projects'}</PageLink>
+          <PageLink lang={lang} page="search" data-testid="link-footer-search">{it ? 'Ricerca' : 'Search'}</PageLink>
+        </div></div>
         <div><h3>{it ? 'Un primo contatto' : 'Get in touch'}</h3><div className="footer-links">
           <PageLink lang={lang} page="contact">{it ? 'Contatti' : 'Contact'}</PageLink>
           <a href={`mailto:info@marenettobuild.com?subject=${encodeURIComponent(it ? 'Richiesta informazioni — Marenetto Build' : 'Enquiry — Marenetto Build')}`} data-testid="link-footer-email">info@marenettobuild.com</a>
@@ -149,7 +167,7 @@ function CtaPanel({ lang, title, text }: { lang: Lang; title: string; text: stri
     <PageLink lang={lang} page="request" className="button" data-testid="cta-request">{lang === 'it' ? 'Raccontaci il tuo progetto' : 'Tell us about your project'}<ArrowRight size={15} /></PageLink>
   </div>;
 }
-function PageHero({ lang, page }: { lang: Lang; page: Exclude<Page, 'home'> }) {
+function PageHero({ lang, page }: { lang: Lang; page: Exclude<CorePage, 'home'> }) {
   const d = copy[lang].page[page];
   return <section className="page-hero">
     <div className="container">
@@ -395,7 +413,7 @@ function RequestPage({ lang }: { lang: Lang }) {
   </>;
 }
 
-function ContactContents({ lang, page }: { lang: Lang; page: Page }) {
+function ContactContents({ lang, page }: { lang: Lang; page: CorePage }) {
   if (page === 'home') return <HomePage lang={lang} />;
   if (page === 'services') return <ServicesPage lang={lang} />;
   if (page === 'process') return <ProcessPage lang={lang} />;
@@ -404,25 +422,31 @@ function ContactContents({ lang, page }: { lang: Lang; page: Page }) {
   return <ContactPage lang={lang} />;
 }
 
-function SitePage({ page, lang }: { page: Page; lang: Lang }) {
-  useEffect(() => {
-    const names = copy[lang].page;
-    const pageCopy = page === 'home' ? null : names[page];
-    const title = page === 'home' ? (lang === 'it' ? 'Marenetto Build | Costruzioni e ristrutturazioni a Cefalù' : 'Marenetto Build | Construction and renovation in Cefalù') : `${pageCopy![0]} | Marenetto Build`;
-    document.title = title;
-    document.documentElement.lang = lang;
-    let description = document.querySelector('meta[name="description"]');
-    if (!description) { description = document.createElement('meta'); description.setAttribute('name', 'description'); document.head.appendChild(description); }
-    description.setAttribute('content', page === 'home' ? copy[lang].home.intro : pageCopy![2]);
-  }, [lang, page]);
+function SitePage({ page, lang }: { page: CorePage; lang: Lang }) {
+  const names = copy[lang].page;
+  const pageCopy = page === 'home' ? null : names[page];
+  const title = page === 'home' ? (lang === 'it' ? 'Marenetto Build | Costruzioni e ristrutturazioni a Cefalù' : 'Marenetto Build | Construction and renovation in Cefalù') : `${pageCopy![0]} | Marenetto Build`;
+  usePageMeta({ title, description: page === 'home' ? copy[lang].home.intro : pageCopy![2], path: routes[lang][page], lang });
   return <div className="site-shell"><Header lang={lang} page={page} /><main><ContactContents lang={lang} page={page} /></main><Footer lang={lang} /></div>;
 }
 
+function LibraryShell({ page, children }: { page: Page; children: ReactNode }) {
+  return <div className="site-shell"><Header lang="it" page={page} /><main>{children}</main><Footer lang="it" /></div>;
+}
 function Router() {
   const [path] = useLocation();
   const lang = getLang(path);
   const page = getPage(path);
+  const trimmed = path.length > 1 && path.endsWith('/') && path !== '/en/' ? path.replace(/\/+$/, '') : path;
+  if (legacyRedirects[trimmed]) return <Redirect to={legacyRedirects[trimmed]} replace />;
+  if (trimmed !== path && (articleBySlug.has(trimmed.slice(1)) || ['/articoli', '/contatti', '/guide', '/progetti', '/ricerca'].includes(trimmed))) return <Redirect to={trimmed} replace />;
+  const article = articleBySlug.get(trimmed.slice(1));
+  if (article) return <RoutedErrorBoundary><LibraryShell page="articles"><ArticleDetailPage a={article} /></LibraryShell></RoutedErrorBoundary>;
   return <RoutedErrorBoundary><Switch>
+    <Route path="/articoli"><LibraryShell page="articles"><ArticlesPage /></LibraryShell></Route>
+    <Route path="/guide"><LibraryShell page="guides"><GuidesPage /></LibraryShell></Route>
+    <Route path="/progetti"><LibraryShell page="projects"><ProjectsPage /></LibraryShell></Route>
+    <Route path="/ricerca"><LibraryShell page="search"><SearchPage /></LibraryShell></Route>
     <Route path="/"><SitePage page="home" lang="it" /></Route>
     <Route path="/servizi"><SitePage page="services" lang="it" /></Route>
     <Route path="/come-lavoriamo"><SitePage page="process" lang="it" /></Route>
