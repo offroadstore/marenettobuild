@@ -9,6 +9,7 @@ import NotFound from '@/pages/not-found';
 import { Route, Switch, useLocation, Router as WouterRouter, Link, Redirect } from 'wouter';
 import { Search } from 'lucide-react';
 import { articleBySlug, legacyRedirects } from '@/content/articles';
+import { withCampaignParams } from '@/lib/campaign';
 import { usePageMeta } from '@/lib/meta';
 import { ArticleDetailPage, ArticlesPage, GuidesPage, ProjectsPage, SearchPage } from '@/pages/library';
 import { ClerkProvider, SignIn, SignUp, useClerk } from '@clerk/react';
@@ -27,7 +28,6 @@ const routes: Record<Lang, Record<Page, string>> = {
   it: { home: '/', services: '/servizi', process: '/come-lavoriamo', abroad: '/proprietari-all-estero', request: '/richiesta', contact: '/contatti', articles: '/articoli', guides: '/guide', projects: '/progetti', search: '/ricerca' },
   en: { home: '/en/', services: '/en/services', process: '/en/how-we-work', abroad: '/en/owners-abroad', request: '/en/request', contact: '/en/contact', articles: '/articoli', guides: '/guide', projects: '/progetti', search: '/ricerca' },
 };
-
 const copy = {
   it: {
     nav: { services: 'Servizi', process: 'Come lavoriamo', abroad: 'Per chi vive all’estero', articles: 'Articoli', projects: 'Progetti', contact: 'Contatti', request: 'Parliamone' },
@@ -99,7 +99,7 @@ function switchLanguagePath(path: string, target: Lang) {
   return routes[target][page];
 }
 function PageLink({ page, lang, children, className, ...props }: { page: Page; lang: Lang; children: ReactNode; className?: string } & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href' | 'children' | 'className'>) {
-  return <Link href={routes[lang][page]} className={className} {...props}>{children}</Link>;
+  return <Link href={withCampaignParams(routes[lang][page])} className={className} {...props}>{children}</Link>;
 }
 
 function Header({ lang, page }: { lang: Lang; page: Page }) {
@@ -109,15 +109,15 @@ function Header({ lang, page }: { lang: Lang; page: Page }) {
   const items: [Page, string][] = [['services', c.services], ['process', c.process], ['abroad', c.abroad], ['articles', c.articles], ['projects', c.projects], ['contact', c.contact]];
   return <header className="topbar">
     <div className="container nav-wrap">
-      <Link href={routes[lang].home} className="wordmark" aria-label="Marenetto Build home" data-testid="link-logo">
+      <Link href={withCampaignParams(routes[lang].home)} className="wordmark" aria-label="Marenetto Build home" data-testid="link-logo">
         <strong>MARENETTO</strong><span>BUILD · CEFALÙ</span>
       </Link>
       <nav className="nav-links" aria-label={lang === 'it' ? 'Navigazione principale' : 'Main navigation'}>
         {items.map(([key, label]) => <PageLink key={key} page={key} lang={lang} aria-current={page === key ? 'page' : undefined} data-testid={`nav-${key}`}>{label}</PageLink>)}
       </nav>
       <div className="nav-actions">
-        <Link href="/ricerca" className="nav-search" aria-label={lang === 'it' ? 'Cerca negli articoli' : 'Search articles'} aria-current={page === 'search' ? 'page' : undefined} data-testid="nav-search"><Search size={16} /></Link>
-        <Link href={switchLanguagePath(path, lang === 'it' ? 'en' : 'it')} className="lang-switch" aria-label={lang === 'it' ? 'Switch to English' : 'Passa all’italiano'} data-testid="link-language">{lang === 'it' ? 'EN' : 'IT'} <ChevronDown size={12} /></Link>
+        <Link href={withCampaignParams('/ricerca')} className="nav-search" aria-label={lang === 'it' ? 'Cerca negli articoli' : 'Search articles'} aria-current={page === 'search' ? 'page' : undefined} data-testid="nav-search"><Search size={16} /></Link>
+        <Link href={withCampaignParams(switchLanguagePath(path, lang === 'it' ? 'en' : 'it'))} className="lang-switch" aria-label={lang === 'it' ? 'Switch to English' : 'Passa all’italiano'} data-testid="link-language">{lang === 'it' ? 'EN' : 'IT'} <ChevronDown size={12} /></Link>
         <PageLink page="request" lang={lang} className="button" data-testid="nav-request">{c.request}<ArrowRight size={14} /></PageLink>
         <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} data-testid="button-menu">{menuOpen ? <X size={18} /> : <Menu size={18} />}</button>
       </div>
@@ -138,7 +138,7 @@ function Footer({ lang }: { lang: Lang }) {
     <div className="container">
       <div className="footer-top">
         <div className="footer-brand">
-          <Link href={routes[lang].home} className="wordmark"><strong>MARENETTO</strong><span>BUILD · CEFALÙ</span></Link>
+          <Link href={withCampaignParams(routes[lang].home)} className="wordmark"><strong>MARENETTO</strong><span>BUILD · CEFALÙ</span></Link>
           <p><strong>{it ? 'Costruiamo valore.' : 'We build lasting value.'}</strong><br />{it ? 'Un riferimento locale per la tua casa a Cefalù e dintorni. Lavori, manutenzione e cura della proprietà, con un dialogo chiaro.' : 'A local point of contact for your home in Cefalù and nearby. Building, maintenance and property care, with clear communication.'}</p>
         </div>
         <div><h3>{it ? 'Esplora' : 'Explore'}</h3><div className="footer-links">
@@ -161,7 +161,7 @@ function Footer({ lang }: { lang: Lang }) {
           <span>SS 113 Settentrionale Sicula, 73b<br />90015 Cefalù, Palermo, Italia</span>
         </div></div>
       </div>
-      <div className="footer-bottom"><span>© {new Date().getFullYear()} Marenetto s.r.l. unipersonale · P. IVA IT06471740826</span><span>{it ? 'Cefalù · Sicilia' : 'Cefalù · Sicily'}</span><Link href={routes[it ? 'en' : 'it'].home}>{it ? 'English' : 'Italiano'} <ArrowRight size={12} /></Link></div>
+      <div className="footer-bottom"><span>© {new Date().getFullYear()} Marenetto s.r.l. unipersonale · P. IVA IT06471740826</span><span>{it ? 'Cefalù · Sicilia' : 'Cefalù · Sicily'}</span><Link href={withCampaignParams(routes[it ? 'en' : 'it'].home)}>{it ? 'English' : 'Italiano'} <ArrowRight size={12} /></Link></div>
     </div>
   </footer>;
 }
@@ -312,7 +312,7 @@ function ContactPage({ lang }: { lang: Lang }) {
         </aside>
         <div className="contact-content"><SectionLabel>{it ? 'Ci racconti' : 'Tell us'}</SectionLabel><h2 className="display-title">{it ? 'Che cosa ti serve?' : 'What do you need?'}</h2><p>{it ? 'Una richiesta specifica, un dubbio sulla manutenzione o una domanda prima di acquistare? Scegli il punto di partenza più adatto.' : 'A specific request, a maintenance question or something to ask before buying? Choose the starting point that suits you.'}</p>
           <div className="contact-cta-list">
-            <PageLink lang={lang} page="request" className="contact-cta"><div><strong>{it ? 'Invia una richiesta strutturata' : 'Send a structured enquiry'}</strong><span>{it ? 'Per progetti, manutenzione o acquisto.' : 'For a project, maintenance or purchase.'}</span></div><ArrowRight size={18} color="#a66546" /></PageLink>
+            <PageLink lang={lang} page="request" className="contact-cta" data-testid="link-contact-request"><div><strong>{it ? 'Invia una richiesta strutturata' : 'Send a structured enquiry'}</strong><span>{it ? 'Per progetti, manutenzione o acquisto.' : 'For a project, maintenance or purchase.'}</span></div><ArrowRight size={18} color="#a66546" /></PageLink>
             <PageLink lang={lang} page="services" className="contact-cta"><div><strong>{it ? 'Esplora i servizi' : 'Explore services'}</strong><span>{it ? 'Scopri i principali ambiti di supporto.' : 'See the main areas of support.'}</span></div><ArrowRight size={18} color="#a66546" /></PageLink>
             <PageLink lang={lang} page="abroad" className="contact-cta"><div><strong>{it ? 'Vivi all’estero?' : 'Live abroad?'}</strong><span>{it ? 'Come funziona il contatto a distanza.' : 'How working at a distance can work.'}</span></div><ArrowRight size={18} color="#a66546" /></PageLink>
           </div>
@@ -444,11 +444,10 @@ function Router() {
   const lang = getLang(path);
   const page = getPage(path);
   const trimmed = path.length > 1 && path.endsWith('/') && path !== '/en/' ? path.replace(/\/+$/, '') : path;
-  const queryAndFragment = `${window.location.search}${window.location.hash}`;
   if (legacyRedirects[trimmed]) {
-    return <Redirect to={`${legacyRedirects[trimmed]}${queryAndFragment}`} replace />;
+    return <Redirect to={withCampaignParams(`${legacyRedirects[trimmed]}${window.location.hash}`)} replace />;
   }
-  if (trimmed !== path && (articleBySlug.has(trimmed.slice(1)) || ['/articoli', '/contatti', '/guide', '/progetti', '/ricerca'].includes(trimmed))) return <Redirect to={`${trimmed}${queryAndFragment}`} replace />;
+  if (trimmed !== path && (articleBySlug.has(trimmed.slice(1)) || ['/articoli', '/contatti', '/guide', '/progetti', '/ricerca'].includes(trimmed))) return <Redirect to={withCampaignParams(`${trimmed}${window.location.hash}`)} replace />;
   const article = articleBySlug.get(trimmed.slice(1));
   if (article) return <RoutedErrorBoundary><LibraryShell page="articles"><ArticleDetailPage a={article} /></LibraryShell></RoutedErrorBoundary>;
   return <RoutedErrorBoundary><Switch>

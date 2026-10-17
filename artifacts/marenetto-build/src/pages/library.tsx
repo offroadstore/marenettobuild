@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link } from 'wouter';
 import { ArrowLeft, ArrowRight, Search, ShieldAlert, X } from 'lucide-react';
 import { articles, claimLabels, formatDate, guides, reviewLabels, searchArticles, type Article } from '@/content/articles';
+import { withCampaignParams } from '@/lib/campaign';
 import { usePageMeta } from '@/lib/meta';
 
 function LibHero({ eyebrow, title, intro, meta }: { eyebrow: string; title: string; intro: string; meta: string }) {
@@ -21,7 +22,7 @@ function StatusPill({ a }: { a: Article }) {
 }
 
 export function ArticleCard({ a, kind = 'archive', index }: { a: Article; kind?: 'archive' | 'guide' | 'search'; index: number }) {
-  return <Link href={`/${a.slug}`} className="lib-card" data-testid={`card-${kind}-${a.slug}`}>
+  return <Link href={withCampaignParams(`/${a.slug}`)} className="lib-card" data-testid={`card-${kind}-${a.slug}`}>
     <div className="lib-card-media"><img src={a.image} alt={a.imageAlt} loading="lazy" /><span className="lib-card-index">{String(index + 1).padStart(2, '0')}</span></div>
     <div className="lib-card-body">
       <div className="lib-card-meta"><span>{a.category}</span><span>{formatDate(a.publishedOn)}</span></div>
@@ -50,7 +51,7 @@ export function ArticlesPage() {
         <ReviewLegend />
         <div className="filter-row" role="tablist" aria-label="Filtra per categoria">
           {cats.map(c => <button key={c} role="tab" aria-selected={cat === c} className={`filter-chip${cat === c ? ' on' : ''}`} onClick={() => setCat(c)} data-testid={`filter-${c.toLowerCase().replace(/[^a-z]+/g, '-')}`}>{c}</button>)}
-          <Link href="/ricerca" className="filter-search" data-testid="link-to-search"><Search size={14} />Cerca</Link>
+          <Link href={withCampaignParams('/ricerca')} className="filter-search" data-testid="link-to-search"><Search size={14} />Cerca</Link>
         </div>
         <p className="result-count" data-testid="text-archive-count">{list.length} {list.length === 1 ? 'articolo' : 'articoli'}</p>
         <div className="lib-grid">{list.map((a, i) => <ArticleCard key={a.slug} a={a} index={i} />)}</div>
@@ -65,13 +66,13 @@ export function GuidesPage() {
     <LibHero eyebrow="Guide pratiche" title="Domande utili, prima delle risposte." intro="Una selezione di contenuti con valore pratico per chi possiede o sta per acquistare casa a Cefalù. Le sintesi sono state rilette; i dettagli tecnici restano da verificare con professionisti." meta={`${guides.length} guide · su ${articles.length} articoli`} />
     <section className="section">
       <div className="container">
-        <div className="guide-list">{guides.map((a, i) => <Link key={a.slug} href={`/${a.slug}`} className="guide-row" data-testid={`card-guide-${a.slug}`}>
+        <div className="guide-list">{guides.map((a, i) => <Link key={a.slug} href={withCampaignParams(`/${a.slug}`)} className="guide-row" data-testid={`card-guide-${a.slug}`}>
           <span className="guide-n">{String(i + 1).padStart(2, '0')}</span>
           <img src={a.image} alt={a.imageAlt} loading="lazy" />
           <div><span className="guide-cat">{a.category}</span><h3>{a.title}</h3><p>{a.summary}</p></div>
           <div className="guide-side"><StatusPill a={a} /><ArrowRight size={18} /></div>
         </Link>)}</div>
-        <div className="portfolio-note" style={{ marginTop: 56 }}><div><h3>Cerchi un argomento diverso?</h3><p>L’archivio completo raccoglie tutti i 14 articoli storici, ciascuno con il proprio stato di revisione.</p></div><Link href="/articoli" className="text-link" data-testid="link-guides-archive">Tutti gli articoli<ArrowRight size={14} /></Link></div>
+        <div className="portfolio-note" style={{ marginTop: 56 }}><div><h3>Cerchi un argomento diverso?</h3><p>L’archivio completo raccoglie tutti i 14 articoli storici, ciascuno con il proprio stato di revisione.</p></div><Link href={withCampaignParams('/articoli')} className="text-link" data-testid="link-guides-archive">Tutti gli articoli<ArrowRight size={14} /></Link></div>
       </div>
     </section>
   </>;
@@ -99,7 +100,7 @@ export function SearchPage() {
       <div className="container">
         <p className="result-count" id="search-count" aria-live="polite" data-testid="text-result-count">{q.trim() ? `${results.length} ${results.length === 1 ? 'risultato' : 'risultati'} per “${q.trim()}”` : `${results.length} articoli disponibili`}</p>
         {results.length ? <div className="lib-grid">{results.map((a, i) => <ArticleCard key={a.slug} a={a} index={i} kind="search" />)}</div>
-          : <div className="empty-state" data-testid="state-empty-search"><span className="portfolio-mark">—</span><h2>Nessun articolo corrisponde a “{q.trim()}”.</h2><p>Prova con un termine più generale, oppure scrivici: possiamo rispondere a una domanda specifica anche se non è trattata qui.</p><div className="hero-actions"><button className="button outline" onClick={() => setQ('')} data-testid="button-reset-search">Mostra tutti</button><Link href="/richiesta" className="button" data-testid="link-empty-request">Fai una domanda<ArrowRight size={14} /></Link></div></div>}
+          : <div className="empty-state" data-testid="state-empty-search"><span className="portfolio-mark">—</span><h2>Nessun articolo corrisponde a “{q.trim()}”.</h2><p>Prova con un termine più generale, oppure scrivici: possiamo rispondere a una domanda specifica anche se non è trattata qui.</p><div className="hero-actions"><button className="button outline" onClick={() => setQ('')} data-testid="button-reset-search">Mostra tutti</button><Link href={withCampaignParams('/richiesta')} className="button" data-testid="link-empty-request">Fai una domanda<ArrowRight size={14} /></Link></div></div>}
       </div>
     </section>
   </>;
@@ -117,7 +118,7 @@ export function ProjectsPage() {
         </div>
       </div>
     </section>
-    <section className="section tight"><div className="container"><div className="cta-panel"><div><h2 className="display-title">Nel frattempo, parliamo della tua casa.</h2><p>Puoi leggere le guide pratiche o inviarci una richiesta: il primo confronto serve a capire da dove partire.</p></div><div className="hero-actions"><Link href="/guide" className="button outline" data-testid="link-projects-guides">Guide pratiche</Link><Link href="/richiesta" className="button" data-testid="link-projects-request">Invia una richiesta<ArrowRight size={14} /></Link></div></div></div></section>
+    <section className="section tight"><div className="container"><div className="cta-panel"><div><h2 className="display-title">Nel frattempo, parliamo della tua casa.</h2><p>Puoi leggere le guide pratiche o inviarci una richiesta: il primo confronto serve a capire da dove partire.</p></div><div className="hero-actions"><Link href={withCampaignParams('/guide')} className="button outline" data-testid="link-projects-guides">Guide pratiche</Link><Link href={withCampaignParams('/richiesta')} className="button" data-testid="link-projects-request">Invia una richiesta<ArrowRight size={14} /></Link></div></div></div></section>
   </>;
 }
 
@@ -129,7 +130,7 @@ export function ArticleDetailPage({ a }: { a: Article }) {
   return <>
     <section className="article-hero">
       <div className="container">
-        <Link href="/articoli" className="text-link back-link" data-testid="link-back-archive"><ArrowLeft size={14} />Tutti gli articoli</Link>
+        <Link href={withCampaignParams('/articoli')} className="text-link back-link" data-testid="link-back-archive"><ArrowLeft size={14} />Tutti gli articoli</Link>
         <div className="article-head">
           <div className="lib-card-meta"><span data-testid="text-category">{a.category}</span><span data-testid="text-date">Pubblicato in origine: {formatDate(a.publishedOn)}</span></div>
           <h1 className="display-title animate-enter" data-testid="text-article-title">{a.title}</h1>
@@ -156,13 +157,13 @@ export function ArticleDetailPage({ a }: { a: Article }) {
           <div className="aside-block"><small>Affermazioni dell’originale da verificare</small><ul className="claim-list" data-testid="list-claims">{a.claimsToReview.map(c => <li key={c}>{claimLabels[c]}</li>)}</ul></div>
           <div className="aside-block"><small>Titolo originale</small><span className="orig-title">{a.originalTitle}</span></div>
           <div className="aside-block"><small>Percorso storico</small><code>/{a.slug}/</code></div>
-          <Link href="/richiesta" className="button" data-testid="link-article-request">Parliamone<ArrowRight size={14} /></Link>
+          <Link href={withCampaignParams('/richiesta')} className="button" data-testid="link-article-request">Parliamone<ArrowRight size={14} /></Link>
         </aside>
       </div>
     </section>
     <section className="section tight">
       <div className="container">
-        <div className="section-head"><div><span className="eyebrow">Continua a leggere</span></div><Link href={`/${next.slug}`} className="text-link" data-testid="link-next-article">Articolo successivo<ArrowRight size={14} /></Link></div>
+        <div className="section-head"><div><span className="eyebrow">Continua a leggere</span></div><Link href={withCampaignParams(`/${next.slug}`)} className="text-link" data-testid="link-next-article">Articolo successivo<ArrowRight size={14} /></Link></div>
         <div className="lib-grid">{(related.length ? related : [next]).map((r) => <ArticleCard key={r.slug} a={r} index={articles.indexOf(r)} />)}</div>
       </div>
     </section>

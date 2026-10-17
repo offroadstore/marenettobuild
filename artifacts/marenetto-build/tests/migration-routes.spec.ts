@@ -30,6 +30,16 @@ const reviewLabels: Record<ArticleRoute['reviewStatus'], string> = {
   'editorial-review': 'In revisione editoriale',
   'summary-reviewed': 'Sintesi revisionata',
 };
+const campaignParamNames = new Set(['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_id']);
+
+function campaignOnlySuffix(suffix: string) {
+  const input = new URL(suffix, 'http://test.local');
+  const approved = new URLSearchParams();
+  input.searchParams.forEach((value, key) => {
+    if (campaignParamNames.has(key) && !approved.has(key)) approved.append(key, value);
+  });
+  return `${approved.toString() ? `?${approved}` : ''}${input.hash}`;
+}
 
 const publicPagePaths = [
   '/',
@@ -60,7 +70,7 @@ async function followClientSidePath(page: Page, path: string) {
 
 async function expectReplaceNavigation(page: Page, source: string, destination: string, suffix = '') {
   await page.goto(`${source}${suffix}`);
-  const expectedUrl = new URL(`${destination}${suffix}`, page.url());
+  const expectedUrl = new URL(`${destination}${campaignOnlySuffix(suffix)}`, page.url());
   const hasExpectedUrlParts = (url: URL) =>
     url.pathname === expectedUrl.pathname
     && JSON.stringify([...url.searchParams]) === JSON.stringify([...expectedUrl.searchParams])
@@ -105,7 +115,7 @@ test.describe('rotte articoli dalla migrazione', () => {
         page,
         `${article.path}/`,
         article.path,
-        '?utm_source=legacy&utm_campaign=autunno%20build&ref=storico#preventivi',
+        '?utm_source=legacy&utm_campaign=autunno%20build&utm_medium=email&utm_term=case_study&utm_content=historic&utm_id=campaign-2026&ref=storico&gclid=click-id&email=private%40example.test#preventivi',
       );
     });
   }
@@ -124,10 +134,57 @@ test.describe('redirect delle pagine storiche', () => {
         page,
         route.source,
         route.destination,
-        '?utm_source=legacy&utm_campaign=autunno%20build&ref=storico#preventivi',
+        '?utm_source=legacy&utm_campaign=autunno%20build&utm_medium=email&utm_term=case_study&utm_content=historic&utm_id=campaign-2026&ref=storico&gclid=click-id&email=private%40example.test#preventivi',
       );
     });
   }
+
+  test('il percorso storico fino alla richiesta conserva solo i parametri UTM approvati', async ({ page }) => {
+    await page.goto('/assistenza-e-pronto-intervento?utm_source=legacy&utm_campaign=autunno%20build&utm_medium=email&ref=storico&gclid=click-id&email=private%40example.test#preventivi');
+    const expectedCampaign = [
+      ['utm_source', 'legacy'],
+      ['utm_campaign', 'autunno build'],
+      ['utm_medium', 'email'],
+    ];
+    await expect(page).toHaveURL((url) =>
+      url.pathname === '/contatti'
+      && JSON.stringify([...url.searchParams]) === JSON.stringify(expectedCampaign)
+      && url.hash === '#preventivi',
+    );
+    await expect(page.locator('main h1').first()).toBeVisible();
+
+    await page.getByTestId('link-contact-request').click();
+    await expect(page).toHaveURL((url) =>
+      url.pathname === '/richiesta'
+      && JSON.stringify([...url.searchParams]) === JSON.stringify(expectedCampaign)
+      && url.hash === '',
+    );
+  });
+
+  test('i parametri UTM seguono anche i link dall’archivio articoli alla richiesta', async ({ page }) => {
+    await page.goto('/edilizia-e-ristrutturazioni?utm_source=legacy&utm_campaign=autunno%20build&ref=storico&gclid=click-id');
+    const expectedCampaign = [
+      ['utm_source', 'legacy'],
+      ['utm_campaign', 'autunno build'],
+    ];
+    await expect(page).toHaveURL((url) =>
+      url.pathname === '/articoli'
+      && JSON.stringify([...url.searchParams]) === JSON.stringify(expectedCampaign),
+    );
+
+    const article = articleRoutes[0];
+    await page.getByTestId(`card-archive-${article.slug}`).click();
+    await expect(page).toHaveURL((url) =>
+      url.pathname === article.path
+      && JSON.stringify([...url.searchParams]) === JSON.stringify(expectedCampaign),
+    );
+
+    await page.getByTestId('link-article-request').click();
+    await expect(page).toHaveURL((url) =>
+      url.pathname === '/richiesta'
+      && JSON.stringify([...url.searchParams]) === JSON.stringify(expectedCampaign),
+    );
+  });
 });
 
 test.describe('ricerca e filtri dell’archivio', () => {
