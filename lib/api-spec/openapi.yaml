@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: requests
+    description: Project request operations
 paths:
   /healthz:
     get:
@@ -24,6 +26,27 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /project-requests:
+    post:
+      operationId: createProjectRequest
+      tags: [requests]
+      summary: Submit a project request
+      description: Stores a project enquiry before returning its reference code.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProjectRequestInput"
+      responses:
+        "201":
+          description: Request stored
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectRequestReceipt"
+        "400":
+          description: Invalid request
 components:
   schemas:
     HealthStatus:
@@ -33,4 +56,97 @@ components:
           type: string
       required:
         - status
+    ProjectRequestInput:
+      type: object
+      properties:
+        requestType:
+          type: string
+          enum: [project, maintenance, purchase]
+        propertyType:
+          type: string
+          minLength: 1
+          maxLength: 100
+        service:
+          type: string
+          minLength: 1
+          maxLength: 120
+        location:
+          type: string
+          minLength: 2
+          maxLength: 160
+        projectStage:
+          type: string
+          minLength: 1
+          maxLength: 100
+        message:
+          type: string
+          minLength: 20
+          maxLength: 4000
+        preferredLanguage:
+          type: string
+          minLength: 2
+          maxLength: 10
+        name:
+          type: string
+          minLength: 2
+          maxLength: 120
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        phone:
+          type: string
+          maxLength: 50
+        preferredChannel:
+          type: string
+          enum: [email, phone, whatsapp]
+        budget:
+          type: ["string", "null"]
+          maxLength: 80
+        desiredPeriod:
+          type: ["string", "null"]
+          maxLength: 120
+        needsAccommodation:
+          type: boolean
+        needsMobility:
+          type: boolean
+        privacyAccepted:
+          type: boolean
+        idempotencyKey:
+          type: string
+          minLength: 12
+          maxLength: 100
+      required:
+        - requestType
+        - propertyType
+        - service
+        - location
+        - projectStage
+        - message
+        - preferredLanguage
+        - name
+        - preferredChannel
+        - needsAccommodation
+        - needsMobility
+        - privacyAccepted
+        - idempotencyKey
+    ProjectRequestReceipt:
+      type: object
+      properties:
+        code:
+          type: string
+        status:
+          type: string
+          enum: [received]
+        createdAt:
+          type: string
+          format: date-time
+        notificationStatus:
+          type: string
+          enum: [pending_provider]
+      required:
+        - code
+        - status
+        - createdAt
+        - notificationStatus
 

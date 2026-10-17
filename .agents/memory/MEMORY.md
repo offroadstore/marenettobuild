@@ -1,0 +1,1 @@
+- [Marenetto Build publishing rules](marenetto-publishing-rules.md) — Publish only verified claims, real work and reviewed translations; never use empty language routes.

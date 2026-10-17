@@ -1,10 +1,11 @@
-# [Project name]
+# Marenetto Build
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+Multilingual website and portal for Marenetto Build, helping owners understand services and send structured project enquiries in Cefalù.
 
 ## Run & Operate
 
 - `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- `pnpm --filter @workspace/marenetto-build run dev` — run the public website
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
@@ -22,15 +23,23 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/marenetto-build` — public website, IT/EN routes, request form
+- `artifacts/api-server` — shared API, including request persistence
+- `lib/api-spec/openapi.yaml` — API source of truth
+- `lib/db/src/schema/project-requests.ts` — project request persistence
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- The preview is deliberately `noindex`; change the HTML robots tag and `public/robots.txt` only at an approved production release.
+- Italian remains at root and translated routes use stable language prefixes.
+- The request form persists enquiries before returning a reference; outbound notifications are not yet configured and are not simulated.
+- Public IT/EN copy is live first; the remaining requested languages must not get empty or machine-published routes.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+- Responsive IT/EN public site with equivalent-page language switching
+- Service, working method, owners-abroad, contact, and guided request pages
+- Persistent project request submission with review and idempotent reference code
 
 ## User preferences
 
