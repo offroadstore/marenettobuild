@@ -1,4 +1,4 @@
-import { type AnchorHTMLAttributes, type CSSProperties, type FormEvent, type ReactNode, useEffect, useRef, useState } from 'react';
+import { type AnchorHTMLAttributes, type FormEvent, type ReactNode, useEffect, useRef, useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ArrowDownRight, ArrowRight, ChevronDown, Compass, Globe2, Hammer, House, Mail, MapPin, Menu, MessageCircle, Wrench, X } from 'lucide-react';
 import { useCreateProjectRequest, type ProjectRequestInput } from '@workspace/api-client-react';
@@ -178,9 +178,8 @@ function HomePage({ lang }: { lang: Lang }) {
           </div>
           <div className="hero-note"><MapPin size={15} />{h.note}</div>
         </div>
-        <div className="hero-visual" role="img" aria-label={it ? 'Illustrazione astratta della costa e del profilo di Cefalù' : 'Abstract illustration of the coast and Cefalù skyline'}>
-          <div className="coast-art"><div className="sun-disc" /><div className="art-mountain" /><div className="art-sea" /><div className="art-headland" /><div className="art-town">{[50,64,38,75,55,68,47,82,58,70,42,61].map((height, i) => <i key={i} style={{ '--h': `${height}%` } as CSSProperties} />)}</div><div className="art-foreground" /></div>
-          <div className="visual-caption"><div>{it ? 'La costa, casa nostra' : 'The coast we call home'}<strong>{h.figure}</strong></div><span className="visual-index">38°01′ N / 14°01′ E</span></div>
+        <div className="hero-visual" aria-hidden="true">
+          <img src="/brand/original-hero.png" alt="" fetchPriority="high" />
         </div>
       </div>
       <div className="hero-bottom"><div className="container hero-bottom-inner"><span><Compass size={15} />{h.proof1}</span><span><Globe2 size={15} />{h.proof2}</span><span>{it ? 'Un primo confronto, senza impegno' : 'An initial conversation, no obligation'}<ArrowDownRight size={14} /></span></div></div>
