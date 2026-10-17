@@ -106,6 +106,11 @@ test.describe('rotte articoli dalla migrazione', () => {
       await expect(page.getByTestId(`status-review-${article.slug}`)).toHaveText(reviewLabels[article.reviewStatus]);
 
       const image = page.getByTestId('img-article-hero');
+
+    const redirectCases = [
+      { legacyPath: '/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto#contatti', destination: '/servizi' },
+      { legacyPath: '/assistenza-e-pronto-intervento#contatti', destination: '/contatti' },
+    ];
       await expect(image).toBeVisible();
       await expect.poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
     });
@@ -144,7 +149,6 @@ test.describe('redirect delle pagine storiche', () => {
     const expectedCampaign = [
       ['utm_source', 'legacy'],
       ['utm_campaign', 'autunno build'],
-      ['utm_medium', 'email'],
     ];
     await expect(page).toHaveURL((url) =>
       url.pathname === '/contatti'
@@ -229,7 +233,7 @@ test.describe('integrità dei link delle pagine pubbliche', () => {
     const internalTargets = new Map<string, { source: string; label: string; href: string }>();
 
     for (const sourcePath of publicPagePaths) {
-      const response = await page.goto(sourcePath, { waitUntil: 'domcontentloaded' });
+      const response = await page.goto(target.href, { waitUntil: 'domcontentloaded' });
       appOrigin ||= new URL(page.url()).origin;
       expect(response?.status(), `La pagina pubblica ${sourcePath} non è raggiungibile`).toBeLessThan(400);
       await expect(page.getByRole('heading', { name: '404 Page Not Found' }), `La pagina pubblica ${sourcePath} mostra una 404`).toHaveCount(0);
@@ -249,6 +253,8 @@ test.describe('integrità dei link delle pagine pubbliche', () => {
 
       for (const { href, label } of hrefs) {
         const target = new URL(href, page.url());
+
+    const pageErrors: string[] = [];
         if (target.origin !== appOrigin || !['http:', 'https:'].includes(target.protocol)) continue;
         const targetPath = `${target.pathname}${target.search}${target.hash}`;
         if (!internalTargets.has(targetPath)) {

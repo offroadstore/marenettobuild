@@ -261,7 +261,7 @@ function ServicesPage({ lang }: { lang: Lang }) {
       </div>
     </section>
     <section className="section tight"><div className="container"><div className="portfolio-note"><div><h3>{it ? 'Un portfolio verificato, in preparazione.' : 'A verified portfolio is in preparation.'}</h3><p>{it ? 'Le immagini dei lavori saranno pubblicate quando saranno disponibili materiali approvati e riferibili a interventi reali.' : 'Work images will be published when approved material tied to real projects is available.'}</p></div><span className="portfolio-mark">—</span></div></div></section>
-    <section className="section tight"><div className="container"><CtaPanel lang={lang} title={it ? 'Hai in mente un intervento?' : 'Have a project in mind?'} text={it ? 'Raccontaci la tua idea: capiremo insieme se e come possiamo aiutarti.' : 'Tell us what you have in mind and we can see together whether and how we can help.'} /></div></section>
+    <section className="section tight" id="contatti" data-testid="anchor-contatti"><div className="container"><CtaPanel lang={lang} title={it ? 'Hai in mente un intervento?' : 'Have a project in mind?'} text={it ? 'Raccontaci la tua idea: capiremo insieme se e come possiamo aiutarti.' : 'Tell us what you have in mind and we can see together whether and how we can help.'} /></div></section>
   </>;
 }
 
@@ -301,7 +301,7 @@ function ContactPage({ lang }: { lang: Lang }) {
   const it = lang === 'it';
   return <>
     <PageHero lang={lang} page="contact" />
-    <section className="section">
+    <section className="section" id="contatti" data-testid="anchor-contatti">
       <div className="container contact-layout">
         <aside className="contact-info"><SectionLabel>{it ? 'Scegli il tuo modo' : 'Choose your way'}</SectionLabel><h2 className="display-title">{it ? 'Ci trovi qui.' : 'We are here.'}</h2><p>{it ? 'Contattaci nel modo che ti è più comodo. Puoi iniziare con una domanda semplice.' : 'Get in touch in whichever way is easiest. You can start with a simple question.'}</p>
           <div className="contact-method"><MessageCircle size={17} /><div><small>WhatsApp</small><a href={`https://wa.me/393339363007?text=${encodeURIComponent(it ? 'Buongiorno, vorrei parlare della mia proprietà a Cefalù.' : 'Hello, I would like to discuss my property in Cefalù.')}`} target="_blank" rel="noopener noreferrer" data-testid="link-whatsapp">+39 333 936 3007 · {it ? 'Apri una conversazione' : 'Start a conversation'}<ArrowRight size={13} /></a></div></div>
@@ -441,6 +441,7 @@ function LibraryShell({ page, children }: { page: Page; children: ReactNode }) {
 }
 function Router() {
   const [path] = useLocation();
+  useHashFragmentNavigation(path);
   const lang = getLang(path);
   const page = getPage(path);
   const trimmed = path.length > 1 && path.endsWith('/') && path !== '/en/' ? path.replace(/\/+$/, '') : path;
@@ -474,6 +475,43 @@ function Router() {
   </Switch><span style={{ display: 'none' }} aria-hidden="true">{lang}{page}</span></RoutedErrorBoundary>;
 }
 
+function useHashFragmentNavigation(path: string) {
+  useEffect(() => {
+    let firstFrame = 0;
+    let secondFrame = 0;
+
+    const scheduleFragmentScroll = () => {
+      window.cancelAnimationFrame(firstFrame);
+      window.cancelAnimationFrame(secondFrame);
+
+      const fragment = window.location.hash.slice(1);
+      if (!fragment) return;
+
+      let targetId: string;
+      try {
+        targetId = decodeURIComponent(fragment);
+      } catch {
+        return;
+      }
+
+      firstFrame = window.requestAnimationFrame(() => {
+        secondFrame = window.requestAnimationFrame(() => {
+          document.getElementById(targetId)?.scrollIntoView({ block: 'start' });
+        });
+      });
+    };
+
+    const navigationEvents = ['pushState', 'replaceState', 'popstate', 'hashchange'] as const;
+    navigationEvents.forEach(event => window.addEventListener(event, scheduleFragmentScroll));
+    scheduleFragmentScroll();
+
+    return () => {
+      navigationEvents.forEach(event => window.removeEventListener(event, scheduleFragmentScroll));
+      window.cancelAnimationFrame(firstFrame);
+      window.cancelAnimationFrame(secondFrame);
+    };
+  }, [path]);
+}
 function RoutedErrorBoundary({ children }: { children: ReactNode }) {
   const [location] = useLocation();
   return <ErrorBoundary resetKey={location}>{children}</ErrorBoundary>;
