@@ -1,4 +1,4 @@
-modules = ["nodejs-24", "python-base-3.13"]
+modules = ["nodejs-24", "python-base-3.13", "postgresql-16"]
 
 [deployment]
 router = "application"
@@ -47,8 +47,12 @@ ARUBA_SMTP_HOST = "smtps.aruba.it"
 ARUBA_SMTP_PORT = "465"
 ARUBA_SMTP_TO = "info@marenetto.com"
 ARUBA_SMTP_USER = "info@marenetto.com"
+INTERNAL_INVITES = "hermangeraci@gmail.com:owner,fabio@offroadstore.it:editor"
 
 [userenv.production]
 MARENETTO_PRIVACY_APPROVED = "true"
 MARENETTO_PROVIDERS_APPROVED = "true"
 MARENETTO_TESTING_APPROVED = "true"
+
+[nix]
+channel = "stable-25_05"

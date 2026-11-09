@@ -1,2 +1,3 @@
 - [Marenetto Build publishing rules](marenetto-publishing-rules.md) — Publish only verified claims, real work and reviewed translations; never use empty language routes.
 - [RTL mobile viewport](rtl-mobile-viewport.md) — Keep document direction LTR in the SPA; apply RTL to the locale shell to avoid Chromium mobile horizontal offset.
+- [Workspace lifecycle checks](workspace-lifecycle-checks.md) — Critical pnpm selectors must fail on no match; a healthy server can still lack authorization tables.

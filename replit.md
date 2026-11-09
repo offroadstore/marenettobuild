@@ -33,7 +33,7 @@ Multilingual website and portal for Marenetto Build, helping owners understand s
 - The preview is deliberately `noindex`; change the HTML robots tag and `public/robots.txt` only at an approved production release.
 - Italian remains at root and translated routes use stable language prefixes.
 - The request form persists enquiries before returning a reference; outbound notifications are not yet configured and are not simulated.
-- Configure `INTERNAL_INVITES` as comma-separated `verified-email:owner|editor|viewer` entries before staff can enter `/internal`. With no configured owner, access remains closed; invitations do not send email.
+- Configure `INTERNAL_INVITES` as comma-separated `verified-email:owner|editor|viewer` entries before staff can enter `/internal`. Staff must also register/sign in through Clerk with that verified primary email. The allowlist creates membership on authenticated access, not a Clerk login account, and does not send email. Uninvited or unverified accounts remain denied.
 - Private attachments use App Storage and remain inaccessible until the same approvals are complete. Do not move private documents to public object paths.
 - All 29 requested languages have owner-approved page copy and SEO metadata. Keep the locale registry, translation catalogs, route equivalents and sitemap synchronized; never publish an unapproved catalog.
 ## Product
