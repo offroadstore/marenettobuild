@@ -1,0 +1,930 @@
+{
+  "it": {
+    "home": {
+      "path": "/",
+      "title": "Costruzioni e ristrutturazioni a Cefalù | Marenetto Build",
+      "description": "Costruzioni, ristrutturazioni e cura della proprietà a Cefalù. Un referente locale per case e seconde abitazioni, anche quando vivi lontano."
+    },
+    "services": {
+      "path": "/servizi",
+      "title": "Servizi per la casa a Cefalù | Marenetto Build",
+      "description": "Scopri i servizi per costruzioni, ristrutturazioni, manutenzione e cura della proprietà a Cefalù, con ambiti e verifiche definiti insieme."
+    },
+    "process": {
+      "path": "/come-lavoriamo",
+      "title": "Come lavoriamo a Cefalù | Marenetto Build",
+      "description": "Dalla prima richiesta ai prossimi passi: un percorso condiviso per chiarire esigenze, verifiche, responsabilità e aggiornamenti."
+    },
+    "abroad": {
+      "path": "/proprietari-all-estero",
+      "title": "Casa in Sicilia, anche da lontano | Marenetto Build",
+      "description": "Un riferimento locale a Cefalù per proprietari che vivono all’estero: richieste, manutenzione e lavori, con aspettative definite in anticipo."
+    },
+    "request": {
+      "path": "/richiesta",
+      "title": "Richiedi informazioni a Cefalù | Marenetto Build",
+      "description": "Raccontaci della proprietà e del lavoro che stai valutando. Una prima richiesta aiuta a capire il contesto e i possibili passi successivi."
+    },
+    "contact": {
+      "path": "/contatti",
+      "title": "Contatti a Cefalù | Marenetto Build",
+      "description": "Contatta Marenetto Build a Cefalù per parlare di lavori, manutenzione o cura della proprietà. Scrivi, chiama o invia un messaggio."
+    }
+  },
+  "en": {
+    "home": {
+      "path": "/en/",
+      "title": "Construction and renovation in Cefalù | Marenetto Build",
+      "description": "Construction, renovation and property care in Cefalù. A local contact for homes and second properties, even when you live abroad."
+    },
+    "services": {
+      "path": "/en/services",
+      "title": "Property services in Cefalù | Marenetto Build",
+      "description": "Explore construction, renovation, maintenance and property care in Cefalù, with scope and necessary checks agreed before work begins."
+    },
+    "process": {
+      "path": "/en/how-we-work",
+      "title": "How we work in Cefalù | Marenetto Build",
+      "description": "From your first enquiry to the next steps: a shared process to clarify needs, checks, responsibilities and updates."
+    },
+    "abroad": {
+      "path": "/en/owners-abroad",
+      "title": "Your home in Sicily, from abroad | Marenetto Build",
+      "description": "A local contact in Cefalù for owners abroad: property enquiries, maintenance and building work, with expectations agreed in advance."
+    },
+    "request": {
+      "path": "/en/request",
+      "title": "Make an enquiry in Cefalù | Marenetto Build",
+      "description": "Tell us about the property and work you are considering. An initial enquiry helps clarify the context and possible next steps."
+    },
+    "contact": {
+      "path": "/en/contact",
+      "title": "Contact Marenetto Build in Cefalù",
+      "description": "Contact Marenetto Build in Cefalù to discuss building work, maintenance or property care. Write, call or send us a message."
+    }
+  },
+  "fr": {
+    "home": {
+      "path": "/fr/",
+      "title": "Construction et rénovation à Cefalù | Marenetto Build",
+      "description": "Construction, rénovation et entretien de propriétés à Cefalù. Un contact local pour les maisons et résidences secondaires, même lorsque vous vivez à l'étranger."
+    },
+    "services": {
+      "path": "/fr/services",
+      "title": "Services immobiliers à Cefalù | Marenetto Build",
+      "description": "Explorez la construction, la rénovation, l'entretien et la gestion immobilière à Cefalù, avec une portée et les contrôles nécessaires convenus avant le début des travaux."
+    },
+    "process": {
+      "path": "/fr/how-we-work",
+      "title": "Comment nous travaillons à Cefalù | Marenetto Build",
+      "description": "De votre première demande aux prochaines étapes : un processus partagé pour clarifier les besoins, les contrôles, les responsabilités et les mises à jour."
+    },
+    "abroad": {
+      "path": "/fr/owners-abroad",
+      "title": "Votre maison en Sicile, depuis l'étranger | Marenetto Build",
+      "description": "Un contact local à Cefalù pour les propriétaires à l'étranger : demandes immobilières, entretien et travaux de construction, avec des attentes convenues à l'avance."
+    },
+    "request": {
+      "path": "/fr/request",
+      "title": "Faire une demande à Cefalù | Marenetto Build",
+      "description": "Dites-nous en plus sur la propriété et les travaux que vous envisagez. Une demande initiale aide à clarifier le contexte et les prochaines étapes possibles."
+    },
+    "contact": {
+      "path": "/fr/contact",
+      "title": "Contacter Marenetto Build à Cefalù",
+      "description": "Contactez Marenetto Build à Cefalù pour discuter de travaux de construction, d'entretien ou de gestion immobilière. Écrivez, appelez ou envoyez-nous un message."
+    }
+  },
+  "de": {
+    "home": {
+      "path": "/de/",
+      "title": "Bau und Renovierung in Cefalù | Marenetto Build",
+      "description": "Bau, Renovierung und Objektbetreuung in Cefalù. Eine lokale Anlaufstelle für Häuser und Zweitimmobilien, auch wenn Sie im Ausland leben."
+    },
+    "services": {
+      "path": "/de/services",
+      "title": "Immobiliendienstleistungen in Cefalù | Marenetto Build",
+      "description": "Erkunden Sie Bau, Renovierung, Instandhaltung und Objektbetreuung in Cefalù, wobei Umfang und notwendige Prüfungen vor Arbeitsbeginn vereinbart werden."
+    },
+    "process": {
+      "path": "/de/how-we-work",
+      "title": "Wie wir in Cefalù arbeiten | Marenetto Build",
+      "description": "Von Ihrer ersten Anfrage bis zu den nächsten Schritten: ein gemeinsamer Prozess zur Klärung von Bedürfnissen, Prüfungen, Verantwortlichkeiten und Updates."
+    },
+    "abroad": {
+      "path": "/de/owners-abroad",
+      "title": "Ihr Zuhause in Sizilien, aus dem Ausland | Marenetto Build",
+      "description": "Ein lokaler Kontakt in Cefalù für Eigentümer im Ausland: Immobilienanfragen, Instandhaltung und Bauarbeiten, mit vorab vereinbarten Erwartungen."
+    },
+    "request": {
+      "path": "/de/request",
+      "title": "Eine Anfrage in Cefalù stellen | Marenetto Build",
+      "description": "Erzählen Sie uns von der Immobilie und den Arbeiten, die Sie in Betracht ziehen. Eine erste Anfrage hilft, den Kontext und mögliche nächste Schritte zu klären."
+    },
+    "contact": {
+      "path": "/de/contact",
+      "title": "Kontaktieren Sie Marenetto Build in Cefalù",
+      "description": "Kontaktieren Sie Marenetto Build in Cefalù, um Bauarbeiten, Instandhaltung oder Objektbetreuung zu besprechen. Schreiben Sie uns, rufen Sie an oder senden Sie uns eine Nachricht."
+    }
+  },
+  "nl": {
+    "home": {
+      "path": "/nl/",
+      "title": "Bouw en renovatie in Cefalù | Marenetto Build",
+      "description": "Bouw, renovatie en vastgoedzorg in Cefalù. Een lokaal contact voor woningen en tweede huizen, ook als u in het buitenland woont."
+    },
+    "services": {
+      "path": "/nl/services",
+      "title": "Vastgoeddiensten in Cefalù | Marenetto Build",
+      "description": "Ontdek bouw, renovatie, onderhoud en vastgoedzorg in Cefalù, waarbij de omvang en noodzakelijke controles worden afgesproken voordat het werk begint."
+    },
+    "process": {
+      "path": "/nl/how-we-work",
+      "title": "Hoe we werken in Cefalù | Marenetto Build",
+      "description": "Van uw eerste aanvraag tot de volgende stappen: een gedeeld proces om behoeften, controles, verantwoordelijkheden en updates te verduidelijken."
+    },
+    "abroad": {
+      "path": "/nl/owners-abroad",
+      "title": "Uw woning op Sicilië, vanuit het buitenland | Marenetto Build",
+      "description": "Een lokaal contact in Cefalù voor eigenaren in het buitenland: vastgoedvragen, onderhoud en bouwwerkzaamheden, met vooraf afgesproken verwachtingen."
+    },
+    "request": {
+      "path": "/nl/request",
+      "title": "Doe een aanvraag in Cefalù | Marenetto Build",
+      "description": "Vertel ons over het pand en de werkzaamheden die u overweegt. Een eerste aanvraag helpt de context en mogelijke volgende stappen te verduidelijken."
+    },
+    "contact": {
+      "path": "/nl/contact",
+      "title": "Neem contact op met Marenetto Build in Cefalù",
+      "description": "Neem contact op met Marenetto Build in Cefalù om bouwwerkzaamheden, onderhoud of vastgoedzorg te bespreken. Schrijf, bel of stuur ons een bericht."
+    }
+  },
+  "es": {
+    "home": {
+      "path": "/es/",
+      "title": "Construcción y renovación en Cefalù | Marenetto Build",
+      "description": "Construcción, renovación y cuidado de propiedades en Cefalù. Un contacto local para hogares y segundas residencias, incluso cuando vive en el extranjero."
+    },
+    "services": {
+      "path": "/es/services",
+      "title": "Servicios de propiedad en Cefalù | Marenetto Build",
+      "description": "Explore la construcción, renovación, mantenimiento y cuidado de propiedades en Cefalù, con el alcance y las comprobaciones necesarias acordadas antes de que comience el trabajo."
+    },
+    "process": {
+      "path": "/es/how-we-work",
+      "title": "Cómo trabajamos en Cefalù | Marenetto Build",
+      "description": "Desde su primera consulta hasta los siguientes pasos: un proceso compartido para aclarar necesidades, comprobaciones, responsabilidades y actualizaciones."
+    },
+    "abroad": {
+      "path": "/es/owners-abroad",
+      "title": "Su hogar en Sicilia, desde el extranjero | Marenetto Build",
+      "description": "Un contacto local en Cefalù para propietarios en el extranjero: consultas sobre propiedades, mantenimiento y trabajos de construcción, con expectativas acordadas de antemano."
+    },
+    "request": {
+      "path": "/es/request",
+      "title": "Haga una consulta en Cefalù | Marenetto Build",
+      "description": "Cuéntenos sobre la propiedad y el trabajo que está considerando. Una consulta inicial ayuda a aclarar el contexto y los posibles siguientes pasos."
+    },
+    "contact": {
+      "path": "/es/contact",
+      "title": "Contacte con Marenetto Build en Cefalù",
+      "description": "Contacte con Marenetto Build en Cefalù para hablar sobre trabajos de construcción, mantenimiento o cuidado de propiedades. Escriba, llame o envíenos un mensaje."
+    }
+  },
+  "pt": {
+    "home": {
+      "path": "/pt/",
+      "title": "Construção e renovação em Cefalù | Marenetto Build",
+      "description": "Construção, renovação e cuidado de propriedades em Cefalù. Um contato local para casas e segundas habitações, mesmo quando você mora no estrangeiro."
+    },
+    "services": {
+      "path": "/pt/services",
+      "title": "Serviços imobiliários em Cefalù | Marenetto Build",
+      "description": "Explore construção, renovação, manutenção e cuidado com propriedades em Cefalù, com escopo e verificações necessárias acordados antes do início do trabalho."
+    },
+    "process": {
+      "path": "/pt/how-we-work",
+      "title": "Como trabalhamos em Cefalù | Marenetto Build",
+      "description": "Desde a sua primeira consulta aos próximos passos: um processo compartilhado para esclarecer necessidades, verificações, responsabilidades e atualizações."
+    },
+    "abroad": {
+      "path": "/pt/owners-abroad",
+      "title": "A sua casa na Sicília, a partir do estrangeiro | Marenetto Build",
+      "description": "Um contato local em Cefalù para proprietários no estrangeiro: consultas sobre propriedades, manutenção e obras de construção, com expectativas acordadas com antecedência."
+    },
+    "request": {
+      "path": "/pt/request",
+      "title": "Faça uma consulta em Cefalù | Marenetto Build",
+      "description": "Conte-nos sobre a propriedade e o trabalho que está considerando. Uma consulta inicial ajuda a esclarecer o contexto e os possíveis próximos passos."
+    },
+    "contact": {
+      "path": "/pt/contact",
+      "title": "Contate a Marenetto Build em Cefalù",
+      "description": "Contate a Marenetto Build em Cefalù para discutir trabalhos de construção, manutenção ou cuidado com a propriedade. Escreva, ligue ou envie-nos uma mensagem."
+    }
+  },
+  "ru": {
+    "home": {
+      "path": "/ru/",
+      "title": "Строительство и ремонт в Cefalù | Marenetto Build",
+      "description": "Строительство, ремонт и уход за недвижимостью в Cefalù. Местный контакт для домов и второй недвижимости, даже если вы живёте за границей."
+    },
+    "services": {
+      "path": "/ru/services",
+      "title": "Услуги по недвижимости в Cefalù | Marenetto Build",
+      "description": "Исследуйте строительство, ремонт, обслуживание и уход за недвижимостью в Cefalù с заранее согласованным объемом и необходимыми проверками до начала работ."
+    },
+    "process": {
+      "path": "/ru/how-we-work",
+      "title": "Как мы работаем в Cefalù | Marenetto Build",
+      "description": "От вашего первого запроса до следующих шагов: общий процесс для уточнения потребностей, проверок, обязанностей и обновлений."
+    },
+    "abroad": {
+      "path": "/ru/owners-abroad",
+      "title": "Ваш дом на Сицилии, из-за рубежа | Marenetto Build",
+      "description": "Местный контакт в Cefalù для владельцев за рубежом: запросы по недвижимости, обслуживание и строительные работы, с условиями, согласованными заранее."
+    },
+    "request": {
+      "path": "/ru/request",
+      "title": "Сделать запрос в Cefalù | Marenetto Build",
+      "description": "Расскажите нам о недвижимости и работах, которые вы рассматриваете. Первичный запрос помогает прояснить контекст и возможные следующие шаги."
+    },
+    "contact": {
+      "path": "/ru/contact",
+      "title": "Свяжитесь с Marenetto Build в Cefalù",
+      "description": "Свяжитесь с Marenetto Build в Cefalù, чтобы обсудить строительные работы, обслуживание или уход за недвижимостью. Пишите, звоните или отправьте нам сообщение."
+    }
+  },
+  "pl": {
+    "home": {
+      "path": "/pl/",
+      "title": "Budowa i renowacja w Cefalù | Marenetto Build",
+      "description": "Budowa, renowacja i opieka nad nieruchomością w Cefalù. Lokalny kontakt dla domów i drugich nieruchomości, nawet gdy mieszkasz za granicą."
+    },
+    "services": {
+      "path": "/pl/services",
+      "title": "Usługi dla nieruchomości w Cefalù | Marenetto Build",
+      "description": "Odkryj budowę, renowację, konserwację i opiekę nad nieruchomościami w Cefalù, z zakresem i niezbędnymi kontrolami uzgodnionymi przed rozpoczęciem prac."
+    },
+    "process": {
+      "path": "/pl/how-we-work",
+      "title": "Jak pracujemy w Cefalù | Marenetto Build",
+      "description": "Od pierwszego zapytania do kolejnych kroków: wspólny proces wyjaśniania potrzeb, kontroli, odpowiedzialności i aktualizacji."
+    },
+    "abroad": {
+      "path": "/pl/owners-abroad",
+      "title": "Twój dom na Sycylii, z zagranicy | Marenetto Build",
+      "description": "Lokalny kontakt w Cefalù dla właścicieli z zagranicy: zapytania dotyczące nieruchomości, konserwacja i prace budowlane, z oczekiwaniami ustalonymi z wyprzedzeniem."
+    },
+    "request": {
+      "path": "/pl/request",
+      "title": "Wyślij zapytanie w Cefalù | Marenetto Build",
+      "description": "Powiedz nam o nieruchomości i pracach, które rozważasz. Wstępne zapytanie pomaga wyjaśnić kontekst i możliwe kolejne kroki."
+    },
+    "contact": {
+      "path": "/pl/contact",
+      "title": "Skontaktuj się z Marenetto Build w Cefalù",
+      "description": "Skontaktuj się z Marenetto Build w Cefalù, aby omówić prace budowlane, konserwację lub opiekę nad nieruchomością. Napisz, zadzwoń lub wyślij nam wiadomość."
+    }
+  },
+  "ro": {
+    "home": {
+      "path": "/ro/",
+      "title": "Construcții și renovări în Cefalù | Marenetto Build",
+      "description": "Construcții, renovări și îngrijirea proprietății în Cefalù. Un contact local pentru case și a doua proprietate, chiar și când locuiți în străinătate."
+    },
+    "services": {
+      "path": "/ro/services",
+      "title": "Servicii imobiliare în Cefalù | Marenetto Build",
+      "description": "Explorați construcțiile, renovările, întreținerea și îngrijirea proprietății în Cefalù, cu scopul și verificările necesare convenite înainte de începerea lucrărilor."
+    },
+    "process": {
+      "path": "/ro/how-we-work",
+      "title": "Cum lucrăm în Cefalù | Marenetto Build",
+      "description": "De la prima dumneavoastră solicitare la pașii următori: un proces comun pentru a clarifica nevoile, verificările, responsabilitățile și actualizările."
+    },
+    "abroad": {
+      "path": "/ro/owners-abroad",
+      "title": "Casa dumneavoastră în Sicilia, din străinătate | Marenetto Build",
+      "description": "Un contact local în Cefalù pentru proprietarii din străinătate: solicitări privind proprietatea, întreținere și lucrări de construcție, cu așteptări convenite în prealabil."
+    },
+    "request": {
+      "path": "/ro/request",
+      "title": "Faceți o solicitare în Cefalù | Marenetto Build",
+      "description": "Spuneți-ne despre proprietate și lucrarea pe care o luați în considerare. O solicitare inițială ajută la clarificarea contextului și a posibilelor etape următoare."
+    },
+    "contact": {
+      "path": "/ro/contact",
+      "title": "Contactați Marenetto Build în Cefalù",
+      "description": "Contactați Marenetto Build în Cefalù pentru a discuta despre lucrări de construcție, întreținere sau îngrijirea proprietății. Scrieți, sunați sau trimiteți-ne un mesaj."
+    }
+  },
+  "uk": {
+    "home": {
+      "path": "/uk/",
+      "title": "Будівництво та реконструкція в Cefalù | Marenetto Build",
+      "description": "Будівництво, реконструкція та догляд за нерухомістю в Cefalù. Місцевий контакт для будинків та другої нерухомості, навіть коли ви живете за кордоном."
+    },
+    "services": {
+      "path": "/uk/services",
+      "title": "Послуги з нерухомості в Cefalù | Marenetto Build",
+      "description": "Дослідіть будівництво, реконструкцію, обслуговування та догляд за нерухомістю в Cefalù, з попередньо узгодженими обсягами та необхідними перевірками до початку роботи."
+    },
+    "process": {
+      "path": "/uk/how-we-work",
+      "title": "Як ми працюємо в Cefalù | Marenetto Build",
+      "description": "Від вашого першого запиту до наступних кроків: спільний процес для уточнення потреб, перевірок, обов'язків та оновлень."
+    },
+    "abroad": {
+      "path": "/uk/owners-abroad",
+      "title": "Ваш будинок на Сицилії, з-за кордону | Marenetto Build",
+      "description": "Місцевий контакт у Cefalù для власників за кордоном: запити щодо нерухомості, обслуговування та будівельні роботи з попередньо узгодженими очікуваннями."
+    },
+    "request": {
+      "path": "/uk/request",
+      "title": "Зробити запит у Cefalù | Marenetto Build",
+      "description": "Розкажіть нам про нерухомість і роботу, яку ви розглядаєте. Початковий запит допомагає уточнити контекст і можливі наступні кроки."
+    },
+    "contact": {
+      "path": "/uk/contact",
+      "title": "Зв'яжіться з Marenetto Build у Cefalù",
+      "description": "Зв'яжіться з Marenetto Build у Cefalù, щоб обговорити будівельні роботи, обслуговування чи догляд за нерухомістю. Пишіть, телефонуйте або надсилайте нам повідомлення."
+    }
+  },
+  "cs": {
+    "home": {
+      "path": "/cs/",
+      "title": "Stavebnictví a rekonstrukce v Cefalù | Marenetto Build",
+      "description": "Stavebnictví, rekonstrukce a péče o nemovitost v Cefalù. Místní kontakt pro domy a rekreační nemovitosti, i když žijete v zahraničí."
+    },
+    "services": {
+      "path": "/cs/services",
+      "title": "Služby nemovitostí v Cefalù | Marenetto Build",
+      "description": "Prozkoumejte stavebnictví, rekonstrukce, údržbu a péči o nemovitost v Cefalù, s rozsahem a nezbytnými kontrolami dohodnutými před zahájením prací."
+    },
+    "process": {
+      "path": "/cs/how-we-work",
+      "title": "Jak pracujeme v Cefalù | Marenetto Build",
+      "description": "Od vaší první poptávky až po další kroky: sdílený proces pro vyjasnění potřeb, kontrol, odpovědností a aktualizací."
+    },
+    "abroad": {
+      "path": "/cs/owners-abroad",
+      "title": "Váš domov na Sicílii, ze zahraničí | Marenetto Build",
+      "description": "Místní kontakt v Cefalù pro majitele v zahraničí: dotazy k nemovitostem, údržba a stavební práce, s očekáváními dohodnutými předem."
+    },
+    "request": {
+      "path": "/cs/request",
+      "title": "Poptávka v Cefalù | Marenetto Build",
+      "description": "Řekněte nám o nemovitosti a práci, kterou zvažujete. Úvodní poptávka pomáhá objasnit kontext a možné další kroky."
+    },
+    "contact": {
+      "path": "/cs/contact",
+      "title": "Kontaktujte Marenetto Build v Cefalù",
+      "description": "Kontaktujte Marenetto Build v Cefalù pro projednání stavebních prací, údržby nebo péče o nemovitost. Napište, zavolejte nebo nám pošlete zprávu."
+    }
+  },
+  "sk": {
+    "home": {
+      "path": "/sk/",
+      "title": "Stavebníctvo a renovácia v Cefalù | Marenetto Build",
+      "description": "Stavba, renovácia a starostlivosť o nehnuteľnosti v Cefalù. Miestny kontakt pre domy a druhé nehnuteľnosti, aj keď žijete v zahraničí."
+    },
+    "services": {
+      "path": "/sk/services",
+      "title": "Služby v oblasti nehnuteľností v Cefalù | Marenetto Build",
+      "description": "Preskúmajte stavbu, renováciu, údržbu a starostlivosť o nehnuteľnosti v Cefalù, s rozsahom a potrebnými kontrolami dohodnutými pred začiatkom prác."
+    },
+    "process": {
+      "path": "/sk/how-we-work",
+      "title": "Ako pracujeme v Cefalù | Marenetto Build",
+      "description": "Od vášho prvého dopytu po ďalšie kroky: spoločný proces na ujasnenie potrieb, kontrol, zodpovedností a aktualizácií."
+    },
+    "abroad": {
+      "path": "/sk/owners-abroad",
+      "title": "Váš domov na Sicílii, zo zahraničia | Marenetto Build",
+      "description": "Miestny kontakt v Cefalù pre majiteľov v zahraničí: dopyty ohľadom nehnuteľností, údržba a stavebné práce, s vopred dohodnutými očakávaniami."
+    },
+    "request": {
+      "path": "/sk/request",
+      "title": "Podajte dopyt v Cefalù | Marenetto Build",
+      "description": "Povedzte nám o nehnuteľnosti a prácach, ktoré zvažujete. Úvodný dopyt pomáha ujasniť kontext a možné ďalšie kroky."
+    },
+    "contact": {
+      "path": "/sk/contact",
+      "title": "Kontaktujte Marenetto Build v Cefalù",
+      "description": "Kontaktujte Marenetto Build v Cefalù, ak chcete prediskutovať stavebné práce, údržbu alebo starostlivosť o nehnuteľnosť. Napíšte, zavolajte alebo nám pošlite správu."
+    }
+  },
+  "sl": {
+    "home": {
+      "path": "/sl/",
+      "title": "Gradnja in obnova v Cefalù | Marenetto Build",
+      "description": "Gradnja, obnova in skrb za nepremičnine v Cefalù. Lokalni kontakt za domove in druge nepremičnine, tudi če živite v tujini."
+    },
+    "services": {
+      "path": "/sl/services",
+      "title": "Storitve za nepremičnine v Cefalù | Marenetto Build",
+      "description": "Raziščite gradnjo, obnovo, vzdrževanje in skrb za nepremičnine v Cefalù, z vnaprej dogovorjenim obsegom in potrebnimi pregledi."
+    },
+    "process": {
+      "path": "/sl/how-we-work",
+      "title": "Kako delamo v Cefalù | Marenetto Build",
+      "description": "Od vaše prve poizvedbe do naslednjih korakov: skupni postopek za razjasnitev potreb, preverjanj, odgovornosti in posodobitev."
+    },
+    "abroad": {
+      "path": "/sl/owners-abroad",
+      "title": "Vaš dom na Siciliji, iz tujine | Marenetto Build",
+      "description": "Lokalni kontakt v Cefalù za lastnike v tujini: nepremičninske poizvedbe, vzdrževanje in gradbena dela, s pričakovanji, dogovorjenimi vnaprej."
+    },
+    "request": {
+      "path": "/sl/request",
+      "title": "Oddajte poizvedbo v Cefalù | Marenetto Build",
+      "description": "Povejte nam o nepremičnini in delu, ki ga razmišljate. Uvodna poizvedba pomaga razjasniti kontekst in možne naslednje korake."
+    },
+    "contact": {
+      "path": "/sl/contact",
+      "title": "Kontaktirajte Marenetto Build v Cefalù",
+      "description": "Kontaktirajte Marenetto Build v Cefalù za pogovor o gradbenih delih, vzdrževanju ali skrbi za nepremičnine. Pišite, pokličite ali nam pošljite sporočilo."
+    }
+  },
+  "hr": {
+    "home": {
+      "path": "/hr/",
+      "title": "Gradnja i renovacija u Cefalù | Marenetto Build",
+      "description": "Gradnja, renovacija i briga o nekretnini u Cefalù. Lokalni kontakt za kuće i druge nekretnine, čak i kada živite u inozemstvu."
+    },
+    "services": {
+      "path": "/hr/services",
+      "title": "Usluge za nekretnine u Cefalù | Marenetto Build",
+      "description": "Istražite gradnju, renovaciju, održavanje i brigu o nekretnini u Cefalù, uz opseg i potrebne provjere dogovorene prije početka radova."
+    },
+    "process": {
+      "path": "/hr/how-we-work",
+      "title": "Kako radimo u Cefalù | Marenetto Build",
+      "description": "Od vašeg prvog upita do sljedećih koraka: zajednički proces za pojašnjavanje potreba, provjera, odgovornosti i novosti."
+    },
+    "abroad": {
+      "path": "/hr/owners-abroad",
+      "title": "Vaš dom na Siciliji, iz inozemstva | Marenetto Build",
+      "description": "Lokalni kontakt u Cefalù za vlasnike u inozemstvu: upiti o nekretninama, održavanje i građevinski radovi, uz unaprijed dogovorena očekivanja."
+    },
+    "request": {
+      "path": "/hr/request",
+      "title": "Pošaljite upit u Cefalù | Marenetto Build",
+      "description": "Recite nam o nekretnini i radovima koje razmatrate. Početni upit pomaže u pojašnjavanju konteksta i mogućih sljedećih koraka."
+    },
+    "contact": {
+      "path": "/hr/contact",
+      "title": "Kontaktirajte Marenetto Build u Cefalù",
+      "description": "Kontaktirajte Marenetto Build u Cefalù za razgovor o građevinskim radovima, održavanju ili brizi o nekretnini. Pišite, nazovite ili nam pošaljite poruku."
+    }
+  },
+  "sr": {
+    "home": {
+      "path": "/sr/",
+      "title": "Gradnja i renoviranje u Cefalù | Marenetto Build",
+      "description": "Gradnja, renoviranje i briga o nekretninama u Cefalù. Lokalni kontakt za domove i druge nekretnine, čak i kada živite u inostranstvu."
+    },
+    "services": {
+      "path": "/sr/services",
+      "title": "Usluge za nekretnine u Cefalù | Marenetto Build",
+      "description": "Istražite gradnju, renoviranje, održavanje i brigu o nekretninama u Cefalù, sa unapred dogovorenim obimom posla i neophodnim proverama."
+    },
+    "process": {
+      "path": "/sr/how-we-work",
+      "title": "Kako radimo u Cefalù | Marenetto Build",
+      "description": "Od vašeg prvog upita do sledećih koraka: zajednički proces za razjašnjavanje potreba, provera, odgovornosti i ažuriranja."
+    },
+    "abroad": {
+      "path": "/sr/owners-abroad",
+      "title": "Vaš dom na Siciliji, iz inostranstva | Marenetto Build",
+      "description": "Lokalni kontakt u Cefalù za vlasnike u inostranstvu: upiti o nekretninama, održavanje i građevinski radovi, uz unapred dogovorena očekivanja."
+    },
+    "request": {
+      "path": "/sr/request",
+      "title": "Pošaljite upit u Cefalù | Marenetto Build",
+      "description": "Recite nam o nekretnini i radovima koje razmatrate. Početni upit pomaže da se razjasni kontekst i mogući sledeći koraci."
+    },
+    "contact": {
+      "path": "/sr/contact",
+      "title": "Kontaktirajte Marenetto Build u Cefalù",
+      "description": "Kontaktirajte Marenetto Build u Cefalù da razgovarate o građevinskim radovima, održavanju ili brizi o nekretninama. Pišite, pozovite ili nam pošaljite poruku."
+    }
+  },
+  "bg": {
+    "home": {
+      "path": "/bg/",
+      "title": "Строителство и ремонт в Cefalù | Marenetto Build",
+      "description": "Строителство, ремонт и грижа за имота в Cefalù. Местен контакт за домове и втори имоти, дори когато живеете в чужбина."
+    },
+    "services": {
+      "path": "/bg/services",
+      "title": "Имотни услуги в Cefalù | Marenetto Build",
+      "description": "Разгледайте строителството, ремонта, поддръжката и грижата за имота в Cefalù, с договорен обхват и необходими проверки, преди работата да започне."
+    },
+    "process": {
+      "path": "/bg/how-we-work",
+      "title": "Как работим в Cefalù | Marenetto Build",
+      "description": "От Вашето първо запитване до следващите стъпки: споделен процес за изясняване на нуждите, проверките, отговорностите и актуализациите."
+    },
+    "abroad": {
+      "path": "/bg/owners-abroad",
+      "title": "Вашият дом в Сицилия, от чужбина | Marenetto Build",
+      "description": "Местен контакт в Cefalù за собственици в чужбина: имотни запитвания, поддръжка и строителни работи с предварително договорени очаквания."
+    },
+    "request": {
+      "path": "/bg/request",
+      "title": "Направете запитване в Cefalù | Marenetto Build",
+      "description": "Разкажете ни за имота и работата, която обмисляте. Първоначалното запитване помага да се изясни контекстът и възможните следващи стъпки."
+    },
+    "contact": {
+      "path": "/bg/contact",
+      "title": "Свържете се с Marenetto Build в Cefalù",
+      "description": "Свържете се с Marenetto Build в Cefalù, за да обсъдите строителни работи, поддръжка или грижа за имота. Пишете, обадете се или ни изпратете съобщение."
+    }
+  },
+  "bs": {
+    "home": {
+      "path": "/bs/",
+      "title": "Gradnja i renoviranje u Cefalù | Marenetto Build",
+      "description": "Gradnja, renoviranje i briga o nekretnini u Cefalù. Lokalni kontakt za domove i druge nekretnine, čak i kada živite u inostranstvu."
+    },
+    "services": {
+      "path": "/bs/services",
+      "title": "Usluge za nekretnine u Cefalù | Marenetto Build",
+      "description": "Istražite gradnju, renoviranje, održavanje i brigu o nekretnini u Cefalù, uz obim i neophodne provjere dogovorene prije početka radova."
+    },
+    "process": {
+      "path": "/bs/how-we-work",
+      "title": "Kako radimo u Cefalù | Marenetto Build",
+      "description": "Od vašeg prvog upita do narednih koraka: zajednički proces za razjašnjavanje potreba, provjera, odgovornosti i novosti."
+    },
+    "abroad": {
+      "path": "/bs/owners-abroad",
+      "title": "Vaš dom na Siciliji, iz inostranstva | Marenetto Build",
+      "description": "Lokalni kontakt u Cefalù za vlasnike u inostranstvu: upiti o nekretninama, održavanje i građevinski radovi, uz očekivanja dogovorena unaprijed."
+    },
+    "request": {
+      "path": "/bs/request",
+      "title": "Napravite upit u Cefalù | Marenetto Build",
+      "description": "Recite nam o nekretnini i radovima koje razmatrate. Inicijalni upit pomaže u razjašnjavanju konteksta i mogućih narednih koraka."
+    },
+    "contact": {
+      "path": "/bs/contact",
+      "title": "Kontaktirajte Marenetto Build u Cefalù",
+      "description": "Kontaktirajte Marenetto Build u Cefalù da razgovarate o građevinskim radovima, održavanju ili brizi o nekretnini. Pišite, pozovite ili nam pošaljite poruku."
+    }
+  },
+  "mk": {
+    "home": {
+      "path": "/mk/",
+      "title": "Градба и реновирање во Cefalù | Marenetto Build",
+      "description": "Градба, реновирање и нега на имот во Cefalù. Локален контакт за домови и втори имоти, дури и кога живеете во странство."
+    },
+    "services": {
+      "path": "/mk/services",
+      "title": "Услуги за имот во Cefalù | Marenetto Build",
+      "description": "Истражете ги градбата, реновирањето, одржувањето и негата на имот во Cefalù, со однапред договорен опсег и неопходни проверки пред да започне работата."
+    },
+    "process": {
+      "path": "/mk/how-we-work",
+      "title": "Како работиме во Cefalù | Marenetto Build",
+      "description": "Од вашето прво барање до следните чекори: заеднички процес за разјаснување на потребите, проверките, одговорностите и ажурирањата."
+    },
+    "abroad": {
+      "path": "/mk/owners-abroad",
+      "title": "Вашиот дом на Сицилија, од странство | Marenetto Build",
+      "description": "Локален контакт во Cefalù за сопственици во странство: прашања за имот, одржување и градежни работи, со однапред договорени очекувања."
+    },
+    "request": {
+      "path": "/mk/request",
+      "title": "Направете барање во Cefalù | Marenetto Build",
+      "description": "Кажете ни за имотот и работата што ја размислувате. Почетното барање помага да се разјасни контекстот и можните следни чекори."
+    },
+    "contact": {
+      "path": "/mk/contact",
+      "title": "Контактирајте со Marenetto Build во Cefalù",
+      "description": "Контактирајте со Marenetto Build во Cefalù за да разговарате за градежни работи, одржување или нега на имот. Пишете, јавете се или испратете ни порака."
+    }
+  },
+  "be": {
+    "home": {
+      "path": "/be/",
+      "title": "Будаўніцтва і рамонт у Cefalù | Marenetto Build",
+      "description": "Будаўніцтва, рамонт і догляд за нерухомасцю ў Cefalù. Мясцовы кантакт для дамоў і другой нерухомасці, нават калі вы жывяце за мяжой."
+    },
+    "services": {
+      "path": "/be/services",
+      "title": "Паслугі па нерухомасці ў Cefalù | Marenetto Build",
+      "description": "Даследуйце будаўніцтва, рамонт, тэхнічнае абслугоўванне і догляд за нерухомасцю ў Cefalù з узгодненымі перад пачаткам работ аб'ёмам і праверкамі."
+    },
+    "process": {
+      "path": "/be/how-we-work",
+      "title": "Як мы працуем у Cefalù | Marenetto Build",
+      "description": "Ад вашага першага запыту да наступных крокаў: агульны працэс для ўдакладнення патрэб, праверак, абавязкаў і абнаўленняў."
+    },
+    "abroad": {
+      "path": "/be/owners-abroad",
+      "title": "Ваш дом на Сіцыліі, з-за мяжы | Marenetto Build",
+      "description": "Мясцовы кантакт у Cefalù для ўладальнікаў за мяжой: запыты па нерухомасці, тэхнічнае абслугоўванне і будаўнічыя работы з загадзя ўзгодненымі чаканнямі."
+    },
+    "request": {
+      "path": "/be/request",
+      "title": "Зрабіць запыт у Cefalù | Marenetto Build",
+      "description": "Раскажыце нам пра нерухомасць і работы, якія вы разглядаеце. Першапачатковы запыт дапамагае ўдакладніць кантэкст і магчымыя наступныя крокі."
+    },
+    "contact": {
+      "path": "/be/contact",
+      "title": "Звяжыцеся з Marenetto Build у Cefalù",
+      "description": "Звяжыцеся з Marenetto Build у Cefalù, каб абмеркаваць будаўнічыя работы, тэхнічнае абслугоўванне або догляд за нерухомасцю. Пішыце, тэлефануйце або адпраўце нам паведамленне."
+    }
+  },
+  "ar": {
+    "home": {
+      "path": "/ar/",
+      "title": "البناء والتجديد في Cefalù | Marenetto Build",
+      "description": "البناء والتجديد ورعاية العقارات في Cefalù. جهة اتصال محلية للمنازل والعقارات الثانية، حتى عندما تعيش في الخارج."
+    },
+    "services": {
+      "path": "/ar/services",
+      "title": "خدمات العقارات في Cefalù | Marenetto Build",
+      "description": "استكشف البناء والتجديد والصيانة ورعاية العقارات في Cefalù، مع الاتفاق على النطاق والفحوصات اللازمة قبل بدء العمل."
+    },
+    "process": {
+      "path": "/ar/how-we-work",
+      "title": "كيف نعمل في Cefalù | Marenetto Build",
+      "description": "من استفسارك الأول إلى الخطوات التالية: عملية مشتركة لتوضيح الاحتياجات، والفحوصات، والمسؤوليات، والتحديثات."
+    },
+    "abroad": {
+      "path": "/ar/owners-abroad",
+      "title": "منزلك في صقلية، من الخارج | Marenetto Build",
+      "description": "جهة اتصال محلية في Cefalù للملاك في الخارج: استفسارات العقارات، والصيانة، وأعمال البناء، مع توقعات متفق عليها مسبقاً."
+    },
+    "request": {
+      "path": "/ar/request",
+      "title": "قم بإجراء استفسار في Cefalù | Marenetto Build",
+      "description": "أخبرنا عن العقار والعمل الذي تفكر فيه. يساعد الاستفسار الأولي في توضيح السياق والخطوات التالية الممكنة."
+    },
+    "contact": {
+      "path": "/ar/contact",
+      "title": "اتصل بـ Marenetto Build في Cefalù",
+      "description": "اتصل بـ Marenetto Build في Cefalù لمناقشة أعمال البناء، أو الصيانة، أو رعاية العقارات. اكتب لنا، اتصل بنا، أو أرسل رسالة."
+    }
+  },
+  "he": {
+    "home": {
+      "path": "/he/",
+      "title": "בנייה ושיפוצים ב-Cefalù | Marenetto Build",
+      "description": "בנייה, שיפוץ וטיפול בנכס ב-Cefalù. איש קשר מקומי לבתים ונכסים שניים, גם כשאתם חיים בחו\"ל."
+    },
+    "services": {
+      "path": "/he/services",
+      "title": "שירותי נכסים ב-Cefalù | Marenetto Build",
+      "description": "חקרו בנייה, שיפוץ, תחזוקה וטיפול בנכס ב-Cefalù, עם היקף ובדיקות נדרשות שסוכמו לפני תחילת העבודה."
+    },
+    "process": {
+      "path": "/he/how-we-work",
+      "title": "איך אנחנו עובדים ב-Cefalù | Marenetto Build",
+      "description": "מהבירור הראשון שלכם ועד לצעדים הבאים: תהליך משותף להבהרת צרכים, בדיקות, אחריות ועדכונים."
+    },
+    "abroad": {
+      "path": "/he/owners-abroad",
+      "title": "הבית שלכם בסיציליה, מחו\"ל | Marenetto Build",
+      "description": "איש קשר מקומי ב-Cefalù לבעלי נכסים בחו\"ל: בירורים בנוגע לנכס, תחזוקה ועבודות בנייה, עם ציפיות שסוכמו מראש."
+    },
+    "request": {
+      "path": "/he/request",
+      "title": "בצעו בירור ב-Cefalù | Marenetto Build",
+      "description": "ספרו לנו על הנכס והעבודה שאתם שוקלים. בירור ראשוני עוזר להבהיר את ההקשר ואת הצעדים הבאים האפשריים."
+    },
+    "contact": {
+      "path": "/he/contact",
+      "title": "צרו קשר עם Marenetto Build ב-Cefalù",
+      "description": "צרו קשר עם Marenetto Build ב-Cefalù כדי לדון בעבודות בנייה, תחזוקה או טיפול בנכס. כתבו, התקשרו או שלחו לנו הודעה."
+    }
+  },
+  "sv": {
+    "home": {
+      "path": "/sv/",
+      "title": "Byggnation och renovering i Cefalù | Marenetto Build",
+      "description": "Byggnation, renovering och fastighetsskötsel i Cefalù. En lokal kontakt för hem och sekundära fastigheter, även när du bor utomlands."
+    },
+    "services": {
+      "path": "/sv/services",
+      "title": "Fastighetstjänster i Cefalù | Marenetto Build",
+      "description": "Utforska byggnation, renovering, underhåll och fastighetsskötsel i Cefalù, med omfattning och nödvändiga kontroller överenskomna innan arbetet påbörjas."
+    },
+    "process": {
+      "path": "/sv/how-we-work",
+      "title": "Hur vi arbetar i Cefalù | Marenetto Build",
+      "description": "Från din första förfrågan till nästa steg: en gemensam process för att klargöra behov, kontroller, ansvar och uppdateringar."
+    },
+    "abroad": {
+      "path": "/sv/owners-abroad",
+      "title": "Ditt hem på Sicilien, från utlandet | Marenetto Build",
+      "description": "En lokal kontakt i Cefalù för ägare utomlands: fastighetsfrågor, underhåll och byggarbeten, med förväntningar överenskomna i förväg."
+    },
+    "request": {
+      "path": "/sv/request",
+      "title": "Gör en förfrågan i Cefalù | Marenetto Build",
+      "description": "Berätta om fastigheten och arbetet du överväger. En första förfrågan hjälper till att klargöra sammanhanget och möjliga nästa steg."
+    },
+    "contact": {
+      "path": "/sv/contact",
+      "title": "Kontakta Marenetto Build i Cefalù",
+      "description": "Kontakta Marenetto Build i Cefalù för att diskutera byggarbeten, underhåll eller fastighetsskötsel. Skriv, ring eller skicka ett meddelande till oss."
+    }
+  },
+  "no": {
+    "home": {
+      "path": "/no/",
+      "title": "Bygging og renovering i Cefalù | Marenetto Build",
+      "description": "Bygging, renovering og eiendomsoppfølging i Cefalù. En lokal kontakt for hjem og sekundærboliger, selv når du bor i utlandet."
+    },
+    "services": {
+      "path": "/no/services",
+      "title": "Eiendomstjenester i Cefalù | Marenetto Build",
+      "description": "Utforsk bygging, renovering, vedlikehold og eiendomsoppfølging i Cefalù, med omfang og nødvendige kontroller avtalt før arbeidet starter."
+    },
+    "process": {
+      "path": "/no/how-we-work",
+      "title": "Hvordan vi jobber i Cefalù | Marenetto Build",
+      "description": "Fra din første forespørsel til neste steg: en felles prosess for å avklare behov, kontroller, ansvarsområder og oppdateringer."
+    },
+    "abroad": {
+      "path": "/no/owners-abroad",
+      "title": "Din bolig på Sicilia, fra utlandet | Marenetto Build",
+      "description": "En lokal kontakt i Cefalù for eiere i utlandet: eiendomsforespørsler, vedlikehold og byggearbeid, med forventninger avtalt på forhånd."
+    },
+    "request": {
+      "path": "/no/request",
+      "title": "Send en forespørsel i Cefalù | Marenetto Build",
+      "description": "Fortell oss om eiendommen og arbeidet du vurderer. En innledende forespørsel hjelper til med å avklare konteksten og mulige neste steg."
+    },
+    "contact": {
+      "path": "/no/contact",
+      "title": "Kontakt Marenetto Build i Cefalù",
+      "description": "Kontakt Marenetto Build i Cefalù for å diskutere byggearbeid, vedlikehold eller eiendomsoppfølging. Skriv, ring eller send oss en melding."
+    }
+  },
+  "da": {
+    "home": {
+      "path": "/da/",
+      "title": "Byggeri og renovering i Cefalù | Marenetto Build",
+      "description": "Byggeri, renovering og ejendomspleje i Cefalù. Et lokalt kontaktpunkt for hjem og sekundære boliger, selv når du bor i udlandet."
+    },
+    "services": {
+      "path": "/da/services",
+      "title": "Ejendomstjenester i Cefalù | Marenetto Build",
+      "description": "Udforsk byggeri, renovering, vedligeholdelse og ejendomspleje i Cefalù, med omfang og nødvendige tjek aftalt, før arbejdet begynder."
+    },
+    "process": {
+      "path": "/da/how-we-work",
+      "title": "Hvordan vi arbejder i Cefalù | Marenetto Build",
+      "description": "Fra din første forespørgsel til de næste skridt: en fælles proces til at afklare behov, tjek, ansvar og opdateringer."
+    },
+    "abroad": {
+      "path": "/da/owners-abroad",
+      "title": "Din bolig på Sicilien, fra udlandet | Marenetto Build",
+      "description": "En lokal kontakt i Cefalù for ejere i udlandet: ejendomsforespørgsler, vedligeholdelse og byggearbejde, med forventninger aftalt på forhånd."
+    },
+    "request": {
+      "path": "/da/request",
+      "title": "Send en forespørgsel i Cefalù | Marenetto Build",
+      "description": "Fortæl os om ejendommen og det arbejde, du overvejer. En indledende forespørgsel hjælper med at afklare konteksten og mulige næste skridt."
+    },
+    "contact": {
+      "path": "/da/contact",
+      "title": "Kontakt Marenetto Build i Cefalù",
+      "description": "Kontakt Marenetto Build i Cefalù for at diskutere byggearbejde, vedligeholdelse eller ejendomspleje. Skriv, ring eller send os en besked."
+    }
+  },
+  "fi": {
+    "home": {
+      "path": "/fi/",
+      "title": "Rakentaminen ja kunnostus Cefalùssa | Marenetto Build",
+      "description": "Rakentaminen, kunnostus ja kiinteistönhoito Cefalùssa. Paikallinen yhteyshenkilö kodeille ja kakkosasunnoille, vaikka asuisit ulkomailla."
+    },
+    "services": {
+      "path": "/fi/services",
+      "title": "Kiinteistöpalvelut Cefalùssa | Marenetto Build",
+      "description": "Tutustu rakentamiseen, kunnostukseen, kunnossapitoon ja kiinteistönhoitoon Cefalùssa, laajuuden ja tarvittavien tarkistusten ollessa sovittuja ennen töiden alkua."
+    },
+    "process": {
+      "path": "/fi/how-we-work",
+      "title": "Miten työskentelemme Cefalùssa | Marenetto Build",
+      "description": "Ensimmäisestä tiedustelusta seuraaviin askeleihin: jaettu prosessi tarpeiden, tarkistusten, vastuiden ja päivitysten selventämiseksi."
+    },
+    "abroad": {
+      "path": "/fi/owners-abroad",
+      "title": "Kotisi Sisiliassa, ulkomailta käsin | Marenetto Build",
+      "description": "Paikallinen yhteyshenkilö Cefalùssa ulkomailla asuville omistajille: kiinteistötiedustelut, kunnossapito ja rakennustyöt, etukäteen sovituilla odotuksilla."
+    },
+    "request": {
+      "path": "/fi/request",
+      "title": "Tee tiedustelu Cefalùssa | Marenetto Build",
+      "description": "Kerro meille kiinteistöstä ja työstä, jota harkitset. Alustava tiedustelu auttaa selventämään kontekstia ja mahdollisia seuraavia askeleita."
+    },
+    "contact": {
+      "path": "/fi/contact",
+      "title": "Ota yhteyttä Marenetto Buildiin Cefalùssa",
+      "description": "Ota yhteyttä Marenetto Buildiin Cefalùssa keskustellaksesi rakennustöistä, kunnossapidosta tai kiinteistönhoidosta. Kirjoita, soita tai lähetä meille viesti."
+    }
+  },
+  "hu": {
+    "home": {
+      "path": "/hu/",
+      "title": "Építés és felújítás Cefalùban | Marenetto Build",
+      "description": "Építés, felújítás és ingatlangondozás Cefalùban. Helyi kapcsolattartó otthonokhoz és második ingatlanokhoz, akkor is, ha külföldön él."
+    },
+    "services": {
+      "path": "/hu/services",
+      "title": "Ingatlanszolgáltatások Cefalùban | Marenetto Build",
+      "description": "Fedezze fel az építési, felújítási, karbantartási és ingatlangondozási lehetőségeket Cefalùban, a munka megkezdése előtt egyeztetett hatókörrel és szükséges ellenőrzésekkel."
+    },
+    "process": {
+      "path": "/hu/how-we-work",
+      "title": "Hogyan dolgozunk Cefalùban | Marenetto Build",
+      "description": "Az első érdeklődéstől a következő lépésekig: közös folyamat az igények, ellenőrzések, felelősségek és frissítések tisztázására."
+    },
+    "abroad": {
+      "path": "/hu/owners-abroad",
+      "title": "Otthona Szicílián, külföldről | Marenetto Build",
+      "description": "Helyi kapcsolattartó Cefalùban külföldön élő tulajdonosok számára: ingatlanügyek, karbantartás és építési munkák, előre egyeztetett elvárásokkal."
+    },
+    "request": {
+      "path": "/hu/request",
+      "title": "Érdeklődjön Cefalùban | Marenetto Build",
+      "description": "Tájékoztasson az ingatlanról és a tervezett munkáról. Egy kezdeti érdeklődés segít tisztázni a kontextust és a lehetséges következő lépéseket."
+    },
+    "contact": {
+      "path": "/hu/contact",
+      "title": "Lépjen kapcsolatba a Marenetto Build-del Cefalùban",
+      "description": "Lépjen kapcsolatba a Marenetto Build-del Cefalùban, hogy megbeszéljék az építési munkákat, karbantartást vagy ingatlangondozást. Írjon, hívjon, vagy küldjön nekünk üzenetet."
+    }
+  },
+  "el": {
+    "home": {
+      "path": "/el/",
+      "title": "Κατασκευή και ανακαίνιση στο Cefalù | Marenetto Build",
+      "description": "Κατασκευή, ανακαίνιση και φροντίδα ακινήτων στο Cefalù. Ένας τοπικός σύνδεσμος για σπίτια και δεύτερες κατοικίες, ακόμη και όταν ζείτε στο εξωτερικό."
+    },
+    "services": {
+      "path": "/el/services",
+      "title": "Υπηρεσίες ακινήτων στο Cefalù | Marenetto Build",
+      "description": "Εξερευνήστε την κατασκευή, την ανακαίνιση, τη συντήρηση και τη φροντίδα ακινήτων στο Cefalù, με το πεδίο εργασίας και τους απαραίτητους ελέγχους να έχουν συμφωνηθεί πριν ξεκινήσει η εργασία."
+    },
+    "process": {
+      "path": "/el/how-we-work",
+      "title": "Πώς εργαζόμαστε στο Cefalù | Marenetto Build",
+      "description": "Από το πρώτο σας αίτημα έως τα επόμενα βήματα: μια κοινή διαδικασία για να διευκρινιστούν οι ανάγκες, οι έλεγχοι, οι αρμοδιότητες και οι ενημερώσεις."
+    },
+    "abroad": {
+      "path": "/el/owners-abroad",
+      "title": "Το σπίτι σας στη Σικελία, από το εξωτερικό | Marenetto Build",
+      "description": "Ένας τοπικός σύνδεσμος στο Cefalù για ιδιοκτήτες στο εξωτερικό: αιτήματα για ακίνητα, συντήρηση και οικοδομικές εργασίες, με προσδοκίες συμφωνημένες εκ των προτέρων."
+    },
+    "request": {
+      "path": "/el/request",
+      "title": "Κάντε ένα αίτημα στο Cefalù | Marenetto Build",
+      "description": "Πείτε μας για το ακίνητο και την εργασία που εξετάζετε. Ένα αρχικό αίτημα βοηθά στη διευκρίνιση του πλαισίου και των πιθανών επόμενων βημάτων."
+    },
+    "contact": {
+      "path": "/el/contact",
+      "title": "Επικοινωνήστε με τη Marenetto Build στο Cefalù",
+      "description": "Επικοινωνήστε με τη Marenetto Build στο Cefalù για να συζητήσετε οικοδομικές εργασίες, συντήρηση ή φροντίδα ακινήτων. Γράψτε, καλέστε ή στείλτε μας ένα μήνυμα."
+    }
+  },
+  "tr": {
+    "home": {
+      "path": "/tr/",
+      "title": "Cefalù'da inşaat ve tadilat | Marenetto Build",
+      "description": "Cefalù'da inşaat, tadilat ve mülk bakımı. Yurtdışında yaşıyor olsanız bile evler ve ikinci konutlar için yerel bir irtibat."
+    },
+    "services": {
+      "path": "/tr/services",
+      "title": "Cefalù'daki mülk hizmetleri | Marenetto Build",
+      "description": "Cefalù'da inşaat, tadilat, bakım ve mülk bakım hizmetlerini, işe başlamadan önce kapsam ve gerekli kontrolleri belirleyerek keşfedin."
+    },
+    "process": {
+      "path": "/tr/how-we-work",
+      "title": "Cefalù'da nasıl çalışıyoruz | Marenetto Build",
+      "description": "İlk talebinizden sonraki adımlara kadar: ihtiyaçları, kontrolleri, sorumlulukları ve güncellemeleri netleştirmek için ortak bir süreç."
+    },
+    "abroad": {
+      "path": "/tr/owners-abroad",
+      "title": "Sicilya'daki eviniz, yurtdışından | Marenetto Build",
+      "description": "Yurtdışındaki mülk sahipleri için Cefalù'da yerel bir irtibat: mülk sorguları, bakım ve inşaat işleri; beklentiler önceden mutabık kalınarak."
+    },
+    "request": {
+      "path": "/tr/request",
+      "title": "Cefalù'da bir talepte bulunun | Marenetto Build",
+      "description": "Mülk ve düşündüğünüz çalışma hakkında bizi bilgilendirin. İlk talep, bağlamı ve olası sonraki adımları netleştirmeye yardımcı olur."
+    },
+    "contact": {
+      "path": "/tr/contact",
+      "title": "Cefalù'da Marenetto Build ile iletişime geçin",
+      "description": "İnşaat işleri, bakım veya mülk bakımı konularını görüşmek için Cefalù'daki Marenetto Build ile iletişime geçin. Yazın, arayın veya bize bir mesaj gönderin."
+    }
+  }
+}
