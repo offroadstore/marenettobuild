@@ -283,3 +283,16 @@ test.describe('integrità dei link delle pagine pubbliche', () => {
     }
   });
 });
+
+test('footer Italiano switch is remembered over the browser language', async ({ browser, baseURL }) => {
+  const context = await browser.newContext({ locale: 'fr-FR', userAgent: 'Mozilla/5.0 Chrome/120 Safari/537.36' });
+  const page = await context.newPage();
+  await page.goto(`${baseURL}/fr/`);
+  await page.getByTestId('link-footer-logo').waitFor();
+  await page.locator('footer a', { hasText: /Italien|Italiano/ }).last().click();
+  await page.waitForURL(url => url.pathname === '/');
+  await page.goto(`${baseURL}/`);
+  await page.waitForTimeout(500);
+  expect(new URL(page.url()).pathname).toBe('/');
+  await context.close();
+});

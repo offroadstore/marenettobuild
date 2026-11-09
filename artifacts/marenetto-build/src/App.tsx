@@ -27,6 +27,7 @@ import { publishableKeyFromHost } from '@clerk/react/internal';
 import { shadcn } from '@clerk/themes';
 import { InternalEntry, OwnerDemo, PublishedCmsPage } from '@/pages/internal-surfaces';
 import publicPageData from '@/localization/public-pages.json';
+import { chooseLanguage, isAutomaticVisitor, readSavedLanguage, saveLanguageChoice } from '@/localization/detect';
 import { getLocale, getLocaleDirection, LANGUAGE_CHOICES, LOCALES, PAGE_KEYS, PUBLISHED_LOCALES } from '@/localization/locales';
 import { getLocalizedCopy, isLocaleCatalogLoaded, loadLocaleCatalog, localizeChoice, localizeNode, translateText } from '@/localization/runtime';
 
@@ -249,7 +250,7 @@ function Header({ lang, page, articleSlug }: { lang: Lang; page: Page; articleSl
             const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1
               : (current + (event.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
             items[next]?.focus();
-          }}>{LOCALES.map(locale => <Link key={locale.code} href={withCampaignParams(articleSlug ? articlePath(locale.code, articleSlug) : routes[locale.code][page])} role="menuitem" dir={locale.direction} aria-current={locale.code === lang ? 'true' : undefined} onClick={() => setLanguageMenuOpen(false)}>{locale.nativeName}</Link>)}</div>}
+          }}>{LOCALES.map(locale => <Link key={locale.code} href={withCampaignParams(articleSlug ? articlePath(locale.code, articleSlug) : routes[locale.code][page])} role="menuitem" dir={locale.direction} aria-current={locale.code === lang ? 'true' : undefined} onClick={() => { saveLanguageChoice(locale.code); setLanguageMenuOpen(false); }}>{locale.nativeName}</Link>)}</div>}
         </div>
         <PageLink page="request" lang={lang} className={`button${page === 'request' ? ' is-quiet' : ''}`} data-testid="nav-request">{requestLabel}<ArrowRight size={14} /></PageLink>
         <button ref={menuButtonRef} type="button" className="menu-toggle" aria-controls="mobile-nav" onClick={() => { setLanguageMenuOpen(false); setMenuOpen(!menuOpen); }} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} data-testid="button-menu">{menuOpen ? <X size={18} /> : <Menu size={18} />}</button>
@@ -295,7 +296,7 @@ function Footer({ lang }: { lang: Lang }) {
         </div></div>
       </div>
       <IllustrationNote lang={lang} />
-      <div className="footer-bottom"><span>© {new Date().getFullYear()} Marenetto s.r.l. unipersonale · P. IVA IT06471740826</span><span>{it ? 'Cefalù · Sicilia' : 'Cefalù · Sicily'}</span><Link href={withCampaignParams(routes[it ? 'en' : 'it'].home)}>{it ? 'English' : 'Italiano'} <ArrowRight size={12} /></Link></div>
+      <div className="footer-bottom"><span>© {new Date().getFullYear()} Marenetto s.r.l. unipersonale · P. IVA IT06471740826</span><span>{it ? 'Cefalù · Sicilia' : 'Cefalù · Sicily'}</span><Link href={withCampaignParams(routes[it ? 'en' : 'it'].home)} onClick={() => saveLanguageChoice(it ? 'en' : 'it')}>{it ? 'English' : 'Italiano'} <ArrowRight size={12} /></Link></div>
     </div>
   </footer></>);
 }
@@ -788,6 +789,7 @@ function Router() {
       const route = routes[locale][key];
       return (route.length > 1 ? route.replace(/\/+$/, '') : route) === normalizedPath;
     });
+    if (localizedPage === 'home' && locale === 'it' && normalizedPath === '/') return <RoutedErrorBoundary><HomeEntry /></RoutedErrorBoundary>;
     if (localizedPage) return <RoutedErrorBoundary><LocalizedSitePage page={localizedPage} lang={locale} /></RoutedErrorBoundary>;
   }
 
@@ -801,7 +803,7 @@ function Router() {
         portfolio through direct or historical links until real work is ready. */}
     <Route path="/progetti"><Redirect to={withCampaignParams(`/servizi${window.location.hash}`)} replace /></Route>
     <Route path="/ricerca"><LibraryShell page="search"><SearchPage /></LibraryShell></Route>
-    <Route path="/"><SitePage page="home" lang="it" /></Route>
+    <Route path="/"><HomeEntry /></Route>
     <Route path="/servizi"><SitePage page="services" lang="it" /></Route>
     <Route path="/come-lavoriamo"><SitePage page="process" lang="it" /></Route>
     <Route path="/proprietari-all-estero"><SitePage page="abroad" lang="it" /></Route>
@@ -815,6 +817,18 @@ function Router() {
     <Route path="/en/contact"><SitePage page="contact" lang="en" /></Route>
     <Route><NotFound /></Route>
   </Switch><span style={{ display: 'none' }} aria-hidden="true">{lang}{page}</span></RoutedErrorBoundary>;
+}
+
+// First entry on the Italian home: send visitors to their browser language (or saved choice).
+function HomeEntry() {
+  let target: string | undefined;
+  if (!isAutomaticVisitor(navigator.userAgent)) {
+    const browserLanguages = navigator.languages?.length ? navigator.languages : [navigator.language];
+    const code = chooseLanguage(browserLanguages, readSavedLanguage(), PUBLISHED_LOCALES.map(locale => locale.code));
+    if (code !== 'it') target = withCampaignParams(`${routes[code].home}${window.location.hash}`);
+  }
+  if (target) return <Redirect to={target} replace />;
+  return <LocalizedSitePage page="home" lang="it" />;
 }
 
 function useHashFragmentNavigation(path: string) {

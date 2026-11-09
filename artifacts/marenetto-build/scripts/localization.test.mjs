@@ -152,3 +152,28 @@ test('preview catalogs cover every source key and stay marked for owner review',
     assert.deepEqual(ids.filter(id => !catalog.translations[id]?.trim()), [], code);
   }
 });
+
+async function loadDetector() {
+  const code = await readFile(path.join(root, 'src/localization/detect.ts'), 'utf8');
+  const js = ts.transpileModule(code, { compilerOptions: { module: ts.ModuleKind.ES2022, target: ts.ScriptTarget.ES2022 } }).outputText;
+  return import(`data:text/javascript;base64,${Buffer.from(js).toString('base64')}`);
+}
+
+test('browser language detection only chooses published locales, honouring priority and saved choice', async () => {
+  const { chooseLanguage, isAutomaticVisitor } = await loadDetector();
+  const published = locales.filter(locale => locale.publication === 'published').map(locale => locale.code);
+  assert.equal(chooseLanguage(['fr-CA', 'en'], null, published), 'fr');
+  assert.equal(chooseLanguage(['xx-YY', 'nl-BE', 'en'], null, published), 'nl');
+  assert.equal(chooseLanguage(['nb-NO'], null, published), 'no');
+  assert.equal(chooseLanguage(['he-IL'], null, published), 'he');
+  assert.equal(chooseLanguage(['ja-JP', 'zh-CN'], null, published), 'it');
+  assert.equal(chooseLanguage([], null, published), 'it');
+  assert.equal(chooseLanguage(['en-US'], 'de', published), 'de');
+  assert.equal(chooseLanguage(['en-US'], 'it', published), 'it');
+  assert.equal(chooseLanguage(['en-US'], 'zz', published), 'en');
+  assert.equal(chooseLanguage(['fr', 'en'], null, ['it', 'en']), 'en');
+  assert.equal(chooseLanguage(['fr'], 'fr', ['it', 'en']), 'it');
+  assert.equal(isAutomaticVisitor('Mozilla/5.0 (compatible; Googlebot/2.1)'), true);
+  assert.equal(isAutomaticVisitor('WhatsApp/2.23'), true);
+  assert.equal(isAutomaticVisitor('Mozilla/5.0 (iPhone) Safari/604.1'), false);
+});

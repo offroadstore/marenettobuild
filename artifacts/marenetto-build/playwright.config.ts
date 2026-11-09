@@ -13,6 +13,7 @@ export default defineConfig({
   outputDir: '/tmp/marenetto-playwright-results',
   use: {
     browserName: 'chromium',
+    locale: 'it-IT',
     launchOptions: {
       ...(existsSync(chromiumPath) ? { executablePath: chromiumPath } : {}),
       args: ['--no-sandbox', '--disable-dev-shm-usage'],
