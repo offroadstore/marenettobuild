@@ -2,54 +2,11 @@ import { clerkClient, getAuth } from "@clerk/express";
 import type { NextFunction, Request, Response } from "express";
 import { and, eq } from "drizzle-orm";
 import { db, internalMembersTable } from "@workspace/db";
+import { isActiveInternalMember, isInternalRole } from "./internalPermissions";
+import type { InternalRole } from "./internalPermissions";
 
-const roles = ["owner", "editor", "viewer"] as const;
-export type InternalRole = (typeof roles)[number];
-type Permission =
-  | "leads:read"
-  | "leads:write"
-  | "cms:read"
-  | "cms:write"
-  | "members:manage"
-  | "attachments:manage"
-  | "notifications:read";
-
-const permissionsByRole: Record<InternalRole, Permission[]> = {
-  owner: [
-    "leads:read",
-    "leads:write",
-    "cms:read",
-    "cms:write",
-    "members:manage",
-    "attachments:manage",
-    "notifications:read",
-  ],
-  editor: [
-    "leads:read",
-    "leads:write",
-    "cms:read",
-    "cms:write",
-    "attachments:manage",
-    "notifications:read",
-  ],
-  viewer: ["leads:read", "cms:read", "notifications:read"],
-};
-
-declare global {
-  namespace Express {
-    interface Request {
-      internalMember?: {
-        id: number;
-        email: string;
-        role: InternalRole;
-      };
-    }
-  }
-}
-
-function validRole(value: string): value is InternalRole {
-  return roles.includes(value as InternalRole);
-}
+export { permissionsForRole, requirePermission } from "./internalPermissions";
+export type { InternalRole } from "./internalPermissions";
 
 function configuredInvites(): Array<{ email: string; role: InternalRole }> {
   return (process.env.INTERNAL_INVITES ?? "")
@@ -63,7 +20,7 @@ function configuredInvites(): Array<{ email: string; role: InternalRole }> {
       if (
         !email ||
         !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
-        !validRole(role)
+        !isInternalRole(role)
       ) {
         return [];
       }
@@ -138,7 +95,7 @@ export async function requireInternalAccess(
       }
     }
 
-    if (!member || !validRole(member.role)) {
+    if (!isActiveInternalMember(member)) {
       res.status(403).json({ error: "This account does not have an active invitation." });
       return;
     }
@@ -149,23 +106,4 @@ export async function requireInternalAccess(
     req.log.error({ err: error }, "Could not verify internal access");
     res.status(503).json({ error: "Internal access could not be verified." });
   }
-}
-
-export function requirePermission(permission: Permission) {
-  return (req: Request, res: Response, next: NextFunction): void => {
-    const member = req.internalMember;
-    if (!member) {
-      res.status(401).json({ error: "Sign in is required." });
-      return;
-    }
-    if (!permissionsByRole[member.role].includes(permission)) {
-      res.status(403).json({ error: "This action is not allowed for your role." });
-      return;
-    }
-    next();
-  };
-}
-
-export function permissionsForRole(role: InternalRole): Permission[] {
-  return permissionsByRole[role];
 }
