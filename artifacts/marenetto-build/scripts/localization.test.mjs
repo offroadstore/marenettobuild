@@ -142,7 +142,7 @@ test('approved translations are present in the production bundle while preview i
 test('preview catalogs cover every source key and stay marked for owner review', async () => {
   const entries = JSON.parse(await readFile(path.join(root, 'src/localization/preview-sources.json'), 'utf8')).entries;
   const ids = Object.keys(entries);
-  assert.equal(ids.length, 438);
+  assert.equal(ids.length, 441);
   const locales = JSON.parse(await readFile(path.join(root, 'src/localization/locales.json'), 'utf8'));
   const codes = (Array.isArray(locales) ? locales : locales.locales).map(l => l.code).filter(c => c !== 'it');
   assert.equal(codes.length, 28);

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { telHref } from '@/config/contact';
 import { Mail, Phone } from 'lucide-react';
 
 /** Mobile-only bottom bar (CSS hides it from 700px). Verified contacts already used in header/footer. */
@@ -14,7 +15,7 @@ export function MobileContactBar({ hidden, callLabel, writeLabel, emailHref }: {
   }, []);
   const off = hidden || typing;
   return <div className="mb-cbar" data-hidden={off ? 'true' : undefined} aria-hidden={off || undefined} data-testid="mobile-contact-bar">
-    <a href="tel:+393339363007" tabIndex={off ? -1 : undefined} data-testid="cbar-call"><Phone size={17} aria-hidden="true" /><span>{callLabel}</span></a>
+    <a href={telHref} tabIndex={off ? -1 : undefined} data-testid="cbar-call"><Phone size={17} aria-hidden="true" /><span>{callLabel}</span></a>
     <a href={emailHref} tabIndex={off ? -1 : undefined} data-testid="cbar-write"><Mail size={17} aria-hidden="true" /><span>{writeLabel}</span></a>
   </div>;
 }

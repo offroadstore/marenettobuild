@@ -9,6 +9,8 @@ import NotFound from '@/pages/not-found';
 import { Logo } from '@/components/brand/Logo';
 import { HeroPhoto, IllustrativeImage } from '@/components/home/Media';
 import { IllustrationNote } from '@/components/home/IllustrationNote';
+import { WhatsAppAccess } from '@/components/WhatsAppAccess';
+import { COMPANY_PHONE, telHref, whatsappHref } from '@/config/contact';
 import { MobileContactBar } from '@/components/home/MobileContactBar';
 import { homeCopy, SERVICE_GROUP_IDS, type HomeCopy } from '@/content/home-copy';
 import { articlePath, libraryPath } from '@/localization/paths';
@@ -256,7 +258,7 @@ function Header({ lang, page, articleSlug }: { lang: Lang; page: Page; articleSl
       {items.map(([key, label]) => <PageLink key={key} page={key} lang={lang} onClick={() => setMenuOpen(false)} data-testid={`mobile-nav-${key}`}>{label}</PageLink>)}
       <PageLink page="guides" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-guides">{lang === 'it' ? 'Guide pratiche' : 'Practical guides'}</PageLink>
       <PageLink page="search" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-search">{lang === 'it' ? 'Ricerca' : 'Search'}</PageLink>
-      <a href="tel:+393339363007" data-testid="mobile-nav-phone">+39 333 936 3007</a>
+      <a href={telHref} data-testid="mobile-nav-phone">{COMPANY_PHONE.display}</a>
       <PageLink page="request" lang={lang} className="button" onClick={() => setMenuOpen(false)}>{requestLabel}<ArrowRight size={14} /></PageLink>
     </nav>}
     <MobileContactBar hidden={menuOpen || languageMenuOpen} callLabel={localizeChoice(lang, 'Chiama', 'Phone')} writeLabel={localizeChoice(lang, 'Scrivici', 'Email')}
@@ -266,7 +268,7 @@ function Header({ lang, page, articleSlug }: { lang: Lang; page: Page; articleSl
 
 function Footer({ lang }: { lang: Lang }) {
   const it = lang === 'it';
-  const message = encodeURIComponent(localizeChoice(lang, 'Buongiorno, vorrei parlare della mia proprietà a Cefalù.', 'Hello, I would like to discuss my property in Cefalù.'));
+  const message = localizeChoice(lang, 'Buongiorno, vorrei parlare della mia proprietà a Cefalù.', 'Hello, I would like to discuss my property in Cefalù.');
   return localizeNode(lang, <>
   <div className="footer-logo-band"><div className="container">
     <Link href={withCampaignParams(routes[lang].home)} className="wordmark" aria-label={'Marenetto Build'} data-testid="link-footer-logo"><Logo variant="dark" /></Link>
@@ -287,8 +289,8 @@ function Footer({ lang }: { lang: Lang }) {
         <div><h3>{it ? 'Un primo contatto' : 'Get in touch'}</h3><div className="footer-links">
           <PageLink lang={lang} page="contact">{it ? 'Contatti' : 'Contact'}</PageLink>
           <a href={`mailto:info@marenetto.com?subject=${encodeURIComponent(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))}`} data-testid="link-footer-email">info@marenetto.com</a>
-          <a href={`https://wa.me/393339363007?text=${message}`} target="_blank" rel="noopener noreferrer" data-testid="link-footer-whatsapp">WhatsApp · +39 333 936 3007</a>
-          <a href="tel:+393339363007" data-testid="link-footer-phone">+39 333 936 3007</a>
+          <a href={whatsappHref(message)} target="_blank" rel="noopener noreferrer" data-testid="link-footer-whatsapp">WhatsApp · {COMPANY_PHONE.display}</a>
+          <a href={telHref} data-testid="link-footer-phone">{COMPANY_PHONE.display}</a>
           <span>SS 113 Settentrionale Sicula, 73b<br />90015 Cefalù, Palermo, Italia</span>
         </div></div>
       </div>
@@ -499,9 +501,9 @@ function ContactPage({ lang }: { lang: Lang }) {
     <section className="section" id="contatti" data-testid="anchor-contatti">
       <div className="container contact-layout">
         <aside className="contact-info"><SectionLabel>{it ? 'Scegli il tuo modo' : 'Choose your way'}</SectionLabel><h2 className="display-title">{it ? 'Ci trovi qui.' : 'We are here.'}</h2><p>{it ? 'Contattaci nel modo che ti è più comodo. Puoi iniziare con una domanda semplice.' : 'Get in touch in whichever way is easiest. You can start with a simple question.'}</p>
-          <div className="contact-method"><MessageCircle size={17} /><div><small>WhatsApp</small><a href={`https://wa.me/393339363007?text=${encodeURIComponent(localizeChoice(lang, 'Buongiorno, vorrei parlare della mia proprietà a Cefalù.', 'Hello, I would like to discuss my property in Cefalù.'))}`} target="_blank" rel="noopener noreferrer" data-testid="link-whatsapp">+39 333 936 3007 · {it ? 'Apri una conversazione' : 'Start a conversation'}<ArrowRight size={13} /></a></div></div>
+          <div className="contact-method"><MessageCircle size={17} /><div><small>WhatsApp</small><a href={whatsappHref(localizeChoice(lang, 'Buongiorno, vorrei parlare della mia proprietà a Cefalù.', 'Hello, I would like to discuss my property in Cefalù.'))} target="_blank" rel="noopener noreferrer" data-testid="link-whatsapp">{COMPANY_PHONE.display} · {it ? 'Apri una conversazione' : 'Start a conversation'}<ArrowRight size={13} /></a></div></div>
           <div className="contact-method"><Mail size={17} /><div><small>Email</small><a href={`mailto:info@marenetto.com?subject=${encodeURIComponent(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))}`} data-testid="link-email">info@marenetto.com<ArrowRight size={13} /></a></div></div>
-          <div className="contact-method"><MessageCircle size={17} /><div><small>{it ? 'Telefono' : 'Phone'}</small><a href="tel:+393339363007" data-testid="link-phone">+39 333 936 3007</a></div></div>
+          <div className="contact-method"><MessageCircle size={17} /><div><small>{it ? 'Telefono' : 'Phone'}</small><a href={telHref} data-testid="link-phone">{COMPANY_PHONE.display}</a></div></div>
           <div className="contact-method"><MapPin size={17} /><div><small>{it ? 'Indirizzo' : 'Address'}</small><span>SS 113 Settentrionale Sicula, 73b<br />90015 Cefalù, Palermo, Italia</span></div></div>
           <div className="contact-note">{localizeChoice(lang, 'Anteprima sintetica: non inserire dati personali reali. Il modulo scarta i dettagli inseriti e crea solo un lead dimostrativo. Per un contatto effettivo, usa email, telefono o WhatsApp.', 'Synthetic preview: do not enter real personal information. The form discards the details entered and creates only a demo lead. For a real enquiry, use email, phone or WhatsApp.')}</div>
         </aside>
@@ -720,14 +722,14 @@ function SitePage({ page, lang }: { page: CorePage; lang: Lang }) {
   const main = page === 'request' ? contents : localizeNode(lang, contents);
   const footer = localizeNode(lang, <Footer lang={lang} />);
   return <div className="site-shell" lang={lang === 'it' ? 'it-IT' : lang} dir={getLocaleDirection(lang)}>
-    {header}<main>{main}</main>{footer}
+    {header}<main><WhatsAppAccess lang={lang} />{main}</main>{footer}
   </div>;
 }
 
 function LibraryShell({ page, children, lang = 'it', articleSlug }: { page: Page; children: ReactNode; lang?: Lang; articleSlug?: string }) {
   return <LibraryLocale.Provider value={lang}><div className="site-shell" lang={lang === 'it' ? 'it-IT' : lang} dir={getLocaleDirection(lang)}>
     <Header lang={lang} page={page} articleSlug={articleSlug} />
-    <main>{lang !== 'it' && <p className="container translation-review-status" role="note" data-testid="translation-review-notice">{translateText(lang, 'Translation preview, awaiting review.')}</p>}{children}</main>
+    <main><WhatsAppAccess lang={lang} />{lang !== 'it' && <p className="container translation-review-status" role="note" data-testid="translation-review-notice">{translateText(lang, 'Translation preview, awaiting review.')}</p>}{children}</main>
     <Footer lang={lang} />
   </div></LibraryLocale.Provider>;
 }

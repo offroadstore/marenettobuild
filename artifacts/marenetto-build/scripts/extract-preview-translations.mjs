@@ -48,6 +48,11 @@ function visitHome(node) {
   else ts.forEachChild(node, visitHome);
 }
 visitHome(home);
+const wa = await parse('src/components/WhatsAppAccess.tsx');
+(function visitWa(node) {
+  if (ts.isCallExpression(node) && node.expression.getText(wa) === 'localizeChoice' && node.arguments[2]) collect(node.arguments[2]);
+  ts.forEachChild(node, visitWa);
+})(wa);
 collect(await parse('src/pages/library.tsx'));
 collect(await parse('src/content/articles.ts'));
 collect(await parse('src/pages/not-found.tsx'));

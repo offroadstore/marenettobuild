@@ -923,3 +923,19 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .cms-public-page > header { min-height:72px; }
   .cms-public-page > header .int-back { font-size:12px; }
 }
+
+/* WhatsApp access (floating button, then docked above the hero once closed) */
+.wa-float { position: fixed; z-index: 25; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom)); width: 72px; height: 72px; padding: 16px 0 0 16px; box-sizing: border-box; }
+@media (max-width: 699px) { .wa-float { bottom: calc(20px + 66px + env(safe-area-inset-bottom)); } }
+.wa-float__link { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #1f7a4d; color: #fff; box-shadow: 0 4px 14px rgba(20, 25, 30, .28); touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.wa-float__link:active { cursor: grabbing; }
+.wa-float__link:focus-visible, .wa-float__close:focus-visible, .wa-dock__link:focus-visible { outline: 3px solid #14191e; outline-offset: 2px; box-shadow: 0 0 0 5px #fff; }
+.wa-float__close { position: absolute; left: 0; top: 0; z-index: 1; width: 32px; height: 32px; padding: 0; border: 0; background: transparent; display: grid; place-items: center; cursor: pointer; }
+.wa-float__close span { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #fff; color: #25343b; box-shadow: 0 1px 4px rgba(20, 25, 30, .3); }
+.wa-dock { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .25s ease; background: var(--paper, #f7f5f0); }
+.wa-dock[data-open] { grid-template-rows: 1fr; }
+.wa-dock__inner { overflow: hidden; min-height: 0; }
+.wa-dock__row { display: flex; justify-content: flex-start; padding-block: 8px; }
+.wa-dock__link { display: inline-flex; align-items: center; gap: 8px; min-height: 32px; font-size: 14px; font-weight: 600; color: #1d5e3b; text-decoration: none; }
+.wa-dock__link:hover span { text-decoration: underline; }
+@media (prefers-reduced-motion: reduce) { .wa-dock { transition: none; } }

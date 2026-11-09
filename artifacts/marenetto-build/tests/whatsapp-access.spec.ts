@@ -1,0 +1,124 @@
+import { expect, test } from '@playwright/test';
+
+const viewports = [
+  { name: 'phone', width: 390, height: 780 },
+  { name: 'tablet', width: 820, height: 1100 },
+  { name: 'desktop', width: 1440, height: 900 },
+];
+
+for (const vp of viewports) {
+  test.describe(`WhatsApp access on ${vp.name}`, () => {
+    test.use({ viewport: { width: vp.width, height: vp.height } });
+
+    test('opens wa.me link with the shared number and prefilled message, in the corner and inside the viewport', async ({ page }) => {
+      await page.goto('/');
+      const link = page.getByTestId('whatsapp-float-link');
+      await expect(link).toBeVisible();
+      await expect(page.getByTestId('whatsapp-float')).toHaveCount(1);
+      const href = (await link.getAttribute('href'))!;
+      const url = new URL(href);
+      expect(url.origin + url.pathname).toBe('https://wa.me/393339363007');
+      expect(url.searchParams.get('text')).toBe('Buongiorno, vorrei informazioni per un lavoro.');
+      const box = (await link.boundingBox())!;
+      expect(box.width).toBeGreaterThanOrEqual(54);
+      expect(box.width).toBeLessThanOrEqual(56);
+      expect(box.x + box.width).toBeLessThanOrEqual(vp.width - 19);
+      expect(box.y + box.height).toBeLessThanOrEqual(vp.height - 19);
+    });
+
+    test('dragging moves it inside the viewport without opening WhatsApp; click still opens', async ({ page, context }) => {
+      await page.goto('/');
+      const link = page.getByTestId('whatsapp-float-link');
+      const b = (await link.boundingBox())!;
+      const popups: string[] = [];
+      context.on('page', p => popups.push(p.url()));
+      await page.mouse.move(b.x + 28, b.y + 28);
+      await page.mouse.down();
+      await page.mouse.move(b.x - 120, b.y - 200, { steps: 8 });
+      await page.mouse.move(-500, -500, { steps: 4 });
+      await page.mouse.up();
+      await page.waitForTimeout(300);
+      expect(popups).toEqual([]);
+      const a = (await link.boundingBox())!;
+      expect(a.x).toBeGreaterThanOrEqual(0);
+      expect(a.y).toBeGreaterThanOrEqual(0);
+      expect(a.x + a.width).toBeLessThanOrEqual(vp.width);
+      expect(a.y + a.height).toBeLessThanOrEqual(vp.height);
+      expect(a.y).toBeLessThan(b.y);
+      const [popup] = await Promise.all([context.waitForEvent('page'), link.click()]);
+      expect(popup.url()).toMatch(/wa\.me|api\.whatsapp\.com\/send\/?\?phone=393339363007/);
+      await popup.close();
+    });
+
+    test('× docks the link in flow above the hero, then another page restores the floating button with no duplicates', async ({ page, context }) => {
+      await page.goto('/');
+      const popups: string[] = [];
+      context.on('page', p => popups.push(p.url()));
+      await page.getByTestId('whatsapp-float-close').click();
+      await expect(page.getByTestId('whatsapp-float')).toHaveCount(0);
+      const dock = page.getByTestId('whatsapp-dock-link');
+      await expect(dock).toBeVisible();
+      await expect(dock).toHaveText('Scrivici su WhatsApp');
+      expect(popups).toEqual([]);
+      const pos = await dock.evaluate(el => {
+        const r = el.getBoundingClientRect();
+        const header = document.querySelector('header')!.getBoundingClientRect();
+        return { top: r.top + window.scrollY, headerBottom: header.bottom + window.scrollY, fixed: !!el.closest('[style*="fixed"]') };
+      });
+      expect(pos.top).toBeGreaterThanOrEqual(pos.headerBottom - 1);
+      await page.mouse.wheel(0, 600);
+      await page.waitForTimeout(200);
+      expect(await dock.evaluate(el => el.getBoundingClientRect().top)).toBeLessThan(0);
+      // Scrolling does not bring the floating button back.
+      await expect(page.getByTestId('whatsapp-float')).toHaveCount(0);
+      // Internal navigation resets.
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.evaluate(() => { window.history.pushState({}, '', '/servizi'); window.dispatchEvent(new PopStateEvent('popstate')); });
+      await expect(page.getByTestId('whatsapp-float')).toHaveCount(1);
+      await expect(page.getByTestId('whatsapp-dock-link')).toHaveCount(0);
+      await page.goBack();
+      await expect(page.getByTestId('whatsapp-float')).toHaveCount(1);
+      await expect(page.getByTestId('whatsapp-dock-link')).toHaveCount(0);
+    });
+  });
+}
+
+test('keyboard: × closes without opening chat; dock link is focusable; storage is untouched', async ({ page, context }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/contatti');
+  const popups: string[] = [];
+  context.on('page', p => popups.push(p.url()));
+  await page.getByTestId('whatsapp-float-close').focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByTestId('whatsapp-float')).toHaveCount(0);
+  expect(popups).toEqual([]);
+  await expect(page.getByTestId('whatsapp-dock-link')).toBeFocused();
+  const stored = await page.evaluate(() => JSON.stringify([...Object.keys(localStorage), ...Object.keys(sessionStorage)]).toLowerCase() + document.cookie.toLowerCase());
+  expect(stored).not.toContain('whatsapp');
+});
+
+test('a page without a hero still shows the docked link at the top of main', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/richiesta');
+  await page.getByTestId('whatsapp-float-close').click();
+  const dock = page.getByTestId('whatsapp-dock-link');
+  await expect(dock).toBeVisible();
+  const [d, h] = await Promise.all([dock.boundingBox(), page.locator('header').first().boundingBox()]);
+  expect(d!.y).toBeGreaterThanOrEqual(h!.y + h!.height - 1);
+});
+
+test('English and Arabic labels, one WhatsApp float per page', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/en/');
+  await expect(page.getByTestId('whatsapp-float-link')).toHaveAttribute('aria-label', 'Write to us on WhatsApp');
+  await page.goto('/ar/');
+  await expect(page.getByTestId('whatsapp-float')).toHaveCount(1);
+  await expect.poll(async () => (await page.getByTestId('whatsapp-float-link').getAttribute('aria-label')) ?? '').toContain('راسلنا');
+  const text = new URL((await page.getByTestId('whatsapp-float-link').getAttribute('href'))!).searchParams.get('text');
+  expect(text).toContain('مرحب');
+});
+
+test('no WhatsApp float on internal area', async ({ page }) => {
+  await page.goto('/internal');
+  await expect(page.getByTestId('whatsapp-float')).toHaveCount(0);
+});
