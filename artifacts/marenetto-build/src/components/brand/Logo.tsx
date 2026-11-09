@@ -9,12 +9,9 @@ export function LogoMark({ size = 40, className }: { size?: number; className?: 
   </svg>;
 }
 
+/** Historical banner logo (thin diagonal M + spaced MARENETTO), served locally. */
 export function Logo({ variant = 'light' }: { variant?: 'light' | 'dark' }) {
   return <span className={`mb-logo mb-logo--${variant}`}>
-    <LogoMark className="mb-logo__mark" />
-    <span className="mb-logo__type" aria-hidden="true">
-      <span className="mb-logo__name">MARENETTO</span>
-      <span className="mb-logo__bar">BUILD.COM</span>
-    </span>
+    <img className="mb-logo__img" src={`${import.meta.env.BASE_URL}brand/current-logo.png`} alt="" width={1536} height={560} decoding="async" />
   </span>;
 }

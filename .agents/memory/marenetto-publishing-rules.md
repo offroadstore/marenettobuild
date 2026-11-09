@@ -14,3 +14,15 @@ Historical site images may be reused as illustrative material, but must not impl
 **Why:** The user explicitly defined accuracy, translation quality and staged-release constraints as central product requirements, and identified themselves as the translation approver.
 
 **How to apply:** Apply these rules to content migration, portfolio work, localization, CMS workflows, owner-area messaging and every production release.
+
+When approved Italian articles appear inside a translated interface, retain and
+label their Italian editorial text rather than translating it as interface copy.
+Historical English article links may lead to that reviewed Italian edition;
+they must not imply that an approved English edition exists.
+
+**Why:** The owner-approved multilingual core pages and the reviewed Italian
+article library have separate publication scopes. Reconstructing historical
+navigation is not approval to publish new article translations.
+
+**How to apply:** Preserve the original-language labels on article previews and
+details, and use the normal owner-review process for any future translated edition.

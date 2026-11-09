@@ -10,7 +10,8 @@ import { Logo } from '@/components/brand/Logo';
 import { IllustrativeImage } from '@/components/home/Media';
 import { Route, Switch, useLocation, Router as WouterRouter, Link, Redirect } from 'wouter';
 import { Search } from 'lucide-react';
-import { articleBySlug, legacyRedirects } from '@/content/articles';
+import { articleBySlug, articles as articleList, formatDate as formatArticleDate } from '@/content/articles';
+import { historicalRedirects } from '@/content/historical-routes';
 import { withCampaignParams } from '@/lib/campaign';
 import { ArticleDetailPage, ArticlesPage, GuidesPage, ProjectsPage, SearchPage } from '@/pages/library';
 import { ClerkProvider, SignIn, SignUp, useClerk } from '@clerk/react';
@@ -289,6 +290,21 @@ function HomePage({ lang }: { lang: Lang }) {
       </div></div>
     </section>
     <div className="mb-strip"><div className="container hero-bottom-inner"><span><Compass size={15} />{h.proof1}</span><span><Globe2 size={15} />{h.proof2}</span><span>{it ? 'Un primo confronto, senza impegno' : 'An initial conversation, no obligation'}<ArrowDownRight size={14} /></span></div></div>
+
+    <section className="section mb-news" data-testid="section-home-articles">
+      <div className="container">
+        <div className="mb-news-head"><h2 className="mb-serif">{copy[lang].nav.articles}</h2><span className="mb-news-rule" aria-hidden="true" /><PageLink lang={lang} page="articles" className="text-link" data-testid="link-home-articles">{copy[lang].nav.articles}<ArrowRight size={14} /></PageLink></div>
+        <div className="mb-news-grid">
+          {[...articleList].sort((a, b) => (a.reviewStatus === 'documentary-review' ? 0 : 1) - (b.reviewStatus === 'documentary-review' ? 0 : 1)).slice(0, 3).map(a => <Link key={a.slug} href={withCampaignParams(`/${a.slug}`)} className="mb-news-card" data-testid={`card-home-article-${a.slug}`}>
+            <div className="mb-news-media"><img src={a.image} alt={a.imageAlt} width={1920} height={a.image.endsWith('.png') ? 1920 : 1047} loading="lazy" lang="it" /></div>
+            <div className="mb-news-meta"><span lang="it">{a.category}</span><span lang="it">{formatArticleDate(a.publishedOn)}</span>{!it && <span className="mb-lang-tag" title="Italiano">IT</span>}</div>
+            <h3 className="mb-serif" lang="it">{a.title}</h3>
+            <p lang="it">{a.summary}</p>
+            <span className="text-link" aria-hidden="true"><ArrowRight size={14} /></span>
+          </Link>)}
+        </div>
+      </div>
+    </section>
 
     <section className="section">
       <div className="container">
@@ -625,8 +641,8 @@ function Router() {
   const lang = getLang(path);
   const page = getPage(path);
   const trimmed = path.length > 1 && path.endsWith('/') && path !== '/en/' ? path.replace(/\/+$/, '') : path;
-  if (legacyRedirects[trimmed]) {
-    return <Redirect to={withCampaignParams(`${legacyRedirects[trimmed]}${window.location.hash}`)} replace />;
+  if (historicalRedirects[trimmed]) {
+    return <Redirect to={withCampaignParams(`${historicalRedirects[trimmed]}${window.location.hash}`)} replace />;
   }
   if (trimmed !== path && (articleBySlug.has(trimmed.slice(1)) || ['/articoli', '/contatti', '/guide', '/progetti', '/ricerca'].includes(trimmed))) return <Redirect to={withCampaignParams(`${trimmed}${window.location.hash}`)} replace />;
   const article = articleBySlug.get(trimmed.slice(1));

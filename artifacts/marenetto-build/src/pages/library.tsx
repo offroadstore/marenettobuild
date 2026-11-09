@@ -146,7 +146,7 @@ export function ArticleDetailPage({ a }: { a: Article }) {
           <p className="article-lede animate-enter delay-1">{a.summary}</p>
         </div>
       </div>
-      <div className="container"><figure className="article-figure"><img src={a.image} alt={a.imageAlt} data-testid="img-article-hero" /><figcaption>Immagine dell’articolo originale, conservata localmente.</figcaption></figure></div>
+      <div className="container"><figure className="article-figure"><img src={a.image} alt={a.imageAlt} data-testid="img-article-hero" /><figcaption>Immagine illustrativa dell’articolo originale, conservata localmente. Non documenta un lavoro verificato.</figcaption></figure></div>
     </section>
     <section className="section tight">
       <div className="container article-layout">

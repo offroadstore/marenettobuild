@@ -48,7 +48,9 @@ export async function loadLocaleCatalog(locale: string): Promise<void> {
 function localizeValue(locale: string, value: unknown): unknown {
   if (typeof value === 'string') return translateText(locale, value);
   if (Array.isArray(value)) return value.map(item => localizeValue(locale, item));
-  if (isValidElement<{ children?: ReactNode }>(value)) {
+  if (isValidElement<{ children?: ReactNode; lang?: string }>(value)) {
+    // Explicitly labeled original-language editorial content is not interface copy.
+    if (value.props.lang && value.props.lang !== locale) return value;
     const children = value.props.children;
     const translatedProps = Object.fromEntries(Object.entries(value.props).map(([key, child]) => [
       key,
