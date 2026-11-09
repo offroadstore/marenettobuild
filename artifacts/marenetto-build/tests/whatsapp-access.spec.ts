@@ -56,7 +56,8 @@ for (const vp of viewports) {
       context.on('page', p => popups.push(p.url()));
       await page.getByTestId('whatsapp-float-close').click();
       await expect(page.getByTestId('whatsapp-float')).toHaveCount(0);
-      const dock = page.getByTestId('whatsapp-dock-link');
+      const inHeader = vp.width >= 900;
+      const dock = page.getByTestId(inHeader ? 'whatsapp-nav-link' : 'whatsapp-dock-link');
       await expect(dock).toBeVisible();
       await expect(dock).toHaveText('Scrivici su WhatsApp');
       expect(popups).toEqual([]);
@@ -65,10 +66,25 @@ for (const vp of viewports) {
         const header = document.querySelector('header')!.getBoundingClientRect();
         return { top: r.top + window.scrollY, headerBottom: header.bottom + window.scrollY, fixed: !!el.closest('[style*="fixed"]') };
       });
-      expect(pos.top).toBeGreaterThanOrEqual(pos.headerBottom - 1);
-      await page.mouse.wheel(0, 600);
-      await page.waitForTimeout(200);
-      expect(await dock.evaluate(el => el.getBoundingClientRect().top)).toBeLessThan(0);
+      if (inHeader) {
+        const g = await page.evaluate(() => {
+          const l = document.querySelector('[data-testid="whatsapp-nav-link"]')!;
+          const logo = document.querySelector('[data-testid="link-logo"]')!.getBoundingClientRect();
+          const serv = document.querySelector('[data-testid="nav-services"]')!.getBoundingClientRect();
+          const r = l.getBoundingClientRect();
+          const cs = (e: Element) => getComputedStyle(e);
+          return { afterLogo: r.left >= logo.right, beforeServices: r.right <= serv.left, gapToServices: serv.left - r.right, gapToLogo: r.left - logo.right,
+            sameFont: cs(l).fontFamily === cs(document.querySelector('[data-testid="nav-services"]')!).fontFamily && cs(l).fontSize === cs(document.querySelector('[data-testid="nav-services"]')!).fontSize,
+            iconLeft: (l.querySelector('svg')!.getBoundingClientRect().left) < (l.querySelector('span')!.getBoundingClientRect().left) };
+        });
+        expect(g.afterLogo && g.beforeServices && g.sameFont && g.iconLeft).toBe(true);
+        expect(g.gapToServices).toBeLessThan(g.gapToLogo);
+      } else {
+        expect(pos.top).toBeGreaterThanOrEqual(pos.headerBottom - 1);
+        await page.mouse.wheel(0, 600);
+        await page.waitForTimeout(200);
+        expect(await dock.evaluate(el => el.getBoundingClientRect().top)).toBeLessThan(0);
+      }
       // Scrolling does not bring the floating button back.
       await expect(page.getByTestId('whatsapp-float')).toHaveCount(0);
       // Internal navigation resets.
@@ -92,19 +108,20 @@ test('keyboard: × closes without opening chat; dock link is focusable; storage 
   await page.keyboard.press('Enter');
   await expect(page.getByTestId('whatsapp-float')).toHaveCount(0);
   expect(popups).toEqual([]);
-  await expect(page.getByTestId('whatsapp-dock-link')).toBeFocused();
+  await expect(page.getByTestId('whatsapp-nav-link')).toBeFocused();
   const stored = await page.evaluate(() => JSON.stringify([...Object.keys(localStorage), ...Object.keys(sessionStorage)]).toLowerCase() + document.cookie.toLowerCase());
   expect(stored).not.toContain('whatsapp');
 });
 
-test('a page without a hero still shows the docked link at the top of main', async ({ page }) => {
+test('a page without a hero still shows the header link', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/richiesta');
   await page.getByTestId('whatsapp-float-close').click();
-  const dock = page.getByTestId('whatsapp-dock-link');
+  const dock = page.getByTestId('whatsapp-nav-link');
   await expect(dock).toBeVisible();
   const [d, h] = await Promise.all([dock.boundingBox(), page.locator('header').first().boundingBox()]);
-  expect(d!.y).toBeGreaterThanOrEqual(h!.y + h!.height - 1);
+  expect(d!.y).toBeGreaterThanOrEqual(h!.y);
+  expect(d!.y + d!.height).toBeLessThanOrEqual(h!.y + h!.height);
 });
 
 test('English and Arabic labels, one WhatsApp float per page', async ({ page }) => {

@@ -940,3 +940,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .wa-dock__link svg { color: #25D366; }
 .wa-dock__link:hover span { text-decoration: underline; }
 @media (prefers-reduced-motion: reduce) { .wa-dock { transition: none; } }
+
+/* Closed WhatsApp: header link beside "Servizi" (>=900px); in-flow dock is the fallback below that. */
+.topbar .nav-links a.wa-nav-link { display: inline-flex; align-items: center; gap: 7px; margin-inline-end: -14px; }
+.topbar .nav-links a.wa-nav-link::after { display: none; }
+.topbar .nav-links a.wa-nav-link svg { flex: none; color: #25D366; }
+@media (min-width: 900px) { .wa-dock { display: none; } }

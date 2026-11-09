@@ -9,7 +9,7 @@ import NotFound from '@/pages/not-found';
 import { Logo } from '@/components/brand/Logo';
 import { HeroPhoto, IllustrativeImage } from '@/components/home/Media';
 import { IllustrationNote } from '@/components/home/IllustrationNote';
-import { WhatsAppAccess } from '@/components/WhatsAppAccess';
+import { WhatsAppAccess, WhatsAppNavLink } from '@/components/WhatsAppAccess';
 import { COMPANY_PHONE, telHref, whatsappHref } from '@/config/contact';
 import { MobileContactBar } from '@/components/home/MobileContactBar';
 import { homeCopy, SERVICE_GROUP_IDS, type HomeCopy } from '@/content/home-copy';
@@ -233,6 +233,7 @@ function Header({ lang, page, articleSlug }: { lang: Lang; page: Page; articleSl
         <Logo />
       </Link>
       <nav className="nav-links" aria-label={lang === 'it' ? 'Navigazione principale' : 'Main navigation'}>
+        <WhatsAppNavLink lang={lang} />
         {desktopItems.map(([key, label]) => <PageLink key={key} page={key} lang={lang} aria-current={page === key ? 'page' : undefined} data-testid={`nav-${key}`}>{label}</PageLink>)}
       </nav>
       <div className="nav-actions">

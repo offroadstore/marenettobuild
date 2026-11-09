@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { useLocation } from 'wouter';
 import { X } from 'lucide-react';
 import { whatsappHref } from '@/config/contact';
@@ -10,18 +10,42 @@ function WhatsAppLogo({ size }: { size: number }) {
   </svg>;
 }
 
-const MARGIN = 20;
+// Closed state is shared in memory only (header link + in-flow fallback); never persisted.
+let closedState = false;
+const listeners = new Set<() => void>();
+function setClosedState(value: boolean) {
+  if (closedState === value) return;
+  closedState = value;
+  listeners.forEach(l => l());
+}
+function useClosed() {
+  return useSyncExternalStore(cb => { listeners.add(cb); return () => { listeners.delete(cb); }; }, () => closedState, () => false);
+}
+
+function useWhatsAppCopy(lang: string) {
+  return {
+    label: localizeChoice(lang, 'Scrivici su WhatsApp', 'Write to us on WhatsApp'),
+    href: whatsappHref(localizeChoice(lang, 'Buongiorno, vorrei informazioni per un lavoro.', 'Hello, I would like information about a building project.')),
+  };
+}
+
+/** Header entry, shown between the logo and the first nav item once the floating button was closed. */
+export function WhatsAppNavLink({ lang }: { lang: string }) {
+  const closed = useClosed();
+  const { label, href } = useWhatsAppCopy(lang);
+  if (!closed) return null;
+  return <a className="wa-nav-link" href={href} target="_blank" rel="noopener noreferrer" data-testid="whatsapp-nav-link"><WhatsAppLogo size={17} /><span>{label}</span></a>;
+}
 
 function Inner({ lang }: { lang: string }) {
-  const [closed, setClosed] = useState(false);
+  const closed = useClosed();
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
   const boxRef = useRef<HTMLDivElement>(null);
   const drag = useRef<{ id: number; startX: number; startY: number; originX: number; originY: number; moved: boolean } | null>(null);
   const suppressClick = useRef(false);
 
-  const label = localizeChoice(lang, 'Scrivici su WhatsApp', 'Write to us on WhatsApp');
+  const { label, href } = useWhatsAppCopy(lang);
   const closeLabel = localizeChoice(lang, 'Chiudi il pulsante WhatsApp', 'Close the WhatsApp button');
-  const href = whatsappHref(localizeChoice(lang, 'Buongiorno, vorrei informazioni per un lavoro.', 'Hello, I would like information about a building project.'));
 
   const clamp = useCallback((x: number, y: number) => {
     const box = boxRef.current;
@@ -76,7 +100,12 @@ function Inner({ lang }: { lang: string }) {
 
   // Keep focus sensible when the floating button disappears.
   const dockRef = useRef<HTMLAnchorElement>(null);
-  useLayoutEffect(() => { if (closed && document.activeElement === document.body) dockRef.current?.focus({ preventScroll: true }); }, [closed]);
+  useLayoutEffect(() => {
+    if (!closed || document.activeElement !== document.body) return;
+    const nav = document.querySelector<HTMLElement>('[data-testid="whatsapp-nav-link"]');
+    const target = nav && nav.offsetParent !== null ? nav : dockRef.current;
+    target?.focus({ preventScroll: true });
+  }, [closed]);
 
   return <>
     {!closed && <div ref={boxRef} className="wa-float" data-testid="whatsapp-float"
@@ -84,7 +113,7 @@ function Inner({ lang }: { lang: string }) {
       <a className="wa-float__link" href={href} target="_blank" rel="noopener noreferrer" aria-label={label} draggable={false}
         onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={endDrag} onPointerCancel={endDrag} onClick={onClick}
         data-testid="whatsapp-float-link"><WhatsAppLogo size={30} /></a>
-      <button type="button" className="wa-float__close" aria-label={closeLabel} onClick={() => setClosed(true)} data-testid="whatsapp-float-close"><span><X size={12} strokeWidth={2.4} aria-hidden="true" /></span></button>
+      <button type="button" className="wa-float__close" aria-label={closeLabel} onClick={() => setClosedState(true)} data-testid="whatsapp-float-close"><span><X size={12} strokeWidth={2.4} aria-hidden="true" /></span></button>
     </div>}
     <div className="wa-dock" data-open={closed ? 'true' : undefined} data-testid="whatsapp-dock">
       <div className="wa-dock__inner"><div className="container wa-dock__row">
@@ -97,5 +126,6 @@ function Inner({ lang }: { lang: string }) {
 /** Shared public-layout WhatsApp access. Remounts (state resets) on every route change; nothing is persisted. */
 export function WhatsAppAccess({ lang }: { lang: string }) {
   const [location] = useLocation();
+  useLayoutEffect(() => { setClosedState(false); return () => setClosedState(false); }, [location]);
   return <Inner key={location} lang={lang} />;
 }
