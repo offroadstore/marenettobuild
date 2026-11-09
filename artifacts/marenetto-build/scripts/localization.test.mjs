@@ -62,7 +62,8 @@ test('the translation source covers catalog-source and shared-interface phrases,
   const code = await readFile(file, 'utf8');
   const sourceFile = ts.createSourceFile(file, code, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
   const source = JSON.parse(await readFile(path.join(root, 'src/localization/catalogs/sources.json'), 'utf8')).entries;
-  const available = new Set(Object.values(source).map(text => text.normalize('NFKC').replace(/\s+/g, ' ').trim()));
+  const previewSource = JSON.parse(await readFile(path.join(root, 'src/localization/preview-sources.json'), 'utf8')).entries;
+  const available = new Set([...Object.values(source), ...Object.values(previewSource)].map(text => text.normalize('NFKC').replace(/\s+/g, ' ').trim()));
   const required = new Set();
   const collect = node => {
     if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) {
@@ -136,4 +137,18 @@ test('approved translations are present in the production bundle while preview i
   assert.ok(approvedFrench);
   assert.equal(javascript.includes(approvedFrench), true);
   assert.ok((await readFile(path.join(output, 'robots.txt'), 'utf8')).includes('Disallow: /'));
+});
+
+test('preview catalogs cover every source key and stay marked for owner review', async () => {
+  const entries = JSON.parse(await readFile(path.join(root, 'src/localization/preview-sources.json'), 'utf8')).entries;
+  const ids = Object.keys(entries);
+  assert.equal(ids.length, 438);
+  const locales = JSON.parse(await readFile(path.join(root, 'src/localization/locales.json'), 'utf8'));
+  const codes = (Array.isArray(locales) ? locales : locales.locales).map(l => l.code).filter(c => c !== 'it');
+  assert.equal(codes.length, 28);
+  for (const code of codes) {
+    const catalog = JSON.parse(await readFile(path.join(root, `src/localization/preview/${code}.json`), 'utf8'));
+    assert.equal(catalog.reviewStatus, 'awaiting-owner-review', code);
+    assert.deepEqual(ids.filter(id => !catalog.translations[id]?.trim()), [], code);
+  }
 });

@@ -10,10 +10,13 @@ import { Logo } from '@/components/brand/Logo';
 import { HeroPhoto, IllustrativeImage } from '@/components/home/Media';
 import { IllustrationNote } from '@/components/home/IllustrationNote';
 import { homeCopy, SERVICE_GROUP_IDS, type HomeCopy } from '@/content/home-copy';
+import { articlePath, libraryPath } from '@/localization/paths';
+import { LibraryLocale } from '@/localization/library-context';
+import { localeLoadErrors } from '@/localization/load-errors';
 import '@/styles/home.css';
 import { Route, Switch, useLocation, Router as WouterRouter, Link, Redirect } from 'wouter';
 import { Search } from 'lucide-react';
-import { articleBySlug, articles as articleList, formatDate as formatArticleDate } from '@/content/articles';
+import { articleBySlug, articles as articleList } from '@/content/articles';
 import { historicalRedirects } from '@/content/historical-routes';
 import { withCampaignParams } from '@/lib/campaign';
 import { ArticleDetailPage, ArticlesPage, GuidesPage, SearchPage } from '@/pages/library';
@@ -23,7 +26,7 @@ import { shadcn } from '@clerk/themes';
 import { InternalEntry, OwnerDemo, PublishedCmsPage } from '@/pages/internal-surfaces';
 import publicPageData from '@/localization/public-pages.json';
 import { getLocale, getLocaleDirection, LANGUAGE_CHOICES, LOCALES, PAGE_KEYS, PUBLISHED_LOCALES } from '@/localization/locales';
-import { getLocalizedCopy, isLocaleCatalogLoaded, loadLocaleCatalog, localizeChoice, localizeNode } from '@/localization/runtime';
+import { getLocalizedCopy, isLocaleCatalogLoaded, loadLocaleCatalog, localizeChoice, localizeNode, translateText } from '@/localization/runtime';
 
 const queryClient = new QueryClient();
 
@@ -40,10 +43,10 @@ const routes = Object.fromEntries(LOCALES.map(locale => {
   if (!pages) throw new Error(`Missing published page metadata for locale ${locale.code}.`);
   return [locale.code, {
     ...Object.fromEntries(PAGE_KEYS.map(page => [page, pages[page].path])),
-    articles: '/articoli',
-    guides: '/guide',
-    projects: '/progetti',
-    search: '/ricerca',
+    articles: libraryPath(locale.code, 'articles'),
+    guides: libraryPath(locale.code, 'guides'),
+    projects: libraryPath(locale.code, 'projects'),
+    search: libraryPath(locale.code, 'search'),
   }];
 })) as Record<Lang, Record<Page, string>>;
 
@@ -126,7 +129,7 @@ const copyBase = {
     ] },
   },
   en: {
-    nav: { services: 'Services', process: 'How we work', abroad: 'Owners abroad', articles: 'Articles (IT)', projects: 'Projects', contact: 'Contact', request: 'Let’s talk about your project' },
+    nav: { services: 'Services', process: 'How we work', abroad: 'Owners abroad', articles: 'Articles', projects: 'Projects', contact: 'Contact', request: 'Let’s talk about your project' },
     home: { eyebrow: 'MARENETTO BUILD · CEFALÙ AND SURROUNDING AREA', title: <>Building and renovation <em>in Cefalù.</em></>, intro: 'Building work and maintenance for homes, second homes and hospitality properties in Cefalù and nearby. A local contact to organise the work and keep you informed, even when you live abroad.', primary: 'Tell us about your project', secondary: 'See how we work', note: 'A local point of contact, even when you live abroad.', figure: 'A real presence, on the ground.', proof1: 'Cefalù and the surrounding area', proof2: 'Italian · English · Dutch · Spanish' },
     page: { services: ['Services', 'Build, renovate, maintain.', 'Building work, finishes, outdoor spaces and maintenance for your home in Cefalù and nearby. After the first contact we tell you what we do ourselves, what goes to a qualified professional and how we proceed.'], process: ['How we work', 'From your enquiry to the next steps.', 'You describe the situation; we identify useful checks and agree on tasks, responsibilities and updates.'], abroad: ['Owners abroad', 'Your home in Sicily, looked after up close.', 'A contact in Cefalù for building work and maintenance, with an agreed way to keep in touch when you cannot be there.'], contact: ['Contact', 'Write or call us.', 'You can contact us in Italian or English. A few lines about the property and what you need are enough to start a conversation.'], request: ['Request', 'Where should we begin?', 'Tell us about the property and what you need: its location, the work and your priorities help us understand where to start.'] },
     services: { over: 'What we do, in practice.', heading: 'Services for your property', intro: 'Describe the property and the work you have in mind. We define the tasks and who will handle them; reserved technical matters involve the appointed qualified professionals.', groups: [
@@ -154,7 +157,7 @@ const copyBase = {
 const copy = new Proxy(copyBase, {
   get(target, key, receiver) {
     if (typeof key !== 'string' || key in target) return Reflect.get(target, key, receiver);
-    return getLocalizedCopy(key, copySource as Record<string, typeof copySource.en>);
+    return getLocalizedCopy(key, copyBase as Record<string, typeof copySource.en>);
   },
 }) as typeof copySource & Record<Lang, typeof copySource.en>;
 
@@ -178,7 +181,7 @@ function getPage(path: string): Page {
   if (path === '/ricerca') return 'search';
   const normalizedPath = path.replace(/\/+$/, '') || '/';
   for (const locale of LOCALES) {
-    const matchedPage = PAGE_KEYS.find(page => (routes[locale.code][page].replace(/\/+$/, '') || '/') === normalizedPath);
+    const matchedPage = (Object.keys(routes[locale.code]) as Page[]).find(page => (routes[locale.code][page].replace(/\/+$/, '') || '/') === normalizedPath);
     if (matchedPage) return matchedPage;
   }
   return 'home';
@@ -187,7 +190,7 @@ function PageLink({ page, lang, children, className, ...props }: { page: Page; l
   return <Link href={withCampaignParams(routes[lang][page])} className={className} {...props}>{children}</Link>;
 }
 
-function Header({ lang, page }: { lang: Lang; page: Page }) {
+function Header({ lang, page, articleSlug }: { lang: Lang; page: Page; articleSlug?: string }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const [location] = useLocation();
@@ -229,7 +232,7 @@ function Header({ lang, page }: { lang: Lang; page: Page }) {
         {items.map(([key, label]) => <PageLink key={key} page={key} lang={lang} aria-current={page === key ? 'page' : undefined} data-testid={`nav-${key}`}>{label}</PageLink>)}
       </nav>
       <div className="nav-actions">
-        <Link href={withCampaignParams('/ricerca')} className="nav-search" aria-label={lang === 'it' ? 'Cerca negli articoli' : 'Search articles'} aria-current={page === 'search' ? 'page' : undefined} data-testid="nav-search"><Search size={16} /></Link>
+        <Link href={withCampaignParams(routes[lang].search)} className="nav-search" aria-label={lang === 'it' ? 'Cerca negli articoli' : 'Search articles'} aria-current={page === 'search' ? 'page' : undefined} data-testid="nav-search"><Search size={16} /></Link>
         <div className="language-picker">
           <button ref={langButtonRef} type="button" className="lang-switch" aria-label={getLocale(lang)?.nativeName ?? lang} aria-expanded={languageMenuOpen} aria-haspopup="menu" onClick={() => { setMenuOpen(false); setLanguageMenuOpen(open => !open); }} data-testid="link-language">{lang.toUpperCase()} <ChevronDown size={12} /></button>
           {languageMenuOpen && <div ref={languageMenuRef} className="language-menu" role="menu" onKeyDown={event => {
@@ -242,7 +245,7 @@ function Header({ lang, page }: { lang: Lang; page: Page }) {
             const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1
               : (current + (event.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
             items[next]?.focus();
-          }}>{LOCALES.map(locale => <Link key={locale.code} href={withCampaignParams(routes[locale.code][page])} role="menuitem" dir={locale.direction} aria-current={locale.code === lang ? 'true' : undefined} onClick={() => setLanguageMenuOpen(false)}>{locale.nativeName}</Link>)}</div>}
+          }}>{LOCALES.map(locale => <Link key={locale.code} href={withCampaignParams(articleSlug ? articlePath(locale.code, articleSlug) : routes[locale.code][page])} role="menuitem" dir={locale.direction} aria-current={locale.code === lang ? 'true' : undefined} onClick={() => setLanguageMenuOpen(false)}>{locale.nativeName}</Link>)}</div>}
         </div>
         <PageLink page="request" lang={lang} className={`button${page === 'request' ? ' is-quiet' : ''}`} data-testid="nav-request">{requestLabel}<ArrowRight size={14} /></PageLink>
         <button ref={menuButtonRef} type="button" className="menu-toggle" aria-controls="mobile-nav" onClick={() => { setLanguageMenuOpen(false); setMenuOpen(!menuOpen); }} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} data-testid="button-menu">{menuOpen ? <X size={18} /> : <Menu size={18} />}</button>
@@ -250,8 +253,8 @@ function Header({ lang, page }: { lang: Lang; page: Page }) {
     </div>
     {menuOpen && <nav ref={mobileNavRef} id="mobile-nav" className="mobile-nav" aria-label={lang === 'it' ? 'Menu' : 'Menu'}>
       {items.map(([key, label]) => <PageLink key={key} page={key} lang={lang} onClick={() => setMenuOpen(false)} data-testid={`mobile-nav-${key}`}>{label}</PageLink>)}
-      <PageLink page="guides" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-guides">{lang === 'it' ? 'Guide pratiche' : 'Practical guides (IT)'}</PageLink>
-      <PageLink page="search" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-search">{lang === 'it' ? 'Ricerca' : 'Search (IT)'}</PageLink>
+      <PageLink page="guides" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-guides">{lang === 'it' ? 'Guide pratiche' : 'Practical guides'}</PageLink>
+      <PageLink page="search" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-search">{lang === 'it' ? 'Ricerca' : 'Search'}</PageLink>
       <a href="tel:+393339363007" data-testid="mobile-nav-phone">+39 333 936 3007</a>
       <PageLink page="request" lang={lang} className="button" onClick={() => setMenuOpen(false)}>{requestLabel}<ArrowRight size={14} /></PageLink>
     </nav>}
@@ -273,7 +276,7 @@ function Footer({ lang }: { lang: Lang }) {
           <PageLink lang={lang} page="process">{it ? 'Come lavoriamo' : 'How we work'}</PageLink>
           <PageLink lang={lang} page="abroad">{it ? 'Proprietari all’estero' : 'Owners abroad'}</PageLink>
           <PageLink lang={lang} page="request">{it ? 'Invia una richiesta' : 'Send an enquiry'}</PageLink>
-        </div><h3 className="footer-subheading">{it ? 'Approfondire' : 'Read (in Italian)'}</h3><div className="footer-links">
+        </div><h3 className="footer-subheading">{it ? 'Approfondire' : 'Resources'}</h3><div className="footer-links">
           <PageLink lang={lang} page="articles" data-testid="link-footer-articles">{it ? 'Articoli' : 'Articles'}</PageLink>
           <PageLink lang={lang} page="guides" data-testid="link-footer-guides">{it ? 'Guide pratiche' : 'Practical guides'}</PageLink>
           <PageLink lang={lang} page="search" data-testid="link-footer-search">{it ? 'Ricerca' : 'Search'}</PageLink>
@@ -312,25 +315,13 @@ function PageHero({ lang, page }: { lang: Lang; page: Exclude<CorePage, 'home'> 
 }
 
 function buildHomeCopy(lang: Lang): HomeCopy {
-  if (lang === 'it' || lang === 'en' || lang === 'de') return homeCopy[lang];
-  // Other locales: reuse already localized catalog values only (no new keys).
-  const c = copy[lang]; const g = c.services.groups;
-  return {
-    eyebrow: c.home.eyebrow, title: c.home.title, intro: c.home.intro, primary: c.home.primary, secondary: c.home.secondary,
-    svcKicker: c.nav.services, svcHeading: c.services.heading, svcIntro: c.services.over, svcAll: c.nav.services,
-    services: [0, 4, 5].map(i => ({ title: g[i].title, desc: g[i].desc, link: g[i].title })),
-    outdoorKicker: c.nav.services, outdoorTitle: g[3].title, outdoorText: g[3].desc, outdoorLink: g[3].title,
-    methodKicker: c.nav.process, methodHeading: c.process.heading, methodLink: c.nav.process,
-    steps: c.process.steps.map(st => [st[1], st[2]] as [string, string]),
-    abroadKicker: c.nav.abroad, abroadHeading: c.abroad.heading, abroadText: c.page.abroad[2], abroadLink: c.nav.abroad,
-    abroadPoints: c.abroad.blocks.slice(0, 3).map(b => [b[0], b[1]] as [string, string]),
-  };
+  return getLocalizedCopy(lang, { it: homeCopy.it, en: homeCopy.en });
 }
 
 function HomePage({ lang }: { lang: Lang }) {
   const it = lang === 'it';
   const h = buildHomeCopy(lang);
-  const native = lang === 'it' || lang === 'en' || lang === 'de';
+  const native = lang === 'it' || lang === 'en';
   // Native copy is rendered as-is; other locales already receive localized values from copy[lang].
   const wrap = (node: ReactNode) => native ? node : localizeNode(lang, node);
   const svcHref = (id: string) => withCampaignParams(routes[lang].services) + '#' + id;
@@ -424,11 +415,11 @@ function HomePage({ lang }: { lang: Lang }) {
       <div className="mbh-wrap">
         <div className="mb-news-head"><h2 className="mbh-h2">{copy[lang].nav.articles}</h2><span className="mb-news-rule" aria-hidden="true" /><PageLink lang={lang} page="articles" className="mbh-link" data-testid="link-home-articles">{copy[lang].nav.articles}<ArrowRight size={14} /></PageLink></div>
         <div className="mb-news-grid">
-          {[...articleList].sort((a, b) => (a.reviewStatus === 'documentary-review' ? 0 : 1) - (b.reviewStatus === 'documentary-review' ? 0 : 1)).slice(0, 3).map(a => <Link key={a.slug} href={withCampaignParams(`/${a.slug}`)} className="mb-news-card" data-testid={`card-home-article-${a.slug}`}>
-            <div className="mb-news-media"><img src={a.image} alt={a.imageAlt} width={1920} height={a.image.endsWith('.png') ? 1920 : 1047} loading="lazy" lang="it" /></div>
-            <div className="mb-news-meta"><span lang="it">{a.category}</span><span lang="it">{formatArticleDate(a.publishedOn)}</span>{!it && <span className="mb-lang-tag" title="Italiano">IT</span>}</div>
-            <h3 className="mb-serif" lang="it">{a.title}</h3>
-            <p lang="it">{a.summary}</p>
+          {[...articleList].sort((a, b) => (a.reviewStatus === 'documentary-review' ? 0 : 1) - (b.reviewStatus === 'documentary-review' ? 0 : 1)).slice(0, 3).map(a => <Link key={a.slug} href={withCampaignParams(articlePath(lang, a.slug))} className="mb-news-card" data-testid={`card-home-article-${a.slug}`}>
+            <div className="mb-news-media"><img src={a.image} alt={translateText(lang, a.imageAlt)} width={1920} height={a.image.endsWith('.png') ? 1920 : 1047} loading="lazy" /></div>
+            <div className="mb-news-meta"><span>{translateText(lang, a.category)}</span><span>{a.publishedOn ? new Intl.DateTimeFormat(lang, { dateStyle: 'long' }).format(new Date(`${a.publishedOn}T12:00:00Z`)) : '—'}</span></div>
+            <h3 className="mb-serif">{translateText(lang, a.title)}</h3>
+            <p>{translateText(lang, a.summary)}</p>
           </Link>)}
         </div>
       </div>
@@ -555,14 +546,29 @@ function RequestPage({ lang }: { lang: Lang }) {
   const label = localizeChoice(lang, { group1: 'La richiesta', type: 'Di cosa hai bisogno?', property: 'Tipo di proprietà', service: 'Servizio', location: 'Dove si trova la proprietà?', stage: 'A che punto sei?', message: 'Raccontaci meglio', group2: 'Come ricontattarti', name: 'Nome e cognome', email: 'Email', phone: 'Telefono / WhatsApp', channel: 'Canale preferito', lang: 'Lingua preferita', group3: 'Altri dettagli', budget: 'Budget indicativo (opzionale)', period: 'Periodo desiderato (opzionale)', accom: 'Potresti aver bisogno di un alloggio durante i lavori', mobility: 'Hai esigenze di accessibilità o mobilità da segnalarci', privacy: 'Ho letto e accetto l’informativa privacy per essere ricontattato in merito a questa richiesta.', submit: 'Rivedi la richiesta', sending: 'Invio in corso…', requestType: ['Progetto / lavori', 'Manutenzione', 'Acquisto'], required: 'I campi contrassegnati con * sono necessari. La richiesta non conferma disponibilità o avvio dei lavori.' }, { group1: 'Your enquiry', type: 'What do you need?', property: 'Property type', service: 'Service', location: 'Where is the property?', stage: 'What stage are you at?', message: 'Tell us a little more', group2: 'How to reach you', name: 'Name', email: 'Email', phone: 'Phone / WhatsApp', channel: 'Preferred contact channel', lang: 'Preferred language', group3: 'A few more details', budget: 'Indicative budget (optional)', period: 'Desired timing (optional)', accom: 'You may need accommodation during the work', mobility: 'You have accessibility or mobility needs to let us know about', privacy: 'I have read and accept the privacy notice so I can be contacted about this enquiry.', submit: 'Review your enquiry', sending: 'Sending…', requestType: ['Project / building work', 'Maintenance', 'Purchase'], required: 'Fields marked * are required. Sending an enquiry does not confirm availability or a start date.' });
   const requestTypes: ProjectRequestInput['requestType'][] = ['project', 'maintenance', 'purchase'];
   const selectField = (key: keyof RequestFormState, name: string, options: [string, string][], required = true) => <div className="field"><label htmlFor={`field-${key}`}>{name}{required && <span aria-hidden="true"> *</span>}</label><select id={`field-${key}`} data-testid={`select-${key}`} value={form[key] as string} onChange={e => update(key, e.target.value)} required={required}><option value="">{text('Seleziona…', 'Choose…')}</option>{options.map(([v, t]) => <option value={v} key={v}>{t}</option>)}</select></div>;
-  const human = (value: string) => value.replaceAll('_', ' ').replace(/^./, x => x.toUpperCase());
+  const human = (key: keyof RequestFormState) => {
+    const element = formRef.current?.querySelector<HTMLSelectElement>(`select[id="field-${key}"]`);
+    return element?.selectedOptions[0]?.textContent ?? String(form[key]);
+  };
   return <>
     <PageHero lang={lang} page="request" />
     <section className="section">
       <div className="container request-layout">
         <aside className="request-aside"><SectionLabel>{text('Un buon punto di partenza', 'A useful place to start')}</SectionLabel><h2 className="display-title">{text('Con calma, con i dettagli che hai.', 'No rush. Share what you know.')}</h2><p>{text('Questa anteprima scarta i dati inseriti e conserva solo un lead sintetico. Non inserire dati personali reali. Le notifiche interne sono persistenti; gli invii email attendono l’approvazione del fornitore.', 'This preview discards the details entered and stores only a synthetic lead. Do not enter real personal information. In-app notifications persist; email delivery awaits provider approval.')}</p><p>{text('Per un contatto effettivo, scrivi a info@marenettobuild.com, chiama o invia un messaggio WhatsApp al numero aziendale.', 'For a real enquiry, email info@marenettobuild.com, call or send a WhatsApp message to the company number.')}</p><div className="language-note">{text('Puoi indicare una lingua preferita fra quelle richieste; la risposta automatica non è ancora attiva.', 'You can select any requested language; automated replies are not active yet.')}</div></aside>
         <div>
-          <form className="form-card" ref={formRef} onSubmit={submitRequest} noValidate={false}>
+          <form className="form-card" ref={formRef} onSubmit={submitRequest} noValidate={false}
+            onInputCapture={event => {
+              const field = event.target;
+              if (field instanceof HTMLInputElement || field instanceof HTMLSelectElement || field instanceof HTMLTextAreaElement) field.setCustomValidity('');
+            }}
+            onInvalidCapture={event => {
+              const field = event.target;
+              if (!(field instanceof HTMLInputElement || field instanceof HTMLSelectElement || field instanceof HTMLTextAreaElement)) return;
+              field.setCustomValidity(field.validity.valueMissing
+                ? text('Compila questo campo.', 'Please fill in this field.')
+                : field.validity.typeMismatch ? text('Inserisci un indirizzo email valido.', 'Please enter a valid email address.')
+                : text('Controlla questo campo.', 'Please check this field.'));
+            }}>
             <h2 className="form-section-title">{label.group1}</h2>
             <div className="field full"><span className="field-label">{label.type} *</span><div className="radio-row">{requestTypes.map((value, i) => <label className="radio-choice" key={value}><input type="radio" name="requestType" value={value} checked={form.requestType === value} onChange={() => update('requestType', value)} data-testid={`radio-request-${value}`} /><span>{label.requestType[i]}</span></label>)}</div></div>
             <div className="form-grid" style={{ marginTop: 18 }}>
@@ -599,7 +605,7 @@ function RequestPage({ lang }: { lang: Lang }) {
             {review && !receipt && <div className="review-card" data-testid="review-card">
               <h3>{text('Controlla prima di inviare', 'Review before sending')}</h3>
               <div className="review-grid">
-                {[[text('Richiesta', 'Request'), label.requestType[requestTypes.indexOf(form.requestType)]], [label.property, human(form.propertyType)], [label.service, human(form.service)], [label.location, form.location], [label.stage, human(form.projectStage)], [label.name, form.name], [label.email, form.email], [label.phone, form.phone || '—'], [label.channel, human(form.preferredChannel)], [label.lang, form.preferredLanguage], [label.budget, form.budget || '—'], [label.period, form.desiredPeriod || '—'], [label.accom, form.needsAccommodation ? text('Sì', 'Yes') : text('No', 'No')], [label.mobility, form.needsMobility ? text('Sì', 'Yes') : text('No', 'No')], [label.message, form.message]].map(([k, v]) => <div className="review-item" key={k}><small>{k}</small><strong>{v}</strong></div>)}
+                {[[text('Richiesta', 'Request'), label.requestType[requestTypes.indexOf(form.requestType)]], [label.property, human('propertyType')], [label.service, human('service')], [label.location, form.location], [label.stage, human('projectStage')], [label.name, form.name], [label.email, form.email], [label.phone, form.phone || '—'], [label.channel, human('preferredChannel')], [label.lang, getLocale(form.preferredLanguage)?.nativeName ?? form.preferredLanguage], [label.budget, form.budget || '—'], [label.period, form.desiredPeriod || '—'], [label.accom, form.needsAccommodation ? text('Sì', 'Yes') : text('No', 'No')], [label.mobility, form.needsMobility ? text('Sì', 'Yes') : text('No', 'No')], [label.message, form.message]].map(([k, v]) => <div className="review-item" key={k}><small>{k}</small><strong>{v}</strong></div>)}
               </div>
               {create.isError && <div className="error-box" role="alert">{text('Invio non riuscito. Puoi modificare i dettagli o riprovare; nessun dato è stato cancellato.', 'Sending failed. Edit your details or try again; nothing has been cleared.')}</div>}
               <div className="form-footer"><button type="button" className="button outline" onClick={() => setReview(false)} data-testid="button-edit">{text('Modifica', 'Edit')}</button><button type="button" className="button" disabled={create.isPending} onClick={() => { if (formRef.current?.reportValidity()) formRef.current.requestSubmit(); }} data-testid="button-submit">{create.isPending ? label.sending : text('Invia richiesta', 'Send enquiry')}<ArrowRight size={15} /></button></div>
@@ -711,10 +717,22 @@ function SitePage({ page, lang }: { page: CorePage; lang: Lang }) {
   </div>;
 }
 
-function LibraryShell({ page, children }: { page: Page; children: ReactNode }) {
-  return <div className="site-shell"><Header lang="it" page={page} /><main>{children}</main><Footer lang="it" /></div>;
+function LibraryShell({ page, children, lang = 'it', articleSlug }: { page: Page; children: ReactNode; lang?: Lang; articleSlug?: string }) {
+  return <LibraryLocale.Provider value={lang}><div className="site-shell" lang={lang === 'it' ? 'it-IT' : lang} dir={getLocaleDirection(lang)}>
+    <Header lang={lang} page={page} articleSlug={articleSlug} />
+    <main>{lang !== 'it' && <p className="container translation-review-status" role="note" data-testid="translation-review-notice">{translateText(lang, 'Translation preview, awaiting review.')}</p>}{children}</main>
+    <Footer lang={lang} />
+  </div></LibraryLocale.Provider>;
+}
+function LocalizedLibraryPage({ lang, page, articleSlug }: { lang: Lang; page: 'articles' | 'guides' | 'search'; articleSlug?: string }) {
+  return <LocaleGate lang={lang}><LibraryShell lang={lang} page={page} articleSlug={articleSlug}>
+    {articleSlug ? <ArticleDetailPage a={articleBySlug.get(articleSlug)!} /> : page === 'articles' ? <ArticlesPage /> : page === 'guides' ? <GuidesPage /> : <SearchPage />}
+  </LibraryShell></LocaleGate>;
 }
 function LocalizedSitePage({ page, lang }: { page: CorePage; lang: Lang }) {
+  return <LocaleGate lang={lang}><SitePage page={page} lang={lang} /></LocaleGate>;
+}
+function LocaleGate({ lang, children }: { lang: Lang; children: ReactNode }) {
   const [readyLocale, setReadyLocale] = useState<string | null>(() => isLocaleCatalogLoaded(lang) ? lang : null);
   const [failedLocale, setFailedLocale] = useState<string | null>(null);
   useEffect(() => {
@@ -726,10 +744,10 @@ function LocalizedSitePage({ page, lang }: { page: CorePage; lang: Lang }) {
   }, [lang]);
 
   if (!isLocaleCatalogLoaded(lang) && readyLocale !== lang) {
-    if (failedLocale === lang) return <div className="locale-load-error" role="alert">Impossibile caricare i testi approvati per questa lingua. Riprova più tardi.</div>;
-    return <div className="locale-loading" lang={lang} dir={getLocaleDirection(lang)} aria-busy="true">Caricamento dei contenuti…</div>;
+    if (failedLocale === lang) return <div className="locale-load-error" lang={lang} dir={getLocaleDirection(lang)} role="alert">{localeLoadErrors[lang]}</div>;
+    return <div className="locale-loading" lang={lang} dir={getLocaleDirection(lang)} aria-busy="true">{getLocale(lang)?.nativeName}…</div>;
   }
-  return <SitePage page={page} lang={lang} />;
+  return children;
 }
 function Router() {
   const [path] = useLocation();
@@ -737,6 +755,13 @@ function Router() {
   const lang = getLang(path);
   const page = getPage(path);
   const trimmed = path.length > 1 && path.endsWith('/') && path !== '/en/' ? path.replace(/\/+$/, '') : path;
+  const localizedLibrary = trimmed.match(/^\/([a-z]{2})\/(articles|guides|search|projects)(?:\/([^/]+))?$/);
+  if (localizedLibrary && getLocale(localizedLibrary[1])) {
+    const [, libraryLang, kind, slug] = localizedLibrary;
+    if (kind === 'projects') return <Redirect to={withCampaignParams(routes[libraryLang].services)} />;
+    if (slug && (kind !== 'articles' || !articleBySlug.has(slug))) return <NotFound lang={libraryLang} />;
+    return <RoutedErrorBoundary><LocalizedLibraryPage lang={libraryLang} page={kind as 'articles' | 'guides' | 'search'} articleSlug={slug} /></RoutedErrorBoundary>;
+  }
   if (historicalRedirects[trimmed]) {
     return <Redirect to={withCampaignParams(`${historicalRedirects[trimmed]}${window.location.hash}`)} replace />;
   }
