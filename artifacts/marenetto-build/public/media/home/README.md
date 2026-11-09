@@ -27,6 +27,14 @@ usage rights and any releases (or replace the files) before public release.
 
 ## Encoding
 
+The visual revision also supplies `hero-portrait-384.webp` and
+`hero-portrait-628.webp`: ordinary crops of the same 1920×1047 historical
+hero (source rectangle 628×1047 at x=801, y=0), not generated replacements.
+The larger crop retains native pixels and the smaller is downsampled.
+Mobile `<picture>` uses these instead of downloading an entire landscape
+image to show a narrow strip. The original is insufficient for full-density
+large/high-DPR displays; no larger version has been invented.
+
 ImageMagick WebP quality 82 for the hero (768, 1280, 1920 pixels wide), quality 80
 for the other images (480 and 960 pixels wide). Aspect ratios are retained;
 cropping is presentation-only. No extra person/vehicle crop is presented as a

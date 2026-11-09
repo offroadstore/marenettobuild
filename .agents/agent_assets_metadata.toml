@@ -98,3 +98,17 @@ mtime_ms = 1794246477996
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/cca2b8d8-5992-4f50-beb5-213f5a107894/794051c3-9766-464e-a978-096c1b0eb4ea"
 storage_version_token = "1794260063087684"
 content_type = "image/png"
+
+[[outputs]]
+id = "4vszSu0bU0Q-rl8_KoUiH"
+uri = "file://generated-artifacts/marenetto-home-review/confronto-homepage.html"
+type = "html"
+title = "Confronto dell’interfaccia della homepage"
+description = "Schermate della stessa pagina prima e dopo la revisione, con note aggiornate e limiti delle verifiche. Non è un confronto di lavori edili."
+logical_id = "25f6cf8c-7ede-4f0d-a4b6-3ebbeb32d3ae"
+content_hash = "sha256:c6ae5eb8ed84653c35d34dce4fd0aa5bbb0084693d8e816eca548cceca300c08"
+size = 732408
+mtime_ms = 1794262897793
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/25f6cf8c-7ede-4f0d-a4b6-3ebbeb32d3ae/336eb9db-0c48-47ec-9c65-1147eb81bf13"
+storage_version_token = "1794262898651048"
+content_type = "text/html"

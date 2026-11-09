@@ -1,13 +1,16 @@
 import { type AnchorHTMLAttributes, type FormEvent, type ReactNode, useEffect, useRef, useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ArrowDownRight, ArrowRight, ChevronDown, Compass, Globe2, Hammer, House, Mail, MapPin, Menu, MessageCircle, Wrench, X } from 'lucide-react';
+import { ArrowRight, ChevronDown, House, Mail, MapPin, Menu, MessageCircle, X } from 'lucide-react';
 import { useCreateProjectRequest, type ProjectRequestInput } from '@workspace/api-client-react';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
 import { Logo } from '@/components/brand/Logo';
-import { IllustrativeImage } from '@/components/home/Media';
+import { HeroPhoto, IllustrativeImage } from '@/components/home/Media';
+import { IllustrationNote } from '@/components/home/IllustrationNote';
+import { homeCopy, SERVICE_GROUP_IDS, type HomeCopy } from '@/content/home-copy';
+import '@/styles/home.css';
 import { Route, Switch, useLocation, Router as WouterRouter, Link, Redirect } from 'wouter';
 import { Search } from 'lucide-react';
 import { articleBySlug, articles as articleList, formatDate as formatArticleDate } from '@/content/articles';
@@ -98,7 +101,7 @@ const copySource = {
 };
 const copyBase = {
   it: {
-    nav: { services: 'Servizi', process: 'Come lavoriamo', abroad: 'Per chi vive all’estero', articles: 'Articoli', projects: 'Progetti', contact: 'Contatti', request: 'Parliamone' },
+    nav: { services: 'Servizi', process: 'Come lavoriamo', abroad: 'Per chi vive all’estero', articles: 'Articoli', projects: 'Progetti', contact: 'Contatti', request: 'Parliamo del tuo progetto' },
     home: { eyebrow: 'MARENETTO BUILD · CEFALÙ E DINTORNI', title: <>Costruiamo e ristrutturiamo <em>a Cefalù.</em></>, intro: 'Lavori edili e manutenzione per case, seconde abitazioni e strutture ricettive a Cefalù e dintorni. Un referente locale per organizzare gli interventi e restare aggiornato, anche se vivi all’estero.', primary: 'Raccontaci il tuo progetto', secondary: 'Guarda come lavoriamo', note: 'Un referente locale, anche quando vivi lontano.', figure: 'Una presenza concreta, sul posto.', proof1: 'Cefalù e dintorni', proof2: 'Italiano · Inglese · Olandese · Spagnolo' },
     page: { services: ['Servizi', 'Costruire, rinnovare, mantenere.', 'Lavori edili, finiture, esterni e manutenzione per la tua casa a Cefalù e dintorni. Dopo il primo contatto ti diciamo cosa facciamo noi, cosa affidiamo a un professionista e come procediamo.'], process: ['Come lavoriamo', 'Dalla tua richiesta ai prossimi passi.', 'Ci racconti la situazione, individuiamo le verifiche utili e concordiamo attività, responsabilità e aggiornamenti.'], abroad: ['Proprietari all’estero', 'La tua casa in Sicilia, seguita da vicino.', 'Un referente a Cefalù per lavori e manutenzione, con un canale di comunicazione concordato anche quando non puoi esserci.'], contact: ['Contatti', 'Scrivici o chiamaci.', 'Puoi contattarci in italiano o in inglese. Bastano poche righe sulla casa e su cosa ti serve per iniziare un confronto.'], request: ['Richiesta', 'Da dove possiamo cominciare?', 'Raccontaci della proprietà e di ciò che ti serve: località, tipo di intervento e priorità ci aiutano a capire da dove iniziare.'] },
     services: { over: 'Cosa facciamo, in concreto.', heading: 'Servizi per la tua proprietà', intro: 'Descrivi l’immobile e l’intervento. Definiamo le lavorazioni e chi se ne occupa; per gli aspetti riservati intervengono i professionisti abilitati incaricati.', groups: [
@@ -123,7 +126,7 @@ const copyBase = {
     ] },
   },
   en: {
-    nav: { services: 'Services', process: 'How we work', abroad: 'Owners abroad', articles: 'Articles (IT)', projects: 'Projects', contact: 'Contact', request: 'Start a conversation' },
+    nav: { services: 'Services', process: 'How we work', abroad: 'Owners abroad', articles: 'Articles (IT)', projects: 'Projects', contact: 'Contact', request: 'Let’s talk about your project' },
     home: { eyebrow: 'MARENETTO BUILD · CEFALÙ AND SURROUNDING AREA', title: <>Building and renovation <em>in Cefalù.</em></>, intro: 'Building work and maintenance for homes, second homes and hospitality properties in Cefalù and nearby. A local contact to organise the work and keep you informed, even when you live abroad.', primary: 'Tell us about your project', secondary: 'See how we work', note: 'A local point of contact, even when you live abroad.', figure: 'A real presence, on the ground.', proof1: 'Cefalù and the surrounding area', proof2: 'Italian · English · Dutch · Spanish' },
     page: { services: ['Services', 'Build, renovate, maintain.', 'Building work, finishes, outdoor spaces and maintenance for your home in Cefalù and nearby. After the first contact we tell you what we do ourselves, what goes to a qualified professional and how we proceed.'], process: ['How we work', 'From your enquiry to the next steps.', 'You describe the situation; we identify useful checks and agree on tasks, responsibilities and updates.'], abroad: ['Owners abroad', 'Your home in Sicily, looked after up close.', 'A contact in Cefalù for building work and maintenance, with an agreed way to keep in touch when you cannot be there.'], contact: ['Contact', 'Write or call us.', 'You can contact us in Italian or English. A few lines about the property and what you need are enough to start a conversation.'], request: ['Request', 'Where should we begin?', 'Tell us about the property and what you need: its location, the work and your priorities help us understand where to start.'] },
     services: { over: 'What we do, in practice.', heading: 'Services for your property', intro: 'Describe the property and the work you have in mind. We define the tasks and who will handle them; reserved technical matters involve the appointed qualified professionals.', groups: [
@@ -193,6 +196,7 @@ function Header({ lang, page }: { lang: Lang; page: Page }) {
   const mobileNavRef = useRef<HTMLElement>(null);
   const languageMenuRef = useRef<HTMLDivElement>(null);
   const c = copy[lang].nav;
+  const requestLabel = lang === 'it' || lang === 'en' || lang === 'de' ? homeCopy[lang].primary : c.request;
   // Close both menus whenever the route changes (link click, back/forward).
   useEffect(() => { setMenuOpen(false); setLanguageMenuOpen(false); }, [location]);
   // Escape closes the open menu and returns focus to its trigger.
@@ -216,15 +220,6 @@ function Header({ lang, page }: { lang: Lang; page: Page }) {
   }, [languageMenuOpen]);
   const items: [Page, string][] = [['services', c.services], ['process', c.process], ['abroad', c.abroad], ['articles', c.articles], ['contact', c.contact]];
   // 'projects' stays routable (/progetti) but is hidden from navigation until approved real work exists.
-  const [heroInView, setHeroInView] = useState(page === 'home');
-  useEffect(() => {
-    if (page !== 'home') { setHeroInView(false); return; }
-    const hero = document.querySelector('[data-testid="section-hero"]');
-    if (!hero || typeof IntersectionObserver === 'undefined') return;
-    const io = new IntersectionObserver(([entry]) => setHeroInView(entry.isIntersecting), { threshold: 0.15 });
-    io.observe(hero);
-    return () => io.disconnect();
-  }, [page]);
   return localizeNode(lang, <header className="topbar">
     <div className="container nav-wrap">
       <Link href={withCampaignParams(routes[lang].home)} className="wordmark" aria-label={'Marenetto Build'} data-testid="link-logo">
@@ -249,7 +244,7 @@ function Header({ lang, page }: { lang: Lang; page: Page }) {
             items[next]?.focus();
           }}>{LOCALES.map(locale => <Link key={locale.code} href={withCampaignParams(routes[locale.code][page])} role="menuitem" dir={locale.direction} aria-current={locale.code === lang ? 'true' : undefined} onClick={() => setLanguageMenuOpen(false)}>{locale.nativeName}</Link>)}</div>}
         </div>
-        <PageLink page="request" lang={lang} className={`button${heroInView || page === 'request' ? ' is-quiet' : ''}`} data-testid="nav-request">{c.request}<ArrowRight size={14} /></PageLink>
+        <PageLink page="request" lang={lang} className={`button${page === 'request' ? ' is-quiet' : ''}`} data-testid="nav-request">{requestLabel}<ArrowRight size={14} /></PageLink>
         <button ref={menuButtonRef} type="button" className="menu-toggle" aria-controls="mobile-nav" onClick={() => { setLanguageMenuOpen(false); setMenuOpen(!menuOpen); }} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} data-testid="button-menu">{menuOpen ? <X size={18} /> : <Menu size={18} />}</button>
       </div>
     </div>
@@ -257,7 +252,8 @@ function Header({ lang, page }: { lang: Lang; page: Page }) {
       {items.map(([key, label]) => <PageLink key={key} page={key} lang={lang} onClick={() => setMenuOpen(false)} data-testid={`mobile-nav-${key}`}>{label}</PageLink>)}
       <PageLink page="guides" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-guides">{lang === 'it' ? 'Guide pratiche' : 'Practical guides (IT)'}</PageLink>
       <PageLink page="search" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-search">{lang === 'it' ? 'Ricerca' : 'Search (IT)'}</PageLink>
-      <PageLink page="request" lang={lang} className="button" onClick={() => setMenuOpen(false)}>{c.request}<ArrowRight size={14} /></PageLink>
+      <a href="tel:+393339363007" data-testid="mobile-nav-phone">+39 333 936 3007</a>
+      <PageLink page="request" lang={lang} className="button" onClick={() => setMenuOpen(false)}>{requestLabel}<ArrowRight size={14} /></PageLink>
     </nav>}
   </header>);
 }
@@ -277,8 +273,7 @@ function Footer({ lang }: { lang: Lang }) {
           <PageLink lang={lang} page="process">{it ? 'Come lavoriamo' : 'How we work'}</PageLink>
           <PageLink lang={lang} page="abroad">{it ? 'Proprietari all’estero' : 'Owners abroad'}</PageLink>
           <PageLink lang={lang} page="request">{it ? 'Invia una richiesta' : 'Send an enquiry'}</PageLink>
-        </div></div>
-        <div><h3>{it ? 'Approfondire' : 'Read (in Italian)'}</h3><div className="footer-links">
+        </div><h3 className="footer-subheading">{it ? 'Approfondire' : 'Read (in Italian)'}</h3><div className="footer-links">
           <PageLink lang={lang} page="articles" data-testid="link-footer-articles">{it ? 'Articoli' : 'Articles'}</PageLink>
           <PageLink lang={lang} page="guides" data-testid="link-footer-guides">{it ? 'Guide pratiche' : 'Practical guides'}</PageLink>
           <PageLink lang={lang} page="search" data-testid="link-footer-search">{it ? 'Ricerca' : 'Search'}</PageLink>
@@ -316,86 +311,151 @@ function PageHero({ lang, page }: { lang: Lang; page: Exclude<CorePage, 'home'> 
   </section>);
 }
 
+function buildHomeCopy(lang: Lang): HomeCopy {
+  if (lang === 'it' || lang === 'en' || lang === 'de') return homeCopy[lang];
+  // Other locales: reuse already localized catalog values only (no new keys).
+  const c = copy[lang]; const g = c.services.groups;
+  return {
+    eyebrow: c.home.eyebrow, title: c.home.title, intro: c.home.intro, primary: c.home.primary, secondary: c.home.secondary,
+    svcKicker: c.nav.services, svcHeading: c.services.heading, svcIntro: c.services.over, svcAll: c.nav.services,
+    services: [0, 4, 5].map(i => ({ title: g[i].title, desc: g[i].desc, link: g[i].title })),
+    outdoorKicker: c.nav.services, outdoorTitle: g[3].title, outdoorText: g[3].desc, outdoorLink: g[3].title,
+    methodKicker: c.nav.process, methodHeading: c.process.heading, methodLink: c.nav.process,
+    steps: c.process.steps.map(st => [st[1], st[2]] as [string, string]),
+    abroadKicker: c.nav.abroad, abroadHeading: c.abroad.heading, abroadText: c.page.abroad[2], abroadLink: c.nav.abroad,
+    abroadPoints: c.abroad.blocks.slice(0, 3).map(b => [b[0], b[1]] as [string, string]),
+  };
+}
+
 function HomePage({ lang }: { lang: Lang }) {
   const it = lang === 'it';
-  const h = copy[lang].home;
-  return localizeNode(lang, <div className="mb-home">
-    <section className="mb-hero" data-testid="section-hero">
-      <IllustrativeImage lang={lang} name="hero" widths={[768, 1280, 1920]} sizes="(min-width: 1024px) 960px, 100vw" width={1920} height={1047} eager alt="" />
-      <svg className="mb-hero-lines" viewBox="0 0 1440 800" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="#f3eee6" strokeWidth="1"><path d="M980 800V420l220-90 240 70M1200 330v470M1060 800V450M980 520h460M980 620h460" /><path d="M0 690h420l120-60M0 740h560" opacity=".6" /></g></svg>
-      <div className="container"><div className="mb-hero-copy">
-        <div className="animate-enter"><SectionLabel>{h.eyebrow}</SectionLabel></div>
-        <h1 className="mb-display animate-enter delay-1">{h.title}</h1>
-        <p className="animate-enter delay-2">{h.intro}</p>
-        <div className="hero-actions animate-enter delay-3">
-          <PageLink lang={lang} page="request" className="button" data-testid="hero-request">{h.primary}<ArrowRight size={15} /></PageLink>
-        </div>
-              </div></div>
-    </section>
-    <div className="mb-strip"><div className="container hero-bottom-inner"><span><Compass size={15} />{h.proof1}</span><span><Globe2 size={15} />{h.proof2}</span><span>{it ? 'Un primo confronto, senza impegno' : 'An initial conversation, no obligation'}<ArrowDownRight size={14} /></span></div></div>
-
-    <section className="section">
-      <div className="container">
-        <div className="section-head"><div><SectionLabel>{it ? 'Cosa facciamo' : 'What we do'}</SectionLabel><h2 className="section-heading display-title">{it ? <>La cura della casa,<br /><em>vista da vicino.</em></> : <>Looking after your home,<br /><em>from close by.</em></>}</h2><p className="section-intro">{it ? 'Dalla manutenzione di ogni giorno a un intervento più ampio: un punto di partenza chiaro, senza complicare ciò che può essere semplice.' : 'From everyday maintenance to a larger piece of work: a clear place to start, without making the simple complicated.'}</p></div><PageLink lang={lang} page="services" className="text-link">{it ? 'Tutti i servizi' : 'All services'}<ArrowRight size={15} /></PageLink></div>
-        <div className="mb-svc">
-          {[
-            { n: '01', icon: <Hammer size={19} />, title: it ? 'Realizzare o rinnovare' : 'Build or renovate', desc: it ? 'Costruzioni, ristrutturazioni e coordinamento degli interventi, con perimetro e ruoli da concordare.' : 'Construction, renovation and coordinated work, with scope and roles agreed in advance.' },
-            { n: '02', icon: <Wrench size={19} />, title: it ? 'Risolvere e mantenere' : 'Resolve and maintain', desc: it ? 'Manutenzione e piccoli interventi, valutati in base alla proprietà e alle verifiche necessarie.' : 'Maintenance and smaller repairs, considered in light of the property and checks required.' },
-            { n: '03', icon: <House size={19} />, title: it ? 'Valutare prima di acquistare' : 'Review before you buy', desc: it ? 'Un confronto preliminare sulle esigenze e sugli aspetti da sottoporre a verifica professionale.' : 'An initial discussion about your needs and the matters to review with qualified professionals.' },
-          ].map((service) => <article className="mb-svc-card mb-svc-card--type" key={service.n} data-testid={`card-service-${service.n}`}><div className="mb-svc-body"><span className="number">{service.n} / <span aria-hidden="true">{service.icon}</span></span><h3>{service.title}</h3><p>{service.desc}</p><PageLink lang={lang} page="services" className="text-link">{it ? 'Scopri di più' : 'Explore'}<ArrowRight size={14} /></PageLink></div></article>)}
+  const h = buildHomeCopy(lang);
+  const native = lang === 'it' || lang === 'en' || lang === 'de';
+  // Native copy is rendered as-is; other locales already receive localized values from copy[lang].
+  const wrap = (node: ReactNode) => native ? node : localizeNode(lang, node);
+  const svcHref = (id: string) => withCampaignParams(routes[lang].services) + '#' + id;
+  const serviceMedia = [
+    { name: 'construction', widths: [480, 960], width: 960, height: 524 },
+    { name: 'property', widths: [480, 960], width: 960, height: 960 },
+    { name: 'pre-purchase', widths: [1920], width: 1920, height: 1047, src: '/media/articles/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali.jpg' },
+  ];
+  const svcIds = [SERVICE_GROUP_IDS[0], SERVICE_GROUP_IDS[4], SERVICE_GROUP_IDS[5]];
+  return <div className="mb-home mbh">
+    <section className="mbh-opening">
+    <HeroPhoto>
+      <div className="mbh-hero__copy">
+        <p className="mbh-kicker mbh-kicker--light animate-enter">{h.eyebrow}</p>
+        <h1 className="mbh-h1 animate-enter delay-1">{h.title}</h1>
+        <p className="mbh-hero__lead animate-enter delay-2">{h.intro}</p>
+        <div className="mbh-actions animate-enter delay-3">
+          <PageLink lang={lang} page="request" className="mbh-btn mbh-btn--primary" data-testid="hero-request">{h.primary}<ArrowRight size={16} aria-hidden="true" /></PageLink>
+          <PageLink lang={lang} page="process" className="mbh-btn mbh-btn--ghost" data-testid="hero-process">{h.secondary}</PageLink>
         </div>
       </div>
+    </HeroPhoto>
+      <div className="mbh-wrap"><IllustrationNote lang={lang} /></div>
     </section>
 
+    {wrap(<section className="mbh-section" data-testid="section-services" aria-labelledby="mbh-svc-title">
+      <div className="mbh-wrap">
+        <div className="mbh-head">
+          <div><p className="mbh-kicker">{h.svcKicker}</p><h2 id="mbh-svc-title" className="mbh-h2">{h.svcHeading}</h2><p className="mbh-intro">{h.svcIntro}</p></div>
+          <PageLink lang={lang} page="services" className="mbh-link" data-testid="link-home-services">{h.svcAll}<ArrowRight size={15} aria-hidden="true" /></PageLink>
+        </div>
+        <div className="mbh-cards">
+          {h.services.map((s, i) => <article className="mbh-card" key={svcIds[i]} data-testid={`card-service-0${i + 1}`}>
+            <IllustrativeImage className="mbh-card__media" name={serviceMedia[i].name} widths={serviceMedia[i].widths} src={serviceMedia[i].src}
+              sizes="(min-width: 1100px) 400px, (min-width: 700px) 50vw, 100vw" width={serviceMedia[i].width} height={serviceMedia[i].height} alt="" />
+            <div className="mbh-card__body">
+              <span className="mbh-num">0{i + 1}</span>
+              <h3 className="mbh-h3">{s.title}</h3>
+              <p>{s.desc}</p>
+              <Link href={svcHref(svcIds[i])} className="mbh-link" data-testid={`link-service-${svcIds[i]}`}>{s.link}<ArrowRight size={15} aria-hidden="true" /></Link>
+            </div>
+          </article>)}
+        </div>
+        <IllustrationNote lang={lang} />
+      </div>
+    </section>)}
 
+    {/* Featured real project: intentionally omitted until a verified, authorised project exists. */}
 
-    <section className="section">
-      <div className="container">
-        <div className="section-head"><div><SectionLabel>{it ? 'Il percorso' : 'The process'}</SectionLabel><h2 className="section-heading display-title">{it ? 'Pochi passaggi, fatti bene.' : 'A few steps, done well.'}</h2><p className="section-intro">{it ? 'Una richiesta non deve diventare un labirinto. Ecco come iniziamo a lavorare insieme.' : 'An enquiry should not become a maze. Here is how we begin working together.'}</p></div><PageLink lang={lang} page="process" className="text-link">{it ? 'Il nostro metodo' : 'Our approach'}<ArrowRight size={15} /></PageLink></div>
-        <div className="process-strip">
-          {(it ? [['01', 'Ci racconti', 'Conosciamo la proprietà e la tua necessità.'], ['02', 'Mettiamo a fuoco', 'Chiariamo priorità e informazioni utili.'], ['03', 'Concordiamo', 'Definiamo insieme i prossimi passi.'], ['04', 'Restiamo in contatto', 'Condividiamo gli aggiornamenti concordati.']] : [['01', 'You tell us', 'We learn about the property and your needs.'], ['02', 'We get specific', 'We clarify priorities and useful details.'], ['03', 'We agree', 'We define the next steps together.'], ['04', 'We stay in touch', 'We share the updates we agreed.']]).map(([n, title, desc]) => <div className="process-step" key={n}><span className="step-number">{n}</span><h3>{title}</h3><p>{desc}</p></div>)}
+    {wrap(<section data-testid="section-outdoor" aria-labelledby="mbh-out-title">
+      <div className="mbh-outdoor">
+      <IllustrativeImage className="mbh-outdoor__media" name="garden" widths={[480, 960]} sizes="(min-width: 900px) 58vw, 100vw" width={960} height={960} alt="" />
+      <div className="mbh-outdoor__copy">
+        <p className="mbh-kicker mbh-kicker--light">{h.outdoorKicker}</p>
+        <h2 id="mbh-out-title" className="mbh-h2">{h.outdoorTitle}</h2>
+        <p>{h.outdoorText}</p>
+        <Link href={svcHref(SERVICE_GROUP_IDS[3])} className="mbh-link mbh-link--light" data-testid="link-service-esterni">{h.outdoorLink}<ArrowRight size={15} aria-hidden="true" /></Link>
+      </div>
+      </div>
+      <div className="mbh-wrap"><IllustrationNote lang={lang} /></div>
+    </section>)}
+
+    {wrap(<section className="mbh-section" id="metodo" data-testid="section-method" aria-labelledby="mbh-method-title">
+      <div className="mbh-wrap">
+        <div className="mbh-head">
+          <div><p className="mbh-kicker">{h.methodKicker}</p><h2 id="mbh-method-title" className="mbh-h2">{h.methodHeading}</h2></div>
+          <PageLink lang={lang} page="process" className="mbh-link" data-testid="link-home-process">{h.methodLink}<ArrowRight size={15} aria-hidden="true" /></PageLink>
+        </div>
+        <ol className="mbh-steps">
+          {h.steps.map(([t, d], i) => <li className="mbh-step" key={i}><span className="mbh-num">0{i + 1}</span><h3>{t}</h3><p>{d}</p></li>)}
+        </ol>
+      </div>
+    </section>)}
+
+    {wrap(<section className="mbh-section mbh-abroad" data-testid="section-abroad" aria-labelledby="mbh-abroad-title">
+      <div className="mbh-wrap mbh-abroad__grid">
+        <IllustrativeImage className="mbh-abroad__media" name="stonework" widths={[1024]} src="/media/articles/opere-in-pietra-e-prospetti.jpg"
+          sizes="(min-width: 900px) 50vw, 100vw" width={1024} height={1024} alt="" />
+        <div className="mbh-abroad__copy">
+          <p className="mbh-kicker">{h.abroadKicker}</p>
+          <h2 id="mbh-abroad-title" className="mbh-h2">{h.abroadHeading}</h2>
+          <p className="mbh-intro">{h.abroadText}</p>
+          <ul className="mbh-points">{h.abroadPoints.map(([t, d], i) => <li key={i}><span className="mbh-num">0{i + 1}</span><div><h3>{t}</h3><p>{d}</p></div></li>)}</ul>
+          <PageLink lang={lang} page="abroad" className="mbh-link" data-testid="link-home-abroad">{h.abroadLink}<ArrowRight size={15} aria-hidden="true" /></PageLink>
         </div>
       </div>
-    </section>
-    <section className="mb-wide mb-wide--text" data-testid="section-outdoor">
-      <div className="mb-wide-copy"><div className="container"><SectionLabel>{copy[lang].services.heading}</SectionLabel><h2 className="mb-display">{it ? 'Esterni, giardini e piscine' : 'Outdoor spaces, gardens and pools'}</h2><p>{copy[lang].services.groups[3].desc}</p><PageLink lang={lang} page="services" className="text-link">{it ? 'Tutti i servizi' : 'All services'}<ArrowRight size={15} /></PageLink></div></div>
-    </section>
-    <section className="section split-band">
-      <div className="container split-layout">
-        <div><SectionLabel>{it ? 'Un riferimento, sul posto' : 'A local point of contact'}</SectionLabel><h2 className="display-title">{it ? <>Non devi seguire<br />tutto <em>da solo.</em></> : <>You do not have<br />to manage it <em>alone.</em></>}</h2><p>{it ? 'Avere una casa lontano da casa richiede fiducia e informazioni chiare. Partiamo dal tuo bisogno, non da una soluzione preconfezionata.' : 'Having a home away from home takes trust and clear information. We start with your need, not a pre-packaged answer.'}</p><PageLink lang={lang} page="abroad" className="text-link" style={{ marginTop: '14px' }}>{it ? 'Per chi vive all’estero' : 'For owners abroad'}<ArrowRight size={15} /></PageLink></div>
-        <div className="principles">
-          {[it ? ['Parole chiare', 'Un dialogo diretto, in italiano o inglese.'] : ['Clear communication', 'A direct conversation in Italian or English.'], it ? ['Passi concordati', 'Prima capiamo ciò che serve, poi definiamo come procedere.'] : ['Agreed steps', 'First we understand what is needed, then we decide how to proceed.'], it ? ['Un referente locale', 'Vicino alla proprietà e raggiungibile con facilità.'] : ['A local contact', 'Close to the property and easy to reach.']].map((p, i) => <div className="principle" key={i}><span>0{i + 1}</span><div><h3>{p[0]}</h3><p>{p[1]}</p></div></div>)}
-        </div>
-      </div>
-    </section>
-    <section className="section mb-news" id="approfondimenti" data-testid="section-home-articles">
-      <div className="container">
-        <div className="mb-news-head"><h2 className="mb-serif">{copy[lang].nav.articles}</h2><span className="mb-news-rule" aria-hidden="true" /><PageLink lang={lang} page="articles" className="text-link" data-testid="link-home-articles">{copy[lang].nav.articles}<ArrowRight size={14} /></PageLink></div>
+      <div className="mbh-wrap"><IllustrationNote lang={lang} /></div>
+    </section>)}
+
+    {localizeNode(lang, <section className="mbh-section mbh-news" id="approfondimenti" data-testid="section-home-articles">
+      <div className="mbh-wrap">
+        <div className="mb-news-head"><h2 className="mbh-h2">{copy[lang].nav.articles}</h2><span className="mb-news-rule" aria-hidden="true" /><PageLink lang={lang} page="articles" className="mbh-link" data-testid="link-home-articles">{copy[lang].nav.articles}<ArrowRight size={14} /></PageLink></div>
         <div className="mb-news-grid">
           {[...articleList].sort((a, b) => (a.reviewStatus === 'documentary-review' ? 0 : 1) - (b.reviewStatus === 'documentary-review' ? 0 : 1)).slice(0, 3).map(a => <Link key={a.slug} href={withCampaignParams(`/${a.slug}`)} className="mb-news-card" data-testid={`card-home-article-${a.slug}`}>
             <div className="mb-news-media"><img src={a.image} alt={a.imageAlt} width={1920} height={a.image.endsWith('.png') ? 1920 : 1047} loading="lazy" lang="it" /></div>
             <div className="mb-news-meta"><span lang="it">{a.category}</span><span lang="it">{formatArticleDate(a.publishedOn)}</span>{!it && <span className="mb-lang-tag" title="Italiano">IT</span>}</div>
             <h3 className="mb-serif" lang="it">{a.title}</h3>
             <p lang="it">{a.summary}</p>
-            <span className="text-link" aria-hidden="true"><ArrowRight size={14} /></span>
           </Link>)}
         </div>
       </div>
-    </section>
+    </section>)}
 
-    <section className="section tight"><div className="container"><CtaPanel lang={lang} title={it ? 'Ogni casa ha una storia. La tua qual è?' : 'Every home has a story. What is yours?'} text={it ? 'Descrivici quello che vuoi fare, con calma. Il primo confronto serve proprio a capire da dove partire.' : 'Tell us what you have in mind. The first conversation is simply a way to understand where to begin.'} /></div></section>
-  </div>);
+    <section className="mbh-section mbh-section--cta"><div className="mbh-wrap"><CtaPanel lang={lang} title={it ? 'Ogni casa ha una storia. La tua qual è?' : 'Every home has a story. What is yours?'} text={it ? 'Descrivici quello che vuoi fare, con calma. Il primo confronto serve proprio a capire da dove partire.' : 'Tell us what you have in mind. The first conversation is simply a way to understand where to begin.'} /></div></section>
+  </div>;
 }
 
 function ServicesPage({ lang }: { lang: Lang }) {
   const it = lang === 'it';
+  useEffect(() => {
+    let id: string;
+    try { id = decodeURIComponent(window.location.hash.slice(1)); } catch { return; }
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    requestAnimationFrame(() => { target.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' }); target.focus({ preventScroll: true }); });
+  }, []);
   const data = copy[lang].services;
   return localizeNode(lang, <>
     <PageHero lang={lang} page="services" />
     <section className="section">
       <div className="container">
         <div className="section-head"><div><SectionLabel>{data.over}</SectionLabel><h2 className="section-heading display-title">{data.heading}</h2><p className="section-intro">{data.intro}</p></div></div>
-        <div className="service-groups">{data.groups.map((group, i) => <article className="service-group" key={group.title}><span className="number">0{i + 1} / {it ? 'AMBITO' : 'AREA'}</span><h2>{group.title}</h2><p>{group.desc}</p><ul className="service-list">{group.items.map(item => <li key={item}><span>{item}</span><span aria-hidden="true">+</span></li>)}</ul></article>)}</div>
+        <div className="service-groups">{data.groups.map((group, i) => <article className="service-group" id={SERVICE_GROUP_IDS[i]} tabIndex={-1} data-testid={`service-group-${SERVICE_GROUP_IDS[i]}`} key={group.title}><span className="number">0{i + 1} / {it ? 'AMBITO' : 'AREA'}</span><h2>{group.title}</h2><p>{group.desc}</p><ul className="service-list">{group.items.map(item => <li key={item}><span>{item}</span><span aria-hidden="true">+</span></li>)}</ul></article>)}</div>
       </div>
     </section>
     <section className="section tight" id="contatti" data-testid="anchor-contatti"><div className="container"><CtaPanel lang={lang} title={it ? 'Hai in mente un intervento?' : 'Have a project in mind?'} text={it ? 'Raccontaci la tua idea: capiremo insieme se e come possiamo aiutarti.' : 'Tell us what you have in mind and we can see together whether and how we can help.'} /></div></section>

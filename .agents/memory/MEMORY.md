@@ -1,4 +1,5 @@
 - [Marenetto Build publishing rules](marenetto-publishing-rules.md) — Publish only verified claims, real work and reviewed translations; never use empty language routes.
+- [Marenetto visual direction](marenetto-visual-direction.md) — Preserve photographic impact; usability improvements must not turn the site into generic boxes and empty text bands.
 - [RTL mobile viewport](rtl-mobile-viewport.md) — Keep document direction LTR in the SPA; apply RTL to the locale shell to avoid Chromium mobile horizontal offset.
 - [Workspace lifecycle checks](workspace-lifecycle-checks.md) — Critical pnpm selectors must fail on no match; a healthy server can still lack authorization tables.
 - [Internal access testing](internal-access-testing.md) — Temporary development test gates are not release approvals; do not infer an SMTP dependency from an approval flag.
