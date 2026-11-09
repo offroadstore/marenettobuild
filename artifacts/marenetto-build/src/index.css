@@ -415,7 +415,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .status-technical-review { color:#9a4a32; }
 .status-editorial-review { color:#7a6a3a; }
 .status-summary-reviewed { color:#3f6660; }
-.review-legend { display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-block:1px solid var(--line); margin-bottom:40px; }
+.status-documentary-review { color:#356546; }
+.review-date { display:block; color:#747970; font-size:10px; line-height:1.5; margin:6px 0 0; }
+.review-legend { display:grid; grid-template-columns:repeat(4,1fr); gap:0; border-block:1px solid var(--line); margin-bottom:40px; }
 .review-legend > div { padding:22px 22px 22px 0; }
 .review-legend > div + div { padding-left:22px; border-left:1px solid var(--line); }
 .review-legend p { color:#6a7069; font-size:12px; line-height:1.65; margin:12px 0 0; }

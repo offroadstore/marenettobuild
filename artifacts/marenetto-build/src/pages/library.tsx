@@ -28,7 +28,7 @@ export function ArticleCard({ a, kind = 'archive', index }: { a: Article; kind?:
       <div className="lib-card-meta"><span>{a.category}</span><span>{formatDate(a.publishedOn)}</span></div>
       <h3>{a.title}</h3>
       <p>{a.summary}</p>
-      <div className="lib-card-foot"><StatusPill a={a} /><span className="text-link">Leggi la sintesi<ArrowRight size={13} /></span></div>
+      <div className="lib-card-foot"><div><StatusPill a={a} /><span className="review-date">Revisione: {a.review.reviewedAt ? formatDate(a.review.reviewedAt) : 'non registrata'}</span></div><span className="text-link">{a.reviewStatus === 'documentary-review' ? 'Leggi l’articolo' : 'Leggi la sintesi'}<ArrowRight size={13} /></span></div>
     </div>
   </Link>;
 }
@@ -37,6 +37,15 @@ function ReviewLegend() {
   return <div className="review-legend" data-testid="review-legend">
     {(Object.keys(reviewLabels) as (keyof typeof reviewLabels)[]).map(k => <div key={k}><span className={`status-pill status-${k}`}>{reviewLabels[k].short}</span><p>{reviewLabels[k].long}</p></div>)}
   </div>;
+}
+
+function FullText({ text }: { text: string }) {
+  const blocks = text.trim().split(/\n\s*\n/).filter(Boolean);
+  return <>{blocks.map((block, i) => {
+    if (block.startsWith('## ')) return <h2 key={i}>{block.slice(3)}</h2>;
+    if (block.startsWith('- ')) return <ul className="question-list" key={i}>{block.split('\n').map(item => <li key={item}>{item.slice(2)}</li>)}</ul>;
+    return <p key={i}>{block}</p>;
+  })}</>;
 }
 
 export function ArticlesPage() {
@@ -142,19 +151,42 @@ export function ArticleDetailPage({ a }: { a: Article }) {
     <section className="section tight">
       <div className="container article-layout">
         <article className="article-body">
-          <div className="review-note" role="note" data-testid="note-review">
-            <ShieldAlert size={20} />
-            <div><strong>Il testo originale non viene ripubblicato integralmente.</strong><p>L’articolo storico è conservato in archivio, ma non lo riproponiamo parola per parola finché le sue affermazioni non saranno verificate. {reviewLabels[a.reviewStatus].long}</p></div>
-          </div>
-          <h2>In sintesi</h2>
-          {a.overview.map((p, i) => <p key={i}>{p}</p>)}
-          <h2>Domande utili da porsi</h2>
-          <ol className="question-list">{a.questions.map(q => <li key={q}>{q}</li>)}</ol>
+          {a.reviewStatus === 'documentary-review' && a.approvedFullText ? <>
+            <div className="review-note" role="note" data-testid="note-review-approved">
+              <ShieldAlert size={20} />
+              <div><strong>Testo integrale · revisione documentale automatizzata</strong><p>Verifica redazionale con fonti pubbliche consultate il {formatDate(a.review.reviewedAt)}. Non è un’approvazione di un tecnico abilitato né una valutazione del singolo caso.</p></div>
+            </div>
+            <h2>Articolo completo</h2>
+            <FullText text={a.approvedFullText} />
+          </> : <>
+            <div className="review-note" role="note" data-testid="note-review">
+              <ShieldAlert size={20} />
+              <div><strong>Il testo originale non è ancora approvato per la pubblicazione.</strong><p>L’articolo storico è conservato nell’archivio e non viene riproposto integralmente senza revisione documentata. {reviewLabels[a.reviewStatus].long}</p></div>
+            </div>
+            <h2>In sintesi</h2>
+            {a.overview.map((p, i) => <p key={i}>{p}</p>)}
+            <h2>Domande utili da porsi</h2>
+            <ol className="question-list">{a.questions.map(q => <li key={q}>{q}</li>)}</ol>
+          </>}
           <p className="article-disclaimer">Questa pagina offre un orientamento generale. Non costituisce una diagnosi, un preventivo o un impegno contrattuale.</p>
         </article>
         <aside className="article-aside">
           <div className="aside-block"><small>Stato</small><StatusPill a={a} /></div>
-          <div className="aside-block"><small>Affermazioni dell’originale da verificare</small><ul className="claim-list" data-testid="list-claims">{a.claimsToReview.map(c => <li key={c}>{claimLabels[c]}</li>)}</ul></div>
+          <div className="aside-block" data-testid="article-review-record">
+            <small>Metodo e data revisione</small>
+            <span>{a.review.responsible ?? 'Responsabile non assegnato'}</span>
+            <p className="review-date">Testo completo: {a.review.reviewedAt ? formatDate(a.review.reviewedAt) : 'data non registrata'}</p>
+          </div>
+          <div className="aside-block">
+            <small>Fonti verificate</small>
+            {a.review.sources.length ? <ul className="claim-list">{a.review.sources.map(source => <li key={`${source.url}-${source.verifiedAt}`}><a href={source.url} target="_blank" rel="noreferrer">{source.title}</a><br />{source.scope} · consultata il {formatDate(source.verifiedAt)}</li>)}</ul> : <span>Nessuna fonte di approvazione registrata.</span>}
+          </div>
+          <div className="aside-block">
+            <small>Controllo delle affermazioni</small>
+            {a.claimsToReview.length
+              ? <ul className="claim-list" data-testid="list-claims">{a.claimsToReview.map(c => <li key={c}>{claimLabels[c]}</li>)}</ul>
+              : <span data-testid="list-claims">Nessun punto segnalato nel testo pubblicato; le affermazioni non documentate dell’originale sono state rimosse o qualificate.</span>}
+          </div>
           <div className="aside-block"><small>Titolo originale</small><span className="orig-title">{a.originalTitle}</span></div>
           <div className="aside-block"><small>Percorso storico</small><code>/{a.slug}/</code></div>
           <Link href={withCampaignParams('/richiesta')} className="button" data-testid="link-article-request">Parliamone<ArrowRight size={14} /></Link>

@@ -8,12 +8,12 @@ const report = readFileSync(resolve(projectRoot, 'MIGRATION_REPORT.md'), 'utf8')
 type ArticleRoute = {
   slug: string;
   path: string;
-  reviewStatus: 'technical-review' | 'editorial-review' | 'summary-reviewed';
+  reviewStatus: 'technical-review' | 'editorial-review' | 'summary-reviewed' | 'documentary-review';
 };
 
 const articleRoutes: ArticleRoute[] = report.split('\n').flatMap((line) => {
   const match = line.match(
-    /^\|\s*\d+\s*\|\s*`([^`]+)`\s*\|\s*`(\/[^`]+)`(?:\s*\(also\s*`[^`]+`\))?\s*\|\s*[^|]+\|\s*(technical-review|editorial-review|summary-reviewed)\s*\|/,
+    /^\|\s*\d+\s*\|\s*`([^`]+)`\s*\|\s*`(\/[^`]+)`(?:\s*\(also\s*`[^`]+`\))?\s*\|\s*[^|]+\|\s*(technical-review|editorial-review|summary-reviewed|documentary-review)\s*\|/,
   );
   return match
     ? [{ slug: match[1], path: match[2], reviewStatus: match[3] as ArticleRoute['reviewStatus'] }]
@@ -29,6 +29,7 @@ const reviewLabels: Record<ArticleRoute['reviewStatus'], string> = {
   'technical-review': 'In revisione tecnica',
   'editorial-review': 'In revisione editoriale',
   'summary-reviewed': 'Sintesi revisionata',
+  'documentary-review': 'Testo integrale · fonti citate',
 };
 const campaignParamNames = new Set(['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_id']);
 
