@@ -946,3 +946,5 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .topbar .nav-links a.wa-nav-link::after { display: none; }
 .topbar .nav-links a.wa-nav-link svg { flex: none; color: #25D366; }
 @media (min-width: 900px) { .wa-dock { display: none; } }
+
+.site-shell .footer-links .footer-phone-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 8px; width: auto; padding: 0; }

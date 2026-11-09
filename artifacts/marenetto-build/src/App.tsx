@@ -290,8 +290,7 @@ function Footer({ lang }: { lang: Lang }) {
         <div><h3>{it ? 'Un primo contatto' : 'Get in touch'}</h3><div className="footer-links">
           <PageLink lang={lang} page="contact">{it ? 'Contatti' : 'Contact'}</PageLink>
           <a href={`mailto:info@marenetto.com?subject=${encodeURIComponent(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))}`} data-testid="link-footer-email">info@marenetto.com</a>
-          <a href={whatsappHref(message)} target="_blank" rel="noopener noreferrer" data-testid="link-footer-whatsapp">WhatsApp · {COMPANY_PHONE.display}</a>
-          <a href={telHref} data-testid="link-footer-phone">{COMPANY_PHONE.display}</a>
+          <span className="footer-phone-row"><a href={telHref} data-testid="link-footer-phone">Tel {COMPANY_PHONE.display}</a><span aria-hidden="true">·</span><a href={whatsappHref(message)} target="_blank" rel="noopener noreferrer" aria-label={`WhatsApp ${COMPANY_PHONE.display}`} data-testid="link-footer-whatsapp">WhatsApp</a></span>
           <span>SS 113 Settentrionale Sicula, 73b<br />90015 Cefalù, Palermo, Italia</span>
         </div></div>
       </div>
