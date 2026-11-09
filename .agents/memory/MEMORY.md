@@ -2,3 +2,4 @@
 - [RTL mobile viewport](rtl-mobile-viewport.md) — Keep document direction LTR in the SPA; apply RTL to the locale shell to avoid Chromium mobile horizontal offset.
 - [Workspace lifecycle checks](workspace-lifecycle-checks.md) — Critical pnpm selectors must fail on no match; a healthy server can still lack authorization tables.
 - [Internal access testing](internal-access-testing.md) — Temporary development test gates are not release approvals; do not infer an SMTP dependency from an approval flag.
+- [Documentary asset recovery](documentary-asset-recovery.md) — A missing report file after a task merge does not prove it was never delivered; check registered outputs separately.

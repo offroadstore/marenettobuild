@@ -26,3 +26,9 @@ navigation is not approval to publish new article translations.
 
 **How to apply:** Preserve the original-language labels on article previews and
 details, and use the normal owner-review process for any future translated edition.
+
+Preserve the public site's original logo composition rather than the variant with BUILD in a colored bar. The user may want “.com” in that composition; do not replace the asset before the final source is approved.
+
+**Why:** The user explicitly prefers the public site's composition and requested inspection without substitution.
+
+**How to apply:** Use the actual displayed assets as evidence, distinguish historical logos from adaptations, and avoid treating a reference banner as approval to replace navigation branding.

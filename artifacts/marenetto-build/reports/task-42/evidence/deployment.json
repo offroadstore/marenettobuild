@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-11-09T21:17:18.064Z",
+  "method": "getDeploymentInfo read-only",
+  "result": {
+    "additionalUrls": [],
+    "deploymentType": "autoscale",
+    "hasSuccessfulBuild": true,
+    "isDeployed": true,
+    "primaryUrl": "https://marenetto-build-sito-e-portale.replit.app",
+    "success": true,
+    "visibility": "public"
+  },
+  "limits": "Metadata only; does not prove custom-domain DNS mapping, hosting geography or equivalence with local code"
+}

@@ -1,0 +1,26 @@
+{
+  "date_utc": "2026-11-09T21:12:54.569385+00:00",
+  "task42_commit": "877075bedf529a208f53a776e36de7510025f411",
+  "parent_commit": "234f31678df52e5a368a6b1a85f515da615d11b4",
+  "changed_files": [
+    ".agents/agent_assets_metadata.toml"
+  ],
+  "local_ignored": true,
+  "report_paths_referenced": [
+    ".local/reports/ricognizione-2026-11-09/REPORT.html",
+    ".local/reports/ricognizione-2026-11-09/ricognizione-completa.zip"
+  ],
+  "report_files_recovered": false,
+  "assets_public_get_http": 403,
+  "unreachable_objects_checked": 194,
+  "application_changes_by_task42": false,
+  "unreachable_blobs_matching_recorded_sizes": [],
+  "searches": [
+    "workspace filename search (excluding node_modules/.git)",
+    "all local and remote Git refs",
+    "git log --all -- .local/reports",
+    "git fsck --full --no-reflogs --unreachable; 194 objects",
+    "task42 description and .local/tasks plan",
+    "registered output metadata and one anonymous storage HTTP GET (403)"
+  ]
+}

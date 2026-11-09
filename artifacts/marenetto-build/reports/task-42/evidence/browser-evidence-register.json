@@ -1,0 +1,372 @@
+{
+  "audit": "Marenetto Build anonymous discovery-to-enquiry preparation; read-only documentary pass",
+  "captured_at": "2026-11-09T21:15:00+00:00",
+  "scope": {
+    "preview": "http://localhost:80/ (served at http://localhost/)",
+    "public": "https://www.marenettobuild.com/",
+    "viewports": [
+      "1440x900",
+      "390x844"
+    ],
+    "browser": "Playwright real browser",
+    "network_guard": "Browser contexts aborted all requests except GET, HEAD, OPTIONS",
+    "writes": "None; no app/code/config/workflow changes; no login/account creation/form submission/upload/outbound tel/mail/WhatsApp activation",
+    "performance_metrics": "Not collected; no benchmark claims"
+  },
+  "source_files_read": [
+    "artifacts/marenetto-build/src/localization/locales.json",
+    "artifacts/marenetto-build/src/localization/public-pages.json"
+  ],
+  "source_manifest": {
+    "declared_locales": 29,
+    "core_pages": [
+      "home",
+      "services",
+      "process",
+      "abroad",
+      "request",
+      "contact"
+    ],
+    "manifest_claims_complete_pages": 174
+  },
+  "preview_home": {
+    "url": "http://localhost/",
+    "title": "Costruzioni e ristrutturazioni a Cefalù | Marenetto Build",
+    "lang": "it-IT",
+    "robots": "noindex, nofollow",
+    "canonical": "https://marenetto-build-sito-e-portale.replit.app/",
+    "hreflang_count": 29,
+    "favicon": "http://localhost/favicon.svg",
+    "logo": {
+      "url": "http://localhost/brand/current-logo.png",
+      "natural_px": [
+        1536,
+        560
+      ],
+      "instances": [
+        {
+          "viewport": "1440x900",
+          "location": "header `.topbar`",
+          "rect_px": [
+            102.5,
+            14,
+            150.046875,
+            62
+          ],
+          "css_visible": true,
+          "in_viewport": true
+        },
+        {
+          "viewport": "1440x900",
+          "location": "footer `.footer-top`",
+          "rect_px": [
+            102.5,
+            6014.75,
+            150.046875,
+            62
+          ],
+          "css_visible": true,
+          "in_viewport": false
+        },
+        {
+          "viewport": "390x844",
+          "location": "header `.topbar`",
+          "rect_px": [
+            12,
+            16,
+            110.15625,
+            46
+          ],
+          "css_visible": true,
+          "in_viewport": true
+        },
+        {
+          "viewport": "390x844",
+          "location": "footer `.footer-top`",
+          "rect_px": [
+            12,
+            7499.078125,
+            110.15625,
+            46
+          ],
+          "css_visible": true,
+          "in_viewport": false
+        }
+      ]
+    },
+    "contact_hrefs": [
+      "mailto:info@marenettobuild.com",
+      "https://wa.me/393339363007?...",
+      "tel:+393339363007"
+    ]
+  },
+  "public_home": {
+    "url": "https://www.marenettobuild.com/en/",
+    "title": "Home | marenettobuild.com",
+    "lang": "en",
+    "canonical": "https://www.marenettobuild.com/en/",
+    "robots_meta": null,
+    "hreflang_count": 9,
+    "favicon_and_touch_icon": "uploads3.fw360.it favicon URL (observed in DOM)",
+    "logo": {
+      "asset": "https://uploads3.fw360.it/uploads/env/4/15607/img/logos/bg-8fafd03d-5e74-4dce-b4b9-fd878182c53a-1.png",
+      "note": "Visible site logo is a document image in PICTURE; Framework360 console background graphic is not the visible logo",
+      "natural_px": [
+        1097,
+        400
+      ],
+      "instances": [
+        {
+          "viewport": "1440x900",
+          "location": "top navigation logo block (div.ms-block-logo; IMG>PICture>a; not semantic header element)",
+          "rect_px": [
+            157.5,
+            15,
+            191.96875,
+            70
+          ],
+          "css_visible": true,
+          "in_viewport": true
+        },
+        {
+          "viewport": "390x844",
+          "location": "top navigation logo block (div.ms-block-logo; IMG>PICture>a; not semantic header element)",
+          "rect_px": [
+            43.9375,
+            10,
+            137.125,
+            50
+          ],
+          "css_visible": true,
+          "in_viewport": true
+        }
+      ],
+      "currentSrc": "uploads3 image with query version and format=webp&width=400"
+    },
+    "contact_hrefs": [
+      "info@marenettobuild.com",
+      "+393339363007; WhatsApp control visible"
+    ],
+    "observed_issue": "testimonials empty-state text is Italian: Non ci sono contenuti da mostrare",
+    "favicon_urls": [
+      "https://uploads3.fw360.it/uploads/env/4/15607/img/logos/favicon-32x32.png?1766850951305&v=1794255531 (shortcut icon)",
+      "https://uploads3.fw360.it/uploads/env/4/15607/img/logos/favicon-32x32.png?1766850951305&v=1794255531 (apple-touch-icon-precomposed)"
+    ],
+    "logo_console_background_excluded": "https://marenettobuild.myframework360.com/assets/img/logo.png is Framework360 console/vendor graphic, not evidence of visible site logo"
+  },
+  "discovery": {
+    "preview_services": {
+      "url": "http://localhost/servizi",
+      "title": "Servizi per la casa a Cefalù | Marenetto Build",
+      "categories": [
+        "construction",
+        "finishes",
+        "infiltration assistance",
+        "outdoor spaces",
+        "property care/maintenance",
+        "pre-purchase support"
+      ],
+      "cta": "/richiesta"
+    },
+    "preview_abroad": {
+      "url": "http://localhost/proprietari-all-estero",
+      "title": "Casa in Sicilia, anche da lontano | Marenetto Build",
+      "remote_owner_content": "local support, communication, service expectations; enquiry CTA",
+      "language_qualification": "Herman speaks Italian, English, Dutch, Spanish; site language does not guarantee a matching contact"
+    },
+    "preview_request": {
+      "url": "http://localhost/richiesta",
+      "title": "Richiedi informazioni a Cefalù | Marenetto Build",
+      "initial_default": "Progetto / lavori",
+      "required_fields_observed": [
+        "request type",
+        "property type",
+        "service",
+        "location",
+        "project stage",
+        "details/message",
+        "name",
+        "email",
+        "preferred contact channel",
+        "preferred language",
+        "privacy consent"
+      ],
+      "optional_fields_observed": [
+        "phone",
+        "budget",
+        "timing",
+        "accommodation",
+        "mobility"
+      ],
+      "file_inputs": 0,
+      "review_button": "Rivedi la richiesta",
+      "demo_notifications_copy": "preview warns against real personal data; entered data is discarded and only a synthetic lead is retained; persistent internal notifications; email sending awaits provider approval; automated replies inactive",
+      "form_interactions": "No fields entered; no review/submit invoked"
+    }
+  },
+  "locales": {
+    "preview_runtime": {
+      "routes_verified_with_nonempty_h1_and_body": [
+        "/fr/services",
+        "/fr/request",
+        "/sv/services",
+        "/sv/request",
+        "/da/services",
+        "/da/request",
+        "/no/services",
+        "/no/request",
+        "/ar/services",
+        "/ar/request",
+        "/he/services",
+        "/he/request"
+      ],
+      "availability": "12/12 sampled route/page combinations rendered localized title, h1 and body",
+      "rtl_metadata": "Arabic and Hebrew pages visually render RTL copy but documentElement.dir reported ltr",
+      "coverage_gap": "Not all 29 x 6 (174) routes runtime-verified; nonempty content is not a translation quality/equivalence finding",
+      "rtl_shell_check": {
+        "ar": {
+          "site_shell_dir": "rtl",
+          "site_shell_computed_direction": "rtl",
+          "document_dir": "ltr",
+          "body_computed_direction": "ltr"
+        },
+        "he": {
+          "site_shell_dir": "rtl",
+          "site_shell_computed_direction": "rtl",
+          "document_dir": "ltr",
+          "body_computed_direction": "ltr"
+        },
+        "interpretation": "Shell-level RTL is applied; document/body direction alone is not evidence that shell RTL is broken"
+      }
+    },
+    "public_runtime_home": {
+      "rendered_locales": [
+        "it",
+        "en",
+        "fr",
+        "de",
+        "es",
+        "nl",
+        "ru",
+        "pt",
+        "pl"
+      ],
+      "fallback_404_locales": [
+        "sv",
+        "da",
+        "no"
+      ],
+      "note": "Tested public home locale routes only; other selector locales not fully enumerated"
+    }
+  },
+  "route_regressions": {
+    "preview_legacy_english_article_slug": {
+      "source": "artifacts/marenetto-build/src/content/historical-routes.ts",
+      "exact_alias": "/en/buying-and-renovating-a-house-in-cefalu-a-technical-guide-to-the-5-essential-checks",
+      "observed_final_url": "http://localhost/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "final_lang": "it",
+      "final_h1": "Comprare e ristrutturare casa a Cefalù: i controlli da considerare",
+      "result": "GET redirected to Italian article successfully",
+      "prior_guess_correction": "Earlier guessed-slug 404 is superseded; exact source-defined alias works"
+    },
+    "preview_italian_library_from_english_path": {
+      "tested": "/en/articoli",
+      "observed_final_url": "http://localhost/articoli",
+      "label": "ARCHIVIO ARTICOLI"
+    },
+    "preview_unknown_route": {
+      "tested": "/zz/",
+      "observed": "404 Page Not Found; Did you forget to add the page to the router?"
+    },
+    "public_english_articles_index": {
+      "tested": "https://www.marenettobuild.com/en/articles/",
+      "observed": "English article listing, no redirect"
+    }
+  },
+  "accessibility_observations": {
+    "preview_mobile_keyboard": "12 Tab steps reached logo, search, language, menu, and body links; all sampled active elements computed outline: solid 2px; menu remained aria-expanded=false; no link activated",
+    "public_mobile_menu": "Hamburger shown as link href=#; not activated",
+    "manual_a11y_limits": "No screen reader, automated WCAG, color contrast, or exhaustive keyboard audit",
+    "preview_mobile_menu_keyboard": {
+      "enter": "Opened menu; button label changed to Close menu, aria-expanded=true; focus remained on trigger; menu navigation links exposed",
+      "escape": "No effect: aria-expanded remained true, menu remained visible, focus stayed on trigger with 2px outline",
+      "no_navigation_or_form_actions": true
+    }
+  },
+  "safety_and_runtime": {
+    "network": "Requests methods limited by context routing to GET/HEAD/OPTIONS; direct method filter blocked other methods",
+    "third_party": "Preview emitted Clerk development warning and Failed to fetch; public emitted Framework360 informational console message and failed-resource errors",
+    "workflow": "No workflow restarted; app proxy used as requested",
+    "performance": "Not recorded"
+  },
+  "screenshots": [
+    {
+      "id": "8vztkh",
+      "description": "Preview desktop Italian home, hero and illustrative image notice"
+    },
+    {
+      "id": "hfwv15",
+      "description": "Public desktop English home hero"
+    },
+    {
+      "id": "vruivz",
+      "description": "Preview mobile Italian home"
+    },
+    {
+      "id": "6er1z3",
+      "description": "Public mobile English home; floating WhatsApp control"
+    },
+    {
+      "id": "fs91vp",
+      "description": "Preview services discovery desktop"
+    },
+    {
+      "id": "xsxy91",
+      "description": "Preview request form initial desktop state; no entry/submission"
+    },
+    {
+      "id": "y47yt5",
+      "description": "Preview foreign-property-owner page desktop"
+    },
+    {
+      "id": "fa7x2o",
+      "description": "Preview Hebrew request page mobile, RTL content with ltr document dir"
+    },
+    {
+      "id": "ycwyuo",
+      "description": "Preview desktop home final metadata pass"
+    },
+    {
+      "id": "vyj81v",
+      "description": "Public desktop home final metadata pass"
+    },
+    {
+      "id": "x617qh",
+      "description": "Preview unsupported locale 404"
+    },
+    {
+      "id": "ujd8b5",
+      "description": "Preview home remeasurement with header logo at mobile"
+    },
+    {
+      "id": "axj129",
+      "description": "Public home logo at mobile"
+    },
+    {
+      "id": "qshfhj",
+      "description": "Public home/logo at desktop"
+    },
+    {
+      "id": "sdtv7d",
+      "description": "Exact English article alias redirects to Italian article"
+    },
+    {
+      "id": "662ivj",
+      "description": "Preview menu opened via keyboard Enter"
+    },
+    {
+      "id": "43dldq",
+      "description": "After Escape, preview menu remains open"
+    }
+  ]
+}

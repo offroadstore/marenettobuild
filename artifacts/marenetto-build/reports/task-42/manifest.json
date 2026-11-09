@@ -1,0 +1,137 @@
+{
+  "generated_at": "2026-11-09T21:24:33.441922+00:00",
+  "source_commit": "877075bedf529a208f53a776e36de7510025f411",
+  "type": "documentary supplement, no app implementation",
+  "files": [
+    {
+      "path": "REPORT.html",
+      "bytes": 354595,
+      "sha256": "98857cd9df140145f4921efd64eb326a9ceb219f9ca87d211107e78c8e6c109c"
+    },
+    {
+      "path": "REPORT.md",
+      "bytes": 51812,
+      "sha256": "7c2ac9742f581f4a27a2c8a2a31d0ee7bd0c91e7a93d99765d477f5b4c706355"
+    },
+    {
+      "path": "evidence/analytics.json",
+      "bytes": 581,
+      "sha256": "081bfd901416a825008213a2aad05597ab22c2ef9b072b15235ffcb0082e5c28"
+    },
+    {
+      "path": "evidence/browser-evidence-register.json",
+      "bytes": 12537,
+      "sha256": "5d0cd193eca2b7d2a4fd1aa42946d1097c8d75d0b4e5b57e289337bc938cb6d8"
+    },
+    {
+      "path": "evidence/browser-report.md",
+      "bytes": 8901,
+      "sha256": "b4e7296022301b1e62bee9c053634b1db53e4c56eb8458fc00da2c0909ccb17d"
+    },
+    {
+      "path": "evidence/competitors.json",
+      "bytes": 46209,
+      "sha256": "84f65ef0dd9ad0efddb9e4fd1dcab2c141c5673dab20b8208004254d5143695d"
+    },
+    {
+      "path": "evidence/deployment.json",
+      "bytes": 464,
+      "sha256": "506b97278de8e3eec9679477e457b714fecfdb8c5c191d77eceeed62f5d83569"
+    },
+    {
+      "path": "evidence/favicon-preview.svg",
+      "bytes": 361,
+      "sha256": "24e80f51c6dabe094720b1ff978d86cfcf4b5b6fe266c1fa06d35bd0df63a4bf"
+    },
+    {
+      "path": "evidence/favicon-public.png",
+      "bytes": 413,
+      "sha256": "e2d84eb1ae773207f0076f5d7ab559498376e39e0d8470a328a984c31e566c62"
+    },
+    {
+      "path": "evidence/http.json",
+      "bytes": 102448,
+      "sha256": "21451c0954255ed3fa6d054c54b74434b6d37de1fcd1a677ad456b0cfe44a6f2"
+    },
+    {
+      "path": "evidence/i18n-test.txt",
+      "bytes": 2708,
+      "sha256": "da5bafc08a58dc8be4a7c3a1e77d48074e516c1c0cedb1778cf0baa0953c790f"
+    },
+    {
+      "path": "evidence/logo-preview.png",
+      "bytes": 12371,
+      "sha256": "d4914a3acfff8fdc076747dbde91223f124e336b6c9f56caed4f5bd377d823af"
+    },
+    {
+      "path": "evidence/logo-public.png",
+      "bytes": 12371,
+      "sha256": "d4914a3acfff8fdc076747dbde91223f124e336b6c9f56caed4f5bd377d823af"
+    },
+    {
+      "path": "evidence/matrice-lingue-codice.csv",
+      "bytes": 6178,
+      "sha256": "fde46665e5ec78af8089a642c2d544aa13e91e069c93b6dae06baa4f7c44853a"
+    },
+    {
+      "path": "evidence/matrice-lingue-codice.json",
+      "bytes": 15170,
+      "sha256": "5d36abb976e8e6142c50a959d97e8b37d7b29c550a5278e0082d8320f99580c3"
+    },
+    {
+      "path": "evidence/matrice-lingue.csv",
+      "bytes": 9685,
+      "sha256": "1743d391727344d1ee03a66c9fcd3a29ae7d572f269bde4a66fd84a9cf2210be"
+    },
+    {
+      "path": "evidence/matrice-lingue.json",
+      "bytes": 22827,
+      "sha256": "5f3c66604b5a3213a5a4e5b1d857e7a4d42f27f88c91795d994c1770512bae43"
+    },
+    {
+      "path": "evidence/preview-desktop.jpg",
+      "bytes": 104511,
+      "sha256": "b646cacaf3166bae6a6ff5270504ee7b2860b40d0d8a6cc80bef84fb61b69957"
+    },
+    {
+      "path": "evidence/public-claims.json",
+      "bytes": 4593,
+      "sha256": "0d58e488766b895d7144343f18882d7fcb138669550732d3c773fbc92bcc72e0"
+    },
+    {
+      "path": "evidence/public-desktop.jpg",
+      "bytes": 61932,
+      "sha256": "f8ee8ba69103f4646942a706002f43902317df27d0b12e6b75b2d6f7d15e3134"
+    },
+    {
+      "path": "evidence/public-forms.json",
+      "bytes": 1898,
+      "sha256": "0387d19486e8a2ff816d1e9a5c775eaac3e38ac68e85f527ae86dd4684dc94ba"
+    },
+    {
+      "path": "evidence/published-metadata.json",
+      "bytes": 1623,
+      "sha256": "1c84a4c59e653f9460269c43eae2b429b9e42ada17508fa1311531807856ee9d"
+    },
+    {
+      "path": "evidence/recupero.json",
+      "bytes": 979,
+      "sha256": "3a572b4fdd2db91492fa6d7ff4696bd73a23759e49c2ce731f0ab126f7ef2e78"
+    },
+    {
+      "path": "evidence/reference-dotcom.jpg",
+      "bytes": 16430,
+      "sha256": "7129820341b3155d899ad6c6a616584da4fccfbed249426684c39a9cc349a442"
+    },
+    {
+      "path": "evidence/six-strings.json",
+      "bytes": 2662,
+      "sha256": "986d9166e8906ba52dddb79a9942208336e312fde98d3b18667c5f9a0f0eb895"
+    },
+    {
+      "path": "evidence/workflow-observation.json",
+      "bytes": 396,
+      "sha256": "3232aa1347cae7ce7679f1578bd7aaf85d0b78aa18ed7492b4b5472f9c79ae12"
+    }
+  ]
+}

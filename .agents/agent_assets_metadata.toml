@@ -28,3 +28,45 @@ mtime_ms = 1794257758822
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/c4dc0c64-dedb-4eff-ab78-4384649f0ebd/fda2e5f4-17d2-4173-b228-ef843c944130"
 storage_version_token = "1794257786343853"
 content_type = "application/octet-stream"
+
+[[outputs]]
+id = "r2womLvAjSxqu_H9zbLdh"
+uri = "file://artifacts/marenetto-build/reports/task-42/REPORT.html"
+type = "html"
+title = "Report A–F — verifica documentale Marenetto Build"
+description = "Documento completo e autonomo, con loghi, screenshot, matrice linguistica, fonti e limiti. Integrazione documentale del Task #42, non copia recuperata dell’originale."
+logical_id = "4c6ad2ae-d944-4f81-a9e0-7efa1159ade6"
+content_hash = "sha256:98857cd9df140145f4921efd64eb326a9ceb219f9ca87d211107e78c8e6c109c"
+size = 354595
+mtime_ms = 1794259473433
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/4c6ad2ae-d944-4f81-a9e0-7efa1159ade6/2ef80c00-f46a-4ada-8c33-099fcd438bb9"
+storage_version_token = "1794259506577640"
+content_type = "text/html"
+
+[[outputs]]
+id = "2MAvXEIVM_u7jSZ4bKRPh"
+uri = "file://artifacts/marenetto-build/reports/task-42/REPORT.md"
+type = "text"
+title = "Report per ChatGPT — testo Markdown"
+description = "Versione testuale completa da caricare in ChatGPT: recupero del report, ambienti distinti, inventario, problemi, fonti, multilingua e limiti residui."
+logical_id = "c3c30fc3-122d-43e0-8d9a-7005575d38c8"
+content_hash = "sha256:7c2ac9742f581f4a27a2c8a2a31d0ee7bd0c91e7a93d99765d477f5b4c706355"
+size = 51812
+mtime_ms = 1794259418053
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/c3c30fc3-122d-43e0-8d9a-7005575d38c8/62aa4bad-6c98-4f24-a126-0e173a552154"
+storage_version_token = "1794259507197470"
+content_type = "text/markdown"
+
+[[outputs]]
+id = "G-veX7lCjGXk5rUBCs6gZ"
+uri = "file://artifacts/marenetto-build/reports/task-42/evidence/matrice-lingue.csv"
+type = "table"
+title = "Matrice delle 29 lingue"
+description = "Copertura dichiarata e verificata nel codice, campioni browser, homepage pubbliche, articoli, moduli ed errori; non equivale a certificazione semantica delle traduzioni."
+logical_id = "e1fcaf60-d90f-43f3-8a0b-028e9beba9ae"
+content_hash = "sha256:1743d391727344d1ee03a66c9fcd3a29ae7d572f269bde4a66fd84a9cf2210be"
+size = 9685
+mtime_ms = 1794259012904
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/e1fcaf60-d90f-43f3-8a0b-028e9beba9ae/588b242f-749a-4ad6-85fa-22272682a412"
+storage_version_token = "1794259507795497"
+content_type = "text/csv"

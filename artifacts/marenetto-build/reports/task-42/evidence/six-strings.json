@@ -1,0 +1,82 @@
+[
+  {
+    "id": "M01",
+    "text": "Marenetto Build home",
+    "source_file": "artifacts/marenetto-build/src/App.tsx",
+    "lines": [
+      194,
+      226
+    ],
+    "source_keys": [],
+    "exists_in_parent_of_task42": true,
+    "history": [
+      "a3cd380 2026-10-17 Update API routes and refresh marenetto build components",
+      "c924eb2 2026-11-09 Rinnova home e marchio Marenetto con monogramma vettoriale, immagini storiche ottimizzate e verifiche responsive"
+    ]
+  },
+  {
+    "id": "M02",
+    "text": "Illustrative image: contemporary building with scaffolding overlooking the sea at sunset",
+    "source_file": "artifacts/marenetto-build/src/App.tsx",
+    "lines": [
+      279
+    ],
+    "source_keys": [],
+    "exists_in_parent_of_task42": true,
+    "history": [
+      "c924eb2 2026-11-09 Rinnova home e marchio Marenetto con monogramma vettoriale, immagini storiche ottimizzate e verifiche responsive"
+    ]
+  },
+  {
+    "id": "M03",
+    "text": "Illustrative image: renovation work on a historic building",
+    "source_file": "artifacts/marenetto-build/src/App.tsx",
+    "lines": [
+      314
+    ],
+    "source_keys": [],
+    "exists_in_parent_of_task42": true,
+    "history": [
+      "c924eb2 2026-11-09 Rinnova home e marchio Marenetto con monogramma vettoriale, immagini storiche ottimizzate e verifiche responsive"
+    ]
+  },
+  {
+    "id": "M04",
+    "text": "Illustrative image: contemporary villa with a pool, garden and figures carrying out maintenance",
+    "source_file": "artifacts/marenetto-build/src/App.tsx",
+    "lines": [
+      315
+    ],
+    "source_keys": [],
+    "exists_in_parent_of_task42": true,
+    "history": [
+      "c924eb2 2026-11-09 Rinnova home e marchio Marenetto con monogramma vettoriale, immagini storiche ottimizzate e verifiche responsive"
+    ]
+  },
+  {
+    "id": "M05",
+    "text": "Illustrative image: garden and terrace of a Mediterranean property",
+    "source_file": "artifacts/marenetto-build/src/App.tsx",
+    "lines": [
+      316
+    ],
+    "source_keys": [],
+    "exists_in_parent_of_task42": true,
+    "history": [
+      "c924eb2 2026-11-09 Rinnova home e marchio Marenetto con monogramma vettoriale, immagini storiche ottimizzate e verifiche responsive"
+    ]
+  },
+  {
+    "id": "M06",
+    "text": "Illustrative image: a stone path being laid among olive trees and stone walls",
+    "source_file": "artifacts/marenetto-build/src/App.tsx",
+    "lines": [
+      323
+    ],
+    "source_keys": [],
+    "exists_in_parent_of_task42": true,
+    "history": [
+      "c924eb2 2026-11-09 Rinnova home e marchio Marenetto con monogramma vettoriale, immagini storiche ottimizzate e verifiche responsive"
+    ]
+  }
+]

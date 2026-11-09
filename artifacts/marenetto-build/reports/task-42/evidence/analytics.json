@@ -1,0 +1,19 @@
+{
+  "checkedAt": "2026-11-09T21:17:18.064Z",
+  "source": "Replit queryAppAnalytics read-only",
+  "window": "last seven days UTC at query execution 2026-11-09 ~21:11 UTC",
+  "access": "authorized",
+  "result": {
+    "ok": true,
+    "rowCount": 1,
+    "rows": [
+      {
+        "collected_events": 11,
+        "event_type": 1,
+        "first_event": "2026-11-07 17:53:36",
+        "last_event": "2026-11-09 21:10:50"
+      }
+    ]
+  },
+  "limits": "Pageviews only, not conversations, qualified leads, estimates or jobs; may include audit traffic. No GA/Search Console access used."
+}

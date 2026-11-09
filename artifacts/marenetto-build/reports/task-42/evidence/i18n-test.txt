@@ -1,0 +1,50 @@
+
+> @workspace/marenetto-build@0.0.0 test:i18n /home/runner/workspace/artifacts/marenetto-build
+> node --test scripts/localization.test.mjs
+
+✔ the editorial matrix has 29 unique requested languages (1.645236ms)
+✔ all 29 locale records are complete and explicitly approved (2.036613ms)
+✔ each approved catalog has complete translations and matching SEO metadata (118.388065ms)
+✖ the translation source covers every Italian and English phrase embedded in the website (137.838928ms)
+✔ RTL locales have direction and script-specific font assignments (8.945429ms)
+✔ the production build prerenders metadata and equivalent hreflang URLs for every active route (873.903187ms)
+✔ approved translations are present in the production bundle while preview indexing stays disabled (33.153606ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2519.016185
+
+✖ failing tests:
+
+test at scripts/localization.test.mjs:60:1
+✖ the translation source covers every Italian and English phrase embedded in the website (137.838928ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   'Marenetto Build home',
+  +   'Illustrative image: contemporary building with scaffolding overlooking the sea at sunset',
+  +   'Illustrative image: renovation work on a historic building',
+  +   'Illustrative image: contemporary villa with a pool, garden and figures carrying out maintenance',
+  +   'Illustrative image: garden and terrace of a Mediterranean property',
+  +   'Illustrative image: a stone path being laid among olive trees and stone walls'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (file:///home/runner/workspace/artifacts/marenetto-build/scripts/localization.test.mjs:91:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'Marenetto Build home', 'Illustrative image: contemporary building with scaffolding overlooking the sea at sunset', 'Illustrative image: renovation work on a historic building', 'Illustrative image: contemporary villa with a pool, garden and figures carrying out maintenance', 'Illustrative image: garden and terrace of a Mediterranean property', 'Illustrative image: a stone path being laid among olive trees and stone walls' ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+/home/runner/workspace/artifacts/marenetto-build:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/marenetto-build@0.0.0 test:i18n: `node --test scripts/localization.test.mjs`
+Exit status 1

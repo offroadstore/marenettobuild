@@ -1,0 +1,9 @@
+{
+  "observed_at": "2026-11-09T21:08:50Z",
+  "method": "read existing workflow logs and GET proxy/health only; no restart",
+  "web_workflow": "failed, Port 19698 is already in use",
+  "api_workflow": "failed, EADDRINUSE 0.0.0.0:8080",
+  "proxy_home_status": 200,
+  "api_health_status": 200,
+  "limits": "No process ownership diagnosis or fixes; workflow label does not prove proxy unavailable."
+}

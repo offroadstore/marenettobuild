@@ -1,0 +1,81 @@
+{
+  "date_utc": "2026-11-09T21:14:30.585809+00:00",
+  "method": "HTTP HTML parse; no send",
+  "url": "https://www.marenettobuild.com/contatti/",
+  "forms": [
+    {
+      "action": null,
+      "method": "GET",
+      "fields": [
+        {
+          "tag": "select",
+          "name": null,
+          "type": null,
+          "required": false,
+          "placeholder": null
+        }
+      ]
+    },
+    {
+      "action": "https://www.marenettobuild.com/m/forms/",
+      "method": "GET",
+      "fields": [
+        {
+          "tag": "input",
+          "name": "nome",
+          "type": "text",
+          "required": true,
+          "placeholder": "Inserisci il tuo nome"
+        },
+        {
+          "tag": "input",
+          "name": "cognome",
+          "type": "text",
+          "required": true,
+          "placeholder": "Inserisci il tuo cognome"
+        },
+        {
+          "tag": "input",
+          "name": "email",
+          "type": "email",
+          "required": true,
+          "placeholder": "Inserisci la tua email"
+        },
+        {
+          "tag": "textarea",
+          "name": "messaggio",
+          "type": null,
+          "required": true,
+          "placeholder": "Scrivi il tuo messaggio"
+        }
+      ]
+    },
+    {
+      "action": "https://www.marenettobuild.com/m/forms/",
+      "method": "GET",
+      "fields": [
+        {
+          "tag": "input",
+          "name": "nome",
+          "type": "text",
+          "required": true,
+          "placeholder": "Inserisci il tuo nome"
+        },
+        {
+          "tag": "input",
+          "name": "cognome",
+          "type": "text",
+          "required": true,
+          "placeholder": "Inserisci il tuo cognome"
+        },
+        {
+          "tag": "input",
+          "name": "email",
+          "type": "email",
+          "required": true,
+          "placeholder": "Inserisci la tua email"
+        }
+      ]
+    }
+  ]
+}

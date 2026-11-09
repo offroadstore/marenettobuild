@@ -1,0 +1,30 @@
+lingua,nome,direzione,registro,approvazione_dichiarata,pagine_nucleo,chiavi_sorgente,chiavi_catalogo,chiavi_catalogo_mancanti,metadati_nucleo,articoli_italiani,modulo,errori,limite
+it,Italiano,ltr,published,approved-current-copy,6,264,testo nativo App.tsx,n/a,6,14,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+en,English,ltr,published,approved-current-copy,6,264,testo nativo App.tsx,n/a,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+fr,Français,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+de,Deutsch,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+nl,Nederlands,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+es,Español,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+pt,Português,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+ru,Русский,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+pl,Polski,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+ro,Română,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+uk,Українська,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+cs,Čeština,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+sk,Slovenčina,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+sl,Slovenščina,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+hr,Hrvatski,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+sr,Српски,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+bg,Български,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+bs,Bosanski,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+mk,Македонски,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+be,Беларуская,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+ar,العربية,rtl,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+he,עברית,rtl,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+sv,Svenska,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+no,Norsk,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+da,Dansk,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+fi,Suomi,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+hu,Magyar,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+el,Ελληνικά,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata
+tr,Türkçe,ltr,published,approved-current-copy,6,264,264,0,6,0,presente; invio non provato,catalogo interfaccia; API EN; 404 da distinguere,6 stringhe non catalogate; qualita semantica non certificata

@@ -1,0 +1,50 @@
+[
+  {
+    "url": "https://marenetto-build-sito-e-portale.replit.app/fr/",
+    "at": "2026-11-09T21:17:32.753100+00:00",
+    "status": 200,
+    "method": "HTTP GET without JavaScript",
+    "title": [
+      "Costruzioni e ristrutturazioni a Cefalù | Marenetto Build"
+    ],
+    "canonical": [
+      "<link rel=\"canonical\" href=\"https://marenetto-build-sito-e-portale.replit.app/\" />"
+    ]
+  },
+  {
+    "url": "https://marenetto-build-sito-e-portale.replit.app/fr/index.html",
+    "at": "2026-11-09T21:17:32.979753+00:00",
+    "status": 200,
+    "method": "HTTP GET without JavaScript",
+    "title": [
+      "Construction et rénovation à Cefalù | Marenetto Build"
+    ],
+    "canonical": [
+      "<link rel=\"canonical\" href=\"https://marenetto-build-sito-e-portale.replit.app/fr/\" />"
+    ]
+  },
+  {
+    "url": "https://marenetto-build-sito-e-portale.replit.app/en/services",
+    "at": "2026-11-09T21:17:33.957572+00:00",
+    "status": 200,
+    "method": "HTTP GET without JavaScript",
+    "title": [
+      "Costruzioni e ristrutturazioni a Cefalù | Marenetto Build"
+    ],
+    "canonical": [
+      "<link rel=\"canonical\" href=\"https://marenetto-build-sito-e-portale.replit.app/\" />"
+    ]
+  },
+  {
+    "url": "https://marenetto-build-sito-e-portale.replit.app/en/services/index.html",
+    "at": "2026-11-09T21:17:34.157212+00:00",
+    "status": 200,
+    "method": "HTTP GET without JavaScript",
+    "title": [
+      "Property services in Cefalù | Marenetto Build"
+    ],
+    "canonical": [
+      "<link rel=\"canonical\" href=\"https://marenetto-build-sito-e-portale.replit.app/en/services\" />"
+    ]
+  }
+]
