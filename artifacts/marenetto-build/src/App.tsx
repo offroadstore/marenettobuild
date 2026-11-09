@@ -6,6 +6,8 @@ import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
+import { Logo } from '@/components/brand/Logo';
+import { IllustrativeImage } from '@/components/home/Media';
 import { Route, Switch, useLocation, Router as WouterRouter, Link, Redirect } from 'wouter';
 import { Search } from 'lucide-react';
 import { articleBySlug, legacyRedirects } from '@/content/articles';
@@ -188,8 +190,8 @@ function Header({ lang, page }: { lang: Lang; page: Page }) {
   const items: [Page, string][] = [['services', c.services], ['process', c.process], ['abroad', c.abroad], ['articles', c.articles], ['projects', c.projects], ['contact', c.contact]];
   return localizeNode(lang, <header className="topbar">
     <div className="container nav-wrap">
-      <Link href={withCampaignParams(routes[lang].home)} className="wordmark" aria-label="Marenetto Build home" data-testid="link-logo">
-        <strong>MARENETTO</strong><span>BUILD · CEFALÙ</span>
+      <Link href={withCampaignParams(routes[lang].home)} className="wordmark" aria-label={lang === 'it' ? 'Marenetto Build, pagina iniziale' : 'Marenetto Build home'} data-testid="link-logo">
+        <Logo />
       </Link>
       <nav className="nav-links" aria-label={lang === 'it' ? 'Navigazione principale' : 'Main navigation'}>
         {items.map(([key, label]) => <PageLink key={key} page={key} lang={lang} aria-current={page === key ? 'page' : undefined} data-testid={`nav-${key}`}>{label}</PageLink>)}
@@ -220,7 +222,7 @@ function Footer({ lang }: { lang: Lang }) {
     <div className="container">
       <div className="footer-top">
         <div className="footer-brand">
-          <Link href={withCampaignParams(routes[lang].home)} className="wordmark"><strong>MARENETTO</strong><span>BUILD · CEFALÙ</span></Link>
+          <Link href={withCampaignParams(routes[lang].home)} className="wordmark" aria-label={it ? 'Marenetto Build, pagina iniziale' : 'Marenetto Build home'} data-testid="link-footer-logo"><Logo variant="dark" /></Link>
           <p><strong>{it ? 'Costruiamo valore.' : 'We build lasting value.'}</strong><br />{it ? 'Un riferimento locale per la tua casa a Cefalù e dintorni. Lavori, manutenzione e cura della proprietà, con un dialogo chiaro.' : 'A local point of contact for your home in Cefalù and nearby. Building, maintenance and property care, with clear communication.'}</p>
         </div>
         <div><h3>{it ? 'Esplora' : 'Explore'}</h3><div className="footer-links">
@@ -271,39 +273,40 @@ function PageHero({ lang, page }: { lang: Lang; page: Exclude<CorePage, 'home'> 
 function HomePage({ lang }: { lang: Lang }) {
   const it = lang === 'it';
   const h = copy[lang].home;
-  return localizeNode(lang, <>
-    <section className="hero">
-      <div className="hero-main">
-        <div className="hero-copy">
-          <div className="animate-enter"><SectionLabel>{h.eyebrow}</SectionLabel></div>
-          <h1 className="display-title animate-enter delay-1">{h.title}</h1>
-          <p className="animate-enter delay-2">{h.intro}</p>
-          <div className="hero-actions animate-enter delay-3">
-            <PageLink lang={lang} page="request" className="button" data-testid="hero-request">{h.primary}<ArrowRight size={15} /></PageLink>
-            <PageLink lang={lang} page="process" className="button outline" data-testid="hero-services">{h.secondary}</PageLink>
-          </div>
-          <div className="hero-note"><MapPin size={15} />{h.note}</div>
+  return localizeNode(lang, <div className="mb-home">
+    <section className="mb-hero" data-testid="section-hero">
+      <IllustrativeImage lang={lang} name="hero" widths={[768, 1280, 1920]} sizes="100vw" width={1920} height={1047} eager alt={it ? 'Immagine illustrativa: edificio contemporaneo con ponteggi affacciato sul mare al tramonto' : 'Illustrative image: contemporary building with scaffolding overlooking the sea at sunset'} />
+      <svg className="mb-hero-lines" viewBox="0 0 1440 800" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="#f3eee6" strokeWidth="1"><path d="M980 800V420l220-90 240 70M1200 330v470M1060 800V450M980 520h460M980 620h460" /><path d="M0 690h420l120-60M0 740h560" opacity=".6" /></g></svg>
+      <div className="container"><div className="mb-hero-copy">
+        <div className="animate-enter"><SectionLabel>{h.eyebrow}</SectionLabel></div>
+        <h1 className="mb-display animate-enter delay-1">{h.title}</h1>
+        <p className="animate-enter delay-2">{h.intro}</p>
+        <div className="hero-actions animate-enter delay-3">
+          <PageLink lang={lang} page="request" className="button" data-testid="hero-request">{h.primary}<ArrowRight size={15} /></PageLink>
+          <PageLink lang={lang} page="process" className="button outline" data-testid="hero-services">{h.secondary}</PageLink>
         </div>
-        <div className="hero-visual" aria-hidden="true">
-          <img src="/brand/original-hero.png" alt="" fetchPriority="high" />
-        </div>
-      </div>
-      <div className="hero-bottom"><div className="container hero-bottom-inner"><span><Compass size={15} />{h.proof1}</span><span><Globe2 size={15} />{h.proof2}</span><span>{it ? 'Un primo confronto, senza impegno' : 'An initial conversation, no obligation'}<ArrowDownRight size={14} /></span></div></div>
+        <div className="hero-note"><MapPin size={15} />{h.note}</div>
+      </div></div>
     </section>
+    <div className="mb-strip"><div className="container hero-bottom-inner"><span><Compass size={15} />{h.proof1}</span><span><Globe2 size={15} />{h.proof2}</span><span>{it ? 'Un primo confronto, senza impegno' : 'An initial conversation, no obligation'}<ArrowDownRight size={14} /></span></div></div>
 
     <section className="section">
       <div className="container">
         <div className="section-head"><div><SectionLabel>{it ? 'Cosa facciamo' : 'What we do'}</SectionLabel><h2 className="section-heading display-title">{it ? <>La cura della casa,<br /><em>vista da vicino.</em></> : <>Looking after your home,<br /><em>from close by.</em></>}</h2><p className="section-intro">{it ? 'Dalla manutenzione di ogni giorno a un intervento più ampio: un punto di partenza chiaro, senza complicare ciò che può essere semplice.' : 'From everyday maintenance to a larger piece of work: a clear place to start, without making the simple complicated.'}</p></div><PageLink lang={lang} page="services" className="text-link">{it ? 'Tutti i servizi' : 'All services'}<ArrowRight size={15} /></PageLink></div>
-        <div className="service-grid">
+        <div className="mb-svc">
           {[
-            { n: '01', icon: <Hammer size={19} />, title: it ? 'Realizzare o rinnovare' : 'Build or renovate', desc: it ? 'Costruzioni, ristrutturazioni e coordinamento degli interventi, con perimetro e ruoli da concordare.' : 'Construction, renovation and coordinated work, with scope and roles agreed in advance.' },
-            { n: '02', icon: <Wrench size={19} />, title: it ? 'Risolvere e mantenere' : 'Resolve and maintain', desc: it ? 'Manutenzione e piccoli interventi, valutati in base alla proprietà e alle verifiche necessarie.' : 'Maintenance and smaller repairs, considered in light of the property and checks required.' },
-            { n: '03', icon: <House size={19} />, title: it ? 'Valutare prima di acquistare' : 'Review before you buy', desc: it ? 'Un confronto preliminare sulle esigenze e sugli aspetti da sottoporre a verifica professionale.' : 'An initial discussion about your needs and the matters to review with qualified professionals.' },
-          ].map((service) => <article className="service-card" key={service.n}><span className="number">{service.n} / <span aria-hidden="true">{service.icon}</span></span><h3>{service.title}</h3><p>{service.desc}</p><PageLink lang={lang} page="services" className="text-link">{it ? 'Scopri di più' : 'Explore'}<ArrowRight size={14} /></PageLink></article>)}
+            { n: '01', img: 'construction', alt: it ? 'Immagine illustrativa: cantiere di ristrutturazione in un edificio storico' : 'Illustrative image: renovation work on a historic building', icon: <Hammer size={19} />, title: it ? 'Realizzare o rinnovare' : 'Build or renovate', desc: it ? 'Costruzioni, ristrutturazioni e coordinamento degli interventi, con perimetro e ruoli da concordare.' : 'Construction, renovation and coordinated work, with scope and roles agreed in advance.' },
+            { n: '02', img: 'property', alt: it ? 'Immagine illustrativa: villa contemporanea con piscina, giardino e figure impegnate nella manutenzione' : 'Illustrative image: contemporary villa with a pool, garden and figures carrying out maintenance', icon: <Wrench size={19} />, title: it ? 'Risolvere e mantenere' : 'Resolve and maintain', desc: it ? 'Manutenzione e piccoli interventi, valutati in base alla proprietà e alle verifiche necessarie.' : 'Maintenance and smaller repairs, considered in light of the property and checks required.' },
+            { n: '03', img: 'garden', alt: it ? 'Immagine illustrativa: giardino e terrazza di una proprietà mediterranea' : 'Illustrative image: garden and terrace of a Mediterranean property', icon: <House size={19} />, title: it ? 'Valutare prima di acquistare' : 'Review before you buy', desc: it ? 'Un confronto preliminare sulle esigenze e sugli aspetti da sottoporre a verifica professionale.' : 'An initial discussion about your needs and the matters to review with qualified professionals.' },
+          ].map((service) => <article className="mb-svc-card" key={service.n} data-testid={`card-service-${service.n}`}><IllustrativeImage lang={lang} name={service.img} widths={[480, 960]} sizes="(max-width: 760px) 100vw, 50vw" width={960} height={service.img === 'construction' ? 523 : 960} alt={service.alt} /><div className="mb-svc-body"><span className="number">{service.n} / <span aria-hidden="true">{service.icon}</span></span><h3>{service.title}</h3><p>{service.desc}</p><PageLink lang={lang} page="services" className="text-link">{it ? 'Scopri di più' : 'Explore'}<ArrowRight size={14} /></PageLink></div></article>)}
         </div>
       </div>
     </section>
 
+    <section className="mb-wide" data-testid="section-outdoor">
+      <IllustrativeImage lang={lang} name="garden" widths={[480, 960]} sizes="100vw" width={960} height={960} alt={it ? 'Immagine illustrativa: posa di un sentiero in pietra fra ulivi e muretti' : 'Illustrative image: a stone path being laid among olive trees and stone walls'} />
+      <div className="mb-wide-copy"><div className="container"><SectionLabel>{copy[lang].services.heading}</SectionLabel><h2 className="mb-display">{it ? 'Esterni, giardini e piscine' : 'Outdoor spaces, gardens and pools'}</h2><p>{copy[lang].services.groups[3].desc}</p><PageLink lang={lang} page="services" className="text-link">{it ? 'Tutti i servizi' : 'All services'}<ArrowRight size={15} /></PageLink></div></div>
+    </section>
     <section className="section split-band">
       <div className="container split-layout">
         <div><SectionLabel>{it ? 'Un riferimento, sul posto' : 'A local point of contact'}</SectionLabel><h2 className="display-title">{it ? <>Non devi seguire<br />tutto <em>da solo.</em></> : <>You do not have<br />to manage it <em>alone.</em></>}</h2><p>{it ? 'Avere una casa lontano da casa richiede fiducia e informazioni chiare. Partiamo dal tuo bisogno, non da una soluzione preconfezionata.' : 'Having a home away from home takes trust and clear information. We start with your need, not a pre-packaged answer.'}</p><PageLink lang={lang} page="abroad" className="text-link" style={{ color: '#d79c7d', marginTop: '14px' }}>{it ? 'Per chi vive all’estero' : 'For owners abroad'}<ArrowRight size={15} /></PageLink></div>
@@ -328,7 +331,7 @@ function HomePage({ lang }: { lang: Lang }) {
       </div>
     </section>
     <section className="section tight"><div className="container"><CtaPanel lang={lang} title={it ? 'Ogni casa ha una storia. La tua qual è?' : 'Every home has a story. What is yours?'} text={it ? 'Descrivici quello che vuoi fare, con calma. Il primo confronto serve proprio a capire da dove partire.' : 'Tell us what you have in mind. The first conversation is simply a way to understand where to begin.'} /></div></section>
-  </>);
+  </div>);
 }
 
 function ServicesPage({ lang }: { lang: Lang }) {

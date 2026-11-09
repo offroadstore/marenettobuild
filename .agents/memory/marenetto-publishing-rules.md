@@ -9,6 +9,8 @@ All requested language versions must cover the complete public site before being
 
 Preview environments must remain excluded from indexing and use synthetic data until hosting region, privacy suppliers and release prerequisites are verified.
 
+Historical site images may be reused as illustrative material, but must not imply verified completed work, company personnel or company-owned vehicles/equipment. Prior use on the old site is not proof of licensing or releases; confirm those before public release.
+
 **Why:** The user explicitly defined accuracy, translation quality and staged-release constraints as central product requirements, and identified themselves as the translation approver.
 
 **How to apply:** Apply these rules to content migration, portfolio work, localization, CMS workflows, owner-area messaging and every production release.
