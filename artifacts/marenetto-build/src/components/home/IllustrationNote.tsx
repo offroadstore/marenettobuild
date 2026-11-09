@@ -31,13 +31,9 @@ export const illustrationNotes: Record<string, string> = {
   tr: 'Yapay zekâ ile oluşturulmuş temsili görseller; tamamlanmış işleri göstermez.',
 };
 
-/** One visible note per clearly bounded group, not one badge per image. */
-export function IllustrationNote({ lang, hero = false }: { lang: string; hero?: boolean }) {
-  // Only the Italian singular wording is newly approved. Other languages retain
-  // their existing disclosure, not an invented translation of the new sentence.
-  const text = hero && lang === 'it'
-    ? 'Visualizzazione illustrativa realizzata con IA; non raffigura un lavoro eseguito.'
-    : illustrationNotes[lang];
+/** Single site-wide disclosure, placed in the footer; never overlaid on images. */
+export function IllustrationNote({ lang }: { lang: string }) {
+  const text = illustrationNotes[lang];
   if (!text) throw new Error(`Missing illustration disclosure for locale ${lang}`);
-  return <p className="mbh-image-note" lang={lang} data-testid="illustration-note">{text}</p>;
+  return <p className="footer-image-note" lang={lang} data-testid="illustration-note">{text}</p>;
 }

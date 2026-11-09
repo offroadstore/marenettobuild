@@ -294,6 +294,7 @@ function Footer({ lang }: { lang: Lang }) {
           <span>SS 113 Settentrionale Sicula, 73b<br />90015 Cefalù, Palermo, Italia</span>
         </div></div>
       </div>
+      <IllustrationNote lang={lang} />
       <div className="footer-bottom"><span>© {new Date().getFullYear()} Marenetto s.r.l. unipersonale · P. IVA IT06471740826</span><span>{it ? 'Cefalù · Sicilia' : 'Cefalù · Sicily'}</span><Link href={withCampaignParams(routes[it ? 'en' : 'it'].home)}>{it ? 'English' : 'Italiano'} <ArrowRight size={12} /></Link></div>
     </div>
   </footer></>);
@@ -348,7 +349,6 @@ function HomePage({ lang }: { lang: Lang }) {
         </div>
       </div>
     </HeroPhoto>
-      <div className="mbh-wrap"><IllustrationNote lang={lang} hero /></div>
     </section>
 
     {wrap(<section className="mbh-section" data-testid="section-services" aria-labelledby="mbh-svc-title">
@@ -367,7 +367,6 @@ function HomePage({ lang }: { lang: Lang }) {
             </span>
           </Link>)}
         </div>
-        <IllustrationNote lang={lang} />
       </div>
     </section>)}
 
@@ -391,7 +390,6 @@ function HomePage({ lang }: { lang: Lang }) {
         <Link href={svcHref(SERVICE_GROUP_IDS[3])} className="mbh-link mbh-link--light" data-testid="link-service-esterni">{h.outdoorLink}<ArrowRight size={15} aria-hidden="true" /></Link>
       </div>
       </div>
-      <div className="mbh-wrap"><IllustrationNote lang={lang} /></div>
     </section>)}
 
     {wrap(<section className="mbh-section" id="metodo" data-testid="section-method" aria-labelledby="mbh-method-title">
@@ -418,7 +416,6 @@ function HomePage({ lang }: { lang: Lang }) {
           <PageLink lang={lang} page="abroad" className="mbh-link" data-testid="link-home-abroad">{h.abroadLink}<ArrowRight size={15} aria-hidden="true" /></PageLink>
         </div>
       </div>
-      <div className="mbh-wrap"><IllustrationNote lang={lang} /></div>
     </section>)}
 
     {localizeNode(lang, <section className="mbh-section mbh-news" id="approfondimenti" data-testid="section-home-articles">

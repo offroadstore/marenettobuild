@@ -181,3 +181,6 @@
 .request-layout .radio-choice span { min-height:44px; max-width:100%; align-items:center; white-space:normal; overflow-wrap:anywhere; }
 .request-layout .radio-choice:focus-within span { outline:2px solid var(--mb-btn); outline-offset:2px; }
 .request-layout .review-item strong { overflow-wrap:anywhere; }
+
+/* Single AI-illustration disclosure in the footer: plain text, no box or highlight. */
+.site-shell .footer p.footer-image-note { margin:0 0 12px; padding:0; color:var(--mb-ink-2, #536168); font-size:13px; font-weight:400; line-height:1.5; background:none; border:0; box-shadow:none; opacity:1; }

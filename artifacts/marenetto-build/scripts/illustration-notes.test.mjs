@@ -30,11 +30,10 @@ test('image components contain no overlaid disclosures', async () => {
   assert.doesNotMatch(media, /figcaption|mb-media__tag|mbh-hero__tag|label-illustrative/);
   const css = await readFile(new URL('src/styles/home.css', root), 'utf8');
   assert.doesNotMatch(css, /\.mb-media__tag|\.mbh-hero__tag/);
-  const noteRule = css.match(/\.mbh p\.mbh-image-note\s*\{([^}]+)\}/)?.[1];
+  const noteRule = (await readFile(new URL('src/styles/brand.css', root), 'utf8')).match(/\.site-shell \.footer p\.footer-image-note\s*\{([^}]+)\}/)?.[1];
   assert.ok(noteRule);
   assert.match(noteRule, /font-size:13px/);
-  assert.match(noteRule, /position:static/);
-  assert.match(noteRule, /color:var\(--mb-ink-2\)/);
+  assert.match(noteRule, /color:var\(--mb-ink-2/);
   assert.match(noteRule, /opacity:1/);
   assert.match(noteRule, /border:0/);
 });

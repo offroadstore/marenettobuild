@@ -24,8 +24,10 @@ for (const width of [390, 580, 699, 700, 768, 1000, 1100, 1440, 1920]) {
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
     await expect(page.locator('.mbh-h1')).toHaveCSS('font-family', /sans/i);
     await expect(page.locator('.mbh-hero__lead')).toHaveText('Diamo forma ai tuoi progetti, con cura e presenza sul posto.');
-    await expect(page.locator('.mbh-opening [data-testid="illustration-note"]')).toHaveText('Visualizzazione illustrativa realizzata con IA; non raffigura un lavoro eseguito.');
-    await expect(page.locator('.mbh-opening [data-testid="illustration-note"]')).toHaveCSS('font-size', '13px');
+    await expect(page.locator('[data-testid="illustration-note"]')).toHaveCount(1);
+    await expect(page.locator('footer [data-testid="illustration-note"]')).toHaveText('Immagini illustrative generate con IA; non rappresentano lavori eseguiti.');
+    await expect(page.locator('footer [data-testid="illustration-note"]')).toHaveCSS('font-size', '13px');
+    await expect(page.locator('main [data-testid="illustration-note"]')).toHaveCount(0);
     await expect(page.getByTestId('section-contact-strip')).toContainText('Il tuo progetto comincia da un confronto.');
     await expect(page.locator('main h1')).toHaveCount(1);
     const cards = page.locator('a.mbh-card');
