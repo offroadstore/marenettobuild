@@ -1,6 +1,6 @@
 import { type AnchorHTMLAttributes, type FormEvent, type ReactNode, useEffect, useRef, useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ArrowRight, ChevronDown, House, Mail, MapPin, Menu, MessageCircle, X } from 'lucide-react';
+import { ArrowRight, ChevronDown, House, Mail, MapPin, Menu, MessageCircle, Phone, X } from 'lucide-react';
 import { useCreateProjectRequest, type ProjectRequestInput } from '@workspace/api-client-react';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
@@ -497,18 +497,16 @@ function ContactPage({ lang }: { lang: Lang }) {
     <PageHero lang={lang} page="contact" />
     <section className="section" id="contatti" data-testid="anchor-contatti">
       <div className="container contact-layout">
-        <aside className="contact-info"><SectionLabel>{it ? 'Scegli il tuo modo' : 'Choose your way'}</SectionLabel><h2 className="display-title">{it ? 'Ci trovi qui.' : 'We are here.'}</h2><p>{it ? 'Contattaci nel modo che ti è più comodo. Puoi iniziare con una domanda semplice.' : 'Get in touch in whichever way is easiest. You can start with a simple question.'}</p>
-          <div className="contact-method"><MessageCircle size={17} /><div><small>WhatsApp</small><a href={whatsappHref(localizeChoice(lang, 'Buongiorno, vorrei parlare della mia proprietà a Cefalù.', 'Hello, I would like to discuss my property in Cefalù.'))} target="_blank" rel="noopener noreferrer" data-testid="link-whatsapp">{COMPANY_PHONE.display} · {it ? 'Apri una conversazione' : 'Start a conversation'}<ArrowRight size={13} /></a></div></div>
-          <div className="contact-method"><Mail size={17} /><div><small>Email</small><a href={`mailto:info@marenetto.com?subject=${encodeURIComponent(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))}`} data-testid="link-email">info@marenetto.com<ArrowRight size={13} /></a></div></div>
-          <div className="contact-method"><MessageCircle size={17} /><div><small>{it ? 'Telefono' : 'Phone'}</small><a href={telHref} data-testid="link-phone">{COMPANY_PHONE.display}</a></div></div>
+        <aside className="contact-info"><SectionLabel>{it ? 'Contatti' : 'Contact'}</SectionLabel><h2 className="display-title">{it ? 'Ci trovi qui.' : 'We are here.'}</h2>
+          <div className="contact-method"><MessageCircle size={17} /><div><small>WhatsApp</small><a href={whatsappHref(localizeChoice(lang, 'Buongiorno, vorrei parlare della mia proprietà a Cefalù.', 'Hello, I would like to discuss my property in Cefalù.'))} target="_blank" rel="noopener noreferrer" data-testid="link-whatsapp">{it ? 'Scrivici' : 'Message us'}<ArrowRight size={13} /></a></div></div>
+          <div className="contact-method"><Phone size={17} /><div><small>{it ? 'Telefono' : 'Phone'}</small><a href={telHref} data-testid="link-phone">{COMPANY_PHONE.display}</a></div></div>
+          <div className="contact-method"><Mail size={17} /><div><small>Email</small><a href={`mailto:info@marenetto.com?subject=${encodeURIComponent(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))}`} data-testid="link-email">info@marenetto.com</a></div></div>
           <div className="contact-method"><MapPin size={17} /><div><small>{it ? 'Indirizzo' : 'Address'}</small><span>SS 113 Settentrionale Sicula, 73b<br />90015 Cefalù, Palermo, Italia</span></div></div>
-          <div className="contact-note">{localizeChoice(lang, 'Anteprima sintetica: non inserire dati personali reali. Il modulo scarta i dettagli inseriti e crea solo un lead dimostrativo. Per un contatto effettivo, usa email, telefono o WhatsApp.', 'Synthetic preview: do not enter real personal information. The form discards the details entered and creates only a demo lead. For a real enquiry, use email, phone or WhatsApp.')}</div>
+          <div className="contact-note">{localizeChoice(lang, 'Anteprima sintetica: non inserire dati personali reali. Per un contatto effettivo usa email, telefono o WhatsApp.', 'Synthetic preview: do not enter real personal data. For a real enquiry, use email, phone or WhatsApp.')}</div>
         </aside>
-        <div className="contact-content"><SectionLabel>{it ? 'Ci racconti' : 'Tell us'}</SectionLabel><h2 className="display-title">{it ? 'Che cosa ti serve?' : 'What do you need?'}</h2><p>{it ? 'Una richiesta specifica, un dubbio sulla manutenzione o una domanda prima di acquistare? Scegli il punto di partenza più adatto.' : 'A specific request, a maintenance question or something to ask before buying? Choose the starting point that suits you.'}</p>
+        <div className="contact-content"><SectionLabel>{it ? 'Richiesta' : 'Enquiry'}</SectionLabel><h2 className="display-title">{it ? 'Che cosa ti serve?' : 'What do you need?'}</h2>
           <div className="contact-cta-list">
-            <PageLink lang={lang} page="request" className="contact-cta" data-testid="link-contact-request"><div><strong>{it ? 'Invia una richiesta strutturata' : 'Send a structured enquiry'}</strong><span>{it ? 'Per progetti, manutenzione o acquisto.' : 'For a project, maintenance or purchase.'}</span></div><ArrowRight size={18} color="#a66546" /></PageLink>
-            <PageLink lang={lang} page="services" className="contact-cta"><div><strong>{it ? 'Esplora i servizi' : 'Explore services'}</strong><span>{it ? 'Scopri i principali ambiti di supporto.' : 'See the main areas of support.'}</span></div><ArrowRight size={18} color="#a66546" /></PageLink>
-            <PageLink lang={lang} page="abroad" className="contact-cta"><div><strong>{it ? 'Vivi all’estero?' : 'Live abroad?'}</strong><span>{it ? 'Come funziona il contatto a distanza.' : 'How working at a distance can work.'}</span></div><ArrowRight size={18} color="#a66546" /></PageLink>
+            <PageLink lang={lang} page="request" className="contact-cta" data-testid="link-contact-request"><div><strong>{it ? 'Invia una richiesta' : 'Send an enquiry'}</strong></div><ArrowRight size={18} color="#a66546" /></PageLink>
           </div>
         </div>
       </div>

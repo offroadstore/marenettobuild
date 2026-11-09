@@ -251,6 +251,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .contact-method svg { color:#d29678; flex:none; margin-top:2px; }
 .contact-method small { display:block; color:#b2b7af; font-size:10px; text-transform:uppercase; letter-spacing:.12em; margin-bottom:7px; }
 .contact-method a, .contact-method span { font-size:14px; }
+.contact-method a { display:inline-flex; align-items:center; gap:8px; }
+.site-shell .contact-info .eyebrow { color:#d29678; }
+.site-shell .contact-info .eyebrow::before { background:#d29678; }
+.contact-content .display-title { margin-bottom:8px; }
 .contact-note { margin-top:10px; padding:14px; background:rgba(255,255,255,.07); color:#c2c6be; font-size:11px; line-height:1.6; }
 .contact-content h2 { font-size:38px; letter-spacing:-.05em; margin:0 0 14px; }
 .contact-content > p { font-size:14px; color:#666d65; line-height:1.8; }
