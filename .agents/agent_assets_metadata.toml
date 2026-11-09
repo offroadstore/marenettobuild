@@ -1,0 +1,30 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "zCNAWFTgL6pvzD_cZQVWO"
+uri = "file://.local/reports/ricognizione-2026-11-09/REPORT.html"
+type = "html"
+title = "Marenetto Build — Ricognizione documentata"
+description = "Report completo in italiano, sezioni A–F, con matrici linguistiche, priorità, loghi e screenshot incorporati. Consultabile senza accedere al progetto."
+logical_id = "77ef5eac-ebb6-4b1a-a4f0-a34ae2bea128"
+content_hash = "sha256:ddcc532e414b52ae7a6eefbb0e4c94bc8eca12a6c9585b2b4e5dd151096b2b50"
+size = 1404951
+mtime_ms = 1794257758518
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/77ef5eac-ebb6-4b1a-a4f0-a34ae2bea128/87383b49-d58c-4ee8-b325-3eb812e0785b"
+storage_version_token = "1794257785657804"
+content_type = "text/html"
+
+[[outputs]]
+id = "j4ivPmS5WJ14cF61VhnZ9"
+uri = "file://.local/reports/ricognizione-2026-11-09/ricognizione-completa.zip"
+type = "unspecified"
+title = "Report, matrici ed evidenze"
+description = "Archivio completo: documento HTML e Markdown, matrice CSV di 219 pagine, screenshot, riscontri HTTP e registro delle fonti. Nessun invio di moduli o modifica al sito."
+logical_id = "c4dc0c64-dedb-4eff-ab78-4384649f0ebd"
+content_hash = "sha256:13a1a2bd538523a93b6cacc243adc195cbc52d11162f0c3b901d00a722705869"
+size = 5106692
+mtime_ms = 1794257758822
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/c4dc0c64-dedb-4eff-ab78-4384649f0ebd/fda2e5f4-17d2-4173-b228-ef843c944130"
+storage_version_token = "1794257786343853"
+content_type = "application/octet-stream"
