@@ -1,0 +1,391 @@
+{
+  "test": "Bounded public HOME → SERVICES → REQUEST responsive journey",
+  "verdict": "failure",
+  "app": "Marenetto Build public preview, base route /",
+  "networkGuard": {
+    "installedBeforeNavigation": true,
+    "allowedMethods": [
+      "GET",
+      "HEAD",
+      "OPTIONS"
+    ],
+    "blockedIncidentalRequests": {
+      "count": 7,
+      "method": "POST",
+      "host": "worthy-newt-6397.clerk.accounts.dev",
+      "path": "/v1/dev_browser",
+      "classification": "Clerk development telemetry; blocked by guard, not an app/form failure"
+    },
+    "formSubmitted": false,
+    "apiMutations": false,
+    "uploadsOrContactLinksActivated": false
+  },
+  "homeViewports": [
+    {
+      "cssViewport": "320x700",
+      "dpr": 2,
+      "documentScrollWidth": 305,
+      "horizontalOverflow": false,
+      "heroCtaInFirstViewport": true,
+      "headerTargetsPx": {
+        "language": "44x44",
+        "menu": "44x44"
+      },
+      "logoLanguageMenuOverlap": false,
+      "searchAndHeaderCtaHidden": true
+    },
+    {
+      "cssViewport": "390x844",
+      "dpr": 3,
+      "documentScrollWidth": 375,
+      "horizontalOverflow": false,
+      "heroCtaInFirstViewport": true,
+      "logoLanguageMenuOverlap": false,
+      "searchAndHeaderCtaHidden": true
+    },
+    {
+      "cssViewport": "430x932",
+      "dpr": 3,
+      "documentScrollWidth": 415,
+      "horizontalOverflow": false,
+      "heroCtaInFirstViewport": true,
+      "logoLanguageMenuOverlap": false
+    },
+    {
+      "cssViewport": "844x390",
+      "dpr": 2,
+      "documentScrollWidth": 829,
+      "horizontalOverflow": false,
+      "heroCtaBoundsY": "331.5..385.5",
+      "heroCtaInFirstViewport": true,
+      "textBeforeMedia": true
+    },
+    {
+      "cssViewport": "768x1024",
+      "dpr": 3,
+      "documentScrollWidth": 753,
+      "horizontalOverflow": false,
+      "heroCtaInFirstViewport": true,
+      "textBeforeMedia": true
+    },
+    {
+      "cssViewport": "1024x768",
+      "dpr": 2,
+      "documentScrollWidth": 1009,
+      "horizontalOverflow": false,
+      "heroFramePx": "960x476.2",
+      "heroCtaInFirstViewport": true
+    },
+    {
+      "cssViewport": "1440x900",
+      "dpr": 1,
+      "documentScrollWidth": 1425,
+      "horizontalOverflow": false,
+      "heroFramePx": "960x520",
+      "heroCtaInFirstViewport": true
+    },
+    {
+      "cssViewport": "2560x1440",
+      "dpr": 2,
+      "documentScrollWidth": 2545,
+      "horizontalOverflow": false,
+      "heroFramePx": "960x520",
+      "heroCtaInFirstViewport": true
+    }
+  ],
+  "brand": {
+    "wordmark": "historical thin M/MARENETTO + bold white BUILD.COM on copper",
+    "buildComFont": "Barlow, weight 700",
+    "buildComFontSizesObservedCssPx": {
+      "320px": 10.92,
+      "1440px": 14.13,
+      "2560px": 16.06
+    },
+    "foreground": "rgb(255, 255, 255)",
+    "background": "rgb(169, 90, 51)",
+    "contrastRatio": 5,
+    "heroImageObjectFitAtDesktop": "contain",
+    "desktopHeroMaxWidthCssPx": 960
+  },
+  "journey": {
+    "routes": [
+      "/",
+      "/servizi",
+      "/richiesta"
+    ],
+    "servicesPageRequestCtaWorked": true,
+    "browserBackFromRequestWhileMenuOpenReturnedTo": "/servizi",
+    "backNavigationClosedTransientMenu": true,
+    "homeSectionOrder": [
+      "services",
+      "method",
+      "articles"
+    ],
+    "progettiNavigationOrFooterLinksFound": 0,
+    "emptyPortfolioNoticeFound": false,
+    "mediaDisclaimerObserved": "illustrative image; not portfolio / not a verified project"
+  },
+  "mobileMenu": {
+    "enterOpens": true,
+    "firstServicesLinkFocused": true,
+    "escapeClosesAndReturnsFocusToTrigger": true,
+    "languagePickerAndMobileMenuCoexist": false,
+    "languagePickerClosesWhenMobileMenuOpens": true,
+    "390x844MenuBoundsCssPx": "x=0..375, y=71..528",
+    "menuLinkHeightCssPx": 50,
+    "requestActionHeightCssPx": 52,
+    "controlsClippedOrOffscreen": false
+  },
+  "requestPage": {
+    "initialTextFieldsEmpty": true,
+    "submissionPerformed": false,
+    "shortViewport390x450": {
+      "documentScrollWidth": 541,
+      "bodyWidth": 375,
+      "horizontalOverflow": true,
+      "focusedEmptyLocationFieldCssPx": {
+        "x": 39,
+        "y": 193.64,
+        "width": 297,
+        "height": 48
+      },
+      "scrollYAfterUserClick": 1229,
+      "centerHitTestReturnedInput": true
+    },
+    "phone390x844": {
+      "documentScrollWidth": 541,
+      "bodyWidth": 375,
+      "horizontalOverflow": true
+    },
+    "tabletPortrait768x1024": {
+      "documentScrollWidth": 1309,
+      "horizontalOverflow": true,
+      "pairedInputSizeCssPx": "181x48",
+      "textareaSizeCssPx": "378.3x132",
+      "radioInputHitboxCssWidth": 753,
+      "radioHitboxRightCssX": 1067.7
+    },
+    "tabletLandscape1024x768": {
+      "documentScrollWidth": 1670,
+      "bodyWidth": 1009,
+      "horizontalOverflow": true,
+      "pairedInputSizeCssPx": "251x48",
+      "textareaSizeCssPx": "519x132",
+      "radioInputHitboxCssWidth": 1009,
+      "radioHitboxRightCssX": 1429.3
+    }
+  },
+  "localizationSpotChecks": {
+    "fr": {
+      "route": "/fr/",
+      "localizedHomeHeroAndCta": true
+    },
+    "ar": {
+      "route": "/ar/",
+      "localizedHomeHeroAndCta": true,
+      "siteShellDir": "rtl",
+      "documentDir": "ltr"
+    },
+    "scope": "spot checks only; no claim of semantic approval across all 29 locales; article cards remain Italian"
+  },
+  "reducedMotion": {
+    "emulatedPreference": "reduce",
+    "animateEnter": {
+      "animationName": "none",
+      "duration": "0s",
+      "opacity": "1",
+      "transform": "none"
+    }
+  },
+  "limitations": [
+    "Browser viewport/DPR emulation only; no real-device testing.",
+    "No real virtual keyboard was available; verified browser focus, scrolling, bounds, and hit testing only.",
+    "No Lighthouse, performance, accessibility-conformance, or conversion claims."
+  ],
+  "postFixFocusedVerification": {
+    "scope": "Request surface only after CSS update; not a full pass rerun",
+    "route": "/richiesta",
+    "viewportWidths": [
+      {
+        "viewport": "390x844",
+        "dpr": 3,
+        "documentScrollWidth": 375,
+        "bodyScrollWidth": 375,
+        "horizontalOverflow": false
+      },
+      {
+        "viewport": "768x1024",
+        "dpr": 3,
+        "documentScrollWidth": 753,
+        "bodyScrollWidth": 753,
+        "horizontalOverflow": false
+      },
+      {
+        "viewport": "1024x768",
+        "dpr": 3,
+        "documentScrollWidth": 1009,
+        "bodyScrollWidth": 1009,
+        "horizontalOverflow": false
+      }
+    ],
+    "radioHitboxes": [
+      {
+        "viewport": "390x844",
+        "radios": [
+          {
+            "testid": "radio-request-project",
+            "labelAndInput": {
+              "x": 39,
+              "y": 1105.1,
+              "right": 155.9,
+              "bottom": 1149.1,
+              "width": 116.9,
+              "height": 44
+            },
+            "withinOwnLabel": true
+          },
+          {
+            "testid": "radio-request-maintenance",
+            "labelAndInput": {
+              "x": 165.9,
+              "y": 1105.1,
+              "right": 269.8,
+              "bottom": 1149.1,
+              "width": 104,
+              "height": 44
+            },
+            "withinOwnLabel": true
+          },
+          {
+            "testid": "radio-request-purchase",
+            "labelAndInput": {
+              "x": 39,
+              "y": 1159.1,
+              "right": 116.9,
+              "bottom": 1203.1,
+              "width": 77.9,
+              "height": 44
+            },
+            "withinOwnLabel": true
+          }
+        ]
+      },
+      {
+        "viewport": "768x1024",
+        "radios": [
+          {
+            "testid": "radio-request-project",
+            "labelAndInput": {
+              "x": 314.7,
+              "y": 720.4,
+              "right": 431.6,
+              "bottom": 764.4,
+              "width": 116.9,
+              "height": 44
+            },
+            "withinOwnLabel": true
+          },
+          {
+            "testid": "radio-request-maintenance",
+            "labelAndInput": {
+              "x": 441.6,
+              "y": 720.4,
+              "right": 545.5,
+              "bottom": 764.4,
+              "width": 104,
+              "height": 44
+            },
+            "withinOwnLabel": true
+          },
+          {
+            "testid": "radio-request-purchase",
+            "labelAndInput": {
+              "x": 555.5,
+              "y": 720.4,
+              "right": 633.4,
+              "bottom": 764.4,
+              "width": 77.9,
+              "height": 44
+            },
+            "withinOwnLabel": true
+          }
+        ]
+      },
+      {
+        "viewport": "1024x768",
+        "radios": [
+          {
+            "testid": "radio-request-project",
+            "labelAndInput": {
+              "x": 420.3,
+              "y": 749.4,
+              "right": 537.2,
+              "bottom": 793.4,
+              "width": 116.9,
+              "height": 44
+            },
+            "withinOwnLabel": true
+          },
+          {
+            "testid": "radio-request-maintenance",
+            "labelAndInput": {
+              "x": 547.2,
+              "y": 749.4,
+              "right": 651.1,
+              "bottom": 793.4,
+              "width": 104,
+              "height": 44
+            },
+            "withinOwnLabel": true
+          },
+          {
+            "testid": "radio-request-purchase",
+            "labelAndInput": {
+              "x": 661.1,
+              "y": 749.4,
+              "right": 739,
+              "bottom": 793.4,
+              "width": 77.9,
+              "height": 44
+            },
+            "withinOwnLabel": true
+          }
+        ]
+      }
+    ],
+    "keyboardFocus": {
+      "viewport": "390x844",
+      "activeRadio": "radio-request-project",
+      "focusVisible": true,
+      "checkedStatePreserved": true,
+      "visualFocusRingObserved": true,
+      "selectionChanged": false
+    },
+    "footerLogoBarAt390": {
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(169, 90, 51)",
+      "fontFamily": "Barlow, sans-serif",
+      "fontSize": "14.7772px",
+      "fontWeight": "700"
+    },
+    "safety": {
+      "guardAllowed": [
+        "GET",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "formSubmitted": false,
+      "valuesEntered": false,
+      "apiMutations": false,
+      "blockedIncidentalRequests": [
+        {
+          "method": "POST",
+          "host": "worthy-newt-6397.clerk.accounts.dev",
+          "path": "/v1/dev_browser",
+          "count": 1
+        }
+      ]
+    },
+    "screenshot": "78fhve"
+  }
+}

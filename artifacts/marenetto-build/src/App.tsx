@@ -13,7 +13,7 @@ import { Search } from 'lucide-react';
 import { articleBySlug, articles as articleList, formatDate as formatArticleDate } from '@/content/articles';
 import { historicalRedirects } from '@/content/historical-routes';
 import { withCampaignParams } from '@/lib/campaign';
-import { ArticleDetailPage, ArticlesPage, GuidesPage, ProjectsPage, SearchPage } from '@/pages/library';
+import { ArticleDetailPage, ArticlesPage, GuidesPage, SearchPage } from '@/pages/library';
 import { ClerkProvider, SignIn, SignUp, useClerk } from '@clerk/react';
 import { publishableKeyFromHost } from '@clerk/react/internal';
 import { shadcn } from '@clerk/themes';
@@ -99,52 +99,52 @@ const copySource = {
 const copyBase = {
   it: {
     nav: { services: 'Servizi', process: 'Come lavoriamo', abroad: 'Per chi vive all’estero', articles: 'Articoli', projects: 'Progetti', contact: 'Contatti', request: 'Parliamone' },
-    home: { eyebrow: 'MARENETTO BUILD · CEFALÙ E DINTORNI', title: <>Costruzioni, ristrutturazioni<br /><em>e cura della tua proprietà a Cefalù.</em></>, intro: 'Dalla prima valutazione alla consegna, realizziamo e coordiniamo gli interventi per case, ville e seconde abitazioni. Un referente locale anche quando vivi lontano.', primary: 'Raccontaci il tuo progetto', secondary: 'Guarda come lavoriamo', note: 'Un referente locale, anche quando vivi lontano.', figure: 'Una presenza concreta, sul posto.', proof1: 'Cefalù e territorio', proof2: 'Italiano · Inglese · Olandese · Spagnolo' },
-    page: { services: ['Servizi', 'Dalla prima idea alla cura quotidiana.', 'Un riferimento locale per lavori, manutenzione e necessità legate alla tua casa. Ogni richiesta parte da un confronto chiaro, per capire cosa serve davvero.'], process: ['Come lavoriamo', 'Prima ci capiamo. Poi si parte.', 'Un percorso semplice per definire il bisogno, mettere a fuoco le opzioni e tenerti aggiornato, passo dopo passo.'], abroad: ['Proprietari all’estero', 'La distanza non deve complicare le cose.', 'Un contatto locale per seguire richieste, manutenzione e lavori sulla tua proprietà in Sicilia, con aggiornamenti comprensibili anche a distanza.'], contact: ['Contatti', 'Il primo passo è una conversazione.', 'Scrivici in italiano o in inglese. Condividi il contesto e ti aiuteremo a capire quale può essere il passo successivo.'], request: ['Richiesta', 'Da dove possiamo cominciare?', 'Raccontaci della proprietà e di ciò che ti serve. Più contesto ci dai, più concreto potrà essere il primo confronto.'] },
-    services: { over: 'Un supporto concreto, senza promesse vaghe.', heading: 'Servizi per la tua proprietà', intro: 'Ogni immobile e ogni necessità sono diversi. Definiamo insieme il perimetro, le verifiche necessarie e chi svolge le attività prima di parlare di interventi.', groups: [
-      { title: 'Costruzioni e ristrutturazioni', desc: 'Nuove opere, interventi completi o parziali e coordinamento delle lavorazioni secondo il progetto concordato.', items: ['Costruzioni e ristrutturazioni', 'Coordinamento chiavi in mano, con ruoli definiti', 'Demolizioni e movimento terra, previa verifica di accessi e logistica'] },
-      { title: 'Finiture e superfici', desc: 'Scelta e posa da valutare in base a supporto, uso, condizioni del luogo e manutenzione richiesta.', items: ['Finiture, pietra e pavimentazioni', 'Resine, microcemento e superfici decorative', 'Impermeabilizzazioni e ripristini, dopo le verifiche pertinenti'] },
-      { title: 'Infiltrazioni e assistenza', desc: 'Raccogliamo i sintomi e valutiamo quali controlli siano utili. Una fotografia può aiutare a capire la richiesta, ma non dà da sola una diagnosi.', items: ['Ricerca e gestione delle infiltrazioni', 'Interventi e ripristini da definire dopo sopralluogo', 'Attività tecniche riservate affidate a professionisti abilitati incaricati'] },
-      { title: 'Esterni, giardini e piscine', desc: 'Interventi esterni valutati considerando terreno, drenaggi, accessi e condizioni specifiche dell’immobile.', items: ['Giardini e aree esterne', 'Pietra, pavimentazioni e cucine esterne', 'Piscine e manutenzione collegata, secondo perimetro concordato'] },
-      { title: 'Cura e gestione della proprietà', desc: 'Attività e frequenze si concordano per singolo immobile; manutenzione, pulizie e gestione degli affitti restano ambiti distinti.', items: ['Manutenzione immobiliare e piccoli interventi', 'Pulizie e servizi collegati agli appartamenti', 'Cura della proprietà e servizi per gli affitti, con perimetro da concordare'] },
-      { title: 'Prima dell’acquisto', desc: 'Un confronto preliminare sulle informazioni disponibili e sugli aspetti da sottoporre a verifica tecnica o documentale.', items: ['Assistenza tecnica prima dell’acquisto', 'Raccolta delle esigenze e delle trasformazioni desiderate', 'Le verifiche professionali e documentali restano in capo agli incaricati competenti'] },
+    home: { eyebrow: 'MARENETTO BUILD · CEFALÙ E DINTORNI', title: <>Costruiamo e ristrutturiamo <em>a Cefalù.</em></>, intro: 'Lavori edili e manutenzione per case, seconde abitazioni e strutture ricettive a Cefalù e dintorni. Un referente locale per organizzare gli interventi e restare aggiornato, anche se vivi all’estero.', primary: 'Raccontaci il tuo progetto', secondary: 'Guarda come lavoriamo', note: 'Un referente locale, anche quando vivi lontano.', figure: 'Una presenza concreta, sul posto.', proof1: 'Cefalù e dintorni', proof2: 'Italiano · Inglese · Olandese · Spagnolo' },
+    page: { services: ['Servizi', 'Costruire, rinnovare, mantenere.', 'Lavori edili, finiture, esterni e manutenzione per la tua casa a Cefalù e dintorni. Dopo il primo contatto ti diciamo cosa facciamo noi, cosa affidiamo a un professionista e come procediamo.'], process: ['Come lavoriamo', 'Dalla tua richiesta ai prossimi passi.', 'Ci racconti la situazione, individuiamo le verifiche utili e concordiamo attività, responsabilità e aggiornamenti.'], abroad: ['Proprietari all’estero', 'La tua casa in Sicilia, seguita da vicino.', 'Un referente a Cefalù per lavori e manutenzione, con un canale di comunicazione concordato anche quando non puoi esserci.'], contact: ['Contatti', 'Scrivici o chiamaci.', 'Puoi contattarci in italiano o in inglese. Bastano poche righe sulla casa e su cosa ti serve per iniziare un confronto.'], request: ['Richiesta', 'Da dove possiamo cominciare?', 'Raccontaci della proprietà e di ciò che ti serve: località, tipo di intervento e priorità ci aiutano a capire da dove iniziare.'] },
+    services: { over: 'Cosa facciamo, in concreto.', heading: 'Servizi per la tua proprietà', intro: 'Descrivi l’immobile e l’intervento. Definiamo le lavorazioni e chi se ne occupa; per gli aspetti riservati intervengono i professionisti abilitati incaricati.', groups: [
+      { title: 'Costruzioni e ristrutturazioni', desc: 'Nuove opere e ristrutturazioni complete o parziali. Organizziamo le lavorazioni secondo il progetto concordato, con ruoli e responsabilità definiti.', items: ['Costruzioni e ristrutturazioni', 'Coordinamento chiavi in mano, con ruoli definiti', 'Demolizioni e movimento terra, dopo aver verificato accessi e logistica'] },
+      { title: 'Finiture e superfici', desc: 'Pavimenti, pietra, resine e microcemento scelti in base al supporto, all’uso e al clima di costa. Ti indichiamo anche la manutenzione che richiederanno.', items: ['Finiture, pietra e pavimentazioni', 'Resine, microcemento e superfici decorative', 'Impermeabilizzazioni e ripristini, dopo le verifiche necessarie'] },
+      { title: 'Infiltrazioni e assistenza', desc: 'Partiamo dai segni che vedi e dalle foto, poi verifichiamo sul posto la causa prima di proporre la riparazione.', items: ['Ricerca e gestione delle infiltrazioni', 'Riparazioni e ripristini definiti dopo il sopralluogo', 'Le attività tecniche riservate sono affidate a professionisti abilitati'] },
+      { title: 'Esterni, giardini e piscine', desc: 'Interventi su terrazze, percorsi, giardini e piscine: valutiamo terreno, drenaggi e accessi prima di definire le lavorazioni.', items: ['Giardini e aree esterne', 'Pietra, pavimentazioni e cucine esterne', 'Piscine e relativa manutenzione, con attività concordate'] },
+      { title: 'Cura e gestione della proprietà', desc: 'Controlli periodici, piccole riparazioni e servizi per la casa, con attività e frequenza fissate per il tuo immobile.', items: ['Manutenzione immobiliare e piccoli interventi', 'Pulizie e servizi collegati agli appartamenti', 'Cura della proprietà e servizi per gli affitti, su accordo specifico'] },
+      { title: 'Prima dell’acquisto', desc: 'Partiamo dall’immobile e dai cambiamenti che hai in mente. Le verifiche tecniche e documentali competono ai professionisti incaricati.', items: ['Assistenza tecnica prima dell’acquisto', 'Raccolta delle esigenze e delle trasformazioni desiderate', 'Verifiche professionali e documentali a cura dei tecnici incaricati'] },
     ] },
-    process: { heading: 'Un processo chiaro, senza salti.', intro: 'Non esistono due case uguali. Ecco come trasformiamo una richiesta in un percorso condiviso, con aspettative realistiche.', steps: [
-      ['01', 'Ci racconti il contesto', 'Ci spieghi di che proprietà si tratta, dove si trova e quale esigenza vuoi affrontare. Puoi scriverci nella lingua che preferisci.'],
-      ['02', 'Mettiamo a fuoco', 'Raccogliamo le informazioni utili e individuiamo insieme gli aspetti da verificare o chiarire prima di definire il lavoro.'],
-      ['03', 'Concordiamo i prossimi passi', 'Definiamo portata, priorità e modalità di aggiornamento. Prima di procedere, sai cosa è stato concordato e cosa resta da valutare.'],
-      ['04', 'Ti teniamo aggiornato', 'Durante il percorso manteniamo il dialogo aperto e condividiamo gli aggiornamenti concordati, anche se sei lontano.'],
+    process: { heading: 'Quattro passaggi per capirci.', intro: 'Dal piccolo intervento alla ristrutturazione, definiamo il percorso in base alla casa e a ciò che vuoi realizzare.', steps: [
+      ['01', 'Ci racconti la situazione', 'Dove si trova la casa, cosa vuoi fare, eventuali foto. Puoi scriverci via WhatsApp, email o con il modulo di richiesta.'],
+      ['02', 'Valutiamo cosa serve', 'Partiamo dalle informazioni disponibili e individuiamo se servono un sopralluogo o verifiche professionali.'],
+      ['03', 'Definiamo il lavoro', 'Prima di procedere concordiamo attività, responsabilità e condizioni del lavoro.'],
+      ['04', 'Restiamo in contatto', 'Concordiamo un canale per condividere avanzamento, decisioni e prossimi passi, anche se vivi lontano.'],
     ] },
-    abroad: { heading: 'Essere lontani è già abbastanza complicato.', intro: 'Per chi vive fuori dalla Sicilia, trovare un riferimento locale è spesso il primo passo. Puoi inviare una richiesta nella lingua che preferisci; Herman parla italiano, inglese, olandese e spagnolo. Per altre lingue possono intervenire collaboratori e strumenti di supporto: la lingua del sito non garantisce un referente che la parli.', blocks: [
-      ['Un contatto che conosce il territorio', 'Cefalù e i suoi dintorni sono il nostro contesto di lavoro. Ci racconti la situazione e valutiamo insieme come affrontarla, senza dare per scontato ciò che non sappiamo ancora.'],
-      ['Informazioni comprensibili, anche a distanza', 'Concordiamo prima come tenerti aggiornato e quali informazioni ti sono più utili. Un messaggio, una chiamata o una mail: scegliamo il canale più adatto a te.'],
-      ['Aspettative chiare fin dall’inizio', 'Ogni richiesta viene valutata caso per caso. Prima di procedere mettiamo in chiaro ciò che è compreso, cosa va verificato e gli eventuali limiti del nostro intervento.'],
-      ['La casa resta tua, anche quando non ci sei', 'Puoi condividere una necessità di manutenzione, un intervento da valutare o una domanda legata a un acquisto. Il primo passo è capire bene il contesto.'],
+    abroad: { heading: 'Lontano da casa, non lontano dai lavori.', intro: 'Se vivi fuori dalla Sicilia, puoi iniziare il confronto a distanza. Herman parla italiano, inglese, olandese e spagnolo. Per altre lingue possiamo usare strumenti di supporto: la lingua del sito non garantisce un referente che la parli.', blocks: [
+      ['Un referente sul posto', 'Un contatto locale a Cefalù per condividere la situazione dell’immobile e organizzare i prossimi passi.'],
+      ['Aggiornamenti che puoi seguire', 'Concordiamo come condividere lo stato del lavoro: messaggi, chiamate ed email scelti in base alla situazione.'],
+      ['Sapere cosa è incluso', 'Chiariamo lavorazioni, responsabilità e condizioni prima di procedere, così puoi decidere anche da lontano.'],
+      ['Manutenzione, lavori, acquisto', 'Una riparazione, una ristrutturazione o una visita prima di comprare: si comincia sempre da una conversazione.'],
     ] },
   },
   en: {
     nav: { services: 'Services', process: 'How we work', abroad: 'Owners abroad', articles: 'Articles (IT)', projects: 'Projects', contact: 'Contact', request: 'Start a conversation' },
-    home: { eyebrow: 'MARENETTO BUILD · CEFALÙ AND SURROUNDING AREA', title: <>Construction, renovation<br /><em>and property care in Cefalù.</em></>, intro: 'From the first review to handover, we carry out and coordinate work for homes, villas and second properties. A local point of contact when you live abroad.', primary: 'Tell us about your project', secondary: 'See how we work', note: 'A local point of contact, even when you live abroad.', figure: 'A real presence, on the ground.', proof1: 'Cefalù and the surrounding area', proof2: 'Italian · English · Dutch · Spanish' },
-    page: { services: ['Services', 'From the first idea to everyday care.', 'A local point of contact for building work, maintenance and the needs of your home. Every request starts with a clear conversation about what is actually needed.'], process: ['How we work', 'First we understand. Then we begin.', 'A straightforward way to define the need, consider the options and keep you informed at every step.'], abroad: ['Owners abroad', 'Distance should not make things harder.', 'A local contact for property requests, maintenance and building work in Sicily, with clear updates even when you are far away.'], contact: ['Contact', 'It starts with a conversation.', 'Write to us in Italian or English. Share the context and we will help you understand a sensible next step.'], request: ['Request', 'Where should we begin?', 'Tell us about the property and what you need. The more context you share, the more useful our first conversation can be.'] },
-    services: { over: 'Practical support, without vague promises.', heading: 'Services for your property', intro: 'Every property and every need is different. We define the scope, checks required and people responsible before discussing the work.', groups: [
-      { title: 'Construction and renovation', desc: 'New building work, full or partial renovations, and coordination of the agreed work packages.', items: ['Construction and renovation', 'Turnkey coordination, with roles set out', 'Demolition and earthworks, subject to access and logistics checks'] },
-      { title: 'Finishes and surfaces', desc: 'Materials and installation depend on the substrate, intended use, site conditions and maintenance needs.', items: ['Finishes, stonework and paving', 'Resin, microcement and decorative surfaces', 'Waterproofing and reinstatement, after relevant checks'] },
-      { title: 'Leaks and technical support', desc: 'We gather the symptoms and consider which checks may help. A photograph can provide context, but cannot by itself establish a diagnosis.', items: ['Leak investigation and repair management', 'Repairs and reinstatement defined after a site review', 'Reserved technical activities carried out by the appointed qualified professionals'] },
-      { title: 'Outdoor spaces, gardens and pools', desc: 'Outdoor work is considered in light of the terrain, drainage, access and specific property conditions.', items: ['Gardens and outdoor areas', 'Stonework, paving and outdoor kitchens', 'Pools and related upkeep, within an agreed scope'] },
-      { title: 'Property care and management', desc: 'Activities and frequency are agreed for each property; maintenance, cleaning and rental management remain distinct services.', items: ['Property maintenance and smaller repairs', 'Cleaning and apartment-related services', 'Property care and rental-related services, with scope agreed separately'] },
-      { title: 'Before you buy', desc: 'An initial discussion about available information and questions for technical or document checks.', items: ['Support before a purchase', 'Clarifying needs and desired changes', 'Professional and document checks remain with the appropriately appointed specialists'] },
+    home: { eyebrow: 'MARENETTO BUILD · CEFALÙ AND SURROUNDING AREA', title: <>Building and renovation <em>in Cefalù.</em></>, intro: 'Building work and maintenance for homes, second homes and hospitality properties in Cefalù and nearby. A local contact to organise the work and keep you informed, even when you live abroad.', primary: 'Tell us about your project', secondary: 'See how we work', note: 'A local point of contact, even when you live abroad.', figure: 'A real presence, on the ground.', proof1: 'Cefalù and the surrounding area', proof2: 'Italian · English · Dutch · Spanish' },
+    page: { services: ['Services', 'Build, renovate, maintain.', 'Building work, finishes, outdoor spaces and maintenance for your home in Cefalù and nearby. After the first contact we tell you what we do ourselves, what goes to a qualified professional and how we proceed.'], process: ['How we work', 'From your enquiry to the next steps.', 'You describe the situation; we identify useful checks and agree on tasks, responsibilities and updates.'], abroad: ['Owners abroad', 'Your home in Sicily, looked after up close.', 'A contact in Cefalù for building work and maintenance, with an agreed way to keep in touch when you cannot be there.'], contact: ['Contact', 'Write or call us.', 'You can contact us in Italian or English. A few lines about the property and what you need are enough to start a conversation.'], request: ['Request', 'Where should we begin?', 'Tell us about the property and what you need: its location, the work and your priorities help us understand where to start.'] },
+    services: { over: 'What we do, in practice.', heading: 'Services for your property', intro: 'Describe the property and the work you have in mind. We define the tasks and who will handle them; reserved technical matters involve the appointed qualified professionals.', groups: [
+      { title: 'Construction and renovation', desc: 'New building work and full or partial renovations. We organise the agreed work with defined roles and responsibilities.', items: ['Construction and renovation', 'Turnkey coordination, with roles set out', 'Demolition and earthworks, once access and logistics are checked'] },
+      { title: 'Finishes and surfaces', desc: 'Floors, stone, resin and microcement chosen for the substrate, the use and the coastal climate. We also tell you what upkeep they will need.', items: ['Finishes, stonework and paving', 'Resin, microcement and decorative surfaces', 'Waterproofing and reinstatement, after the necessary checks'] },
+      { title: 'Leaks and technical support', desc: 'We start from the signs you see and your photos, then check the cause on site before proposing a repair.', items: ['Leak investigation and repair management', 'Repairs and reinstatement defined after the site visit', 'Reserved technical activities are entrusted to qualified professionals'] },
+      { title: 'Outdoor spaces, gardens and pools', desc: 'Work on terraces, paths, gardens and pools: we consider terrain, drainage and access before defining the tasks.', items: ['Gardens and outdoor areas', 'Stonework, paving and outdoor kitchens', 'Pools and their upkeep, with agreed tasks'] },
+      { title: 'Property care and management', desc: 'Regular checks, small repairs and home services, with tasks and frequency set for your property.', items: ['Property maintenance and smaller repairs', 'Cleaning and apartment-related services', 'Property care and rental-related services, under a specific agreement'] },
+      { title: 'Before you buy', desc: 'We start with the property and the changes you have in mind. Technical and document checks belong to the appointed professionals.', items: ['Support before a purchase', 'Clarifying needs and desired changes', 'Professional and document checks by the appointed specialists'] },
     ] },
-    process: { heading: 'A clear process, with no leaps.', intro: 'No two homes are the same. Here is how we turn an enquiry into a shared plan, with realistic expectations.', steps: [
-      ['01', 'Tell us the context', 'Let us know about the property, where it is and what you want to address. You can write in whichever language feels right.'],
-      ['02', 'Get specific', 'We gather the useful details and identify together what needs checking or clarifying before the work can be defined.'],
-      ['03', 'Agree the next steps', 'We define scope, priorities and how we will keep in touch. Before proceeding, you know what we have agreed and what still needs review.'],
-      ['04', 'Stay in the loop', 'We keep the conversation open and share the updates we have agreed, even when you are far away.'],
+    process: { heading: 'Four steps to understand your project.', intro: 'From a small repair to a renovation, we shape the next steps around the property and what you want to achieve.', steps: [
+      ['01', 'Describe the situation', 'Where the property is, what you want to do, any photos. Reach us by WhatsApp, email or the enquiry form.'],
+      ['02', 'Identify what is needed', 'We start with the available information and identify whether a site visit or professional checks are needed.'],
+      ['03', 'Define the work', 'Before proceeding, we agree the tasks, responsibilities and terms of the work.'],
+      ['04', 'Keep in touch', 'We agree a channel for sharing progress, decisions and next steps, even when you live abroad.'],
     ] },
-    abroad: { heading: 'Being far away is complicated enough.', intro: 'For people who live outside Sicily, finding a local contact is often the first step. You can send an enquiry in your preferred language; Herman speaks Italian, English, Dutch and Spanish. Colleagues and support tools may help with other languages, but a translated website does not guarantee a contact who speaks that language.', blocks: [
-      ['A local contact who knows the area', 'Cefalù and nearby towns are our working context. Tell us what is happening and we can consider how to approach it, without assuming what we do not yet know.'],
-      ['Clear information, wherever you are', 'We agree in advance how to keep you updated and what information is useful. Message, call or email: we choose the right channel for you.'],
-      ['Clear expectations from the start', 'Every enquiry is considered individually. Before proceeding, we clarify what is included, what needs checking and any limits to our involvement.'],
-      ['Your home is still yours when you are away', 'You can share a maintenance need, work to consider or a question about a purchase. The first step is to understand the context.'],
+    abroad: { heading: 'Far from home, not far from the work.', intro: 'If you live outside Sicily, you can start the conversation remotely. Herman speaks Italian, English, Dutch and Spanish. Support tools may help with other languages; the website language does not guarantee a contact who speaks it.', blocks: [
+      ['A contact on the ground', 'A local contact in Cefalù to discuss the property and organise the next steps.'],
+      ['Updates you can follow', 'We agree how to share progress: messages, calls and email chosen to suit the situation.'],
+      ['Knowing what is included', 'We clarify tasks, responsibilities and terms before proceeding, so you can decide from a distance.'],
+      ['Maintenance, building work, buying', 'A repair, a renovation or a visit before you buy: it always starts with a conversation.'],
     ] },
   },
 };
@@ -187,11 +187,47 @@ function PageLink({ page, lang, children, className, ...props }: { page: Page; l
 function Header({ lang, page }: { lang: Lang; page: Page }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
+  const [location] = useLocation();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const langButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileNavRef = useRef<HTMLElement>(null);
+  const languageMenuRef = useRef<HTMLDivElement>(null);
   const c = copy[lang].nav;
-  const items: [Page, string][] = [['services', c.services], ['process', c.process], ['abroad', c.abroad], ['articles', c.articles], ['projects', c.projects], ['contact', c.contact]];
+  // Close both menus whenever the route changes (link click, back/forward).
+  useEffect(() => { setMenuOpen(false); setLanguageMenuOpen(false); }, [location]);
+  // Escape closes the open menu and returns focus to its trigger.
+  useEffect(() => {
+    if (!menuOpen && !languageMenuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      if (menuOpen) { setMenuOpen(false); menuButtonRef.current?.focus(); }
+      if (languageMenuOpen) { setLanguageMenuOpen(false); langButtonRef.current?.focus(); }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [menuOpen, languageMenuOpen]);
+  // Move focus into the mobile menu when it opens.
+  useEffect(() => { if (menuOpen) mobileNavRef.current?.querySelector<HTMLElement>('a')?.focus(); }, [menuOpen]);
+  useEffect(() => {
+    if (languageMenuOpen) {
+      const menu = languageMenuRef.current;
+      (menu?.querySelector<HTMLElement>('[aria-current="true"]') ?? menu?.querySelector<HTMLElement>('[role="menuitem"]'))?.focus();
+    }
+  }, [languageMenuOpen]);
+  const items: [Page, string][] = [['services', c.services], ['process', c.process], ['abroad', c.abroad], ['articles', c.articles], ['contact', c.contact]];
+  // 'projects' stays routable (/progetti) but is hidden from navigation until approved real work exists.
+  const [heroInView, setHeroInView] = useState(page === 'home');
+  useEffect(() => {
+    if (page !== 'home') { setHeroInView(false); return; }
+    const hero = document.querySelector('[data-testid="section-hero"]');
+    if (!hero || typeof IntersectionObserver === 'undefined') return;
+    const io = new IntersectionObserver(([entry]) => setHeroInView(entry.isIntersecting), { threshold: 0.15 });
+    io.observe(hero);
+    return () => io.disconnect();
+  }, [page]);
   return localizeNode(lang, <header className="topbar">
     <div className="container nav-wrap">
-      <Link href={withCampaignParams(routes[lang].home)} className="wordmark" aria-label={lang === 'it' ? 'Marenetto Build, pagina iniziale' : 'Marenetto Build home'} data-testid="link-logo">
+      <Link href={withCampaignParams(routes[lang].home)} className="wordmark" aria-label={'Marenetto Build'} data-testid="link-logo">
         <Logo />
       </Link>
       <nav className="nav-links" aria-label={lang === 'it' ? 'Navigazione principale' : 'Main navigation'}>
@@ -200,14 +236,24 @@ function Header({ lang, page }: { lang: Lang; page: Page }) {
       <div className="nav-actions">
         <Link href={withCampaignParams('/ricerca')} className="nav-search" aria-label={lang === 'it' ? 'Cerca negli articoli' : 'Search articles'} aria-current={page === 'search' ? 'page' : undefined} data-testid="nav-search"><Search size={16} /></Link>
         <div className="language-picker">
-          <button type="button" className="lang-switch" aria-label={getLocale(lang)?.nativeName ?? lang} aria-expanded={languageMenuOpen} aria-haspopup="menu" onClick={() => setLanguageMenuOpen(!languageMenuOpen)} data-testid="link-language">{lang.toUpperCase()} <ChevronDown size={12} /></button>
-          {languageMenuOpen && <div className="language-menu" role="menu">{LOCALES.map(locale => <Link key={locale.code} href={withCampaignParams(routes[locale.code][page])} role="menuitem" dir={locale.direction} aria-current={locale.code === lang ? 'true' : undefined} onClick={() => setLanguageMenuOpen(false)}>{locale.nativeName}</Link>)}</div>}
+          <button ref={langButtonRef} type="button" className="lang-switch" aria-label={getLocale(lang)?.nativeName ?? lang} aria-expanded={languageMenuOpen} aria-haspopup="menu" onClick={() => { setMenuOpen(false); setLanguageMenuOpen(open => !open); }} data-testid="link-language">{lang.toUpperCase()} <ChevronDown size={12} /></button>
+          {languageMenuOpen && <div ref={languageMenuRef} className="language-menu" role="menu" onKeyDown={event => {
+            const keys = ['ArrowDown', 'ArrowUp', 'Home', 'End'];
+            if (!keys.includes(event.key)) return;
+            const items = Array.from(event.currentTarget.querySelectorAll<HTMLElement>('[role="menuitem"]'));
+            if (!items.length) return;
+            event.preventDefault();
+            const current = items.indexOf(document.activeElement as HTMLElement);
+            const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1
+              : (current + (event.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
+            items[next]?.focus();
+          }}>{LOCALES.map(locale => <Link key={locale.code} href={withCampaignParams(routes[locale.code][page])} role="menuitem" dir={locale.direction} aria-current={locale.code === lang ? 'true' : undefined} onClick={() => setLanguageMenuOpen(false)}>{locale.nativeName}</Link>)}</div>}
         </div>
-        <PageLink page="request" lang={lang} className="button" data-testid="nav-request">{c.request}<ArrowRight size={14} /></PageLink>
-        <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} data-testid="button-menu">{menuOpen ? <X size={18} /> : <Menu size={18} />}</button>
+        <PageLink page="request" lang={lang} className={`button${heroInView || page === 'request' ? ' is-quiet' : ''}`} data-testid="nav-request">{c.request}<ArrowRight size={14} /></PageLink>
+        <button ref={menuButtonRef} type="button" className="menu-toggle" aria-controls="mobile-nav" onClick={() => { setLanguageMenuOpen(false); setMenuOpen(!menuOpen); }} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} data-testid="button-menu">{menuOpen ? <X size={18} /> : <Menu size={18} />}</button>
       </div>
     </div>
-    {menuOpen && <nav className="mobile-nav" aria-label={lang === 'it' ? 'Menu' : 'Menu'}>
+    {menuOpen && <nav ref={mobileNavRef} id="mobile-nav" className="mobile-nav" aria-label={lang === 'it' ? 'Menu' : 'Menu'}>
       {items.map(([key, label]) => <PageLink key={key} page={key} lang={lang} onClick={() => setMenuOpen(false)} data-testid={`mobile-nav-${key}`}>{label}</PageLink>)}
       <PageLink page="guides" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-guides">{lang === 'it' ? 'Guide pratiche' : 'Practical guides (IT)'}</PageLink>
       <PageLink page="search" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-search">{lang === 'it' ? 'Ricerca' : 'Search (IT)'}</PageLink>
@@ -223,7 +269,7 @@ function Footer({ lang }: { lang: Lang }) {
     <div className="container">
       <div className="footer-top">
         <div className="footer-brand">
-          <Link href={withCampaignParams(routes[lang].home)} className="wordmark" aria-label={it ? 'Marenetto Build, pagina iniziale' : 'Marenetto Build home'} data-testid="link-footer-logo"><Logo variant="dark" /></Link>
+          <Link href={withCampaignParams(routes[lang].home)} className="wordmark" aria-label={'Marenetto Build'} data-testid="link-footer-logo"><Logo variant="dark" /></Link>
           <p><strong>{it ? 'Costruiamo valore.' : 'We build lasting value.'}</strong><br />{it ? 'Un riferimento locale per la tua casa a Cefalù e dintorni. Lavori, manutenzione e cura della proprietà, con un dialogo chiaro.' : 'A local point of contact for your home in Cefalù and nearby. Building, maintenance and property care, with clear communication.'}</p>
         </div>
         <div><h3>{it ? 'Esplora' : 'Explore'}</h3><div className="footer-links">
@@ -235,7 +281,6 @@ function Footer({ lang }: { lang: Lang }) {
         <div><h3>{it ? 'Approfondire' : 'Read (in Italian)'}</h3><div className="footer-links">
           <PageLink lang={lang} page="articles" data-testid="link-footer-articles">{it ? 'Articoli' : 'Articles'}</PageLink>
           <PageLink lang={lang} page="guides" data-testid="link-footer-guides">{it ? 'Guide pratiche' : 'Practical guides'}</PageLink>
-          <PageLink lang={lang} page="projects" data-testid="link-footer-projects">{it ? 'Progetti' : 'Projects'}</PageLink>
           <PageLink lang={lang} page="search" data-testid="link-footer-search">{it ? 'Ricerca' : 'Search'}</PageLink>
         </div></div>
         <div><h3>{it ? 'Un primo contatto' : 'Get in touch'}</h3><div className="footer-links">
@@ -276,7 +321,7 @@ function HomePage({ lang }: { lang: Lang }) {
   const h = copy[lang].home;
   return localizeNode(lang, <div className="mb-home">
     <section className="mb-hero" data-testid="section-hero">
-      <IllustrativeImage lang={lang} name="hero" widths={[768, 1280, 1920]} sizes="100vw" width={1920} height={1047} eager alt={it ? 'Immagine illustrativa: edificio contemporaneo con ponteggi affacciato sul mare al tramonto' : 'Illustrative image: contemporary building with scaffolding overlooking the sea at sunset'} />
+      <IllustrativeImage lang={lang} name="hero" widths={[768, 1280, 1920]} sizes="(min-width: 1024px) 960px, 100vw" width={1920} height={1047} eager alt="" />
       <svg className="mb-hero-lines" viewBox="0 0 1440 800" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="#f3eee6" strokeWidth="1"><path d="M980 800V420l220-90 240 70M1200 330v470M1060 800V450M980 520h460M980 620h460" /><path d="M0 690h420l120-60M0 740h560" opacity=".6" /></g></svg>
       <div className="container"><div className="mb-hero-copy">
         <div className="animate-enter"><SectionLabel>{h.eyebrow}</SectionLabel></div>
@@ -284,14 +329,46 @@ function HomePage({ lang }: { lang: Lang }) {
         <p className="animate-enter delay-2">{h.intro}</p>
         <div className="hero-actions animate-enter delay-3">
           <PageLink lang={lang} page="request" className="button" data-testid="hero-request">{h.primary}<ArrowRight size={15} /></PageLink>
-          <PageLink lang={lang} page="process" className="button outline" data-testid="hero-services">{h.secondary}</PageLink>
         </div>
-        <div className="hero-note"><MapPin size={15} />{h.note}</div>
-      </div></div>
+              </div></div>
     </section>
     <div className="mb-strip"><div className="container hero-bottom-inner"><span><Compass size={15} />{h.proof1}</span><span><Globe2 size={15} />{h.proof2}</span><span>{it ? 'Un primo confronto, senza impegno' : 'An initial conversation, no obligation'}<ArrowDownRight size={14} /></span></div></div>
 
-    <section className="section mb-news" data-testid="section-home-articles">
+    <section className="section">
+      <div className="container">
+        <div className="section-head"><div><SectionLabel>{it ? 'Cosa facciamo' : 'What we do'}</SectionLabel><h2 className="section-heading display-title">{it ? <>La cura della casa,<br /><em>vista da vicino.</em></> : <>Looking after your home,<br /><em>from close by.</em></>}</h2><p className="section-intro">{it ? 'Dalla manutenzione di ogni giorno a un intervento più ampio: un punto di partenza chiaro, senza complicare ciò che può essere semplice.' : 'From everyday maintenance to a larger piece of work: a clear place to start, without making the simple complicated.'}</p></div><PageLink lang={lang} page="services" className="text-link">{it ? 'Tutti i servizi' : 'All services'}<ArrowRight size={15} /></PageLink></div>
+        <div className="mb-svc">
+          {[
+            { n: '01', icon: <Hammer size={19} />, title: it ? 'Realizzare o rinnovare' : 'Build or renovate', desc: it ? 'Costruzioni, ristrutturazioni e coordinamento degli interventi, con perimetro e ruoli da concordare.' : 'Construction, renovation and coordinated work, with scope and roles agreed in advance.' },
+            { n: '02', icon: <Wrench size={19} />, title: it ? 'Risolvere e mantenere' : 'Resolve and maintain', desc: it ? 'Manutenzione e piccoli interventi, valutati in base alla proprietà e alle verifiche necessarie.' : 'Maintenance and smaller repairs, considered in light of the property and checks required.' },
+            { n: '03', icon: <House size={19} />, title: it ? 'Valutare prima di acquistare' : 'Review before you buy', desc: it ? 'Un confronto preliminare sulle esigenze e sugli aspetti da sottoporre a verifica professionale.' : 'An initial discussion about your needs and the matters to review with qualified professionals.' },
+          ].map((service) => <article className="mb-svc-card mb-svc-card--type" key={service.n} data-testid={`card-service-${service.n}`}><div className="mb-svc-body"><span className="number">{service.n} / <span aria-hidden="true">{service.icon}</span></span><h3>{service.title}</h3><p>{service.desc}</p><PageLink lang={lang} page="services" className="text-link">{it ? 'Scopri di più' : 'Explore'}<ArrowRight size={14} /></PageLink></div></article>)}
+        </div>
+      </div>
+    </section>
+
+
+
+    <section className="section">
+      <div className="container">
+        <div className="section-head"><div><SectionLabel>{it ? 'Il percorso' : 'The process'}</SectionLabel><h2 className="section-heading display-title">{it ? 'Pochi passaggi, fatti bene.' : 'A few steps, done well.'}</h2><p className="section-intro">{it ? 'Una richiesta non deve diventare un labirinto. Ecco come iniziamo a lavorare insieme.' : 'An enquiry should not become a maze. Here is how we begin working together.'}</p></div><PageLink lang={lang} page="process" className="text-link">{it ? 'Il nostro metodo' : 'Our approach'}<ArrowRight size={15} /></PageLink></div>
+        <div className="process-strip">
+          {(it ? [['01', 'Ci racconti', 'Conosciamo la proprietà e la tua necessità.'], ['02', 'Mettiamo a fuoco', 'Chiariamo priorità e informazioni utili.'], ['03', 'Concordiamo', 'Definiamo insieme i prossimi passi.'], ['04', 'Restiamo in contatto', 'Condividiamo gli aggiornamenti concordati.']] : [['01', 'You tell us', 'We learn about the property and your needs.'], ['02', 'We get specific', 'We clarify priorities and useful details.'], ['03', 'We agree', 'We define the next steps together.'], ['04', 'We stay in touch', 'We share the updates we agreed.']]).map(([n, title, desc]) => <div className="process-step" key={n}><span className="step-number">{n}</span><h3>{title}</h3><p>{desc}</p></div>)}
+        </div>
+      </div>
+    </section>
+    <section className="mb-wide mb-wide--text" data-testid="section-outdoor">
+      <div className="mb-wide-copy"><div className="container"><SectionLabel>{copy[lang].services.heading}</SectionLabel><h2 className="mb-display">{it ? 'Esterni, giardini e piscine' : 'Outdoor spaces, gardens and pools'}</h2><p>{copy[lang].services.groups[3].desc}</p><PageLink lang={lang} page="services" className="text-link">{it ? 'Tutti i servizi' : 'All services'}<ArrowRight size={15} /></PageLink></div></div>
+    </section>
+    <section className="section split-band">
+      <div className="container split-layout">
+        <div><SectionLabel>{it ? 'Un riferimento, sul posto' : 'A local point of contact'}</SectionLabel><h2 className="display-title">{it ? <>Non devi seguire<br />tutto <em>da solo.</em></> : <>You do not have<br />to manage it <em>alone.</em></>}</h2><p>{it ? 'Avere una casa lontano da casa richiede fiducia e informazioni chiare. Partiamo dal tuo bisogno, non da una soluzione preconfezionata.' : 'Having a home away from home takes trust and clear information. We start with your need, not a pre-packaged answer.'}</p><PageLink lang={lang} page="abroad" className="text-link" style={{ marginTop: '14px' }}>{it ? 'Per chi vive all’estero' : 'For owners abroad'}<ArrowRight size={15} /></PageLink></div>
+        <div className="principles">
+          {[it ? ['Parole chiare', 'Un dialogo diretto, in italiano o inglese.'] : ['Clear communication', 'A direct conversation in Italian or English.'], it ? ['Passi concordati', 'Prima capiamo ciò che serve, poi definiamo come procedere.'] : ['Agreed steps', 'First we understand what is needed, then we decide how to proceed.'], it ? ['Un referente locale', 'Vicino alla proprietà e raggiungibile con facilità.'] : ['A local contact', 'Close to the property and easy to reach.']].map((p, i) => <div className="principle" key={i}><span>0{i + 1}</span><div><h3>{p[0]}</h3><p>{p[1]}</p></div></div>)}
+        </div>
+      </div>
+    </section>
+    <section className="section mb-news" id="approfondimenti" data-testid="section-home-articles">
       <div className="container">
         <div className="mb-news-head"><h2 className="mb-serif">{copy[lang].nav.articles}</h2><span className="mb-news-rule" aria-hidden="true" /><PageLink lang={lang} page="articles" className="text-link" data-testid="link-home-articles">{copy[lang].nav.articles}<ArrowRight size={14} /></PageLink></div>
         <div className="mb-news-grid">
@@ -306,46 +383,6 @@ function HomePage({ lang }: { lang: Lang }) {
       </div>
     </section>
 
-    <section className="section">
-      <div className="container">
-        <div className="section-head"><div><SectionLabel>{it ? 'Cosa facciamo' : 'What we do'}</SectionLabel><h2 className="section-heading display-title">{it ? <>La cura della casa,<br /><em>vista da vicino.</em></> : <>Looking after your home,<br /><em>from close by.</em></>}</h2><p className="section-intro">{it ? 'Dalla manutenzione di ogni giorno a un intervento più ampio: un punto di partenza chiaro, senza complicare ciò che può essere semplice.' : 'From everyday maintenance to a larger piece of work: a clear place to start, without making the simple complicated.'}</p></div><PageLink lang={lang} page="services" className="text-link">{it ? 'Tutti i servizi' : 'All services'}<ArrowRight size={15} /></PageLink></div>
-        <div className="mb-svc">
-          {[
-            { n: '01', img: 'construction', alt: it ? 'Immagine illustrativa: cantiere di ristrutturazione in un edificio storico' : 'Illustrative image: renovation work on a historic building', icon: <Hammer size={19} />, title: it ? 'Realizzare o rinnovare' : 'Build or renovate', desc: it ? 'Costruzioni, ristrutturazioni e coordinamento degli interventi, con perimetro e ruoli da concordare.' : 'Construction, renovation and coordinated work, with scope and roles agreed in advance.' },
-            { n: '02', img: 'property', alt: it ? 'Immagine illustrativa: villa contemporanea con piscina, giardino e figure impegnate nella manutenzione' : 'Illustrative image: contemporary villa with a pool, garden and figures carrying out maintenance', icon: <Wrench size={19} />, title: it ? 'Risolvere e mantenere' : 'Resolve and maintain', desc: it ? 'Manutenzione e piccoli interventi, valutati in base alla proprietà e alle verifiche necessarie.' : 'Maintenance and smaller repairs, considered in light of the property and checks required.' },
-            { n: '03', img: 'garden', alt: it ? 'Immagine illustrativa: giardino e terrazza di una proprietà mediterranea' : 'Illustrative image: garden and terrace of a Mediterranean property', icon: <House size={19} />, title: it ? 'Valutare prima di acquistare' : 'Review before you buy', desc: it ? 'Un confronto preliminare sulle esigenze e sugli aspetti da sottoporre a verifica professionale.' : 'An initial discussion about your needs and the matters to review with qualified professionals.' },
-          ].map((service) => <article className="mb-svc-card" key={service.n} data-testid={`card-service-${service.n}`}><IllustrativeImage lang={lang} name={service.img} widths={[480, 960]} sizes="(max-width: 760px) 100vw, 50vw" width={960} height={service.img === 'construction' ? 523 : 960} alt={service.alt} /><div className="mb-svc-body"><span className="number">{service.n} / <span aria-hidden="true">{service.icon}</span></span><h3>{service.title}</h3><p>{service.desc}</p><PageLink lang={lang} page="services" className="text-link">{it ? 'Scopri di più' : 'Explore'}<ArrowRight size={14} /></PageLink></div></article>)}
-        </div>
-      </div>
-    </section>
-
-    <section className="mb-wide" data-testid="section-outdoor">
-      <IllustrativeImage lang={lang} name="garden" widths={[480, 960]} sizes="100vw" width={960} height={960} alt={it ? 'Immagine illustrativa: posa di un sentiero in pietra fra ulivi e muretti' : 'Illustrative image: a stone path being laid among olive trees and stone walls'} />
-      <div className="mb-wide-copy"><div className="container"><SectionLabel>{copy[lang].services.heading}</SectionLabel><h2 className="mb-display">{it ? 'Esterni, giardini e piscine' : 'Outdoor spaces, gardens and pools'}</h2><p>{copy[lang].services.groups[3].desc}</p><PageLink lang={lang} page="services" className="text-link">{it ? 'Tutti i servizi' : 'All services'}<ArrowRight size={15} /></PageLink></div></div>
-    </section>
-    <section className="section split-band">
-      <div className="container split-layout">
-        <div><SectionLabel>{it ? 'Un riferimento, sul posto' : 'A local point of contact'}</SectionLabel><h2 className="display-title">{it ? <>Non devi seguire<br />tutto <em>da solo.</em></> : <>You do not have<br />to manage it <em>alone.</em></>}</h2><p>{it ? 'Avere una casa lontano da casa richiede fiducia e informazioni chiare. Partiamo dal tuo bisogno, non da una soluzione preconfezionata.' : 'Having a home away from home takes trust and clear information. We start with your need, not a pre-packaged answer.'}</p><PageLink lang={lang} page="abroad" className="text-link" style={{ color: '#d79c7d', marginTop: '14px' }}>{it ? 'Per chi vive all’estero' : 'For owners abroad'}<ArrowRight size={15} /></PageLink></div>
-        <div className="principles">
-          {[it ? ['Parole chiare', 'Un dialogo diretto, in italiano o inglese.'] : ['Clear communication', 'A direct conversation in Italian or English.'], it ? ['Passi concordati', 'Prima capiamo ciò che serve, poi definiamo come procedere.'] : ['Agreed steps', 'First we understand what is needed, then we decide how to proceed.'], it ? ['Un referente locale', 'Vicino alla proprietà e raggiungibile con facilità.'] : ['A local contact', 'Close to the property and easy to reach.']].map((p, i) => <div className="principle" key={i}><span>0{i + 1}</span><div><h3>{p[0]}</h3><p>{p[1]}</p></div></div>)}
-        </div>
-      </div>
-    </section>
-
-    <section className="section">
-      <div className="container">
-        <div className="section-head"><div><SectionLabel>{it ? 'Il percorso' : 'The process'}</SectionLabel><h2 className="section-heading display-title">{it ? 'Pochi passaggi, fatti bene.' : 'A few steps, done well.'}</h2><p className="section-intro">{it ? 'Una richiesta non deve diventare un labirinto. Ecco come iniziamo a lavorare insieme.' : 'An enquiry should not become a maze. Here is how we begin working together.'}</p></div><PageLink lang={lang} page="process" className="text-link">{it ? 'Il nostro metodo' : 'Our approach'}<ArrowRight size={15} /></PageLink></div>
-        <div className="process-strip">
-          {(it ? [['01', 'Ci racconti', 'Conosciamo la proprietà e la tua necessità.'], ['02', 'Mettiamo a fuoco', 'Chiariamo priorità e informazioni utili.'], ['03', 'Concordiamo', 'Definiamo insieme i prossimi passi.'], ['04', 'Restiamo in contatto', 'Condividiamo gli aggiornamenti concordati.']] : [['01', 'You tell us', 'We learn about the property and your needs.'], ['02', 'We get specific', 'We clarify priorities and useful details.'], ['03', 'We agree', 'We define the next steps together.'], ['04', 'We stay in touch', 'We share the updates we agreed.']]).map(([n, title, desc]) => <div className="process-step" key={n}><span className="step-number">{n}</span><h3>{title}</h3><p>{desc}</p></div>)}
-        </div>
-      </div>
-    </section>
-
-    <section className="section tight">
-      <div className="container">
-        <div className="portfolio-note"><div><h3>{it ? 'Lavori e risultati, raccontati con materiali verificati.' : 'Work and outcomes, shown with verified material.'}</h3><p>{it ? 'Stiamo preparando una selezione di progetti documentati. Preferiamo aspettare i materiali corretti, invece di mostrare esempi non verificati.' : 'We are preparing a selection of documented projects. We would rather wait for the right material than show unverified examples.'}</p></div><span className="portfolio-mark" aria-hidden="true">—</span></div>
-      </div>
-    </section>
     <section className="section tight"><div className="container"><CtaPanel lang={lang} title={it ? 'Ogni casa ha una storia. La tua qual è?' : 'Every home has a story. What is yours?'} text={it ? 'Descrivici quello che vuoi fare, con calma. Il primo confronto serve proprio a capire da dove partire.' : 'Tell us what you have in mind. The first conversation is simply a way to understand where to begin.'} /></div></section>
   </div>);
 }
@@ -361,7 +398,6 @@ function ServicesPage({ lang }: { lang: Lang }) {
         <div className="service-groups">{data.groups.map((group, i) => <article className="service-group" key={group.title}><span className="number">0{i + 1} / {it ? 'AMBITO' : 'AREA'}</span><h2>{group.title}</h2><p>{group.desc}</p><ul className="service-list">{group.items.map(item => <li key={item}><span>{item}</span><span aria-hidden="true">+</span></li>)}</ul></article>)}</div>
       </div>
     </section>
-    <section className="section tight"><div className="container"><div className="portfolio-note"><div><h3>{it ? 'Un portfolio verificato, in preparazione.' : 'A verified portfolio is in preparation.'}</h3><p>{it ? 'Le immagini dei lavori saranno pubblicate quando saranno disponibili materiali approvati e riferibili a interventi reali.' : 'Work images will be published when approved material tied to real projects is available.'}</p></div><span className="portfolio-mark">—</span></div></div></section>
     <section className="section tight" id="contatti" data-testid="anchor-contatti"><div className="container"><CtaPanel lang={lang} title={it ? 'Hai in mente un intervento?' : 'Have a project in mind?'} text={it ? 'Raccontaci la tua idea: capiremo insieme se e come possiamo aiutarti.' : 'Tell us what you have in mind and we can see together whether and how we can help.'} /></div></section>
   </>);
 }
@@ -672,7 +708,9 @@ function Router() {
     <Route path="/content/:locale/:slug">{params => <PublishedCmsPage params={params} />}</Route>
     <Route path="/articoli"><LibraryShell page="articles"><ArticlesPage /></LibraryShell></Route>
     <Route path="/guide"><LibraryShell page="guides"><GuidesPage /></LibraryShell></Route>
-    <Route path="/progetti"><LibraryShell page="projects"><ProjectsPage /></LibraryShell></Route>
+    {/* Keep the editorial ProjectsPage component, but do not expose an empty
+        portfolio through direct or historical links until real work is ready. */}
+    <Route path="/progetti"><Redirect to={withCampaignParams('/servizi')} /></Route>
     <Route path="/ricerca"><LibraryShell page="search"><SearchPage /></LibraryShell></Route>
     <Route path="/"><SitePage page="home" lang="it" /></Route>
     <Route path="/servizi"><SitePage page="services" lang="it" /></Route>

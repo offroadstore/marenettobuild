@@ -27,8 +27,8 @@ navigation is not approval to publish new article translations.
 **How to apply:** Preserve the original-language labels on article previews and
 details, and use the normal owner-review process for any future translated edition.
 
-Preserve the public site's original logo composition rather than the variant with BUILD in a colored bar. The user may want “.com” in that composition; do not replace the asset before the final source is approved.
+Preserve the thin lines of the current historical monogram and MARENETTO lettering, combined with the BUILD.COM lettering treatment from the newer banner. Do not replace the thin monogram with the banner's heavier symbol.
 
-**Why:** The user explicitly prefers the public site's composition and requested inspection without substitution.
+**Why:** After comparing both assets, the user selected MARENETTO / BUILD.COM and clarified: “preferisco le linee sottili del logo attuale con la scritta build come quella del logo nuovo”.
 
-**How to apply:** Use the actual displayed assets as evidence, distinguish historical logos from adaptations, and avoid treating a reference banner as approval to replace navigation branding.
+**How to apply:** Preserve the original source files and use a reversible composition in preview. The clarified choice permits combining these elements, not inventing another mark or publishing the change to production.

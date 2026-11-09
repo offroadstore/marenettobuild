@@ -57,7 +57,7 @@ test('each approved catalog has complete translations and matching SEO metadata'
   }
 });
 
-test('the translation source covers every Italian and English phrase embedded in the website', async () => {
+test('the translation source covers catalog-source and shared-interface phrases, excluding native-only copyBase', async () => {
   const file = path.join(root, 'src/App.tsx');
   const code = await readFile(file, 'utf8');
   const sourceFile = ts.createSourceFile(file, code, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);

@@ -23,8 +23,20 @@
 
 /* Logo */
 .mb-logo { display:inline-flex; align-items:center; line-height:0; }
-.mb-logo__img { display:block; height:62px; width:auto; margin:-8px -10px; }
-.mb-logo--dark .mb-logo__img { filter:invert(1); opacity:.92; }
+.mb-logo { --logo-h:44px; --k:calc(var(--logo-h) / 193); display:inline-flex; align-items:center; gap:calc(var(--k) * 40); line-height:0; }
+.mb-logo__crop { display:block; position:relative; overflow:hidden; flex:none; }
+.mb-logo__crop img { position:absolute; display:block; max-width:none; width:calc(var(--k) * 1536); height:calc(var(--k) * 560); }
+.mb-logo__crop--m { width:calc(var(--k) * 191); height:calc(var(--k) * 193); }
+.mb-logo__crop--m img { left:calc(var(--k) * -260); top:calc(var(--k) * -181); }
+.mb-logo__crop--name { width:calc(var(--k) * 797); height:calc(var(--k) * 76); }
+.mb-logo__crop--name img { left:calc(var(--k) * -510); top:calc(var(--k) * -246); }
+.mb-logo__stack { display:flex; flex-direction:column; gap:calc(var(--k) * 14); }
+.mb-logo .mb-logo__bar, .footer .wordmark .mb-logo__bar { display:flex; align-items:center; height:calc(var(--k) * 90); padding-left:calc(var(--k) * 16); background:#a95a33; color:#fff; font-family:'Barlow',sans-serif; font-weight:700; font-size:calc(var(--k) * 62); letter-spacing:.18em; line-height:1; white-space:nowrap; }
+.wordmark .mb-logo, .wordmark .mb-logo span { margin-top:0; }
+.mb-logo--dark .mb-logo__crop img { filter:invert(1); opacity:.94; }
+.footer .mb-logo { --logo-h:46px; }
+@media (max-width:380px) { .topbar .mb-logo { --logo-h:34px; } }
+@media (min-width:1600px) { .topbar .mb-logo { --logo-h:50px; } }
 .topbar .wordmark, .footer .wordmark { min-width:0; flex-direction:row; }
 
 /* Header: white, quiet, hairline */
@@ -37,7 +49,7 @@
 .topbar a:focus-visible, .topbar button:focus-visible, .footer a:focus-visible, .site-shell a:focus-visible { outline:2px solid #6286aa; outline-offset:3px; }
 @media (max-width:1240px) { .topbar .nav-links { gap:18px; } .topbar .nav-links a { font-size:11.5px; letter-spacing:.05em; } }
 @media (max-width:1120px) { .topbar .nav-links { display:none; } .topbar .menu-toggle { display:flex; } .topbar .mobile-nav { display:flex; position:absolute; top:100%; left:0; right:0; padding:14px 32px 24px; background:#fff; border-bottom:1px solid var(--line); flex-direction:column; } .topbar .mobile-nav a { padding:14px 4px; border-bottom:1px solid var(--line); font-size:14px; } .topbar .mobile-nav .button { margin-top:16px; border:0; } }
-@media (max-width:420px) { .mb-logo__img { height:46px; margin:-6px -8px; } .topbar .nav-actions { gap:6px; } .topbar .nav-wrap { gap:10px; } }
+@media (max-width:420px) { .topbar .nav-actions { gap:6px; } .topbar .nav-wrap { gap:10px; } }
 
 /* Footer: charcoal, slate headings */
 .footer { background:#2e2e2e; color:#e9e7e3; border-top:0; }
@@ -159,3 +171,75 @@
   .mb-media img, .mb-news-media img, .lib-card-media img, .topbar .nav-links a::after { transition:none !important; }
   .mb-svc-card:hover img, .mb-news-card:hover .mb-news-media img, .lib-card:hover .lib-card-media img { transform:none !important; }
 }
+
+/* --- Evolution: mobile-first hero, menus, text band --- */
+.topbar .nav-wrap { min-height:64px; }
+.topbar .menu-toggle, .topbar .lang-switch, .topbar .nav-search { min-width:44px; min-height:44px; }
+.topbar .language-menu a { display:flex; align-items:center; min-height:44px; }
+.topbar .mobile-nav { max-height:calc(100dvh - 64px); overflow-y:auto; overscroll-behavior:contain; }
+.topbar .mobile-nav a:focus-visible { outline-offset:-2px; }
+.mb-hero h1 em { display:inline; }
+.mb-hero .hero-actions .button { min-width:min(100%,300px); }
+.mb-wide--text { background:#2e2e2e; }
+.mb-wide--text .mb-wide-copy { position:static; padding:clamp(56px,8vw,104px) 0; }
+.mb-home #approfondimenti { border-top:1px solid var(--line); }
+@media (hover:none) { .mb-svc-card:hover img, .mb-news-card:hover .mb-news-media img { transform:none; } }
+@media (max-width:760px) {
+  .mb-hero-copy { padding:40px 0 36px; }
+  .mb-hero h1 { font-size:clamp(28px,7.4vw,38px); line-height:1.12; margin:14px 0 12px; }
+  .mb-hero h1 br { display:none; }
+  .mb-hero p { font-size:15.5px; line-height:1.55; margin-bottom:22px; }
+  .mb-hero .hero-actions .button { width:100%; }
+  .mb-hero .mb-media__tag { top:auto; bottom:8px; right:8px; font-size:9px; }
+  .mb-strip .hero-bottom-inner { flex-wrap:wrap; gap:8px 18px; padding-block:14px; min-height:0; }
+  .mb-strip .hero-bottom-inner > span:last-child { display:none; }
+}
+@media (max-width:360px) { .mb-hero .eyebrow { font-size:10px; letter-spacing:.14em; } }
+@media (orientation:landscape) and (max-height:520px) { .mb-hero { min-height:auto; } .mb-hero-copy { padding:28px 0; } .mb-hero p { display:none; } }
+@media (min-width:761px) and (max-width:1120px) { .mb-hero { min-height:min(64svh,620px); } .mb-hero-copy { padding:72px 0 64px; } }
+@media (min-width:1800px) { .mb-hero { min-height:min(78svh,900px); } }
+@media (prefers-reduced-motion:reduce) { .site-shell .animate-enter { animation:none !important; opacity:1 !important; transform:none !important; } }
+
+/* --- Native-resolution limits: hero frame capped at 960 CSS px (1920 source at 2x); services typographic --- */
+@media (min-width:1024px) {
+  .mb-hero { max-width:960px; margin:clamp(20px,3vw,40px) auto 0; min-height:min(62svh,520px) !important; }
+  .mb-hero-copy { padding:64px 32px 56px; }
+  .mb-hero h1 { font-size:clamp(40px,4vw,56px); }
+}
+.mb-svc-card--type, .mb-svc-card--type:nth-child(3) { display:flex; flex-direction:column; border-top:2px solid var(--mb-slate); }
+.mb-svc-card--type, .mb-svc-card--type:first-child, .mb-svc-card--type:nth-child(2), .mb-svc-card--type:nth-child(3) { grid-column:span 4; }
+.mb-svc-card--type .mb-svc-body { padding:32px 30px; }
+.mb-svc-card--type .number svg { vertical-align:-4px; color:var(--mb-slate); }
+@media (max-width:900px) { .mb-svc-card--type, .mb-svc-card--type:first-child, .mb-svc-card--type:nth-child(2), .mb-svc-card--type:nth-child(3) { grid-column:span 12; } }
+
+/* Preserve the source aspect ratio instead of enlarging a crop behind long copy.
+   On touch layouts the message and action come before the decorative image. */
+.mb-hero .mb-media img { object-fit:contain; }
+@media (max-width:1023px) {
+  .mb-hero { display:flex; flex-direction:column; min-height:0; background:#2e2e2e; }
+  .mb-hero > .container { order:0; }
+  .mb-hero > .mb-media { order:1; position:relative; inset:auto; z-index:auto; width:100%; aspect-ratio:1920 / 1047; }
+  .mb-hero .mb-media::after { background:none; }
+  .mb-hero .mb-media__tag { top:auto; bottom:8px; right:8px; }
+}
+
+/* Header: one call to action per screen */
+.topbar .nav-actions .button.is-quiet { display:none; }
+@media (max-width:760px) { .topbar .nav-actions .button, .topbar .nav-search { display:none; } }
+@media (max-width:760px) {
+  .topbar .container.nav-wrap { width:calc(100% - 24px); gap:8px; }
+  .topbar .nav-actions { gap:4px; flex:none; }
+  .topbar .wordmark { flex-shrink:0; }
+}
+
+/* Native radio hitboxes belong to their own label, not the initial viewport.
+   Preserve native selection/keyboard behavior and allow grid children to shrink. */
+.request-layout > *, .request-layout form, .request-layout .form-grid,
+.request-layout .field, .request-layout .review-item { min-width:0; max-width:100%; }
+.request-layout input, .request-layout select, .request-layout textarea { min-width:0; max-width:100%; }
+.request-layout .radio-row { min-width:0; max-width:100%; }
+.request-layout .radio-choice { position:relative; display:inline-flex; min-width:0; max-width:100%; }
+.request-layout .radio-choice input[type="radio"] { inset:0; width:100%; height:100%; min-height:0; margin:0; padding:0; pointer-events:auto; cursor:pointer; }
+.request-layout .radio-choice span { min-height:44px; max-width:100%; align-items:center; white-space:normal; overflow-wrap:anywhere; }
+.request-layout .radio-choice:focus-within span { outline:2px solid #4a6d91; outline-offset:2px; }
+.request-layout .review-item strong { overflow-wrap:anywhere; }

@@ -70,3 +70,31 @@ mtime_ms = 1794259012904
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/e1fcaf60-d90f-43f3-8a0b-028e9beba9ae/588b242f-749a-4ad6-85fa-22272682a412"
 storage_version_token = "1794259507795497"
 content_type = "text/csv"
+
+[[outputs]]
+id = "uzO3pkuwxXIC4bomwYVnm"
+uri = "file://artifacts/marenetto-build/public/brand/current-logo.png"
+type = "image"
+title = "Composizione A — logo storico"
+description = "Monogramma diagonale e scritta MARENETTO: asset effettivo del sito storico e dell’attuale anteprima. Nessuna sostituzione."
+logical_id = "5424d6a4-0b80-489b-b81e-9820d55599db"
+content_hash = "sha256:d4914a3acfff8fdc076747dbde91223f124e336b6c9f56caed4f5bd377d823af"
+size = 12371
+mtime_ms = 1792247278737
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/5424d6a4-0b80-489b-b81e-9820d55599db/7f8fea5f-f536-4193-bd47-8dc2a2004155"
+storage_version_token = "1794260062217065"
+content_type = "image/png"
+
+[[outputs]]
+id = "rcHeaXlHSh7LtUDTPSPDR"
+uri = "file://artifacts/marenetto-build/public/brand/design-reference.png"
+type = "image"
+title = "Composizione B — riferimento MARENETTO / BUILD.COM"
+description = "Banner già presente negli asset, mostrato come riferimento di composizione: non prova dell’approvazione di una nuova versione del marchio."
+logical_id = "cca2b8d8-5992-4f50-beb5-213f5a107894"
+content_hash = "sha256:30f1d730dfb9f33a2a990c68b3163bbcbdb31f62e19f5db14cde127df79081e9"
+size = 1361736
+mtime_ms = 1794246477996
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/cca2b8d8-5992-4f50-beb5-213f5a107894/794051c3-9766-464e-a978-096c1b0eb4ea"
+storage_version_token = "1794260063087684"
+content_type = "image/png"

@@ -26,10 +26,10 @@ test('documented English navigation aliases preserve the available content', asy
     ['/en/general-contractor/', '/en/services'],
     ['/en/construction-and-renovations/', '/articoli'],
     ['/en/building-bonuses-and-permits/', '/guide'],
-    ['/en/shipyards-and-construction/', '/progetti'],
+    ['/en/shipyards-and-construction/', '/servizi'],
     ['/en/outdoor-and-garden-design/', '/en/services'],
     ['/en/support-and-emergency-service/', '/en/contact'],
-    ['/en/recensioni/', '/progetti'],
+    ['/en/recensioni/', '/servizi'],
   ]) {
     await page.goto(source);
     await expect(page).toHaveURL(url => url.pathname === destination);

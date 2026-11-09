@@ -1,3 +1,4 @@
+/** alt may be '' only when the image is decorative and the surrounding text already says everything. */
 type Props = { name: string; widths: number[]; sizes: string; alt: string; width: number; height: number; eager?: boolean; className?: string; lang: string };
 
 export function IllustrativeImage({ name, widths, sizes, alt, width, height, eager, className, lang }: Props) {
@@ -6,7 +7,7 @@ export function IllustrativeImage({ name, widths, sizes, alt, width, height, eag
   return <figure className={`mb-media ${className ?? ''}`}>
     <img src={fallback} srcSet={srcSet} sizes={sizes} alt={alt} width={width} height={height}
       loading={eager ? 'eager' : 'lazy'} decoding={eager ? 'sync' : 'async'} {...(eager ? { fetchPriority: 'high' as const } : {})} />
-    <figcaption className="mb-media__tag" data-testid={`label-illustrative-${name}`}>
+    <figcaption className="mb-media__tag" data-testid={`label-illustrative-${name}`} lang={lang === 'it' ? 'it' : 'en'}>
       {lang === 'it' ? 'Immagine illustrativa · non portfolio' : 'Illustrative image · not a verified project'}
     </figcaption>
   </figure>;
