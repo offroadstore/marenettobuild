@@ -1,5 +1,26 @@
 # Homepage media provenance
 
+## Approved opening illustration
+
+`approved-hero-*` derives exclusively from the owner's attached
+`0_hero_marenetto_build_1794264904110.png` (1672 × 941).
+Desktop widths: 768, 1280, 1672. Mobile: source rectangle 900 × 941
+at x=440, y=0; outputs 450 × 471 and 900 × 941.
+AVIF and WebP use quality 82; desktop JPEG fallback uses quality 86.
+No image generation, enlargement, sharpening or extraction from the design board.
+The hero is an AI illustration, not completed work; its separate disclosure is
+visible immediately below it. At 1920 CSS pixels or high DPR it does not provide
+native-density detail: request a 2560–3200 px (or larger) approved original.
+
+The three separate service-photo originals shown in the approved board were
+not supplied. The preview deliberately retains the existing construction,
+property-care and pre-purchase images with a group illustration note; these
+are **not** an exact photographic match to the board. The third source is
+`/media/articles/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali.jpg`.
+Do not extract replacements from the board or imply these are company projects.
+
+## Historical assets retained
+
 These files are optimized WebP derivatives of historical assets already held by
 Marenetto Build. No new stock photography or externally hosted image is used at
 runtime. Original files remain untouched.

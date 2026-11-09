@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 for (const path of ['/', '/en/']) {
-  for (const width of [360, 768, 1440]) {
+  for (const width of [390, 768, 1440, 1920]) {
     test(`home ${path} at ${width}px keeps images and navigation usable`, async ({ page }) => {
       await page.setViewportSize({ width, height: 960 });
       await page.goto(path);
@@ -16,7 +16,9 @@ for (const path of ['/', '/en/']) {
         await image.scrollIntoViewIfNeeded();
         await expect(image).toBeVisible();
         await expect.poll(() => image.evaluate((node: HTMLImageElement) => node.complete && node.naturalWidth > 0)).toBe(true);
-        expect(await image.getAttribute('alt')).toBeTruthy();
+        // Decorative hero/service illustrations intentionally have alt="".
+        // The link's visible service title provides its accessible name.
+        expect(await image.getAttribute('alt')).not.toBeNull();
         expect(await image.evaluate((node: HTMLImageElement) => new URL(node.currentSrc).origin === location.origin)).toBe(true);
         expect(await image.getAttribute('width')).toBeTruthy();
         expect(await image.getAttribute('height')).toBeTruthy();

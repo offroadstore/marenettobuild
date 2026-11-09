@@ -9,8 +9,9 @@ type Props = {
 };
 
 export function IllustrativeImage({ name, widths, sizes, alt, width, height, eager, className, src }: Props) {
-  const srcSet = src ? undefined : widths.map((w) => `/media/home/${name}-${w}.webp ${w}w`).join(', ');
-  const fallback = src ?? `/media/home/${name}-${widths[widths.length - 1]}.webp`;
+  const base = import.meta.env.BASE_URL;
+  const srcSet = src ? undefined : widths.map((w) => `${base}media/home/${name}-${w}.webp ${w}w`).join(', ');
+  const fallback = src ? `${base}${src.replace(/^\//, '')}` : `${base}media/home/${name}-${widths[widths.length - 1]}.webp`;
   return <figure className={`mb-media ${className ?? ''}`}>
     <img src={fallback} srcSet={srcSet} sizes={src ? undefined : sizes} alt={alt} width={width} height={height}
       loading={eager ? 'eager' : 'lazy'} decoding={eager ? 'sync' : 'async'} {...(eager ? { fetchPriority: 'high' as const } : {})} />
@@ -18,20 +19,20 @@ export function IllustrativeImage({ name, widths, sizes, alt, width, height, eag
 }
 
 /**
- * Replaceable full-bleed photographic hero.
- * PREVIEW ONLY: currently fed with the historical illustrative hero (1920x1047, synthetic-style
- * sparkle, authorship unverified). Replace `name`/widths with a real, authorised photograph
- * (ideally >= 3200 px wide) before public release.
- * Above 1920 CSS px the raster is never upscaled: it stays at its native width, centred,
- * and blends into a matching dark backdrop.
+ * Owner-supplied approved AI illustration, 1672×941 native pixels.
+ * Derivatives are downsampled, never generated/upscaled. The dedicated mobile crop
+ * retains the stone building and Cefalù; high-DPR / wide screens need a larger original.
  */
 export function HeroPhoto({ children }: { children: ReactNode }) {
+  const base = `${import.meta.env.BASE_URL}media/home/approved-hero`;
   return <section className="mbh-hero" data-testid="section-hero">
     <div className="mbh-hero__stage">
       <picture>
-        <source media="(max-width: 699px)" srcSet="/media/home/hero-portrait-384.webp 384w, /media/home/hero-portrait-628.webp 628w" sizes="100vw" />
-        <img src="/media/home/hero-1920.webp" srcSet="/media/home/hero-768.webp 768w, /media/home/hero-1280.webp 1280w, /media/home/hero-1920.webp 1920w"
-          sizes="(min-width: 1920px) 1920px, (max-width: 1099px) 1210px, 100vw" alt="" width={1920} height={1047} loading="eager" decoding="sync" fetchPriority="high" />
+        <source media="(max-width: 699px)" type="image/avif" srcSet={`${base}-mobile-450.avif 450w, ${base}-mobile-900.avif 900w`} sizes="100vw" width={900} height={941} />
+        <source media="(max-width: 699px)" type="image/webp" srcSet={`${base}-mobile-450.webp 450w, ${base}-mobile-900.webp 900w`} sizes="100vw" width={900} height={941} />
+        <source type="image/avif" srcSet={`${base}-768.avif 768w, ${base}-1280.avif 1280w, ${base}-1672.avif 1672w`} sizes="100vw" />
+        <source type="image/webp" srcSet={`${base}-768.webp 768w, ${base}-1280.webp 1280w, ${base}-1672.webp 1672w`} sizes="100vw" />
+        <img src={`${base}-1672.jpg`} sizes="100vw" alt="" width={1672} height={941} loading="eager" decoding="sync" fetchPriority="high" />
       </picture>
       <span className="mbh-hero__shade" aria-hidden="true" />
     </div>

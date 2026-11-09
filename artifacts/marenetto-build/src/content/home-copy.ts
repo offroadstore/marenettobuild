@@ -2,7 +2,8 @@ import type { ReactNode } from 'react';
 
 /**
  * Native homepage presentation copy.
- * - it: owner-supplied text (hero copied verbatim from the visual-revision brief).
+ * - it: owner-supplied text; hero subtitle and services heading/intro copied verbatim from the
+ *   approved layout brief (task 45). eyebrow/svcKicker/desc/link are no longer rendered on the home.
  * - en: native English adaptation.
  * - de: PRESENTATION OVERLAY, REVIEW PENDING — not owner-approved; used only to verify
  *   German layout. Other locales do NOT use this file: they reuse already localized
@@ -28,10 +29,10 @@ export const homeCopy: Record<'it' | 'en' | 'de', HomeCopy> = {
   it: {
     eyebrow: 'Impresa edile · Cefalù e dintorni',
     title: 'Costruzioni e ristrutturazioni a Cefalù.',
-    intro: 'Lavori edili e manutenzione per case, ville e strutture ricettive. Un referente sul posto, anche quando vivi lontano.',
+    intro: 'Diamo forma ai tuoi progetti, con cura e presenza sul posto.',
     primary: 'Parliamo del tuo progetto',
     secondary: 'Come lavoriamo',
-    svcKicker: 'Servizi', svcHeading: 'Quale intervento ci affidi?', svcIntro: 'Tre punti di partenza frequenti. Il perimetro di ogni lavoro si definisce insieme, dopo il primo confronto.', svcAll: 'Tutti i servizi',
+    svcKicker: 'Servizi', svcHeading: 'La cura si vede nei dettagli.', svcIntro: 'Costruzioni, ristrutturazioni e manutenzione per case e strutture ricettive.', svcAll: 'Tutti i servizi',
     services: [
       { title: 'Costruzioni e ristrutturazioni', desc: 'Nuove opere e ristrutturazioni complete o parziali, con ruoli e responsabilità definiti.', link: 'Vedi costruzioni e ristrutturazioni' },
       { title: 'Manutenzione e ripristini', desc: 'Controlli, piccole riparazioni e ripristini, con attività e frequenza concordate per il tuo immobile.', link: 'Scopri gli interventi di manutenzione' },

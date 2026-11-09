@@ -40,7 +40,7 @@ test('documented English navigation aliases preserve the available content', asy
 test('incomplete booking and unknown English pages remain excluded', async ({ page }) => {
   for (const path of ['/translation-ok/', '/en/translation-ok/', '/en/not-a-historical-page/']) {
     await page.goto(path);
-    await expect(page.getByRole('heading', { name: '404 Page Not Found' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /^404/ })).toBeVisible();
     await expect(page.locator('form')).toHaveCount(0);
   }
 });

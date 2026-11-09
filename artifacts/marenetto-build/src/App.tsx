@@ -9,13 +9,13 @@ import NotFound from '@/pages/not-found';
 import { Logo } from '@/components/brand/Logo';
 import { HeroPhoto, IllustrativeImage } from '@/components/home/Media';
 import { IllustrationNote } from '@/components/home/IllustrationNote';
+import { MobileContactBar } from '@/components/home/MobileContactBar';
 import { homeCopy, SERVICE_GROUP_IDS, type HomeCopy } from '@/content/home-copy';
 import { articlePath, libraryPath } from '@/localization/paths';
 import { LibraryLocale } from '@/localization/library-context';
 import { localeLoadErrors } from '@/localization/load-errors';
 import '@/styles/home.css';
 import { Route, Switch, useLocation, Router as WouterRouter, Link, Redirect } from 'wouter';
-import { Search } from 'lucide-react';
 import { articleBySlug, articles as articleList } from '@/content/articles';
 import { historicalRedirects } from '@/content/historical-routes';
 import { withCampaignParams } from '@/lib/campaign';
@@ -199,7 +199,7 @@ function Header({ lang, page, articleSlug }: { lang: Lang; page: Page; articleSl
   const mobileNavRef = useRef<HTMLElement>(null);
   const languageMenuRef = useRef<HTMLDivElement>(null);
   const c = copy[lang].nav;
-  const requestLabel = lang === 'it' || lang === 'en' || lang === 'de' ? homeCopy[lang].primary : c.request;
+  const requestLabel = lang === 'it' || lang === 'en' ? homeCopy[lang].primary : c.request;
   // Close both menus whenever the route changes (link click, back/forward).
   useEffect(() => { setMenuOpen(false); setLanguageMenuOpen(false); }, [location]);
   // Escape closes the open menu and returns focus to its trigger.
@@ -222,6 +222,8 @@ function Header({ lang, page, articleSlug }: { lang: Lang; page: Page; articleSl
     }
   }, [languageMenuOpen]);
   const items: [Page, string][] = [['services', c.services], ['process', c.process], ['abroad', c.abroad], ['articles', c.articles], ['contact', c.contact]];
+  // Approved layout: desktop shows only services/process/contact; the rest stays in mobile menu and footer.
+  const desktopItems: [Page, string][] = [['services', c.services], ['process', c.process], ['contact', c.contact]];
   // 'projects' stays routable (/progetti) but is hidden from navigation until approved real work exists.
   return localizeNode(lang, <header className="topbar">
     <div className="container nav-wrap">
@@ -229,10 +231,9 @@ function Header({ lang, page, articleSlug }: { lang: Lang; page: Page; articleSl
         <Logo />
       </Link>
       <nav className="nav-links" aria-label={lang === 'it' ? 'Navigazione principale' : 'Main navigation'}>
-        {items.map(([key, label]) => <PageLink key={key} page={key} lang={lang} aria-current={page === key ? 'page' : undefined} data-testid={`nav-${key}`}>{label}</PageLink>)}
+        {desktopItems.map(([key, label]) => <PageLink key={key} page={key} lang={lang} aria-current={page === key ? 'page' : undefined} data-testid={`nav-${key}`}>{label}</PageLink>)}
       </nav>
       <div className="nav-actions">
-        <Link href={withCampaignParams(routes[lang].search)} className="nav-search" aria-label={lang === 'it' ? 'Cerca negli articoli' : 'Search articles'} aria-current={page === 'search' ? 'page' : undefined} data-testid="nav-search"><Search size={16} /></Link>
         <div className="language-picker">
           <button ref={langButtonRef} type="button" className="lang-switch" aria-label={getLocale(lang)?.nativeName ?? lang} aria-expanded={languageMenuOpen} aria-haspopup="menu" onClick={() => { setMenuOpen(false); setLanguageMenuOpen(open => !open); }} data-testid="link-language">{lang.toUpperCase()} <ChevronDown size={12} /></button>
           {languageMenuOpen && <div ref={languageMenuRef} className="language-menu" role="menu" onKeyDown={event => {
@@ -258,19 +259,21 @@ function Header({ lang, page, articleSlug }: { lang: Lang; page: Page; articleSl
       <a href="tel:+393339363007" data-testid="mobile-nav-phone">+39 333 936 3007</a>
       <PageLink page="request" lang={lang} className="button" onClick={() => setMenuOpen(false)}>{requestLabel}<ArrowRight size={14} /></PageLink>
     </nav>}
+    <MobileContactBar hidden={menuOpen || languageMenuOpen} callLabel={localizeChoice(lang, 'Chiama', 'Phone')} writeLabel={localizeChoice(lang, 'Scrivici', 'Email')}
+      emailHref={`mailto:info@marenetto.com?subject=${encodeURIComponent(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))}`} />
   </header>);
 }
 
 function Footer({ lang }: { lang: Lang }) {
   const it = lang === 'it';
   const message = encodeURIComponent(localizeChoice(lang, 'Buongiorno, vorrei parlare della mia proprietà a Cefalù.', 'Hello, I would like to discuss my property in Cefalù.'));
-  return localizeNode(lang, <footer className="footer">
+  return localizeNode(lang, <>
+  <div className="footer-logo-band"><div className="container">
+    <Link href={withCampaignParams(routes[lang].home)} className="wordmark" aria-label={'Marenetto Build'} data-testid="link-footer-logo"><Logo variant="dark" /></Link>
+  </div></div>
+  <footer className="footer">
     <div className="container">
       <div className="footer-top">
-        <div className="footer-brand">
-          <Link href={withCampaignParams(routes[lang].home)} className="wordmark" aria-label={'Marenetto Build'} data-testid="link-footer-logo"><Logo variant="dark" /></Link>
-          <p><strong>{it ? 'Costruiamo valore.' : 'We build lasting value.'}</strong><br />{it ? 'Un riferimento locale per la tua casa a Cefalù e dintorni. Lavori, manutenzione e cura della proprietà, con un dialogo chiaro.' : 'A local point of contact for your home in Cefalù and nearby. Building, maintenance and property care, with clear communication.'}</p>
-        </div>
         <div><h3>{it ? 'Esplora' : 'Explore'}</h3><div className="footer-links">
           <PageLink lang={lang} page="services">{it ? 'Servizi' : 'Services'}</PageLink>
           <PageLink lang={lang} page="process">{it ? 'Come lavoriamo' : 'How we work'}</PageLink>
@@ -283,7 +286,7 @@ function Footer({ lang }: { lang: Lang }) {
         </div></div>
         <div><h3>{it ? 'Un primo contatto' : 'Get in touch'}</h3><div className="footer-links">
           <PageLink lang={lang} page="contact">{it ? 'Contatti' : 'Contact'}</PageLink>
-          <a href={`mailto:info@marenettobuild.com?subject=${encodeURIComponent(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))}`} data-testid="link-footer-email">info@marenettobuild.com</a>
+          <a href={`mailto:info@marenetto.com?subject=${encodeURIComponent(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))}`} data-testid="link-footer-email">info@marenetto.com</a>
           <a href={`https://wa.me/393339363007?text=${message}`} target="_blank" rel="noopener noreferrer" data-testid="link-footer-whatsapp">WhatsApp · +39 333 936 3007</a>
           <a href="tel:+393339363007" data-testid="link-footer-phone">+39 333 936 3007</a>
           <span>SS 113 Settentrionale Sicula, 73b<br />90015 Cefalù, Palermo, Italia</span>
@@ -291,7 +294,7 @@ function Footer({ lang }: { lang: Lang }) {
       </div>
       <div className="footer-bottom"><span>© {new Date().getFullYear()} Marenetto s.r.l. unipersonale · P. IVA IT06471740826</span><span>{it ? 'Cefalù · Sicilia' : 'Cefalù · Sicily'}</span><Link href={withCampaignParams(routes[it ? 'en' : 'it'].home)}>{it ? 'English' : 'Italiano'} <ArrowRight size={12} /></Link></div>
     </div>
-  </footer>);
+  </footer></>);
 }
 
 function SectionLabel({ children }: { children: ReactNode }) { return <span className="eyebrow">{children}</span>; }
@@ -335,37 +338,42 @@ function HomePage({ lang }: { lang: Lang }) {
     <section className="mbh-opening">
     <HeroPhoto>
       <div className="mbh-hero__copy">
-        <p className="mbh-kicker mbh-kicker--light animate-enter">{h.eyebrow}</p>
         <h1 className="mbh-h1 animate-enter delay-1">{h.title}</h1>
         <p className="mbh-hero__lead animate-enter delay-2">{h.intro}</p>
         <div className="mbh-actions animate-enter delay-3">
-          <PageLink lang={lang} page="request" className="mbh-btn mbh-btn--primary" data-testid="hero-request">{h.primary}<ArrowRight size={16} aria-hidden="true" /></PageLink>
-          <PageLink lang={lang} page="process" className="mbh-btn mbh-btn--ghost" data-testid="hero-process">{h.secondary}</PageLink>
+          <PageLink lang={lang} page="request" className="mbh-btn mbh-btn--board" data-testid="hero-request">{h.primary}</PageLink>
+          <PageLink lang={lang} page="process" className="mbh-hero__link" data-testid="hero-process">{h.secondary}</PageLink>
         </div>
       </div>
     </HeroPhoto>
-      <div className="mbh-wrap"><IllustrationNote lang={lang} /></div>
+      <div className="mbh-wrap"><IllustrationNote lang={lang} hero /></div>
     </section>
 
     {wrap(<section className="mbh-section" data-testid="section-services" aria-labelledby="mbh-svc-title">
       <div className="mbh-wrap">
-        <div className="mbh-head">
-          <div><p className="mbh-kicker">{h.svcKicker}</p><h2 id="mbh-svc-title" className="mbh-h2">{h.svcHeading}</h2><p className="mbh-intro">{h.svcIntro}</p></div>
-          <PageLink lang={lang} page="services" className="mbh-link" data-testid="link-home-services">{h.svcAll}<ArrowRight size={15} aria-hidden="true" /></PageLink>
+        <div className="mbh-head mbh-head--split">
+          <h2 id="mbh-svc-title" className="mbh-h2">{h.svcHeading}</h2>
+          <p className="mbh-intro">{h.svcIntro}</p>
         </div>
         <div className="mbh-cards">
-          {h.services.map((s, i) => <article className="mbh-card" key={svcIds[i]} data-testid={`card-service-0${i + 1}`}>
+          {h.services.map((s, i) => <Link href={svcHref(svcIds[i])} className="mbh-card" key={svcIds[i]} data-testid={`card-service-0${i + 1}`}>
             <IllustrativeImage className="mbh-card__media" name={serviceMedia[i].name} widths={serviceMedia[i].widths} src={serviceMedia[i].src}
-              sizes="(min-width: 1100px) 400px, (min-width: 700px) 50vw, 100vw" width={serviceMedia[i].width} height={serviceMedia[i].height} alt="" />
-            <div className="mbh-card__body">
-              <span className="mbh-num">0{i + 1}</span>
+              sizes="(min-width: 1356px) 403px, (min-width: 1100px) calc((100vw - 148px) / 3), (min-width: 700px) calc((100vw - 112px) / 3), calc(100vw - 40px)" width={serviceMedia[i].width} height={serviceMedia[i].height} alt="" />
+            <span className="mbh-card__body" data-testid={`link-service-${svcIds[i]}`}>
               <h3 className="mbh-h3">{s.title}</h3>
-              <p>{s.desc}</p>
-              <Link href={svcHref(svcIds[i])} className="mbh-link" data-testid={`link-service-${svcIds[i]}`}>{s.link}<ArrowRight size={15} aria-hidden="true" /></Link>
-            </div>
-          </article>)}
+              <ArrowRight size={18} aria-hidden="true" />
+            </span>
+          </Link>)}
         </div>
         <IllustrationNote lang={lang} />
+      </div>
+    </section>)}
+
+    {localizeNode(lang, <section className="mbh-strip" data-testid="section-contact-strip" aria-labelledby="mbh-strip-title">
+      <div className="mbh-wrap mbh-strip__inner">
+        {/* IT: approved copy. Other locales reuse the existing contact-page title and nav label (no new translations). */}
+        <h2 id="mbh-strip-title" className="mbh-strip__title">{it ? 'Il tuo progetto comincia da un confronto.' : copy[lang].page.contact[1]}</h2>
+        <PageLink lang={lang} page="contact" className="mbh-btn mbh-btn--primary" data-testid="strip-contact">{it ? 'Contattaci' : copy[lang].nav.contact}</PageLink>
       </div>
     </section>)}
 
@@ -425,7 +433,6 @@ function HomePage({ lang }: { lang: Lang }) {
       </div>
     </section>)}
 
-    <section className="mbh-section mbh-section--cta"><div className="mbh-wrap"><CtaPanel lang={lang} title={it ? 'Ogni casa ha una storia. La tua qual è?' : 'Every home has a story. What is yours?'} text={it ? 'Descrivici quello che vuoi fare, con calma. Il primo confronto serve proprio a capire da dove partire.' : 'Tell us what you have in mind. The first conversation is simply a way to understand where to begin.'} /></div></section>
   </div>;
 }
 
@@ -493,7 +500,7 @@ function ContactPage({ lang }: { lang: Lang }) {
       <div className="container contact-layout">
         <aside className="contact-info"><SectionLabel>{it ? 'Scegli il tuo modo' : 'Choose your way'}</SectionLabel><h2 className="display-title">{it ? 'Ci trovi qui.' : 'We are here.'}</h2><p>{it ? 'Contattaci nel modo che ti è più comodo. Puoi iniziare con una domanda semplice.' : 'Get in touch in whichever way is easiest. You can start with a simple question.'}</p>
           <div className="contact-method"><MessageCircle size={17} /><div><small>WhatsApp</small><a href={`https://wa.me/393339363007?text=${encodeURIComponent(localizeChoice(lang, 'Buongiorno, vorrei parlare della mia proprietà a Cefalù.', 'Hello, I would like to discuss my property in Cefalù.'))}`} target="_blank" rel="noopener noreferrer" data-testid="link-whatsapp">+39 333 936 3007 · {it ? 'Apri una conversazione' : 'Start a conversation'}<ArrowRight size={13} /></a></div></div>
-          <div className="contact-method"><Mail size={17} /><div><small>Email</small><a href={`mailto:info@marenettobuild.com?subject=${encodeURIComponent(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))}`} data-testid="link-email">info@marenettobuild.com<ArrowRight size={13} /></a></div></div>
+          <div className="contact-method"><Mail size={17} /><div><small>Email</small><a href={`mailto:info@marenetto.com?subject=${encodeURIComponent(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))}`} data-testid="link-email">info@marenetto.com<ArrowRight size={13} /></a></div></div>
           <div className="contact-method"><MessageCircle size={17} /><div><small>{it ? 'Telefono' : 'Phone'}</small><a href="tel:+393339363007" data-testid="link-phone">+39 333 936 3007</a></div></div>
           <div className="contact-method"><MapPin size={17} /><div><small>{it ? 'Indirizzo' : 'Address'}</small><span>SS 113 Settentrionale Sicula, 73b<br />90015 Cefalù, Palermo, Italia</span></div></div>
           <div className="contact-note">{localizeChoice(lang, 'Anteprima sintetica: non inserire dati personali reali. Il modulo scarta i dettagli inseriti e crea solo un lead dimostrativo. Per un contatto effettivo, usa email, telefono o WhatsApp.', 'Synthetic preview: do not enter real personal information. The form discards the details entered and creates only a demo lead. For a real enquiry, use email, phone or WhatsApp.')}</div>
@@ -554,7 +561,7 @@ function RequestPage({ lang }: { lang: Lang }) {
     <PageHero lang={lang} page="request" />
     <section className="section">
       <div className="container request-layout">
-        <aside className="request-aside"><SectionLabel>{text('Un buon punto di partenza', 'A useful place to start')}</SectionLabel><h2 className="display-title">{text('Con calma, con i dettagli che hai.', 'No rush. Share what you know.')}</h2><p>{text('Questa anteprima scarta i dati inseriti e conserva solo un lead sintetico. Non inserire dati personali reali. Le notifiche interne sono persistenti; gli invii email attendono l’approvazione del fornitore.', 'This preview discards the details entered and stores only a synthetic lead. Do not enter real personal information. In-app notifications persist; email delivery awaits provider approval.')}</p><p>{text('Per un contatto effettivo, scrivi a info@marenettobuild.com, chiama o invia un messaggio WhatsApp al numero aziendale.', 'For a real enquiry, email info@marenettobuild.com, call or send a WhatsApp message to the company number.')}</p><div className="language-note">{text('Puoi indicare una lingua preferita fra quelle richieste; la risposta automatica non è ancora attiva.', 'You can select any requested language; automated replies are not active yet.')}</div></aside>
+        <aside className="request-aside"><SectionLabel>{text('Un buon punto di partenza', 'A useful place to start')}</SectionLabel><h2 className="display-title">{text('Con calma, con i dettagli che hai.', 'No rush. Share what you know.')}</h2><p>{text('Questa anteprima scarta i dati inseriti e conserva solo un lead sintetico. Non inserire dati personali reali. Le notifiche interne sono persistenti; gli invii email attendono l’approvazione del fornitore.', 'This preview discards the details entered and stores only a synthetic lead. Do not enter real personal information. In-app notifications persist; email delivery awaits provider approval.')}</p><p>{text('Per un contatto effettivo, scrivi a info@marenetto.com, chiama o invia un messaggio WhatsApp al numero aziendale.', 'For a real enquiry, email info@marenetto.com, call or send a WhatsApp message to the company number.')}</p><div className="language-note">{text('Puoi indicare una lingua preferita fra quelle richieste; la risposta automatica non è ancora attiva.', 'You can select any requested language; automated replies are not active yet.')}</div></aside>
         <div>
           <form className="form-card" ref={formRef} onSubmit={submitRequest} noValidate={false}
             onInputCapture={event => {
@@ -795,7 +802,7 @@ function Router() {
     <Route path="/guide"><LibraryShell page="guides"><GuidesPage /></LibraryShell></Route>
     {/* Keep the editorial ProjectsPage component, but do not expose an empty
         portfolio through direct or historical links until real work is ready. */}
-    <Route path="/progetti"><Redirect to={withCampaignParams('/servizi')} /></Route>
+    <Route path="/progetti"><Redirect to={withCampaignParams(`/servizi${window.location.hash}`)} replace /></Route>
     <Route path="/ricerca"><LibraryShell page="search"><SearchPage /></LibraryShell></Route>
     <Route path="/"><SitePage page="home" lang="it" /></Route>
     <Route path="/servizi"><SitePage page="services" lang="it" /></Route>

@@ -135,11 +135,13 @@ test.describe('redirect delle pagine storiche', () => {
   });
 
   for (const route of reportedRoutes) {
-    test(`${route.source} conserva query e frammento su ${route.destination} e sostituisce la cronologia`, async ({ page }) => {
+    // The empty portfolio remains retired; its historical URLs finish on services.
+    const finalDestination = route.destination === '/progetti' ? '/servizi' : route.destination;
+    test(`${route.source} conserva query e frammento su ${finalDestination} e sostituisce la cronologia`, async ({ page }) => {
       await expectReplaceNavigation(
         page,
         route.source,
-        route.destination,
+        finalDestination,
         '?utm_source=legacy&utm_campaign=autunno%20build&utm_medium=email&utm_term=case_study&utm_content=historic&utm_id=campaign-2026&ref=storico&gclid=click-id&email=private%40example.test#preventivi',
       );
     });
@@ -267,7 +269,9 @@ test.describe('integrità dei link delle pagine pubbliche', () => {
 
     for (const target of internalTargets.values()) {
       const response = await page.goto(target.href, { waitUntil: 'domcontentloaded' });
-      expect(response?.status(), `Il link "${target.label}" in ${target.source} non è raggiungibile: ${target.href}`).toBeLessThan(400);
+      // Fragment-only navigation has no HTTP response: still verify destination
+      // and visible content below instead of reading status from a null response.
+      if (response) expect(response.status(), `Il link "${target.label}" in ${target.source} non è raggiungibile: ${target.href}`).toBeLessThan(400);
       await expect(
         page.getByRole('heading', { name: '404 Page Not Found' }),
         `Il link "${target.label}" in ${target.source} porta a una 404: ${target.href}`,
