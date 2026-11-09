@@ -1,6 +1,6 @@
 import { randomBytes } from "node:crypto";
-import { Router, type IRouter } from "express";
-import { eq } from "drizzle-orm";
+import { Router, type IRouter, type Request } from "express";
+import { and, eq } from "drizzle-orm";
 import {
   db,
   notificationsTable,
@@ -10,6 +10,11 @@ import {
   CreateProjectRequestBody,
   CreateProjectRequestResponse,
 } from "@workspace/api-zod";
+import {
+  isArubaSmtpConfigured,
+  sendArubaLeadNotification,
+  type LeadEmailStatus,
+} from "../lib/aruba-mailer";
 
 const router: IRouter = Router();
 const rateWindowMs = 60_000;
@@ -57,14 +62,8 @@ async function ensureLeadNotification(
   leadId: number,
   code: string,
   isSynthetic: boolean,
-): Promise<void> {
-  const [existing] = await db
-    .select({ id: notificationsTable.id })
-    .from(notificationsTable)
-    .where(eq(notificationsTable.projectRequestId, leadId))
-    .limit(1);
-  if (existing) return;
-  await db
+): Promise<{ id: number; emailStatus: LeadEmailStatus }> {
+  const [inserted] = await db
     .insert(notificationsTable)
     .values({
       type: "lead",
@@ -74,7 +73,98 @@ async function ensureLeadNotification(
         : `È arrivata una nuova richiesta (${code}).`,
       projectRequestId: leadId,
     })
-    .onConflictDoNothing();
+    .onConflictDoNothing()
+    .returning({
+      id: notificationsTable.id,
+      emailStatus: notificationsTable.emailStatus,
+    });
+
+  if (inserted) {
+    return {
+      id: inserted.id,
+      emailStatus: inserted.emailStatus as LeadEmailStatus,
+    };
+  }
+
+  const [existing] = await db
+    .select({
+      id: notificationsTable.id,
+      emailStatus: notificationsTable.emailStatus,
+    })
+    .from(notificationsTable)
+    .where(eq(notificationsTable.projectRequestId, leadId))
+    .limit(1);
+
+  if (!existing) {
+    throw new Error("Lead notification could not be persisted.");
+  }
+  return {
+    id: existing.id,
+    emailStatus: existing.emailStatus as LeadEmailStatus,
+  };
+}
+
+async function deliverLeadNotification(
+  lead: typeof projectRequestsTable.$inferSelect,
+  notificationId: number,
+  req: Request,
+): Promise<LeadEmailStatus> {
+  if (
+    lead.isSynthetic ||
+    !liveDataApproved() ||
+    !isArubaSmtpConfigured()
+  ) {
+    return "pending_provider";
+  }
+
+  const [claimed] = await db
+    .update(notificationsTable)
+    .set({
+      emailStatus: "sending",
+      emailAttemptedAt: new Date(),
+    })
+    .where(
+      and(
+        eq(notificationsTable.id, notificationId),
+        eq(notificationsTable.emailStatus, "pending_provider"),
+      ),
+    )
+    .returning({ id: notificationsTable.id });
+
+  if (!claimed) {
+    const [current] = await db
+      .select({ emailStatus: notificationsTable.emailStatus })
+      .from(notificationsTable)
+      .where(eq(notificationsTable.id, notificationId))
+      .limit(1);
+    return (current?.emailStatus as LeadEmailStatus | undefined) ?? "failed";
+  }
+
+  try {
+    await sendArubaLeadNotification(lead);
+    await db
+      .update(notificationsTable)
+      .set({ emailStatus: "sent" })
+      .where(eq(notificationsTable.id, notificationId));
+    return "sent";
+  } catch {
+    req.log.error(
+      { leadId: lead.id, notificationId },
+      "Aruba lead notification email failed",
+    );
+    try {
+      await db
+        .update(notificationsTable)
+        .set({ emailStatus: "failed" })
+        .where(eq(notificationsTable.id, notificationId));
+    } catch {
+      req.log.error(
+        { leadId: lead.id, notificationId },
+        "Could not update Aruba email delivery status",
+      );
+    }
+    return "failed";
+  }
 }
 
 router.post("/project-requests", async (req, res): Promise<void> => {
@@ -118,17 +208,23 @@ router.post("/project-requests", async (req, res): Promise<void> => {
     .where(eq(projectRequestsTable.idempotencyKey, storedInput.idempotencyKey))
     .limit(1);
   if (existing[0]) {
-    await ensureLeadNotification(
+    const notification = await ensureLeadNotification(
       existing[0].id,
       existing[0].code,
       existing[0].isSynthetic,
+    );
+    const notificationStatus = await deliverLeadNotification(
+      existing[0],
+      notification.id,
+      req,
     );
     res.status(200).json(
       CreateProjectRequestResponse.parse({
         code: existing[0].code,
         status: "received",
         createdAt: existing[0].createdAt.toISOString(),
-        notificationStatus: "pending_provider",
+        notificationStatus,
+        isSynthetic: existing[0].isSynthetic,
       }),
     );
     return;
@@ -162,14 +258,24 @@ router.post("/project-requests", async (req, res): Promise<void> => {
     return;
   }
 
-  await ensureLeadNotification(stored.id, stored.code, stored.isSynthetic);
+  const notification = await ensureLeadNotification(
+    stored.id,
+    stored.code,
+    stored.isSynthetic,
+  );
+  const notificationStatus = await deliverLeadNotification(
+    stored,
+    notification.id,
+    req,
+  );
 
   res.status(request ? 201 : 200).json(
     CreateProjectRequestResponse.parse({
       code: stored.code,
       status: "received",
       createdAt: stored.createdAt.toISOString(),
-      notificationStatus: "pending_provider",
+      notificationStatus,
+      isSynthetic: stored.isSynthetic,
     }),
   );
 });

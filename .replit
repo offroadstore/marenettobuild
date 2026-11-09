@@ -38,3 +38,17 @@ expertMode = true
 [postMerge]
 path = "scripts/post-merge.sh"
 timeoutMs = 20000
+
+[userenv]
+
+[userenv.shared]
+ARUBA_SMTP_FROM = "info@marenetto.com"
+ARUBA_SMTP_HOST = "smtps.aruba.it"
+ARUBA_SMTP_PORT = "465"
+ARUBA_SMTP_TO = "info@marenetto.com"
+ARUBA_SMTP_USER = "info@marenetto.com"
+
+[userenv.production]
+MARENETTO_PRIVACY_APPROVED = "true"
+MARENETTO_PROVIDERS_APPROVED = "true"
+MARENETTO_TESTING_APPROVED = "true"

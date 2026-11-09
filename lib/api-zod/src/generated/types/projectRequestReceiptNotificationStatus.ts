@@ -11,4 +11,7 @@ export type ProjectRequestReceiptNotificationStatus = typeof ProjectRequestRecei
 
 export const ProjectRequestReceiptNotificationStatus = {
   pending_provider: 'pending_provider',
+  sending: 'sending',
+  sent: 'sent',
+  failed: 'failed',
 } as const;

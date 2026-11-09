@@ -21,6 +21,8 @@ export const notificationsTable = pgTable(
       () => projectRequestsTable.id,
       { onDelete: "set null" },
     ),
+    emailStatus: text("email_status").notNull().default("pending_provider"),
+    emailAttemptedAt: timestamp("email_attempted_at", { withTimezone: true }),
     isRead: boolean("is_read").notNull().default(false),
     createdAt: timestamp("created_at", { withTimezone: true })
       .notNull()

@@ -13,4 +13,5 @@ export interface ProjectRequestReceipt {
   status: ProjectRequestReceiptStatus;
   createdAt: Date;
   notificationStatus: ProjectRequestReceiptNotificationStatus;
+  isSynthetic: boolean;
 }

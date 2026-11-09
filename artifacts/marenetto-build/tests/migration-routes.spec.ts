@@ -149,6 +149,7 @@ test.describe('redirect delle pagine storiche', () => {
     const expectedCampaign = [
       ['utm_source', 'legacy'],
       ['utm_campaign', 'autunno build'],
+      ['utm_medium', 'email'],
     ];
     await expect(page).toHaveURL((url) =>
       url.pathname === '/contatti'
@@ -233,7 +234,7 @@ test.describe('integrità dei link delle pagine pubbliche', () => {
     const internalTargets = new Map<string, { source: string; label: string; href: string }>();
 
     for (const sourcePath of publicPagePaths) {
-      const response = await page.goto(target.href, { waitUntil: 'domcontentloaded' });
+      const response = await page.goto(sourcePath, { waitUntil: 'domcontentloaded' });
       appOrigin ||= new URL(page.url()).origin;
       expect(response?.status(), `La pagina pubblica ${sourcePath} non è raggiungibile`).toBeLessThan(400);
       await expect(page.getByRole('heading', { name: '404 Page Not Found' }), `La pagina pubblica ${sourcePath} mostra una 404`).toHaveCount(0);

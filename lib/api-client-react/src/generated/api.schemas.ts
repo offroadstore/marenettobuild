@@ -101,6 +101,9 @@ export type ProjectRequestReceiptNotificationStatus = typeof ProjectRequestRecei
 
 export const ProjectRequestReceiptNotificationStatus = {
   pending_provider: 'pending_provider',
+  sending: 'sending',
+  sent: 'sent',
+  failed: 'failed',
 } as const;
 
 export interface ProjectRequestReceipt {
@@ -108,6 +111,7 @@ export interface ProjectRequestReceipt {
   status: ProjectRequestReceiptStatus;
   createdAt: string;
   notificationStatus: ProjectRequestReceiptNotificationStatus;
+  isSynthetic: boolean;
 }
 
 export type LeadStatus = typeof LeadStatus[keyof typeof LeadStatus];
@@ -253,6 +257,16 @@ export interface CmsPageUpdate {
   status?: CmsPageUpdateStatus;
 }
 
+export type InternalNotificationEmailStatus = typeof InternalNotificationEmailStatus[keyof typeof InternalNotificationEmailStatus];
+
+
+export const InternalNotificationEmailStatus = {
+  pending_provider: 'pending_provider',
+  sending: 'sending',
+  sent: 'sent',
+  failed: 'failed',
+} as const;
+
 export interface InternalNotification {
   id: number;
   type: string;
@@ -260,6 +274,7 @@ export interface InternalNotification {
   message: string;
   /** @nullable */
   projectRequestId: number | null;
+  emailStatus: InternalNotificationEmailStatus;
   isRead: boolean;
   createdAt: string;
   /** @nullable */

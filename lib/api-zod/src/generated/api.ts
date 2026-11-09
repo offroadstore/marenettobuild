@@ -76,7 +76,8 @@ export const CreateProjectRequestResponse = zod.object({
   "code": zod.string(),
   "status": zod.enum(['received']),
   "createdAt": zod.coerce.date(),
-  "notificationStatus": zod.enum(['pending_provider'])
+  "notificationStatus": zod.enum(['pending_provider', 'sending', 'sent', 'failed']),
+  "isSynthetic": zod.boolean()
 })
 
 
@@ -283,6 +284,7 @@ export const ListInternalNotificationsResponseItem = zod.object({
   "title": zod.string(),
   "message": zod.string(),
   "projectRequestId": zod.number().int().nullable(),
+  "emailStatus": zod.enum(['pending_provider', 'sending', 'sent', 'failed']),
   "isRead": zod.boolean(),
   "createdAt": zod.coerce.date(),
   "readAt": zod.coerce.date().nullable()
@@ -307,6 +309,7 @@ export const UpdateInternalNotificationResponse = zod.object({
   "title": zod.string(),
   "message": zod.string(),
   "projectRequestId": zod.number().int().nullable(),
+  "emailStatus": zod.enum(['pending_provider', 'sending', 'sent', 'failed']),
   "isRead": zod.boolean(),
   "createdAt": zod.coerce.date(),
   "readAt": zod.coerce.date().nullable()

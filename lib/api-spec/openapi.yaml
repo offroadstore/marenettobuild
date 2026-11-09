@@ -540,12 +540,15 @@ components:
           format: date-time
         notificationStatus:
           type: string
-          enum: [pending_provider]
+          enum: [pending_provider, sending, sent, failed]
+        isSynthetic:
+          type: boolean
       required:
         - code
         - status
         - createdAt
         - notificationStatus
+        - isSynthetic
     LeadStatus:
       type: string
       enum: [new, reviewing, waiting, approved, closed]
@@ -631,10 +634,13 @@ components:
         title: { type: string }
         message: { type: string }
         projectRequestId: { type: ["integer", "null"] }
+        emailStatus:
+          type: string
+          enum: [pending_provider, sending, sent, failed]
         isRead: { type: boolean }
         createdAt: { type: string, format: date-time }
         readAt: { type: ["string", "null"], format: date-time }
-      required: [id, type, title, message, projectRequestId, isRead, createdAt, readAt]
+      required: [id, type, title, message, projectRequestId, emailStatus, isRead, createdAt, readAt]
     NotificationUpdate:
       type: object
       required: [isRead]

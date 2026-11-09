@@ -18,6 +18,7 @@ export * from './internalMember';
 export * from './internalMemberInput';
 export * from './internalMemberUpdate';
 export * from './internalNotification';
+export * from './internalNotificationEmailStatus';
 export * from './internalRole';
 export * from './internalSession';
 export * from './internalSessionDataMode';

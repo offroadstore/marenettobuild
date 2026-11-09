@@ -5,6 +5,7 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+import type { InternalNotificationEmailStatus } from './internalNotificationEmailStatus';
 
 export interface InternalNotification {
   id: number;
@@ -13,6 +14,7 @@ export interface InternalNotification {
   message: string;
   /** @nullable */
   projectRequestId: number | null;
+  emailStatus: InternalNotificationEmailStatus;
   isRead: boolean;
   createdAt: Date;
   /** @nullable */
