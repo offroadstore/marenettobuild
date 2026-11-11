@@ -16,9 +16,10 @@ import {
 } from '@workspace/api-client-react';
 import {
   ArrowDownToLine, ArrowRight, Bell, Check, ChevronDown, CircleAlert, FileText,
-  HardHat, LayoutDashboard, LockKeyhole, LogOut, Plus, Send, Shield, Upload, Users,
+  HardHat, Languages, LayoutDashboard, Newspaper, LockKeyhole, LogOut, Plus, Send, Shield, Upload, Users,
 } from 'lucide-react';
 import { Link } from 'wouter';
+import { EditorialPanel, editorialHasUnsavedChanges } from '@/pages/editorial';
 
 const clerkKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -48,7 +49,7 @@ function InternalLoading() {
   return <div className="internal-shell"><div className="internal-sidebar"><div className="int-brand">M<span>·</span>B</div></div><main className="internal-main"><div className="int-skeleton wide" /><div className="int-skeleton" /><div className="int-skeleton" /></main></div>;
 }
 
-type Tab = 'overview' | 'leads' | 'cms' | 'notifications' | 'team' | 'files';
+type Tab = 'overview' | 'leads' | 'cms' | 'articles' | 'languages' | 'notifications' | 'team' | 'files';
 const statusLabels: Record<LeadStatus, string> = { new: 'New', reviewing: 'Reviewing', waiting: 'Waiting', approved: 'Approved', closed: 'Closed' };
 const statuses: LeadStatus[] = ['new', 'reviewing', 'waiting', 'approved', 'closed'];
 const roleLabels: Record<InternalRole, string> = { owner: 'Owner', editor: 'Editor', viewer: 'Viewer' };
@@ -78,6 +79,8 @@ function InternalConsole() {
     { id: 'overview', label: 'Overview', icon: <LayoutDashboard size={17} /> },
     { id: 'leads', label: 'Enquiries', icon: <HardHat size={17} />, permission: 'leads:read' },
     { id: 'cms', label: 'Website drafts', icon: <FileText size={17} />, permission: 'cms:read' },
+    { id: 'articles', label: 'Articoli', icon: <Newspaper size={17} />, permission: 'cms:read' },
+    { id: 'languages', label: 'Lingue', icon: <Languages size={17} />, permission: 'cms:read' },
     { id: 'notifications', label: 'Notifications', icon: <Bell size={17} />, permission: 'notifications:read' },
     { id: 'team', label: 'Team access', icon: <Users size={17} />, permission: 'members:manage' },
     { id: 'files', label: 'Private files', icon: <LockKeyhole size={17} />, permission: 'attachments:manage' },
@@ -89,18 +92,19 @@ function InternalConsole() {
     <aside className="internal-sidebar">
       <Link href="/" className="int-brand" aria-label="Marenetto Build public site">M<span>·</span>B</Link>
       <div className="int-side-label">TEAM CONSOLE</div>
-      <nav className="int-nav">{tabs.map(item => <button key={item.id} className={tab === item.id ? 'active' : ''} onClick={() => setTab(item.id)} data-testid={`nav-internal-${item.id}`}>{item.icon}<span>{item.label}</span>{item.id === 'notifications' && (notifications.data?.filter(n => !n.isRead).length || 0) > 0 && <i>{notifications.data?.filter(n => !n.isRead).length}</i>}</button>)}</nav>
+      <nav className="int-nav">{tabs.map(item => <button key={item.id} className={tab === item.id ? 'active' : ''} onClick={() => { if (item.id !== tab && editorialHasUnsavedChanges() && !window.confirm('Ci sono modifiche editoriali non salvate. Cambiare sezione e perderle?')) return; setTab(item.id); }} data-testid={`nav-internal-${item.id}`}>{item.icon}<span>{item.label}</span>{item.id === 'notifications' && (notifications.data?.filter(n => !n.isRead).length || 0) > 0 && <i>{notifications.data?.filter(n => !n.isRead).length}</i>}</button>)}</nav>
       <div className="int-sidebar-foot"><span className="int-user-badge">{session.data?.email?.slice(0, 1).toUpperCase() || 'T'}</span><div><strong>{session.data?.email || 'Team member'}</strong><small>{session.data?.role || 'staff'}</small></div><button className="int-logout" type="button" aria-label="Sign out" title="Sign out" onClick={() => void signOut({ redirectUrl: basePath || '/' })}><LogOut size={15} /><span>Sign out</span></button></div>
     </aside>
     <main className="internal-main">
       <header className="int-topbar"><div><span className="int-breadcrumb">Marenetto Build <span>/</span> {tabs.find(t => t.id === tab)?.label}</span><h1>{tabs.find(t => t.id === tab)?.label}</h1></div><div className="int-top-meta"><span className="int-secure"><Shield size={14} /> Invite-only</span><span className="int-live-dot" /> Private session <span className={`int-health ${health.isError ? 'down' : ''}`}>API {health.isLoading ? 'checking' : health.data?.status || 'unavailable'}</span></div></header>
       {session.isLoading && <InternalLoading />}
-      {session.isError && <div className="int-access-warning"><CircleAlert size={21} /><div><strong>{forbidden ? 'Invite access is not configured' : 'Could not verify staff access'}</strong><p>{forbidden ? 'Your signed-in Clerk account is not enabled for the internal team. No internal data has been loaded.' : 'The internal session endpoint could not be reached. No internal data has been loaded.'}</p>{!forbidden && <button className="int-small-button" onClick={() => session.refetch()}>Retry session check</button>}</div></div>}
+      {session.isError && <div className="int-access-warning"><CircleAlert size={21} /><div><strong>{forbidden ? 'Account non abilitato all’area interna' : 'Impossibile verificare l’accesso interno'}</strong><p>{forbidden ? 'L’account deve avere un indirizzo verificato e un invito attivo. Nessun dato interno è stato caricato.' : 'Il servizio di accesso non è disponibile. Finché servizi e database non sono pronti, letture e salvataggi editoriali restano bloccati; non vengono simulati salvataggi riusciti.'}</p>{!forbidden && <button className="int-small-button" onClick={() => session.refetch()}>Riprova la verifica</button>}</div></div>}
       {enabled && <>
         {hasDataError && <div className="int-inline-error" role="alert">Some team data could not be loaded. <button onClick={() => { refresh(getListInternalLeadsQueryKey()); refresh(getListCmsPagesQueryKey()); refresh(getListInternalNotificationsQueryKey()); refresh(getListInternalMembersQueryKey()); refresh(getListInternalAttachmentsQueryKey()); }}>Retry</button></div>}
         {tab === 'overview' && <Overview data={{ leads: leads.data || [], pages: pages.data || [], notifications: notifications.data || [], files: attachments.data || [] }} loading={[leads, pages, notifications, ...(canManageAttachments ? [attachments] : [])].some(q => q.isLoading)} go={setTab} canManageAttachments={canManageAttachments} />}
         {tab === 'leads' && <LeadsPanel leads={leads.data || []} loading={leads.isLoading} canWrite={canWriteLeads} writeLocked={!liveData} onSaved={() => refresh(getListInternalLeadsQueryKey())} />}
         {tab === 'cms' && <CmsPanel pages={pages.data || []} loading={pages.isLoading} canWrite={canWriteCms} writeLocked={!liveData} onSaved={() => refresh(getListCmsPagesQueryKey())} setNotice={setNotice} />}
+        {(tab === 'articles' || tab === 'languages') && <EditorialPanel key={tab} mode={tab} role={session.data.role} />}
         {tab === 'notifications' && <NotificationsPanel items={notifications.data || []} loading={notifications.isLoading} onSaved={() => refresh(getListInternalNotificationsQueryKey())} />}
         {tab === 'team' && <TeamPanel members={members.data || []} loading={members.isLoading} role={session.data.role} onSaved={() => refresh(getListInternalMembersQueryKey())} />}
         {tab === 'files' && <FilesPanel files={attachments.data || []} leads={leads.data || []} loading={attachments.isLoading} uploadEnabled={liveData} onSaved={() => refresh(getListInternalAttachmentsQueryKey())} />}

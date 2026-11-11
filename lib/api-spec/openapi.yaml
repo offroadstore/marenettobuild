@@ -17,6 +17,92 @@ tags:
   - name: storage
     description: Private attachment upload and serving.
 paths:
+  /internal/editorial:
+    get:
+      operationId: listEditorial
+      tags: [internal]
+      responses:
+        "200":
+          description: Editorial coverage, never synthetic
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/EditorialSummary" }
+    post:
+      operationId: createEditorial
+      tags: [internal]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/EditorialInput" }
+      responses:
+        "201":
+          description: Created draft
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/EditorialDetail" }
+  /internal/editorial/{editionId}:
+    parameters:
+      - name: editionId
+        in: path
+        required: true
+        schema: { type: string }
+    get:
+      operationId: getEditorial
+      tags: [internal]
+      responses:
+        "200":
+          description: Private revision history and immutable originals
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/EditorialDetail" }
+    put:
+      operationId: saveEditorial
+      tags: [internal]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/EditorialSave" }
+      responses:
+        "200":
+          description: Saved a new immutable revision
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/EditorialDetail" }
+  /internal/editorial/{editionId}/action:
+    parameters:
+      - name: editionId
+        in: path
+        required: true
+        schema: { type: string }
+    post:
+      operationId: actEditorial
+      tags: [internal]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/EditorialAction" }
+      responses:
+        "200":
+          description: Explicit editorial transition
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/EditorialDetail" }
+  /editorial/active:
+    get:
+      operationId: getActiveEditorial
+      responses:
+        "200":
+          description: Only explicitly active editions, never drafts or originals
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/EditorialActive" }
   /historical-media/{asset}:
     get:
       operationId: getHistoricalMedia
@@ -470,6 +556,134 @@ paths:
           description: Attachment not found
 components:
   schemas:
+    EditorialContent:
+      type: object
+      required: [title, summary, body, category, tags, image, imageAlt, sources, seoTitle, seoDescription, contentLanguage]
+      properties:
+        title: { type: string, maxLength: 200 }
+        summary: { type: string, maxLength: 2000 }
+        body: { type: string, maxLength: 150000 }
+        category: { type: string, maxLength: 100 }
+        tags:
+          type: array
+          maxItems: 30
+          items: { type: string, maxLength: 80 }
+        image: { type: string, maxLength: 2000 }
+        imageAlt: { type: string, maxLength: 500 }
+        sources:
+          type: array
+          maxItems: 50
+          items: { $ref: "#/components/schemas/EditorialSource" }
+        seoTitle: { type: string, maxLength: 200 }
+        seoDescription: { type: string, maxLength: 500 }
+        contentLanguage: { type: string, pattern: "^[a-z]{2}$" }
+    EditorialSource:
+      type: object
+      required: [title, url]
+      properties:
+        title: { type: string, maxLength: 300 }
+        url: { type: string, maxLength: 2000 }
+    EditorialInput:
+      type: object
+      required: [identity, locale, path, kind, content]
+      properties:
+        identity: { type: string, pattern: "^[a-z0-9][a-z0-9/-]{0,179}$" }
+        locale: { type: string, pattern: "^[a-z]{2}$" }
+        path: { type: string, minLength: 1, maxLength: 250 }
+        kind: { type: string, enum: [article, page] }
+        content: { $ref: "#/components/schemas/EditorialContent" }
+    EditorialSave:
+      type: object
+      required: [version, content]
+      properties:
+        version: { type: integer, minimum: 1 }
+        content: { $ref: "#/components/schemas/EditorialContent" }
+    EditorialAction:
+      type: object
+      required: [version, action, revisionId]
+      properties:
+        version: { type: integer, minimum: 1 }
+        action: { type: string, enum: [submit, approve, activate, withdraw, restore] }
+        revisionId: { type: string }
+    EditorialSummary:
+      type: object
+      required: [id, identity, locale, path, kind, title, version, state, contentLanguage, historical, correction, stale, activeRevisionId]
+      properties:
+        id: { type: string }
+        identity: { type: string }
+        locale: { type: string }
+        path: { type: string }
+        kind: { type: string, enum: [article, page] }
+        title: { type: string }
+        version: { type: integer }
+        state: { type: string, enum: [draft, review, approved, active] }
+        contentLanguage: { type: string }
+        historical: { type: boolean }
+        correction: { type: boolean }
+        stale: { type: boolean }
+        activeRevisionId: { type: [string, "null"] }
+    EditorialRevision:
+      type: object
+      required: [id, content, hash, sourceHash, createdAt, actor]
+      properties:
+        id: { type: string }
+        content: { $ref: "#/components/schemas/EditorialContent" }
+        hash: { type: string }
+        sourceHash: { type: string }
+        createdAt: { type: string }
+        actor: { type: string }
+    EditorialEvent:
+      type: object
+      required: [action, revisionId, actor, at, hash, sourceHash]
+      properties:
+        action: { type: string }
+        revisionId: { type: string }
+        actor: { type: string }
+        at: { type: string }
+        hash: { type: string }
+        sourceHash: { type: string }
+    EditorialOriginal:
+      type: object
+      required: [label, url, hash, body, metadata]
+      properties:
+        label: { type: string }
+        url: { type: string }
+        hash: { type: string }
+        body: { type: string }
+        metadata: { type: string }
+    EditorialDetail:
+      allOf:
+        - { $ref: "#/components/schemas/EditorialSummary" }
+        - type: object
+          required: [revisions, events, originals, source]
+          properties:
+            revisions:
+              type: array
+              items: { $ref: "#/components/schemas/EditorialRevision" }
+            events:
+              type: array
+              items: { $ref: "#/components/schemas/EditorialEvent" }
+            originals:
+              type: array
+              items: { $ref: "#/components/schemas/EditorialOriginal" }
+            source:
+              type: [object, "null"]
+              properties:
+                hash: { type: string }
+                content: { $ref: "#/components/schemas/EditorialContent" }
+    EditorialActive:
+      type: object
+      required: [identity, locale, path, kind, revisionId, content]
+      properties:
+        aliases:
+          type: array
+          items: { type: string }
+        identity: { type: string }
+        locale: { type: string }
+        path: { type: string }
+        kind: { type: string, enum: [article, page] }
+        revisionId: { type: string }
+        content: { $ref: "#/components/schemas/EditorialContent" }
     HealthStatus:
       type: object
       properties:

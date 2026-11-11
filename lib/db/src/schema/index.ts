@@ -22,3 +22,4 @@ export * from "./internal-members";
 export * from "./cms-pages";
 export * from "./notifications";
 export * from "./attachments";
+export * from "./editorial";

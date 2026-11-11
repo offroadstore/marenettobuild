@@ -378,3 +378,17 @@ mtime_ms = 1794391606115
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/35709ddb-140f-4011-b68c-aff5db7d9594/53983ed2-8772-4db1-93b2-d7414e909c7a"
 storage_version_token = "1794391618751287"
 content_type = "application/octet-stream"
+
+[[outputs]]
+id = "dchXWCksV4Hkcvi__KYUk"
+uri = "file://docs/editorial/GUIDA.html"
+type = "html"
+title = "Guida italiana — Articoli e Lingue"
+description = "Ruoli, creazione degli articoli, revisione delle lingue, attivazione e ripristino. L’attivazione editoriale non equivale al rilascio in produzione."
+logical_id = "81a4be1a-950d-4bb5-8bc8-0e717e741691"
+content_hash = "sha256:4cd2647c7de02114e3de7e09f03415be9350ac9d353fe981166d044ae4edf1f5"
+size = 5480
+mtime_ms = 1794398104505
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/81a4be1a-950d-4bb5-8bc8-0e717e741691/2dd32ecf-bfb4-42cb-af70-b6f1f1248fda"
+storage_version_token = "1794399348502804"
+content_type = "text/html"

@@ -5,6 +5,182 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+export interface EditorialSource {
+  /** @maxLength 300 */
+  title: string;
+  /** @maxLength 2000 */
+  url: string;
+}
+
+export interface EditorialContent {
+  /** @maxLength 200 */
+  title: string;
+  /** @maxLength 2000 */
+  summary: string;
+  /** @maxLength 150000 */
+  body: string;
+  /** @maxLength 100 */
+  category: string;
+  /**
+     * @maxItems 30
+     * @items.maxLength 80
+     */
+  tags: string[];
+  /** @maxLength 2000 */
+  image: string;
+  /** @maxLength 500 */
+  imageAlt: string;
+  /** @maxItems 50 */
+  sources: EditorialSource[];
+  /** @maxLength 200 */
+  seoTitle: string;
+  /** @maxLength 500 */
+  seoDescription: string;
+  /** @pattern ^[a-z]{2}$ */
+  contentLanguage: string;
+}
+
+export type EditorialInputKind = typeof EditorialInputKind[keyof typeof EditorialInputKind];
+
+
+export const EditorialInputKind = {
+  article: 'article',
+  page: 'page',
+} as const;
+
+export interface EditorialInput {
+  /** @pattern ^[a-z0-9][a-z0-9/-]{0,179}$ */
+  identity: string;
+  /** @pattern ^[a-z]{2}$ */
+  locale: string;
+  /**
+     * @minLength 1
+     * @maxLength 250
+     */
+  path: string;
+  kind: EditorialInputKind;
+  content: EditorialContent;
+}
+
+export interface EditorialSave {
+  /** @minimum 1 */
+  version: number;
+  content: EditorialContent;
+}
+
+export type EditorialActionAction = typeof EditorialActionAction[keyof typeof EditorialActionAction];
+
+
+export const EditorialActionAction = {
+  submit: 'submit',
+  approve: 'approve',
+  activate: 'activate',
+  withdraw: 'withdraw',
+  restore: 'restore',
+} as const;
+
+export interface EditorialAction {
+  /** @minimum 1 */
+  version: number;
+  action: EditorialActionAction;
+  revisionId: string;
+}
+
+export type EditorialSummaryKind = typeof EditorialSummaryKind[keyof typeof EditorialSummaryKind];
+
+
+export const EditorialSummaryKind = {
+  article: 'article',
+  page: 'page',
+} as const;
+
+export type EditorialSummaryState = typeof EditorialSummaryState[keyof typeof EditorialSummaryState];
+
+
+export const EditorialSummaryState = {
+  draft: 'draft',
+  review: 'review',
+  approved: 'approved',
+  active: 'active',
+} as const;
+
+export interface EditorialSummary {
+  id: string;
+  identity: string;
+  locale: string;
+  path: string;
+  kind: EditorialSummaryKind;
+  title: string;
+  version: number;
+  state: EditorialSummaryState;
+  contentLanguage: string;
+  historical: boolean;
+  correction: boolean;
+  stale: boolean;
+  /** @nullable */
+  activeRevisionId: string | null;
+}
+
+export interface EditorialRevision {
+  id: string;
+  content: EditorialContent;
+  hash: string;
+  sourceHash: string;
+  createdAt: string;
+  actor: string;
+}
+
+export interface EditorialEvent {
+  action: string;
+  revisionId: string;
+  actor: string;
+  at: string;
+  hash: string;
+  sourceHash: string;
+}
+
+export interface EditorialOriginal {
+  label: string;
+  url: string;
+  hash: string;
+  body: string;
+  metadata: string;
+}
+
+/**
+ * @nullable
+ */
+export type EditorialDetailSource = {
+  hash?: string;
+  content?: EditorialContent;
+} | null;
+
+export type EditorialDetail = EditorialSummary & {
+  revisions: EditorialRevision[];
+  events: EditorialEvent[];
+  originals: EditorialOriginal[];
+  /** @nullable */
+  source: EditorialDetailSource;
+};
+
+export type EditorialActiveKind = typeof EditorialActiveKind[keyof typeof EditorialActiveKind];
+
+
+export const EditorialActiveKind = {
+  article: 'article',
+  page: 'page',
+} as const;
+
+export interface EditorialActive {
+  aliases?: string[];
+  identity: string;
+  locale: string;
+  path: string;
+  kind: EditorialActiveKind;
+  revisionId: string;
+  content: EditorialContent;
+}
+
 export interface HealthStatus {
   status: string;
 }

@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { renderDocument, resolveRoute, redirectQuery, SEO_ORIGIN } from './seo-document.mjs';
+import { readActiveEditorial, editorialDocument, editorialUnavailableHTML, withEditorialSnapshot, key } from './editorial-http.mjs';
 
 export function seoPreviewPlugin() {
   return {
@@ -24,6 +25,18 @@ export function seoPreviewPlugin() {
             return res.end(req.method === 'HEAD' ? undefined : await readFile(`${server.config.root}/public/${feed}`));
           }
           const module = await server.ssrLoadModule('/src/entry-server.tsx');
+          const active = await readActiveEditorial();
+          const live = active.find(e => [e.path,...(e.aliases ?? [])].some(path => key(path) === key(pathname)));
+          const dynamicLibrary = module.editions.find(e => key(e.path) === key(pathname) && ['articles','guides','search'].includes(e.id));
+          if (live || (dynamicLibrary && active.some(e => e.kind === 'article' && e.locale === dynamicLibrary.locale))) {
+            const locale = live?.locale ?? dynamicLibrary.locale;
+            const rendered = await module.render(pathname, locale, active);
+            const template = await server.transformIndexHtml(pathname, await readFile(`${server.config.root}/index.html`, 'utf8'));
+            const status = live?.revisionId === 'withdrawn' ? 404 : 200;
+            const edition = live ?? { ...dynamicLibrary, content: { seoTitle: dynamicLibrary.title, seoDescription: dynamicLibrary.description } };
+            res.writeHead(status, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
+            return res.end(req.method === 'HEAD' ? undefined : editorialDocument(template, rendered, edition, active, status));
+          }
           const originals = module.historicalInventory;
           const original = originals.find(page => page.key === (pathname.replace(/\/+$/, '') || '/'));
           const holding = original?.state === 'awaiting-confirmation' && original.kind !== 'article' && !original.editorialCorrection ? original : undefined;
@@ -32,7 +45,7 @@ export function seoPreviewPlugin() {
             const rendered = await module.render(pathname, holding.locale);
             const template = await server.transformIndexHtml(pathname, await readFile(`${server.config.root}/index.html`, 'utf8'));
             res.writeHead(503, { 'Content-Type': 'text/html; charset=utf-8', 'Retry-After': '86400' });
-            return res.end(req.method === 'HEAD' ? undefined : renderDocument(template, { edition: { ...holding, state: 'draft', description: pending[holding.locale] }, body: rendered.body, status: 503 }));
+            return res.end(req.method === 'HEAD' ? undefined : withEditorialSnapshot(renderDocument(template, { edition: { ...holding, state: 'draft', description: pending[holding.locale] }, body: rendered.body, status: 503 }), active));
           }
           const isReview = /^\/__localization-review\/[a-z]{2}\//.test(pathname);
           const reviewMatch = pathname.match(/^\/__localization-review\/([a-z]{2})\/(.+)$/);
@@ -45,7 +58,7 @@ export function seoPreviewPlugin() {
           if (route.status === 308) { res.writeHead(308, { Location: `${route.target}${redirectQuery(url.search, route.target)}` }); return res.end(); }
           const candidate = pathname.split('/')[1];
           const locale = route.edition?.locale ?? (module.editions.some(e => e.locale === candidate) ? candidate : 'it');
-          const rendered = await module.render(pathname, locale);
+          const rendered = await module.render(pathname, locale, active);
           const template = await server.transformIndexHtml(pathname, await readFile(`${server.config.root}/index.html`, 'utf8'));
           const html = renderDocument(template, {
             edition: route.edition ? { ...route.edition, ...rendered.metadata } : undefined, body: rendered.body, status: route.status,
@@ -54,8 +67,14 @@ export function seoPreviewPlugin() {
             structuredData: route.edition && original?.state !== 'awaiting-confirmation' ? module.editionStructuredData(route.edition, SEO_ORIGIN) : [],
           });
           res.writeHead(route.status, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-cache' });
-          return res.end(req.method === 'HEAD' ? undefined : html);
-        } catch (error) { return next(error); }
+          return res.end(req.method === 'HEAD' ? undefined : html.replace('</head>', `<script>window.__EDITORIAL_ACTIVE__=${JSON.stringify(active).replaceAll('<','\\u003c')};</script></head>`));
+        } catch (error) {
+          if (error.code === 'EDITORIAL_UNAVAILABLE') {
+            res.writeHead(503, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'Retry-After': '30' });
+            return res.end(req.method === 'HEAD' ? undefined : editorialUnavailableHTML);
+          }
+          return next(error);
+        }
       });
     },
   };

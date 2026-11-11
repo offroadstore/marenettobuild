@@ -8,6 +8,731 @@
 import * as zod from 'zod';
 
 
+export const ListEditorialResponseItem = zod.object({
+  "id": zod.string(),
+  "identity": zod.string(),
+  "locale": zod.string(),
+  "path": zod.string(),
+  "kind": zod.enum(['article', 'page']),
+  "title": zod.string(),
+  "version": zod.number().int(),
+  "state": zod.enum(['draft', 'review', 'approved', 'active']),
+  "contentLanguage": zod.string(),
+  "historical": zod.boolean(),
+  "correction": zod.boolean(),
+  "stale": zod.boolean(),
+  "activeRevisionId": zod.string().nullable()
+})
+export const ListEditorialResponse = zod.array(ListEditorialResponseItem)
+
+
+export const createEditorialBodyIdentityRegExp = new RegExp('^[a-z0-9][a-z0-9/-]{0,179}$');
+export const createEditorialBodyLocaleRegExp = new RegExp('^[a-z]{2}$');
+export const createEditorialBodyPathMax = 250;
+
+export const createEditorialBodyContentTitleMax = 200;
+
+export const createEditorialBodyContentSummaryMax = 2000;
+
+export const createEditorialBodyContentBodyMax = 150000;
+
+export const createEditorialBodyContentCategoryMax = 100;
+
+export const createEditorialBodyContentTagsItemMax = 80;
+
+export const createEditorialBodyContentTagsMax = 30;
+
+export const createEditorialBodyContentImageMax = 2000;
+
+export const createEditorialBodyContentImageAltMax = 500;
+
+export const createEditorialBodyContentSourcesItemTitleMax = 300;
+
+export const createEditorialBodyContentSourcesItemUrlMax = 2000;
+
+export const createEditorialBodyContentSourcesMax = 50;
+
+export const createEditorialBodyContentSeoTitleMax = 200;
+
+export const createEditorialBodyContentSeoDescriptionMax = 500;
+
+export const createEditorialBodyContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+
+
+export const CreateEditorialBody = zod.object({
+  "identity": zod.string().regex(createEditorialBodyIdentityRegExp),
+  "locale": zod.string().regex(createEditorialBodyLocaleRegExp),
+  "path": zod.string().min(1).max(createEditorialBodyPathMax),
+  "kind": zod.enum(['article', 'page']),
+  "content": zod.object({
+  "title": zod.string().max(createEditorialBodyContentTitleMax),
+  "summary": zod.string().max(createEditorialBodyContentSummaryMax),
+  "body": zod.string().max(createEditorialBodyContentBodyMax),
+  "category": zod.string().max(createEditorialBodyContentCategoryMax),
+  "tags": zod.array(zod.string().max(createEditorialBodyContentTagsItemMax)).max(createEditorialBodyContentTagsMax),
+  "image": zod.string().max(createEditorialBodyContentImageMax),
+  "imageAlt": zod.string().max(createEditorialBodyContentImageAltMax),
+  "sources": zod.array(zod.object({
+  "title": zod.string().max(createEditorialBodyContentSourcesItemTitleMax),
+  "url": zod.string().max(createEditorialBodyContentSourcesItemUrlMax)
+})).max(createEditorialBodyContentSourcesMax),
+  "seoTitle": zod.string().max(createEditorialBodyContentSeoTitleMax),
+  "seoDescription": zod.string().max(createEditorialBodyContentSeoDescriptionMax),
+  "contentLanguage": zod.string().regex(createEditorialBodyContentContentLanguageRegExp)
+})
+})
+
+export const createEditorialResponseTwoRevisionsItemContentTitleMax = 200;
+
+export const createEditorialResponseTwoRevisionsItemContentSummaryMax = 2000;
+
+export const createEditorialResponseTwoRevisionsItemContentBodyMax = 150000;
+
+export const createEditorialResponseTwoRevisionsItemContentCategoryMax = 100;
+
+export const createEditorialResponseTwoRevisionsItemContentTagsItemMax = 80;
+
+export const createEditorialResponseTwoRevisionsItemContentTagsMax = 30;
+
+export const createEditorialResponseTwoRevisionsItemContentImageMax = 2000;
+
+export const createEditorialResponseTwoRevisionsItemContentImageAltMax = 500;
+
+export const createEditorialResponseTwoRevisionsItemContentSourcesItemTitleMax = 300;
+
+export const createEditorialResponseTwoRevisionsItemContentSourcesItemUrlMax = 2000;
+
+export const createEditorialResponseTwoRevisionsItemContentSourcesMax = 50;
+
+export const createEditorialResponseTwoRevisionsItemContentSeoTitleMax = 200;
+
+export const createEditorialResponseTwoRevisionsItemContentSeoDescriptionMax = 500;
+
+export const createEditorialResponseTwoRevisionsItemContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const createEditorialResponseTwoSourceContentTitleMax = 200;
+
+export const createEditorialResponseTwoSourceContentSummaryMax = 2000;
+
+export const createEditorialResponseTwoSourceContentBodyMax = 150000;
+
+export const createEditorialResponseTwoSourceContentCategoryMax = 100;
+
+export const createEditorialResponseTwoSourceContentTagsItemMax = 80;
+
+export const createEditorialResponseTwoSourceContentTagsMax = 30;
+
+export const createEditorialResponseTwoSourceContentImageMax = 2000;
+
+export const createEditorialResponseTwoSourceContentImageAltMax = 500;
+
+export const createEditorialResponseTwoSourceContentSourcesItemTitleMax = 300;
+
+export const createEditorialResponseTwoSourceContentSourcesItemUrlMax = 2000;
+
+export const createEditorialResponseTwoSourceContentSourcesMax = 50;
+
+export const createEditorialResponseTwoSourceContentSeoTitleMax = 200;
+
+export const createEditorialResponseTwoSourceContentSeoDescriptionMax = 500;
+
+export const createEditorialResponseTwoSourceContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+
+
+export const CreateEditorialResponse = zod.object({
+  "id": zod.string(),
+  "identity": zod.string(),
+  "locale": zod.string(),
+  "path": zod.string(),
+  "kind": zod.enum(['article', 'page']),
+  "title": zod.string(),
+  "version": zod.number().int(),
+  "state": zod.enum(['draft', 'review', 'approved', 'active']),
+  "contentLanguage": zod.string(),
+  "historical": zod.boolean(),
+  "correction": zod.boolean(),
+  "stale": zod.boolean(),
+  "activeRevisionId": zod.string().nullable()
+}).and(zod.object({
+  "revisions": zod.array(zod.object({
+  "id": zod.string(),
+  "content": zod.object({
+  "title": zod.string().max(createEditorialResponseTwoRevisionsItemContentTitleMax),
+  "summary": zod.string().max(createEditorialResponseTwoRevisionsItemContentSummaryMax),
+  "body": zod.string().max(createEditorialResponseTwoRevisionsItemContentBodyMax),
+  "category": zod.string().max(createEditorialResponseTwoRevisionsItemContentCategoryMax),
+  "tags": zod.array(zod.string().max(createEditorialResponseTwoRevisionsItemContentTagsItemMax)).max(createEditorialResponseTwoRevisionsItemContentTagsMax),
+  "image": zod.string().max(createEditorialResponseTwoRevisionsItemContentImageMax),
+  "imageAlt": zod.string().max(createEditorialResponseTwoRevisionsItemContentImageAltMax),
+  "sources": zod.array(zod.object({
+  "title": zod.string().max(createEditorialResponseTwoRevisionsItemContentSourcesItemTitleMax),
+  "url": zod.string().max(createEditorialResponseTwoRevisionsItemContentSourcesItemUrlMax)
+})).max(createEditorialResponseTwoRevisionsItemContentSourcesMax),
+  "seoTitle": zod.string().max(createEditorialResponseTwoRevisionsItemContentSeoTitleMax),
+  "seoDescription": zod.string().max(createEditorialResponseTwoRevisionsItemContentSeoDescriptionMax),
+  "contentLanguage": zod.string().regex(createEditorialResponseTwoRevisionsItemContentContentLanguageRegExp)
+}),
+  "hash": zod.string(),
+  "sourceHash": zod.string(),
+  "createdAt": zod.string(),
+  "actor": zod.string()
+})),
+  "events": zod.array(zod.object({
+  "action": zod.string(),
+  "revisionId": zod.string(),
+  "actor": zod.string(),
+  "at": zod.string(),
+  "hash": zod.string(),
+  "sourceHash": zod.string()
+})),
+  "originals": zod.array(zod.object({
+  "label": zod.string(),
+  "url": zod.string(),
+  "hash": zod.string(),
+  "body": zod.string(),
+  "metadata": zod.string()
+})),
+  "source": zod.object({
+  "hash": zod.string().optional(),
+  "content": zod.object({
+  "title": zod.string().max(createEditorialResponseTwoSourceContentTitleMax),
+  "summary": zod.string().max(createEditorialResponseTwoSourceContentSummaryMax),
+  "body": zod.string().max(createEditorialResponseTwoSourceContentBodyMax),
+  "category": zod.string().max(createEditorialResponseTwoSourceContentCategoryMax),
+  "tags": zod.array(zod.string().max(createEditorialResponseTwoSourceContentTagsItemMax)).max(createEditorialResponseTwoSourceContentTagsMax),
+  "image": zod.string().max(createEditorialResponseTwoSourceContentImageMax),
+  "imageAlt": zod.string().max(createEditorialResponseTwoSourceContentImageAltMax),
+  "sources": zod.array(zod.object({
+  "title": zod.string().max(createEditorialResponseTwoSourceContentSourcesItemTitleMax),
+  "url": zod.string().max(createEditorialResponseTwoSourceContentSourcesItemUrlMax)
+})).max(createEditorialResponseTwoSourceContentSourcesMax),
+  "seoTitle": zod.string().max(createEditorialResponseTwoSourceContentSeoTitleMax),
+  "seoDescription": zod.string().max(createEditorialResponseTwoSourceContentSeoDescriptionMax),
+  "contentLanguage": zod.string().regex(createEditorialResponseTwoSourceContentContentLanguageRegExp)
+}).optional()
+}).nullable()
+}))
+
+
+export const GetEditorialParams = zod.object({
+  "editionId": zod.coerce.string()
+})
+
+export const getEditorialResponseTwoRevisionsItemContentTitleMax = 200;
+
+export const getEditorialResponseTwoRevisionsItemContentSummaryMax = 2000;
+
+export const getEditorialResponseTwoRevisionsItemContentBodyMax = 150000;
+
+export const getEditorialResponseTwoRevisionsItemContentCategoryMax = 100;
+
+export const getEditorialResponseTwoRevisionsItemContentTagsItemMax = 80;
+
+export const getEditorialResponseTwoRevisionsItemContentTagsMax = 30;
+
+export const getEditorialResponseTwoRevisionsItemContentImageMax = 2000;
+
+export const getEditorialResponseTwoRevisionsItemContentImageAltMax = 500;
+
+export const getEditorialResponseTwoRevisionsItemContentSourcesItemTitleMax = 300;
+
+export const getEditorialResponseTwoRevisionsItemContentSourcesItemUrlMax = 2000;
+
+export const getEditorialResponseTwoRevisionsItemContentSourcesMax = 50;
+
+export const getEditorialResponseTwoRevisionsItemContentSeoTitleMax = 200;
+
+export const getEditorialResponseTwoRevisionsItemContentSeoDescriptionMax = 500;
+
+export const getEditorialResponseTwoRevisionsItemContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const getEditorialResponseTwoSourceContentTitleMax = 200;
+
+export const getEditorialResponseTwoSourceContentSummaryMax = 2000;
+
+export const getEditorialResponseTwoSourceContentBodyMax = 150000;
+
+export const getEditorialResponseTwoSourceContentCategoryMax = 100;
+
+export const getEditorialResponseTwoSourceContentTagsItemMax = 80;
+
+export const getEditorialResponseTwoSourceContentTagsMax = 30;
+
+export const getEditorialResponseTwoSourceContentImageMax = 2000;
+
+export const getEditorialResponseTwoSourceContentImageAltMax = 500;
+
+export const getEditorialResponseTwoSourceContentSourcesItemTitleMax = 300;
+
+export const getEditorialResponseTwoSourceContentSourcesItemUrlMax = 2000;
+
+export const getEditorialResponseTwoSourceContentSourcesMax = 50;
+
+export const getEditorialResponseTwoSourceContentSeoTitleMax = 200;
+
+export const getEditorialResponseTwoSourceContentSeoDescriptionMax = 500;
+
+export const getEditorialResponseTwoSourceContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+
+
+export const GetEditorialResponse = zod.object({
+  "id": zod.string(),
+  "identity": zod.string(),
+  "locale": zod.string(),
+  "path": zod.string(),
+  "kind": zod.enum(['article', 'page']),
+  "title": zod.string(),
+  "version": zod.number().int(),
+  "state": zod.enum(['draft', 'review', 'approved', 'active']),
+  "contentLanguage": zod.string(),
+  "historical": zod.boolean(),
+  "correction": zod.boolean(),
+  "stale": zod.boolean(),
+  "activeRevisionId": zod.string().nullable()
+}).and(zod.object({
+  "revisions": zod.array(zod.object({
+  "id": zod.string(),
+  "content": zod.object({
+  "title": zod.string().max(getEditorialResponseTwoRevisionsItemContentTitleMax),
+  "summary": zod.string().max(getEditorialResponseTwoRevisionsItemContentSummaryMax),
+  "body": zod.string().max(getEditorialResponseTwoRevisionsItemContentBodyMax),
+  "category": zod.string().max(getEditorialResponseTwoRevisionsItemContentCategoryMax),
+  "tags": zod.array(zod.string().max(getEditorialResponseTwoRevisionsItemContentTagsItemMax)).max(getEditorialResponseTwoRevisionsItemContentTagsMax),
+  "image": zod.string().max(getEditorialResponseTwoRevisionsItemContentImageMax),
+  "imageAlt": zod.string().max(getEditorialResponseTwoRevisionsItemContentImageAltMax),
+  "sources": zod.array(zod.object({
+  "title": zod.string().max(getEditorialResponseTwoRevisionsItemContentSourcesItemTitleMax),
+  "url": zod.string().max(getEditorialResponseTwoRevisionsItemContentSourcesItemUrlMax)
+})).max(getEditorialResponseTwoRevisionsItemContentSourcesMax),
+  "seoTitle": zod.string().max(getEditorialResponseTwoRevisionsItemContentSeoTitleMax),
+  "seoDescription": zod.string().max(getEditorialResponseTwoRevisionsItemContentSeoDescriptionMax),
+  "contentLanguage": zod.string().regex(getEditorialResponseTwoRevisionsItemContentContentLanguageRegExp)
+}),
+  "hash": zod.string(),
+  "sourceHash": zod.string(),
+  "createdAt": zod.string(),
+  "actor": zod.string()
+})),
+  "events": zod.array(zod.object({
+  "action": zod.string(),
+  "revisionId": zod.string(),
+  "actor": zod.string(),
+  "at": zod.string(),
+  "hash": zod.string(),
+  "sourceHash": zod.string()
+})),
+  "originals": zod.array(zod.object({
+  "label": zod.string(),
+  "url": zod.string(),
+  "hash": zod.string(),
+  "body": zod.string(),
+  "metadata": zod.string()
+})),
+  "source": zod.object({
+  "hash": zod.string().optional(),
+  "content": zod.object({
+  "title": zod.string().max(getEditorialResponseTwoSourceContentTitleMax),
+  "summary": zod.string().max(getEditorialResponseTwoSourceContentSummaryMax),
+  "body": zod.string().max(getEditorialResponseTwoSourceContentBodyMax),
+  "category": zod.string().max(getEditorialResponseTwoSourceContentCategoryMax),
+  "tags": zod.array(zod.string().max(getEditorialResponseTwoSourceContentTagsItemMax)).max(getEditorialResponseTwoSourceContentTagsMax),
+  "image": zod.string().max(getEditorialResponseTwoSourceContentImageMax),
+  "imageAlt": zod.string().max(getEditorialResponseTwoSourceContentImageAltMax),
+  "sources": zod.array(zod.object({
+  "title": zod.string().max(getEditorialResponseTwoSourceContentSourcesItemTitleMax),
+  "url": zod.string().max(getEditorialResponseTwoSourceContentSourcesItemUrlMax)
+})).max(getEditorialResponseTwoSourceContentSourcesMax),
+  "seoTitle": zod.string().max(getEditorialResponseTwoSourceContentSeoTitleMax),
+  "seoDescription": zod.string().max(getEditorialResponseTwoSourceContentSeoDescriptionMax),
+  "contentLanguage": zod.string().regex(getEditorialResponseTwoSourceContentContentLanguageRegExp)
+}).optional()
+}).nullable()
+}))
+
+
+export const SaveEditorialParams = zod.object({
+  "editionId": zod.coerce.string()
+})
+
+
+export const saveEditorialBodyContentTitleMax = 200;
+
+export const saveEditorialBodyContentSummaryMax = 2000;
+
+export const saveEditorialBodyContentBodyMax = 150000;
+
+export const saveEditorialBodyContentCategoryMax = 100;
+
+export const saveEditorialBodyContentTagsItemMax = 80;
+
+export const saveEditorialBodyContentTagsMax = 30;
+
+export const saveEditorialBodyContentImageMax = 2000;
+
+export const saveEditorialBodyContentImageAltMax = 500;
+
+export const saveEditorialBodyContentSourcesItemTitleMax = 300;
+
+export const saveEditorialBodyContentSourcesItemUrlMax = 2000;
+
+export const saveEditorialBodyContentSourcesMax = 50;
+
+export const saveEditorialBodyContentSeoTitleMax = 200;
+
+export const saveEditorialBodyContentSeoDescriptionMax = 500;
+
+export const saveEditorialBodyContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+
+
+export const SaveEditorialBody = zod.object({
+  "version": zod.number().int().min(1),
+  "content": zod.object({
+  "title": zod.string().max(saveEditorialBodyContentTitleMax),
+  "summary": zod.string().max(saveEditorialBodyContentSummaryMax),
+  "body": zod.string().max(saveEditorialBodyContentBodyMax),
+  "category": zod.string().max(saveEditorialBodyContentCategoryMax),
+  "tags": zod.array(zod.string().max(saveEditorialBodyContentTagsItemMax)).max(saveEditorialBodyContentTagsMax),
+  "image": zod.string().max(saveEditorialBodyContentImageMax),
+  "imageAlt": zod.string().max(saveEditorialBodyContentImageAltMax),
+  "sources": zod.array(zod.object({
+  "title": zod.string().max(saveEditorialBodyContentSourcesItemTitleMax),
+  "url": zod.string().max(saveEditorialBodyContentSourcesItemUrlMax)
+})).max(saveEditorialBodyContentSourcesMax),
+  "seoTitle": zod.string().max(saveEditorialBodyContentSeoTitleMax),
+  "seoDescription": zod.string().max(saveEditorialBodyContentSeoDescriptionMax),
+  "contentLanguage": zod.string().regex(saveEditorialBodyContentContentLanguageRegExp)
+})
+})
+
+export const saveEditorialResponseTwoRevisionsItemContentTitleMax = 200;
+
+export const saveEditorialResponseTwoRevisionsItemContentSummaryMax = 2000;
+
+export const saveEditorialResponseTwoRevisionsItemContentBodyMax = 150000;
+
+export const saveEditorialResponseTwoRevisionsItemContentCategoryMax = 100;
+
+export const saveEditorialResponseTwoRevisionsItemContentTagsItemMax = 80;
+
+export const saveEditorialResponseTwoRevisionsItemContentTagsMax = 30;
+
+export const saveEditorialResponseTwoRevisionsItemContentImageMax = 2000;
+
+export const saveEditorialResponseTwoRevisionsItemContentImageAltMax = 500;
+
+export const saveEditorialResponseTwoRevisionsItemContentSourcesItemTitleMax = 300;
+
+export const saveEditorialResponseTwoRevisionsItemContentSourcesItemUrlMax = 2000;
+
+export const saveEditorialResponseTwoRevisionsItemContentSourcesMax = 50;
+
+export const saveEditorialResponseTwoRevisionsItemContentSeoTitleMax = 200;
+
+export const saveEditorialResponseTwoRevisionsItemContentSeoDescriptionMax = 500;
+
+export const saveEditorialResponseTwoRevisionsItemContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const saveEditorialResponseTwoSourceContentTitleMax = 200;
+
+export const saveEditorialResponseTwoSourceContentSummaryMax = 2000;
+
+export const saveEditorialResponseTwoSourceContentBodyMax = 150000;
+
+export const saveEditorialResponseTwoSourceContentCategoryMax = 100;
+
+export const saveEditorialResponseTwoSourceContentTagsItemMax = 80;
+
+export const saveEditorialResponseTwoSourceContentTagsMax = 30;
+
+export const saveEditorialResponseTwoSourceContentImageMax = 2000;
+
+export const saveEditorialResponseTwoSourceContentImageAltMax = 500;
+
+export const saveEditorialResponseTwoSourceContentSourcesItemTitleMax = 300;
+
+export const saveEditorialResponseTwoSourceContentSourcesItemUrlMax = 2000;
+
+export const saveEditorialResponseTwoSourceContentSourcesMax = 50;
+
+export const saveEditorialResponseTwoSourceContentSeoTitleMax = 200;
+
+export const saveEditorialResponseTwoSourceContentSeoDescriptionMax = 500;
+
+export const saveEditorialResponseTwoSourceContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+
+
+export const SaveEditorialResponse = zod.object({
+  "id": zod.string(),
+  "identity": zod.string(),
+  "locale": zod.string(),
+  "path": zod.string(),
+  "kind": zod.enum(['article', 'page']),
+  "title": zod.string(),
+  "version": zod.number().int(),
+  "state": zod.enum(['draft', 'review', 'approved', 'active']),
+  "contentLanguage": zod.string(),
+  "historical": zod.boolean(),
+  "correction": zod.boolean(),
+  "stale": zod.boolean(),
+  "activeRevisionId": zod.string().nullable()
+}).and(zod.object({
+  "revisions": zod.array(zod.object({
+  "id": zod.string(),
+  "content": zod.object({
+  "title": zod.string().max(saveEditorialResponseTwoRevisionsItemContentTitleMax),
+  "summary": zod.string().max(saveEditorialResponseTwoRevisionsItemContentSummaryMax),
+  "body": zod.string().max(saveEditorialResponseTwoRevisionsItemContentBodyMax),
+  "category": zod.string().max(saveEditorialResponseTwoRevisionsItemContentCategoryMax),
+  "tags": zod.array(zod.string().max(saveEditorialResponseTwoRevisionsItemContentTagsItemMax)).max(saveEditorialResponseTwoRevisionsItemContentTagsMax),
+  "image": zod.string().max(saveEditorialResponseTwoRevisionsItemContentImageMax),
+  "imageAlt": zod.string().max(saveEditorialResponseTwoRevisionsItemContentImageAltMax),
+  "sources": zod.array(zod.object({
+  "title": zod.string().max(saveEditorialResponseTwoRevisionsItemContentSourcesItemTitleMax),
+  "url": zod.string().max(saveEditorialResponseTwoRevisionsItemContentSourcesItemUrlMax)
+})).max(saveEditorialResponseTwoRevisionsItemContentSourcesMax),
+  "seoTitle": zod.string().max(saveEditorialResponseTwoRevisionsItemContentSeoTitleMax),
+  "seoDescription": zod.string().max(saveEditorialResponseTwoRevisionsItemContentSeoDescriptionMax),
+  "contentLanguage": zod.string().regex(saveEditorialResponseTwoRevisionsItemContentContentLanguageRegExp)
+}),
+  "hash": zod.string(),
+  "sourceHash": zod.string(),
+  "createdAt": zod.string(),
+  "actor": zod.string()
+})),
+  "events": zod.array(zod.object({
+  "action": zod.string(),
+  "revisionId": zod.string(),
+  "actor": zod.string(),
+  "at": zod.string(),
+  "hash": zod.string(),
+  "sourceHash": zod.string()
+})),
+  "originals": zod.array(zod.object({
+  "label": zod.string(),
+  "url": zod.string(),
+  "hash": zod.string(),
+  "body": zod.string(),
+  "metadata": zod.string()
+})),
+  "source": zod.object({
+  "hash": zod.string().optional(),
+  "content": zod.object({
+  "title": zod.string().max(saveEditorialResponseTwoSourceContentTitleMax),
+  "summary": zod.string().max(saveEditorialResponseTwoSourceContentSummaryMax),
+  "body": zod.string().max(saveEditorialResponseTwoSourceContentBodyMax),
+  "category": zod.string().max(saveEditorialResponseTwoSourceContentCategoryMax),
+  "tags": zod.array(zod.string().max(saveEditorialResponseTwoSourceContentTagsItemMax)).max(saveEditorialResponseTwoSourceContentTagsMax),
+  "image": zod.string().max(saveEditorialResponseTwoSourceContentImageMax),
+  "imageAlt": zod.string().max(saveEditorialResponseTwoSourceContentImageAltMax),
+  "sources": zod.array(zod.object({
+  "title": zod.string().max(saveEditorialResponseTwoSourceContentSourcesItemTitleMax),
+  "url": zod.string().max(saveEditorialResponseTwoSourceContentSourcesItemUrlMax)
+})).max(saveEditorialResponseTwoSourceContentSourcesMax),
+  "seoTitle": zod.string().max(saveEditorialResponseTwoSourceContentSeoTitleMax),
+  "seoDescription": zod.string().max(saveEditorialResponseTwoSourceContentSeoDescriptionMax),
+  "contentLanguage": zod.string().regex(saveEditorialResponseTwoSourceContentContentLanguageRegExp)
+}).optional()
+}).nullable()
+}))
+
+
+export const ActEditorialParams = zod.object({
+  "editionId": zod.coerce.string()
+})
+
+
+
+
+export const ActEditorialBody = zod.object({
+  "version": zod.number().int().min(1),
+  "action": zod.enum(['submit', 'approve', 'activate', 'withdraw', 'restore']),
+  "revisionId": zod.string()
+})
+
+export const actEditorialResponseTwoRevisionsItemContentTitleMax = 200;
+
+export const actEditorialResponseTwoRevisionsItemContentSummaryMax = 2000;
+
+export const actEditorialResponseTwoRevisionsItemContentBodyMax = 150000;
+
+export const actEditorialResponseTwoRevisionsItemContentCategoryMax = 100;
+
+export const actEditorialResponseTwoRevisionsItemContentTagsItemMax = 80;
+
+export const actEditorialResponseTwoRevisionsItemContentTagsMax = 30;
+
+export const actEditorialResponseTwoRevisionsItemContentImageMax = 2000;
+
+export const actEditorialResponseTwoRevisionsItemContentImageAltMax = 500;
+
+export const actEditorialResponseTwoRevisionsItemContentSourcesItemTitleMax = 300;
+
+export const actEditorialResponseTwoRevisionsItemContentSourcesItemUrlMax = 2000;
+
+export const actEditorialResponseTwoRevisionsItemContentSourcesMax = 50;
+
+export const actEditorialResponseTwoRevisionsItemContentSeoTitleMax = 200;
+
+export const actEditorialResponseTwoRevisionsItemContentSeoDescriptionMax = 500;
+
+export const actEditorialResponseTwoRevisionsItemContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const actEditorialResponseTwoSourceContentTitleMax = 200;
+
+export const actEditorialResponseTwoSourceContentSummaryMax = 2000;
+
+export const actEditorialResponseTwoSourceContentBodyMax = 150000;
+
+export const actEditorialResponseTwoSourceContentCategoryMax = 100;
+
+export const actEditorialResponseTwoSourceContentTagsItemMax = 80;
+
+export const actEditorialResponseTwoSourceContentTagsMax = 30;
+
+export const actEditorialResponseTwoSourceContentImageMax = 2000;
+
+export const actEditorialResponseTwoSourceContentImageAltMax = 500;
+
+export const actEditorialResponseTwoSourceContentSourcesItemTitleMax = 300;
+
+export const actEditorialResponseTwoSourceContentSourcesItemUrlMax = 2000;
+
+export const actEditorialResponseTwoSourceContentSourcesMax = 50;
+
+export const actEditorialResponseTwoSourceContentSeoTitleMax = 200;
+
+export const actEditorialResponseTwoSourceContentSeoDescriptionMax = 500;
+
+export const actEditorialResponseTwoSourceContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+
+
+export const ActEditorialResponse = zod.object({
+  "id": zod.string(),
+  "identity": zod.string(),
+  "locale": zod.string(),
+  "path": zod.string(),
+  "kind": zod.enum(['article', 'page']),
+  "title": zod.string(),
+  "version": zod.number().int(),
+  "state": zod.enum(['draft', 'review', 'approved', 'active']),
+  "contentLanguage": zod.string(),
+  "historical": zod.boolean(),
+  "correction": zod.boolean(),
+  "stale": zod.boolean(),
+  "activeRevisionId": zod.string().nullable()
+}).and(zod.object({
+  "revisions": zod.array(zod.object({
+  "id": zod.string(),
+  "content": zod.object({
+  "title": zod.string().max(actEditorialResponseTwoRevisionsItemContentTitleMax),
+  "summary": zod.string().max(actEditorialResponseTwoRevisionsItemContentSummaryMax),
+  "body": zod.string().max(actEditorialResponseTwoRevisionsItemContentBodyMax),
+  "category": zod.string().max(actEditorialResponseTwoRevisionsItemContentCategoryMax),
+  "tags": zod.array(zod.string().max(actEditorialResponseTwoRevisionsItemContentTagsItemMax)).max(actEditorialResponseTwoRevisionsItemContentTagsMax),
+  "image": zod.string().max(actEditorialResponseTwoRevisionsItemContentImageMax),
+  "imageAlt": zod.string().max(actEditorialResponseTwoRevisionsItemContentImageAltMax),
+  "sources": zod.array(zod.object({
+  "title": zod.string().max(actEditorialResponseTwoRevisionsItemContentSourcesItemTitleMax),
+  "url": zod.string().max(actEditorialResponseTwoRevisionsItemContentSourcesItemUrlMax)
+})).max(actEditorialResponseTwoRevisionsItemContentSourcesMax),
+  "seoTitle": zod.string().max(actEditorialResponseTwoRevisionsItemContentSeoTitleMax),
+  "seoDescription": zod.string().max(actEditorialResponseTwoRevisionsItemContentSeoDescriptionMax),
+  "contentLanguage": zod.string().regex(actEditorialResponseTwoRevisionsItemContentContentLanguageRegExp)
+}),
+  "hash": zod.string(),
+  "sourceHash": zod.string(),
+  "createdAt": zod.string(),
+  "actor": zod.string()
+})),
+  "events": zod.array(zod.object({
+  "action": zod.string(),
+  "revisionId": zod.string(),
+  "actor": zod.string(),
+  "at": zod.string(),
+  "hash": zod.string(),
+  "sourceHash": zod.string()
+})),
+  "originals": zod.array(zod.object({
+  "label": zod.string(),
+  "url": zod.string(),
+  "hash": zod.string(),
+  "body": zod.string(),
+  "metadata": zod.string()
+})),
+  "source": zod.object({
+  "hash": zod.string().optional(),
+  "content": zod.object({
+  "title": zod.string().max(actEditorialResponseTwoSourceContentTitleMax),
+  "summary": zod.string().max(actEditorialResponseTwoSourceContentSummaryMax),
+  "body": zod.string().max(actEditorialResponseTwoSourceContentBodyMax),
+  "category": zod.string().max(actEditorialResponseTwoSourceContentCategoryMax),
+  "tags": zod.array(zod.string().max(actEditorialResponseTwoSourceContentTagsItemMax)).max(actEditorialResponseTwoSourceContentTagsMax),
+  "image": zod.string().max(actEditorialResponseTwoSourceContentImageMax),
+  "imageAlt": zod.string().max(actEditorialResponseTwoSourceContentImageAltMax),
+  "sources": zod.array(zod.object({
+  "title": zod.string().max(actEditorialResponseTwoSourceContentSourcesItemTitleMax),
+  "url": zod.string().max(actEditorialResponseTwoSourceContentSourcesItemUrlMax)
+})).max(actEditorialResponseTwoSourceContentSourcesMax),
+  "seoTitle": zod.string().max(actEditorialResponseTwoSourceContentSeoTitleMax),
+  "seoDescription": zod.string().max(actEditorialResponseTwoSourceContentSeoDescriptionMax),
+  "contentLanguage": zod.string().regex(actEditorialResponseTwoSourceContentContentLanguageRegExp)
+}).optional()
+}).nullable()
+}))
+
+
+export const getActiveEditorialResponseContentTitleMax = 200;
+
+export const getActiveEditorialResponseContentSummaryMax = 2000;
+
+export const getActiveEditorialResponseContentBodyMax = 150000;
+
+export const getActiveEditorialResponseContentCategoryMax = 100;
+
+export const getActiveEditorialResponseContentTagsItemMax = 80;
+
+export const getActiveEditorialResponseContentTagsMax = 30;
+
+export const getActiveEditorialResponseContentImageMax = 2000;
+
+export const getActiveEditorialResponseContentImageAltMax = 500;
+
+export const getActiveEditorialResponseContentSourcesItemTitleMax = 300;
+
+export const getActiveEditorialResponseContentSourcesItemUrlMax = 2000;
+
+export const getActiveEditorialResponseContentSourcesMax = 50;
+
+export const getActiveEditorialResponseContentSeoTitleMax = 200;
+
+export const getActiveEditorialResponseContentSeoDescriptionMax = 500;
+
+export const getActiveEditorialResponseContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+
+
+export const GetActiveEditorialResponseItem = zod.object({
+  "aliases": zod.array(zod.string()).optional(),
+  "identity": zod.string(),
+  "locale": zod.string(),
+  "path": zod.string(),
+  "kind": zod.enum(['article', 'page']),
+  "revisionId": zod.string(),
+  "content": zod.object({
+  "title": zod.string().max(getActiveEditorialResponseContentTitleMax),
+  "summary": zod.string().max(getActiveEditorialResponseContentSummaryMax),
+  "body": zod.string().max(getActiveEditorialResponseContentBodyMax),
+  "category": zod.string().max(getActiveEditorialResponseContentCategoryMax),
+  "tags": zod.array(zod.string().max(getActiveEditorialResponseContentTagsItemMax)).max(getActiveEditorialResponseContentTagsMax),
+  "image": zod.string().max(getActiveEditorialResponseContentImageMax),
+  "imageAlt": zod.string().max(getActiveEditorialResponseContentImageAltMax),
+  "sources": zod.array(zod.object({
+  "title": zod.string().max(getActiveEditorialResponseContentSourcesItemTitleMax),
+  "url": zod.string().max(getActiveEditorialResponseContentSourcesItemUrlMax)
+})).max(getActiveEditorialResponseContentSourcesMax),
+  "seoTitle": zod.string().max(getActiveEditorialResponseContentSeoTitleMax),
+  "seoDescription": zod.string().max(getActiveEditorialResponseContentSeoDescriptionMax),
+  "contentLanguage": zod.string().regex(getActiveEditorialResponseContentContentLanguageRegExp)
+})
+})
+export const GetActiveEditorialResponse = zod.array(GetActiveEditorialResponseItem)
+
+
 /**
  * @summary Serve an immutable, inventoried historical website image
  */

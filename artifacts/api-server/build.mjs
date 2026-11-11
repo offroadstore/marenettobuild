@@ -103,6 +103,11 @@ async function buildAll() {
     ],
     sourcemap: "linked",
     plugins: [
+      { name: "editorial-catalog", setup(build) {
+        build.onResolve({ filter: /^marenetto-editorial-catalog$/ }, () => ({
+          path: path.resolve(artifactDir, "../../generated-artifacts/editorial/catalog.json")
+        }));
+      } },
       // pino relies on workers to handle logging, instead of externalizing it we use a plugin to handle it
       esbuildPluginPino({ transports: ["pino-pretty"] })
     ],

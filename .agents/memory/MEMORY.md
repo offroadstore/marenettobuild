@@ -7,3 +7,4 @@
 - [Business contact approval](contact-approval.md) — Owner confirmed the visible business email; this is not proof of message delivery or legal/address verification.
 - [SSR locale dates](ssr-locale-dates.md) — ICU support and browser fallback locales can differ; identical Intl options do not guarantee identical initial text.
 - [Historical fidelity](historical-fidelity.md) — Reworked text is not an original copy; require independent historical-to-served diffs and owner decisions on unverified claims.
+- [Editorial fallback safety](editorial-fallback-safety.md) — Failed state reads must not republish withdrawn static content, including after a cold web restart.

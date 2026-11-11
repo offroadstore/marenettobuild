@@ -21,7 +21,7 @@ import '@/styles/home.css';
 import { Route, Switch, useLocation, Router as WouterRouter, Link, Redirect } from 'wouter';
 import { articleBySlug, articles as articleList } from '@/content/articles';
 import { withCampaignParams } from '@/lib/campaign';
-import { ArticleDetailPage, ArticlesPage, GuidesPage, SearchPage } from '@/pages/library';
+import { ArticleDetailPage, ArticlesPage, GuidesPage, SearchPage, ActiveArticleListing } from '@/pages/library';
 import { ClerkProvider, SignIn, SignUp, useClerk } from '@clerk/react';
 import { publishableKeyFromHost } from '@clerk/react/internal';
 import { shadcn } from '@clerk/themes';
@@ -35,6 +35,9 @@ import { editions, editionByPath, reviewPathForEdition, canonicalEdition, equiva
 import { updateStructuredData } from '@/lib/structured-data';
 import { historicalPage, historicalPending, historicalArticleForPreview, historicalLoaded, loadHistorical, historicalNavigation, type HistoricalPage as HistoricalPageRecord } from '@/content/historical';
 import { HistoricalContents } from '@/pages/historical';
+import { EditorialRuntime, useActiveEditorial, useEditorialStatus, editorialPathKey } from '@/lib/editorial-runtime';
+import type { EditorialActive } from '@workspace/api-client-react';
+import { usePageMeta } from '@/lib/meta';
 
 const queryClient = new QueryClient();
 
@@ -213,7 +216,9 @@ function routeRedirect(target: string) {
 }
 
 function ArticleNav({ lang, variant, onNavigate }: { lang: Lang; variant: 'desktop' | 'mobile'; onNavigate?: () => void }) {
-  const sourceMenu = historicalArticleMenu(lang);
+  const activeArticles = useActiveEditorial().filter(e => e.locale === lang && e.kind === 'article' && e.revisionId !== 'withdrawn');
+  const originalMenu = historicalArticleMenu(lang);
+  const sourceMenu = originalMenu ? { ...originalMenu, categories: [...originalMenu.categories, ...activeArticles.map(e => ({ label: e.content.title, path: e.path }))] } : activeArticles.length ? { label: copy[lang].nav.articles, path: libraryPath(lang,'articles'), categories: activeArticles.map(e => ({label:e.content.title,path:e.path})) } : undefined;
   const [open, setOpen] = useState(false);
   const [location] = useLocation();
   const groupRef = useRef<HTMLDivElement>(null);
@@ -625,7 +630,7 @@ type RequestFormState = {
 };
 const initialForm = (lang: Lang): RequestFormState => ({ requestType: 'project', propertyType: '', service: '', location: '', projectStage: '', message: '', preferredLanguage: lang, name: '', email: '', phone: '', preferredChannel: 'email', budget: '', desiredPeriod: '', needsAccommodation: false, needsMobility: false, privacyAccepted: false });
 
-function RequestPage({ lang }: { lang: Lang }) {
+function RequestPage({ lang, editorial = false }: { lang: Lang; editorial?: boolean }) {
   const text = (italian: string, english: string) => localizeChoice(lang, italian, english);
   const [form, setForm] = useState<RequestFormState>(() => initialForm(lang));
   const [review, setReview] = useState(false);
@@ -661,7 +666,7 @@ function RequestPage({ lang }: { lang: Lang }) {
     return element?.selectedOptions[0]?.textContent ?? String(form[key]);
   };
   return <>
-    <PageHero lang={lang} page="request" />
+    {!editorial && <PageHero lang={lang} page="request" />}
     <section className="section">
       <div className="container request-layout">
         <aside className="request-aside"><SectionLabel>{text('Un buon punto di partenza', 'A useful place to start')}</SectionLabel><h2 className="display-title">{text('Con calma, con i dettagli che hai.', 'No rush. Share what you know.')}</h2><p>{text('Questa anteprima scarta i dati inseriti e conserva solo un lead sintetico. Non inserire dati personali reali. Le notifiche interne sono persistenti; gli invii email attendono l’approvazione del fornitore.', 'This preview discards the details entered and stores only a synthetic lead. Do not enter real personal information. In-app notifications persist; email delivery awaits provider approval.')}</p><p>{text('Per un contatto effettivo, scrivi a info@marenetto.com, chiama o invia un messaggio WhatsApp al numero aziendale.', 'For a real enquiry, email info@marenetto.com, call or send a WhatsApp message to the company number.')}</p><div className="language-note">{text('Puoi indicare una lingua preferita fra quelle richieste; la risposta automatica non è ancora attiva.', 'You can select any requested language; automated replies are not active yet.')}</div></aside>
@@ -833,9 +838,10 @@ function SitePage({ page, lang }: { page: CorePage; lang: Lang }) {
 
 function LibraryShell({ page, children, lang = 'it', articleSlug }: { page: Page; children: ReactNode; lang?: Lang; articleSlug?: string }) {
   const contentLocale = isTranslationReviewMode() ? lang : 'it';
-  return <LibraryLocale.Provider value={contentLocale}><div className="site-shell" lang={lang === 'it' ? 'it-IT' : lang} dir={getLocaleDirection(lang)}>
+  const hasLocalArticles = useActiveEditorial().some(e => e.kind === 'article' && e.locale === lang);
+  return <LibraryLocale.Provider value={hasLocalArticles ? lang : contentLocale}><div className="site-shell" lang={lang === 'it' ? 'it-IT' : lang} dir={getLocaleDirection(lang)}>
     <Header lang={lang} page={page} articleSlug={articleSlug} />
-    <main><WhatsAppAccess lang={lang} />{lang !== 'it' && <p className="container translation-review-status" role="note" data-testid="translation-review-notice" lang="it" dir="ltr">{isTranslationReviewMode() ? 'Bozza tradotta · in attesa della revisione del titolare.' : 'Testo originale italiano · nessuna traduzione approvata.'} <a href={articleSlug ? `/${articleSlug}` : libraryPath('it', page as 'articles' | 'guides' | 'search')}>Leggi l’edizione italiana</a></p>}<div lang={contentLocale} dir={getLocaleDirection(contentLocale)}>{children}</div></main>
+    <main><WhatsAppAccess lang={lang} />{lang !== 'it' && <p className="container translation-review-status" role="note" data-testid="translation-review-notice" lang="it" dir="ltr">{isTranslationReviewMode() ? 'Bozza tradotta · in attesa della revisione del titolare.' : hasLocalArticles ? 'Archivio misto: le edizioni attive hanno la lingua indicata; le altre mantengono il testo originale italiano.' : 'Testo originale italiano · nessuna traduzione approvata.'} <a href={articleSlug ? `/${articleSlug}` : libraryPath('it', page as 'articles' | 'guides' | 'search')}>Leggi l’edizione italiana</a></p>}<div lang={contentLocale} dir={getLocaleDirection(contentLocale)}>{children}</div></main>
     <Footer lang={lang} />
   </div></LibraryLocale.Provider>;
 }
@@ -879,10 +885,22 @@ function LocaleGate({ lang, children }: { lang: Lang; children: ReactNode }) {
 }
 function Router() {
   const [path] = useLocation();
+  const active = useActiveEditorial();
+  const editorialStatus = useEditorialStatus();
   setTranslationReviewMode(path.startsWith('/__localization-review/'));
   useHashFragmentNavigation(path);
   const lang = getLang(path);
   const page = getPage(path);
+  const privateShell = /^\/(?:internal|sign-in|sign-up)(?:\/|$)/.test(path) || /^\/owner-demo\/?$/.test(path);
+  if (!privateShell && editorialStatus !== 'verified') return <div className="site-shell" lang="it" dir="ltr"><main className="container" style={{ paddingBlock: '5rem' }} data-testid="editorial-state" role={editorialStatus === 'loading' ? 'status' : 'alert'} aria-busy={editorialStatus === 'loading'}>
+    <h1>{editorialStatus === 'loading' ? 'Verifica dei contenuti in corso' : 'Contenuti temporaneamente non disponibili'}</h1>
+    <p>Prima di mostrare un testo dobbiamo verificare quali revisioni sono attive. Nessuna copia precedente viene ripubblicata.</p>
+    {editorialStatus === 'unavailable' && <button className="int-primary" onClick={() => window.location.reload()}>Riprova</button>}
+  </main></div>;
+  const live = active.find(edition => [edition.path,...(edition.aliases ?? [])].some(candidate => editorialPathKey(candidate) === editorialPathKey(path)));
+  if (live) return live.revisionId === 'withdrawn' ? <NotFound lang={live.locale} /> : <LocaleGate lang={live.locale}><ActiveEditorialPage edition={live} /></LocaleGate>;
+  const libraryEdition = editions.find(edition => editorialPathKey(edition.path) === editorialPathKey(path) && ['articles','guides','search'].includes(edition.id));
+  if (libraryEdition && active.some(e => e.kind === 'article' && e.locale === libraryEdition.locale)) return <LocaleGate lang={libraryEdition.locale}><LocalizedLibraryPage lang={libraryEdition.locale} page={libraryEdition.id as 'articles' | 'guides' | 'search'} /></LocaleGate>;
   const recovered = historicalPage(path) ?? historicalArticleForPreview(path) ?? historicalPending(path);
   if (recovered && !path.startsWith('/__localization-review/')) {
     const temporaryHold = recovered.state === 'awaiting-confirmation' && recovered.kind !== 'article' && !recovered.editorialCorrection;
@@ -1015,12 +1033,50 @@ function RoutedErrorBoundary({ children }: { children: ReactNode }) {
   return <ErrorBoundary resetKey={location}>{children}</ErrorBoundary>;
 }
 
-function App({ ssrPath }: { ssrPath?: string }) {
+function ActiveEditorialPage({ edition }: { edition: EditorialActive }) {
+  const { content, locale } = edition;
+  usePageMeta({ title: content.seoTitle || content.title, description: content.seoDescription || content.summary, path: edition.path, type: edition.kind === 'article' ? 'article' : 'website' });
+  useEffect(() => {
+    document.documentElement.lang = locale;
+    document.documentElement.dir = 'ltr';
+    document.querySelectorAll('link[rel="alternate"][hreflang], script[type="application/ld+json"]').forEach(node => node.remove());
+    const title = content.seoTitle || content.title;
+    const description = content.seoDescription || content.summary;
+    const canonical = new URL(edition.path, PUBLIC_SITE_ORIGIN).href;
+    document.title = title;
+    const values: [string, string][] = [['name:description',description],['name:twitter:title',title],['name:twitter:description',description],['property:og:title',title],['property:og:description',description],['property:og:url',canonical],['property:og:locale',locale]];
+    for (const [selector,value] of values) {
+      const [attribute] = selector.split(':',2);
+      // Preserve og:/twitter: prefixes (split only the attribute separator).
+      const metaKey = selector.slice(attribute.length + 1);
+      let element = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${metaKey}"]`);
+      if (!element) { element = document.createElement('meta'); element.setAttribute(attribute,metaKey); document.head.appendChild(element); }
+      element.content = value;
+    }
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href',canonical);
+  }, [edition]);
+  const core = edition.identity as CorePage;
+  return <div className="site-shell" lang={locale} dir={getLocaleDirection(locale)}>
+    <Header lang={locale} page={pageForEditorial(edition)} />
+    <main><section className="section"><div className="container">
+      <h1 className="display-title">{content.title}</h1>
+      {content.summary && <p className="section-intro">{content.summary}</p>}
+      {content.image && <img className="historical-cover" src={content.image} alt={content.imageAlt} />}
+      <article className="historical-content article-body" data-active-revision={edition.revisionId} lang={content.contentLanguage} dangerouslySetInnerHTML={{ __html: content.body.replace(/(<\/?)h1(\b[^>]*>)/gi, '$1h2$2') }} />
+      {edition.identity === 'articles' && <LibraryLocale.Provider value={locale}><ActiveArticleListing /></LibraryLocale.Provider>}
+      {content.sources.length > 0 && <aside><h2>Fonti</h2><ul>{content.sources.map(source => <li key={source.url}><a href={source.url} rel="noreferrer">{source.title}</a></li>)}</ul></aside>}
+    </div></section>{core === 'request' && <RequestPage lang={locale} editorial />}</main>
+    <Footer lang={locale} />
+  </div>;
+}
+function pageForEditorial(edition: EditorialActive): Page { return edition.kind === 'article' ? 'articles' : PAGE_KEYS.includes(edition.identity as CorePage) ? edition.identity as CorePage : 'home'; }
+
+function App({ ssrPath, editorialActive }: { ssrPath?: string; editorialActive?: EditorialActive[] }) {
   const [, setHydrated] = useState(false);
   useEffect(() => { document.documentElement.dataset.hydrated = 'true'; setHydrated(true); }, []);
   const pathname = ssrPath ?? window.location.pathname;
   const needsAuth = /^\/(internal|sign-in|sign-up)(\/|$)/.test(pathname.slice(basePath.length));
-  return <QueryClientProvider client={queryClient}><TooltipProvider><WouterRouter base={basePath} ssrPath={ssrPath}>{needsAuth && clerkPubKey ? <ClerkProviderWithRoutes /> : <Router />}<Toaster /></WouterRouter></TooltipProvider></QueryClientProvider>;
+  return <QueryClientProvider client={queryClient}><TooltipProvider><EditorialRuntime initial={editorialActive}><WouterRouter base={basePath} ssrPath={ssrPath}>{needsAuth && clerkPubKey ? <ClerkProviderWithRoutes /> : <Router />}<Toaster /></WouterRouter></EditorialRuntime></TooltipProvider></QueryClientProvider>;
 }
 
 function SignInPage() {

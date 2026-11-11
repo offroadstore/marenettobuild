@@ -7,6 +7,8 @@ import { usePageMeta } from '@/lib/meta';
 import { useLibraryLocale } from '@/localization/library-context';
 import { isTranslationReviewMode } from '@/localization/runtime';
 import { historicalPage, historicalArticleForPreview } from '@/content/historical';
+import { useActiveEditorial } from '@/lib/editorial-runtime';
+import { useEditorialArticles } from '@/content/editorial-articles';
 
 function LibHero({ eyebrow, title, intro, meta }: { eyebrow: string; title: string; intro: string; meta: string }) {
   const { render } = useLibraryLocale();
@@ -27,17 +29,19 @@ function StatusPill({ a }: { a: Article }) {
 }
 
 export function ArticleCard({ a, kind = 'archive', index }: { a: Article; kind?: 'archive' | 'guide' | 'search'; index: number }) {
-  const { render, articleHref, date: formatDate } = useLibraryLocale();
-  const original = !isTranslationReviewMode() ? historicalPage(articleHref(a.slug)) ?? historicalArticleForPreview(articleHref(a.slug)) : undefined;
-  return render(<Link href={withCampaignParams(articleHref(a.slug))} className="lib-card" data-testid={`card-${kind}-${a.slug}`}>
-    <div className="lib-card-media"><img src={a.image} alt={a.imageAlt} loading="lazy" /><span className="lib-card-index">{String(index + 1).padStart(2, '0')}</span></div>
+  const { lang, render, articleHref, date: formatDate } = useLibraryLocale();
+  const live = useActiveEditorial().find(e => e.locale === lang && e.identity === a.slug && e.revisionId !== 'withdrawn');
+  const original = !live && !isTranslationReviewMode() ? historicalPage(articleHref(a.slug)) ?? historicalArticleForPreview(articleHref(a.slug)) : undefined;
+  const card = <Link href={withCampaignParams(live?.path ?? articleHref(a.slug))} lang={live?.content.contentLanguage ?? (isTranslationReviewMode() ? lang : 'it')} className="lib-card" data-testid={`card-${kind}-${a.slug}`}>
+    <div className="lib-card-media">{a.image && <img src={a.image} alt={a.imageAlt} loading="lazy" />}<span className="lib-card-index">{String(index + 1).padStart(2, '0')}</span></div>
     <div className="lib-card-body">
       <div className="lib-card-meta"><span>{a.category}</span><span>{formatDate(a.publishedOn)}</span></div>
       <h3>{original?.h1 ?? a.title}</h3>
       <p>{original?.description ?? a.summary}</p>
-      <div className="lib-card-foot"><div>{!original && <><StatusPill a={a} /><span className="review-date">Revisione: {a.review.reviewedAt ? formatDate(a.review.reviewedAt) : 'non registrata'}</span></>}</div><span className="text-link">{original || a.reviewStatus === 'documentary-review' ? 'Leggi l’articolo' : 'Leggi la sintesi'}<ArrowRight size={13} /></span></div>
+      <div className="lib-card-foot"><div>{!original && !live && <><StatusPill a={a} /><span className="review-date">Revisione: {a.review.reviewedAt ? formatDate(a.review.reviewedAt) : 'non registrata'}</span></>}{live && <span className="status-pill">Edizione attiva</span>}</div><span className="text-link">{live || original || a.reviewStatus === 'documentary-review' ? 'Leggi l’articolo' : 'Leggi la sintesi'}<ArrowRight size={13} /></span></div>
     </div>
-  </Link>);
+  </Link>;
+  return live ? card : render(card);
 }
 
 function ReviewLegend() {
@@ -57,14 +61,22 @@ function FullText({ text }: { text: string }) {
   })}</>;
 }
 
+export function ActiveArticleListing() {
+  const { lang } = useLibraryLocale();
+  const articles = useEditorialArticles(lang);
+  return <div className="lib-grid" data-testid="active-article-listing">{articles.map((article, index) => <ArticleCard key={article.slug} a={article} index={index} />)}</div>;
+}
+
 export function ArticlesPage() {
-  const { render, t, libraryHref } = useLibraryLocale();
-  usePageMeta({ title: 'Articoli | Marenetto Build', description: 'Archivio dei 14 articoli storici di Marenetto Build, con sintesi neutrali e stato di revisione delle affermazioni originali.', path: '/articoli' });
+  const { lang, render, t, libraryHref } = useLibraryLocale();
+  const articles = useEditorialArticles(lang);
+  const intro = articles.length === 14 ? 'Archivio dei 14 articoli storici di Marenetto Build, con sintesi neutrali e stato di revisione delle affermazioni originali.' : `Archivio di ${articles.length} articoli di Marenetto Build, con fonti e revisioni editoriali.`;
+  usePageMeta({ title: 'Articoli | Marenetto Build', description: intro, path: '/articoli' });
   const [cat, setCat] = useState<string>('Tutti');
-  const cats = useMemo(() => ['Tutti', ...Array.from(new Set(articles.map(a => a.category)))], []);
+  const cats = useMemo(() => ['Tutti', ...Array.from(new Set(articles.map(a => a.category)))], [articles]);
   const list = cat === 'Tutti' ? articles : articles.filter(a => a.category === cat);
   return render(<>
-    <LibHero eyebrow="Articoli" title="Quattordici articoli, riletti con calma." intro="Archivio dei 14 articoli storici di Marenetto Build, con sintesi neutrali e stato di revisione delle affermazioni originali." meta={`${articles.length} ${t('articoli')} · ${articles.length} ${t('immagini locali')}`} />
+    <LibHero eyebrow="Articoli" title={articles.length === 14 ? 'Quattordici articoli, riletti con calma.' : 'Articoli e approfondimenti.'} intro={intro} meta={`${articles.length} ${t('articoli')}`} />
     <section className="section">
       <div className="container">
         <ReviewLegend />
@@ -80,7 +92,9 @@ export function ArticlesPage() {
 }
 
 export function GuidesPage() {
-  const { render, t, articleHref, libraryHref } = useLibraryLocale();
+  const { lang, render, t, articleHref, libraryHref } = useLibraryLocale();
+  const articles = useEditorialArticles(lang);
+  const guides = articles.filter(article => article.isGuide);
   usePageMeta({ title: 'Guide pratiche | Marenetto Build', description: 'Guide pratiche per proprietari a Cefalù: sintesi riviste su acquisto, manutenzione, infiltrazioni, isolamento e superfici.', path: '/guide' });
   return render(<>
     <LibHero eyebrow="Guide pratiche" title="Domande utili, prima delle risposte." intro="Guide pratiche per proprietari a Cefalù: sintesi riviste su acquisto, manutenzione, infiltrazioni, isolamento e superfici." meta={`${guides.length} ${t('guide')} · ${t('su')} ${articles.length} ${t('articoli')}`} />
@@ -100,6 +114,7 @@ export function GuidesPage() {
 
 export function SearchPage() {
   const { lang, render, t, publicHref } = useLibraryLocale();
+  const articles = useEditorialArticles(lang);
   usePageMeta({ title: 'Ricerca | Marenetto Build', description: 'Cerca tra gli articoli e le guide di Marenetto Build per titolo, sintesi e categoria.', path: '/ricerca' });
   const [q, setQ] = useState('');
   useEffect(() => { setQ(new URLSearchParams(window.location.search).get('q') ?? ''); }, []);
@@ -107,7 +122,7 @@ export function SearchPage() {
     const normalize = (value: string) => value.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLocaleLowerCase(lang);
     const words = normalize(q).trim().split(/\s+/).filter(Boolean);
     return articles.filter(a => words.every(word => normalize([a.title, a.summary, a.category, ...a.overview].map(t).join(' ')).includes(word)));
-  }, [q, lang]);
+  }, [q, lang, articles]);
   const suggestions = ['infiltrazioni', 'manutenzione', 'pietra', 'acquisto', 'giardini'];
   return render(<>
     <section className="page-hero search-hero">

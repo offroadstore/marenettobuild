@@ -14,7 +14,8 @@ createServer((req, res) => {
   catch { res.writeHead(400); res.end(); return; }
   const publicImage = ['GET', 'HEAD'].includes(req.method)
     && /^\/api\/historical-media\/[a-f0-9]{64}\.(?:png|jpe?g|webp|gif)$/.test(pathname);
-  const targetPort = publicImage ? 80 : staticPort;
+  const publicEditorial = ['GET', 'HEAD'].includes(req.method) && pathname === '/api/editorial/active';
+  const targetPort = publicImage || publicEditorial ? 80 : staticPort;
   const headers = { ...req.headers, host: `127.0.0.1:${targetPort}` };
   delete headers.authorization;
   delete headers.cookie;

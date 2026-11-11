@@ -4,6 +4,7 @@ import { loadLocaleCatalog, resetTranslationFindings, setTranslationReviewMode, 
 import { editions, reviewPathForEdition } from './localization/edition-inventory';
 import { articleBySlug } from './content/articles';
 import { historicalPage, historicalPending, loadHistorical } from './content/historical';
+import type { EditorialActive } from '@workspace/api-client-react';
 export { editions, redirects, excludedRoutes, equivalentEditions, canonicalEdition, reviewPathForEdition, reviewHubEdition } from './localization/edition-inventory';
 export { companyStructuredData } from './config/contact';
 export { editionStructuredData } from './lib/structured-data';
@@ -12,12 +13,12 @@ export { historicalInventory } from './content/historical';
 // Translation state is scoped to a document. Serialize server renders so concurrent
 // review/public requests cannot share the transient review selection or findings.
 let renderQueue: Promise<unknown> = Promise.resolve();
-export function render(path: string, locale: string) {
+export function render(path: string, locale: string, active: EditorialActive[] = []) {
   const result = renderQueue.then(async () => {
     setTranslationReviewMode(path.startsWith('/__localization-review/'));
     await Promise.all([loadLocaleCatalog(locale), loadHistorical(locale)]);
     resetTranslationFindings();
-    const body = renderToString(<App ssrPath={path} />);
+    const body = renderToString(<App ssrPath={path} editorialActive={active} />);
     const edition = path.startsWith('/__localization-review/') ? editions.find(e => reviewPathForEdition(e) === path) : undefined;
     const suffix = ' | Marenetto Build';
     const metadata = edition ? {
@@ -27,7 +28,7 @@ export function render(path: string, locale: string) {
     const currentEdition = edition ?? editions.find(e => e.path === path);
     const article = currentEdition ? articleBySlug.get(currentEdition.id) : undefined;
     let fullTextProof;
-    if (article?.approvedFullText && !historicalPage(path) && !historicalPending(path)) {
+    if (!active.some(edition => edition.path.replace(/\/+$/, '') === path.replace(/\/+$/, '')) && article?.approvedFullText && !historicalPage(path) && !historicalPending(path)) {
       const review = path.startsWith('/__localization-review/');
       const text = review ? translateText(locale, article.approvedFullText) : article.approvedFullText;
       const blocks = text.trim().split(/\n\s*\n/).filter(Boolean).flatMap(block => block.startsWith('- ') ? block.split('\n').map(line => line.slice(2)) : [block.replace(/^## /, '')]);

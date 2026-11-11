@@ -178,3 +178,11 @@ Ogni riga ha una prova verificabile richiesta: un flag, uno screenshot isolato o
 - Backup ZIP immutabile con manifest e SHA-256; rapporto HTML autonomo; cartella documentale versionabile; pacchetto audit con evidenze dei controlli.
 - La chiusura del task significa **backup e audit consegnati**, non “sito pronto” né “migrazione fedele certificata”.
 - Nessuna pubblicazione, cambio dominio, apertura ai motori, invio reale o modifica di dati produttivi è stata eseguita.
+
+## Integrazione editoriale successiva
+
+L’area interna dispone ora di **Articoli** e **Lingue**, con revisioni persistenti, fonti consultabili, confronto e approvazioni legate alle impronte esatte. La lettura pubblica runtime è distinta dalle bozze e conserva i blocchi di rilascio: attivare una revisione non distribuisce il sito né lo rende indicizzabile.
+
+Guida italiana: `docs/editorial/GUIDA.html`. Migrazione, prerequisiti e recupero: `docs/editorial/MIGRAZIONE.md`. Risultati e limiti dei controlli: `docs/editorial/VERIFICHE.md`.
+
+Questa integrazione non chiude le eccezioni storiche, legali, di contenuto o di rilascio elencate nell’audit.

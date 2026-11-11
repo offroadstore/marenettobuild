@@ -43,6 +43,7 @@ app.use(
     ),
   })),
 );
+app.use("/api/internal/editorial", express.json({ limit: "1mb" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

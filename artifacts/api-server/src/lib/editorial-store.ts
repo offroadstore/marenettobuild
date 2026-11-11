@@ -1,0 +1,99 @@
+import { pool } from '@workspace/db';
+import type { PoolClient } from 'pg';
+import { createHash } from 'node:crypto';
+import catalogJSON from 'marenetto-editorial-catalog';
+import { cleanBody, event, fingerprint, revision, type EditorialData, EditorialError } from './editorial-content';
+import type { EditorialContent } from '@workspace/api-zod';
+
+type SeedRecord = { identity: string; locale: string; path: string; kind: string; historical: boolean; correction: boolean; content: EditorialContent; aliases?: string[]; originalBody?: string; originalMetadata?: Record<string, unknown>; rework?: EditorialContent };
+const catalog = catalogJSON as unknown as { locales: string[]; records: SeedRecord[]; reservedPaths?: string[] };
+export const editorialLocales = catalog.locales;
+export const isCatalogPath = (path: string) => (catalog.reservedPaths ?? []).some(reserved => normalizedPath(reserved) === normalizedPath(path));
+export type Row = { id: string; identity: string; locale: string; path: string; kind: 'article' | 'page'; version: number; data: EditorialData };
+export const normalizedPath = (path: string) => path.replace(/\/+$/, '') || '/';
+let imported: Promise<void> | undefined;
+export function ensureEditorial() {
+  if (!imported) imported = importCatalog().catch(error => { imported = undefined; throw error; });
+  return imported;
+}
+async function importCatalog() {
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    // Both import and all mutations take the same transaction lock: source
+    // fingerprints and translated approvals cannot race across different rows.
+    await client.query("SELECT pg_advisory_xact_lock(5511055)");
+    for (const seed of catalog.records) {
+      const initial = revision({ ...seed.content, body: cleanBody(seed.content.body) }, '', 'Importazione catalogo; nessuna approvazione');
+      const originals = [];
+      if (seed.historical) {
+        const snapshot = seed.originalMetadata?.immutableSnapshot as Record<string, unknown> | undefined;
+        originals.push({ label: 'Originale storico immutabile', url: String(snapshot?.source ?? seed.originalMetadata?.source ?? ''), hash: String(snapshot?.sourceSHA256 ?? seed.originalMetadata?.sourceSHA256 ?? fingerprint(seed.originalBody)), body: seed.originalBody ?? '', metadata: JSON.stringify(seed.originalMetadata) });
+        const update = seed.originalMetadata?.datedSourceUpdate as Record<string, unknown> | undefined;
+        if (update) originals.push({ label: 'Acquisizione successiva della fonte, separata dall’originale', url: String(snapshot?.source ?? ''), hash: String(update.sourceSHA256), body: String(update.sourceBody ?? ''), metadata: JSON.stringify(update) });
+      }
+      if (seed.correction) originals.push({ label: 'Correzioni autorizzate separate (non approvazione linguistica)', url: seed.path, hash: fingerprint(seed.content), body: seed.content.body, metadata: JSON.stringify(seed.originalMetadata?.editorialCorrection ?? {}) });
+      if (seed.rework) originals.push({ label: 'Rielaborazione di progetto, non copia storica', url: seed.path, hash: fingerprint(seed.rework), body: seed.rework.body, metadata: 'Composizione preesistente di progetto; non autorizza una nuova edizione.' });
+      const data: EditorialData = { state: 'draft', historical: seed.historical, correction: seed.correction, activeRevisionId: null, aliases: seed.aliases ?? [], revisions: [initial], events: [], originals };
+      event(data, 'import', initial, initial.actor);
+      const id = createHash('sha256').update(`${seed.identity}:${seed.locale}`).digest('hex').slice(0,32);
+      await client.query('INSERT INTO editorial_editions(id,identity,locale,path,kind,data) VALUES($1,$2,$3,$4,$5,$6) ON CONFLICT DO NOTHING',
+        [id, seed.identity, seed.locale, normalizedPath(seed.path), seed.kind, data]);
+      // Additional acquired evidence can only be appended, never replace an
+      // existing original, draft, approval or active revision.
+      const existing = (await client.query<Row>('SELECT * FROM editorial_editions WHERE id=$1', [id])).rows[0];
+      if (existing) {
+        const additions = originals.filter(original => !existing.data.originals.some(saved => saved.label === original.label && saved.hash === original.hash && saved.body === original.body));
+        const aliases = [...new Set([...(existing.data.aliases ?? []), ...(seed.aliases ?? [])])];
+        if (additions.length || aliases.length !== (existing.data.aliases ?? []).length) {
+          existing.data.originals.push(...additions);
+          existing.data.aliases = aliases;
+          await client.query('UPDATE editorial_editions SET data=$1,version=version+1 WHERE id=$2',[existing.data,id]);
+        }
+      }
+    }
+    // Initialize source references only on never-edited import revisions.
+    await client.query(`UPDATE editorial_editions e SET data=jsonb_set(e.data,'{revisions,0,sourceHash}',to_jsonb(
+      COALESCE((SELECT s.data->'revisions'->0->>'hash' FROM editorial_editions s WHERE s.identity=e.identity AND s.locale='it'),'')
+    )) WHERE version=1 AND data->'events'->0->>'action'='import'`);
+    await client.query('COMMIT');
+  } catch (error) { await client.query('ROLLBACK'); throw error; }
+  finally { client.release(); }
+}
+export async function allRows(client: Pick<PoolClient,'query'> = pool): Promise<Row[]> {
+  return (await client.query<Row>('SELECT * FROM editorial_editions ORDER BY identity,locale')).rows;
+}
+export async function publicRows(): Promise<Row[]> {
+  // Do not transfer the private catalog/history for inactive editions on every
+  // public request. No positive cache can hide an activation or a withdrawal.
+  return (await pool.query<Row>(`SELECT * FROM editorial_editions
+    WHERE data->>'activeRevisionId' IS NOT NULL OR data->>'withdrawn'='true'
+    ORDER BY identity,locale`)).rows;
+}
+export function sourceFor(row: Row, rows: Row[]) {
+  return rows.find(source => source.identity === row.identity && source.locale === 'it')?.data.revisions.at(-1) ?? null;
+}
+export function summary(row: Row, rows: Row[]) {
+  const rev = row.data.revisions.at(-1)!;
+  const source = sourceFor(row, rows);
+  return { id: row.id, identity: row.identity, locale: row.locale, path: row.path, kind: row.kind, version: row.version, title: rev.content.title || `Senza titolo · ${row.path}`, contentLanguage: rev.content.contentLanguage, historical: row.data.historical, correction: row.data.correction, activeRevisionId: row.data.activeRevisionId, state: row.data.state, stale: row.locale !== 'it' && Boolean(source && source.hash !== rev.sourceHash) };
+}
+export function detail(row: Row, rows: Row[]) {
+  const source = sourceFor(row, rows);
+  return { ...summary(row, rows), revisions: row.data.revisions, events: row.data.events, originals: row.data.originals, source: source ? { hash: source.hash, content: source.content } : null };
+}
+export async function withEditorialLock<T>(work: (client: PoolClient) => Promise<T>): Promise<T> {
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    await client.query("SELECT pg_advisory_xact_lock(5511055)");
+    const result = await work(client); await client.query('COMMIT'); return result;
+  } catch (error) { await client.query('ROLLBACK'); throw error; }
+  finally { client.release(); }
+}
+export function getRow(rows: Row[], id: unknown) {
+  const row = rows.find(row => row.id === id);
+  if (!row) throw new EditorialError(404, 'Edizione non trovata.');
+  return row;
+}
+export const reservedPath = (path: string) => path.startsWith('/__') || /^\/(?:api|internal|owner-demo|sign-in|sign-up|content|assets|media|brand|documents|robots\.txt|sitemap\.xml)(?:\/|$)/.test(path) || !/^\/(?:[a-zA-Z0-9_\-\p{L}]|\/)*$/u.test(path) || path.includes('//');

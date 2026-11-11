@@ -115,6 +115,7 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
+    proxy: { '/api/editorial/active': { target: 'http://localhost:80', changeOrigin: true } },
     port,
     strictPort: true,
     host: '0.0.0.0',

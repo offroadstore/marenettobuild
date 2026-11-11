@@ -2,6 +2,8 @@ import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { resolveRoute, redirectQuery } from './seo-document.mjs';
+import { readActiveEditorial, editorialDocument, editorialUnavailableHTML, withEditorialSnapshot, key } from './editorial-http.mjs';
+import { render } from '../dist/server/entry-server.mjs';
 
 const root = path.resolve(import.meta.dirname, '../dist/public');
 const manifest = JSON.parse(await readFile(path.join(root, 'route-manifest.json'), 'utf8'));
@@ -15,11 +17,29 @@ export const server = createServer(async (req, res) => {
   try {
     const url = new URL(req.url, 'http://localhost');
     const pathname = decodeURIComponent(url.pathname);
+    let verifiedActive;
+    const asset = pathname === '/owner-demo' || /^\/(?:assets|media|brand|documents|internal|sign-in|sign-up|api)(?:\/|$)/.test(pathname) || /\.[a-z0-9]+$/i.test(pathname);
+    if (!asset) {
+      const active = await readActiveEditorial();
+      verifiedActive = active;
+      const live = active.find(e => [e.path,...(e.aliases ?? [])].some(path => key(path) === key(pathname)));
+      const existing = Object.values(manifest.editions ?? {}).find(e => key(e.path) === key(pathname));
+      const dynamicLibrary = existing && ['articles','guides','search'].includes(existing.id) && active.some(e => e.kind === 'article' && e.locale === existing.locale);
+      if (active.length && (live || (existing && (!manifest.heldPages?.[key(pathname)] || dynamicLibrary)))) {
+        const locale = live?.locale ?? existing.locale;
+        const rendered = await render(pathname, locale, active);
+        const template = await readFile(path.join(root,'private-shell.html'),'utf8');
+        const status = live?.revisionId === 'withdrawn' ? 404 : 200;
+        const edition = live ?? { ...existing, content: { seoTitle: existing.title, seoDescription: existing.description } };
+        res.writeHead(status, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
+        return res.end(req.method === 'HEAD' ? undefined : editorialDocument(template, rendered, edition, active, status));
+      }
+    }
     const holding = manifest.heldPages?.[pathname.replace(/\/+$/, '')];
     if (holding) {
       const content = await readFile(path.join(root, holding));
       res.writeHead(503, { 'Content-Type': 'text/html; charset=utf-8', 'Retry-After': '86400' });
-      return res.end(req.method === 'HEAD' ? undefined : content);
+      return res.end(req.method === 'HEAD' ? undefined : withEditorialSnapshot(content.toString('utf8'), verifiedActive));
     }
     if (manifest.heldFeeds?.[pathname.replace(/\/+$/, '')]) {
       res.writeHead(503, { 'Content-Type': 'text/plain; charset=utf-8', 'Retry-After': '86400' });
@@ -53,8 +73,13 @@ export const server = createServer(async (req, res) => {
       'Content-Type': mime[path.extname(file)] ?? 'application/octet-stream',
       'Cache-Control': file.startsWith('assets/') ? 'public, max-age=31536000, immutable' : file.startsWith('media/') ? 'public, max-age=86400' : 'no-cache',
     });
+    if (verifiedActive && file.endsWith('.html')) content = withEditorialSnapshot(content.toString('utf8'), verifiedActive);
     res.end(req.method === 'HEAD' ? undefined : content);
   } catch (error) {
+    if (error.code === 'EDITORIAL_UNAVAILABLE') {
+      res.writeHead(503, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'Retry-After': '30' });
+      return res.end(req.method === 'HEAD' ? undefined : editorialUnavailableHTML);
+    }
     const malformed = error instanceof URIError;
     // Do not log query strings, headers or personal fields from requests.
     console.error('Preview HTTP request failed', { name: error.name, code: error.code ?? null });

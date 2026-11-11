@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite --config vite.config.ts --host 0.0.0.0",
-    "build": "vite build --config vite.config.ts && node scripts/build-seo.mjs",
+    "build": "vite build --config vite.config.ts && node scripts/build-seo.mjs && node scripts/build-runtime.mjs",
     "test:i18n": "node --test scripts/localization.test.mjs",
     "serve": "node scripts/serve-seo.mjs",
-    "test:seo": "node --test scripts/seo-http.test.mjs scripts/editorial-corrections.test.mjs",
+    "test:seo": "node --test scripts/seo-http.test.mjs scripts/editorial-corrections.test.mjs scripts/editorial-runtime.test.mjs scripts/editorial-outage.test.mjs",
     "test:routes": "PORT=4188 BASE_PATH=/ pnpm run build && playwright test --config=playwright.config.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
@@ -57,6 +57,7 @@
     "clsx": "catalog:",
     "cmdk": "^1.1.1",
     "date-fns": "^3.6.0",
+    "dompurify": "^3.4.17",
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "catalog:",
     "input-otp": "^1.4.2",

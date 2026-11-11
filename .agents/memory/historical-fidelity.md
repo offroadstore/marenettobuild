@@ -35,6 +35,18 @@ Preservare ogni URL articolo e copia locale storica effettivamente acquisita, co
 da conservare i percorsi dei link inbound. Non inventare versioni nelle lingue per
 cui non è stata reperita una corrispondente edizione originale.
 
+Nel lavoro editoriale, copie storiche ed elaborazioni dello stesso contenuto
+devono restare riconoscibili sotto una sola identità, non diventare articoli
+duplicati. Conservare separatamente gli originali, le correzioni autorizzate e le
+nuove composizioni; più URL preesistenti non autorizzano a perdere una copia.
+
+**Why:** Il titolare richiede gestione senza reinserimento manuale né duplicazioni,
+ma non consente che importazione o precedenti approvazioni autorizzino nuovi testi.
+
+**How to apply:** Quando si riconciliano cataloghi o si estende l’archivio,
+mantenere provenienza e percorsi consultabili senza confondere la versione
+storica con la bozza o con la revisione attiva.
+
 Le correzioni puntuali autorizzate dopo un confronto esplicito prima/dopo sono
 eccezioni alla copia letterale, non un’autorizzazione a riscrivere il resto.
 Conservare gli originali immutati e un registro esatto delle sostituzioni.

@@ -25,6 +25,12 @@ import type {
   CmsPage,
   CmsPageInput,
   CmsPageUpdate,
+  EditorialAction,
+  EditorialActive,
+  EditorialDetail,
+  EditorialInput,
+  EditorialSave,
+  EditorialSummary,
   HealthStatus,
   InternalMember,
   InternalMemberInput,
@@ -69,6 +75,467 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   }
   return result;
 };
+
+export const getListEditorialUrl = () => {
+
+
+
+
+  return `/api/internal/editorial`
+}
+
+export const listEditorial = async ( options?: Parameters<typeof customFetch>[1]): Promise<EditorialSummary[]> => {
+
+  return customFetch<EditorialSummary[]>(getListEditorialUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListEditorialQueryKey = () => {
+    return [
+    `/api/internal/editorial`
+    ] as const;
+    }
+
+
+export const getListEditorialQueryOptions = <TData = Awaited<ReturnType<typeof listEditorial>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listEditorial>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListEditorialQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listEditorial>>> = ({ signal }) => listEditorial({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listEditorial>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ListEditorialQueryResult = NonNullable<Awaited<ReturnType<typeof listEditorial>>>
+export type ListEditorialQueryError = ErrorType<unknown>
+
+
+
+export function useListEditorial<TData = Awaited<ReturnType<typeof listEditorial>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listEditorial>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getListEditorialQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getCreateEditorialUrl = () => {
+
+
+
+
+  return `/api/internal/editorial`
+}
+
+export const createEditorial = async (editorialInput: EditorialInput, options?: Parameters<typeof customFetch>[1]): Promise<EditorialDetail> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<EditorialDetail>(getCreateEditorialUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(editorialInput)
+  }
+);}
+
+
+
+
+
+export const getCreateEditorialMutationKey = () => ['createEditorial'] as const;
+
+export const getCreateEditorialMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createEditorial>>, TError,CreateEditorialMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof createEditorial>>, TError,CreateEditorialMutationVariables, TContext> => {
+
+const mutationKey = getCreateEditorialMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createEditorial>>, CreateEditorialMutationVariables> = (props) => {
+          const {data} = props ?? {};
+
+          return  createEditorial(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CreateEditorialMutationResult = NonNullable<Awaited<ReturnType<typeof createEditorial>>>
+    export type CreateEditorialMutationBody = BodyType<EditorialInput>
+    export type CreateEditorialMutationError = ErrorType<unknown>
+    export type CreateEditorialMutationVariables = {data: BodyType<EditorialInput>}
+
+    export const useCreateEditorial = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createEditorial>>, TError,CreateEditorialMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof createEditorial>>,
+        TError,
+        CreateEditorialMutationVariables,
+        TContext
+      > => {
+      return useMutation(getCreateEditorialMutationOptions(options));
+    }
+
+export const getGetEditorialUrl = (editionId: string,) => {
+
+
+
+
+  return `/api/internal/editorial/${editionId}`
+}
+
+export const getEditorial = async (editionId: string, options?: Parameters<typeof customFetch>[1]): Promise<EditorialDetail> => {
+
+  return customFetch<EditorialDetail>(getGetEditorialUrl(editionId),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetEditorialQueryKey = (editionId: string,) => {
+    return [
+    `/api/internal/editorial/${editionId}`
+    ] as const;
+    }
+
+
+export const getGetEditorialQueryOptions = <TData = Awaited<ReturnType<typeof getEditorial>>, TError = ErrorType<unknown>>(editionId: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getEditorial>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetEditorialQueryKey(editionId);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getEditorial>>> = ({ signal }) => getEditorial(editionId, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, enabled: editionId !== null && editionId !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getEditorial>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetEditorialQueryResult = NonNullable<Awaited<ReturnType<typeof getEditorial>>>
+export type GetEditorialQueryError = ErrorType<unknown>
+
+
+
+export function useGetEditorial<TData = Awaited<ReturnType<typeof getEditorial>>, TError = ErrorType<unknown>>(
+ editionId: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getEditorial>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetEditorialQueryOptions(editionId,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getSaveEditorialUrl = (editionId: string,) => {
+
+
+
+
+  return `/api/internal/editorial/${editionId}`
+}
+
+export const saveEditorial = async (editionId: string,
+    editorialSave: EditorialSave, options?: Parameters<typeof customFetch>[1]): Promise<EditorialDetail> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<EditorialDetail>(getSaveEditorialUrl(editionId),
+  {
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(editorialSave)
+  }
+);}
+
+
+
+
+
+export const getSaveEditorialMutationKey = () => ['saveEditorial'] as const;
+
+export const getSaveEditorialMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof saveEditorial>>, TError,SaveEditorialMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof saveEditorial>>, TError,SaveEditorialMutationVariables, TContext> => {
+
+const mutationKey = getSaveEditorialMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof saveEditorial>>, SaveEditorialMutationVariables> = (props) => {
+          const {editionId,data} = props ?? {};
+
+          return  saveEditorial(editionId,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SaveEditorialMutationResult = NonNullable<Awaited<ReturnType<typeof saveEditorial>>>
+    export type SaveEditorialMutationBody = BodyType<EditorialSave>
+    export type SaveEditorialMutationError = ErrorType<unknown>
+    export type SaveEditorialMutationVariables = {editionId: string;data: BodyType<EditorialSave>}
+
+    export const useSaveEditorial = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof saveEditorial>>, TError,SaveEditorialMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof saveEditorial>>,
+        TError,
+        SaveEditorialMutationVariables,
+        TContext
+      > => {
+      return useMutation(getSaveEditorialMutationOptions(options));
+    }
+
+export const getActEditorialUrl = (editionId: string,) => {
+
+
+
+
+  return `/api/internal/editorial/${editionId}/action`
+}
+
+export const actEditorial = async (editionId: string,
+    editorialAction: EditorialAction, options?: Parameters<typeof customFetch>[1]): Promise<EditorialDetail> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<EditorialDetail>(getActEditorialUrl(editionId),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(editorialAction)
+  }
+);}
+
+
+
+
+
+export const getActEditorialMutationKey = () => ['actEditorial'] as const;
+
+export const getActEditorialMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof actEditorial>>, TError,ActEditorialMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof actEditorial>>, TError,ActEditorialMutationVariables, TContext> => {
+
+const mutationKey = getActEditorialMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof actEditorial>>, ActEditorialMutationVariables> = (props) => {
+          const {editionId,data} = props ?? {};
+
+          return  actEditorial(editionId,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ActEditorialMutationResult = NonNullable<Awaited<ReturnType<typeof actEditorial>>>
+    export type ActEditorialMutationBody = BodyType<EditorialAction>
+    export type ActEditorialMutationError = ErrorType<unknown>
+    export type ActEditorialMutationVariables = {editionId: string;data: BodyType<EditorialAction>}
+
+    export const useActEditorial = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof actEditorial>>, TError,ActEditorialMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof actEditorial>>,
+        TError,
+        ActEditorialMutationVariables,
+        TContext
+      > => {
+      return useMutation(getActEditorialMutationOptions(options));
+    }
+
+export const getGetActiveEditorialUrl = () => {
+
+
+
+
+  return `/api/editorial/active`
+}
+
+export const getActiveEditorial = async ( options?: Parameters<typeof customFetch>[1]): Promise<EditorialActive[]> => {
+
+  return customFetch<EditorialActive[]>(getGetActiveEditorialUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetActiveEditorialQueryKey = () => {
+    return [
+    `/api/editorial/active`
+    ] as const;
+    }
+
+
+export const getGetActiveEditorialQueryOptions = <TData = Awaited<ReturnType<typeof getActiveEditorial>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getActiveEditorial>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetActiveEditorialQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getActiveEditorial>>> = ({ signal }) => getActiveEditorial({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getActiveEditorial>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetActiveEditorialQueryResult = NonNullable<Awaited<ReturnType<typeof getActiveEditorial>>>
+export type GetActiveEditorialQueryError = ErrorType<unknown>
+
+
+
+export function useGetActiveEditorial<TData = Awaited<ReturnType<typeof getActiveEditorial>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getActiveEditorial>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetActiveEditorialQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
 
 export const getGetHistoricalMediaUrl = (asset: string,) => {
 
