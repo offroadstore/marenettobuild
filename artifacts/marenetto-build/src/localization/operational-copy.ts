@@ -1,0 +1,45 @@
+// New control translations: draft, awaiting owner review. No publication approval implied.
+export const openWhatsApp: Record<string, string> = {
+  it: 'Scrivici su WhatsApp', en: 'Write to us on WhatsApp', fr: 'Écrivez-nous sur WhatsApp', de: 'Schreiben Sie uns auf WhatsApp',
+  nl: 'Stuur ons een bericht via WhatsApp', es: 'Escríbenos por WhatsApp', pt: 'Escreva-nos no WhatsApp', ru: 'Напишите нам в WhatsApp',
+  pl: 'Napisz do nas na WhatsApp', ro: 'Scrieți-ne pe WhatsApp', uk: 'Напишіть нам у WhatsApp', cs: 'Napište nám na WhatsApp',
+  sk: 'Napíšte nám na WhatsApp', sl: 'Pišite nam na WhatsApp', hr: 'Pišite nam na WhatsApp', sr: 'Пишите нам на WhatsApp',
+  bg: 'Пишете ни в WhatsApp', bs: 'Pišite nam na WhatsApp', mk: 'Пишете ни на WhatsApp', be: 'Напішыце нам у WhatsApp',
+  ar: 'راسلنا على واتساب', he: 'כתבו לנו בוואטסאפ', sv: 'Skriv till oss på WhatsApp', no: 'Skriv til oss på WhatsApp',
+  da: 'Skriv til os på WhatsApp', fi: 'Kirjoita meille WhatsAppissa', hu: 'Írjon nekünk WhatsAppon', el: 'Γράψτε μας στο WhatsApp', tr: 'Bize WhatsApp üzerinden yazın',
+};
+export const closeWhatsApp: Record<string, string> = {
+  it: 'Chiudi il pulsante WhatsApp', en: 'Close the WhatsApp button',
+  fr: 'Fermer le bouton WhatsApp', de: 'WhatsApp-Schaltfläche schließen',
+  nl: 'WhatsApp-knop sluiten', es: 'Cerrar el botón de WhatsApp',
+  pt: 'Fechar o botão do WhatsApp', ru: 'Закрыть кнопку WhatsApp',
+  pl: 'Zamknij przycisk WhatsApp', ro: 'Închide butonul WhatsApp',
+  uk: 'Закрити кнопку WhatsApp', cs: 'Zavřít tlačítko WhatsApp',
+  sk: 'Zavrieť tlačidlo WhatsApp', sl: 'Zapri gumb WhatsApp',
+  hr: 'Zatvori gumb WhatsApp', sr: 'Затвори дугме WhatsApp',
+  bg: 'Затвори бутона WhatsApp', bs: 'Zatvori dugme WhatsApp',
+  mk: 'Затвори го копчето WhatsApp', be: 'Закрыць кнопку WhatsApp',
+  ar: 'إغلاق زر واتساب', he: 'סגירת כפתור WhatsApp',
+  sv: 'Stäng WhatsApp-knappen', no: 'Lukk WhatsApp-knappen',
+  da: 'Luk WhatsApp-knappen', fi: 'Sulje WhatsApp-painike',
+  hu: 'A WhatsApp gomb bezárása', el: 'Κλείσιμο κουμπιού WhatsApp',
+  tr: 'WhatsApp düğmesini kapat',
+};
+
+export const errorCopy: Record<string, [string, string]> = {
+  it: ['Pagina non trovata', 'Torna alla homepage'], en: ['Page not found', 'Back to the homepage'],
+  fr: ['Page introuvable', 'Retour à l’accueil'], de: ['Seite nicht gefunden', 'Zur Startseite'],
+  nl: ['Pagina niet gevonden', 'Naar de homepage'], es: ['Página no encontrada', 'Volver al inicio'],
+  pt: ['Página não encontrada', 'Voltar à página inicial'], ru: ['Страница не найдена', 'На главную'],
+  pl: ['Nie znaleziono strony', 'Strona główna'], ro: ['Pagina nu a fost găsită', 'Pagina principală'],
+  uk: ['Сторінку не знайдено', 'На головну'], cs: ['Stránka nenalezena', 'Na úvodní stránku'],
+  sk: ['Stránka sa nenašla', 'Na úvodnú stránku'], sl: ['Stran ni najdena', 'Na domačo stran'],
+  hr: ['Stranica nije pronađena', 'Na početnu stranicu'], sr: ['Страница није пронађена', 'На почетну страницу'],
+  bg: ['Страницата не е намерена', 'Към началната страница'], bs: ['Stranica nije pronađena', 'Na početnu stranicu'],
+  mk: ['Страницата не е пронајдена', 'На почетната страница'], be: ['Старонка не знойдзена', 'На галоўную'],
+  ar: ['الصفحة غير موجودة', 'العودة إلى الصفحة الرئيسية'], he: ['הדף לא נמצא', 'חזרה לדף הבית'],
+  sv: ['Sidan hittades inte', 'Till startsidan'], no: ['Siden ble ikke funnet', 'Til forsiden'],
+  da: ['Siden blev ikke fundet', 'Til forsiden'], fi: ['Sivua ei löytynyt', 'Etusivulle'],
+  hu: ['Az oldal nem található', 'Vissza a főoldalra'], el: ['Η σελίδα δεν βρέθηκε', 'Στην αρχική σελίδα'],
+  tr: ['Sayfa bulunamadı', 'Ana sayfaya dön'],
+};

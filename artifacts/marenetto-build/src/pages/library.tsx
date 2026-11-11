@@ -1,10 +1,12 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'wouter';
 import { ArrowLeft, ArrowRight, Search, ShieldAlert, X } from 'lucide-react';
 import { articles, claimLabels, guides, reviewLabels, type Article } from '@/content/articles';
 import { withCampaignParams } from '@/lib/campaign';
 import { usePageMeta } from '@/lib/meta';
 import { useLibraryLocale } from '@/localization/library-context';
+import { isTranslationReviewMode } from '@/localization/runtime';
+import { historicalPage, historicalArticleForPreview } from '@/content/historical';
 
 function LibHero({ eyebrow, title, intro, meta }: { eyebrow: string; title: string; intro: string; meta: string }) {
   const { render } = useLibraryLocale();
@@ -26,13 +28,14 @@ function StatusPill({ a }: { a: Article }) {
 
 export function ArticleCard({ a, kind = 'archive', index }: { a: Article; kind?: 'archive' | 'guide' | 'search'; index: number }) {
   const { render, articleHref, date: formatDate } = useLibraryLocale();
+  const original = !isTranslationReviewMode() ? historicalPage(articleHref(a.slug)) ?? historicalArticleForPreview(articleHref(a.slug)) : undefined;
   return render(<Link href={withCampaignParams(articleHref(a.slug))} className="lib-card" data-testid={`card-${kind}-${a.slug}`}>
     <div className="lib-card-media"><img src={a.image} alt={a.imageAlt} loading="lazy" /><span className="lib-card-index">{String(index + 1).padStart(2, '0')}</span></div>
     <div className="lib-card-body">
       <div className="lib-card-meta"><span>{a.category}</span><span>{formatDate(a.publishedOn)}</span></div>
-      <h3>{a.title}</h3>
-      <p>{a.summary}</p>
-      <div className="lib-card-foot"><div><StatusPill a={a} /><span className="review-date">Revisione: {a.review.reviewedAt ? formatDate(a.review.reviewedAt) : 'non registrata'}</span></div><span className="text-link">{a.reviewStatus === 'documentary-review' ? 'Leggi l’articolo' : 'Leggi la sintesi'}<ArrowRight size={13} /></span></div>
+      <h3>{original?.h1 ?? a.title}</h3>
+      <p>{original?.description ?? a.summary}</p>
+      <div className="lib-card-foot"><div>{!original && <><StatusPill a={a} /><span className="review-date">Revisione: {a.review.reviewedAt ? formatDate(a.review.reviewedAt) : 'non registrata'}</span></>}</div><span className="text-link">{original || a.reviewStatus === 'documentary-review' ? 'Leggi l’articolo' : 'Leggi la sintesi'}<ArrowRight size={13} /></span></div>
     </div>
   </Link>);
 }
@@ -61,7 +64,7 @@ export function ArticlesPage() {
   const cats = useMemo(() => ['Tutti', ...Array.from(new Set(articles.map(a => a.category)))], []);
   const list = cat === 'Tutti' ? articles : articles.filter(a => a.category === cat);
   return render(<>
-    <LibHero eyebrow="Archivio articoli" title="Quattordici articoli, riletti con calma." intro="Abbiamo conservato tutti gli articoli del sito precedente. Per ciascuno trovi una sintesi neutrale e lo stato di revisione: nessuna affermazione non verificata viene ripubblicata." meta={`${articles.length} ${t('articoli')} · ${articles.length} ${t('immagini locali')}`} />
+    <LibHero eyebrow="Articoli" title="Quattordici articoli, riletti con calma." intro="Archivio dei 14 articoli storici di Marenetto Build, con sintesi neutrali e stato di revisione delle affermazioni originali." meta={`${articles.length} ${t('articoli')} · ${articles.length} ${t('immagini locali')}`} />
     <section className="section">
       <div className="container">
         <ReviewLegend />
@@ -80,7 +83,7 @@ export function GuidesPage() {
   const { render, t, articleHref, libraryHref } = useLibraryLocale();
   usePageMeta({ title: 'Guide pratiche | Marenetto Build', description: 'Guide pratiche per proprietari a Cefalù: sintesi riviste su acquisto, manutenzione, infiltrazioni, isolamento e superfici.', path: '/guide' });
   return render(<>
-    <LibHero eyebrow="Guide pratiche" title="Domande utili, prima delle risposte." intro="Una selezione di contenuti con valore pratico per chi possiede o sta per acquistare casa a Cefalù. Le sintesi sono state rilette; i dettagli tecnici restano da verificare con professionisti." meta={`${guides.length} ${t('guide')} · ${t('su')} ${articles.length} ${t('articoli')}`} />
+    <LibHero eyebrow="Guide pratiche" title="Domande utili, prima delle risposte." intro="Guide pratiche per proprietari a Cefalù: sintesi riviste su acquisto, manutenzione, infiltrazioni, isolamento e superfici." meta={`${guides.length} ${t('guide')} · ${t('su')} ${articles.length} ${t('articoli')}`} />
     <section className="section">
       <div className="container">
         <div className="guide-list">{guides.map((a, i) => <Link key={a.slug} href={withCampaignParams(articleHref(a.slug))} className="guide-row" data-testid={`card-guide-${a.slug}`}>
@@ -98,7 +101,8 @@ export function GuidesPage() {
 export function SearchPage() {
   const { lang, render, t, publicHref } = useLibraryLocale();
   usePageMeta({ title: 'Ricerca | Marenetto Build', description: 'Cerca tra gli articoli e le guide di Marenetto Build per titolo, sintesi e categoria.', path: '/ricerca' });
-  const [q, setQ] = useState(() => new URLSearchParams(window.location.search).get('q') ?? '');
+  const [q, setQ] = useState('');
+  useEffect(() => { setQ(new URLSearchParams(window.location.search).get('q') ?? ''); }, []);
   const results = useMemo(() => {
     const normalize = (value: string) => value.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLocaleLowerCase(lang);
     const words = normalize(q).trim().split(/\s+/).filter(Boolean);
@@ -165,14 +169,17 @@ export function ArticleDetailPage({ a }: { a: Article }) {
     </section>
     <section className="section tight">
       <div className="container article-layout">
-        <article className="article-body">
+        <article className="article-body" lang={isTranslationReviewMode() ? lang : 'it'} dir={isTranslationReviewMode() && ['ar', 'he'].includes(lang) ? 'rtl' : 'ltr'}>
           {a.reviewStatus === 'documentary-review' && a.approvedFullText ? <>
             <div className="review-note" role="note" data-testid="note-review-approved">
               <ShieldAlert size={20} />
-              <div><strong>Testo integrale · revisione documentale automatizzata</strong><p>Verifica redazionale con fonti pubbliche consultate il {formatDate(a.review.reviewedAt)}. Non è un’approvazione di un tecnico abilitato né una valutazione del singolo caso.</p></div>
+              <div><strong>Testo integrale · revisione documentale automatizzata</strong><p>Verifica redazionale con fonti pubbliche consultate il {formatDate(a.review.reviewedAt)}.</p><p>{reviewLabels[a.reviewStatus].long}</p></div>
             </div>
             <h2>Articolo completo</h2>
             <FullText text={a.approvedFullText} />
+            <h2>Domande utili da porsi</h2>
+            <ul className="question-list">{a.questions.map(question => <li key={question}>{question}</li>)}</ul>
+            {a.slug.startsWith('comprare-') && <a href={`${import.meta.env.BASE_URL}documents/promemoria-acquisto.txt`} lang="it" download>Scarica il promemoria documentale in italiano</a>}
           </> : <>
             <div className="review-note" role="note" data-testid="note-review">
               <ShieldAlert size={20} />

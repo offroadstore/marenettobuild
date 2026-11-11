@@ -38,7 +38,7 @@ export default defineConfig({
     },
     {
       command:
-        'PORT=4188 BASE_PATH=/ pnpm run build && PORT=4188 BASE_PATH=/ pnpm exec vite preview --config vite.config.ts --host 127.0.0.1',
+        'PORT=4188 BASE_PATH=/ pnpm run serve',
       url: 'http://127.0.0.1:4188',
       reuseExistingServer: false,
       timeout: 120_000,

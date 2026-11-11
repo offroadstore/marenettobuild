@@ -35,7 +35,9 @@ Multilingual website and portal for Marenetto Build, helping owners understand s
 - The request form persists enquiries before returning a reference; outbound notifications are not yet configured and are not simulated.
 - Configure `INTERNAL_INVITES` as comma-separated `verified-email:owner|editor|viewer` entries before staff can enter `/internal`. Staff must also register/sign in through Clerk with that verified primary email. The allowlist creates membership on authenticated access, not a Clerk login account, and does not send email. Uninvited or unverified accounts remain denied.
 - Private attachments use App Storage and remain inaccessible until the same approvals are complete. Do not move private documents to public object paths.
-- All 29 requested languages have owner-approved page copy and SEO metadata. Keep the locale registry, translation catalogs, route equivalents and sitemap synchronized; never publish an unapproved catalog.
+- The legacy catalogs retain their historical approval record. This is not approval of newer page compositions or article translations. The page-by-language edition inventory governs current eligibility, equivalents and sitemap; all 29 languages remain in review scope. Draft corrections are AI-generated and require owner review.
+- Public HTML is rendered from the existing React UI at build time. The prepared Node delivery handler distinguishes 200/308/404/410; do not restore the universal home fallback. Preview remains noindex in headers and HTML, with robots disallow; production indexing has not been enabled.
+- The owner confirmed the visible email `info@marenetto.com` on 10 November 2026. This confirms the contact to display, not SMTP delivery, legal identity or address verification.
 ## Product
 
 - Responsive 29-language public site with equivalent-page language switching

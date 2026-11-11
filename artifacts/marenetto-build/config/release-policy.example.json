@@ -1,0 +1,18 @@
+{
+  "activation": "disabled",
+  "preview": {
+    "indexing": false,
+    "httpRobots": "noindex, nofollow",
+    "htmlRobots": "noindex, nofollow",
+    "robotsTxt": "Disallow: /",
+    "privateData": "authentication required; robots is not access control"
+  },
+  "futureProduction": {
+    "confirmedOrigin": null,
+    "allowedHosts": [],
+    "indexOnly": "published editions with page-specific owner approval",
+    "exclude": ["search", "review drafts", "private areas", "unapproved CMS", "404", "410"],
+    "prerequisites": ["explicit new release authorization", "confirmed domain", "approved edition inventory", "HTTP and canonical checks on final host", "privacy and provider approvals"],
+    "enableIndexingAutomatically": false
+  }
+}

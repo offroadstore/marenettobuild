@@ -1,9 +1,10 @@
 import { legacyRedirects } from './articles';
 
 /**
- * English links actually emitted by the archived site. Articles deliberately
- * resolve to reviewed Italian content, not to a fictitious translated edition.
- * Do not add a catch-all /en/:slug rule: incomplete historical URLs stay 404s.
+ * Fallback aliases from the initial reconstruction. The authoritative edition
+ * inventory removes these aliases whenever a native source page is recovered.
+ * Recovered English articles keep their original English body and URL.
+ * Do not add a catch-all /en/:slug rule for undocumented historical URLs.
  */
 const englishArticles: Record<string, string> = {
   'buying-and-renovating-a-house-in-cefalu-a-technical-guide-to-the-5-essential-checks': 'comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali',

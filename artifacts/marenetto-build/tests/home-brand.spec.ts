@@ -1,45 +1,48 @@
 import { expect, test } from '@playwright/test';
+import { openPage, sourceHome, sourceDocument } from './source-fixtures';
 
-for (const path of ['/', '/en/']) {
+for (const locale of ['it', 'en']) {
   for (const width of [390, 768, 1440, 1920]) {
-    test(`home ${path} at ${width}px keeps images and navigation usable`, async ({ page }) => {
+    test(`home ${locale} at ${width}px preserves source images and usable navigation`, async ({ page }) => {
       await page.setViewportSize({ width, height: 960 });
-      await page.goto(path);
-      await expect(page.locator('main h1')).toBeVisible();
+      const original = sourceHome(locale);
+      await openPage(page, original.path);
+      await expect(page.locator('main h1')).toHaveText(original.h1);
       await expect(page.getByTestId('link-logo')).toBeVisible();
       await expect(page.getByTestId('link-language')).toBeVisible();
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
 
-      const images = page.locator('main img');
-      expect(await images.count()).toBeGreaterThanOrEqual(4);
-      for (const image of await images.all()) {
-        await image.scrollIntoViewIfNeeded();
-        await expect(image).toBeVisible();
-        await expect.poll(() => image.evaluate((node: HTMLImageElement) => node.complete && node.naturalWidth > 0)).toBe(true);
-        // Decorative hero/service illustrations intentionally have alt="".
-        // The link's visible service title provides its accessible name.
-        expect(await image.getAttribute('alt')).not.toBeNull();
-        expect(await image.evaluate((node: HTMLImageElement) => new URL(node.currentSrc).origin === location.origin)).toBe(true);
-        expect(await image.getAttribute('width')).toBeTruthy();
-        expect(await image.getAttribute('height')).toBeTruthy();
-      }
+      // Old CMS media may be external or lack attributes. Preserve those facts;
+      // do not assert the previous rewritten page's four local card images.
+      const expectedMedia = await page.evaluate(html => [...new DOMParser().parseFromString(html, 'text/html').querySelectorAll('img')].map(img => ({ src: img.getAttribute('src'), alt: img.getAttribute('alt') })), sourceDocument(original).html);
+      const actualMedia = await page.locator('main .historical-content img').evaluateAll(images => images.map(img => ({ src: img.getAttribute('src'), alt: img.getAttribute('alt') })));
+      expect(actualMedia).toEqual(expectedMedia);
+      const hero = page.locator('.mbh-hero img');
+      await expect.poll(() => hero.evaluate((node: HTMLImageElement) => node.complete && node.naturalWidth > 0)).toBe(true);
+      expect(await hero.evaluate((node: HTMLImageElement) => new URL(node.currentSrc).origin === location.origin)).toBe(true);
+      await expect(hero).toHaveAttribute('width', '1672');
+      await expect(hero).toHaveAttribute('height', '941');
 
-      await page.getByTestId('link-logo').click();
       const menu = page.getByTestId('button-menu');
+      let serviceHref: string;
       if (await menu.isVisible()) {
         await menu.click();
-        await expect(menu).toHaveAttribute('aria-expanded', 'true');
-        await page.getByTestId('mobile-nav-services').click();
+        const service = page.getByTestId('mobile-nav-services');
+        serviceHref = (await service.getAttribute('href'))!;
+        await service.click();
       } else {
-        await page.getByTestId('nav-services').click();
+        const service = page.getByTestId('nav-services');
+        serviceHref = (await service.getAttribute('href'))!;
+        await service.click();
       }
-      await expect(page).toHaveURL(path === '/' ? /\/servizi$/ : /\/en\/services$/);
+      await expect(page).toHaveURL(url => url.pathname === serviceHref);
       await page.getByTestId('link-logo').click();
       await page.getByTestId('link-language').click();
-      await page.getByRole('menuitem', { name: path === '/' ? 'English' : 'Italiano', exact: true }).click();
-      await expect(page).toHaveURL(path === '/' ? /\/en\/$/ : /\/$/);
+      const target = locale === 'it' ? 'en' : 'it';
+      await page.locator(`.language-menu a[lang="${target}"]`).click();
+      await expect(page).toHaveURL(url => url.pathname === sourceHome(target).path);
       await page.getByTestId('hero-request').click();
-      await expect(page).toHaveURL(path === '/' ? /\/en\/request$/ : /\/richiesta$/);
+      await expect(page).toHaveURL(target === 'it' ? /\/richiesta$/ : /\/en\/request$/);
       await expect(page.locator('form')).toBeVisible();
       await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
     });

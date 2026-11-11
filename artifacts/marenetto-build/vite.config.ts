@@ -5,6 +5,7 @@ import ts from 'typescript';
 import { defineConfig } from 'vite';
 
 import runtimeErrorOverlay from '@replit/vite-plugin-runtime-error-modal';
+import { seoPreviewPlugin } from './scripts/seo-vite-plugin.mjs';
 
 const rawPort = process.env.PORT;
 
@@ -77,6 +78,7 @@ function localizationDraftPlugin() {
 export default defineConfig({
   base: basePath,
   plugins: [
+    seoPreviewPlugin(),
     localizationDraftPlugin(),
     react(),
     tailwindcss({ optimize: false }),

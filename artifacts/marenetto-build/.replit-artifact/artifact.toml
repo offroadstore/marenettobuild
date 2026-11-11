@@ -8,20 +8,21 @@ router = "path"
 
 [[services]]
 name = "web"
-paths = [ "/" ]
+paths = ["/"]
 localPort = 19698
 
 [services.development]
 run = "pnpm --filter @workspace/marenetto-build run dev"
 
 [services.production]
-build = [ "pnpm", "--filter", "@workspace/marenetto-build", "run", "build" ]
-serve = "static"
-publicDir = "artifacts/marenetto-build/dist/public"
+build = ["pnpm", "--filter", "@workspace/marenetto-build", "run", "build"]
 
-[[services.production.rewrites]]
-from = "/*"
-to = "/index.html"
+[services.production.run]
+args = ["node", "artifacts/marenetto-build/scripts/serve-seo.mjs"]
+
+[services.production.run.env]
+PORT = "19698"
+NODE_ENV = "production"
 
 [services.env]
 PORT = "19698"

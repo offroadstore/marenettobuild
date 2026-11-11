@@ -1,6 +1,6 @@
 import { Children, cloneElement, isValidElement, type ReactNode } from 'react';
 import sourceData from './catalogs/sources.json';
-import previewSources from './preview-sources.json';
+import { portugueseReviewTerms, serbianCyrillic } from './editorial-conventions';
 
 type ApprovedCatalog = {
   locale: string;
@@ -12,8 +12,16 @@ const catalogLoaders = import.meta.glob<ApprovedCatalog>('./catalogs/[a-z][a-z].
 const approvedCatalogs: Record<string, Record<string, string>> = {};
 type PreviewCatalog = { locale: string; reviewStatus: 'awaiting-owner-review'; translations: Record<string, string> };
 const previewLoaders = import.meta.glob<PreviewCatalog>('./preview/[a-z][a-z].json', { import: 'default' });
+const correctionLoaders = import.meta.glob<PreviewCatalog>('./draft-corrections/[a-z][a-z].json', { import: 'default' });
 const previewCatalogs: Record<string, Record<string, string>> = {};
-const previewSourceToId = Object.fromEntries(Object.entries(previewSources.entries).map(([id, text]) => [normalizeSource(text), id]));
+let reviewMode = false;
+const missing = new Set<string>();
+const localizedValues: Record<string, Set<string>> = {};
+export function setTranslationReviewMode(value: boolean) { reviewMode = value; }
+export function isTranslationReviewMode() { return reviewMode; }
+export function resetTranslationFindings() { missing.clear(); }
+export function translationFindings() { return [...missing].sort(); }
+let previewSourceToId: Record<string, string> = {};
 
 const sourceToId = Object.fromEntries(
   Object.entries((sourceData as { entries: Record<string, string> }).entries)
@@ -31,16 +39,18 @@ export function translateText(locale: string, source: string): string {
   const trailing = source.match(/\s*$/)?.[0] ?? '';
   const normalized = normalizeSource(source);
   const previewId = previewSourceToId[normalized];
-  const preview = previewId ? previewCatalogs[locale]?.[previewId] : undefined;
-  if (preview) return `${leading}${preview}${trailing}`;
+  const preview = reviewMode && previewId ? previewCatalogs[locale]?.[previewId] : undefined;
+  if (preview) return `${leading}${locale === 'sr' ? serbianCyrillic(preview) : locale === 'pt' ? portugueseReviewTerms(preview) : preview}${trailing}`;
   if (locale === 'en') return source;
   const id = sourceToId[normalized];
   const translated = id ? approvedCatalogs[locale]?.[id] : undefined;
-  return translated ? `${leading}${translated}${trailing}` : source;
+  if (translated) return `${leading}${locale === 'sr' ? serbianCyrillic(translated) : translated}${trailing}`;
+  if (!localizedValues[locale]?.has(normalized) && normalized.length > 2 && !/^(https?:|mailto:|tel:|[/#])/.test(normalized)) missing.add(normalized);
+  return source;
 }
 
 export function isLocaleCatalogLoaded(locale: string): boolean {
-  return locale === 'it' || Boolean(previewCatalogs[locale] && (locale === 'en' || approvedCatalogs[locale]));
+  return locale === 'it' || Boolean((!reviewMode || previewCatalogs[locale]) && (locale === 'en' || approvedCatalogs[locale]));
 }
 
 export async function loadLocaleCatalog(locale: string): Promise<void> {
@@ -53,13 +63,21 @@ export async function loadLocaleCatalog(locale: string): Promise<void> {
       throw new Error(`Translation catalog ${locale} is not approved for publication.`);
     }
     approvedCatalogs[locale] = catalog.translations;
+    localizedValues[locale] = new Set(Object.values(catalog.translations).map(value => normalizeSource(locale === 'sr' ? serbianCyrillic(value) : value)));
   }
+  if (!reviewMode) return;
+  const previewSources = (await import('./preview-sources.json')).default;
+  previewSourceToId = Object.fromEntries(Object.entries(previewSources.entries).map(([id, text]) => [normalizeSource(text), id]));
   const previewLoader = previewLoaders[`./preview/${locale}.json`];
   if (!previewLoader) throw new Error(`Missing preview translation catalog ${locale}.`);
   const preview = await previewLoader();
   if (preview.locale !== locale || preview.reviewStatus !== 'awaiting-owner-review') throw new Error(`Invalid preview translation catalog ${locale}.`);
   for (const id of Object.keys(previewSources.entries)) if (!preview.translations[id]?.trim()) throw new Error(`Missing ${locale} preview translation: ${id}`);
-  previewCatalogs[locale] = preview.translations;
+  const correctionLoader = correctionLoaders[`./draft-corrections/${locale}.json`];
+  const correction = correctionLoader ? await correctionLoader() : null;
+  if (correction && (correction.locale !== locale || correction.reviewStatus !== 'awaiting-owner-review')) throw new Error(`Invalid draft correction catalog: ${locale}`);
+  previewCatalogs[locale] = { ...preview.translations, ...correction?.translations };
+  Object.values(previewCatalogs[locale]).forEach(value => localizedValues[locale]?.add(normalizeSource(locale === 'sr' ? serbianCyrillic(value) : value)));
 }
 
 function localizeValue(locale: string, value: unknown): unknown {
@@ -96,12 +114,5 @@ export function localizeChoice<T>(locale: string, italian: T, english: T): T {
 
 export function getLocalizedCopy<T extends Record<string, unknown>>(locale: string, source: Record<string, T>): T {
   if (source[locale]) return source[locale];
-  const base = source.en;
-  let byLocale = translatedCopyCache.get(base);
-  if (!byLocale) {
-    byLocale = new Map();
-    translatedCopyCache.set(base, byLocale);
-  }
-  if (!byLocale.has(locale)) byLocale.set(locale, localizeValue(locale, base));
-  return byLocale.get(locale) as T;
+  return localizeValue(locale, source.en) as T;
 }

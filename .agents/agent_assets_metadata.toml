@@ -112,3 +112,199 @@ mtime_ms = 1794262897793
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/25f6cf8c-7ede-4f0d-a4b6-3ebbeb32d3ae/336eb9db-0c48-47ec-9c65-1147eb81bf13"
 storage_version_token = "1794262898651048"
 content_type = "text/html"
+
+[[outputs]]
+id = "HrY0I21QxT31hp9lXNWkC"
+uri = "file://generated-artifacts/seo-audit/Marenetto-SEO-contenuti-lingue.html"
+type = "html"
+title = "Rapporto SEO, contenuti e lingue"
+description = "Copertura, prove, misure locali, confronto visivo e checklist di rilascio inattiva. Approvazioni e verifiche mancanti dichiarate."
+logical_id = "32a2ee5b-8660-4e1a-b4b9-236d825eca3f"
+content_hash = "sha256:81d73adb4f8fd1f3f2392684e6e9fb571d6b0a5a9882340845c88d2e75bada43"
+size = 256966
+mtime_ms = 1794309702021
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/32a2ee5b-8660-4e1a-b4b9-236d825eca3f/9889b114-2e06-4015-b615-29371e9e57df"
+storage_version_token = "1794309747334678"
+content_type = "text/html"
+
+[[outputs]]
+id = "YwWChRpr4fgjs_yMT-S0x"
+uri = "file://generated-artifacts/seo-audit/route-matrix.csv"
+type = "table"
+title = "Matrice delle route e delle edizioni"
+description = "Inventario delle 29 lingue, stati editoriali e verifiche. Le bozze non sono certificazioni linguistiche."
+logical_id = "3b8dad39-0fb6-44a0-a7ea-e17dd391844a"
+content_hash = "sha256:fde1fb798b8d337b05444373f3f3ac951c280e48ecba3df8676886fcc62ba54d"
+size = 683082
+mtime_ms = 1794309624437
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/3b8dad39-0fb6-44a0-a7ea-e17dd391844a/f3a35e10-3506-41cc-a5e2-73b6d119b9e6"
+storage_version_token = "1794309747904754"
+content_type = "text/csv"
+
+[[outputs]]
+id = "UeyP9ZniYj1GFqCiGzlbS"
+uri = "file://generated-artifacts/historical-fidelity/Marenetto-confronto-storico.html"
+type = "html"
+title = "Confronto indipendente originale → nuovo"
+description = "Provenienza dei 14 articoli, diff completi per URL, lingue, CMS e passaggi da decidere. La migrazione resta aperta."
+logical_id = "e3c9b66f-d79e-4da7-96ca-473f517f48a5"
+content_hash = "sha256:4184c92359c9820af85699f4afd10c10ded997087a41b208bf20b61701f323b5"
+size = 9762161
+mtime_ms = 1794311764693
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/e3c9b66f-d79e-4da7-96ca-473f517f48a5/e56310d0-ced4-4cbe-9344-bba019306131"
+storage_version_token = "1794311904016503"
+content_type = "text/html"
+
+[[outputs]]
+id = "3tUYO-jmYt3d9fMA8a26D"
+uri = "file://generated-artifacts/historical-fidelity/historical-url-ledger.csv"
+type = "table"
+title = "Registro verificabile degli URL storici"
+description = "361 righe con fonte, comportamento originale, destinazione nuova, status, canonical ed esito."
+logical_id = "59057a4b-a465-4f8e-8733-289c62866acd"
+content_hash = "sha256:e7e09a92703e700586f894b7aa9cd32623024d510fb2e355402bb2fece148e94"
+size = 150028
+mtime_ms = 1794311695941
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/59057a4b-a465-4f8e-8733-289c62866acd/a032b02c-f81f-4ccd-911e-9f3869ca6fe6"
+storage_version_token = "1794311904910552"
+content_type = "text/csv"
+
+[[outputs]]
+id = "XP3959DXOfwnj6hVYiDZt"
+uri = "file://generated-artifacts/Marenetto-fonti-storiche-e-diff.zip"
+type = "unspecified"
+title = "Fonti originali, risposte nuove ed evidenze"
+description = "Snapshot indipendenti, hash, provenienze dei 14 articoli, diff separati e risultati dei cinque test browser."
+logical_id = "f43d3d6b-8b92-4c9d-9cff-7355135e34a1"
+content_hash = "sha256:288cb323400228b9128802afa71c9c6b462578d5f2a50918a1b2e1f42a400325"
+size = 12768105
+mtime_ms = 1794311845105
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/f43d3d6b-8b92-4c9d-9cff-7355135e34a1/961db3da-c0c6-4b9a-a820-e4bb8c58b4f7"
+storage_version_token = "1794311905856648"
+content_type = "application/octet-stream"
+
+[[outputs]]
+id = "OHHANs3EYQDGy42HxtS2k"
+uri = "file://generated-artifacts/historical-fidelity/Conferme-specifiche-prima-del-ripristino.html"
+type = "html"
+title = "Affermazioni specifiche da confermare prima del ripristino"
+description = "25 frasi esatte con articolo, fonte e motivo: polizza, certificazioni Isoplam, strumenti, tempi promessi, team tecnico, affermazioni tecniche e recapiti discordanti. Il resto della migrazione prosegue."
+logical_id = "f139b9fd-6bc5-431c-a88c-0ce1851ddbd3"
+content_hash = "sha256:8e008c2c7004175dfa5b18549baaf2c2a14d574dcb255087148ac568f90ec687"
+size = 21365
+mtime_ms = 1794315672223
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/f139b9fd-6bc5-431c-a88c-0ce1851ddbd3/80e1276b-8122-4811-a885-57666cfb3763"
+storage_version_token = "1794315689029836"
+content_type = "text/html"
+
+[[outputs]]
+id = "TxmyAGLFIZE6QF7VEiLLo"
+uri = "file://generated-artifacts/historical-fidelity/Ripristino-originali-stato-verificato.html"
+type = "html"
+title = "SEO e originali — verifiche aggiornate"
+description = "Risultati completi, confronto indipendente di 361 URL, 1.261 documenti idratati, correzioni e limiti editoriali ancora aperti."
+logical_id = "eee5be4a-9988-473a-8fdc-9650d292452b"
+content_hash = "sha256:b286161c455e559aa3435fe6caeb5fb4ca51693885b0c81ec364365172b46486"
+size = 9669440
+mtime_ms = 1794343370020
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/eee5be4a-9988-473a-8fdc-9650d292452b/fc5717c8-d369-4496-9c92-f60183fe3dd0"
+storage_version_token = "1794343414411169"
+content_type = "text/html"
+
+[[outputs]]
+id = "5qxo58EpH19lnkKRDoHFy"
+uri = "file://generated-artifacts/historical-fidelity/restoration-url-ledger.csv"
+type = "table"
+title = "Registro dei 361 URL acquisiti"
+description = "Fonte, status, corpo e title confrontati, URL di destinazione e impronte SHA-256; distingue i contenuti integrali dalle pagine in revisione e dalle fonti non recuperate."
+logical_id = "7fb71d4f-ee45-4acd-9654-e179ba6b65d8"
+content_hash = "sha256:adca8bae97525c60825100df1812f33c9e8dd83353f5bddb1260f980b8eca926"
+size = 210839
+mtime_ms = 1794332851398
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/7fb71d4f-ee45-4acd-9654-e179ba6b65d8/46006e8c-c539-46da-a2f3-87cbf2b9e389"
+storage_version_token = "1794333213417285"
+content_type = "text/csv"
+
+[[outputs]]
+id = "J6MvxWaNJxJEu8bD13zGe"
+uri = "file://generated-artifacts/Marenetto-originali-ripristinati-e-conferme.zip"
+type = "unspecified"
+title = "Originali, correzioni e prove aggiornate"
+description = "Archivio originale conservato, cataloghi corretti separati, rapporti e log. Include la verifica delle 72 pagine sul vero host di anteprima."
+logical_id = "d5ff6f76-2953-4d10-a08c-b8f542373c5c"
+content_hash = "sha256:89deb525f9285ed5c60fc9dee338f810d1a8920f224b6f26920a630ec982dd42"
+size = 17424512
+mtime_ms = 1794351276400
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/d5ff6f76-2953-4d10-a08c-b8f542373c5c/90aaabe9-5de0-4c7b-b666-ccccc8c14209"
+storage_version_token = "1794351323685010"
+content_type = "application/octet-stream"
+
+[[outputs]]
+id = "u9hwQLixwdALWPon1LX6d"
+uri = "file://generated-artifacts/historical-fidelity/Conferme-25-frasi.csv"
+type = "table"
+title = "25 frasi esatte da confermare"
+description = "Pagina, URL, frase e motivo. Le colonne per esito del titolare e documenti di prova sono vuote: nessuna approvazione precompilata."
+logical_id = "2a276ba5-b899-4d59-9381-388d380672ab"
+content_hash = "sha256:53cc18487bc0b1af1ebc03ef1536d0c95163505a556578605da3abd72cc043de"
+size = 12684
+mtime_ms = 1794342965207
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/2a276ba5-b899-4d59-9381-388d380672ab/69a3f7b6-2c28-46ab-8bcc-b11df024befe"
+storage_version_token = "1794343415042591"
+content_type = "text/csv"
+
+[[outputs]]
+id = "Hy37tBswsS1bMK6nm0Fh4"
+uri = "file://generated-artifacts/editorial-corrections/25-correzioni-prima-dopo.html"
+type = "html"
+title = "25 correzioni — confronto prima/dopo"
+description = "Testi sostitutivi proposti, con originale e motivo. Nessuna conferma inventata e nessuna modifica ancora applicata alle pagine."
+logical_id = "894477b9-2c90-4a92-94f4-de4153ff702e"
+content_hash = "sha256:ca4b38db6f8456b79ca7c770a52de096961692cff221af5f34183bb5d6378c8a"
+size = 26319
+mtime_ms = 1794348453819
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/894477b9-2c90-4a92-94f4-de4153ff702e/aa9f7ce1-87c0-4e11-b3f6-e7707b9804af"
+storage_version_token = "1794348483738630"
+content_type = "text/html"
+
+[[outputs]]
+id = "JkXaz2iyJibCJg7Y9CmAm"
+uri = "file://generated-artifacts/editorial-corrections/25-correzioni-prima-dopo.csv"
+type = "table"
+title = "25 testi corretti — versione modificabile"
+description = "Ogni frase originale affiancata alla formulazione proposta; approvazioni lasciate vuote."
+logical_id = "a2339643-2859-4c3e-b15d-bc609ac2d5d9"
+content_hash = "sha256:053aefd4869ea20d775f0e7b801f16f08ae816ec0c37dee411a5e9289e68cc90"
+size = 17758
+mtime_ms = 1794348453819
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/a2339643-2859-4c3e-b15d-bc609ac2d5d9/81a73053-7df7-4b0b-8910-b9f0462f3b4c"
+storage_version_token = "1794348484316226"
+content_type = "text/csv"
+
+[[outputs]]
+id = "wEqRw90uAh8wLl-MncB7O"
+uri = "file://generated-artifacts/editorial-corrections/Correzioni-applicate-25-frasi.html"
+type = "html"
+title = "25 correzioni applicate — rapporto verificato"
+description = "Confronto prima/dopo, 72 pagine corrette, originali conservati, prove HTTP e idratazione. Le otto edizioni straniere restano bozze non approvate."
+logical_id = "de1e59b3-4020-4fea-b275-7b4c4e76c237"
+content_hash = "sha256:8cc9ee7f740480511262992ae919d5f4958099e46d82c586ffd9a1a21613de8f"
+size = 142384
+mtime_ms = 1794351275736
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/de1e59b3-4020-4fea-b275-7b4c4e76c237/429da2bb-3cf6-4232-9be1-9a3b8602925d"
+storage_version_token = "1794351322361586"
+content_type = "text/html"
+
+[[outputs]]
+id = "C-3G4PoWlR8g3SOUyIoeI"
+uri = "file://generated-artifacts/editorial-corrections/Correzioni-applicate.csv"
+type = "table"
+title = "Registro delle correzioni applicate"
+description = "Ogni sostituzione effettiva con lingua, URL, testo precedente, testo corretto e stato editoriale."
+logical_id = "49028032-1af3-4b1b-ba92-f4451f48cd96"
+content_hash = "sha256:8c230d869253a752e64dddec4e6d96f088ec3382d0ede49d6e9d966f80db39a8"
+size = 115719
+mtime_ms = 1794351275736
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/49028032-1af3-4b1b-ba92-f4451f48cd96/bc9513cd-7582-483a-8a2b-c24d31283a97"
+storage_version_token = "1794351322943734"
+content_type = "text/csv"

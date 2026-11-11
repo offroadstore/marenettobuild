@@ -15,17 +15,15 @@ Historical site images may be reused as illustrative material, but must not impl
 
 **How to apply:** Apply these rules to content migration, portfolio work, localization, CMS workflows, owner-area messaging and every production release.
 
-When approved Italian articles appear inside a translated interface, retain and
-label their Italian editorial text rather than translating it as interface copy.
-Historical English article links may lead to that reviewed Italian edition;
-they must not imply that an approved English edition exists.
+Historical approval of a translation catalog must not be extended to a newer page
+composition. In particular, a key can exist while still containing the English
+source. Mechanical script conversion does not turn English into a translation.
 
-**Why:** The owner-approved multilingual core pages and the reviewed Italian
-article library have separate publication scopes. Reconstructing historical
-navigation is not approval to publish new article translations.
+**Why:** The SEO investigation found populated review catalogs whose new commercial
+phrases were unchanged English, despite a global approval flag on older locale data.
 
-**How to apply:** Preserve the original-language labels on article previews and
-details, and use the normal owner-review process for any future translated edition.
+**How to apply:** Compare rendered source and translation, retain page-level approval
+evidence, and keep draft corrections isolated from ordinary approved catalogs.
 
 Preserve the thin lines of the current historical monogram and MARENETTO lettering, combined with the BUILD.COM lettering treatment from the newer banner. Do not replace the thin monogram with the banner's heavier symbol.
 

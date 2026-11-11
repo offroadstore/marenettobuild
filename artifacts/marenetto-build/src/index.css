@@ -5,6 +5,11 @@
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
 
+/* Advisory only: URL and explicit language choice always remain authoritative. */
+.language-suggestion { position: relative; z-index: 60; display: flex; justify-content: center; gap: 1.5rem; padding: .5rem 1rem; background: #f8f6f0; color: #25302a; font-size: .8rem; }
+.language-suggestion a, .language-suggestion button { text-decoration: underline; }
+.site-shell a[href^="tel:"], .site-shell a[href^="mailto:"], .site-shell .footer-phone-row { direction: ltr; unicode-bidi: isolate; }
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -127,6 +132,15 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .nav-links { display: flex; align-items: center; gap: 30px; }
 .nav-links a { font-size: 12px; font-weight: 600; color: #4f554f; transition: color .2s; }
 .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--copper); }
+.article-nav { position:relative; }
+.article-nav-topline { display:flex; align-items:center; gap:2px; }
+.article-nav-toggle { display:inline-flex; align-items:center; justify-content:center; border:0; background:transparent; color:#4f554f; padding:6px 3px; cursor:pointer; }
+.article-nav-toggle:hover, .article-nav-toggle:focus-visible { color:var(--copper); }
+.article-nav-toggle[aria-expanded="true"] svg { transform:rotate(180deg); }
+.article-nav-list { position:absolute; z-index:30; inset-block-start:calc(100% + 7px); inset-inline-start:0; min-width:250px; max-width:min(340px, 80vw); margin:0; padding:7px; list-style:none; display:flex; flex-direction:column; gap:0; background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow); }
+.article-nav-list[hidden] { display:none; }
+.article-nav-list a { display:block; padding:10px 12px; font-size:12px; line-height:1.4; font-weight:500; white-space:normal; }
+.article-nav-list a:hover, .article-nav-list a:focus-visible { background:#f3f0e9; color:var(--copper); }
 .nav-actions { display: flex; align-items: center; gap: 16px; }
 .language-picker { position: relative; }
 .lang-switch { display:flex; align-items:center; gap:5px; border: 0; background: transparent; font-weight: 700; font-size: 11px; letter-spacing: .08em; cursor: pointer; padding: 10px 4px; }
@@ -342,6 +356,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .menu-toggle { display:flex; }
   .mobile-nav { display:flex; position:absolute; top:71px; left:0; right:0; padding:14px 20px 24px; background:var(--paper); border-bottom:1px solid var(--line); flex-direction:column; gap:0; box-shadow:var(--shadow); }
   .mobile-nav a { padding:14px 4px; border-bottom:1px solid var(--line); font-size:13px; font-weight:600; }
+  .mobile-nav .article-nav { display:flex; flex-direction:column; border-bottom:1px solid var(--line); }
+  .mobile-nav .article-nav-topline { min-height:49px; }
+  .mobile-nav .article-nav-topline > a { flex:1; padding:14px 4px; border:0; }
+  .mobile-nav .article-nav-toggle { align-self:stretch; min-width:42px; padding:8px; border:0; border-inline-start:1px solid var(--line); }
+  .mobile-nav .article-nav-list { position:static; min-width:0; max-width:none; padding:0 0 8px 14px; border:0; box-shadow:none; background:transparent; }
+  .mobile-nav .article-nav-list a { padding:10px 8px; border-bottom:1px solid var(--line); color:#5d635c; font-size:12px; font-weight:500; }
   .mobile-nav .button { margin-top:16px; }
   .hero-main { display:flex; flex-direction:column; }
   .hero-copy { padding:65px 20px 50px; }
@@ -952,3 +972,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
 @media (min-width: 900px) { .wa-dock { display: none; } }
 
 .site-shell .footer-links .footer-phone-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 8px; width: auto; padding: 0; }
+.historical-content { padding-block: 2rem; font-size: 1.05rem; line-height: 1.8; overflow-wrap: anywhere; }
+.historical-content img, .historical-cover { max-width: 100%; height: auto; }
+.historical-cover { display: block; width: 100%; max-height: 32rem; object-fit: cover; margin-block: 2rem; }
+.historical-content h1, .historical-content h2, .historical-content h3, .historical-content h4 { line-height: 1.25; margin-block: 1.5em .6em; }
+.historical-content p { margin-block: 1em; }
+.historical-content a { text-decoration: underline; text-underline-offset: .2em; }
+.historical-content ul, .historical-content ol { padding-inline-start: 1.5rem; }
+.historical-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 1.5rem; }
+.historical-row > * { min-width: 0; }
+.historical-content img { display: block; margin-block: 1rem; }

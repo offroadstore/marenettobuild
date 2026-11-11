@@ -1,0 +1,144 @@
+{
+  "version": 1,
+  "notes": "Approval is specific to each edition. Legacy Italian evidence is retained; dates not established are null. New foreign copy remains unapproved.",
+  "records": {
+    "it:home": {
+      "state": "published",
+      "approvalEvidence": "Owner-supplied Italian layout/copy; existing project approval",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:services": {
+      "state": "published",
+      "approvalEvidence": "Owner-supplied Italian layout/copy; existing project approval",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:process": {
+      "state": "published",
+      "approvalEvidence": "Owner-supplied Italian layout/copy; existing project approval",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:abroad": {
+      "state": "published",
+      "approvalEvidence": "Owner-supplied Italian layout/copy; existing project approval",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:request": {
+      "state": "published",
+      "approvalEvidence": "Owner-supplied Italian layout/copy; existing project approval",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:contact": {
+      "state": "published",
+      "approvalEvidence": "Owner-supplied Italian layout/copy; existing project approval",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:articles": {
+      "state": "published",
+      "approvalEvidence": "Existing reviewed Italian editorial library",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:guides": {
+      "state": "published",
+      "approvalEvidence": "Existing reviewed Italian editorial library",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:search": {
+      "state": "published",
+      "approvalEvidence": "Existing reviewed Italian editorial library",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali": {
+      "state": "published",
+      "approvalEvidence": "Existing Italian documentary review; not professional sign-off",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:impresa-edile-a-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Existing Italian documentary review; not professional sign-off",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni": {
+      "state": "published",
+      "approvalEvidence": "Existing Italian documentary review; not professional sign-off",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto": {
+      "state": "published",
+      "approvalEvidence": "Existing Italian documentary review; not professional sign-off",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:cappotto-termico-vs-intonaco-termico-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Existing Italian documentary review; not professional sign-off",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete": {
+      "state": "published",
+      "approvalEvidence": "Existing Italian documentary review; not professional sign-off",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam": {
+      "state": "published",
+      "approvalEvidence": "Existing Italian documentary review; not professional sign-off",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:gestione-manutenzione-immobile": {
+      "state": "published",
+      "approvalEvidence": "Existing Italian documentary review; not professional sign-off",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:garden-design-esclusivo": {
+      "state": "published",
+      "approvalEvidence": "Existing Italian documentary review; not professional sign-off",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:opere-in-pietra-e-prospetti": {
+      "state": "published",
+      "approvalEvidence": "Existing Italian documentary review; not professional sign-off",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:pavimenti-stampati-in-resina": {
+      "state": "published",
+      "approvalEvidence": "Existing Italian documentary review; not professional sign-off",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:piscine-e-laghetti-zen": {
+      "state": "published",
+      "approvalEvidence": "Existing Italian documentary review; not professional sign-off",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:cucine-in-muratura-luxury": {
+      "state": "published",
+      "approvalEvidence": "Existing Italian documentary review; not professional sign-off",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    },
+    "it:tecniche-avanzate-gestione-deformazioni-strutture-edili": {
+      "state": "published",
+      "approvalEvidence": "Existing Italian documentary review; not professional sign-off",
+      "approvalDate": null,
+      "origin": "legacy record; no new approval inferred"
+    }
+  }
+}

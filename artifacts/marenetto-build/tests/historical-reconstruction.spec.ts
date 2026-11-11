@@ -1,46 +1,35 @@
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
 import { expect, test } from '@playwright/test';
+import { openPage, originals } from './source-fixtures';
 
-const root = resolve(import.meta.dirname, '..');
-const archive = JSON.parse(readFileSync(resolve(root, 'content/source-pages.json'), 'utf8'));
-const links = [...archive.pages[0].markdown.matchAll(/#### \[([^\]]+)\]\(https:\/\/www\.marenettobuild\.com(\/en\/[^)]+)\)/g)];
-
-test('all 14 archived English article links reach reviewed Italian articles', async ({ page }) => {
+test('all 14 recovered English articles retain their own URL, heading and complete language edition', async ({ page }) => {
   test.setTimeout(90_000);
-  expect(links).toHaveLength(14);
-  for (const [, , source] of links) {
-    await page.goto(`${source}?utm_source=historic&email=private%40example.test#article`);
-    await expect(page.getByTestId('text-article-title')).toBeVisible();
-    await expect(page).toHaveURL(url => !url.pathname.startsWith('/en/') && url.search === '?utm_source=historic' && url.hash === '#article');
-    await expect(page.getByTestId('note-review-approved')).toBeVisible();
+  const articles = originals.filter(row => row.locale === 'en' && row.kind === 'article');
+  expect(articles).toHaveLength(14);
+  for (const article of articles) {
+    await openPage(page, `${article.path}?utm_source=historic#article`);
+    await expect(page).toHaveURL(url => url.pathname === article.path && url.searchParams.get('utm_source') === 'historic' && url.hash === '#article');
+    await expect(page.locator('main h1')).toHaveText(article.h1);
+    await expect(page.locator('article[data-historical-body]')).toHaveAttribute('lang', article.contentLanguage);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', new RegExp(`${article.path}$`));
+    await expect(page.getByTestId('note-review-approved')).toHaveCount(0);
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
   }
 });
 
-test('documented English navigation aliases preserve the available content', async ({ page }) => {
-  for (const [source, destination] of [
-    ['/en/chi-siamo/', '/en/how-we-work'],
-    ['/en/contatti/', '/en/contact'],
-    ['/en/articoli/', '/articoli'],
-    ['/en/general-contractor/', '/en/services'],
-    ['/en/construction-and-renovations/', '/articoli'],
-    ['/en/building-bonuses-and-permits/', '/guide'],
-    ['/en/shipyards-and-construction/', '/servizi'],
-    ['/en/outdoor-and-garden-design/', '/en/services'],
-    ['/en/support-and-emergency-service/', '/en/contact'],
-    ['/en/recensioni/', '/servizi'],
-  ]) {
-    await page.goto(source);
-    await expect(page).toHaveURL(url => url.pathname === destination);
-    await expect(page.locator('main h1')).toBeVisible();
+test('recovered English navigation pages keep the native historical URL rather than obsolete aliases', async ({ page }) => {
+  for (const original of originals.filter(row => row.locale === 'en' && row.state === 'restored' && row.kind !== 'article')) {
+    await openPage(page, original.path);
+    await expect(page).toHaveURL(url => url.pathname === original.path);
+    await expect(page.locator('main h1')).toHaveText(original.h1);
   }
 });
 
 test('incomplete booking and unknown English pages remain excluded', async ({ page }) => {
   for (const path of ['/translation-ok/', '/en/translation-ok/', '/en/not-a-historical-page/']) {
-    await page.goto(path);
-    await expect(page.getByRole('heading', { name: /^404/ })).toBeVisible();
+    const response = await page.goto(path, { waitUntil: 'domcontentloaded' });
+    const status = path === '/translation-ok/' ? 410 : 404;
+    expect(response?.status()).toBe(status);
+    await expect(page.getByRole('heading', { name: new RegExp(`^${status}`) })).toBeVisible();
     await expect(page.locator('form')).toHaveCount(0);
   }
 });

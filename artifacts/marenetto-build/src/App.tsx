@@ -10,16 +10,16 @@ import { Logo } from '@/components/brand/Logo';
 import { HeroPhoto, IllustrativeImage } from '@/components/home/Media';
 import { IllustrationNote } from '@/components/home/IllustrationNote';
 import { WhatsAppAccess, WhatsAppNavLink } from '@/components/WhatsAppAccess';
-import { COMPANY_PHONE, telHref, whatsappHref } from '@/config/contact';
+import { COMPANY_CONTACT, COMPANY_PHONE, emailHref, telHref, whatsappHref } from '@/config/contact';
 import { MobileContactBar } from '@/components/home/MobileContactBar';
 import { homeCopy, SERVICE_GROUP_IDS, type HomeCopy } from '@/content/home-copy';
 import { articlePath, libraryPath } from '@/localization/paths';
 import { LibraryLocale } from '@/localization/library-context';
+import { historicalArticleMenu } from '@/content/historical-article-menu';
 import { localeLoadErrors } from '@/localization/load-errors';
 import '@/styles/home.css';
 import { Route, Switch, useLocation, Router as WouterRouter, Link, Redirect } from 'wouter';
 import { articleBySlug, articles as articleList } from '@/content/articles';
-import { historicalRedirects } from '@/content/historical-routes';
 import { withCampaignParams } from '@/lib/campaign';
 import { ArticleDetailPage, ArticlesPage, GuidesPage, SearchPage } from '@/pages/library';
 import { ClerkProvider, SignIn, SignUp, useClerk } from '@clerk/react';
@@ -30,16 +30,21 @@ import publicPageData from '@/localization/public-pages.json';
 import { chooseLanguage, isAutomaticVisitor, readSavedLanguage, saveLanguageChoice } from '@/localization/detect';
 import { getLocale, getLocaleDirection, LANGUAGE_CHOICES, LOCALES, PAGE_KEYS, PUBLISHED_LOCALES } from '@/localization/locales';
 import { getLocalizedCopy, isLocaleCatalogLoaded, loadLocaleCatalog, localizeChoice, localizeNode, translateText } from '@/localization/runtime';
+import { isTranslationReviewMode, setTranslationReviewMode } from '@/localization/runtime';
+import { editions, editionByPath, reviewPathForEdition, canonicalEdition, equivalentEditions, getEdition, redirects } from '@/localization/edition-inventory';
+import { updateStructuredData } from '@/lib/structured-data';
+import { historicalPage, historicalPending, historicalArticleForPreview, historicalLoaded, loadHistorical, historicalNavigation, type HistoricalPage as HistoricalPageRecord } from '@/content/historical';
+import { HistoricalContents } from '@/pages/historical';
 
 const queryClient = new QueryClient();
 
-const clerkPubKey = publishableKeyFromHost(window.location.hostname, import.meta.env.VITE_CLERK_PUBLISHABLE_KEY);
+const clerkPubKey = typeof window === 'undefined' ? undefined : publishableKeyFromHost(window.location.hostname, import.meta.env.VITE_CLERK_PUBLISHABLE_KEY);
 type Lang = string;
 type Page = 'home' | 'services' | 'process' | 'abroad' | 'request' | 'contact' | 'articles' | 'guides' | 'projects' | 'search';
 
 type PageMetadata = { path: string; title: string; description: string };
 type CorePage = 'home' | 'services' | 'process' | 'abroad' | 'request' | 'contact';
-const PUBLIC_SITE_ORIGIN = import.meta.env.VITE_PUBLIC_SITE_URL || 'https://marenetto-build-sito-e-portale.replit.app';
+const PUBLIC_SITE_ORIGIN = import.meta.env.VITE_PUBLIC_SITE_URL || 'https://preview.invalid';
 const seoCopy = publicPageData as Record<Lang, Record<CorePage, PageMetadata>>;
 const routes = Object.fromEntries(LOCALES.map(locale => {
   const pages = seoCopy[locale.code];
@@ -159,6 +164,9 @@ const copyBase = {
 };
 const copy = new Proxy(copyBase, {
   get(target, key, receiver) {
+    if (!isTranslationReviewMode() && typeof key === 'string' && key !== 'it') {
+      return getLocalizedCopy(key, copySource as Record<string, typeof copySource.en>);
+    }
     if (typeof key !== 'string' || key in target) return Reflect.get(target, key, receiver);
     return getLocalizedCopy(key, copyBase as Record<string, typeof copySource.en>);
   },
@@ -190,10 +198,83 @@ function getPage(path: string): Page {
   return 'home';
 }
 function PageLink({ page, lang, children, className, ...props }: { page: Page; lang: Lang; children: ReactNode; className?: string } & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href' | 'children' | 'className'>) {
-  return <Link href={withCampaignParams(routes[lang][page])} className={className} {...props}>{children}</Link>;
+  return <Link href={withCampaignParams(historicalNavigation(lang, page) ?? routes[lang][page])} className={className} {...props}>{children}</Link>;
 }
 
-function Header({ lang, page, articleSlug }: { lang: Lang; page: Page; articleSlug?: string }) {
+function routeRedirect(target: string) {
+  const search = typeof window === 'undefined' ? '' : window.location.search;
+  const url = new URL(withCampaignParams(target, search), 'https://preview.invalid');
+  if (/\/(?:ricerca|search)$/.test(url.pathname)) {
+    const query = new URLSearchParams(search).get('q');
+    if (query !== null) url.searchParams.set('q', query);
+  }
+  if (typeof window !== 'undefined') url.hash = window.location.hash;
+  return `${url.pathname}${url.search}${url.hash}`;
+}
+
+function ArticleNav({ lang, variant, onNavigate }: { lang: Lang; variant: 'desktop' | 'mobile'; onNavigate?: () => void }) {
+  const sourceMenu = historicalArticleMenu(lang);
+  const [open, setOpen] = useState(false);
+  const [location] = useLocation();
+  const groupRef = useRef<HTMLDivElement>(null);
+  const pointerWithin = useRef(false);
+  const menuId = `article-categories-${variant}-${lang}`;
+
+  useEffect(() => { setOpen(false); }, [location]);
+  if (!sourceMenu) {
+    return variant === 'mobile'
+      ? <PageLink page="articles" lang={lang} onClick={onNavigate} data-testid="mobile-nav-articles">{copy[lang].nav.articles}</PageLink>
+      : null;
+  }
+
+  const articleTestId = variant === 'mobile' ? 'mobile-nav-articles' : 'nav-articles';
+  return <div
+    ref={groupRef}
+    className={`article-nav article-nav--${variant}`}
+    onMouseEnter={() => { pointerWithin.current = true; setOpen(true); }}
+    onMouseLeave={() => {
+      pointerWithin.current = false;
+      if (!groupRef.current?.contains(document.activeElement)) setOpen(false);
+    }}
+    onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setOpen(false); }}
+    onKeyDown={event => {
+      if (event.key !== 'Escape' || !open) return;
+      event.preventDefault();
+      event.stopPropagation();
+      setOpen(false);
+      event.currentTarget.querySelector<HTMLButtonElement>('.article-nav-toggle')?.focus();
+    }}
+  >
+    <div className="article-nav-topline">
+      <PageLink page="articles" lang={lang} onClick={onNavigate} aria-current={undefined} data-testid={articleTestId}>{sourceMenu.label}</PageLink>
+      <button
+        type="button"
+        className="article-nav-toggle"
+        aria-label={sourceMenu.label}
+        aria-expanded={open}
+        aria-controls={menuId}
+        onClick={() => setOpen(current => pointerWithin.current ? current : !current)}
+        data-testid={`button-${variant}-article-categories`}
+      >
+        <ChevronDown size={14} aria-hidden="true" />
+      </button>
+    </div>
+    <ul id={menuId} className="article-nav-list" hidden={!open}>
+      {sourceMenu.categories.map(category => {
+        const slug = category.path.split('/').filter(Boolean).at(-1);
+        return <li key={category.path}>
+          <Link
+            href={withCampaignParams(category.path)}
+            onClick={onNavigate}
+            data-testid={`${variant}-article-category-${slug}`}
+          >{category.label}</Link>
+        </li>;
+      })}
+    </ul>
+  </div>;
+}
+
+function Header({ lang, page, articleSlug, editionId }: { lang: Lang; page: Page; articleSlug?: string; editionId?: string }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const [location] = useLocation();
@@ -225,7 +306,8 @@ function Header({ lang, page, articleSlug }: { lang: Lang; page: Page; articleSl
     }
   }, [languageMenuOpen]);
   const items: [Page, string][] = [['services', c.services], ['process', c.process], ['abroad', c.abroad], ['articles', c.articles], ['contact', c.contact]];
-  // Approved layout: desktop shows only services/process/contact; the rest stays in mobile menu and footer.
+  // Keep the approved primary links and add the recovered historical article menu
+  // only for locales whose original menu and category paths were verified.
   const desktopItems: [Page, string][] = [['services', c.services], ['process', c.process], ['contact', c.contact]];
   // 'projects' stays routable (/progetti) but is hidden from navigation until approved real work exists.
   return localizeNode(lang, <header className="topbar">
@@ -235,7 +317,9 @@ function Header({ lang, page, articleSlug }: { lang: Lang; page: Page; articleSl
       </Link>
       <nav className="nav-links" aria-label={lang === 'it' ? 'Navigazione principale' : 'Main navigation'}>
         <WhatsAppNavLink lang={lang} />
-        {desktopItems.map(([key, label]) => <PageLink key={key} page={key} lang={lang} aria-current={page === key ? 'page' : undefined} data-testid={`nav-${key}`}>{label}</PageLink>)}
+        {desktopItems.slice(0, 2).map(([key, label]) => <PageLink key={key} page={key} lang={lang} aria-current={page === key ? 'page' : undefined} data-testid={`nav-${key}`}>{label}</PageLink>)}
+        {historicalArticleMenu(lang) && <ArticleNav lang={lang} variant="desktop" />}
+        <PageLink page="contact" lang={lang} aria-current={page === 'contact' ? 'page' : undefined} data-testid="nav-contact">{c.contact}</PageLink>
       </nav>
       <div className="nav-actions">
         <div className="language-picker">
@@ -250,21 +334,27 @@ function Header({ lang, page, articleSlug }: { lang: Lang; page: Page; articleSl
             const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1
               : (current + (event.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
             items[next]?.focus();
-          }}>{LOCALES.map(locale => <Link key={locale.code} href={withCampaignParams(articleSlug ? articlePath(locale.code, articleSlug) : routes[locale.code][page])} role="menuitem" dir={locale.direction} aria-current={locale.code === lang ? 'true' : undefined} onClick={() => { saveLanguageChoice(locale.code); setLanguageMenuOpen(false); }}>{locale.nativeName}</Link>)}</div>}
+          }}>{LOCALES.map(locale => {
+            const edition = getEdition(locale.code, editionId ?? articleSlug ?? page);
+            if (!edition) return null;
+            return <Link key={locale.code} href={withCampaignParams(edition.path)} role="menuitem" lang={locale.code} dir={locale.direction} aria-label={locale.nativeName} aria-describedby={edition.state !== 'published' ? `edition-state-${locale.code}` : undefined} aria-current={locale.code === lang ? 'true' : undefined} data-edition-state={edition.state} onClick={() => { saveLanguageChoice(locale.code); setLanguageMenuOpen(false); }}>{locale.nativeName}{edition.state !== 'published' && <small id={`edition-state-${locale.code}`} lang="it"> · in revisione</small>}</Link>;
+          })}</div>}
         </div>
         <PageLink page="request" lang={lang} className={`button${page === 'request' ? ' is-quiet' : ''}`} data-testid="nav-request">{requestLabel}<ArrowRight size={14} /></PageLink>
-        <button ref={menuButtonRef} type="button" className="menu-toggle" aria-controls="mobile-nav" onClick={() => { setLanguageMenuOpen(false); setMenuOpen(!menuOpen); }} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} data-testid="button-menu">{menuOpen ? <X size={18} /> : <Menu size={18} />}</button>
+        <button ref={menuButtonRef} type="button" className="menu-toggle" aria-controls="mobile-nav" onClick={() => { setLanguageMenuOpen(false); setMenuOpen(!menuOpen); }} aria-label={translateText(lang, 'Menu')} aria-expanded={menuOpen} data-testid="button-menu">{menuOpen ? <X size={18} /> : <Menu size={18} />}</button>
       </div>
     </div>
     {menuOpen && <nav ref={mobileNavRef} id="mobile-nav" className="mobile-nav" aria-label={lang === 'it' ? 'Menu' : 'Menu'}>
-      {items.map(([key, label]) => <PageLink key={key} page={key} lang={lang} onClick={() => setMenuOpen(false)} data-testid={`mobile-nav-${key}`}>{label}</PageLink>)}
+      {items.map(([key, label]) => key === 'articles'
+        ? <ArticleNav key={key} lang={lang} variant="mobile" onNavigate={() => setMenuOpen(false)} />
+        : <PageLink key={key} page={key} lang={lang} onClick={() => setMenuOpen(false)} data-testid={`mobile-nav-${key}`}>{label}</PageLink>)}
       <PageLink page="guides" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-guides">{lang === 'it' ? 'Guide pratiche' : 'Practical guides'}</PageLink>
       <PageLink page="search" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-search">{lang === 'it' ? 'Ricerca' : 'Search'}</PageLink>
       <a href={telHref} data-testid="mobile-nav-phone">{COMPANY_PHONE.display}</a>
       <PageLink page="request" lang={lang} className="button" onClick={() => setMenuOpen(false)}>{requestLabel}<ArrowRight size={14} /></PageLink>
     </nav>}
     <MobileContactBar hidden={menuOpen || languageMenuOpen} callLabel={localizeChoice(lang, 'Chiama', 'Phone')} writeLabel={localizeChoice(lang, 'Scrivici', 'Email')}
-      emailHref={`mailto:info@marenetto.com?subject=${encodeURIComponent(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))}`} />
+      emailHref={emailHref(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))} />
   </header>);
 }
 
@@ -283,20 +373,20 @@ function Footer({ lang }: { lang: Lang }) {
           <PageLink lang={lang} page="process">{it ? 'Come lavoriamo' : 'How we work'}</PageLink>
           <PageLink lang={lang} page="abroad">{it ? 'Proprietari all’estero' : 'Owners abroad'}</PageLink>
           <PageLink lang={lang} page="request">{it ? 'Invia una richiesta' : 'Send an enquiry'}</PageLink>
-        </div><h3 className="footer-subheading">{it ? 'Approfondire' : 'Resources'}</h3><div className="footer-links">
+        </div><h3 className="footer-subheading">{it ? 'Approfondire' : 'Explore'}</h3><div className="footer-links">
           <PageLink lang={lang} page="articles" data-testid="link-footer-articles">{it ? 'Articoli' : 'Articles'}</PageLink>
           <PageLink lang={lang} page="guides" data-testid="link-footer-guides">{it ? 'Guide pratiche' : 'Practical guides'}</PageLink>
           <PageLink lang={lang} page="search" data-testid="link-footer-search">{it ? 'Ricerca' : 'Search'}</PageLink>
         </div></div>
         <div><h3>{it ? 'Un primo contatto' : 'Get in touch'}</h3><div className="footer-links">
           <PageLink lang={lang} page="contact">{it ? 'Contatti' : 'Contact'}</PageLink>
-          <a href={`mailto:info@marenetto.com?subject=${encodeURIComponent(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))}`} data-testid="link-footer-email">info@marenetto.com</a>
+          <a href={emailHref(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))} data-testid="link-footer-email" dir="ltr">{COMPANY_CONTACT.email}</a>
           <span className="footer-phone-row"><a href={telHref} data-testid="link-footer-phone">Tel {COMPANY_PHONE.display}</a><span aria-hidden="true">·</span><a href={whatsappHref(message)} target="_blank" rel="noopener noreferrer" aria-label={`WhatsApp ${COMPANY_PHONE.display}`} data-testid="link-footer-whatsapp">WhatsApp</a></span>
-          <span>SS 113 Settentrionale Sicula, 73b<br />90015 Cefalù, Palermo, Italia</span>
+          <span lang="it">Cefalù · Sicilia<br /><small>Sede esatta in attesa di conferma aziendale.</small></span>
         </div></div>
       </div>
       <IllustrationNote lang={lang} />
-      <div className="footer-bottom"><span>© {new Date().getFullYear()} Marenetto s.r.l. unipersonale · P. IVA IT06471740826</span><span>{it ? 'Cefalù · Sicilia' : 'Cefalù · Sicily'}</span><Link href={withCampaignParams(routes[it ? 'en' : 'it'].home)} onClick={() => saveLanguageChoice(it ? 'en' : 'it')}>{it ? 'English' : 'Italiano'} <ArrowRight size={12} /></Link></div>
+      <div className="footer-bottom"><span lang="it">© {new Date().getFullYear()} Marenetto Build · Dati societari in attesa di conferma.</span><span>{it ? 'Cefalù · Sicilia' : 'Cefalù · Sicily'}</span><Link href={withCampaignParams(routes[it ? 'en' : 'it'].home)} onClick={() => saveLanguageChoice(it ? 'en' : 'it')}>{it ? 'English' : 'Italiano'} <ArrowRight size={12} /></Link></div>
     </div>
   </footer></>);
 }
@@ -322,6 +412,20 @@ function PageHero({ lang, page }: { lang: Lang; page: Exclude<CorePage, 'home'> 
 }
 
 function buildHomeCopy(lang: Lang): HomeCopy {
+  if (!isTranslationReviewMode() && !['it', 'en'].includes(lang)) {
+    const c = copy[lang];
+    // Reuse the previously approved phrases; do not silently load the newer draft.
+    return {
+      ...homeCopy.en, title: c.home.title, intro: c.home.intro, primary: c.home.primary, secondary: c.home.secondary,
+      svcHeading: c.services.heading, svcIntro: c.services.intro,
+      services: [c.services.groups[0], c.services.groups[4], c.services.groups[5]].map(group => ({ title: group.title, desc: group.desc, link: c.home.primary })),
+      outdoorKicker: c.services.groups[3].title, outdoorTitle: c.services.groups[3].title, outdoorText: c.services.groups[3].desc, outdoorLink: c.nav.services,
+      methodKicker: c.nav.process, methodHeading: c.process.heading, methodLink: c.nav.process,
+      steps: c.process.steps.map(step => [step[1], step[2]]),
+      abroadKicker: c.nav.abroad, abroadHeading: c.abroad.heading, abroadText: c.abroad.intro, abroadLink: c.nav.abroad,
+      abroadPoints: c.abroad.blocks.slice(0, 3).map(block => [block[0], block[1]]),
+    };
+  }
   return getLocalizedCopy(lang, { it: homeCopy.it, en: homeCopy.en });
 }
 
@@ -425,9 +529,10 @@ function HomePage({ lang }: { lang: Lang }) {
         <div className="mb-news-grid">
           {[...articleList].sort((a, b) => (a.reviewStatus === 'documentary-review' ? 0 : 1) - (b.reviewStatus === 'documentary-review' ? 0 : 1)).slice(0, 3).map(a => <Link key={a.slug} href={withCampaignParams(articlePath(lang, a.slug))} className="mb-news-card" data-testid={`card-home-article-${a.slug}`}>
             <div className="mb-news-media"><img src={a.image} alt={translateText(lang, a.imageAlt)} width={1920} height={a.image.endsWith('.png') ? 1920 : 1047} loading="lazy" /></div>
-            <div className="mb-news-meta"><span>{translateText(lang, a.category)}</span><span>{a.publishedOn ? new Intl.DateTimeFormat(lang, { dateStyle: 'long' }).format(new Date(`${a.publishedOn}T12:00:00Z`)) : '—'}</span></div>
-            <h3 className="mb-serif">{translateText(lang, a.title)}</h3>
-            <p>{translateText(lang, a.summary)}</p>
+            <div className="mb-news-meta" lang="it"><span>{a.category}</span><time dateTime={a.publishedOn ?? undefined}>{a.publishedOn ?? '—'}</time></div>
+            <h3 className="mb-serif" lang="it">{a.title}</h3>
+            <p lang="it">{a.summary}</p>
+            {lang !== 'it' && <small lang="it">Testo originale italiano</small>}
           </Link>)}
         </div>
       </div>
@@ -499,11 +604,11 @@ function ContactPage({ lang }: { lang: Lang }) {
     <section className="section" id="contatti" data-testid="anchor-contatti">
       <div className="container contact-layout">
         <aside className="contact-info"><SectionLabel>{it ? 'Contatti' : 'Contact'}</SectionLabel><h2 className="display-title">{it ? 'Ci trovi qui.' : 'We are here.'}</h2>
-          <div className="contact-method"><MessageCircle size={17} /><div><small>WhatsApp</small><a href={whatsappHref(localizeChoice(lang, 'Buongiorno, vorrei parlare della mia proprietà a Cefalù.', 'Hello, I would like to discuss my property in Cefalù.'))} target="_blank" rel="noopener noreferrer" data-testid="link-whatsapp">{it ? 'Scrivici' : 'Message us'}<ArrowRight size={13} /></a></div></div>
+          <div className="contact-method"><MessageCircle size={17} /><div><small>WhatsApp</small><a href={whatsappHref(localizeChoice(lang, 'Buongiorno, vorrei parlare della mia proprietà a Cefalù.', 'Hello, I would like to discuss my property in Cefalù.'))} target="_blank" rel="noopener noreferrer" data-testid="link-whatsapp">{it ? 'Scrivici' : 'Get in touch'}<ArrowRight size={13} /></a></div></div>
           <div className="contact-method"><Phone size={17} /><div><small>{it ? 'Telefono' : 'Phone'}</small><a href={telHref} data-testid="link-phone">{COMPANY_PHONE.display}</a></div></div>
-          <div className="contact-method"><Mail size={17} /><div><small>Email</small><a href={`mailto:info@marenetto.com?subject=${encodeURIComponent(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))}`} data-testid="link-email">info@marenetto.com</a></div></div>
-          <div className="contact-method"><MapPin size={17} /><div><small>{it ? 'Indirizzo' : 'Address'}</small><span>SS 113 Settentrionale Sicula, 73b<br />90015 Cefalù, Palermo, Italia</span></div></div>
-          <div className="contact-note">{localizeChoice(lang, 'Anteprima sintetica: non inserire dati personali reali. Per un contatto effettivo usa email, telefono o WhatsApp.', 'Synthetic preview: do not enter real personal data. For a real enquiry, use email, phone or WhatsApp.')}</div>
+          <div className="contact-method"><Mail size={17} /><div><small>Email</small><a href={emailHref(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))} data-testid="link-email" dir="ltr">{COMPANY_CONTACT.email}</a></div></div>
+          <div className="contact-method"><MapPin size={17} /><div><small>{it ? 'Indirizzo' : 'Address'}</small><span lang="it">Cefalù · Sicilia<br />Sede esatta in attesa di conferma aziendale.</span></div></div>
+          <div className="contact-note">{localizeChoice(lang, 'Anteprima sintetica: non inserire dati personali reali. Per un contatto effettivo usa email, telefono o WhatsApp.', 'Synthetic preview: do not enter real personal information. The form discards the details entered and creates only a demo lead. For a real enquiry, use email, phone or WhatsApp.')}</div>
         </aside>
         <div className="contact-content"><SectionLabel>{it ? 'Richiesta' : 'Enquiry'}</SectionLabel><h2 className="display-title">{it ? 'Che cosa ti serve?' : 'What do you need?'}</h2>
           <div className="contact-cta-list">
@@ -642,18 +747,18 @@ function LocalizationReviewIndex() {
     request: 'Richiesta',
     contact: 'Contatti',
   };
-  const pendingLocales = LOCALES.filter(locale => locale.publication === 'blocked');
+  const pendingLocales = LOCALES.filter(locale => locale.code !== 'it');
   return <div className="site-shell" lang="it-IT" dir="ltr">
-    <header className="topbar"><div className="container nav-wrap"><Link href="/" className="wordmark"><strong>MARENETTO</strong><span>BUILD · CEFALÙ</span></Link><span className="translation-review-status">Anteprima editoriale privata</span></div></header>
+    <header className="topbar"><div className="container nav-wrap"><Link href="/" className="wordmark"><strong>MARENETTO</strong><span>BUILD · CEFALÙ</span></Link><span className="translation-review-status">Anteprima editoriale non indicizzabile</span></div></header>
     <main className="section translation-review-index">
       <div className="container">
         <SectionLabel>Revisione editoriale</SectionLabel>
-        <h1 className="display-title">Bozze delle 27 lingue</h1>
-        <p className="section-intro">Ogni lingua è una bozza non pubblica. Apri le pagine e segnala le correzioni; la pubblicazione resta bloccata finché non approvi i testi.</p>
+        <h1 className="display-title">29 lingue nel percorso editoriale</h1>
+        <p className="section-intro">L’originale italiano e le 28 edizioni straniere restano nel perimetro. Le bozze qui collegate sono revisionabili, non approvate: non entrano negli equivalenti pubblicabili. Questa anteprima non richiede accesso; non inserirvi dati riservati.</p>
         <div className="translation-review-list">
           {pendingLocales.map(locale => <article className="translation-review-row" key={locale.code}>
-            <div><h2>{locale.nativeName}</h2><p>{locale.code.toUpperCase()} · {locale.direction.toUpperCase()} · {locale.reviewStatus === 'awaiting-owner-review' ? 'In attesa della tua approvazione' : 'Bozza'}</p></div>
-            <nav aria-label={`Pagine in ${locale.nativeName}`}>{PAGE_KEYS.map(page => <Link key={page} href={routes[locale.code][page]}>{pageLabels[page]}</Link>)}</nav>
+            <div><h2>{locale.nativeName}</h2><p>{locale.code.toUpperCase()} · {locale.direction.toUpperCase()} · In attesa della tua approvazione</p></div>
+            <nav aria-label={`Pagine in ${locale.nativeName}`}>{editions.filter(e => e.locale === locale.code && e.kind !== 'article').map(edition => <Link key={edition.id} href={reviewPathForEdition(edition)}>{pageLabels[edition.id as CorePage] ?? ({ articles: 'Articoli', guides: 'Guide', search: 'Ricerca' } as Record<string, string>)[edition.id]}</Link>)}</nav>
           </article>)}
         </div>
       </div>
@@ -662,9 +767,9 @@ function LocalizationReviewIndex() {
 }
 function SitePage({ page, lang }: { page: CorePage; lang: Lang }) {
   useEffect(() => {
-    const metadata = seoCopy[lang][page];
+    const metadata = getEdition(lang, page) ?? seoCopy[lang][page];
     const pagePath = routes[lang][page];
-    const canonicalUrl = new URL(pagePath, PUBLIC_SITE_ORIGIN).toString();
+    const canonicalUrl = new URL(isTranslationReviewMode() ? `/__localization-review/${lang}/${page}` : pagePath, PUBLIC_SITE_ORIGIN).toString();
     const direction = getLocaleDirection(lang);
     const htmlLang = lang === 'it' ? 'it-IT' : lang;
     document.title = metadata.title;
@@ -688,6 +793,9 @@ function SitePage({ page, lang }: { page: CorePage; lang: Lang }) {
     setMeta('meta[property="og:locale"]', 'property', 'og:locale', lang === 'it' ? 'it_IT' : lang === 'en' ? 'en_GB' : lang);
     setMeta('meta[name="twitter:title"]', 'name', 'twitter:title', metadata.title);
     setMeta('meta[name="twitter:description"]', 'name', 'twitter:description', metadata.description);
+    setMeta('meta[property="og:type"]', 'property', 'og:type', 'website');
+    const structuredEdition = getEdition(lang, page);
+    if (structuredEdition) updateStructuredData(structuredEdition, PUBLIC_SITE_ORIGIN);
 
     let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
     if (!canonical) {
@@ -697,12 +805,13 @@ function SitePage({ page, lang }: { page: CorePage; lang: Lang }) {
     }
     if (canonical) canonical.href = canonicalUrl;
 
-    document.head.querySelectorAll('link[data-locale-alternate]').forEach(link => link.remove());
-    const alternates: [string, string][] = PUBLISHED_LOCALES.map(locale => [
-      locale.code === 'it' ? 'it-IT' : locale.code,
-      seoCopy[locale.code][page].path,
+    document.head.querySelectorAll('link[rel="alternate"][hreflang]').forEach(link => link.remove());
+    const currentEdition = getEdition(lang, page);
+    const alternates: [string, string][] = (currentEdition?.state === 'published' && !isTranslationReviewMode() ? equivalentEditions(page) : []).map(edition => [
+      edition.locale === 'it' ? 'it-IT' : edition.locale,
+      edition.path,
     ]);
-    alternates.push(['x-default', seoCopy.it[page].path]);
+    if (currentEdition?.state === 'published' && !isTranslationReviewMode()) alternates.push(['x-default', seoCopy.it[page].path]);
     for (const [hrefLang, pathname] of alternates) {
       const alternate = document.createElement('link');
       alternate.rel = 'alternate';
@@ -718,14 +827,15 @@ function SitePage({ page, lang }: { page: CorePage; lang: Lang }) {
   const main = page === 'request' ? contents : localizeNode(lang, contents);
   const footer = localizeNode(lang, <Footer lang={lang} />);
   return <div className="site-shell" lang={lang === 'it' ? 'it-IT' : lang} dir={getLocaleDirection(lang)}>
-    {header}<main><WhatsAppAccess lang={lang} />{main}</main>{footer}
+    {header}<main>{lang !== 'it' && <p className="container translation-review-status" lang="it" role="note">Edizione in revisione: non approvata come equivalente pubblico. <a href={`/__localization-review/${lang}/${page}`}>Apri la bozza da revisionare</a></p>}<WhatsAppAccess lang={lang} />{main}</main>{footer}
   </div>;
 }
 
 function LibraryShell({ page, children, lang = 'it', articleSlug }: { page: Page; children: ReactNode; lang?: Lang; articleSlug?: string }) {
-  return <LibraryLocale.Provider value={lang}><div className="site-shell" lang={lang === 'it' ? 'it-IT' : lang} dir={getLocaleDirection(lang)}>
+  const contentLocale = isTranslationReviewMode() ? lang : 'it';
+  return <LibraryLocale.Provider value={contentLocale}><div className="site-shell" lang={lang === 'it' ? 'it-IT' : lang} dir={getLocaleDirection(lang)}>
     <Header lang={lang} page={page} articleSlug={articleSlug} />
-    <main><WhatsAppAccess lang={lang} />{lang !== 'it' && <p className="container translation-review-status" role="note" data-testid="translation-review-notice">{translateText(lang, 'Translation preview, awaiting review.')}</p>}{children}</main>
+    <main><WhatsAppAccess lang={lang} />{lang !== 'it' && <p className="container translation-review-status" role="note" data-testid="translation-review-notice" lang="it" dir="ltr">{isTranslationReviewMode() ? 'Bozza tradotta · in attesa della revisione del titolare.' : 'Testo originale italiano · nessuna traduzione approvata.'} <a href={articleSlug ? `/${articleSlug}` : libraryPath('it', page as 'articles' | 'guides' | 'search')}>Leggi l’edizione italiana</a></p>}<div lang={contentLocale} dir={getLocaleDirection(contentLocale)}>{children}</div></main>
     <Footer lang={lang} />
   </div></LibraryLocale.Provider>;
 }
@@ -737,18 +847,31 @@ function LocalizedLibraryPage({ lang, page, articleSlug }: { lang: Lang; page: '
 function LocalizedSitePage({ page, lang }: { page: CorePage; lang: Lang }) {
   return <LocaleGate lang={lang}><SitePage page={page} lang={lang} /></LocaleGate>;
 }
+function RecoveredPage({ page, lang }: { page: HistoricalPageRecord; lang: Lang }) {
+  const h = buildHomeCopy(lang);
+  const navigationPage = page.kind === 'article' || page.kind === 'archive' ? 'articles' : page.family === '/' ? 'home' : 'services';
+  return <div className="site-shell" lang={lang === 'it' ? 'it-IT' : lang} dir={getLocaleDirection(lang)}>
+    <Header lang={lang} page={navigationPage} editionId={editionByPath.get(page.path)?.id} articleSlug={page.kind === 'article' ? page.family.slice(1) : undefined} />
+    <main><WhatsAppAccess lang={lang} /><HistoricalContents page={page} actions={<div className="mbh-actions">
+      <PageLink lang={lang} page="request" className="mbh-btn mbh-btn--board" data-testid="hero-request">{h.primary}</PageLink>
+      <PageLink lang={lang} page="process" className="mbh-hero__link" data-testid="hero-process">{h.secondary}</PageLink>
+    </div>} /></main>
+    <Footer lang={lang} />
+  </div>;
+}
+
 function LocaleGate({ lang, children }: { lang: Lang; children: ReactNode }) {
-  const [readyLocale, setReadyLocale] = useState<string | null>(() => isLocaleCatalogLoaded(lang) ? lang : null);
+  const [readyLocale, setReadyLocale] = useState<string | null>(() => isLocaleCatalogLoaded(lang) && historicalLoaded(lang) ? lang : null);
   const [failedLocale, setFailedLocale] = useState<string | null>(null);
   useEffect(() => {
     let active = true;
-    loadLocaleCatalog(lang)
+    Promise.all([loadLocaleCatalog(lang), loadHistorical(lang)])
       .then(() => { if (active) setReadyLocale(lang); })
       .catch(() => { if (active) setFailedLocale(lang); });
     return () => { active = false; };
   }, [lang]);
 
-  if (!isLocaleCatalogLoaded(lang) && readyLocale !== lang) {
+  if ((!isLocaleCatalogLoaded(lang) || !historicalLoaded(lang)) && readyLocale !== lang) {
     if (failedLocale === lang) return <div className="locale-load-error" lang={lang} dir={getLocaleDirection(lang)} role="alert">{localeLoadErrors[lang]}</div>;
     return <div className="locale-loading" lang={lang} dir={getLocaleDirection(lang)} aria-busy="true">{getLocale(lang)?.nativeName}…</div>;
   }
@@ -756,28 +879,46 @@ function LocaleGate({ lang, children }: { lang: Lang; children: ReactNode }) {
 }
 function Router() {
   const [path] = useLocation();
+  setTranslationReviewMode(path.startsWith('/__localization-review/'));
   useHashFragmentNavigation(path);
   const lang = getLang(path);
   const page = getPage(path);
+  const recovered = historicalPage(path) ?? historicalArticleForPreview(path) ?? historicalPending(path);
+  if (recovered && !path.startsWith('/__localization-review/')) {
+    const temporaryHold = recovered.state === 'awaiting-confirmation' && recovered.kind !== 'article' && !recovered.editorialCorrection;
+    if (path !== recovered.path && !temporaryHold) return <Redirect to={routeRedirect(recovered.path)} replace />;
+    return <LocaleGate lang={lang}><RecoveredPage page={recovered} lang={lang} /></LocaleGate>;
+  }
+  const reviewLibrary = path.match(/^\/__localization-review\/([a-z]{2})\/(articles|guides|search)(?:\/([^/]+))?$/);
+  if (reviewLibrary && getLocale(reviewLibrary[1])) {
+    const [, reviewLang, kind, slug] = reviewLibrary;
+    if (slug && (kind !== 'articles' || !articleBySlug.has(slug))) return <NotFound lang={reviewLang} />;
+    return <LocalizedLibraryPage lang={reviewLang} page={kind as 'articles' | 'guides' | 'search'} articleSlug={slug} />;
+  }
   const trimmed = path.length > 1 && path.endsWith('/') && path !== '/en/' ? path.replace(/\/+$/, '') : path;
+  if (trimmed === '/translation-ok') return <NotFound status={410} lang="it" />;
+  // Native historical destinations take priority over the app's generic
+  // /:locale/articles/:slug matcher, including editions still under review.
+  if (redirects[trimmed]) return <Redirect to={routeRedirect(redirects[trimmed])} replace />;
   const localizedLibrary = trimmed.match(/^\/([a-z]{2})\/(articles|guides|search|projects)(?:\/([^/]+))?$/);
   if (localizedLibrary && getLocale(localizedLibrary[1])) {
     const [, libraryLang, kind, slug] = localizedLibrary;
+    if (slug && kind === 'articles') {
+      const native = articlePath(libraryLang, slug);
+      if ((historicalPage(native) || historicalArticleForPreview(native)) && native.replace(/\/+$/, '') !== trimmed) return <Redirect to={routeRedirect(native)} replace />;
+    }
     if (kind === 'projects') return <Redirect to={withCampaignParams(routes[libraryLang].services)} />;
     if (slug && (kind !== 'articles' || !articleBySlug.has(slug))) return <NotFound lang={libraryLang} />;
     return <RoutedErrorBoundary><LocalizedLibraryPage lang={libraryLang} page={kind as 'articles' | 'guides' | 'search'} articleSlug={slug} /></RoutedErrorBoundary>;
   }
-  if (historicalRedirects[trimmed]) {
-    return <Redirect to={withCampaignParams(`${historicalRedirects[trimmed]}${window.location.hash}`)} replace />;
-  }
-  if (trimmed !== path && (articleBySlug.has(trimmed.slice(1)) || ['/articoli', '/contatti', '/guide', '/progetti', '/ricerca'].includes(trimmed))) return <Redirect to={withCampaignParams(`${trimmed}${window.location.hash}`)} replace />;
+  if (trimmed !== path && (articleBySlug.has(trimmed.slice(1)) || ['/articoli', '/contatti', '/guide', '/progetti', '/ricerca'].includes(trimmed))) return <Redirect to={routeRedirect(trimmed)} replace />;
   const article = articleBySlug.get(trimmed.slice(1));
   if (article) return <RoutedErrorBoundary><LibraryShell page="articles"><ArticleDetailPage a={article} /></LibraryShell></RoutedErrorBoundary>;
-  if (path === '/__localization-review' && import.meta.env.DEV) return <LocalizationReviewIndex />;
+  if (path === '/__localization-review') return <LocalizationReviewIndex />;
   const reviewMatch = path.match(/^\/__localization-review\/([a-z]{2})\/(home|services|process|abroad|request|contact)\/?$/);
   if (reviewMatch) {
     const locale = getLocale(reviewMatch[1]);
-    if (!import.meta.env.DEV || !locale || locale.publication !== 'blocked') return <NotFound />;
+    if (!locale) return <NotFound />;
     return <RoutedErrorBoundary><LocalizedSitePage page={reviewMatch[2] as CorePage} lang={locale.code} /></RoutedErrorBoundary>;
   }
 
@@ -801,7 +942,7 @@ function Router() {
     <Route path="/guide"><LibraryShell page="guides"><GuidesPage /></LibraryShell></Route>
     {/* Keep the editorial ProjectsPage component, but do not expose an empty
         portfolio through direct or historical links until real work is ready. */}
-    <Route path="/progetti"><Redirect to={withCampaignParams(`/servizi${window.location.hash}`)} replace /></Route>
+    <Route path="/progetti"><Redirect to={withCampaignParams(`/servizi${typeof window === 'undefined' ? '' : window.location.hash}`)} replace /></Route>
     <Route path="/ricerca"><LibraryShell page="search"><SearchPage /></LibraryShell></Route>
     <Route path="/"><HomeEntry /></Route>
     <Route path="/servizi"><SitePage page="services" lang="it" /></Route>
@@ -821,14 +962,15 @@ function Router() {
 
 // First entry on the Italian home: send visitors to their browser language (or saved choice).
 function HomeEntry() {
-  let target: string | undefined;
-  if (!isAutomaticVisitor(navigator.userAgent)) {
-    const browserLanguages = navigator.languages?.length ? navigator.languages : [navigator.language];
-    const code = chooseLanguage(browserLanguages, readSavedLanguage(), PUBLISHED_LOCALES.map(locale => locale.code));
-    if (code !== 'it') target = withCampaignParams(`${routes[code].home}${window.location.hash}`);
-  }
-  if (target) return <Redirect to={target} replace />;
-  return <LocalizedSitePage page="home" lang="it" />;
+  const [suggested, setSuggested] = useState<string | null>(null);
+  useEffect(() => {
+    const code = chooseLanguage(navigator.languages?.length ? navigator.languages : [navigator.language], readSavedLanguage(), LOCALES.map(locale => locale.code));
+    if (code !== 'it') setSuggested(code);
+  }, []);
+  return <>{suggested && <aside className="language-suggestion" aria-label="Lingua">
+    <a href={withCampaignParams(`${routes[suggested].home}${window.location.hash}`)} lang={suggested} onClick={() => saveLanguageChoice(suggested)}>{getLocale(suggested)?.nativeName}</a>
+    <button type="button" onClick={() => { saveLanguageChoice('it'); setSuggested(null); }}>Continua in italiano</button>
+  </aside>}<LocalizedSitePage page="home" lang="it" /></>;
 }
 
 function useHashFragmentNavigation(path: string) {
@@ -873,8 +1015,12 @@ function RoutedErrorBoundary({ children }: { children: ReactNode }) {
   return <ErrorBoundary resetKey={location}>{children}</ErrorBoundary>;
 }
 
-function App() {
-  return <QueryClientProvider client={queryClient}><TooltipProvider><WouterRouter base={basePath}>{clerkPubKey ? <ClerkProviderWithRoutes /> : <Router />}<Toaster /></WouterRouter></TooltipProvider></QueryClientProvider>;
+function App({ ssrPath }: { ssrPath?: string }) {
+  const [, setHydrated] = useState(false);
+  useEffect(() => { document.documentElement.dataset.hydrated = 'true'; setHydrated(true); }, []);
+  const pathname = ssrPath ?? window.location.pathname;
+  const needsAuth = /^\/(internal|sign-in|sign-up)(\/|$)/.test(pathname.slice(basePath.length));
+  return <QueryClientProvider client={queryClient}><TooltipProvider><WouterRouter base={basePath} ssrPath={ssrPath}>{needsAuth && clerkPubKey ? <ClerkProviderWithRoutes /> : <Router />}<Toaster /></WouterRouter></TooltipProvider></QueryClientProvider>;
 }
 
 function SignInPage() {
@@ -923,7 +1069,7 @@ const clerkAppearance = {
   options: {
     logoPlacement: 'inside' as const,
     logoLinkUrl: basePath || '/',
-    logoImageUrl: `${window.location.origin}${basePath}/favicon.svg`,
+    logoImageUrl: `${basePath}/favicon.svg`,
   },
   variables: {
     colorPrimary: '#9a634c',

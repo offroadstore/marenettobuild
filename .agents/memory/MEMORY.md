@@ -4,3 +4,6 @@
 - [Workspace lifecycle checks](workspace-lifecycle-checks.md) — Critical pnpm selectors must fail on no match; a healthy server can still lack authorization tables.
 - [Internal access testing](internal-access-testing.md) — Temporary development test gates are not release approvals; do not infer an SMTP dependency from an approval flag.
 - [Documentary asset recovery](documentary-asset-recovery.md) — A missing report file after a task merge does not prove it was never delivered; check registered outputs separately.
+- [Business contact approval](contact-approval.md) — Owner confirmed the visible business email; this is not proof of message delivery or legal/address verification.
+- [SSR locale dates](ssr-locale-dates.md) — ICU support and browser fallback locales can differ; identical Intl options do not guarantee identical initial text.
+- [Historical fidelity](historical-fidelity.md) — Reworked text is not an original copy; require independent historical-to-served diffs and owner decisions on unverified claims.

@@ -3,6 +3,7 @@ import { useLocation } from 'wouter';
 import { X } from 'lucide-react';
 import { whatsappHref } from '@/config/contact';
 import { localizeChoice } from '@/localization/runtime';
+import { closeWhatsApp, openWhatsApp } from '@/localization/operational-copy';
 
 function WhatsAppLogo({ size }: { size: number }) {
   return <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true" focusable="false" fill="currentColor">
@@ -24,8 +25,8 @@ function useClosed() {
 
 function useWhatsAppCopy(lang: string) {
   return {
-    label: localizeChoice(lang, 'Scrivici su WhatsApp', 'Write to us on WhatsApp'),
-    href: whatsappHref(localizeChoice(lang, 'Buongiorno, vorrei informazioni per un lavoro.', 'Hello, I would like information about a building project.')),
+    label: openWhatsApp[lang],
+    href: whatsappHref(localizeChoice(lang, 'Buongiorno, vorrei informazioni per un lavoro.', 'Hello, I would like to discuss my property in Cefalù.')),
   };
 }
 
@@ -45,7 +46,7 @@ function Inner({ lang }: { lang: string }) {
   const suppressClick = useRef(false);
 
   const { label, href } = useWhatsAppCopy(lang);
-  const closeLabel = localizeChoice(lang, 'Chiudi il pulsante WhatsApp', 'Close the WhatsApp button');
+  const closeLabel = closeWhatsApp[lang];
 
   const clamp = useCallback((x: number, y: number) => {
     const box = boxRef.current;

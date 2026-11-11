@@ -21,7 +21,7 @@ test('the editorial matrix has 29 unique requested languages', () => {
   assert.equal(new Set(locales.map(locale => locale.code)).size, 29);
 });
 
-test('all 29 locale records are complete and explicitly approved', () => {
+test('legacy locale records retain their recorded metadata and approvals, not approval of current pages', () => {
   const published = locales.filter(locale => locale.publication === 'published');
   assert.equal(published.length, 29);
   const routePaths = [];
@@ -40,7 +40,7 @@ test('all 29 locale records are complete and explicitly approved', () => {
   assert.equal(new Set(routePaths).size, 174);
 });
 
-test('each approved catalog has complete translations and matching SEO metadata', async () => {
+test('legacy reviewed catalogs cover stored keys and SEO fields, not human review of current rendered editions', async () => {
   const source = JSON.parse(await readFile(path.join(root, 'src/localization/catalogs/sources.json'), 'utf8')).entries;
   const sourceToId = Object.fromEntries(Object.entries(source).map(([id, phrase]) => [phrase.normalize('NFKC').replace(/\s+/g, ' ').trim(), id]));
   for (const locale of locales.filter(record => !['it', 'en'].includes(record.code))) {
@@ -103,27 +103,33 @@ test('RTL locales have direction and script-specific font assignments', async ()
   assert.ok(css.includes('.site-shell[dir="rtl"] { direction: rtl; text-align: start; }'));
 });
 
-test('the production build prerenders metadata and equivalent hreflang URLs for every active route', async () => {
+test('the build renders complete documents and only includes page-approved equivalents', async () => {
   const sitemap = await readFile(path.join(output, 'sitemap.xml'), 'utf8');
-  assert.equal((sitemap.match(/<url>/g) ?? []).length, 174);
-  assert.equal((sitemap.match(/hreflang="it-IT"/g) ?? []).length, 174);
-  assert.equal((sitemap.match(/hreflang="x-default"/g) ?? []).length, 174);
-  for (const locale of locales) {
-    const hrefLang = locale.code === 'it' ? 'it-IT' : locale.code;
-    assert.equal((sitemap.match(new RegExp(`hreflang="${hrefLang}"`, 'g')) ?? []).length, 174);
-  }
+  const manifest = JSON.parse(await readFile(path.join(output, 'route-manifest.json'), 'utf8'));
+  const eligible = Object.values(manifest.editions).filter(edition => edition.state === 'published' && edition.approval && edition.sitemap);
+  assert.equal((sitemap.match(/<url>/g) ?? []).length, eligible.length);
+  assert.equal((sitemap.match(/hreflang="it-IT"/g) ?? []).length, eligible.length);
+  assert.doesNotMatch(sitemap, /hreflang="(?:en|nl|pt|uk|sl|sr)"/);
 
   for (const locale of locales.filter(record => record.publication === 'published')) {
     for (const pageKey of requiredPages) {
-      const pathname = pages[locale.code][pageKey].path.replace(/^\/+|\/+$/g, '');
-      const file = path.join(output, pathname, 'index.html');
+      const requestedPath = pages[locale.code][pageKey].path;
+      const routePath = manifest.redirects[requestedPath.replace(/\/+$/, '') || '/'] ?? Object.keys(manifest.pages).find(route => route.replace(/\/+$/, '') === requestedPath.replace(/\/+$/, '')) ?? requestedPath;
+      const pathname = routePath.replace(/^\/+|\/+$/g, '');
+      const holding = manifest.heldPages[routePath.replace(/\/+$/, '') || '/'];
+      const file = path.join(output, holding ?? manifest.pages[routePath] ?? `${pathname}/index.html`);
       const html = await readFile(file, 'utf8');
-      const canonical = new URL(pages[locale.code][pageKey].path, origin).toString();
-      assert.ok(html.includes(`<title>${escapeHtml(pages[locale.code][pageKey].title)}</title>`));
-      assert.ok(html.includes(`name="description" content="${escapeHtml(pages[locale.code][pageKey].description)}"`));
-      assert.ok(html.includes(`rel="canonical" href="${canonical}"`));
-       assert.equal((html.match(/rel="alternate" hreflang=/g) ?? []).length, 30);
-       assert.match(html, new RegExp(`<html lang="${locale.code === 'it' ? 'it-IT' : locale.code}" dir="${locale.direction}">`));
+      const buildOrigin = JSON.parse(await readFile(path.join(output, 'route-manifest.json'), 'utf8')).origin;
+      const canonical = new URL(routePath, buildOrigin).toString();
+      assert.equal((html.match(/<title>/g) ?? []).length, 1);
+      assert.ok(html.includes('name="description"'));
+      if (holding) assert.doesNotMatch(html, /rel="canonical"/);
+      else assert.ok(html.includes(`rel="canonical" href="${canonical}"`));
+       assert.equal((html.match(/rel="alternate" hreflang=/g) ?? []).length, !holding && manifest.editions[routePath]?.state === 'published' ? 2 : 0);
+       assert.match(html, new RegExp(`<html lang="${locale.code === 'it' ? 'it-IT' : locale.code}" dir="ltr"`));
+       assert.match(html, new RegExp(`class="site-shell" lang="${locale.code === 'it' ? 'it-IT' : locale.code}" dir="${locale.direction}"`));
+       assert.equal((html.match(/<h1(?:\s|>)/g) ?? []).length, 1);
+       assert.doesNotMatch(html, /<div id="root"><\/div>/);
        assert.ok(html.includes('name="robots" content="noindex, nofollow"'));
     }
   }

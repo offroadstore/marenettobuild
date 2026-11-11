@@ -1,3 +1,12 @@
+# Avvertenza sulla verifica storica successiva
+
+Questo documento precedente descrive la ricostruzione e le rielaborazioni del
+progetto; non certifica una copia fedele dei testi storici. La successiva
+acquisizione indipendente di novembre 2026 ha riscontrato edizioni e archivi
+pubblici mancanti o differenti. Vedere `HISTORICAL_FIDELITY_FINDINGS.md` e i
+diff consegnati. La migrazione non è conclusa e nessun originale è stato
+riscritto per nascondere le differenze.
+
 # Migration report — marenettobuild.com to Marenetto Build site
 
 Source: content/source-articles-it.json and content/source-pages.json (fetched 2026-10-17). Both files are preserved untouched.

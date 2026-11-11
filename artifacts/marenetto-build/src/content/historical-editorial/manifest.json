@@ -1,0 +1,1262 @@
+{
+  "sourceClaimsSHA256": "fe9d659e6f2b7c396486d1f3501cbebcc2a98897ea665e31f5532308dc1c64ac",
+  "authorization": "Owner selected “Applica le correzioni proposte”. Preview only; originals and historical URLs retained.",
+  "publicationApproved": false,
+  "pages": {
+    "/garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto": {
+      "path": "/garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto/",
+      "locale": "it",
+      "contentLanguage": "it",
+      "sourceSHA256": "3a531d89cc8b405ea34071969d8cec4a70c23504edd6b2500bcc34d577283c67",
+      "claims": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "authorization": "Owner authorized the 25 proposed Italian substitutions for preview",
+      "linguisticReview": "owner-authorized wording; not professional sign-off",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "6339123b8a89c05affb94cb80b572e72eee8ae851fc65216bc135d7d0bf1b8bf",
+      "correctedHTMLSHA256": "add788dab825a8ad99087fe80603fac38b9d3fb3b11d09a6417cffa4fc252e8a"
+    },
+    "/ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam": {
+      "path": "/ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam/",
+      "locale": "it",
+      "contentLanguage": "it",
+      "sourceSHA256": "ea0fd62a8801663c08fc74353982173eb61f1e74359b1e40370f1dc2dbd272a3",
+      "claims": [
+        5,
+        6
+      ],
+      "authorization": "Owner authorized the 25 proposed Italian substitutions for preview",
+      "linguisticReview": "owner-authorized wording; not professional sign-off",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "efb54e95d5e6ab5e3fb55b82ea208fd4e7db1d91db9d9a2f9e06c44644fc7640",
+      "correctedHTMLSHA256": "8e4f51e388c97a4bd426c12af78e43ddaf068d0b784b7492bfa81fe7ed392351"
+    },
+    "/pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete": {
+      "path": "/pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete/",
+      "locale": "it",
+      "contentLanguage": "it",
+      "sourceSHA256": "fd02ad6aa1693e0d69994d203b32004a1be96e0c2c34b4baeff676465dec5250",
+      "claims": [
+        7,
+        8
+      ],
+      "authorization": "Owner authorized the 25 proposed Italian substitutions for preview",
+      "linguisticReview": "owner-authorized wording; not professional sign-off",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "def81e930d0778b891a525a279d4c7b95ddb7c3bd17bcd43553fa555e856155f",
+      "correctedHTMLSHA256": "512a42dbeedcb30864a472ad48f6f550df868318e4076b442f4e5ab79189f12e"
+    },
+    "/ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni": {
+      "path": "/ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni/",
+      "locale": "it",
+      "contentLanguage": "it",
+      "sourceSHA256": "65061e548349de1a89b5eda71990f890bae93ea267d1a721c29230be84ea40ad",
+      "claims": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "authorization": "Owner authorized the 25 proposed Italian substitutions for preview",
+      "linguisticReview": "owner-authorized wording; not professional sign-off",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "ab5c414227d8e5949e195032e8376bf13e5dcd66ca3d553c8fe3eb52cb0f4e6d",
+      "correctedHTMLSHA256": "52d103832bd6a155fd6dcc2b7add766998217f2612da63872f875f0b82264124"
+    },
+    "/chi-siamo": {
+      "path": "/chi-siamo/",
+      "locale": "it",
+      "contentLanguage": "it",
+      "sourceSHA256": "7f3cf9e3c6ce0d0cf24f72604ed2d35d73a884a8105ab3c2d7e438294c52f3bd",
+      "claims": [
+        16
+      ],
+      "authorization": "Owner authorized the 25 proposed Italian substitutions for preview",
+      "linguisticReview": "owner-authorized wording; not professional sign-off",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "785941a8db8bbfde23ce332b27930705f3cd193417afca4d6d96eccaa24acbc7",
+      "correctedHTMLSHA256": "3ab5a8fecb1151f1f5c34c988ab143ad7c9d9a04c4c2556d31f9558cd99e98f9"
+    },
+    "/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto": {
+      "path": "/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto/",
+      "locale": "it",
+      "contentLanguage": "it",
+      "sourceSHA256": "5b22e6a60315402056e5960668a050f7c77bdfe4a6d2b8afdb92b335894a1e14",
+      "claims": [
+        17,
+        18,
+        19
+      ],
+      "authorization": "Owner authorized the 25 proposed Italian substitutions for preview",
+      "linguisticReview": "owner-authorized wording; not professional sign-off",
+      "publicationApproved": false,
+      "contactLinksUpdated": 1,
+      "originalHTMLSHA256": "bb83fbb362f18efacb9f9a3996f8b235f8f2c78b09ffeae3da8068dd8ca1a74a",
+      "correctedHTMLSHA256": "79c6a5607d305a5e2c914919e1e75faaced8148b64b8221f650494bbb3fcae8e"
+    },
+    "/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali": {
+      "path": "/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali/",
+      "locale": "it",
+      "contentLanguage": "it",
+      "sourceSHA256": "40490e17135afb9a3f0785bc1986ac418ec4dd81026280944919926bf95d84f9",
+      "claims": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "authorization": "Owner authorized the 25 proposed Italian substitutions for preview",
+      "linguisticReview": "owner-authorized wording; not professional sign-off",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "8c9be2d061a82c6df408ad2fba37c064df2bc05112e19b04ec759efcd2684b98",
+      "correctedHTMLSHA256": "fef84bd55cbad6f7a09a40196e40c40eb90fe9539d162440149cf49ebf654bfa"
+    },
+    "/contatti": {
+      "path": "/contatti/",
+      "locale": "it",
+      "contentLanguage": "it",
+      "sourceSHA256": "57f2927c62a0f7c51d4ca15c653b7a7510e0bc09d13e195fc2f07c02d7c62cf8",
+      "claims": [
+        24,
+        25
+      ],
+      "authorization": "Owner authorized the 25 proposed Italian substitutions for preview",
+      "linguisticReview": "owner-authorized wording; not professional sign-off",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "179abb09d8a0cba1a210e2e5a9f9b79c0320a39ad5658ae5d34b0b2c1b621534",
+      "correctedHTMLSHA256": "a2347f86d50dbc3b0a5d9e798a02b5a56395093bb9a71e54c2e7466c0eedd774"
+    },
+    "/en/10-year-warranty-on-construction-work-the-marenetto-decennial-insurance-policy": {
+      "path": "/en/10-year-warranty-on-construction-work-the-marenetto-decennial-insurance-policy/",
+      "locale": "en",
+      "contentLanguage": "en",
+      "sourceSHA256": "d67d49f7b9e0672941aba41808ad947a51fe5cb56222b334d05cdc73051166e4",
+      "claims": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "166ac9b1bcbb594f3c05f9218b602d3871b632a5aa0013aa2c6c7e370951fd65",
+      "correctedHTMLSHA256": "4492f38c158b9b2404d34dee91b5863a692919608cc2b00c6efbc817ccb7ad7d"
+    },
+    "/en/renovate-without-demolition-the-complete-guide-to-microverlayr-isoplam-microcement": {
+      "path": "/en/renovate-without-demolition-the-complete-guide-to-microverlayr-isoplam-microcement/",
+      "locale": "en",
+      "contentLanguage": "en",
+      "sourceSHA256": "f6300b8fc4b7e9c2a054c0b68677a388498b1bd4fd1d21c2ba8cde9d3ec7f696",
+      "claims": [
+        5,
+        6
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 1,
+      "originalHTMLSHA256": "179304ac0104c5afe58c502f263046b3f9ca448299b84d4bd68b7bf019d06857",
+      "correctedHTMLSHA256": "251a1854a5619017c576d27303ea4fb11421d3ef1dceca20f4e475ae5c252180"
+    },
+    "/en/isoplam-outdoor-floors-complete-guide-to-stamped-concrete-and-skyconcrete": {
+      "path": "/en/isoplam-outdoor-floors-complete-guide-to-stamped-concrete-and-skyconcrete/",
+      "locale": "en",
+      "contentLanguage": "en",
+      "sourceSHA256": "d8909388931b3dadc4308b56081009bb2ae6749d3c0b4e1b150da431f87fe17b",
+      "claims": [
+        7,
+        8
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "807ff455f6a13a4289edb98afbb49391cff0bc864d5f62020271615752f11970",
+      "correctedHTMLSHA256": "936a6b7610cfb28facfcc33e68818fb08ff62102b9d8e0c32308ebc8aa3b22ff"
+    },
+    "/en/water-and-moisture-leak-detection-how-to-address-it-without-demolition": {
+      "path": "/en/water-and-moisture-leak-detection-how-to-address-it-without-demolition/",
+      "locale": "en",
+      "contentLanguage": "en",
+      "sourceSHA256": "6302fc8813921dc778d9c8335569f5d1229a2808a1980d2a8f7d49a03eb041d0",
+      "claims": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "8f43d9756324c156aed01dd4ef3ca43654957898f1d298dea8fcfbef6c5c53cd",
+      "correctedHTMLSHA256": "e9a75e0e741dede819a6126b0fa530f1d8164c4eb570c1c41feb0474e22eb012"
+    },
+    "/en/chi-siamo": {
+      "path": "/en/chi-siamo/",
+      "locale": "en",
+      "contentLanguage": "it",
+      "sourceSHA256": "ad9fd2e1702d5359648650b0f245e2cfefd717aa54652c81d53f81e6f2908b45",
+      "claims": [
+        16
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "a9e8a1e49e842b44d3eaecab1590263a6a397be5f3fd696d899bfa8976eaaa8f",
+      "correctedHTMLSHA256": "7a1094948d52f05487a7fd80f30917eb7cde03af76003eabff1c6d492185c598"
+    },
+    "/en/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto": {
+      "path": "/en/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto/",
+      "locale": "en",
+      "contentLanguage": "it",
+      "sourceSHA256": "af0780991f168c053e81f22e22f2bc5f763dba330bf3f404d4d2c620f3bc7551",
+      "claims": [
+        17,
+        18,
+        19
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 1,
+      "originalHTMLSHA256": "d9e26ee8663343d79c0d86f96ec8d7d7110ff95740606de964b2273c5b6199a7",
+      "correctedHTMLSHA256": "9acb15e6002871cc0f3006b4fb0cc4bd934320141909f7f353866b351a63efda"
+    },
+    "/en/buying-and-renovating-a-house-in-cefalu-a-technical-guide-to-the-5-essential-checks": {
+      "path": "/en/buying-and-renovating-a-house-in-cefalu-a-technical-guide-to-the-5-essential-checks/",
+      "locale": "en",
+      "contentLanguage": "en",
+      "sourceSHA256": "15544ebee4cb53e0b5cf7153045bac8282e7790d6e00a029a553f99294b4854a",
+      "claims": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "855a3bc353b3f26641bf98d9c473a09f8689cb18c2bacb3eb7233ccfa4d4dec1",
+      "correctedHTMLSHA256": "71f8d2aa8c6a5f9cc4330dffb1251471a8186e260e044214c95e806725b6bf23"
+    },
+    "/en/contatti": {
+      "path": "/en/contatti/",
+      "locale": "en",
+      "contentLanguage": "it",
+      "sourceSHA256": "c52550ac1a02ec8273952c6a4a17df151fb354ff2e1dc8cfc8561dd1e56b2098",
+      "claims": [
+        24,
+        25
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "3b279863fd6eb36ae81b8eec44ab966856665227475a3bee9d7c447be069fae9",
+      "correctedHTMLSHA256": "8275f657ddf7a6c0004dda893c431db0090621862702ddba7773f26bd9082cf4"
+    },
+    "/nl/10-jaar-garantie-op-bouwwerkzaamheden-de-decennialijnse-polis-van-marenetto": {
+      "path": "/nl/10-jaar-garantie-op-bouwwerkzaamheden-de-decennialijnse-polis-van-marenetto/",
+      "locale": "nl",
+      "contentLanguage": "nl",
+      "sourceSHA256": "4b8cd94d440d7093e641fd246bb1bb521099896f55c2165d709c701e3318851c",
+      "claims": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "18214cb1c13d57a3945dcad1e61538356a87635e5ce54f2da84c98ec90f952e0",
+      "correctedHTMLSHA256": "3500fbacef4b06c42d4d25328249e9081a5a5df019c8cefa89d0b33e33c9f178"
+    },
+    "/nl/renoveren-zonder-slopen-de-complete-gids-voor-microverlayr-isoplam-microcement": {
+      "path": "/nl/renoveren-zonder-slopen-de-complete-gids-voor-microverlayr-isoplam-microcement/",
+      "locale": "nl",
+      "contentLanguage": "nl",
+      "sourceSHA256": "95619e5fa318f726e173e31744a04fbe4412e923f89233b8176ef64db649682a",
+      "claims": [
+        5,
+        6
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 1,
+      "originalHTMLSHA256": "10d4c2569d4b30ea24777f55c3f1e24ae42fc29ecdf9cb181a7b7addabed09cb",
+      "correctedHTMLSHA256": "33d3c118b7df20c0f9becbcaf7bad9dd85a637378797ae74640894fff31c7d57"
+    },
+    "/nl/isoplam-buitenvloeren-uitgebreide-gids-voor-gestempeld-beton-en-skyconcrete": {
+      "path": "/nl/isoplam-buitenvloeren-uitgebreide-gids-voor-gestempeld-beton-en-skyconcrete/",
+      "locale": "nl",
+      "contentLanguage": "nl",
+      "sourceSHA256": "e1c44cac2ba2e5e2c6c3d33da273cf4ce4ddd54335ac59d08cef75ceb8053fa7",
+      "claims": [
+        7,
+        8
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "2ff64393396594d64667762641db587a4dea34ba0ada039526be28c78a4d146b",
+      "correctedHTMLSHA256": "c0704ab9d2dbe4bd47a79fd226d92cf688b0db240b0fb425298510f1daba7976"
+    },
+    "/nl/opsporing-van-water-en-vochtinfiltraties-hoe-te-handelen-zonder-sloopwerkzaamheden": {
+      "path": "/nl/opsporing-van-water-en-vochtinfiltraties-hoe-te-handelen-zonder-sloopwerkzaamheden/",
+      "locale": "nl",
+      "contentLanguage": "nl",
+      "sourceSHA256": "21ba65c649833d4d56d6a767032b53051af736434350774a80bd62eeac471d66",
+      "claims": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "5fc5ed5d2b0a7a11ff53c288d37fabc2be431e1d6dd0a79c1315552f5b19c7d4",
+      "correctedHTMLSHA256": "213688c011667864416c3bf6c3e185b9cb2d7a18a7491d38e4538e3c8107d281"
+    },
+    "/nl/chi-siamo": {
+      "path": "/nl/chi-siamo/",
+      "locale": "nl",
+      "contentLanguage": "it",
+      "sourceSHA256": "4f30f05b8257af118e35eb0cbdfe6104db476fbaea21d2f4f534480e41cc1f04",
+      "claims": [
+        16
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "22114a3cee580380691735dc6d0eb9d97d0d79ae447f364df0f14456a924d771",
+      "correctedHTMLSHA256": "ea2df61e0720a397695913f6f1ac3ceafe209f29f9dc2bdcde970cc87fbbdbff"
+    },
+    "/nl/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto": {
+      "path": "/nl/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto/",
+      "locale": "nl",
+      "contentLanguage": "it",
+      "sourceSHA256": "4752facab8a1786fb06fc1da63d3ca9faa5fb1087bb12df4a352ca7bcd822913",
+      "claims": [
+        17,
+        18,
+        19
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 1,
+      "originalHTMLSHA256": "bf4b7f7fa34dac0fdbb9acbf4869eac2bb5ef5f4229626cac02891b6747929ea",
+      "correctedHTMLSHA256": "2d5d77caa006e6781ca9fb212fcbc9ecec655ba47bf6adcf6daa8a9d7a5914c3"
+    },
+    "/nl/een-huis-kopen-en-renoveren-in-cefalu-technische-gids-voor-de-5-essentiele-controles": {
+      "path": "/nl/een-huis-kopen-en-renoveren-in-cefalu-technische-gids-voor-de-5-essentiele-controles/",
+      "locale": "nl",
+      "contentLanguage": "nl",
+      "sourceSHA256": "e4656d48313d80001ca9eaa3a3b3aee5fb129c12bed02027147717fc6496c8fd",
+      "claims": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "e2e7e41bab45a765177b67becd5543a2765db8244b24f8b512b647be66c23537",
+      "correctedHTMLSHA256": "a9b37ec0cd661f327710af06d379261da6bcded9164faaa2e03271f938ad9c4d"
+    },
+    "/nl/contatti": {
+      "path": "/nl/contatti/",
+      "locale": "nl",
+      "contentLanguage": "it",
+      "sourceSHA256": "7a6ef70f674867dc47fb5bffb3fa5a733b33bc41d38adf39a3146e4c7ccf470f",
+      "claims": [
+        24,
+        25
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "d53c970ecacc54a9e9181989f5c21c9a47340d2c63eb8cf89e44791f433fd2e1",
+      "correctedHTMLSHA256": "7b35360e17e70061dd78725575992962f117f714fd2f250577a016eac304f715"
+    },
+    "/pt/garantia-de-10-anos-para-obras-de-construcao-a-apolice-decenal-marenetto": {
+      "path": "/pt/garantia-de-10-anos-para-obras-de-construcao-a-apolice-decenal-marenetto/",
+      "locale": "pt",
+      "contentLanguage": "pt",
+      "sourceSHA256": "1b66010fdcc684d0aaf6047a14bf0ce4027aed29d85f5a804208ba187f551fb3",
+      "claims": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "c0975d0df2fa82c4564d226899f1e18a63922d7adc1a4bede7797d90226006da",
+      "correctedHTMLSHA256": "342d6ed4c38de49f884f7631fbcb38b9aa1d05fb3c3b7d36eb04f9fb276fbacd"
+    },
+    "/pt/reformar-sem-demolir-o-guia-completo-do-microcimento-microverlayr-isoplam": {
+      "path": "/pt/reformar-sem-demolir-o-guia-completo-do-microcimento-microverlayr-isoplam/",
+      "locale": "pt",
+      "contentLanguage": "pt",
+      "sourceSHA256": "9002d4906a7b9c8720166cdff78e09477ba9dbb8de42051adce851d78631d633",
+      "claims": [
+        5,
+        6
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "d0537db7bffea4be7a4851038d8adc354b5e85aa0415eef594e3789535c6ee23",
+      "correctedHTMLSHA256": "16453ded92e56c08bcea7664ed58a3f85e199ed0c6bf382283228d8784d563c6"
+    },
+    "/pt/pavimentos-externos-isoplam-guia-completo-de-concreto-estampado-e-skyconcrete": {
+      "path": "/pt/pavimentos-externos-isoplam-guia-completo-de-concreto-estampado-e-skyconcrete/",
+      "locale": "pt",
+      "contentLanguage": "pt",
+      "sourceSHA256": "05976695b871c697d5e72c8e1fbbfda8b4470399dc72f11d83acb84a2f8407f9",
+      "claims": [
+        7,
+        8
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 1,
+      "originalHTMLSHA256": "9f5695ffe691ffb88eed7bf6d08483345442ed781de2a3010d1cadc2e724af51",
+      "correctedHTMLSHA256": "fb40a6e7c3f8ed92a6137a276a0f579b445b075ae87e079754469850dd1b21e9"
+    },
+    "/pt/deteccao-de-infiltracoes-e-umidade-como-agir-sem-demolicoes": {
+      "path": "/pt/deteccao-de-infiltracoes-e-umidade-como-agir-sem-demolicoes/",
+      "locale": "pt",
+      "contentLanguage": "pt",
+      "sourceSHA256": "5ac2796c4f377467d7acf24092b636270dc30cf65f964cc7c50a6eba61efd096",
+      "claims": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "ed9ee13d100f13bc0d68d620656323f81f07e18da16414d436f2cace7b4a39ca",
+      "correctedHTMLSHA256": "13d34a55faddf635bad0ac2af20f1f67cfd5278b8c4f75d36b831e8916975c33"
+    },
+    "/pt/chi-siamo": {
+      "path": "/pt/chi-siamo/",
+      "locale": "pt",
+      "contentLanguage": "it",
+      "sourceSHA256": "0d572e939df9217893f056c9a3d09a7faf12e14c3f38d6da932a509c3371239a",
+      "claims": [
+        16
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "8ee6b49048968e3eea40a95434608b449b4265129bb66de58a1a34863c5b13be",
+      "correctedHTMLSHA256": "f61a3282121e9debb3772687404b426a8b291e2d807294e5fb696dc5e201b0f5"
+    },
+    "/pt/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto": {
+      "path": "/pt/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto/",
+      "locale": "pt",
+      "contentLanguage": "it",
+      "sourceSHA256": "e814ecbb67731cad1496698b7651e690462c664a94300a1ccc9e566518bbb75c",
+      "claims": [
+        17,
+        18,
+        19
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 1,
+      "originalHTMLSHA256": "df89bf61a3602d5c24cdffd938600b7d2979c1055c53504ba1ef3295d5e7a292",
+      "correctedHTMLSHA256": "951798bd8fc0406e6d3c1b81f7bcc8a793f385b2ab6043e3c52a3b769e475983"
+    },
+    "/pt/comprar-e-reformar-casa-em-cefalu-guia-tecnica-dos-5-controles-essenciais": {
+      "path": "/pt/comprar-e-reformar-casa-em-cefalu-guia-tecnica-dos-5-controles-essenciais/",
+      "locale": "pt",
+      "contentLanguage": "pt",
+      "sourceSHA256": "9423e068264951ca86651db13d23b2c62bad68f0f86910fe11ba29fd72d5e471",
+      "claims": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "4d1140c4fc771befa0000ba657d758517ddb5b342be26f5d05f6f6e05d5385c5",
+      "correctedHTMLSHA256": "864cc2b61500d9e48969eac2283d2c6220a31a246d24ab5307bc7f7fb4fda16c"
+    },
+    "/pt/contatti": {
+      "path": "/pt/contatti/",
+      "locale": "pt",
+      "contentLanguage": "it",
+      "sourceSHA256": "837ee4bf4a3f3ab802fbb64a64cd54b53e12004ba9e2f51d03279abc476e4584",
+      "claims": [
+        24,
+        25
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "ec051be559d457dcb362e7565d0c491a8bb07c63bb0c98448508cf0ec9c9a194",
+      "correctedHTMLSHA256": "1ff14fbd04550c483668273fa4d058009db51f5425150d7620983052de6e52b3"
+    },
+    "/fr/garantie-decennale-sur-les-travaux-de-construction-la-police-decennale-marenetto": {
+      "path": "/fr/garantie-decennale-sur-les-travaux-de-construction-la-police-decennale-marenetto/",
+      "locale": "fr",
+      "contentLanguage": "fr",
+      "sourceSHA256": "e98dce4208e383d983efbb2e821ebc72e21040722a5ade6e27975d03a2cb55b6",
+      "claims": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "8bd08563f11ac6139539d7e42806b5333e4b9c415b80bafd82d3d8d8542baf30",
+      "correctedHTMLSHA256": "af7538f6628a4b7df3fb782a7c9505848f436d932676596d781d10624b26ac2b"
+    },
+    "/fr/renover-sans-demolir-le-guide-complet-du-microciment-microverlayr-isoplam": {
+      "path": "/fr/renover-sans-demolir-le-guide-complet-du-microciment-microverlayr-isoplam/",
+      "locale": "fr",
+      "contentLanguage": "fr",
+      "sourceSHA256": "d68b9614ae18451f93c3fdbe5e1e8c5403f9252f96e3c38fd8ac7873d854c485",
+      "claims": [
+        5,
+        6
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 1,
+      "originalHTMLSHA256": "832fa1f8a6eb5ed350070cb07916b3e1331e9afd310671f0a2d1a57a601b35ed",
+      "correctedHTMLSHA256": "a907be59ae8988f8d4f90705eeecb25b6437a5b906a62ca8f8843805a375b612"
+    },
+    "/fr/revetements-exterieurs-isoplam-guide-complet-du-beton-imprime-et-skyconcrete": {
+      "path": "/fr/revetements-exterieurs-isoplam-guide-complet-du-beton-imprime-et-skyconcrete/",
+      "locale": "fr",
+      "contentLanguage": "fr",
+      "sourceSHA256": "6642259c4676f86b76b995eaef78c58173990e926b010986735fdffb3cb1e877",
+      "claims": [
+        7,
+        8
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 1,
+      "originalHTMLSHA256": "0b7ad64fc6d12d3291cd9dafa064983e407ba00f42822214434a92307615638d",
+      "correctedHTMLSHA256": "56a77e2f26ff842bdc662ae206133fcdea7a5fd24ee9f623de9ddebca7c76e49"
+    },
+    "/fr/recherche-de-fuites-d-eau-et-d-humidite-comment-agir-sans-demolir": {
+      "path": "/fr/recherche-de-fuites-d-eau-et-d-humidite-comment-agir-sans-demolir/",
+      "locale": "fr",
+      "contentLanguage": "fr",
+      "sourceSHA256": "71fc9e5abcea809f08b06b7f1b86d435b1ffd5ae4c9ed62427541526445871e3",
+      "claims": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "3b2b6b21139dff432894279ba2f766229f8339c1e3cf0077c7e2798f5f7499c2",
+      "correctedHTMLSHA256": "447cca8e3dd1f095ce23f091ca965116024d3d48585f77cb644f946698699901"
+    },
+    "/fr/chi-siamo": {
+      "path": "/fr/chi-siamo/",
+      "locale": "fr",
+      "contentLanguage": "it",
+      "sourceSHA256": "abfbb6ca7860b7763b0930a75529aa95129c8d5fde124b51ebc50eed5e96939f",
+      "claims": [
+        16
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "f91e7d87b981a113acdada6e81ee7c2f53fe76a2e57fed0532e02e5ed6cbab42",
+      "correctedHTMLSHA256": "ebb897b5f997d173cc147cd2f56a3997759de0fbeb3d1e215a26f5809367f662"
+    },
+    "/fr/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto": {
+      "path": "/fr/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto/",
+      "locale": "fr",
+      "contentLanguage": "it",
+      "sourceSHA256": "a70f9e160f5ffed9c702b17753518970b6522a7ab67eadbb0f42309f9e0a170d",
+      "claims": [
+        17,
+        18,
+        19
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 1,
+      "originalHTMLSHA256": "5e6af1420193efb51a8f65dab9f08af3d8b23551a6aee729166fd4e18275ffb1",
+      "correctedHTMLSHA256": "40aa55ec3261279fd7852910d68d9191718741deecf7d87f314d20c0f689af01"
+    },
+    "/fr/acheter-et-renover-une-maison-a-cefalu-guide-technique-des-5-controles-essentiels": {
+      "path": "/fr/acheter-et-renover-une-maison-a-cefalu-guide-technique-des-5-controles-essentiels/",
+      "locale": "fr",
+      "contentLanguage": "fr",
+      "sourceSHA256": "a01084f15a02856722f0de64065512c84ac21bb492df9f5865b8180b0503e1ee",
+      "claims": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "bcdccdb3869d3a2ac9f657b66dff300eef5c8678c478b799a08cfab72e367c5e",
+      "correctedHTMLSHA256": "9b097a9ebc2a04071e21bee94b7995855cdd1405ae3bfa02910acae16b38a0fd"
+    },
+    "/fr/contatti": {
+      "path": "/fr/contatti/",
+      "locale": "fr",
+      "contentLanguage": "it",
+      "sourceSHA256": "08b470372e0fb75493a99f4fd7b04f1c2beb9026f4f5c28df2c96b06042c6375",
+      "claims": [
+        24,
+        25
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "376c7e76ecb1bfd48710cda54a65d8ccbc25b2ba6e9ba2483d5464c6fab54e68",
+      "correctedHTMLSHA256": "233e8316fa448ed58cecdeb74bbebd5cb5c6e9a5ef5be4fa8e933d4f633bfd27"
+    },
+    "/de/10-jahre-bauarbeiten-garantie-die-marenetto-zehnjahresversicherung": {
+      "path": "/de/10-jahre-bauarbeiten-garantie-die-marenetto-zehnjahresversicherung/",
+      "locale": "de",
+      "contentLanguage": "de",
+      "sourceSHA256": "3ad917a29b6b3d30c77143cad92adb5f848a7ed8bc0750de0a76b5d5b0e574cc",
+      "claims": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "8687929c59ab5cb4674f4696e310dedea1847f6c7111809a0f47e776e9e52962",
+      "correctedHTMLSHA256": "f3005a706e4723c6434fd27c18adfcf0413545fdf2f40b5c6d7548bfe160ae93"
+    },
+    "/de/sanieren-ohne-abriss-der-umfassende-leitfaden-fuer-microverlayr-isoplam-mikrozement": {
+      "path": "/de/sanieren-ohne-abriss-der-umfassende-leitfaden-fuer-microverlayr-isoplam-mikrozement/",
+      "locale": "de",
+      "contentLanguage": "de",
+      "sourceSHA256": "913949ce28b6e869f4bf6bdeff0d29648724733b44f444b223ab4badef34be6c",
+      "claims": [
+        5,
+        6
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 1,
+      "originalHTMLSHA256": "828a2080529d3c1dbcbe681325567930f8181997301a3060c6ff0904aed3c433",
+      "correctedHTMLSHA256": "7e7106e77363b7def8778f798943d564410a6098d19611a683eb89d135d4e16b"
+    },
+    "/de/isoplam-aussenboeden-umfassender-leitfaden-zu-stempelbeton-und-skyconcrete": {
+      "path": "/de/isoplam-aussenboeden-umfassender-leitfaden-zu-stempelbeton-und-skyconcrete/",
+      "locale": "de",
+      "contentLanguage": "de",
+      "sourceSHA256": "a916489d4ad98606ebbddaf795439d861ab6dbb242de4d8dcbcf9efde34591a9",
+      "claims": [
+        7,
+        8
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 1,
+      "originalHTMLSHA256": "2ab7f4ca33dce2416a08df18f6d0f6dfe1b59817493824bcd48a5928b3562562",
+      "correctedHTMLSHA256": "1e2ac555b1c436e7acd388c706b710bc12a885db3f7857d4087da14b105e57d5"
+    },
+    "/de/suche-nach-wassereintritt-und-feuchtigkeit-wie-man-ohne-abrissmassnahmen-vorgeht": {
+      "path": "/de/suche-nach-wassereintritt-und-feuchtigkeit-wie-man-ohne-abrissmassnahmen-vorgeht/",
+      "locale": "de",
+      "contentLanguage": "de",
+      "sourceSHA256": "d13a6ffac72734e121ae3aa48c40f967da6cd538d9fcb4cd5c1860148f8f7b92",
+      "claims": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "5404ac6e163691eb0e0f90b11b71625fda87557130d3e22f00ffb56ae426d179",
+      "correctedHTMLSHA256": "0b861b4a165a93b92a51e734efc15639e12fca4816ad5b2731d2334c599d5443"
+    },
+    "/de/chi-siamo": {
+      "path": "/de/chi-siamo/",
+      "locale": "de",
+      "contentLanguage": "it",
+      "sourceSHA256": "a72af94926280112ad62a09322f0a053dc5bb6c0701f13db341a89e41d173dd4",
+      "claims": [
+        16
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "7535477fd5c6568b54026f8dd2b9ea0f4413f681ab302cdf90a95bf738247a0b",
+      "correctedHTMLSHA256": "d8d0db6185b326141db0998a6ff4535e2f6bbf5505648b5174bbea0d619f7001"
+    },
+    "/de/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto": {
+      "path": "/de/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto/",
+      "locale": "de",
+      "contentLanguage": "it",
+      "sourceSHA256": "4dcb6812e816f9a0739373c686310df9ae88877f60c06ebc20bd37dbc48c02f8",
+      "claims": [
+        17,
+        18,
+        19
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 1,
+      "originalHTMLSHA256": "a3b228e44c28bb772f548e802c84bb4b3f74e5606310188ea3ef7a1fe512cd93",
+      "correctedHTMLSHA256": "dc8e2d604cf2da0841b3282b7b3e159c1b9dfecb5de4d054dc518aa5629db11a"
+    },
+    "/de/hauskauf-und-renovierung-in-cefalu-technischer-leitfaden-zu-den-5-wichtigsten-pruefungen": {
+      "path": "/de/hauskauf-und-renovierung-in-cefalu-technischer-leitfaden-zu-den-5-wichtigsten-pruefungen/",
+      "locale": "de",
+      "contentLanguage": "de",
+      "sourceSHA256": "0c4f462be32387621935d0dbeb039ac0672a54ba6c5139d7a5c35e1fea788350",
+      "claims": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "35ee921dd8b81fd6ee80f83b1d5d16038665bd61437f368d031f8ee403d10efa",
+      "correctedHTMLSHA256": "e6a388c6982ad3951141bbbcbed2a6706cf61c49cd9a95ddc4e9c9f24c5827de"
+    },
+    "/de/contatti": {
+      "path": "/de/contatti/",
+      "locale": "de",
+      "contentLanguage": "it",
+      "sourceSHA256": "c4d3a0b99ff74d6ce982dd45b9c94bb432ccea6580526c7c0467c01159c40efe",
+      "claims": [
+        24,
+        25
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "baf1d199d3be448345983c8210f433f8b5bb6b7b74e629b3d39c7957197fa47a",
+      "correctedHTMLSHA256": "bb69903df3fb9bdc408d74df0d0bf672a9c05d74d089c989e1cbefd13cfea316"
+    },
+    "/es/garantia-de-10-anos-en-trabajos-de-construccion-la-poliza-decenal-marenetto": {
+      "path": "/es/garantia-de-10-anos-en-trabajos-de-construccion-la-poliza-decenal-marenetto/",
+      "locale": "es",
+      "contentLanguage": "es",
+      "sourceSHA256": "c320fcb3c5d16a96c1578ee9df162077bff47cff9b4e5f7fbe03a074cbbcadd0",
+      "claims": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "2ddf926945ab33517eb34fc60bbd723ee9dd4c741611368ce7572077fb066b03",
+      "correctedHTMLSHA256": "058a584210ee893a667e96e3578faf3b21e53548454513c2d57eda23e74b9f4d"
+    },
+    "/es/reformar-sin-derribar-la-guia-completa-del-microcemento-microverlayr-isoplam": {
+      "path": "/es/reformar-sin-derribar-la-guia-completa-del-microcemento-microverlayr-isoplam/",
+      "locale": "es",
+      "contentLanguage": "es",
+      "sourceSHA256": "73150910b02173db5c0369a698d7e98d79ca825b09d44f696c4a00844d515b41",
+      "claims": [
+        5,
+        6
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 1,
+      "originalHTMLSHA256": "dfbfb4344c505f8b9f1b1eadcfb19f118e08995ce1311c99f808280cba4fa36e",
+      "correctedHTMLSHA256": "37275afff76994cf85e67af69597c0e6c5b0027a2d6025bf55af53dcfd1a3eaf"
+    },
+    "/es/suelos-exteriores-isoplam-guia-completa-de-hormigon-impreso-y-skyconcrete": {
+      "path": "/es/suelos-exteriores-isoplam-guia-completa-de-hormigon-impreso-y-skyconcrete/",
+      "locale": "es",
+      "contentLanguage": "es",
+      "sourceSHA256": "c1d60c2d9f807f071dca8feea017ebfd273a31af0185f977447ff28d8713c205",
+      "claims": [
+        7,
+        8
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "502072f3c0e0690b832ead9fd20fd977803d4b271db07848d1b4d9c0427ed377",
+      "correctedHTMLSHA256": "472f733d1dad924dbc11ea63e7dff4d965893422b9f5b51f4942f5fd6e61e27b"
+    },
+    "/es/deteccion-de-filtraciones-de-agua-y-humedad-como-actuar-sin-realizar-demoliciones": {
+      "path": "/es/deteccion-de-filtraciones-de-agua-y-humedad-como-actuar-sin-realizar-demoliciones/",
+      "locale": "es",
+      "contentLanguage": "es",
+      "sourceSHA256": "f49f68f34583d327a9088af89f94c6227b499492b0700e3207808b24e4ace26c",
+      "claims": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "5ffe13353c2e7e3a85c2a442e8115e3fab933a7549cecd333d7f58c5c4f21a9c",
+      "correctedHTMLSHA256": "7445e1ab707699ce9bf3700d0bee1bd47c9678a4970a3a0c3fdca6c974184131"
+    },
+    "/es/chi-siamo": {
+      "path": "/es/chi-siamo/",
+      "locale": "es",
+      "contentLanguage": "it",
+      "sourceSHA256": "a14f3449247b34e12436972d50e085e1203bce8bf04e1a2ee29d3bd9f28af5de",
+      "claims": [
+        16
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "5a922c55b5b23198ad4c243fcc2503f5975f5dd2504bbfb54fccc9d4cc7d149a",
+      "correctedHTMLSHA256": "c7eba18a6fca1f7f06671bc22681ac285d6ad6d856bfd965ba82306ee16947af"
+    },
+    "/es/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto": {
+      "path": "/es/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto/",
+      "locale": "es",
+      "contentLanguage": "it",
+      "sourceSHA256": "02bfcd5d6cd9064f3b68d2f3803762b5007620c658b8f0f8c2172515c0172579",
+      "claims": [
+        17,
+        18,
+        19
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 1,
+      "originalHTMLSHA256": "2c605c9a3bcbb5a82bb5a80be68c95f08d25f4ca30892f5789ee09008c4f3c5e",
+      "correctedHTMLSHA256": "d79da4a6893c48201820d0a49447f7b47cd4717c750b3db5d49ce3a138368c96"
+    },
+    "/es/comprar-y-renovar-casa-en-cefalu-guia-tecnica-de-los-5-controles-esenciales": {
+      "path": "/es/comprar-y-renovar-casa-en-cefalu-guia-tecnica-de-los-5-controles-esenciales/",
+      "locale": "es",
+      "contentLanguage": "es",
+      "sourceSHA256": "e02374bc118d627210a3dbf4dff7e5e948e255efae0bafa6f9d91c05c4d828b9",
+      "claims": [
+        20,
+        21
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "106e0961937b5931c58762f74b92e0a6b54e8439b19509bb4bfbec1f7bfa9e75",
+      "correctedHTMLSHA256": "bc7334ed601f85c9e5aeabcdee94a9ee4ffef52d6438091cfc988d3d99efa032"
+    },
+    "/es/contatti": {
+      "path": "/es/contatti/",
+      "locale": "es",
+      "contentLanguage": "it",
+      "sourceSHA256": "64d9057c34aa0844df51f76585d6328071a05b24032af3200e0d6c7222382fd4",
+      "claims": [
+        24,
+        25
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "858b04e97ee183552236cff7a816d8cb08240a87c91afa52b420d29eab2dccbd",
+      "correctedHTMLSHA256": "05b3895a4e0ea6303242773eb068ed93d0ba4988fb6eea132a466720b14ede11"
+    },
+    "/pl/10-letnia-gwarancja-na-prace-budowlane-polisa-dekenalna-marenetto": {
+      "path": "/pl/10-letnia-gwarancja-na-prace-budowlane-polisa-dekenalna-marenetto/",
+      "locale": "pl",
+      "contentLanguage": "pl",
+      "sourceSHA256": "ea14e0aa49ab05a51b4ff6aa0974a8249d06f3b85f2dd89d38720e50b329f43a",
+      "claims": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "9411327b9de2a3e8d0cd77c7176ff96d3c42fc7875401bb8621a38ed80bf8e6d",
+      "correctedHTMLSHA256": "65e7545a9afbc2534fbf6c8633ea4dcd6ac77806e3a06c229f5bf481d98aee14"
+    },
+    "/pl/renowacja-bez-rozbiorki-kompletny-przewodnik-po-mikrocemencie-microverlayr-isoplam": {
+      "path": "/pl/renowacja-bez-rozbiorki-kompletny-przewodnik-po-mikrocemencie-microverlayr-isoplam/",
+      "locale": "pl",
+      "contentLanguage": "pl",
+      "sourceSHA256": "e45581e0d83f30c5e39917cc9115be449d1b8f37797472d135a029bfd4f7ca6a",
+      "claims": [
+        5,
+        6
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "2d78f0b7806abe8d4e49f4a8f23709a75b8ac62ec98870ae50cb754d73ab4a45",
+      "correctedHTMLSHA256": "cffac284b4376402db6641b1b99381ef4e360db5399d5a4939927ba1d330bb56"
+    },
+    "/pl/podlogi-zewnetrzne-isoplam-kompletny-przewodnik-po-betonie-wzorcowym-i-skyconcrete": {
+      "path": "/pl/podlogi-zewnetrzne-isoplam-kompletny-przewodnik-po-betonie-wzorcowym-i-skyconcrete/",
+      "locale": "pl",
+      "contentLanguage": "pl",
+      "sourceSHA256": "c0ec720ce9bb003122b58b5bceb3eb96d62199c7999f24b655832d724d3ff6fd",
+      "claims": [
+        7,
+        8
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 1,
+      "originalHTMLSHA256": "54d1be1ecf0b071818f05d1b6579d7dba335dc73ce929229964064437c355d0f",
+      "correctedHTMLSHA256": "f7ecd02fd86b78c7896b956e51a65814383537067b6df002449438fe78820afb"
+    },
+    "/pl/wykrywanie-przeciekow-wody-i-wilgoci-jak-dzialac-bez-koniecznosci-rozbiorek": {
+      "path": "/pl/wykrywanie-przeciekow-wody-i-wilgoci-jak-dzialac-bez-koniecznosci-rozbiorek/",
+      "locale": "pl",
+      "contentLanguage": "pl",
+      "sourceSHA256": "9ac1aff30471a58f10d2893cfa02392511babe554c7bb24e8b3ce88e1173cd66",
+      "claims": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "dc1fa93a7b5f8865bb1272da202a0b618e0916ba6d845f554e3aa77e5efbb9ef",
+      "correctedHTMLSHA256": "5a15ec6eaff6956bc4a8f4cbe5130824e397e971305df9aa2bcc350dc204ff8f"
+    },
+    "/pl/chi-siamo": {
+      "path": "/pl/chi-siamo/",
+      "locale": "pl",
+      "contentLanguage": "it",
+      "sourceSHA256": "7332bb56525d4ddeb4461e16b0ca8d3da03e863e1c461f65687eebd69bd52621",
+      "claims": [
+        16
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "ddde7c7786e1970dfe45337ff12571dee266e036149d52ae8914be402166749c",
+      "correctedHTMLSHA256": "9c865061005fd03a0a6a4dfcb7cd25d36879219fdcc21f2cfe59ceb8f45f1017"
+    },
+    "/pl/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto": {
+      "path": "/pl/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto/",
+      "locale": "pl",
+      "contentLanguage": "it",
+      "sourceSHA256": "880beb11789bb978b36af33a10cee0761250aedc84538425f2b7f8f9dbd7e44a",
+      "claims": [
+        17,
+        18,
+        19
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 1,
+      "originalHTMLSHA256": "c5db30b2e8358b39e0846c4c1815d8ac24e43a725981462c36775b900bf262d3",
+      "correctedHTMLSHA256": "bf17708de044fc52861a9e80bd6bf496b1fa6fff4468a2c89d6b5d95c0241b63"
+    },
+    "/pl/kupno-i-remont-domu-w-cefalu-techniczny-przewodnik-po-5-kluczowych-kontrolach": {
+      "path": "/pl/kupno-i-remont-domu-w-cefalu-techniczny-przewodnik-po-5-kluczowych-kontrolach/",
+      "locale": "pl",
+      "contentLanguage": "pl",
+      "sourceSHA256": "04d7ce912c3034dc1a93e37420b965acccf2a85800861afb432842e91e3648e5",
+      "claims": [
+        20,
+        21,
+        23
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "b94e5b50090fdb4f1ec3cb544c4ddcf5082cf0e02aa020424d090f5558cb2d53",
+      "correctedHTMLSHA256": "6dfc4650ca0b4d20e2244727565e608bb938e69220714c748212ad02353fe9a3"
+    },
+    "/pl/contatti": {
+      "path": "/pl/contatti/",
+      "locale": "pl",
+      "contentLanguage": "it",
+      "sourceSHA256": "64686dbebb3f7911302ec4b5466c5615ab16c0f98e55682be37e034f1753b473",
+      "claims": [
+        24,
+        25
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "d8e6ab32a6cbab8fc984addadfd8080f2c440e79ac1d3f3bf08f697c429b0490",
+      "correctedHTMLSHA256": "e01b98f94de788a61a7ca5da96865af23bd093d2a6627dbbeeb1a2484cf2a7f5"
+    },
+    "/ru/10-letnjaja-garantija-na-stroitelnye-raboty-desjatiletnij-polis-marenetto": {
+      "path": "/ru/10-letnjaja-garantija-na-stroitelnye-raboty-desjatiletnij-polis-marenetto/",
+      "locale": "ru",
+      "contentLanguage": "ru",
+      "sourceSHA256": "1b21e774d0db16d7e97723a8d9a5215d9b3a4ade2384f705281c9ff9e47416e8",
+      "claims": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "99cba7ccea93967625f8acd91e877568001ebb647f853f30612c615fb1054076",
+      "correctedHTMLSHA256": "d58625ec44da50b50877b822d3c67e97cf6cf7d409782b027625d1c3ef11ec75"
+    },
+    "/ru/remont-bez-snosa-polnoe-rukovodstvo-po-mikrocementu-microverlayr-isoplam": {
+      "path": "/ru/remont-bez-snosa-polnoe-rukovodstvo-po-mikrocementu-microverlayr-isoplam/",
+      "locale": "ru",
+      "contentLanguage": "ru",
+      "sourceSHA256": "5741a174fd68f32a4b2823796bc880b478b74435c36eaa8b3ee9189b66f920b2",
+      "claims": [
+        5,
+        6
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "e9659b65852b77eaf5ae7286ebe7255b21fff45c330c7ab81f5c8df5e02f5ef1",
+      "correctedHTMLSHA256": "f21d1dd28b9037a1c59cd2de1d8bff98e9945d15e716d18967f8b0e93a2c429b"
+    },
+    "/ru/naruzhnye-pokrytija-isoplam-polnoe-rukovodstvo-po-shtampovannomu-betonu-i-skyconcrete": {
+      "path": "/ru/naruzhnye-pokrytija-isoplam-polnoe-rukovodstvo-po-shtampovannomu-betonu-i-skyconcrete/",
+      "locale": "ru",
+      "contentLanguage": "ru",
+      "sourceSHA256": "46cfa1fb0e2ca69e10953feb8393e7328565a5a6c20da290515a78fc88bf47c3",
+      "claims": [
+        7,
+        8
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "97fa87f7aeaf243947a633e3ce873dc30b162f3694784398a53a15a06fb84fa0",
+      "correctedHTMLSHA256": "d5c206509c38d5c9c5002b876fc5bce36310fdb05fb1ad09d94f3333cb6d6fc0"
+    },
+    "/ru/poisk-protechek-vody-i-vlazhnosti-kak-ustranit-bez-snosa": {
+      "path": "/ru/poisk-protechek-vody-i-vlazhnosti-kak-ustranit-bez-snosa/",
+      "locale": "ru",
+      "contentLanguage": "ru",
+      "sourceSHA256": "dcd9304b9ca63ed7db1b0836aa11d3797e46bee9e85d92723adb84b646faf339",
+      "claims": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "6d500130d4db83898cb9d62e827433371821299bc4a6122ded4a4735de11c3d8",
+      "correctedHTMLSHA256": "6e4dfb9bd25bccf5c4425ac1b010370c965e78aad994e027027f48a03118a9da"
+    },
+    "/ru/chi-siamo": {
+      "path": "/ru/chi-siamo/",
+      "locale": "ru",
+      "contentLanguage": "it",
+      "sourceSHA256": "f5edb8122cd8f86fd41968d7019ccbf3bcec0dfc708f723c36d4901d323eddac",
+      "claims": [
+        16
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "338e9a33b75993f591e51d4861c7054fe16e0fe44430ac438f3a9fb781076c4a",
+      "correctedHTMLSHA256": "ac46ff035be2592bad089f8cae6d540a11c2a2afbac5665cbcc72ea25c62388f"
+    },
+    "/ru/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto": {
+      "path": "/ru/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto/",
+      "locale": "ru",
+      "contentLanguage": "it",
+      "sourceSHA256": "7a88d1a9841441bcc10149fd9b2c41eaef3a5c3c3207327eb776fa84f6555904",
+      "claims": [
+        17,
+        18,
+        19
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 1,
+      "originalHTMLSHA256": "9477072e120de35b087141a01b42a3277a7c80e9450d25a2ca0333080294a019",
+      "correctedHTMLSHA256": "7f12be1f89785cd69113eb5880ec28b6f2c3fc895ff01dd23e4a7db955477414"
+    },
+    "/ru/pokupka-i-remont-doma-v-chefalu-tehnicheskoe-rukovodstvo-po-5-osnovnym-proverkam": {
+      "path": "/ru/pokupka-i-remont-doma-v-chefalu-tehnicheskoe-rukovodstvo-po-5-osnovnym-proverkam/",
+      "locale": "ru",
+      "contentLanguage": "ru",
+      "sourceSHA256": "85dfdfb8b7db5377a15d19619ca80c68759941f4fd5c74911998be3e5d6bab10",
+      "claims": [
+        20,
+        21,
+        23
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "0225c12c29a2f26a0a521db91eeb0490fd7342447154afa1feb7ed01e5b8e449",
+      "correctedHTMLSHA256": "4b3031ce60e4fa53da58ee57a1d767c91d9ad4bdad6a8881d34666c687f9d72d"
+    },
+    "/ru/contatti": {
+      "path": "/ru/contatti/",
+      "locale": "ru",
+      "contentLanguage": "it",
+      "sourceSHA256": "01d0fd63b7b147d0c6f958df7143217bb29425573261ace21911dc94ef49fcb2",
+      "claims": [
+        24,
+        25
+      ],
+      "authorization": "Draft equivalent of owner-authorized Italian substitutions; linguistic review pending",
+      "linguisticReview": "pending",
+      "publicationApproved": false,
+      "contactLinksUpdated": 0,
+      "originalHTMLSHA256": "6cc1ef0231787e55bc54f4582354c3478ce82ff698b6432a2019b16b2345d056",
+      "correctedHTMLSHA256": "d3617c124bf5d14d23c75eee5caf8ae1ba89fafcdefc3a470548f1618a689342"
+    }
+  },
+  "missingCounterparts": [
+    {
+      "locale": "es",
+      "path": "/es/comprar-y-renovar-casa-en-cefalu-guia-tecnica-de-los-5-controles-esenciales/",
+      "claim": 22,
+      "reason": "The specific passage is absent from the recovered source body; no unrelated text replaced or missing original invented."
+    },
+    {
+      "locale": "es",
+      "path": "/es/comprar-y-renovar-casa-en-cefalu-guia-tecnica-de-los-5-controles-esenciales/",
+      "claim": 23,
+      "reason": "The specific passage is absent from the recovered source body; no unrelated text replaced or missing original invented."
+    },
+    {
+      "locale": "pl",
+      "path": "/pl/kupno-i-remont-domu-w-cefalu-techniczny-przewodnik-po-5-kluczowych-kontrolach/",
+      "claim": 22,
+      "reason": "The specific passage is absent from the recovered source body; no unrelated text replaced or missing original invented."
+    },
+    {
+      "locale": "ru",
+      "path": "/ru/pokupka-i-remont-doma-v-chefalu-tehnicheskoe-rukovodstvo-po-5-osnovnym-proverkam/",
+      "claim": 22,
+      "reason": "The specific passage is absent from the recovered source body; no unrelated text replaced or missing original invented."
+    }
+  ]
+}

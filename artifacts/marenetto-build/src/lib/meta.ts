@@ -1,7 +1,11 @@
 import { useContext, useEffect } from 'react';
+import { useLocation } from 'wouter';
 import { LibraryLocale } from '@/localization/library-context';
 import { translateText } from '@/localization/runtime';
 import { articlePath, libraryPath } from '@/localization/paths';
+import { canonicalEdition, getEdition, equivalentEditions } from '@/localization/edition-inventory';
+import { isTranslationReviewMode } from '@/localization/runtime';
+import { updateStructuredData } from './structured-data';
 
 export type PageMeta = { title: string; description: string; path: string; type?: 'website' | 'article'; lang?: string };
 
@@ -13,6 +17,7 @@ function setMeta(attr: 'name' | 'property', key: string, value: string) {
 
 export function usePageMeta({ title, description, path, type = 'website', lang = 'it' }: PageMeta) {
   lang = useContext(LibraryLocale);
+  const [location] = useLocation();
   const suffix = ' | Marenetto Build';
   title = title.endsWith(suffix) ? translateText(lang, title.slice(0, -suffix.length)) + suffix : translateText(lang, title);
   description = translateText(lang, description);
@@ -22,7 +27,8 @@ export function usePageMeta({ title, description, path, type = 'website', lang =
   }
   useEffect(() => {
     document.title = title;
-    document.documentElement.lang = lang;
+    const routeLocale = location.match(/^\/(?:__localization-review\/)?([a-z]{2})(?:\/|$)/)?.[1] ?? 'it';
+    document.documentElement.lang = routeLocale;
     document.documentElement.dir = 'ltr';
     setMeta('name', 'robots', 'noindex, nofollow');
     setMeta('name', 'description', description);
@@ -30,10 +36,21 @@ export function usePageMeta({ title, description, path, type = 'website', lang =
     setMeta('property', 'og:description', description);
     setMeta('property', 'og:type', type);
     const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-    const href = `${window.location.origin}${base}${path}`;
+    const edition = getEdition(routeLocale, path === '/articoli' ? 'articles' : path === '/guide' ? 'guides' : path === '/ricerca' ? 'search' : path.replace(/^\/(?:[a-z]{2}\/articles\/)?/, ''));
+    const canonicalPath = isTranslationReviewMode() ? window.location.pathname : edition ? canonicalEdition(edition).path : path;
+    if (edition) updateStructuredData(edition, import.meta.env.VITE_PUBLIC_SITE_URL || 'https://preview.invalid');
+    const href = `${import.meta.env.VITE_PUBLIC_SITE_URL || 'https://preview.invalid'}${base}${canonicalPath}`;
+    document.head.querySelectorAll('link[rel="alternate"][hreflang]').forEach(link => link.remove());
+    if (edition?.state === 'published' && !isTranslationReviewMode()) for (const alternateEdition of equivalentEditions(edition.id)) {
+      const alternate = document.createElement('link');
+      alternate.rel = 'alternate';
+      alternate.hreflang = alternateEdition.locale === 'it' ? 'it-IT' : alternateEdition.locale;
+      alternate.href = new URL(alternateEdition.path, import.meta.env.VITE_PUBLIC_SITE_URL || 'https://preview.invalid').href;
+      document.head.appendChild(alternate);
+    }
     setMeta('property', 'og:url', href);
     let link = document.head.querySelector('link[rel="canonical"]');
     if (!link) { link = document.createElement('link'); link.setAttribute('rel', 'canonical'); document.head.appendChild(link); }
     link.setAttribute('href', href);
-  }, [title, description, path, type, lang]);
+  }, [title, description, path, type, lang, location]);
 }

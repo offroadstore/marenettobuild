@@ -1,15 +1,17 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { AlertCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { isLocaleCatalogLoaded, loadLocaleCatalog, translateText } from '@/localization/runtime';
 import { publicPath } from '@/localization/paths';
 import { getLocale, getLocaleDirection } from '@/localization/locales';
 import { withCampaignParams } from '@/lib/campaign';
 import { localeLoadErrors } from '@/localization/load-errors';
+import { errorCopy } from '@/localization/operational-copy';
 
-export default function NotFound({ lang: requestedLang }: { lang?: string }) {
-  const candidate = requestedLang ?? window.location.pathname.split('/')[1];
+export default function NotFound({ lang: requestedLang, status = 404 }: { lang?: string; status?: 404 | 410 }) {
+  const [location] = useLocation();
+  const candidate = requestedLang ?? location.split('/')[1];
   const lang = getLocale(candidate) ? candidate : 'it';
   const [, refresh] = useState(0);
   const [failed, setFailed] = useState(false);
@@ -24,12 +26,12 @@ export default function NotFound({ lang: requestedLang }: { lang?: string }) {
           <div className="flex mb-4 gap-2">
             <AlertCircle className="h-8 w-8 text-red-500" />
             <h1 className="text-2xl font-bold text-gray-900">
-              404 · {t('Pagina non trovata')}
+              {status} · {status === 410 ? 'Pagina rimossa' : errorCopy[lang][0]}
             </h1>
           </div>
 
           <p className="mt-4 text-sm text-gray-600">
-            <Link href={withCampaignParams(publicPath(lang, 'home'))}>{t('Torna alla homepage')}</Link>
+            <Link href={withCampaignParams(publicPath(lang, 'home'))}>{errorCopy[lang][1]}</Link>
           </p>
         </CardContent>
       </Card>

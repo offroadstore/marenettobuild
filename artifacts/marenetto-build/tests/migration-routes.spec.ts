@@ -1,298 +1,130 @@
 import { readFileSync } from 'node:fs';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test } from '@playwright/test';
+import { openPage, originals, projectRoot, sourceDocument } from './source-fixtures';
 
-const projectRoot = resolve(import.meta.dirname, '..');
-const report = readFileSync(resolve(projectRoot, 'MIGRATION_REPORT.md'), 'utf8');
+const nativeArticles = originals.filter(row => row.locale === 'it' && row.kind === 'article');
+const manifest = () => JSON.parse(readFileSync(resolve(projectRoot, 'dist/public/route-manifest.json'), 'utf8'));
+const key = (path: string) => path.replace(/\/+$/, '') || '/';
 
-type ArticleRoute = {
-  slug: string;
-  path: string;
-  reviewStatus: 'technical-review' | 'editorial-review' | 'summary-reviewed' | 'documentary-review';
-};
-
-const articleRoutes: ArticleRoute[] = report.split('\n').flatMap((line) => {
-  const match = line.match(
-    /^\|\s*\d+\s*\|\s*`([^`]+)`\s*\|\s*`(\/[^`]+)`(?:\s*\(also\s*`[^`]+`\))?\s*\|\s*[^|]+\|\s*(technical-review|editorial-review|summary-reviewed|documentary-review)\s*\|/,
-  );
-  return match
-    ? [{ slug: match[1], path: match[2], reviewStatus: match[3] as ArticleRoute['reviewStatus'] }]
-    : [];
-});
-
-const reportedRoutes = report.split('\n').flatMap((line) => {
-  const match = line.match(/^\|\s*(\/[^|]+?)\s*\|\s*(\/[^|]+?)\s*(?:\(direct\))?\s*\|$/);
-  return match ? [{ source: match[1].trim(), destination: match[2].trim() }] : [];
-});
-
-const reviewLabels: Record<ArticleRoute['reviewStatus'], string> = {
-  'technical-review': 'In revisione tecnica',
-  'editorial-review': 'In revisione editoriale',
-  'summary-reviewed': 'Sintesi revisionata',
-  'documentary-review': 'Testo integrale · fonti citate',
-};
-const campaignParamNames = new Set(['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_id']);
-
-function campaignOnlySuffix(suffix: string) {
-  const input = new URL(suffix, 'http://test.local');
-  const approved = new URLSearchParams();
-  input.searchParams.forEach((value, key) => {
-    if (campaignParamNames.has(key) && !approved.has(key)) approved.append(key, value);
-  });
-  return `${approved.toString() ? `?${approved}` : ''}${input.hash}`;
-}
-
-const publicPagePaths = [
-  '/',
-  '/servizi',
-  '/come-lavoriamo',
-  '/proprietari-all-estero',
-  '/richiesta',
-  '/contatti',
-  '/en/',
-  '/en/services',
-  '/en/how-we-work',
-  '/en/owners-abroad',
-  '/en/request',
-  '/en/contact',
-  '/articoli',
-  '/guide',
-  '/progetti',
-  '/ricerca',
-  ...articleRoutes.map(({ path }) => path),
-];
-
-async function followClientSidePath(page: Page, path: string) {
-  await page.evaluate((target) => {
-    window.history.pushState({}, '', target);
-    window.dispatchEvent(new PopStateEvent('popstate'));
-  }, path);
-}
-
-async function expectReplaceNavigation(page: Page, source: string, destination: string, suffix = '') {
-  await page.goto(`${source}${suffix}`);
-  const expectedUrl = new URL(`${destination}${campaignOnlySuffix(suffix)}`, page.url());
-  const hasExpectedUrlParts = (url: URL) =>
-    url.pathname === expectedUrl.pathname
-    && JSON.stringify([...url.searchParams]) === JSON.stringify([...expectedUrl.searchParams])
-    && url.hash === expectedUrl.hash;
-  await expect(page).toHaveURL(hasExpectedUrlParts);
-  await expect(page.locator('main h1').first()).toBeVisible();
-
-  await page.goto('/');
-  await followClientSidePath(page, `${source}${suffix}`);
-  await expect(page).toHaveURL(hasExpectedUrlParts);
-  await expect(page.locator('main h1').first()).toBeVisible();
-  await page.goBack();
-  await expect(page).toHaveURL(/\/$/);
-}
-
-test.describe('rotte articoli dalla migrazione', () => {
-  test('il report elenca tutti e soli i 14 percorsi attesi', async () => {
-    expect(articleRoutes).toHaveLength(14);
-    expect(new Set(articleRoutes.map(({ slug }) => slug)).size).toBe(14);
-  });
-
-  for (const article of articleRoutes) {
-    test(`${article.path} mostra titolo, revisione e immagine funzionante`, async ({ page }) => {
-      await page.goto('/articoli');
-      const archiveCard = page.getByTestId(`card-archive-${article.slug}`);
-      await expect(archiveCard).toBeVisible();
-      const expectedTitle = (await archiveCard.locator('h3').textContent())?.trim();
-      expect(expectedTitle).toBeTruthy();
-
-      await page.goto(article.path);
-      await expect(page).toHaveURL(new RegExp(`${article.path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}/?$`));
-      await expect(page.getByTestId('text-article-title')).toHaveText(expectedTitle!);
-      await expect(page.getByTestId(`status-review-${article.slug}`)).toHaveText(reviewLabels[article.reviewStatus]);
-
-      const image = page.getByTestId('img-article-hero');
-
-    const redirectCases = [
-      { legacyPath: '/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto#contatti', destination: '/servizi' },
-      { legacyPath: '/assistenza-e-pronto-intervento#contatti', destination: '/contatti' },
-    ];
-      await expect(image).toBeVisible();
-      await expect.poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
-    });
-
-    test(`${article.path}/ canonizza il percorso con replace`, async ({ page }) => {
-      await expectReplaceNavigation(
-        page,
-        `${article.path}/`,
-        article.path,
-        '?utm_source=legacy&utm_campaign=autunno%20build&utm_medium=email&utm_term=case_study&utm_content=historic&utm_id=campaign-2026&ref=storico&gclid=click-id&email=private%40example.test#preventivi',
-      );
-    });
+test('the recovered inventory contains 14 original articles in each of nine source languages', () => {
+  expect(nativeArticles).toHaveLength(14);
+  const articles = originals.filter(row => row.kind === 'article');
+  expect(articles).toHaveLength(126);
+  for (const locale of new Set(articles.map(row => row.locale))) {
+    expect(articles.filter(row => row.locale === locale)).toHaveLength(14);
   }
 });
 
-test.describe('redirect delle pagine storiche', () => {
-  test('il report mantiene tutte le 11 mappature e le due route dirette', async () => {
-    expect(reportedRoutes).toHaveLength(11);
-    expect(reportedRoutes).toContainEqual({ source: '/articoli/', destination: '/articoli' });
-    expect(reportedRoutes).toContainEqual({ source: '/contatti/', destination: '/contatti' });
+for (const article of nativeArticles) {
+  test(`${article.path} preserves its original title, complete body and editorial state`, async ({ page }) => {
+    await openPage(page, article.path);
+    await expect(page).toHaveURL(url => url.pathname === article.path);
+    await expect(page.locator('main h1')).toHaveText(article.h1);
+    const body = page.locator('article[data-historical-body]');
+    await expect(body).toHaveAttribute('lang', article.contentLanguage);
+    expect((await body.innerText()).trim().length).toBeGreaterThan(100);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', new RegExp(`${article.path}$`));
+    if (article.state === 'awaiting-confirmation') await expect(body).toHaveAttribute('data-editorial-state', 'review-pending');
+    const source = sourceDocument(article);
+    if (source.image) await expect(page.locator('.historical-cover')).toHaveAttribute('src', source.image);
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
+    await expect(page.locator('link[hreflang]')).toHaveCount(0);
   });
+}
 
-  for (const route of reportedRoutes) {
-    // The empty portfolio remains retired; its historical URLs finish on services.
-    const finalDestination = route.destination === '/progetti' ? '/servizi' : route.destination;
-    test(`${route.source} conserva query e frammento su ${finalDestination} e sostituisce la cronologia`, async ({ page }) => {
-      await expectReplaceNavigation(
-        page,
-        route.source,
-        finalDestination,
-        '?utm_source=legacy&utm_campaign=autunno%20build&utm_medium=email&utm_term=case_study&utm_content=historic&utm_id=campaign-2026&ref=storico&gclid=click-id&email=private%40example.test#preventivi',
-      );
-    });
+test('canonical slash, fragments and only permitted campaign fields agree in HTTP and SPA navigation', async ({ page }) => {
+  test.setTimeout(90_000);
+  for (const article of nativeArticles) {
+    const source = `${article.key}?utm_source=legacy&utm_campaign=autunno&email=private%40example.test&gclid=excluded#preventivi`;
+    await openPage(page, source);
+    await expect(page).toHaveURL(url => url.pathname === article.path && url.search === '?utm_source=legacy&utm_campaign=autunno' && url.hash === '#preventivi');
+    await openPage(page, '/');
+    await page.evaluate(target => {
+      history.pushState({}, '', target);
+      dispatchEvent(new PopStateEvent('popstate'));
+    }, source);
+    await expect(page).toHaveURL(url => url.pathname === article.path && url.search === '?utm_source=legacy&utm_campaign=autunno' && url.hash === '#preventivi');
+    await page.goBack();
+    await expect(page).toHaveURL(url => url.pathname === '/');
   }
-
-  test('il percorso storico fino alla richiesta conserva solo i parametri UTM approvati', async ({ page }) => {
-    await page.goto('/assistenza-e-pronto-intervento?utm_source=legacy&utm_campaign=autunno%20build&utm_medium=email&ref=storico&gclid=click-id&email=private%40example.test#preventivi');
-    const expectedCampaign = [
-      ['utm_source', 'legacy'],
-      ['utm_campaign', 'autunno build'],
-      ['utm_medium', 'email'],
-    ];
-    await expect(page).toHaveURL((url) =>
-      url.pathname === '/contatti'
-      && JSON.stringify([...url.searchParams]) === JSON.stringify(expectedCampaign)
-      && url.hash === '#preventivi',
-    );
-    await expect(page.locator('main h1').first()).toBeVisible();
-
-    await page.getByTestId('link-contact-request').click();
-    await expect(page).toHaveURL((url) =>
-      url.pathname === '/richiesta'
-      && JSON.stringify([...url.searchParams]) === JSON.stringify(expectedCampaign)
-      && url.hash === '',
-    );
-  });
-
-  test('i parametri UTM seguono anche i link dall’archivio articoli alla richiesta', async ({ page }) => {
-    await page.goto('/edilizia-e-ristrutturazioni?utm_source=legacy&utm_campaign=autunno%20build&ref=storico&gclid=click-id');
-    const expectedCampaign = [
-      ['utm_source', 'legacy'],
-      ['utm_campaign', 'autunno build'],
-    ];
-    await expect(page).toHaveURL((url) =>
-      url.pathname === '/articoli'
-      && JSON.stringify([...url.searchParams]) === JSON.stringify(expectedCampaign),
-    );
-
-    const article = articleRoutes[0];
-    await page.getByTestId(`card-archive-${article.slug}`).click();
-    await expect(page).toHaveURL((url) =>
-      url.pathname === article.path
-      && JSON.stringify([...url.searchParams]) === JSON.stringify(expectedCampaign),
-    );
-
-    await page.getByTestId('link-article-request').click();
-    await expect(page).toHaveURL((url) =>
-      url.pathname === '/richiesta'
-      && JSON.stringify([...url.searchParams]) === JSON.stringify(expectedCampaign),
-    );
-  });
 });
 
-test.describe('ricerca e filtri dell’archivio', () => {
-  test('ricerca, risultato vuoto e reset sono funzionanti', async ({ page }) => {
-    await page.goto('/ricerca');
-    const input = page.getByTestId('input-search');
-    await input.fill('infiltrazioni');
-    await expect(page.getByTestId('card-search-ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni')).toBeVisible();
-    await expect(page.getByTestId('text-result-count')).toContainText('1 risultato');
-
-    await input.fill('termine-che-non-esiste-987654');
-    await expect(page.getByTestId('state-empty-search')).toBeVisible();
-    await expect(page.getByTestId('text-result-count')).toContainText('0 risultati');
-    await page.getByTestId('button-reset-search').click();
-    await expect(page.getByTestId('text-result-count')).toHaveText('14 articoli disponibili');
-  });
-
-  test('archivio mostra tutti gli articoli, filtra per categoria e ripristina il totale', async ({ page }) => {
-    await page.goto('/articoli');
-    await expect(page.getByTestId('text-archive-count')).toHaveText('14 articoli');
-    await page.getByRole('tab', { name: 'Finiture e superfici' }).click();
-
-    const cards = page.locator('[data-testid^="card-archive-"]');
-    await expect(cards).toHaveCount(4);
-    await expect(page.getByTestId('text-archive-count')).toHaveText('4 articoli');
-    expect(await cards.evaluateAll((items) => items.every(
-      (item) => item.querySelector('.lib-card-meta span')?.textContent?.trim() === 'Finiture e superfici',
-    ))).toBe(true);
-
-    await page.getByRole('tab', { name: 'Tutti' }).click();
-    await expect(cards).toHaveCount(14);
-    await expect(page.getByTestId('text-archive-count')).toHaveText('14 articoli');
-  });
+test('retired app article prefixes resolve to native source editions, also after client navigation', async ({ page }) => {
+  test.setTimeout(90_000);
+  const representatives = [...new Map(originals.filter(row => row.kind === 'article' && row.locale !== 'it').map(row => [row.locale, row])).values()];
+  for (const article of representatives) {
+    const alias = `/${article.locale}/articles/${article.family.slice(1)}?utm_source=alias&email=private%40example.test#body`;
+    await openPage(page, alias);
+    await expect(page).toHaveURL(url => url.pathname === article.path && url.search === '?utm_source=alias' && url.hash === '#body');
+    await openPage(page, '/');
+    await page.evaluate(target => { history.pushState({}, '', target); dispatchEvent(new PopStateEvent('popstate')); }, alias);
+    await expect(page).toHaveURL(url => url.pathname === article.path && url.search === '?utm_source=alias' && url.hash === '#body');
+    await expect(page.locator('main h1')).toHaveText(article.h1);
+  }
 });
 
-test.describe('integrità dei link delle pagine pubbliche', () => {
-  test('ogni pagina pubblica e ogni link interno raggiungono una pagina valida', async ({ page }) => {
-    test.setTimeout(120_000);
-    await page.setViewportSize({ width: 390, height: 844 });
+test('native archive retains all 14 source article links and carries campaign context to article and request', async ({ page }) => {
+  await openPage(page, '/articoli/?utm_source=archive&utm_campaign=originals&email=private%40example.test');
+  for (const article of nativeArticles) {
+    expect(await page.locator(`main a[href="${article.path}"]`).count(), article.path).toBeGreaterThan(0);
+  }
+  const article = nativeArticles[0];
+  await page.locator(`main a[href="${article.path}"]`).first().click();
+  await expect(page).toHaveURL(url => url.pathname === article.path && url.search === '?utm_source=archive&utm_campaign=originals');
+  await page.getByTestId('nav-request').click();
+  await expect(page).toHaveURL(url => url.pathname === '/richiesta' && url.search === '?utm_source=archive&utm_campaign=originals');
+  await expect(page.locator('form')).toBeVisible();
+});
 
-    let appOrigin = '';
-    const internalTargets = new Map<string, { source: string; label: string; href: string }>();
+test('search, empty results and reset still work with source article destinations', async ({ page }) => {
+  await openPage(page, '/ricerca');
+  const input = page.getByTestId('input-search');
+  await input.fill('infiltrazioni');
+  const result = page.getByTestId('card-search-ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni');
+  await expect(result).toBeVisible();
+  await expect(result).toHaveAttribute('href', '/ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni/');
+  await expect(page.getByTestId('text-result-count')).toContainText('1 risultato');
+  await input.fill('termine-che-non-esiste-987654');
+  await expect(page.getByTestId('state-empty-search')).toBeVisible();
+  await page.getByTestId('button-reset-search').click();
+  await expect(page.getByTestId('text-result-count')).toHaveText('14 articoli disponibili');
+});
 
-    for (const sourcePath of publicPagePaths) {
-      const response = await page.goto(sourcePath, { waitUntil: 'domcontentloaded' });
-      appOrigin ||= new URL(page.url()).origin;
-      expect(response?.status(), `La pagina pubblica ${sourcePath} non è raggiungibile`).toBeLessThan(400);
-      await expect(page.getByRole('heading', { name: '404 Page Not Found' }), `La pagina pubblica ${sourcePath} mostra una 404`).toHaveCount(0);
-      await expect(page.locator('main h1').first(), `La pagina pubblica ${sourcePath} non mostra il titolo`).toBeVisible();
-
-      const menuToggle = page.getByTestId('button-menu');
-      if (await menuToggle.isVisible()) {
-        await menuToggle.click();
-      }
-
-      const hrefs = await page.locator('a[href]').evaluateAll((anchors) =>
-        anchors.map((anchor) => ({
-          href: (anchor as HTMLAnchorElement).href,
-          label: (anchor.textContent ?? '').trim().replace(/\s+/g, ' ') || (anchor as HTMLAnchorElement).getAttribute('aria-label') || 'link senza etichetta',
-        })),
-      );
-
-      for (const { href, label } of hrefs) {
-        const target = new URL(href, page.url());
-
-    const pageErrors: string[] = [];
-        if (target.origin !== appOrigin || !['http:', 'https:'].includes(target.protocol)) continue;
-        const targetPath = `${target.pathname}${target.search}${target.hash}`;
-        if (!internalTargets.has(targetPath)) {
-          internalTargets.set(targetPath, { source: sourcePath, label, href: targetPath });
-        }
-      }
+test('source internal links resolve through the explicit HTTP inventory, including declared temporary holds', async ({ request }, testInfo) => {
+  test.skip(testInfo.project.name !== 'production-preview', 'HTTP statuses belong to the prepared delivery handler, not Vite fallback.');
+  test.setTimeout(120_000);
+  const m = manifest();
+  const targets = new Set<string>();
+  for (const original of originals.filter(row => ['it', 'en'].includes(row.locale) && (row.state === 'restored' || row.kind === 'article'))) {
+    for (const match of sourceDocument(original).html.matchAll(/href="([^"]+)"/g)) {
+      const url = new URL(match[1].replaceAll('&amp;', '&'), 'https://preview.invalid');
+      if (url.origin === 'https://preview.invalid') targets.add(url.pathname);
     }
-
-    for (const target of internalTargets.values()) {
-      const response = await page.goto(target.href, { waitUntil: 'domcontentloaded' });
-      // Fragment-only navigation has no HTTP response: still verify destination
-      // and visible content below instead of reading status from a null response.
-      if (response) expect(response.status(), `Il link "${target.label}" in ${target.source} non è raggiungibile: ${target.href}`).toBeLessThan(400);
-      await expect(
-        page.getByRole('heading', { name: '404 Page Not Found' }),
-        `Il link "${target.label}" in ${target.source} porta a una 404: ${target.href}`,
-      ).toHaveCount(0);
-      await expect(
-        page.locator('main h1').first(),
-        `Il link "${target.label}" in ${target.source} non mostra una pagina: ${target.href}`,
-      ).toBeVisible();
-    }
-  });
+  }
+  const results = [];
+  for (const target of targets) {
+    const response = await request.get(target);
+    const finalPath = new URL(response.url()).pathname;
+    const holding = m.heldPages[key(finalPath)] || m.heldFeeds[key(finalPath)];
+    expect(response.status(), target).toBe(holding ? 503 : 200);
+    if (holding) expect(response.headers()['retry-after'], target).toBe('86400');
+    results.push({ sourceTarget: target, finalPath, status: response.status(), editorialHold: !!holding });
+  }
+  const output = resolve(projectRoot, '../../generated-artifacts/seo-audit');
+  await mkdir(output, { recursive: true });
+  await writeFile(resolve(output, 'internal-link-results.json'), JSON.stringify({ results, scope: 'All native internal links from recovered Italian and English bodies; temporary holds are not public approval.' }, null, 2));
 });
 
-test('footer Italiano switch is remembered over the browser language', async ({ browser, baseURL }) => {
-  const context = await browser.newContext({ locale: 'fr-FR', userAgent: 'Mozilla/5.0 Chrome/120 Safari/537.36' });
+test('explicit Italian URL remains authoritative over the browser language', async ({ browser, baseURL }) => {
+  const context = await browser.newContext({ locale: 'fr-FR' });
   const page = await context.newPage();
-  await page.goto(`${baseURL}/fr/`);
-  await page.getByTestId('link-footer-logo').waitFor();
+  await page.goto(`${baseURL}/fr/`, { waitUntil: 'domcontentloaded' });
   await page.locator('footer a', { hasText: /Italien|Italiano/ }).last().click();
-  await page.waitForURL(url => url.pathname === '/');
-  await page.goto(`${baseURL}/`);
-  await page.waitForTimeout(500);
+  await expect(page).toHaveURL(url => url.pathname === '/');
+  await page.goto(`${baseURL}/`, { waitUntil: 'domcontentloaded' });
+  await expect(page.locator('main h1')).toHaveText(originals.find(row => row.path === '/')!.h1);
   expect(new URL(page.url()).pathname).toBe('/');
   await context.close();
 });

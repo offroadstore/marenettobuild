@@ -1,0 +1,111 @@
+{
+  "status": "owner-authorized-preview",
+  "ownerDecision": "Applica le correzioni proposte",
+  "locale": "it",
+  "sourceClaimsSHA256": "fe9d659e6f2b7c396486d1f3501cbebcc2a98897ea665e31f5532308dc1c64ac",
+  "publicationApproved": false,
+  "preserveOriginalArchive": true,
+  "preserveHistoricalURLs": true,
+  "replacements": [
+    {
+      "claim": 1,
+      "replacement": "Per valutare la tutela dell’immobile dopo i lavori, verifica se per l’intervento sia prevista una polizza decennale postuma e quali siano i soggetti assicurati, la durata, le condizioni e le esclusioni. L’eventuale copertura deve risultare dalla documentazione contrattuale e assicurativa."
+    },
+    {
+      "claim": 2,
+      "replacement": "L’eventuale intervento dell’assicurazione dipende dalle condizioni della polizza e dall’accertamento del danno. Tempi, procedure e costi a carico dell’assicurato devono essere verificati nella documentazione: la copertura non equivale a un rimborso automatico."
+    },
+    {
+      "claim": 3,
+      "replacement": "Tutela da verificare: prima di sottoscrivere una polizza, controlla massimali, franchigie, scoperti ed esclusioni. Non va presunta l’assenza di costi a carico del cliente."
+    },
+    {
+      "claim": 4,
+      "replacement": "Contatta Marenetto Build per discutere il tuo progetto e le condizioni contrattuali. Eventuali coperture assicurative devono essere definite e documentate per lo specifico intervento."
+    },
+    {
+      "claim": 5,
+      "replacement": "Questa guida presenta il Microcemento Microverlay® di Isoplam e gli aspetti da valutare prima di scegliere un rivestimento continuo per gli interni."
+    },
+    {
+      "claim": 6,
+      "replacement": "Per un’applicazione corretta occorre seguire le indicazioni del produttore per il sistema scelto e valutare il supporto. Il risultato dipende da progettazione, preparazione, posa, uso e manutenzione. Ecco i passaggi da considerare:"
+    },
+    {
+      "claim": 7,
+      "replacement": "Per i pavimenti esterni, questa guida mette a confronto il Cemento Stampato (Plam Stampable) e il Nuvolato a basso spessore (Skyconcrete Outdoor). La scelta dipende dall’uso previsto, dal contesto e dalle caratteristiche del supporto."
+    },
+    {
+      "claim": 8,
+      "replacement": "Resistenza allo scivolamento: per rampe, percorsi e bordi piscina occorre verificare la prestazione documentata dello specifico sistema e della finitura scelta. Le classi R11, R12 o R13 non si possono attribuire automaticamente a tutti i prodotti della stessa famiglia."
+    },
+    {
+      "claim": 9,
+      "replacement": "La termografia può evidenziare differenze di temperatura sulle superfici e fornire indizi utili all’indagine. Una variazione termica non identifica da sola la causa dell’umidità o il punto della perdita: va interpretata insieme al sopralluogo e alle altre verifiche."
+    },
+    {
+      "claim": 10,
+      "replacement": "La ricerca acustica con geofono può essere valutata per localizzare perdite da tubazioni in pressione. L’utilità dell’indagine dipende dalle condizioni dell’impianto, dai materiali e dai rumori presenti; non garantisce in ogni caso di evitare aperture o demolizioni."
+    },
+    {
+      "claim": 11,
+      "replacement": "Le misure di umidità, eseguite con strumenti adatti al materiale, possono contribuire all’indagine. Non bastano da sole a distinguere infiltrazioni, perdite, condensa o umidità di risalita: occorre valutarle insieme alle condizioni dell’edificio."
+    },
+    {
+      "claim": 12,
+      "replacement": "Quando tubazioni o cavità sono accessibili, un’ispezione endoscopica può consentire di osservarne le parti raggiungibili. La scelta dello strumento e i limiti dell’ispezione vanno valutati per il caso concreto."
+    },
+    {
+      "claim": 13,
+      "replacement": "Metodo di indagine: definire le verifiche necessarie, gli strumenti idonei e le competenze richieste per il caso specifico."
+    },
+    {
+      "claim": 14,
+      "replacement": "Documentazione e assicurazione: prima dell’intervento, concorda quale relazione sia necessaria, chi possa rilasciarla e quali documenti richieda l’assicuratore. L’eventuale rimborso dipende dalla polizza e dall’istruttoria del sinistro."
+    },
+    {
+      "claim": 15,
+      "replacement": "Tempi dell’indagine: durata e accertamenti necessari dipendono dal problema, dall’accessibilità e dalle condizioni dell’immobile; vanno concordati dopo una prima valutazione."
+    },
+    {
+      "claim": 16,
+      "replacement": "Pianificazione e tempi: il programma dei lavori, le scadenze e la gestione degli imprevisti devono essere definiti nell’accordo relativo all’intervento."
+    },
+    {
+      "claim": 17,
+      "replacement": "CILA, SCIA e altri adempimenti dipendono dall’intervento e dalla situazione dell’immobile. Le pratiche necessarie e i relativi incarichi vanno verificati con un professionista abilitato."
+    },
+    {
+      "claim": 18,
+      "replacement": "Prima dell’avvio, occorre definire quali pratiche edilizie siano necessarie, chi le rediga e presenti e quali incarichi e responsabilità siano previsti per i professionisti abilitati."
+    },
+    {
+      "claim": 19,
+      "replacement": "Per la gestione di imprevisti o necessità durante i lavori, concorda preventivamente i riferimenti da contattare, gli orari e le modalità di assistenza previste per l’intervento."
+    },
+    {
+      "claim": 20,
+      "replacement": "Prima dell’acquisto, un sopralluogo tecnico può aiutare a individuare gli accertamenti necessari. La termografia può fornire indizi sulle condizioni superficiali, ma non certifica da sola la presenza o l’assenza di problemi strutturali."
+    },
+    {
+      "claim": 21,
+      "replacement": "Negli edifici in ambiente marino possono verificarsi fenomeni di degrado dei materiali. Corrosione delle armature, carbonatazione del calcestruzzo e umidità di risalita non sono sinonimi: cause ed effetti devono essere valutati con verifiche appropriate."
+    },
+    {
+      "claim": 22,
+      "replacement": "Una prima valutazione della fattibilità del progetto, da approfondire con le necessarie verifiche tecniche e amministrative."
+    },
+    {
+      "claim": 23,
+      "replacement": "Stai valutando un acquisto? Contatta Marenetto Build per discutere il progetto e definire quali accertamenti richiedere ai professionisti competenti."
+    },
+    {
+      "claim": 24,
+      "replacement": "Email: info@marenetto.com"
+    },
+    {
+      "claim": 25,
+      "replacement": "Cefalù, Sicilia. Per un incontro, concorda preventivamente luogo e appuntamento."
+    }
+  ]
+}

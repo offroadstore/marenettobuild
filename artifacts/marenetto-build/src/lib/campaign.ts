@@ -8,8 +8,8 @@ export function approvedCampaignParams(search: string) {
   return approved;
 }
 
-export function withCampaignParams(href: string, search = window.location.search) {
-  const target = new URL(href, window.location.origin);
+export function withCampaignParams(href: string, search = typeof window === 'undefined' || document.documentElement.dataset.hydrated !== 'true' ? '' : window.location.search) {
+  const target = new URL(href, typeof window === 'undefined' ? 'https://preview.invalid' : window.location.origin);
   approvedCampaignParams(search).forEach((value, key) => target.searchParams.set(key, value));
   return `${target.pathname}${target.search}${target.hash}`;
 }

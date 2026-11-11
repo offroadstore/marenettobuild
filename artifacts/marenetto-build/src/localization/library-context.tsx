@@ -13,6 +13,8 @@ export function useLibraryLocale() {
     articleHref: (slug: string) => articlePath(lang, slug),
     libraryHref: (page: 'articles' | 'guides' | 'search') => libraryPath(lang, page),
     publicHref: (page: string) => publicPath(lang, page),
-    date: (value: string | null) => value ? new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(`${value}T12:00:00Z`)) : '—',
+    // ISO calendar dates keep the original day unambiguous and avoid ICU/CLDR
+    // differences between the build runtime and browsers during hydration.
+    date: (value: string | null) => value ?? '—',
   };
 }

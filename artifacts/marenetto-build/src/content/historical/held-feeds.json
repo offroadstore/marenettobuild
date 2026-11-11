@@ -1,0 +1,47 @@
+{
+  "/m/blog/feed": {
+    "reason": "Contains original articles awaiting specific confirmations; no partial rewriting of the feed.",
+    "source": "https://www.marenettobuild.com/m/blog/feed/",
+    "sourceSHA256": "104fe74acbebefcbf357b81ff75788683e8eebc28ec2c3dacd71f11dab315788"
+  },
+  "/fr/m/blog/feed": {
+    "reason": "Contains original articles awaiting specific confirmations; no partial rewriting of the feed.",
+    "source": "https://www.marenettobuild.com/fr/m/blog/feed/",
+    "sourceSHA256": "7f4b501405d19d2658d60353ce2ff836f42324efe80832bb3281379e8deea7e7"
+  },
+  "/en/m/blog/feed": {
+    "reason": "Contains original articles awaiting specific confirmations; no partial rewriting of the feed.",
+    "source": "https://www.marenettobuild.com/en/m/blog/feed/",
+    "sourceSHA256": "e2a52617540c42f237c51e6960007469099f89429b495a31081e7e03c50b3093"
+  },
+  "/es/m/blog/feed": {
+    "reason": "Contains original articles awaiting specific confirmations; no partial rewriting of the feed.",
+    "source": "https://www.marenettobuild.com/es/m/blog/feed/",
+    "sourceSHA256": "5558cdea4966c5270d8db351a9d2f79a9fd06b50b344d1c2d78877d880b3a8ac"
+  },
+  "/de/m/blog/feed": {
+    "reason": "Contains original articles awaiting specific confirmations; no partial rewriting of the feed.",
+    "source": "https://www.marenettobuild.com/de/m/blog/feed/",
+    "sourceSHA256": "40fd62c93a1cc79ebf66586d0b8070042620f7633a864c69798cf09226b859eb"
+  },
+  "/nl/m/blog/feed": {
+    "reason": "Contains original articles awaiting specific confirmations; no partial rewriting of the feed.",
+    "source": "https://www.marenettobuild.com/nl/m/blog/feed/",
+    "sourceSHA256": "a4e1f109031b84268a568ca2c5d30f29f032b3aac3fd3721801d939c5f2ea01f"
+  },
+  "/pl/m/blog/feed": {
+    "reason": "Contains original articles awaiting specific confirmations; no partial rewriting of the feed.",
+    "source": "https://www.marenettobuild.com/pl/m/blog/feed/",
+    "sourceSHA256": "8aaa64d8ac73b782a84f7ab111d50dc7013866e18dffcb8ca8991720d39d5f82"
+  },
+  "/ru/m/blog/feed": {
+    "reason": "Contains original articles awaiting specific confirmations; no partial rewriting of the feed.",
+    "source": "https://www.marenettobuild.com/ru/m/blog/feed/",
+    "sourceSHA256": "2134ad03dbadc88093b0e8ec3a954d8145db68e200babbb43657f8c0f761039c"
+  },
+  "/pt/m/blog/feed": {
+    "reason": "Contains original articles awaiting specific confirmations; no partial rewriting of the feed.",
+    "source": "https://www.marenettobuild.com/pt/m/blog/feed/",
+    "sourceSHA256": "ba29f359aaf7494fc663e52119c64fd11e2c7a5ff8effb6757bb01e574a1a2b5"
+  }
+}
