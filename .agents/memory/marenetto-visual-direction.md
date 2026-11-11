@@ -21,6 +21,17 @@ qualification and a request for originals, not invented portfolio material.
 Keep comparisons at identical viewport sizes when demonstrating a visual
 revision. A request to revise preview is not permission to publish.
 
+Server-rendered public pages must have their presentation styles available before
+first paint, without depending on JavaScript hydration.
+
+**Why:** The hybrid logo uses two crops of a large original image. Without its
+styles at first paint, visitors briefly see two enormous originals before the
+page resizes; a settled screenshot alone does not catch this defect.
+
+**How to apply:** Preserve render-blocking stylesheet delivery and cascade order
+when changing HTML templates or style entry points; verify the initial HTML and
+production build, not only the page after scripts finish.
+
 Disclose AI illustration through a plain, visible 12–13 px secondary-text note
 at the end of the relevant section, translated into the page language:
 “Immagini illustrative generate con IA; non rappresentano lavori eseguiti.”
