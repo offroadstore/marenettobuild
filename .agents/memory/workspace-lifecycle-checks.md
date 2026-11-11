@@ -14,3 +14,16 @@ Validate SEO responses through the active serving workflow as well as any isolat
 **Why:** Passing delivery tests against a prepared server did not prevent the running development server from returning an HTML fallback for a sitemap URL.
 
 **How to apply:** Check response content type and body, not merely HTTP 200 or a generated file's existence, before claiming the configured preview or release server serves valid sitemap/metadata.
+
+Browser regression checks must wait for client hydration before clicking or
+dragging controls in server-rendered pages; visible HTML is not proof that
+React event handlers are active.
+
+**Why:** Production-preview tests clicked menus and WhatsApp controls while
+the server-rendered elements were visible but before their handlers were
+attached. The first action was lost; waiting for hydration resolved the
+failures without modifying site behavior.
+
+**How to apply:** Use the shared readiness-aware navigation helper for
+interactive assertions. Do not hide the race with arbitrary delays, repeated
+clicks, or weaker assertions.

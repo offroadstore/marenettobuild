@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { openPage } from './source-fixtures';
 
 const viewports = [
   { name: 'phone', width: 390, height: 780 },
@@ -11,7 +12,7 @@ for (const vp of viewports) {
     test.use({ viewport: { width: vp.width, height: vp.height } });
 
     test('opens wa.me link with the shared number and prefilled message, in the corner and inside the viewport', async ({ page }) => {
-      await page.goto('/');
+      await openPage(page, '/');
       const link = page.getByTestId('whatsapp-float-link');
       await expect(link).toBeVisible();
       await expect(page.getByTestId('whatsapp-float')).toHaveCount(1);
@@ -27,7 +28,7 @@ for (const vp of viewports) {
     });
 
     test('dragging moves it inside the viewport without opening WhatsApp; click still opens', async ({ page, context }) => {
-      await page.goto('/');
+      await openPage(page, '/');
       const link = page.getByTestId('whatsapp-float-link');
       const b = (await link.boundingBox())!;
       const popups: string[] = [];
@@ -51,7 +52,7 @@ for (const vp of viewports) {
     });
 
     test('× docks the link in flow above the hero, then another page restores the floating button with no duplicates', async ({ page, context }) => {
-      await page.goto('/');
+      await openPage(page, '/');
       const popups: string[] = [];
       context.on('page', p => popups.push(p.url()));
       await page.getByTestId('whatsapp-float-close').click();
@@ -101,7 +102,7 @@ for (const vp of viewports) {
 
 test('keyboard: × closes without opening chat; dock link is focusable; storage is untouched', async ({ page, context }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto('/contatti');
+  await openPage(page, '/contatti');
   const popups: string[] = [];
   context.on('page', p => popups.push(p.url()));
   await page.getByTestId('whatsapp-float-close').focus();
@@ -115,7 +116,7 @@ test('keyboard: × closes without opening chat; dock link is focusable; storage 
 
 test('a page without a hero still shows the header link', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto('/richiesta');
+  await openPage(page, '/richiesta');
   await page.getByTestId('whatsapp-float-close').click();
   const dock = page.getByTestId('whatsapp-nav-link');
   await expect(dock).toBeVisible();
@@ -126,9 +127,9 @@ test('a page without a hero still shows the header link', async ({ page }) => {
 
 test('English and Arabic labels, one WhatsApp float per page', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto('/en/');
+  await openPage(page, '/en/');
   await expect(page.getByTestId('whatsapp-float-link')).toHaveAttribute('aria-label', 'Write to us on WhatsApp');
-  await page.goto('/ar/');
+  await openPage(page, '/ar/');
   await expect(page.getByTestId('whatsapp-float')).toHaveCount(1);
   await expect.poll(async () => (await page.getByTestId('whatsapp-float-link').getAttribute('aria-label')) ?? '').toContain('راسلنا');
   const text = new URL((await page.getByTestId('whatsapp-float-link').getAttribute('href'))!).searchParams.get('text');

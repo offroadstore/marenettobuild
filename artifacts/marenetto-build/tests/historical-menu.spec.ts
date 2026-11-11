@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { openPage } from './source-fixtures';
 
 const sourceMenus = [
   { locale: 'it', home: '/', archive: '/articoli/', categories: ['/general-contractor/', '/edilizia-e-ristrutturazioni/', '/bonus-edilizi-e-permessi/', '/cantieri-e-lavori/', '/outdoor-e-garden-design/', '/assistenza-e-pronto-intervento/'] },
@@ -15,7 +16,7 @@ const sourceMenus = [
 test('desktop menus preserve the original article and six category URLs in nine locales', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   for (const menu of sourceMenus) {
-    const response = await page.goto(menu.home);
+    const response = await openPage(page, menu.home);
     expect(response?.status(), menu.locale).toBe(200);
     const archive = page.getByTestId('nav-articles');
     await expect(archive, menu.locale).toHaveAttribute('href', menu.archive);
@@ -28,7 +29,7 @@ test('desktop menus preserve the original article and six category URLs in nine 
     for (let index = 0; index < menu.categories.length; index += 1) {
       await expect(categories.nth(index)).toHaveAttribute('href', menu.categories[index]);
     }
-    const firstCategoryResponse = await page.goto(menu.categories[0]);
+    const firstCategoryResponse = await openPage(page, menu.categories[0]);
     expect(firstCategoryResponse?.status(), menu.categories[0]).toBe(200);
     await expect(page.locator('main h1').first()).toBeVisible();
   }
@@ -36,7 +37,7 @@ test('desktop menus preserve the original article and six category URLs in nine 
 
 test('mobile article submenu can be opened and its historic links remain visible', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/');
+  await openPage(page, '/');
   await page.getByTestId('button-menu').click();
   await expect(page.getByTestId('mobile-nav-articles')).toBeVisible();
   const disclosure = page.getByTestId('button-mobile-article-categories');

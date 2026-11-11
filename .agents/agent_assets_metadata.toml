@@ -392,3 +392,17 @@ mtime_ms = 1794398104505
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/81a4be1a-950d-4bb5-8bc8-0e717e741691/2dd32ecf-bfb4-42cb-af70-b6f1f1248fda"
 storage_version_token = "1794399348502804"
 content_type = "text/html"
+
+[[outputs]]
+id = "1VD0oWz0eFTAzuElJyz65"
+uri = "file://generated-artifacts/cefalu-hero/confronto-cefalu.html"
+type = "html"
+title = "Cefalù: confronto e verifiche superate"
+description = "Confronto prima/dopo del hero su desktop e mobile. Verifica completa: 151 controlli passati, 5 saltati, nessun fallimento. Solo anteprima, non pubblicato."
+logical_id = "e5f1e244-47c0-4d8a-9370-9e73574fdc27"
+content_hash = "sha256:33d5db5cf34f4c15856c0ae2469fd265104bd0d56b6f90a4c3099069c320a9e7"
+size = 1617357
+mtime_ms = 1794419481216
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/e5f1e244-47c0-4d8a-9370-9e73574fdc27/db86d4a7-31df-45da-b02a-ff3f80a0e012"
+storage_version_token = "1794419488697599"
+content_type = "text/html"

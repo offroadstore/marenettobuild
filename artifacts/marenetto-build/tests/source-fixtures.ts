@@ -26,6 +26,11 @@ export function sourceDocument(row: SourcePage): { html: string; image: string |
   if (row.editorialCorrection) return JSON.parse(readFileSync(resolve(projectRoot, `src/content/historical-editorial/${row.locale}.json`), 'utf8'))[row.key];
   return JSON.parse(readFileSync(resolve(projectRoot, `src/content/historical/${row.locale}.json`), 'utf8'))[row.key];
 }
+export function sourceArticleCovers(locale: string): Record<string, string> {
+  const catalog = JSON.parse(readFileSync(resolve(projectRoot, `src/content/historical/${locale}.json`), 'utf8'));
+  return Object.fromEntries(originals.filter(row => row.locale === locale && row.kind === 'article')
+    .flatMap(row => catalog[row.key]?.image ? [[row.key, catalog[row.key].image]] : []));
+}
 export async function openPage(page: Page, path: string) {
   const response = await page.goto(path, { waitUntil: 'domcontentloaded' });
   await page.waitForFunction(() => document.documentElement.dataset.hydrated === 'true');

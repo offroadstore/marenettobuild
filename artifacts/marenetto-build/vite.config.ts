@@ -77,6 +77,9 @@ function localizationDraftPlugin() {
 
 export default defineConfig({
   base: basePath,
+  // Concurrent route validation and the managed preview must not overwrite
+  // each other's optimized React runtime (development vs SSR production).
+  cacheDir: path.resolve(import.meta.dirname, `node_modules/.vite/${port}`),
   plugins: [
     seoPreviewPlugin(),
     localizationDraftPlugin(),

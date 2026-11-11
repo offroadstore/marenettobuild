@@ -19,12 +19,12 @@ export function IllustrativeImage({ name, widths, sizes, alt, width, height, eag
 }
 
 /**
- * Owner-supplied approved AI illustration, 1672×941 native pixels.
- * Derivatives are downsampled, never generated/upscaled. The dedicated mobile crop
+ * Local Cefalù correction of the owner-supplied AI illustration, 1672×941.
+ * Preview revision, not new owner approval. Derivatives are never upscaled. The mobile crop
  * retains the stone building and Cefalù; high-DPR / wide screens need a larger original.
  */
 export function HeroPhoto({ children }: { children: ReactNode }) {
-  const base = `${import.meta.env.BASE_URL}media/home/approved-hero`;
+  const base = `${import.meta.env.BASE_URL}media/home/cefalu-hero`;
   return <section className="mbh-hero" data-testid="section-hero">
     <div className="mbh-hero__stage">
       <picture>

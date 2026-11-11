@@ -11,14 +11,18 @@ for (const width of [390, 580, 699, 700, 768, 1000, 1100, 1440, 1920]) {
     await openPage(page, '/');
     await expect(page.locator('main h1')).toHaveText(sourceHome('it').h1);
     await page.evaluate(() => document.fonts.ready);
-    const headerHeight = width < 700 ? 32 : width < 1100 ? 38 : 43;
-    for (const [selector, height, expectedWidth] of [
-      ['.topbar .mb-logo', headerHeight, headerHeight === 32 ? 170.421875 : headerHeight === 38 ? 202.390625 : 229.015625],
-      ['.footer-logo-band .mb-logo', 38, 202.390625],
+    // Current approved cascade: fluid header scale and smaller mobile footer.
+    // Keep numeric geometry assertions rather than reading expected sizes from CSS.
+    const headerHeight = Math.min(38, Math.max(28, width * 0.03));
+    for (const [selector, height] of [
+      ['.topbar .mb-logo', headerHeight],
+      ['.footer-logo-band .mb-logo', width <= 600 ? 30 : 34],
     ] as const) {
       const box = await page.locator(selector).boundingBox();
       expect(box?.height).toBeCloseTo(height, 1);
-      expect(box?.width).toBeCloseTo(expectedWidth, 1);
+      // Source crop proportions: 191px monogram + 40px gap + 797px name,
+      // relative to the 193px monogram height.
+      expect(box?.width).toBeCloseTo(height * 1028 / 193, 1);
       await expect(page.locator(`${selector} .mb-logo__bar`)).toHaveCSS('background-color', 'rgb(36, 70, 86)');
       await expect(page.locator(`${selector} img`).first()).toHaveAttribute('src', /brand\/current-logo\.png$/);
     }
@@ -32,7 +36,12 @@ for (const width of [390, 580, 699, 700, 768, 1000, 1100, 1440, 1920]) {
     const hero = page.locator('.mbh-hero img');
     await expect.poll(() => hero.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
     const current = await hero.evaluate((img: HTMLImageElement) => img.currentSrc);
-    expect(current).toContain('approved-hero-');
+    expect(current).toContain('cefalu-hero-');
+    await expect(hero).toHaveAttribute('src', /cefalu-hero-1672\.jpg$/);
+    for (const source of await page.locator('.mbh-hero source').all()) {
+      await expect(source).toHaveAttribute('srcset', /^.*cefalu-hero-.*$/);
+      expect(await source.getAttribute('srcset')).not.toContain('approved-hero');
+    }
     expect(current.includes('-mobile-')).toBe(width < 700);
     await expect(hero).toHaveAttribute('loading', 'eager');
     await expect(hero).toHaveAttribute('fetchpriority', 'high');

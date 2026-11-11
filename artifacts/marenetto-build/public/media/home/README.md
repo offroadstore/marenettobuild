@@ -1,13 +1,46 @@
 # Homepage media provenance
 
-## Approved opening illustration
+## Cefalù panorama correction — preview awaiting visual confirmation
+
+The active `cefalu-hero-*` images are a local revision of the approved original
+described below, **not** a newly approved illustration or permission to publish.
+The cathedral is set back into the town at the foot of La Rocca, with smaller
+visible towers and several roofs separating its base from the waterfront.
+There is one cathedral. This remains an AI illustration, not a survey or a real
+photograph, and not evidence of work performed.
+
+Geographic reference only: https://ita.travel/img/t1270h0/blogimg/leto/sicilia/cefalu.webp
+(consulted 2026-11-11). That photograph has a different viewpoint; its screen
+coordinates were not copied. It is not served, incorporated, or claimed licensed.
+
+The original attached PNG and all `approved-hero-*` files remain untouched.
+Only an alpha-masked local patch was incorporated into the original PNG:
+`assets/hero/cefalu-retouch.png`, positioned at x=650, y=440.
+Its nontransparent pixels are confined to the small cathedral/roof area; the
+terrace, house, scaffold, vegetation, coast, lighting and composition are preserved.
+Two rejected wider AI edits were discarded because they changed the framing.
+The accepted edit used a square detail crop, downsampled to native size, then a
+feathered mask to retain only the local correction, not the regenerated background.
+
+Reproduce with `node scripts/encode-cefalu-hero.mjs` from this artifact directory
+(requires ImageMagick). It reconstructs the lossless 1672 × 941 master under
+`generated-artifacts/cefalu-hero/` from the original and the retained patch, then
+encodes every served derivative. No enlargement or extra sharpening is applied.
+Desktop widths, mobile rectangle and output sizes/qualities are unchanged:
+768/1280/1672; mobile x=440, y=0, 900 × 941 → 450 × 471 / 900 × 941.
+AVIF/WebP quality 82, JPEG 86. Both social image tags use the corrected JPEG.
+The new filenames avoid stale cached versions. Text, controls, CSS framing and the
+existing footer disclosure are unchanged. The illustration still needs the
+owner's visual confirmation; this revision does not authorize public release.
+
+## Original approved opening illustration
 
 `approved-hero-*` derives exclusively from the owner's attached
 `0_hero_marenetto_build_1794264904110.png` (1672 × 941).
 Desktop widths: 768, 1280, 1672. Mobile: source rectangle 900 × 941
 at x=440, y=0; outputs 450 × 471 and 900 × 941.
 AVIF and WebP use quality 82; desktop JPEG fallback uses quality 86.
-No image generation, enlargement, sharpening or extraction from the design board.
+For these original derivatives: no generation, enlargement, sharpening or extraction from the design board.
 The hero is an AI illustration, not completed work; its separate disclosure is
 visible immediately below it. At 1920 CSS pixels or high DPR it does not provide
 native-density detail: request a 2560–3200 px (or larger) approved original.
