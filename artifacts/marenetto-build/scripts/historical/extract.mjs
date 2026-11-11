@@ -43,7 +43,7 @@ export function extractDocument({ html, url, side }) {
   })).filter(link => link.href);
   const mediaScope = isArticle ? main : content;
   const images = [...mediaScope.querySelectorAll('img')].map(img => ({
-    src: absolute(img.getAttribute('data-src') || img.getAttribute('src')),
+    src: absolute(img.getAttribute('data-src') || img.getAttribute('data-waitsrc') || img.getAttribute('src')),
     srcset: img.getAttribute('data-srcset') || img.getAttribute('srcset'),
     alt: img.getAttribute('alt'), width: img.getAttribute('width'), height: img.getAttribute('height'),
   }));
@@ -67,7 +67,7 @@ export function extractDocument({ html, url, side }) {
     headings: [...content.querySelectorAll('h1,h2,h3,h4,h5,h6')].map(node => ({ tag: node.tagName.toLowerCase(), text: clean(node.textContent) })),
     mainText: clean(main.textContent), images: [...images, ...backgrounds], links,
     resources: [
-      ...[...d.querySelectorAll('img')].map(img => ({ kind: 'image', src: absolute(img.getAttribute('data-src') || img.getAttribute('src')), srcset: img.getAttribute('data-srcset') || img.getAttribute('srcset'), alt: img.getAttribute('alt'), caption: clean(img.closest('figure')?.querySelector('figcaption')?.textContent) })),
+      ...[...d.querySelectorAll('img')].map(img => ({ kind: 'image', src: absolute(img.getAttribute('data-src') || img.getAttribute('data-waitsrc') || img.getAttribute('src')), srcset: img.getAttribute('data-srcset') || img.getAttribute('srcset'), alt: img.getAttribute('alt'), caption: clean(img.closest('figure')?.querySelector('figcaption')?.textContent) })),
       ...[...d.querySelectorAll('picture source[srcset]')].map(node => ({ kind: 'picture-source', srcset: node.getAttribute('srcset') })),
       ...[...d.querySelectorAll('[style]')].flatMap(node => [...node.getAttribute('style').matchAll(/url\(\s*['"]?([^'")]+)['"]?\s*\)/g)].map(match => ({ kind: 'background', src: absolute(match[1]) }))),
     ],

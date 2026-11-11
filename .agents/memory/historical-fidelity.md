@@ -91,3 +91,15 @@ ripresa a frequenza ridotta; i controlli browser parziali non colmavano quel lim
 limite, senza classificare i candidati come pagine inesistenti o migrazione
 riuscita. Richiedere un'esportazione dei soli contenuti pubblicati quando serve
 chiudere la copertura oltre il grafo accessibile.
+
+Nel CMS Framework360 le immagini differite possono avere solo `data-waitsrc`,
+senza `src` o `data-src`. Le immagini dei post e le miniature degli archivi vanno
+verificate separatamente.
+
+**Why:** I file multimediali possono rispondere correttamente mentre il recupero
+HTML ha perso gli indirizzi delle miniature. Inoltre alcuni corpi originali
+contengono nomi segnaposto, non fotografie effettivamente disponibili.
+
+**How to apply:** Considerare gli attributi differiti nelle acquisizioni;
+verificare i riferimenti nel documento servito oltre ai byte degli asset.
+Non colmare segnaposto originali con foto inventate o non documentate.

@@ -82,7 +82,7 @@ try {
       const publishedOn = d.querySelector('meta[property="article:published_time"]')?.getAttribute('content') ?? d.querySelector('time')?.getAttribute('datetime') ?? null;
       const dateLabel = clean(main.querySelector('time,[class*="post-date"],[class*="publish-date"]')?.textContent) || null;
       const hero = main.querySelector('img');
-      const image = hero?.getAttribute('data-src') || hero?.getAttribute('src') || null;
+      const image = hero?.getAttribute('data-src') || hero?.getAttribute('data-waitsrc') || hero?.getAttribute('src') || null;
       const imageAlt = hero?.getAttribute('alt') ?? '';
       const imageCaption = clean(hero?.closest('figure')?.querySelector('figcaption')?.textContent) || null;
       const clone = content.cloneNode(true);
@@ -99,7 +99,7 @@ try {
           continue;
         }
         const href = node.getAttribute('href') || (node.tagName === 'A' && node.closest('form') ? requestPath : null);
-        const src = node.getAttribute('data-src') || node.getAttribute('src');
+        const src = node.getAttribute('data-src') || node.getAttribute('data-waitsrc') || node.getAttribute('src');
         const srcset = node.getAttribute('data-srcset') || node.getAttribute('srcset');
         const alt = node.getAttribute('alt');
         const oldClass = node.getAttribute('class') ?? '';
