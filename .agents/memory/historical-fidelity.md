@@ -35,6 +35,16 @@ Preservare ogni URL articolo e copia locale storica effettivamente acquisita, co
 da conservare i percorsi dei link inbound. Non inventare versioni nelle lingue per
 cui non è stata reperita una corrispondente edizione originale.
 
+Le diciture visibili devono distinguere originali recuperati, verifiche ancora
+aperte, modifiche editoriali e traduzioni da approvare. Non chiamare genericamente
+«in revisione» tutto ciò che non ha una nuova approvazione alla pubblicazione.
+
+**Why:** Il titolare ha confermato questa distinzione senza autorizzare modifiche
+ai testi né approvazioni automatiche.
+
+**How to apply:** Cambiare le etichette, non gli stati sottostanti; indicare la
+lingua effettiva quando un percorso straniero contiene ancora il testo italiano.
+
 Nel lavoro editoriale, copie storiche ed elaborazioni dello stesso contenuto
 devono restare riconoscibili sotto una sola identità, non diventare articoli
 duplicati. Conservare separatamente gli originali, le correzioni autorizzate e le

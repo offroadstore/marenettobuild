@@ -6,6 +6,7 @@ import { articlePath, libraryPath } from './paths';
 import { serbianCyrillic } from './editorial-conventions';
 import approvalLedger from './edition-approvals.json';
 import { historicalInventory } from '@/content/historical';
+import { editionStatusLabel } from './edition-status';
 
 export type EditionState = 'draft' | 'translated' | 'reviewed' | 'published';
 export type Edition = {
@@ -89,6 +90,9 @@ for (const original of historicalInventory.filter(page => page.state === 'restor
   });
 }
 export const editionByPath = new Map(editions.map(edition => [edition.path, edition]));
+export function editionDisplayStatus(edition: Edition) {
+  return editionStatusLabel(edition, historicalInventory.find(page => page.path === edition.path));
+}
 export function equivalentEditions(id: string) {
   return editions.filter(edition => edition.id === id && edition.state === 'published' && edition.approval);
 }

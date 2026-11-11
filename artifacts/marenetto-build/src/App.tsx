@@ -31,7 +31,7 @@ import { chooseLanguage, isAutomaticVisitor, readSavedLanguage, saveLanguageChoi
 import { getLocale, getLocaleDirection, LANGUAGE_CHOICES, LOCALES, PAGE_KEYS, PUBLISHED_LOCALES } from '@/localization/locales';
 import { getLocalizedCopy, isLocaleCatalogLoaded, loadLocaleCatalog, localizeChoice, localizeNode, translateText } from '@/localization/runtime';
 import { isTranslationReviewMode, setTranslationReviewMode } from '@/localization/runtime';
-import { editions, editionByPath, reviewPathForEdition, canonicalEdition, equivalentEditions, getEdition, redirects } from '@/localization/edition-inventory';
+import { editions, editionByPath, editionDisplayStatus, reviewPathForEdition, canonicalEdition, equivalentEditions, getEdition, redirects } from '@/localization/edition-inventory';
 import { updateStructuredData } from '@/lib/structured-data';
 import { historicalPage, historicalPending, historicalArticleForPreview, historicalLoaded, loadHistorical, historicalNavigation, type HistoricalPage as HistoricalPageRecord } from '@/content/historical';
 import { HistoricalContents } from '@/pages/historical';
@@ -342,7 +342,8 @@ function Header({ lang, page, articleSlug, editionId }: { lang: Lang; page: Page
           }}>{LOCALES.map(locale => {
             const edition = getEdition(locale.code, editionId ?? articleSlug ?? page);
             if (!edition) return null;
-            return <Link key={locale.code} href={withCampaignParams(edition.path)} role="menuitem" lang={locale.code} dir={locale.direction} aria-label={locale.nativeName} aria-describedby={edition.state !== 'published' ? `edition-state-${locale.code}` : undefined} aria-current={locale.code === lang ? 'true' : undefined} data-edition-state={edition.state} onClick={() => { saveLanguageChoice(locale.code); setLanguageMenuOpen(false); }}>{locale.nativeName}{edition.state !== 'published' && <small id={`edition-state-${locale.code}`} lang="it"> · in revisione</small>}</Link>;
+            const statusLabel = editionDisplayStatus(edition);
+            return <Link key={locale.code} href={withCampaignParams(edition.path)} role="menuitem" lang={locale.code} dir={locale.direction} aria-label={locale.nativeName} aria-describedby={statusLabel ? `edition-state-${locale.code}` : undefined} aria-current={locale.code === lang ? 'true' : undefined} data-edition-state={edition.state} onClick={() => { saveLanguageChoice(locale.code); setLanguageMenuOpen(false); }}>{locale.nativeName}{statusLabel && <small id={`edition-state-${locale.code}`} lang="it" dir="ltr"> · {statusLabel}</small>}</Link>;
           })}</div>}
         </div>
         <PageLink page="request" lang={lang} className={`button${page === 'request' ? ' is-quiet' : ''}`} data-testid="nav-request">{requestLabel}<ArrowRight size={14} /></PageLink>
@@ -832,7 +833,7 @@ function SitePage({ page, lang }: { page: CorePage; lang: Lang }) {
   const main = page === 'request' ? contents : localizeNode(lang, contents);
   const footer = localizeNode(lang, <Footer lang={lang} />);
   return <div className="site-shell" lang={lang === 'it' ? 'it-IT' : lang} dir={getLocaleDirection(lang)}>
-    {header}<main>{lang !== 'it' && <p className="container translation-review-status" lang="it" role="note">Edizione in revisione: non approvata come equivalente pubblico. <a href={`/__localization-review/${lang}/${page}`}>Apri la bozza da revisionare</a></p>}<WhatsAppAccess lang={lang} />{main}</main>{footer}
+    {header}<main>{lang !== 'it' && <p className="container translation-review-status" lang="it" role="note">Traduzione da approvare: non ancora approvata come equivalente pubblico. <a href={`/__localization-review/${lang}/${page}`}>Apri la bozza da revisionare</a></p>}<WhatsAppAccess lang={lang} />{main}</main>{footer}
   </div>;
 }
 
