@@ -9,6 +9,19 @@ import * as zod from 'zod';
 
 
 /**
+ * @summary Serve an immutable, inventoried historical website image
+ */
+export const getHistoricalMediaPathAssetRegExp = new RegExp('^[a-f0-9]{64}\\.(png|jpg|jpeg|webp|gif)$');
+
+
+export const GetHistoricalMediaParams = zod.object({
+  "asset": zod.coerce.string().regex(getHistoricalMediaPathAssetRegExp)
+})
+
+export const GetHistoricalMediaResponse = zod.unknown()
+
+
+/**
  * Returns server health status
  * @summary Health check
  */

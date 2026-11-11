@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { openPage, sourceHome, sourceDocument } from './source-fixtures';
+import { openPage, sourceHome, sourceDocument, expectedMediaURL } from './source-fixtures';
 
 for (const locale of ['it', 'en']) {
   for (const width of [390, 768, 1440, 1920]) {
@@ -12,9 +12,10 @@ for (const locale of ['it', 'en']) {
       await expect(page.getByTestId('link-language')).toBeVisible();
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
 
-      // Old CMS media may be external or lack attributes. Preserve those facts;
-      // do not assert the previous rewritten page's four local card images.
-      const expectedMedia = await page.evaluate(html => [...new DOMParser().parseFromString(html, 'text/html').querySelectorAll('img')].map(img => ({ src: img.getAttribute('src'), alt: img.getAttribute('alt') })), sourceDocument(original).html);
+      // Preserve source associations/alt while accepting the documented,
+      // SHA-verified move off the historical hosting.
+      const expectedMedia = (await page.evaluate(html => [...new DOMParser().parseFromString(html, 'text/html').querySelectorAll('img')].map(img => ({ src: img.getAttribute('src'), alt: img.getAttribute('alt') })), sourceDocument(original).html))
+        .map(image => ({ ...image, src: expectedMediaURL(image.src) }));
       const actualMedia = await page.locator('main .historical-content img').evaluateAll(images => images.map(img => ({ src: img.getAttribute('src'), alt: img.getAttribute('alt') })));
       expect(actualMedia).toEqual(expectedMedia);
       const hero = page.locator('.mbh-hero img');

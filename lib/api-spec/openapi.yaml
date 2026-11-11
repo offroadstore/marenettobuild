@@ -17,6 +17,30 @@ tags:
   - name: storage
     description: Private attachment upload and serving.
 paths:
+  /historical-media/{asset}:
+    get:
+      operationId: getHistoricalMedia
+      tags: [storage]
+      summary: Serve an immutable, inventoried historical website image
+      parameters:
+        - name: asset
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: '^[a-f0-9]{64}\.(png|jpg|jpeg|webp|gif)$'
+      responses:
+        "200":
+          description: Image bytes copied without modification from the public historical source
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        "404":
+          description: Image is not in the public historical inventory
+        "503":
+          description: Archived image temporarily unavailable
   /healthz:
     get:
       operationId: healthCheck

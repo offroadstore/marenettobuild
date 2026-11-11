@@ -70,6 +70,83 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
+export const getGetHistoricalMediaUrl = (asset: string,) => {
+
+
+
+
+  return `/api/historical-media/${asset}`
+}
+
+/**
+ * @summary Serve an immutable, inventoried historical website image
+ */
+export const getHistoricalMedia = async (asset: string, options?: Parameters<typeof customFetch>[1]): Promise<Blob> => {
+
+  return customFetch<Blob>(getGetHistoricalMediaUrl(asset),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetHistoricalMediaQueryKey = (asset: string,) => {
+    return [
+    `/api/historical-media/${asset}`
+    ] as const;
+    }
+
+
+export const getGetHistoricalMediaQueryOptions = <TData = Awaited<ReturnType<typeof getHistoricalMedia>>, TError = ErrorType<void>>(asset: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getHistoricalMedia>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetHistoricalMediaQueryKey(asset);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getHistoricalMedia>>> = ({ signal }) => getHistoricalMedia(asset, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, enabled: asset !== null && asset !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getHistoricalMedia>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetHistoricalMediaQueryResult = NonNullable<Awaited<ReturnType<typeof getHistoricalMedia>>>
+export type GetHistoricalMediaQueryError = ErrorType<void>
+
+
+/**
+ * @summary Serve an immutable, inventoried historical website image
+ */
+
+export function useGetHistoricalMedia<TData = Awaited<ReturnType<typeof getHistoricalMedia>>, TError = ErrorType<void>>(
+ asset: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getHistoricalMedia>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetHistoricalMediaQueryOptions(asset,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
 export const getHealthCheckUrl = () => {
 
 

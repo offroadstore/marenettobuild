@@ -1,0 +1,131 @@
+{
+  "acquiredAt": "2026-11-11T06:23:08.998Z",
+  "auditCreatedAt": "2026-11-11T06:35:05.488Z",
+  "appCommit": "0f8e9cd6a099599f28716b33d54371c92f98ca4b",
+  "commitMeaning": "HEAD at acquisition, not a claim of a clean working tree. Served response hashes, served-current.json and code-inputs.json identify the measured artifact.",
+  "auditCommit": "0f8e9cd6a099599f28716b33d54371c92f98ca4b",
+  "complete": false,
+  "discovered": 437,
+  "acquired": 437,
+  "pending": 0,
+  "retryPending": 101,
+  "compared": 437,
+  "sourceHTTPCounts": {
+    "200": 266,
+    "404": 69,
+    "429": 102
+  },
+  "stoppedForRateLimit": true,
+  "acquisitionErrors": 0,
+  "capReached": false,
+  "sourceHTML200": 266,
+  "exactBodyAndTitle": 184,
+  "authorizedBodyAndTitle": 73,
+  "italianAuthorizedCorrectionMatches": 8,
+  "foreignDraftCorrectionMatches": 65,
+  "historicalArticleFamilies": 14,
+  "historicalArticleEditions": 126,
+  "historicalLocales": [
+    "de",
+    "en",
+    "es",
+    "fr",
+    "it",
+    "nl",
+    "pl",
+    "pt",
+    "ru"
+  ],
+  "implementedLocales": [
+    "it",
+    "en",
+    "fr",
+    "de",
+    "nl",
+    "es",
+    "pt",
+    "ru",
+    "pl",
+    "ro",
+    "uk",
+    "cs",
+    "sk",
+    "sl",
+    "hr",
+    "sr",
+    "bg",
+    "bs",
+    "mk",
+    "be",
+    "ar",
+    "he",
+    "sv",
+    "no",
+    "da",
+    "fi",
+    "hu",
+    "el",
+    "tr"
+  ],
+  "sourceRedirects": 13,
+  "newRedirects": 168,
+  "remoteImageReferences": 0,
+  "resourceArchive": {
+    "createdAt": "2026-11-11T06:21:01.605Z",
+    "discovered": 78,
+    "processed": 78,
+    "passed": 78,
+    "failed": 0,
+    "unverified": 0,
+    "bytes": 19607089,
+    "deliveryMigrated": false,
+    "limits": {
+      "MAX_ASSETS": 300,
+      "MAX_BYTES": 26214400
+    },
+    "note": "Backup indipendente; non prova il delivery locale, i diritti o la risoluzione sufficiente. Nessuna risorsa del sito pubblico modificata."
+  },
+  "mediaDelivery": {
+    "createdAt": "2026-11-11T06:25:38.788Z",
+    "distinctImages": 33,
+    "passed": 33,
+    "failed": 0,
+    "noSilentOldHostingFallback": true,
+    "httpMeasuredAt": "2026-11-11T06:24:27.511Z",
+    "note": "HTTP al proxy reale e SHA-256 dei byte; proporzioni naturali conservate, non approvazione dei diritti o del ritaglio visuale."
+  },
+  "browserCoverage": {
+    "total": 437,
+    "observed": 210,
+    "categories": {
+      "different-or-foreign-draft": 133,
+      "exact": 70,
+      "authorized-italian-unverified-text-pairs": 7,
+      "non verificato": 227
+    },
+    "complete": false
+  },
+  "resultCounts": {
+    "superato": 257,
+    "fallito": 9,
+    "non verificato": 171
+  },
+  "eligibleSitemap": 4,
+  "fieldChecks": {
+    "total": 6118,
+    "counts": {
+      "superato": 1868,
+      "differente": 1730,
+      "non verificato": 2520
+    },
+    "justifiedDifferences": 506,
+    "openDifferences": 1224
+  },
+  "limitations": [
+    "Nessuna esportazione CMS pubblica o Search Console/analytics fornita",
+    "Revisioni linguistiche non dedotte dalle chiavi",
+    "Il risultato corpo/titolo non certifica metadati, struttura o risorse",
+    "Secondo controllo browser indipendente parziale; nessuna copertura presunta",
+    "Il sito storico ha risposto 429 anche alla ripresa lenta; interrotti i tentativi, conservate le risposte precedenti"
+  ]
+}

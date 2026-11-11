@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { expect, test } from '@playwright/test';
-import { openPage, originals, projectRoot, sourceDocument } from './source-fixtures';
+import { openPage, originals, projectRoot, sourceDocument, expectedMediaURL } from './source-fixtures';
 
 const nativeArticles = originals.filter(row => row.locale === 'it' && row.kind === 'article');
 const manifest = () => JSON.parse(readFileSync(resolve(projectRoot, 'dist/public/route-manifest.json'), 'utf8'));
@@ -28,7 +28,7 @@ for (const article of nativeArticles) {
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', new RegExp(`${article.path}$`));
     if (article.state === 'awaiting-confirmation') await expect(body).toHaveAttribute('data-editorial-state', 'review-pending');
     const source = sourceDocument(article);
-    if (source.image) await expect(page.locator('.historical-cover')).toHaveAttribute('src', source.image);
+    if (source.image) await expect(page.locator('.historical-cover')).toHaveAttribute('src', expectedMediaURL(source.image)!);
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
     await expect(page.locator('link[hreflang]')).toHaveCount(0);
   });

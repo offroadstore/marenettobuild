@@ -1,0 +1,702 @@
+{
+  "summary": {
+    "createdAt": "2026-11-11T06:25:38.788Z",
+    "distinctImages": 33,
+    "passed": 33,
+    "failed": 0,
+    "noSilentOldHostingFallback": true,
+    "httpMeasuredAt": "2026-11-11T06:24:27.511Z",
+    "note": "HTTP al proxy reale e SHA-256 dei byte; proporzioni naturali conservate, non approvazione dei diritti o del ritaglio visuale."
+  },
+  "rows": [
+    {
+      "target": "/api/historical-media/d4914a3acfff8fdc076747dbde91223f124e336b6c9f56caed4f5bd377d823af.png",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/logos/bg-8fafd03d-5e74-4dce-b4b9-fd878182c53a-1.png?1765651254206&v=1794337514",
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/logos/bg-8fafd03d-5e74-4dce-b4b9-fd878182c53a-1.png?1765651254206&v=1794362785",
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/logos/bg-8fafd03d-5e74-4dce-b4b9-fd878182c53a-1.png?1765651254206&v=1794342825"
+      ],
+      "status": 200,
+      "bytes": 12371,
+      "expectedSHA256": "d4914a3acfff8fdc076747dbde91223f124e336b6c9f56caed4f5bd377d823af",
+      "servedSHA256": "d4914a3acfff8fdc076747dbde91223f124e336b6c9f56caed4f5bd377d823af",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1536,
+        "height": 560,
+        "format": "png"
+      },
+      "contentType": "image/png",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/e782c207e0fd0c1870fb6d26619b099bda76b9bd6361a79ec029a64a189435ec.png",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/consolidamento-cefalu.png?1770724390105&v=1774464396",
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/consolidamento-cefalu.png?1770724424521&v=1774464396"
+      ],
+      "status": 200,
+      "bytes": 521298,
+      "expectedSHA256": "e782c207e0fd0c1870fb6d26619b099bda76b9bd6361a79ec029a64a189435ec",
+      "servedSHA256": "e782c207e0fd0c1870fb6d26619b099bda76b9bd6361a79ec029a64a189435ec",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1024,
+        "height": 1024,
+        "format": "png"
+      },
+      "contentType": "image/png",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/16d82733bd23de04b73621d6182a6f9f0cc61620ef0a13186a2e326aa85a4a55.webp",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/consolidamento-cefalu.png?1770724390105&v=1774464396&format=webp",
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/consolidamento-cefalu.png?1770724424521&v=1774464396&format=webp"
+      ],
+      "status": 200,
+      "bytes": 204404,
+      "expectedSHA256": "16d82733bd23de04b73621d6182a6f9f0cc61620ef0a13186a2e326aa85a4a55",
+      "servedSHA256": "16d82733bd23de04b73621d6182a6f9f0cc61620ef0a13186a2e326aa85a4a55",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1024,
+        "height": 1024,
+        "format": "webp"
+      },
+      "contentType": "image/webp",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/0d54c619c311c74cbf6047aed8c6c325410850dc12012731823955c588b21e51.png",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/comprare-e-ristrutturare-casa-a-cefalu-1.png?1774464403415&v=1774464396",
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/comprare-e-ristrutturare-casa-a-cefalu-1.png?1774464396692&v=1774464396"
+      ],
+      "status": 200,
+      "bytes": 2295392,
+      "expectedSHA256": "0d54c619c311c74cbf6047aed8c6c325410850dc12012731823955c588b21e51",
+      "servedSHA256": "0d54c619c311c74cbf6047aed8c6c325410850dc12012731823955c588b21e51",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 2816,
+        "height": 1536,
+        "format": "png"
+      },
+      "contentType": "image/png",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/0f94abf6a19960d36fe880e83ad4f8cfd5201c9955441be8e1a0d130678a2a7e.webp",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/comprare-e-ristrutturare-casa-a-cefalu-1.png?1774464403415&v=1774464396&format=webp",
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/comprare-e-ristrutturare-casa-a-cefalu-1.png?1774464396692&v=1774464396&format=webp"
+      ],
+      "status": 200,
+      "bytes": 724468,
+      "expectedSHA256": "0f94abf6a19960d36fe880e83ad4f8cfd5201c9955441be8e1a0d130678a2a7e",
+      "servedSHA256": "0f94abf6a19960d36fe880e83ad4f8cfd5201c9955441be8e1a0d130678a2a7e",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 2816,
+        "height": 1536,
+        "format": "webp"
+      },
+      "contentType": "image/webp",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/e8459a16eceb85a4aff7ffc7b03f7866fba6be3289d171cbdb72cc74911f0209.jpg",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/manutenzione.jpg?1765884953902&v=1774464396",
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/manutenzione.jpg?1765898467555&v=1774464396"
+      ],
+      "status": 200,
+      "bytes": 148729,
+      "expectedSHA256": "e8459a16eceb85a4aff7ffc7b03f7866fba6be3289d171cbdb72cc74911f0209",
+      "servedSHA256": "e8459a16eceb85a4aff7ffc7b03f7866fba6be3289d171cbdb72cc74911f0209",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1024,
+        "height": 1024,
+        "format": "jpeg"
+      },
+      "contentType": "image/jpeg",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/4585e8ab73de4944521249b64ddd6d366e1173681ca1e1f51f76238514a66619.webp",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/manutenzione.jpg?1765884953902&v=1774464396&format=webp",
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/manutenzione.jpg?1765898467555&v=1774464396&format=webp"
+      ],
+      "status": 200,
+      "bytes": 119076,
+      "expectedSHA256": "4585e8ab73de4944521249b64ddd6d366e1173681ca1e1f51f76238514a66619",
+      "servedSHA256": "4585e8ab73de4944521249b64ddd6d366e1173681ca1e1f51f76238514a66619",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1024,
+        "height": 1024,
+        "format": "webp"
+      },
+      "contentType": "image/webp",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/76502df64c0f051804c6da40816ed49b30f2dc9c0589b68e82c6d3b99057e539.png",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/pavimenti-esterni-isoplam.png?1770746343840&v=1774464396",
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/pavimenti-esterni-isoplam.png?1770746351706&v=1774464396"
+      ],
+      "status": 200,
+      "bytes": 364936,
+      "expectedSHA256": "76502df64c0f051804c6da40816ed49b30f2dc9c0589b68e82c6d3b99057e539",
+      "servedSHA256": "76502df64c0f051804c6da40816ed49b30f2dc9c0589b68e82c6d3b99057e539",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1024,
+        "height": 1024,
+        "format": "png"
+      },
+      "contentType": "image/png",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/6ae476987bc58443287245d130e11198ca6d5fc03580ea2f2a01781dfbc6ae3e.webp",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/pavimenti-esterni-isoplam.png?1770746343840&v=1774464396&format=webp",
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/pavimenti-esterni-isoplam.png?1770746351706&v=1774464396&format=webp"
+      ],
+      "status": 200,
+      "bytes": 138930,
+      "expectedSHA256": "6ae476987bc58443287245d130e11198ca6d5fc03580ea2f2a01781dfbc6ae3e",
+      "servedSHA256": "6ae476987bc58443287245d130e11198ca6d5fc03580ea2f2a01781dfbc6ae3e",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1024,
+        "height": 1024,
+        "format": "webp"
+      },
+      "contentType": "image/webp",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/a9459bf62e1b6a9c040961c2d69353e4ddada04d962ad9de244c76029ac08c67.png",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/ricerca-infiltrazioni-dacqua-e-umidita.png?1770746608759&v=1774464396",
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/ricerca-infiltrazioni-dacqua-e-umidita.png?1770746614928&v=1774464396"
+      ],
+      "status": 200,
+      "bytes": 311016,
+      "expectedSHA256": "a9459bf62e1b6a9c040961c2d69353e4ddada04d962ad9de244c76029ac08c67",
+      "servedSHA256": "a9459bf62e1b6a9c040961c2d69353e4ddada04d962ad9de244c76029ac08c67",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1024,
+        "height": 1024,
+        "format": "png"
+      },
+      "contentType": "image/png",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/ee2d43c8d2b224ef44bf73680109ae557da2bf812875596ae715c3a015cecc37.webp",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/ricerca-infiltrazioni-dacqua-e-umidita.png?1770746608759&v=1774464396&format=webp",
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/ricerca-infiltrazioni-dacqua-e-umidita.png?1770746614928&v=1774464396&format=webp"
+      ],
+      "status": 200,
+      "bytes": 64298,
+      "expectedSHA256": "ee2d43c8d2b224ef44bf73680109ae557da2bf812875596ae715c3a015cecc37",
+      "servedSHA256": "ee2d43c8d2b224ef44bf73680109ae557da2bf812875596ae715c3a015cecc37",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1024,
+        "height": 1024,
+        "format": "webp"
+      },
+      "contentType": "image/webp",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/f940c291ac417e83bfbf06b74094e8919395b10ab787d09bc0bc7a2eb5db3057.jpg",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/cucina-esterna-luxury.jpg?1765899156978&v=1774464396"
+      ],
+      "status": 200,
+      "bytes": 47974,
+      "expectedSHA256": "f940c291ac417e83bfbf06b74094e8919395b10ab787d09bc0bc7a2eb5db3057",
+      "servedSHA256": "f940c291ac417e83bfbf06b74094e8919395b10ab787d09bc0bc7a2eb5db3057",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 512,
+        "height": 512,
+        "format": "jpeg"
+      },
+      "contentType": "image/jpeg",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/aba2c42b226940075d7cc687c643125f818d12796f70e8347924da7aca76849f.webp",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/cucina-esterna-luxury.jpg?1765899156978&v=1774464396&format=webp"
+      ],
+      "status": 200,
+      "bytes": 42126,
+      "expectedSHA256": "aba2c42b226940075d7cc687c643125f818d12796f70e8347924da7aca76849f",
+      "servedSHA256": "aba2c42b226940075d7cc687c643125f818d12796f70e8347924da7aca76849f",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 512,
+        "height": 512,
+        "format": "webp"
+      },
+      "contentType": "image/webp",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/740efd84698b11951c5b5d405f0e880ae989683a0aa2d2543469e9be83fbce99.jpg",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/piscina_lagheto.jpg?1765899107768&v=1774464396"
+      ],
+      "status": 200,
+      "bytes": 196302,
+      "expectedSHA256": "740efd84698b11951c5b5d405f0e880ae989683a0aa2d2543469e9be83fbce99",
+      "servedSHA256": "740efd84698b11951c5b5d405f0e880ae989683a0aa2d2543469e9be83fbce99",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1024,
+        "height": 1024,
+        "format": "jpeg"
+      },
+      "contentType": "image/jpeg",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/9f1132a70a61071dfda2fe5386466530be190cc85ca87018ac9955d3b313e406.webp",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/piscina_lagheto.jpg?1765899107768&v=1774464396&format=webp"
+      ],
+      "status": 200,
+      "bytes": 179378,
+      "expectedSHA256": "9f1132a70a61071dfda2fe5386466530be190cc85ca87018ac9955d3b313e406",
+      "servedSHA256": "9f1132a70a61071dfda2fe5386466530be190cc85ca87018ac9955d3b313e406",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1024,
+        "height": 1024,
+        "format": "webp"
+      },
+      "contentType": "image/webp",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/5a51a22a6c4d41034368c4b74fbcdd845654caf881f168be8940493c32a5d32c.jpg",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/pavimenti-in-resina.jpg?1765898966122&v=1774464396"
+      ],
+      "status": 200,
+      "bytes": 217986,
+      "expectedSHA256": "5a51a22a6c4d41034368c4b74fbcdd845654caf881f168be8940493c32a5d32c",
+      "servedSHA256": "5a51a22a6c4d41034368c4b74fbcdd845654caf881f168be8940493c32a5d32c",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1024,
+        "height": 1024,
+        "format": "jpeg"
+      },
+      "contentType": "image/jpeg",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/2185c88cd1bd96353e48face4ba9671a399c9d9b81a6638fd668e15ce9734e8c.webp",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/pavimenti-in-resina.jpg?1765898966122&v=1774464396&format=webp"
+      ],
+      "status": 200,
+      "bytes": 212610,
+      "expectedSHA256": "2185c88cd1bd96353e48face4ba9671a399c9d9b81a6638fd668e15ce9734e8c",
+      "servedSHA256": "2185c88cd1bd96353e48face4ba9671a399c9d9b81a6638fd668e15ce9734e8c",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1024,
+        "height": 1024,
+        "format": "webp"
+      },
+      "contentType": "image/webp",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/b1433784f44325a76a3092d3c3308e9119f0ef520cbf97abbf322232cb125628.jpg",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/muro-in-pietra.jpg?1765898893779&v=1774464396"
+      ],
+      "status": 200,
+      "bytes": 156457,
+      "expectedSHA256": "b1433784f44325a76a3092d3c3308e9119f0ef520cbf97abbf322232cb125628",
+      "servedSHA256": "b1433784f44325a76a3092d3c3308e9119f0ef520cbf97abbf322232cb125628",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1024,
+        "height": 1024,
+        "format": "jpeg"
+      },
+      "contentType": "image/jpeg",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/61c4a954e5c45289996448c8b4350fe0e066b1e8b47aa2f087d761746c026016.webp",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/muro-in-pietra.jpg?1765898893779&v=1774464396&format=webp"
+      ],
+      "status": 200,
+      "bytes": 130682,
+      "expectedSHA256": "61c4a954e5c45289996448c8b4350fe0e066b1e8b47aa2f087d761746c026016",
+      "servedSHA256": "61c4a954e5c45289996448c8b4350fe0e066b1e8b47aa2f087d761746c026016",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1024,
+        "height": 1024,
+        "format": "webp"
+      },
+      "contentType": "image/webp",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/5f5b78c1c04189c33b6ad3fa2bc2a1f5052a42220c29d68eee85d6e56021a427.jpg",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/garden.jpg?1765898546930&v=1774464396"
+      ],
+      "status": 200,
+      "bytes": 242008,
+      "expectedSHA256": "5f5b78c1c04189c33b6ad3fa2bc2a1f5052a42220c29d68eee85d6e56021a427",
+      "servedSHA256": "5f5b78c1c04189c33b6ad3fa2bc2a1f5052a42220c29d68eee85d6e56021a427",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1024,
+        "height": 1024,
+        "format": "jpeg"
+      },
+      "contentType": "image/jpeg",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/4dd8adc4214661c8b2fdc4db5c187949dfcb637feb96eeaf2325dae94f808034.webp",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/garden.jpg?1765898546930&v=1774464396&format=webp"
+      ],
+      "status": 200,
+      "bytes": 239640,
+      "expectedSHA256": "4dd8adc4214661c8b2fdc4db5c187949dfcb637feb96eeaf2325dae94f808034",
+      "servedSHA256": "4dd8adc4214661c8b2fdc4db5c187949dfcb637feb96eeaf2325dae94f808034",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1024,
+        "height": 1024,
+        "format": "webp"
+      },
+      "contentType": "image/webp",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/4ca7462ae3e93626e1af02939545386f737e0a44e29ed773e9187ca3ae9b3cd7.jpg",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/microverlay-isoplam.jpg?1766487634051&v=1774464396"
+      ],
+      "status": 200,
+      "bytes": 305855,
+      "expectedSHA256": "4ca7462ae3e93626e1af02939545386f737e0a44e29ed773e9187ca3ae9b3cd7",
+      "servedSHA256": "4ca7462ae3e93626e1af02939545386f737e0a44e29ed773e9187ca3ae9b3cd7",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1920,
+        "height": 1920,
+        "format": "jpeg"
+      },
+      "contentType": "image/jpeg",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/6d7bf0b6b281402f4e892bef2b48b4f30b797609d9884367aed977ab705e82cf.webp",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/microverlay-isoplam.jpg?1766487634051&v=1774464396&format=webp"
+      ],
+      "status": 200,
+      "bytes": 193690,
+      "expectedSHA256": "6d7bf0b6b281402f4e892bef2b48b4f30b797609d9884367aed977ab705e82cf",
+      "servedSHA256": "6d7bf0b6b281402f4e892bef2b48b4f30b797609d9884367aed977ab705e82cf",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1920,
+        "height": 1920,
+        "format": "webp"
+      },
+      "contentType": "image/webp",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/09b8cc49d83f7d30eac494e8de070af392fa213645681405355ac0233ca3ac12.jpg",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/confronto-cappotto-termico-intonaco-termico-1.jpg?1770721265905&v=1774464396"
+      ],
+      "status": 200,
+      "bytes": 567431,
+      "expectedSHA256": "09b8cc49d83f7d30eac494e8de070af392fa213645681405355ac0233ca3ac12",
+      "servedSHA256": "09b8cc49d83f7d30eac494e8de070af392fa213645681405355ac0233ca3ac12",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 2816,
+        "height": 1536,
+        "format": "jpeg"
+      },
+      "contentType": "image/jpeg",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/f59e691220a16da72b201c78a60e6aa29617ed2c69d4a6bd3fcf632889968b16.webp",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/confronto-cappotto-termico-intonaco-termico-1.jpg?1770721265905&v=1774464396&format=webp"
+      ],
+      "status": 200,
+      "bytes": 457388,
+      "expectedSHA256": "f59e691220a16da72b201c78a60e6aa29617ed2c69d4a6bd3fcf632889968b16",
+      "servedSHA256": "f59e691220a16da72b201c78a60e6aa29617ed2c69d4a6bd3fcf632889968b16",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 2816,
+        "height": 1536,
+        "format": "webp"
+      },
+      "contentType": "image/webp",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/1d43c660b951b7c62b5aedf0c250552aa3de91a8573781b62ba407ee9a0c6b07.png",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/garanzia-polizza-decennale.png?1770746043489&v=1774464396"
+      ],
+      "status": 200,
+      "bytes": 389187,
+      "expectedSHA256": "1d43c660b951b7c62b5aedf0c250552aa3de91a8573781b62ba407ee9a0c6b07",
+      "servedSHA256": "1d43c660b951b7c62b5aedf0c250552aa3de91a8573781b62ba407ee9a0c6b07",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1024,
+        "height": 1024,
+        "format": "png"
+      },
+      "contentType": "image/png",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/50fac3a14426af14cd15be79663da91a83a444b72f0fc83f851aa4c2535510c5.webp",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/garanzia-polizza-decennale.png?1770746043489&v=1774464396&format=webp"
+      ],
+      "status": 200,
+      "bytes": 112202,
+      "expectedSHA256": "50fac3a14426af14cd15be79663da91a83a444b72f0fc83f851aa4c2535510c5",
+      "servedSHA256": "50fac3a14426af14cd15be79663da91a83a444b72f0fc83f851aa4c2535510c5",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 1024,
+        "height": 1024,
+        "format": "webp"
+      },
+      "contentType": "image/webp",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/efd6e76bd864df306bde2e7d0d02c0bbbd21ef0dac17c26a4e34bd3b2b6e8377.png",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/lavori-edilizia-cefalu.png?1770750062783&v=1774464396"
+      ],
+      "status": 200,
+      "bytes": 2411672,
+      "expectedSHA256": "efd6e76bd864df306bde2e7d0d02c0bbbd21ef0dac17c26a4e34bd3b2b6e8377",
+      "servedSHA256": "efd6e76bd864df306bde2e7d0d02c0bbbd21ef0dac17c26a4e34bd3b2b6e8377",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 2816,
+        "height": 1536,
+        "format": "png"
+      },
+      "contentType": "image/png",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/bfbd5cc5f737df2c3f6dbbfe420a547e9c9c88f8808f854369f4b657a4274973.webp",
+      "sourceURLs": [
+        "https://uploads3.fw360.it/uploads/env/4/15607/img/blog/posts/lavori-edilizia-cefalu.png?1770750062783&v=1774464396&format=webp"
+      ],
+      "status": 200,
+      "bytes": 765012,
+      "expectedSHA256": "bfbd5cc5f737df2c3f6dbbfe420a547e9c9c88f8808f854369f4b657a4274973",
+      "servedSHA256": "bfbd5cc5f737df2c3f6dbbfe420a547e9c9c88f8808f854369f4b657a4274973",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 2816,
+        "height": 1536,
+        "format": "webp"
+      },
+      "contentType": "image/webp",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/624bf9958ef0e074011ad92ffaab3580740650fd6ae697c5aee6ea6ec3a7719a.png",
+      "sourceURLs": [
+        "https://assets.framework360.com/plugins/private/frontendParser/assets/img/angle-down.png"
+      ],
+      "status": 200,
+      "bytes": 263,
+      "expectedSHA256": "624bf9958ef0e074011ad92ffaab3580740650fd6ae697c5aee6ea6ec3a7719a",
+      "servedSHA256": "624bf9958ef0e074011ad92ffaab3580740650fd6ae697c5aee6ea6ec3a7719a",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 32,
+        "height": 32,
+        "format": "png"
+      },
+      "contentType": "image/png",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/0436045686fddf10ccbbe2568e0cbffb457e7de7d43d1115c0056e81e97149ff.png",
+      "sourceURLs": [
+        "https://assets.framework360.com/vendor/owl-slider/assets/owl.video.play.png"
+      ],
+      "status": 200,
+      "bytes": 4976,
+      "expectedSHA256": "0436045686fddf10ccbbe2568e0cbffb457e7de7d43d1115c0056e81e97149ff",
+      "servedSHA256": "0436045686fddf10ccbbe2568e0cbffb457e7de7d43d1115c0056e81e97149ff",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 80,
+        "height": 80,
+        "format": "png"
+      },
+      "contentType": "image/png",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/0a012cf808a24573168308916092d2d4bd3f2b4af8e16b59167013cc77acee55.png",
+      "sourceURLs": [
+        "https://assets.framework360.com/vendor/intlTelInput/flags.png"
+      ],
+      "status": 200,
+      "bytes": 70857,
+      "expectedSHA256": "0a012cf808a24573168308916092d2d4bd3f2b4af8e16b59167013cc77acee55",
+      "servedSHA256": "0a012cf808a24573168308916092d2d4bd3f2b4af8e16b59167013cc77acee55",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 5652,
+        "height": 15,
+        "format": "png"
+      },
+      "contentType": "image/png",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    },
+    {
+      "target": "/api/historical-media/8ab4e961a71e2a404aab37e528b0312282c258015d58f5e0eb5dec6aa4ff63d2.png",
+      "sourceURLs": [
+        "https://assets.framework360.com/vendor/intlTelInput/flags@2x.png"
+      ],
+      "status": 200,
+      "bytes": 174369,
+      "expectedSHA256": "8ab4e961a71e2a404aab37e528b0312282c258015d58f5e0eb5dec6aa4ff63d2",
+      "servedSHA256": "8ab4e961a71e2a404aab37e528b0312282c258015d58f5e0eb5dec6aa4ff63d2",
+      "originalBytesPreserved": true,
+      "dimensions": {
+        "width": 11304,
+        "height": 30,
+        "format": "png"
+      },
+      "contentType": "image/png",
+      "noindex": "noindex, nofollow",
+      "result": "superato",
+      "dimensionCheck": "Decoded from archived bytes whose SHA-256 equals the previously served response"
+    }
+  ],
+  "exclusions": [
+    {
+      "target": "/api/historical-media/not-in-manifest.png",
+      "status": 404,
+      "result": "superato"
+    },
+    {
+      "target": "/api/historical-media/0000000000000000000000000000000000000000000000000000000000000000.png",
+      "status": 404,
+      "result": "superato"
+    },
+    {
+      "target": "/api/historical-media/%2e%2e%2fprivate",
+      "status": 404,
+      "result": "superato"
+    }
+  ]
+}

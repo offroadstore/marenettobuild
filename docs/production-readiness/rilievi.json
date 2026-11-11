@@ -1,0 +1,91 @@
+{
+  "createdAt": "2026-11-11T10:06:45.889664+00:00",
+  "verdict": "NO-GO",
+  "taskClosureMeaning": "backup and audit delivered; not production or migration certification",
+  "findings": [
+    {
+      "id": "SEC-01",
+      "priority": "P0",
+      "title": "Dipendenze vulnerabili",
+      "evidence": "1 critica e 8 alte su 24 segnalazioni; body-parser e proxy-addr sono dipendenze runtime di Express.",
+      "done_when": "Aggiornare il grafo compatibile; rieseguire scansioni e controlli API; valutare separatamente tool di sviluppo e percorsi vulnerabili realmente usati."
+    },
+    {
+      "id": "PRIV-01",
+      "priority": "P0",
+      "title": "Informativa e raccolta dati da approvare",
+      "evidence": "Nessuna edizione privacy/cookie/termini trovata; checkbox privacy del modulo senza link a un’informativa dedicata.",
+      "done_when": "Definire titolare, basi giuridiche, finalità, tempi, fornitori e diritti; pubblicare e collegare le informative approvate. Non dedurre l’approvazione legale da flag di configurazione."
+    },
+    {
+      "id": "CONT-01",
+      "priority": "P0",
+      "title": "Migrazione non certificabile come integrale",
+      "evidence": "266 fonti HTTP 200 confrontabili: 184 corpi esatti, 8 modifiche IT, 65 bozze straniere, 9 confronti falliti; altri 171 URL non confrontabili.",
+      "done_when": "Riconciliare fonti/candidati ed eccezioni, decisioni sui translation-ok e feed; conservare originali e approvazioni senza riscritture autonome."
+    },
+    {
+      "id": "SEO-01",
+      "priority": "P0",
+      "title": "Sitemap diversa fra anteprima e handler preparato",
+      "evidence": "GET /sitemap.xml dell’anteprima restituisce HTML con status 200; il build contiene invece XML. Test SEO dell’handler preparato superati.",
+      "done_when": "Allineare il delivery scelto per il rilascio; verificare XML e Content-Type dell’endpoint reale, evitando fallback alla shell SPA."
+    },
+    {
+      "id": "SEO-02",
+      "priority": "P0",
+      "title": "Dominio, bozze e indicizzazione da governare al rilascio",
+      "evidence": "1255 HTML noindex, robots Disallow, origine preview.invalid; shell base con host Replit preimpostato. Solo 4 edizioni ammissibili alla sitemap.",
+      "done_when": "Configurare l’origine definitiva e tutti gli URL social/canonical; rimuovere host estranei dalla shell. Attivare l’indicizzazione solo dopo approvazione esplicita e soltanto per edizioni pubblicabili."
+    },
+    {
+      "id": "SEC-02",
+      "priority": "P1",
+      "title": "Origini API troppo permissive",
+      "evidence": "CORS riflette https://audit.invalid e consente credenziali; la sessione non autenticata resta correttamente 401.",
+      "done_when": "Usare allowlist esatta delle origini autorizzate e verificare protezione delle scritture autenticate contro richieste cross-site; il test non dimostra un’esfiltrazione."
+    },
+    {
+      "id": "SEC-03",
+      "priority": "P1",
+      "title": "Difese operative API da rafforzare",
+      "evidence": "Limiter del modulo: 6 richieste/60s per IP, mappa in memoria; header CSP/nosniff/referrer/frame non emessi dal server locale osservato.",
+      "done_when": "Limitatore condiviso con TTL e limiti espliciti, revisione trust proxy, header al server/edge definitivo. La mancanza di HSTS su HTTP locale non prova l’assenza al futuro terminatore TLS."
+    },
+    {
+      "id": "UX-01",
+      "priority": "P1",
+      "title": "Errori JavaScript sulle pagine escluse",
+      "evidence": "7 route linguistiche translation-ok producono errori di hydration e frame mentre rispondono 404.",
+      "done_when": "Allineare rendering iniziale/client delle pagine escluse e verificare le sole route interessate; non ripubblicare il frammento storico senza decisione."
+    },
+    {
+      "id": "OPS-01",
+      "priority": "P1",
+      "title": "Ripristino completo dati e storage non provato",
+      "evidence": "Backup del codice e delle prove pubbliche verificato; database, utenti auth e allegati privati esclusi.",
+      "done_when": "Predisporre copie separate autorizzate, retention, versionamento, RPO/RTO e una prova di ripristino DB/storage con dati protetti."
+    },
+    {
+      "id": "OPS-02",
+      "priority": "P1",
+      "title": "Consegna richieste e notifiche non certificata",
+      "evidence": "Persistenza, idempotenza e SMTP presenti nel codice; nessun invio reale o flusso completo autorizzato eseguito in questo audit.",
+      "done_when": "Provare in ambiente controllato form→DB→una sola notifica, retry e recupero dopo interruzione; verificare canali mail e recapiti senza contattare clienti."
+    },
+    {
+      "id": "SEO-03",
+      "priority": "P2",
+      "title": "Metadati e accessibilità editoriale da rifinire",
+      "evidence": "114 description vuote, 173 gruppi di titoli duplicati e 554 occorrenze img senza attributo alt nel build, comprese copie/bozze.",
+      "done_when": "Separare duplicazioni intenzionali di revisione, immagini decorative e informative; correggere le edizioni pubblicabili con revisione, senza alterare silenziosamente gli originali."
+    },
+    {
+      "id": "PRO-01",
+      "priority": "P2",
+      "title": "Prove aziendali e qualità professionale da completare",
+      "evidence": "Grafica fotografica e CTA presenti; non certificati identità legale, diritti, casi reali, credenziali, processi e prestazioni sul dominio finale.",
+      "done_when": "Completare dati societari verificati, contatti e tempi di risposta, portfolio autorizzato, garanzie prudenti, accessibilità e misure reali di prestazione."
+    }
+  ]
+}

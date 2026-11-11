@@ -1,3 +1,22 @@
+# Acquisizione indipendente e delivery immagini — 11 novembre 2026
+
+## Chiusura con backup e audit richiesti dal titolare
+
+La consegna corrente è `../../docs/production-readiness/AUDIT_FINALE.md`, con checklist e limiti del backup. La chiusura documentale **non certifica** la migrazione integrale e **non autorizza** la produzione.
+
+Il passaggio browser conclusivo ha coperto **437/437 URL** e confermato **257/257 corpi accettati**; restano 9 confronti falliti, 171 fonti non confrontabili e 7 errori sulle pagine escluse. I riferimenti successivi a una copertura parziale appartengono alle baseline precedenti.
+
+Lo stato più recente è documentato nei dieci documenti numerati e nei registri
+di `docs/migrazione-storica/`. Le fonti grezze datate, gli estratti, i diff e gli
+hash sono consegnati in un pacchetto separato, senza sovrascrivere gli archivi.
+Le immagini recuperate sono ora servite da App Storage con verifica dei byte.
+Due etichette delle recensioni sono riallineate alle nuove risposte della fonte.
+
+**La migrazione resta non certificata:** il CMS storico ha risposto anche con 429;
+la copertura browser è completata, ma rimangono differenze e approvazioni
+da riconciliare. I risultati sotto sono baseline precedenti, non evidenze nuove.
+Nessuna pubblicazione o apertura ai motori.
+
 # Aggiornamento dopo l’applicazione autorizzata
 
 Il titolare ha approvato «Applica le correzioni proposte». Le 25 sostituzioni

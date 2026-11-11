@@ -38,7 +38,7 @@ export default defineConfig({
     },
     {
       command:
-        'PORT=4188 BASE_PATH=/ pnpm run serve',
+        'PORT=4188 BASE_PATH=/ node tests/serve-preview.mjs',
       url: 'http://127.0.0.1:4188',
       reuseExistingServer: false,
       timeout: 120_000,

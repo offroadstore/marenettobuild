@@ -51,10 +51,26 @@ export function extractDocument({ html, url, side }) {
     [...(node.getAttribute('style') ?? '').matchAll(/url\(\s*['"]?([^'")]+)['"]?\s*\)/g)].map(match => ({ src: absolute(match[1]), context: 'inline background', alt: null }))
   ).filter(image => image.src);
   return {
-    title: clean(d.title), htmlLang: d.documentElement.lang, isArticle, extraction, body, blocks,
+    title: clean(d.title), description: d.querySelector('meta[name="description"]')?.content ?? null,
+    robots: [...d.querySelectorAll('meta[name="robots"],meta[name="googlebot"]')].map(node => ({ name: node.name, content: node.content })),
+    htmlLang: d.documentElement.lang, isArticle, extraction, body, blocks,
+    lists: [...clone.querySelectorAll('ul,ol')].map(node => ({ tag: node.tagName.toLowerCase(), items: [...node.children].filter(item => item.tagName === 'LI').map(item => clean(item.textContent)) })),
+    tables: [...clone.querySelectorAll('table')].map(node => [...node.querySelectorAll('tr')].map(row => [...row.querySelectorAll('th,td')].map(cell => clean(cell.textContent)))),
+    captions: [...clone.querySelectorAll('figcaption')].map(node => clean(node.textContent)),
+    editorial: {
+      author: d.querySelector('meta[name="author"]')?.content ?? null,
+      published: d.querySelector('meta[property="article:published_time"]')?.content ?? null,
+      modified: d.querySelector('meta[property="article:modified_time"]')?.content ?? null,
+      times: [...main.querySelectorAll('time')].map(node => ({ datetime: node.getAttribute('datetime'), text: clean(node.textContent) })),
+    },
     h1: [...main.querySelectorAll('h1')].map(node => clean(node.textContent)),
     headings: [...content.querySelectorAll('h1,h2,h3,h4,h5,h6')].map(node => ({ tag: node.tagName.toLowerCase(), text: clean(node.textContent) })),
     mainText: clean(main.textContent), images: [...images, ...backgrounds], links,
+    resources: [
+      ...[...d.querySelectorAll('img')].map(img => ({ kind: 'image', src: absolute(img.getAttribute('data-src') || img.getAttribute('src')), srcset: img.getAttribute('data-srcset') || img.getAttribute('srcset'), alt: img.getAttribute('alt'), caption: clean(img.closest('figure')?.querySelector('figcaption')?.textContent) })),
+      ...[...d.querySelectorAll('picture source[srcset]')].map(node => ({ kind: 'picture-source', srcset: node.getAttribute('srcset') })),
+      ...[...d.querySelectorAll('[style]')].flatMap(node => [...node.getAttribute('style').matchAll(/url\(\s*['"]?([^'")]+)['"]?\s*\)/g)].map(match => ({ kind: 'background', src: absolute(match[1]) }))),
+    ],
     stylesheets: [...d.querySelectorAll('link[rel="stylesheet"]')].map(link => absolute(link.getAttribute('href'))),
     forms: [...main.querySelectorAll('form')].map(form => ({ action: absolute(form.getAttribute('action') || url), method: form.getAttribute('method') || 'get', fields: [...form.querySelectorAll('[name]')].map(input => input.getAttribute('name')) })),
     attachments: links.filter(link => link.download || /\.(?:pdf|docx?|xlsx?|odt|txt|zip)(?:\?|$)/i.test(link.href)),

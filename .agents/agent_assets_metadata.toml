@@ -308,3 +308,73 @@ mtime_ms = 1794351275736
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/49028032-1af3-4b1b-ba92-f4451f48cd96/bc9513cd-7582-483a-8a2b-c24d31283a97"
 storage_version_token = "1794351322943734"
 content_type = "text/csv"
+
+[[outputs]]
+id = "ZiKTYveG8oIFjzVi4rdxu"
+uri = "file://generated-artifacts/migration-2026-11-11/Relazione-migrazione-storica.html"
+type = "html"
+title = "Verifica Playwright dei contenuti"
+description = "Rapporto aggiornato con controllo browser di tutti i 437 URL; confronta corpi accettati, modifiche registrate, eccezioni e fonti non verificabili."
+logical_id = "665bb3bd-07d1-444d-abc6-71ab7e9ede7f"
+content_hash = "sha256:0392064f9e387819212154b0f71071aefb54c5830737394b38eac47f23211852"
+size = 867234
+mtime_ms = 1794389820792
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/665bb3bd-07d1-444d-abc6-71ab7e9ede7f/5ce1e65a-eb1e-453b-ae39-43c3e4681a95"
+storage_version_token = "1794389846804931"
+content_type = "text/html"
+
+[[outputs]]
+id = "yZu3hOzGI_petdo9gqyFK"
+uri = "file://generated-artifacts/Marenetto-migrazione-2026-11-11.zip"
+type = "unspecified"
+title = "Inventario completo e verifiche browser"
+description = "Pacchetto aggiornato con il registro Playwright completo di 437 URL, hash, status, titoli, lingue e confronti."
+logical_id = "b570f5de-a952-4c21-a1fa-56072215527d"
+content_hash = "sha256:550caafff8d15503556f7a1fdc49ddb07d123dcb9a9756197c7a5dc968454bde"
+size = 32297469
+mtime_ms = 1794389828456
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/b570f5de-a952-4c21-a1fa-56072215527d/de7eec0d-7cbd-40b0-9492-0054ccbac353"
+storage_version_token = "1794389847657834"
+content_type = "application/octet-stream"
+
+[[outputs]]
+id = "hVfYeiDyhs-0SKAnio5UM"
+uri = "file://generated-artifacts/production-audit-2026-11-11/Audit-finale-Marenetto-Build.html"
+type = "html"
+title = "Audit finale aggiornato — sicurezza, SEO e produzione"
+description = "Rapporto completo con backup, 12 rilievi, checklist e spiegazione del controllo isolato delle immagini. Verdetto: non pronto alla produzione."
+logical_id = "90e6982f-7c1f-471d-b824-5e857ced3f12"
+content_hash = "sha256:18519361701a402fb0d82511ebe87a7e1055e2cc5eec4eca8d9b281554104d4e"
+size = 96863
+mtime_ms = 1794391605958
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/90e6982f-7c1f-471d-b824-5e857ced3f12/4e22b3a7-45f4-47da-91dc-bbd3b8b5ce2a"
+storage_version_token = "1794391618185100"
+content_type = "text/html"
+
+[[outputs]]
+id = "XuJ89k0WBGL_qYlQL3Ytl"
+uri = "file://generated-artifacts/production-audit-2026-11-11/Marenetto-backup-progetto-2026-11-11.zip"
+type = "unspecified"
+title = "Backup verificato del progetto e delle fonti pubbliche"
+description = "548 file verificati dopo estrazione; 44,6 MB. Include codice e archivio storico pubblico; esclude segreti, database clienti e allegati privati. Manifest e SHA-256 inclusi."
+logical_id = "85e2624a-352c-451c-bfbc-f7478786aead"
+content_hash = "sha256:45f7d0739e5da1a76810a20e8368250debef42b19ccb1aa404f1adf38d49d9cc"
+size = 44592360
+mtime_ms = 1794390403616
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/85e2624a-352c-451c-bfbc-f7478786aead/69e1d76e-6a20-41ec-9f6d-9e9e397adb11"
+storage_version_token = "1794390923106027"
+content_type = "application/octet-stream"
+
+[[outputs]]
+id = "Is-5Y9NXYwXW1MH8DeSO9"
+uri = "file://generated-artifacts/production-audit-2026-11-11/Marenetto-audit-produzione-2026-11-11.zip"
+type = "unspecified"
+title = "Evidenze e aggiornamenti finali dell’audit"
+description = "Documenti, scansioni, controlli, aggiornamenti dei test e router di prova limitato alle immagini pubbliche. Da conservare insieme al backup verificato già consegnato."
+logical_id = "35709ddb-140f-4011-b68c-aff5db7d9594"
+content_hash = "sha256:bb448f01ef413d4c88873bd361c3eb7403a21b54aba9cba4641a7274d9e59314"
+size = 443108
+mtime_ms = 1794391606115
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/35709ddb-140f-4011-b68c-aff5db7d9594/53983ed2-8772-4db1-93b2-d7414e909c7a"
+storage_version_token = "1794391618751287"
+content_type = "application/octet-stream"

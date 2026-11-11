@@ -8,6 +8,12 @@ export type SourcePage = {
   h1: string; kind: string; state: string; contentLanguage: string; editorialCorrection?: unknown;
 };
 const corrections = JSON.parse(readFileSync(resolve(projectRoot, 'src/content/historical-editorial/manifest.json'), 'utf8')).pages;
+const migratedMedia: Record<string, string> = JSON.parse(readFileSync(resolve(projectRoot, 'src/content/historical-media.json'), 'utf8'));
+// Moving original bytes to persistent storage is an intentional URL change,
+// not a photographic substitution. Keep the raw source fixtures unchanged.
+export function expectedMediaURL(url: string | null): string | null {
+  return url ? migratedMedia[url] ?? url : null;
+}
 export const originals: SourcePage[] = JSON.parse(readFileSync(resolve(projectRoot, 'src/content/historical/index.json'), 'utf8')).map((row: SourcePage) => ({
   ...row, contentLanguage: corrections[row.key]?.contentLanguage ?? row.contentLanguage, editorialCorrection: corrections[row.key],
 }));

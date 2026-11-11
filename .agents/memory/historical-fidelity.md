@@ -56,3 +56,16 @@ accorpati, e alcune interfacce straniere conservano corpi italiani.
 **How to apply:** Verificare i delta sul corpo integrale, conservare il testo
 estraneo alle correzioni e identificare la lingua effettiva senza inventare
 paragrafi mancanti o dedurre completezza dal numero delle route.
+
+Un'acquisizione con zero errori di trasporto può comunque contenere risposte
+HTTP 429 del CMS e non dimostra copertura delle fonti. Contare separatamente
+status HTTP, contenuti confrontabili, tentativi rinviati e verifiche browser
+effettivamente conservate.
+
+**Why:** Il sito storico ha limitato una ricognizione pubblica anche dopo una
+ripresa a frequenza ridotta; i controlli browser parziali non colmavano quel limite.
+
+**How to apply:** Conservare ogni tentativo, rallentare e interrompere al nuovo
+limite, senza classificare i candidati come pagine inesistenti o migrazione
+riuscita. Richiedere un'esportazione dei soli contenuti pubblicati quando serve
+chiudere la copertura oltre il grafo accessibile.

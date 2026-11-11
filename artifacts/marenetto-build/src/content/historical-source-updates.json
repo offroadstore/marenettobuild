@@ -1,0 +1,20 @@
+{
+  "/es/recensioni": {
+    "oldLabel": "Reseñas",
+    "newLabel": "Valoraciones",
+    "title": "Valoraciones | marenettobuild.com",
+    "sourceSHA256": "23d6ba57991086cae84fb0cbbfc5a975bcdf28b94dbc1fa153e9b9506020ebf4",
+    "bodySHA256": "40ed834cd1e426866f728b87dae20e409c7b7ee174ce10e2fa1f3b767077bdbb",
+    "acquiredAt": "2026-11-11T06:07:54.624Z",
+    "sourceBody": "Valoraciones Página de inicio Valoraciones"
+  },
+  "/nl/recensioni": {
+    "oldLabel": "Reviews",
+    "newLabel": "Beoordelingen",
+    "title": "Beoordelingen | marenettobuild.com",
+    "sourceSHA256": "9c314e75c9fbca383cbe56e97506f18980a704bb1948a6e1aee8ae1460ba78ba",
+    "bodySHA256": "3ba7a152aac1fa4f7fc2d3b29d51e69a6617c7484a45922ca6018789d8503313",
+    "acquiredAt": "2026-11-11T06:07:54.624Z",
+    "sourceBody": "Beoordelingen Startpagina Beoordelingen"
+  }
+}

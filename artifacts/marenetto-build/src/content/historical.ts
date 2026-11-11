@@ -1,12 +1,29 @@
 import originalInventory from './historical/index.json';
 import amendments from './historical-editorial/manifest.json';
+import mediaData from './historical-media.json';
+import sourceUpdateData from './historical-source-updates.json';
+
+type SourceUpdate = { oldLabel: string; newLabel: string; title: string; sourceSHA256: string; bodySHA256: string; acquiredAt: string; sourceBody: string };
+const sourceUpdates = sourceUpdateData as Record<string, SourceUpdate>;
+
+const media = mediaData as Record<string, string>;
+const localMedia = (value: string) => media[value] ?? value;
+function localMediaHTML(html: string) {
+  // Keep words, alt and caption untouched. Replace only exact inventoried URLs.
+  for (const [source, destination] of Object.entries(media).sort((a, b) => b[0].length - a[0].length)) {
+    html = html.replaceAll(source.replaceAll('&', '&amp;'), destination).replaceAll(source, destination);
+  }
+  return html;
+}
 
 type Correction = { sourceSHA256: string; contentLanguage: string; claims: number[]; authorization: string; linguisticReview: string; publicationApproved: boolean };
 const corrections = amendments.pages as Record<string, Correction>;
 const inventory = originalInventory.map(page => {
   const correction = corrections[page.key] ?? null;
   if (correction && (correction.sourceSHA256 !== page.sourceSHA256 || correction.publicationApproved)) throw new Error(`Invalid historical correction authorization: ${page.path}`);
-  return { ...page, contentLanguage: correction?.contentLanguage ?? page.contentLanguage, editorialCorrection: correction };
+  const update = sourceUpdates[page.key];
+  return { ...page, ...(update ? { title: update.title, h1: update.newLabel, sourceSHA256: update.sourceSHA256, bodySHA256: update.bodySHA256, acquiredAt: update.acquiredAt } : {}),
+    contentLanguage: correction?.contentLanguage ?? page.contentLanguage, editorialCorrection: correction };
 });
 
 export type HistoricalPage = typeof inventory[number];
@@ -38,7 +55,17 @@ export function loadHistorical(locale: string): Promise<void> {
     for (const key of Object.keys(corrected?.default ?? {})) {
       if (!original.default[key] || !corrections[key]) throw new Error(`Unregistered editorial correction: ${locale}:${key}`);
     }
-    loaded.set(locale, { ...original.default, ...corrected?.default });
+    loaded.set(locale, Object.fromEntries(Object.entries({ ...original.default, ...corrected?.default }).map(([key, document]) => {
+      const update = sourceUpdates[key];
+      // Dated public-source corrections are separate from the immutable catalogs.
+      // Only the two literal labels independently recovered in full are updated.
+      if (update && document.html.split(update.oldLabel).length !== 3) throw new Error(`Source update no longer applies unambiguously: ${key}`);
+      return [key, {
+        ...document, title: update?.newLabel ?? document.title,
+        html: localMediaHTML(update ? document.html.replaceAll(update.oldLabel, update.newLabel) : document.html),
+        image: document.image ? localMedia(document.image) : null,
+      }];
+    })));
   })().catch(error => { pending.delete(locale); throw error; }));
   return pending.get(locale)!;
 }
