@@ -21,6 +21,19 @@ qualification and a request for originals, not invented portfolio material.
 Keep comparisons at identical viewport sizes when demonstrating a visual
 revision. A request to revise preview is not permission to publish.
 
+Treat the homepage and article archives as separate presentation contexts.
+Do not flatten every recovered CMS row globally to fix article thumbnail sizing.
+The homepage should show each article once with consistent image proportions,
+not reproduce both repeated CMS article widgets.
+
+**Why:** A global row-sizing change produced a very long, narrow homepage with
+uneven photos and repeated articles. The owner explicitly rejected that result
+and requested coherent UI/UX rather than more isolated size adjustments.
+
+**How to apply:** Preserve immutable source catalogs, but use scoped semantic
+presentation for the public home. Check the entire page on desktop and mobile,
+not just the hero or the article archive.
+
 Server-rendered public pages must have their presentation styles available before
 first paint, without depending on JavaScript hydration.
 

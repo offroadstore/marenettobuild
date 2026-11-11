@@ -1,6 +1,8 @@
 import { useEffect, type MouseEvent, type ReactNode } from 'react';
 import { historicalDocument, type HistoricalPage } from '@/content/historical';
 import { HeroPhoto } from '@/components/home/Media';
+import { HistoricalHomeSections } from '@/components/home/HistoricalHomeSections';
+import { extractHistoricalHome } from '@/content/historical-home';
 import { editionByPath } from '@/localization/edition-inventory';
 import { updateStructuredData } from '@/lib/structured-data';
 import pendingMessages from '@/content/pending-content.json';
@@ -20,6 +22,7 @@ function preserveCampaign(event: MouseEvent<HTMLElement>) {
 export function HistoricalContents({ page, actions }: { page: HistoricalPage; actions?: ReactNode }) {
   const document = historicalDocument(page);
   const home = page.family === '/';
+  const homeData = home ? extractHistoricalHome(document.html) : null;
   const pendingMessage = pendingMessages[page.locale as keyof typeof pendingMessages] ?? pendingMessages.it;
   const held = page.state === 'awaiting-confirmation' && page.kind !== 'article' && !page.editorialCorrection;
   const sourceLanguageLabels: Record<string, string> = { en: 'Text in Italian', nl: 'Tekst in het Italiaans', pt: 'Texto em italiano', fr: 'Texte en italien', de: 'Text auf Italienisch', es: 'Texto en italiano', pl: 'Tekst w języku włoskim', ru: 'Текст на итальянском языке' };
@@ -61,7 +64,7 @@ export function HistoricalContents({ page, actions }: { page: HistoricalPage; ac
     <section className="mbh-opening"><HeroPhoto><div className="mbh-hero__copy">
       <h1 className="mbh-h1">{page.h1}</h1><div data-preserved-ui="">{actions}</div>
     </div></HeroPhoto></section>{' '}
-    <div className="container historical-content" dangerouslySetInnerHTML={{ __html: document.html.replace(/<h1\b[^>]*>[\s\S]*?<\/h1>/i, '') }} />
+    {homeData && <HistoricalHomeSections home={homeData} />}
   </div>;
   return <section className="section"><div className="container">
     {page.kind === 'article' && <><h1 className="display-title">{page.h1}</h1>{document.dateLabel ? <span>{document.dateLabel}</span> : document.publishedOn && <time dateTime={document.publishedOn}>{document.publishedOn.slice(0, 10)}</time>}{document.image && <figure><img className="historical-cover" src={document.image} alt={document.imageAlt} loading="eager" />{document.imageCaption && <figcaption>{document.imageCaption}</figcaption>}</figure>}</>}
