@@ -448,3 +448,17 @@ mtime_ms = 1794479584107
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/d98e58c4-2509-481c-aca5-67c0f7e33a74/a347fca8-4469-44ff-b3a5-3d575cc5059e"
 storage_version_token = "1794479703151716"
 content_type = "image/jpeg"
+
+[[outputs]]
+id = "p-ogNzSadIaPhaRKUgag3"
+uri = "file://generated-artifacts/cefalu-left/hero-cattedrale-sinistra.png"
+type = "image"
+title = "Cefalù — cattedrale a sinistra della Rocca"
+description = "Proposta corretta: una sola cattedrale a sinistra della Rocca, con primo piano invariato. Non ancora applicata al sito."
+logical_id = "9d921409-5dcf-4024-b110-b70d5d5915ec"
+content_hash = "sha256:c122a52bfc9f86bc7c56ae9339519a67c7834ae2d9d90d7325d47428237e9e1a"
+size = 2505918
+mtime_ms = 1794479966317
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/9d921409-5dcf-4024-b110-b70d5d5915ec/ebd10f67-c044-4fea-a5fc-817afa711d1f"
+storage_version_token = "1794479981462322"
+content_type = "image/png"

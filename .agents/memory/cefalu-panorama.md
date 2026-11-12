@@ -7,6 +7,15 @@ The Duomo belongs to the inner town at the foot of La Rocca, behind multiple
 rows of houses, not to the waterfront building row. A reference photograph from
 a different viewpoint establishes spatial relationships, not screen coordinates.
 
+For the current hero viewpoint, the owner explicitly requires the cathedral
+to appear to the LEFT of La Rocca, not centred in front of it.
+
+**Why:** The owner rejected the centrally positioned cathedral in the revised panorama.
+
+**How to apply:** Keep one cathedral on the left of the rock, inland behind roofs,
+while preserving the approved foreground. Do not treat an earlier merged image
+as visual approval of its geography.
+
 **Why:** The owner requested correction of the illustrated monument using the
 ita.travel Cefalù photograph as a geographic reference only, explicitly excluding
 replacement with that photograph or claims to its reuse rights.
