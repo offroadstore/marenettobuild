@@ -3,7 +3,7 @@ import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { openPage, sourceHome } from './source-fixtures';
 
-const evidence = resolve(import.meta.dirname, '../../../generated-artifacts/cefalu-hero');
+const evidence = resolve(import.meta.dirname, '../../../generated-artifacts/cefalu-panorama');
 
 // Independent of the older logo geometry / historical CMS-image assertions:
 // those tests currently stop before reaching their hero checks.
@@ -17,20 +17,20 @@ for (const locale of ['it', 'en']) {
       const image = page.locator('.mbh-hero img');
       await expect.poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
       const currentSrc = await image.evaluate((img: HTMLImageElement) => img.currentSrc);
-      expect(currentSrc).toContain('cefalu-hero-');
+      expect(currentSrc).toContain('cefalu-hero-geography-');
       expect(currentSrc.includes('-mobile-')).toBe(width < 700);
-      await expect(image).toHaveAttribute('src', /cefalu-hero-1672\.jpg$/);
+      await expect(image).toHaveAttribute('src', /cefalu-hero-geography-1672\.jpg$/);
       await expect(image).toHaveAttribute('fetchpriority', 'high');
       await expect(page.getByTestId('hero-request')).toBeVisible();
       await expect(page.locator('footer [data-testid="illustration-note"]')).toBeVisible();
       await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
       for (const selector of ['meta[property="og:image"]', 'meta[name="twitter:image"]']) {
-        await expect(page.locator(selector)).toHaveAttribute('content', /\/media\/home\/cefalu-hero-1672\.jpg$/);
+        await expect(page.locator(selector)).toHaveAttribute('content', /\/media\/home\/cefalu-hero-geography-1672\.jpg$/);
       }
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
       for (const source of await page.locator('.mbh-hero source').all()) {
         const srcset = await source.getAttribute('srcset');
-        expect(srcset).toContain('cefalu-hero-');
+        expect(srcset).toContain('cefalu-hero-geography-');
         expect(srcset).not.toContain('approved-hero-');
       }
 
@@ -39,17 +39,17 @@ for (const locale of ['it', 'en']) {
         await page.evaluate(() => document.fonts.ready);
         // Same page, viewport, crop, typography and overlays. Only swap the image
         // family to compare with the untouched original, without changing app code.
-        for (const family of ['approved-hero', 'cefalu-hero']) {
+        for (const family of ['cefalu-hero', 'cefalu-hero-geography']) {
           await page.locator('.mbh-hero picture').evaluate((picture, family) => {
             picture.querySelectorAll('source, img').forEach(node => {
               for (const attr of ['srcset', 'src']) {
                 const value = node.getAttribute(attr);
-                if (value) node.setAttribute(attr, value.replaceAll(/(?:approved|cefalu)-hero/g, family));
+                if (value) node.setAttribute(attr, value.replaceAll(/cefalu-hero(?:-geography)?/g, family));
               }
             });
           }, family);
-          await expect.poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0 && img.currentSrc.includes(img.src.includes('approved-hero') ? 'approved-hero' : 'cefalu-hero'))).toBe(true);
-          const state = family === 'approved-hero' ? 'before' : 'after';
+          await expect.poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0 && img.currentSrc.includes('cefalu-hero-') && img.currentSrc.includes('-geography-') === img.src.includes('-geography-'))).toBe(true);
+          const state = family === 'cefalu-hero' ? 'before' : 'after';
           await page.screenshot({ path: `${evidence}/${state}-${width}.png` });
           const style = await page.addStyleTag({ content: '.mbh-hero__shade,.mbh-hero__inner { visibility:hidden !important; }' });
           await page.locator('.mbh-hero').screenshot({ path: `${evidence}/${state}-${width}-unobscured.png` });
@@ -63,9 +63,9 @@ for (const locale of ['it', 'en']) {
 test('every corrected encoding decodes at native or downsampled dimensions', async ({ page }) => {
   await openPage(page, '/');
   const variants = [
-    ...[768, 1280, 1672].flatMap(width => ['avif', 'webp'].map(format => ({ file: `cefalu-hero-${width}.${format}`, width, height: Math.round(941 * width / 1672) }))),
-    ...[450, 900].flatMap(width => ['avif', 'webp'].map(format => ({ file: `cefalu-hero-mobile-${width}.${format}`, width, height: Math.round(941 * width / 900) }))),
-    { file: 'cefalu-hero-1672.jpg', width: 1672, height: 941 },
+    ...[768, 1280, 1672].flatMap(width => ['avif', 'webp'].map(format => ({ file: `cefalu-hero-geography-${width}.${format}`, width, height: Math.round(941 * width / 1672) }))),
+    ...[450, 900].flatMap(width => ['avif', 'webp'].map(format => ({ file: `cefalu-hero-geography-mobile-${width}.${format}`, width, height: Math.round(941 * width / 900) }))),
+    { file: 'cefalu-hero-geography-1672.jpg', width: 1672, height: 941 },
   ];
   for (const variant of variants) {
     const decoded = await page.evaluate(async file => {

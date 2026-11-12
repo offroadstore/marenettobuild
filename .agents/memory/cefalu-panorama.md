@@ -24,3 +24,18 @@ the supplied framing.
 
 **How to apply:** Use a square detail input, retain only the required local patch,
 and verify unchanged regions against the original before integrating derivatives.
+Keep the requested panorama prominent in that square, rather than surrounding it
+with mostly empty sky. Even square sky-heavy inputs can produce a zoomed mountain
+and oversized cathedral; coordinate instructions alone did not prevent this.
+Check spatial alignment against the source before extracting any patch.
+
+Do not treat a tower-only adjustment as completion of a panorama correction.
+
+**Why:** The owner reported that the earlier result appeared unchanged; the
+request concerns the relationships of the rock, dense town and waterfront as
+well as the cathedral, not additional resolution or a cache explanation.
+
+**How to apply:** Compare against the immediately preceding served revision at
+identical viewports, plus enlarged native-detail crops. Assess the whole skyline
+and town, while preserving the original foreground and treating visual approval
+as separate from technical integration.

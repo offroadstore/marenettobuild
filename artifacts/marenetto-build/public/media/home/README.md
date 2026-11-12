@@ -1,8 +1,46 @@
 # Homepage media provenance
 
-## Cefalù panorama correction — preview awaiting visual confirmation
+## Cefalù geographic panorama correction — preview awaiting visual confirmation
 
-The active `cefalu-hero-*` images are a local revision of the approved original
+The active family is now **`cefalu-hero-geography-*`**. The previous
+`cefalu-hero-*` family and the original `approved-hero-*` files remain untouched
+for comparison. This is not owner approval or permission to publish.
+
+The revision covers the distant panorama, not merely the tower colour or size:
+La Rocca has a continuous exposed limestone escarpment and a green upper plateau;
+the town has denser overlapping terracotta roofs and a less monumental, uneven
+seafront. One twin-towered cathedral remains at the same inland foot of the rock,
+with its lower facade screened by roofs between it and the sea. This is a plausible
+illustrated relationship, not a topographic reconstruction or a surveyed viewpoint.
+
+Only `assets/hero/cefalu-panorama-retouch.png` is composited, at x=340, y=340,
+over the **original attached PNG**, not over the previous tower patch.
+Its feathered alpha mask restricts changes to the rock, town and immediate
+shoreline transition. The generated full crop is NOT used: the original sky,
+sea outside that narrow shoreline transition, terrace, stone house, scaffolding,
+olive tree and other vegetation remain outside the mask. Two broader attempts
+were rejected for reframing, oversized monuments and additional towers.
+The successful input was a tighter square detail, reduced back to native size
+before masking; this is not an increase in master resolution.
+
+`node scripts/encode-cefalu-hero.mjs` reconstructs the 1672 × 941 lossless master
+in `generated-artifacts/cefalu-panorama/` and encodes all 11 derivatives.
+Desktop: 768/1280/1672 AVIF and WebP, plus JPEG 1672.
+Mobile: unchanged x=440, y=0, 900 × 941 crop, encoded at 450 and 900 in both formats.
+Quality remains AVIF/WebP 82, JPEG 86; no upscaling or sharpening.
+Both social tags use the new JPEG. The new family name isolates the revision
+from previously cached files in every format and responsive source.
+
+Reference: https://ita.travel/img/t1270h0/blogimg/leto/sicilia/cefalu.webp
+(consulted again 2026-11-12), **geographic reference only**. No reference pixels
+were supplied to the image editor, incorporated into the patch or served.
+The lower oblique viewpoint of the illustration is not the reference's aerial
+viewpoint; screen coordinates are not interchangeable. The existing AI disclosure,
+layout, crop, text and contrast remain unchanged. Visual confirmation is pending.
+
+## Previous tower-only correction — retained, no longer active
+
+The retained `cefalu-hero-*` images are a local revision of the approved original
 described below, **not** a newly approved illustration or permission to publish.
 The cathedral is set back into the town at the foot of La Rocca, with smaller
 visible towers and several roofs separating its base from the waterfront.
@@ -22,8 +60,8 @@ Two rejected wider AI edits were discarded because they changed the framing.
 The accepted edit used a square detail crop, downsampled to native size, then a
 feathered mask to retain only the local correction, not the regenerated background.
 
-Reproduce with `node scripts/encode-cefalu-hero.mjs` from this artifact directory
-(requires ImageMagick). It reconstructs the lossless 1672 × 941 master under
+The previous encoding process reconstructed the master
+(using ImageMagick) as a lossless 1672 × 941 master under
 `generated-artifacts/cefalu-hero/` from the original and the retained patch, then
 encodes every served derivative. No enlargement or extra sharpening is applied.
 Desktop widths, mobile rectangle and output sizes/qualities are unchanged:

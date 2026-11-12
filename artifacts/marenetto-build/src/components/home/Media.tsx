@@ -24,7 +24,7 @@ export function IllustrativeImage({ name, widths, sizes, alt, width, height, eag
  * retains the stone building and Cefalù; high-DPR / wide screens need a larger original.
  */
 export function HeroPhoto({ children }: { children: ReactNode }) {
-  const base = `${import.meta.env.BASE_URL}media/home/cefalu-hero`;
+  const base = `${import.meta.env.BASE_URL}media/home/cefalu-hero-geography`;
   return <section className="mbh-hero" data-testid="section-hero">
     <div className="mbh-hero__stage">
       <picture>

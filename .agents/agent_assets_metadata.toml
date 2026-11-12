@@ -406,3 +406,31 @@ mtime_ms = 1794419481216
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/e5f1e244-47c0-4d8a-9370-9e73574fdc27/db86d4a7-31df-45da-b02a-ff3f80a0e012"
 storage_version_token = "1794419488697599"
 content_type = "text/html"
+
+[[outputs]]
+id = "YKzZPBxHuZsApCEXlIe4w"
+uri = "file://generated-artifacts/cefalu-panorama/confronto-panorama.html"
+type = "html"
+title = "Cefalù: confronti prima e dopo"
+description = "Dettagli ingranditi, anteprima desktop 1440 e mobile 390 allo stesso viewport, correzioni e limiti. In attesa di conferma visiva."
+logical_id = "37ef5f6a-3b28-46c4-a3f9-28791b5829d4"
+content_hash = "sha256:dc1be0d98e500569847ec171376e894ed8eec976571e5abb489361b44967dc3a"
+size = 6820413
+mtime_ms = 1794478186611
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/37ef5f6a-3b28-46c4-a3f9-28791b5829d4/cfa60b88-3089-4538-974e-2a58ec86d905"
+storage_version_token = "1794478241221722"
+content_type = "text/html"
+
+[[outputs]]
+id = "_2beoXsWzgWS2e_KluTum"
+uri = "file://generated-artifacts/cefalu-panorama/detail-after.png"
+type = "image"
+title = "Panorama corretto: dettaglio nativo"
+description = "Rocca, Duomo e abitato della revisione attiva; ritaglio nativo, senza aumento di risoluzione."
+logical_id = "48f56e3e-0af8-4dac-81a3-b51bd6624da3"
+content_hash = "sha256:9e6e5602586b19df15c9da47f3f0ea7d26e97db57ec44a095cb88e919a5c9f18"
+size = 230580
+mtime_ms = 1794478186567
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/48f56e3e-0af8-4dac-81a3-b51bd6624da3/363c7048-70d4-412a-bbac-29b7879b6413"
+storage_version_token = "1794478241902851"
+content_type = "image/png"
