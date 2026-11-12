@@ -434,3 +434,17 @@ mtime_ms = 1794478186567
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/48f56e3e-0af8-4dac-81a3-b51bd6624da3/363c7048-70d4-412a-bbac-29b7879b6413"
 storage_version_token = "1794478241902851"
 content_type = "image/png"
+
+[[outputs]]
+id = "5W-sMVTDD-69Moh015MnT"
+uri = "file://artifacts/marenetto-build/public/media/home/cefalu-hero-geography-1672.jpg"
+type = "image"
+title = "Hero di Cefalù — panorama aggiornato"
+description = "Immagine aggiornata con l’ultima correzione del panorama, integrata nel progetto."
+logical_id = "d98e58c4-2509-481c-aca5-67c0f7e33a74"
+content_hash = "sha256:bcb069b113bf494a2e731a8e9290ed104841b6224e24225fc54761b3670bb492"
+size = 341141
+mtime_ms = 1794479584107
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/d98e58c4-2509-481c-aca5-67c0f7e33a74/a347fca8-4469-44ff-b3a5-3d575cc5059e"
+storage_version_token = "1794479703151716"
+content_type = "image/jpeg"
