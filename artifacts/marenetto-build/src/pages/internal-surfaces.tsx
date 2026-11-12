@@ -16,10 +16,12 @@ import {
 } from '@workspace/api-client-react';
 import {
   ArrowDownToLine, ArrowRight, Bell, Check, ChevronDown, CircleAlert, FileText,
-  HardHat, Languages, LayoutDashboard, Newspaper, LockKeyhole, LogOut, Plus, Send, Shield, Upload, Users,
+  HardHat, Languages, Activity, ChartLine, LayoutDashboard, Newspaper, LockKeyhole, LogOut, Plus, Send, Shield, Upload, Users,
 } from 'lucide-react';
 import { Link } from 'wouter';
 import { EditorialPanel, editorialHasUnsavedChanges } from '@/pages/editorial';
+import { DashboardPanel } from '@/pages/monitoring/dashboard';
+import { MonitoringPanel } from '@/pages/monitoring/monitoring';
 
 const clerkKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -49,13 +51,20 @@ function InternalLoading() {
   return <div className="internal-shell"><div className="internal-sidebar"><div className="int-brand">M<span>·</span>B</div></div><main className="internal-main"><div className="int-skeleton wide" /><div className="int-skeleton" /><div className="int-skeleton" /></main></div>;
 }
 
-type Tab = 'overview' | 'leads' | 'cms' | 'articles' | 'languages' | 'notifications' | 'team' | 'files';
+type Tab = 'overview' | 'dashboard' | 'monitoring' | 'leads' | 'cms' | 'articles' | 'languages' | 'notifications' | 'team' | 'files';
 const statusLabels: Record<LeadStatus, string> = { new: 'New', reviewing: 'Reviewing', waiting: 'Waiting', approved: 'Approved', closed: 'Closed' };
 const statuses: LeadStatus[] = ['new', 'reviewing', 'waiting', 'approved', 'closed'];
 const roleLabels: Record<InternalRole, string> = { owner: 'Owner', editor: 'Editor', viewer: 'Viewer' };
 
 function InternalConsole() {
-  const [tab, setTab] = useState<Tab>('overview');
+  const [tab, setTabState] = useState<Tab>(() => typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('section') === 'monitoring' ? 'monitoring' : 'overview');
+  const setTab = (next: Tab) => {
+    setTabState(next);
+    const url = new URL(window.location.href);
+    if (next === 'monitoring') url.searchParams.set('section', 'monitoring'); else url.searchParams.delete('section');
+    url.searchParams.delete('google');
+    window.history.replaceState(window.history.state, '', `${url.pathname}${url.search}${url.hash}`);
+  };
   const [notice, setNotice] = useState('');
   const queryClient = useQueryClient();
   const { signOut } = useClerk();
@@ -76,7 +85,9 @@ function InternalConsole() {
   const sessionError = session.error as { status?: number; message?: string; response?: { status?: number } } | null;
   const forbidden = sessionError?.status === 403 || sessionError?.response?.status === 403 || /403|forbidden/i.test(sessionError?.message || '');
   const allTabs: { id: Tab; label: string; icon: ReactNode; permission?: string }[] = [
-    { id: 'overview', label: 'Overview', icon: <LayoutDashboard size={17} /> },
+    { id: 'overview', label: 'Panoramica operativa', icon: <LayoutDashboard size={17} /> },
+    { id: 'dashboard', label: 'Dashboard', icon: <ChartLine size={17} />, permission: 'kpi:read' },
+    { id: 'monitoring', label: 'Monitoraggio', icon: <Activity size={17} />, permission: 'kpi:read' },
     { id: 'leads', label: 'Enquiries', icon: <HardHat size={17} />, permission: 'leads:read' },
     { id: 'cms', label: 'Website drafts', icon: <FileText size={17} />, permission: 'cms:read' },
     { id: 'articles', label: 'Articoli', icon: <Newspaper size={17} />, permission: 'cms:read' },
@@ -92,7 +103,7 @@ function InternalConsole() {
     <aside className="internal-sidebar">
       <Link href="/" className="int-brand" aria-label="Marenetto Build public site">M<span>·</span>B</Link>
       <div className="int-side-label">TEAM CONSOLE</div>
-      <nav className="int-nav">{tabs.map(item => <button key={item.id} className={tab === item.id ? 'active' : ''} onClick={() => { if (item.id !== tab && editorialHasUnsavedChanges() && !window.confirm('Ci sono modifiche editoriali non salvate. Cambiare sezione e perderle?')) return; setTab(item.id); }} data-testid={`nav-internal-${item.id}`}>{item.icon}<span>{item.label}</span>{item.id === 'notifications' && (notifications.data?.filter(n => !n.isRead).length || 0) > 0 && <i>{notifications.data?.filter(n => !n.isRead).length}</i>}</button>)}</nav>
+      <nav className="int-nav">{tabs.map(item => <button key={item.id} aria-current={tab === item.id ? 'page' : undefined} className={tab === item.id ? 'active' : ''} onClick={() => { if (item.id !== tab && editorialHasUnsavedChanges() && !window.confirm('Ci sono modifiche editoriali non salvate. Cambiare sezione e perderle?')) return; setTab(item.id); }} data-testid={`nav-internal-${item.id}`}>{item.icon}<span>{item.label}</span>{item.id === 'notifications' && (notifications.data?.filter(n => !n.isRead).length || 0) > 0 && <i>{notifications.data?.filter(n => !n.isRead).length}</i>}</button>)}</nav>
       <div className="int-sidebar-foot"><span className="int-user-badge">{session.data?.email?.slice(0, 1).toUpperCase() || 'T'}</span><div><strong>{session.data?.email || 'Team member'}</strong><small>{session.data?.role || 'staff'}</small></div><button className="int-logout" type="button" aria-label="Sign out" title="Sign out" onClick={() => void signOut({ redirectUrl: basePath || '/' })}><LogOut size={15} /><span>Sign out</span></button></div>
     </aside>
     <main className="internal-main">
@@ -102,6 +113,8 @@ function InternalConsole() {
       {enabled && <>
         {hasDataError && <div className="int-inline-error" role="alert">Some team data could not be loaded. <button onClick={() => { refresh(getListInternalLeadsQueryKey()); refresh(getListCmsPagesQueryKey()); refresh(getListInternalNotificationsQueryKey()); refresh(getListInternalMembersQueryKey()); refresh(getListInternalAttachmentsQueryKey()); }}>Retry</button></div>}
         {tab === 'overview' && <Overview data={{ leads: leads.data || [], pages: pages.data || [], notifications: notifications.data || [], files: attachments.data || [] }} loading={[leads, pages, notifications, ...(canManageAttachments ? [attachments] : [])].some(q => q.isLoading)} go={setTab} canManageAttachments={canManageAttachments} />}
+        {tab === 'dashboard' && permissions.includes('kpi:read') && <DashboardPanel go={setTab} />}
+        {tab === 'monitoring' && permissions.includes('kpi:read') && <MonitoringPanel />}
         {tab === 'leads' && <LeadsPanel leads={leads.data || []} loading={leads.isLoading} canWrite={canWriteLeads} writeLocked={!liveData} onSaved={() => refresh(getListInternalLeadsQueryKey())} />}
         {tab === 'cms' && <CmsPanel pages={pages.data || []} loading={pages.isLoading} canWrite={canWriteCms} writeLocked={!liveData} onSaved={() => refresh(getListCmsPagesQueryKey())} setNotice={setNotice} />}
         {(tab === 'articles' || tab === 'languages') && <EditorialPanel key={tab} mode={tab} role={session.data.role} />}

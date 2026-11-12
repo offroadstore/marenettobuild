@@ -46,6 +46,7 @@ Multilingual website and portal for Marenetto Build, helping owners understand s
 - Invite-only internal lead/CMS management, permission checks, persistent notifications, and private App Storage attachments
 - Internal Articoli/Lingue management: persistent revisions, immutable catalog evidence, owner-only approval/activation, and a 29-language comparison matrix. See `docs/editorial/MIGRAZIONE.md` and the Italian guide `docs/editorial/GUIDA.html`.
 - A clearly labeled owner-portal demonstration at `/owner-demo` using fictional sample records only
+- Internal Dashboard/Monitoraggio: role-protected Google read-only OAuth and property selection, separate Google/operational KPI sources, encrypted server tokens and environment-isolated settings. Setup and Italian operating guide: `docs/monitoring/GUIDA.html`. Public GA4 ID supplied by the owner is an initial configuration only, not report access or consent to install tracking. Tracking installation remains unavailable; no public page loads tags.
 
 ## User preferences
 

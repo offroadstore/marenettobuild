@@ -9,3 +9,5 @@
 - [Historical fidelity](historical-fidelity.md) — Reworked text is not an original copy; require independent historical-to-served diffs and owner decisions on unverified claims.
 - [Editorial fallback safety](editorial-fallback-safety.md) — Failed state reads must not republish withdrawn static content, including after a cold web restart.
 - [Cefalù panorama](cefalu-panorama.md) — Duomo is inland below La Rocca; correct locally without changing the approved foreground or treating references as reusable assets.
+- [Monitoring consent boundary](monitoring-consent-boundary.md) — Owner authorized configuring monitoring; report access and visitor tracking consent remain separate.
+- [Isolated pnpm test bundles](isolated-pnpm-test-bundles.md) — Resolve virtual test-module imports from their owning package, not a symlink path.

@@ -10,7 +10,9 @@ export type Permission =
   | "cms:write"
   | "members:manage"
   | "attachments:manage"
-  | "notifications:read";
+  | "notifications:read"
+  | "kpi:read"
+  | "monitoring:manage";
 
 const permissionsByRole: Record<InternalRole, readonly Permission[]> = {
   owner: [
@@ -21,6 +23,8 @@ const permissionsByRole: Record<InternalRole, readonly Permission[]> = {
     "members:manage",
     "attachments:manage",
     "notifications:read",
+    "kpi:read",
+    "monitoring:manage",
   ],
   editor: [
     "leads:read",
@@ -29,8 +33,9 @@ const permissionsByRole: Record<InternalRole, readonly Permission[]> = {
     "cms:write",
     "attachments:manage",
     "notifications:read",
+    "kpi:read",
   ],
-  viewer: ["leads:read", "cms:read", "notifications:read"],
+  viewer: ["leads:read", "cms:read", "notifications:read", "kpi:read"],
 };
 
 declare global {

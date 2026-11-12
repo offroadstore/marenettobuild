@@ -31,21 +31,30 @@ import type {
   EditorialInput,
   EditorialSave,
   EditorialSummary,
+  GetKpiDashboardParams,
+  GoogleReportService,
   HealthStatus,
   InternalMember,
   InternalMemberInput,
   InternalMemberUpdate,
   InternalNotification,
   InternalSession,
+  KpiDashboard,
   LeadUpdate,
   ListCmsPagesParams,
   ListInternalAttachmentsParams,
   ListInternalLeadsParams,
+  MonitoringAction,
+  MonitoringProperty,
+  MonitoringPropertyInput,
+  MonitoringSettings,
+  MonitoringTagInput,
   NotificationUpdate,
   PrivateAttachment,
   ProjectLead,
   ProjectRequestInput,
   ProjectRequestReceipt,
+  StartMonitoringGoogle200,
   UploadUrlResponse
 } from './api.schemas';
 
@@ -75,6 +84,666 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   }
   return result;
 };
+
+export const getGetMonitoringUrl = () => {
+
+
+
+
+  return `/api/internal/monitoring`
+}
+
+export const getMonitoring = async ( options?: Parameters<typeof customFetch>[1]): Promise<MonitoringSettings> => {
+
+  return customFetch<MonitoringSettings>(getGetMonitoringUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetMonitoringQueryKey = () => {
+    return [
+    `/api/internal/monitoring`
+    ] as const;
+    }
+
+
+export const getGetMonitoringQueryOptions = <TData = Awaited<ReturnType<typeof getMonitoring>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getMonitoring>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetMonitoringQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getMonitoring>>> = ({ signal }) => getMonitoring({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getMonitoring>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetMonitoringQueryResult = NonNullable<Awaited<ReturnType<typeof getMonitoring>>>
+export type GetMonitoringQueryError = ErrorType<unknown>
+
+
+
+export function useGetMonitoring<TData = Awaited<ReturnType<typeof getMonitoring>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getMonitoring>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetMonitoringQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getStartMonitoringGoogleUrl = () => {
+
+
+
+
+  return `/api/internal/monitoring/google/start`
+}
+
+export const startMonitoringGoogle = async ( options?: Parameters<typeof customFetch>[1]): Promise<StartMonitoringGoogle200> => {
+
+  return customFetch<StartMonitoringGoogle200>(getStartMonitoringGoogleUrl(),
+  {
+    ...options,
+    method: 'POST'
+
+
+  }
+);}
+
+
+
+
+
+export const getStartMonitoringGoogleMutationKey = () => ['startMonitoringGoogle'] as const;
+
+export const getStartMonitoringGoogleMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof startMonitoringGoogle>>, TError,void, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof startMonitoringGoogle>>, TError,void, TContext> => {
+
+const mutationKey = getStartMonitoringGoogleMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof startMonitoringGoogle>>, void> = () => {
+
+
+          return  startMonitoringGoogle(requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type StartMonitoringGoogleMutationResult = NonNullable<Awaited<ReturnType<typeof startMonitoringGoogle>>>
+
+    export type StartMonitoringGoogleMutationError = ErrorType<unknown>
+
+
+    export const useStartMonitoringGoogle = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof startMonitoringGoogle>>, TError,void, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof startMonitoringGoogle>>,
+        TError,
+        void,
+        TContext
+      > => {
+      return useMutation(getStartMonitoringGoogleMutationOptions(options));
+    }
+
+export const getFinishMonitoringGoogleUrl = () => {
+
+
+
+
+  return `/api/internal/monitoring/google/callback`
+}
+
+export const finishMonitoringGoogle = async ( options?: Parameters<typeof customFetch>[1]): Promise<unknown> => {
+
+  return customFetch<unknown>(getFinishMonitoringGoogleUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getFinishMonitoringGoogleQueryKey = () => {
+    return [
+    `/api/internal/monitoring/google/callback`
+    ] as const;
+    }
+
+
+export const getFinishMonitoringGoogleQueryOptions = <TData = Awaited<ReturnType<typeof finishMonitoringGoogle>>, TError = ErrorType<void>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof finishMonitoringGoogle>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getFinishMonitoringGoogleQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof finishMonitoringGoogle>>> = ({ signal }) => finishMonitoringGoogle({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof finishMonitoringGoogle>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type FinishMonitoringGoogleQueryResult = NonNullable<Awaited<ReturnType<typeof finishMonitoringGoogle>>>
+export type FinishMonitoringGoogleQueryError = ErrorType<void>
+
+
+
+export function useFinishMonitoringGoogle<TData = Awaited<ReturnType<typeof finishMonitoringGoogle>>, TError = ErrorType<void>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof finishMonitoringGoogle>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getFinishMonitoringGoogleQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getDisconnectMonitoringGoogleUrl = () => {
+
+
+
+
+  return `/api/internal/monitoring/google/disconnect`
+}
+
+export const disconnectMonitoringGoogle = async ( options?: Parameters<typeof customFetch>[1]): Promise<MonitoringAction> => {
+
+  return customFetch<MonitoringAction>(getDisconnectMonitoringGoogleUrl(),
+  {
+    ...options,
+    method: 'POST'
+
+
+  }
+);}
+
+
+
+
+
+export const getDisconnectMonitoringGoogleMutationKey = () => ['disconnectMonitoringGoogle'] as const;
+
+export const getDisconnectMonitoringGoogleMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof disconnectMonitoringGoogle>>, TError,void, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof disconnectMonitoringGoogle>>, TError,void, TContext> => {
+
+const mutationKey = getDisconnectMonitoringGoogleMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof disconnectMonitoringGoogle>>, void> = () => {
+
+
+          return  disconnectMonitoringGoogle(requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type DisconnectMonitoringGoogleMutationResult = NonNullable<Awaited<ReturnType<typeof disconnectMonitoringGoogle>>>
+
+    export type DisconnectMonitoringGoogleMutationError = ErrorType<unknown>
+
+
+    export const useDisconnectMonitoringGoogle = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof disconnectMonitoringGoogle>>, TError,void, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof disconnectMonitoringGoogle>>,
+        TError,
+        void,
+        TContext
+      > => {
+      return useMutation(getDisconnectMonitoringGoogleMutationOptions(options));
+    }
+
+export const getListMonitoringPropertiesUrl = (service: GoogleReportService,) => {
+
+
+
+
+  return `/api/internal/monitoring/properties/${service}`
+}
+
+export const listMonitoringProperties = async (service: GoogleReportService, options?: Parameters<typeof customFetch>[1]): Promise<MonitoringProperty[]> => {
+
+  return customFetch<MonitoringProperty[]>(getListMonitoringPropertiesUrl(service),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListMonitoringPropertiesQueryKey = (service: GoogleReportService,) => {
+    return [
+    `/api/internal/monitoring/properties/${service}`
+    ] as const;
+    }
+
+
+export const getListMonitoringPropertiesQueryOptions = <TData = Awaited<ReturnType<typeof listMonitoringProperties>>, TError = ErrorType<unknown>>(service: GoogleReportService, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listMonitoringProperties>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListMonitoringPropertiesQueryKey(service);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listMonitoringProperties>>> = ({ signal }) => listMonitoringProperties(service, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, enabled: service !== null && service !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listMonitoringProperties>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ListMonitoringPropertiesQueryResult = NonNullable<Awaited<ReturnType<typeof listMonitoringProperties>>>
+export type ListMonitoringPropertiesQueryError = ErrorType<unknown>
+
+
+
+export function useListMonitoringProperties<TData = Awaited<ReturnType<typeof listMonitoringProperties>>, TError = ErrorType<unknown>>(
+ service: GoogleReportService, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listMonitoringProperties>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getListMonitoringPropertiesQueryOptions(service,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getSelectMonitoringPropertyUrl = (service: GoogleReportService,) => {
+
+
+
+
+  return `/api/internal/monitoring/properties/${service}`
+}
+
+export const selectMonitoringProperty = async (service: GoogleReportService,
+    monitoringPropertyInput: MonitoringPropertyInput, options?: Parameters<typeof customFetch>[1]): Promise<MonitoringAction> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<MonitoringAction>(getSelectMonitoringPropertyUrl(service),
+  {
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(monitoringPropertyInput)
+  }
+);}
+
+
+
+
+
+export const getSelectMonitoringPropertyMutationKey = () => ['selectMonitoringProperty'] as const;
+
+export const getSelectMonitoringPropertyMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof selectMonitoringProperty>>, TError,SelectMonitoringPropertyMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof selectMonitoringProperty>>, TError,SelectMonitoringPropertyMutationVariables, TContext> => {
+
+const mutationKey = getSelectMonitoringPropertyMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof selectMonitoringProperty>>, SelectMonitoringPropertyMutationVariables> = (props) => {
+          const {service,data} = props ?? {};
+
+          return  selectMonitoringProperty(service,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SelectMonitoringPropertyMutationResult = NonNullable<Awaited<ReturnType<typeof selectMonitoringProperty>>>
+    export type SelectMonitoringPropertyMutationBody = BodyType<MonitoringPropertyInput>
+    export type SelectMonitoringPropertyMutationError = ErrorType<unknown>
+    export type SelectMonitoringPropertyMutationVariables = {service: GoogleReportService;data: BodyType<MonitoringPropertyInput>}
+
+    export const useSelectMonitoringProperty = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof selectMonitoringProperty>>, TError,SelectMonitoringPropertyMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof selectMonitoringProperty>>,
+        TError,
+        SelectMonitoringPropertyMutationVariables,
+        TContext
+      > => {
+      return useMutation(getSelectMonitoringPropertyMutationOptions(options));
+    }
+
+export const getVerifyMonitoringServiceUrl = (service: GoogleReportService,) => {
+
+
+
+
+  return `/api/internal/monitoring/verify/${service}`
+}
+
+export const verifyMonitoringService = async (service: GoogleReportService, options?: Parameters<typeof customFetch>[1]): Promise<MonitoringAction> => {
+
+  return customFetch<MonitoringAction>(getVerifyMonitoringServiceUrl(service),
+  {
+    ...options,
+    method: 'POST'
+
+
+  }
+);}
+
+
+
+
+
+export const getVerifyMonitoringServiceMutationKey = () => ['verifyMonitoringService'] as const;
+
+export const getVerifyMonitoringServiceMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof verifyMonitoringService>>, TError,VerifyMonitoringServiceMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof verifyMonitoringService>>, TError,VerifyMonitoringServiceMutationVariables, TContext> => {
+
+const mutationKey = getVerifyMonitoringServiceMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof verifyMonitoringService>>, VerifyMonitoringServiceMutationVariables> = (props) => {
+          const {service} = props ?? {};
+
+          return  verifyMonitoringService(service,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type VerifyMonitoringServiceMutationResult = NonNullable<Awaited<ReturnType<typeof verifyMonitoringService>>>
+
+    export type VerifyMonitoringServiceMutationError = ErrorType<unknown>
+    export type VerifyMonitoringServiceMutationVariables = {service: GoogleReportService}
+
+    export const useVerifyMonitoringService = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof verifyMonitoringService>>, TError,VerifyMonitoringServiceMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof verifyMonitoringService>>,
+        TError,
+        VerifyMonitoringServiceMutationVariables,
+        TContext
+      > => {
+      return useMutation(getVerifyMonitoringServiceMutationOptions(options));
+    }
+
+export const getSaveMonitoringTagsUrl = () => {
+
+
+
+
+  return `/api/internal/monitoring/tags`
+}
+
+export const saveMonitoringTags = async (monitoringTagInput: MonitoringTagInput, options?: Parameters<typeof customFetch>[1]): Promise<MonitoringAction> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<MonitoringAction>(getSaveMonitoringTagsUrl(),
+  {
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(monitoringTagInput)
+  }
+);}
+
+
+
+
+
+export const getSaveMonitoringTagsMutationKey = () => ['saveMonitoringTags'] as const;
+
+export const getSaveMonitoringTagsMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof saveMonitoringTags>>, TError,SaveMonitoringTagsMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof saveMonitoringTags>>, TError,SaveMonitoringTagsMutationVariables, TContext> => {
+
+const mutationKey = getSaveMonitoringTagsMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof saveMonitoringTags>>, SaveMonitoringTagsMutationVariables> = (props) => {
+          const {data} = props ?? {};
+
+          return  saveMonitoringTags(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SaveMonitoringTagsMutationResult = NonNullable<Awaited<ReturnType<typeof saveMonitoringTags>>>
+    export type SaveMonitoringTagsMutationBody = BodyType<MonitoringTagInput>
+    export type SaveMonitoringTagsMutationError = ErrorType<unknown>
+    export type SaveMonitoringTagsMutationVariables = {data: BodyType<MonitoringTagInput>}
+
+    export const useSaveMonitoringTags = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof saveMonitoringTags>>, TError,SaveMonitoringTagsMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof saveMonitoringTags>>,
+        TError,
+        SaveMonitoringTagsMutationVariables,
+        TContext
+      > => {
+      return useMutation(getSaveMonitoringTagsMutationOptions(options));
+    }
+
+export const getGetKpiDashboardUrl = (params?: GetKpiDashboardParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : String(value))
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/api/internal/dashboard?${stringifiedParams}` : `/api/internal/dashboard`
+}
+
+export const getKpiDashboard = async (params?: GetKpiDashboardParams, options?: Parameters<typeof customFetch>[1]): Promise<KpiDashboard> => {
+
+  return customFetch<KpiDashboard>(getGetKpiDashboardUrl(params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetKpiDashboardQueryKey = (params?: GetKpiDashboardParams,) => {
+    return [
+    `/api/internal/dashboard`, ...(params ? [params] : [])
+    ] as const;
+    }
+
+
+export const getGetKpiDashboardQueryOptions = <TData = Awaited<ReturnType<typeof getKpiDashboard>>, TError = ErrorType<unknown>>(params?: GetKpiDashboardParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getKpiDashboard>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetKpiDashboardQueryKey(params);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getKpiDashboard>>> = ({ signal }) => getKpiDashboard(params, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getKpiDashboard>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetKpiDashboardQueryResult = NonNullable<Awaited<ReturnType<typeof getKpiDashboard>>>
+export type GetKpiDashboardQueryError = ErrorType<unknown>
+
+
+
+export function useGetKpiDashboard<TData = Awaited<ReturnType<typeof getKpiDashboard>>, TError = ErrorType<unknown>>(
+ params?: GetKpiDashboardParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getKpiDashboard>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetKpiDashboardQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
 
 export const getListEditorialUrl = () => {
 

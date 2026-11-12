@@ -17,6 +17,128 @@ tags:
   - name: storage
     description: Private attachment upload and serving.
 paths:
+  /internal/monitoring:
+    get:
+      operationId: getMonitoring
+      tags: [internal]
+      responses:
+        "200":
+          description: Safe monitoring settings, never credentials
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MonitoringSettings" }
+  /internal/monitoring/google/start:
+    post:
+      operationId: startMonitoringGoogle
+      tags: [internal]
+      responses:
+        "200":
+          description: Owner-only Google consent URL
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [url]
+                properties:
+                  url: { type: string }
+  /internal/monitoring/google/callback:
+    get:
+      operationId: finishMonitoringGoogle
+      tags: [internal]
+      responses:
+        "303":
+          description: Return to the internal console after session-bound consent
+  /internal/monitoring/google/disconnect:
+    post:
+      operationId: disconnectMonitoringGoogle
+      tags: [internal]
+      responses:
+        "200":
+          description: Connection removed locally and revocation outcome
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MonitoringAction" }
+  /internal/monitoring/properties/{service}:
+    parameters:
+      - name: service
+        in: path
+        required: true
+        schema: { $ref: "#/components/schemas/GoogleReportService" }
+    get:
+      operationId: listMonitoringProperties
+      tags: [internal]
+      responses:
+        "200":
+          description: Actually accessible Google properties
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/MonitoringProperty" }
+    put:
+      operationId: selectMonitoringProperty
+      tags: [internal]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/MonitoringPropertyInput" }
+      responses:
+        "200":
+          description: Selection validated against Google permissions
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MonitoringAction" }
+  /internal/monitoring/verify/{service}:
+    parameters:
+      - name: service
+        in: path
+        required: true
+        schema: { $ref: "#/components/schemas/GoogleReportService" }
+    post:
+      operationId: verifyMonitoringService
+      tags: [internal]
+      responses:
+        "200":
+          description: Explicit connection test
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MonitoringAction" }
+  /internal/monitoring/tags:
+    put:
+      operationId: saveMonitoringTags
+      tags: [internal]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/MonitoringTagInput" }
+      responses:
+        "200":
+          description: Public identifiers only; installation remains disabled
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MonitoringAction" }
+  /internal/dashboard:
+    get:
+      operationId: getKpiDashboard
+      tags: [internal]
+      parameters:
+        - name: days
+          in: query
+          schema: { type: integer, enum: [7, 28, 90], default: 28 }
+        - name: start
+          in: query
+          schema: { type: string, pattern: '^\d{4}-\d{2}-\d{2}$' }
+        - name: end
+          in: query
+          schema: { type: string, pattern: '^\d{4}-\d{2}-\d{2}$' }
+      responses:
+        "200":
+          description: Independent Google and operational sources
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/KpiDashboard" }
   /internal/editorial:
     get:
       operationId: listEditorial
@@ -556,6 +678,141 @@ paths:
           description: Attachment not found
 components:
   schemas:
+    GoogleReportService:
+      type: string
+      enum: [ga4, searchConsole]
+    MonitoringState:
+      type: string
+      enum: [not_configured, disconnected, property_required, unchecked, ready, empty, delayed, revoked, forbidden, quota, unavailable, stale]
+    MonitoringAction:
+      type: object
+      required: [message]
+      properties:
+        message: { type: string }
+    MonitoringPropertyInput:
+      type: object
+      required: [property]
+      additionalProperties: false
+      properties:
+        property: { type: string, minLength: 1, maxLength: 500 }
+    MonitoringTagInput:
+      type: object
+      required: [measurementId, containerId]
+      additionalProperties: false
+      properties:
+        measurementId: { type: string, pattern: '^(|G-[A-Z0-9]{4,20})$' }
+        containerId: { type: string, pattern: '^(|GTM-[A-Z0-9]{4,20})$' }
+    MonitoringProperty:
+      type: object
+      required: [id, label, timezone]
+      properties:
+        id: { type: string }
+        label: { type: string }
+        timezone: { type: string }
+    MonitoringService:
+      type: object
+      required: [service, state, property, lastCheckedAt, lastSuccessAt, error]
+      properties:
+        service: { $ref: "#/components/schemas/GoogleReportService" }
+        state: { $ref: "#/components/schemas/MonitoringState" }
+        property: { type: [string, "null"] }
+        lastCheckedAt: { type: [string, "null"] }
+        lastSuccessAt: { type: [string, "null"] }
+        error: { type: [string, "null"] }
+    MonitoringDiscovery:
+      type: object
+      required: [url, checkedAt, findings, limitations]
+      properties:
+        url: { type: string }
+        checkedAt: { type: string }
+        findings:
+          type: array
+          items: { type: string }
+        limitations: { type: string }
+    MonitoringSettings:
+      type: object
+      required: [environment, canManage, oauthConfigured, connected, services, tags, updatedAt, trackingEnabled, trackingBlockers, discovery]
+      properties:
+        environment: { type: string, enum: [development, production] }
+        canManage: { type: boolean }
+        oauthConfigured: { type: boolean }
+        connected: { type: boolean }
+        services:
+          type: array
+          items: { $ref: "#/components/schemas/MonitoringService" }
+        tags: { $ref: "#/components/schemas/MonitoringTagInput" }
+        updatedAt: { type: string }
+        trackingEnabled: { type: boolean, const: false }
+        trackingBlockers:
+          type: array
+          items: { type: string }
+        discovery: { $ref: "#/components/schemas/MonitoringDiscovery" }
+    KpiPeriod:
+      type: object
+      required: [start, end, previousStart, previousEnd, days]
+      properties:
+        start: { type: string }
+        end: { type: string }
+        previousStart: { type: string }
+        previousEnd: { type: string }
+        days: { type: integer }
+    KpiMetric:
+      type: object
+      required: [key, label, value, previous, change, unit]
+      properties:
+        key: { type: string }
+        label: { type: string }
+        value: { type: [number, "null"] }
+        previous: { type: [number, "null"] }
+        change: { type: [number, "null"] }
+        unit: { type: string, enum: [count, percent, position] }
+    KpiRow:
+      type: object
+      required: [label, values]
+      properties:
+        label: { type: string }
+        values:
+          type: object
+          additionalProperties: { type: [number, "null"] }
+    KpiTable:
+      type: object
+      required: [title, rows]
+      properties:
+        title: { type: string }
+        rows:
+          type: array
+          items: { $ref: "#/components/schemas/KpiRow" }
+    KpiSource:
+      type: object
+      required: [source, state, message, timezone, updatedAt, dataThrough, metrics, series, tables, limitations]
+      properties:
+        source: { type: string }
+        state: { $ref: "#/components/schemas/MonitoringState" }
+        message: { type: string }
+        timezone: { type: string }
+        updatedAt: { type: [string, "null"] }
+        dataThrough: { type: [string, "null"] }
+        metrics:
+          type: array
+          items: { $ref: "#/components/schemas/KpiMetric" }
+        series:
+          type: array
+          items: { $ref: "#/components/schemas/KpiRow" }
+        tables:
+          type: array
+          items: { $ref: "#/components/schemas/KpiTable" }
+        limitations:
+          type: array
+          items: { type: string }
+    KpiDashboard:
+      type: object
+      required: [period, dataMode, operational, ga4, searchConsole]
+      properties:
+        period: { $ref: "#/components/schemas/KpiPeriod" }
+        dataMode: { type: string, enum: [synthetic, live] }
+        operational: { $ref: "#/components/schemas/KpiSource" }
+        ga4: { $ref: "#/components/schemas/KpiSource" }
+        searchConsole: { $ref: "#/components/schemas/KpiSource" }
     EditorialContent:
       type: object
       required: [title, summary, body, category, tags, image, imageAlt, sources, seoTitle, seoDescription, contentLanguage]

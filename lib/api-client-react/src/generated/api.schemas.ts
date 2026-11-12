@@ -5,6 +5,170 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+export type GoogleReportService = typeof GoogleReportService[keyof typeof GoogleReportService];
+
+
+export const GoogleReportService = {
+  ga4: 'ga4',
+  searchConsole: 'searchConsole',
+} as const;
+
+export type MonitoringState = typeof MonitoringState[keyof typeof MonitoringState];
+
+
+export const MonitoringState = {
+  not_configured: 'not_configured',
+  disconnected: 'disconnected',
+  property_required: 'property_required',
+  unchecked: 'unchecked',
+  ready: 'ready',
+  empty: 'empty',
+  delayed: 'delayed',
+  revoked: 'revoked',
+  forbidden: 'forbidden',
+  quota: 'quota',
+  unavailable: 'unavailable',
+  stale: 'stale',
+} as const;
+
+export interface MonitoringAction {
+  message: string;
+}
+
+export interface MonitoringPropertyInput {
+  /**
+     * @minLength 1
+     * @maxLength 500
+     */
+  property: string;
+}
+
+export interface MonitoringTagInput {
+  /** @pattern ^(|G-[A-Z0-9]{4,20})$ */
+  measurementId: string;
+  /** @pattern ^(|GTM-[A-Z0-9]{4,20})$ */
+  containerId: string;
+}
+
+export interface MonitoringProperty {
+  id: string;
+  label: string;
+  timezone: string;
+}
+
+export interface MonitoringService {
+  service: GoogleReportService;
+  state: MonitoringState;
+  /** @nullable */
+  property: string | null;
+  /** @nullable */
+  lastCheckedAt: string | null;
+  /** @nullable */
+  lastSuccessAt: string | null;
+  /** @nullable */
+  error: string | null;
+}
+
+export interface MonitoringDiscovery {
+  url: string;
+  checkedAt: string;
+  findings: string[];
+  limitations: string;
+}
+
+export type MonitoringSettingsEnvironment = typeof MonitoringSettingsEnvironment[keyof typeof MonitoringSettingsEnvironment];
+
+
+export const MonitoringSettingsEnvironment = {
+  development: 'development',
+  production: 'production',
+} as const;
+
+export interface MonitoringSettings {
+  environment: MonitoringSettingsEnvironment;
+  canManage: boolean;
+  oauthConfigured: boolean;
+  connected: boolean;
+  services: MonitoringService[];
+  tags: MonitoringTagInput;
+  updatedAt: string;
+  trackingEnabled: false;
+  trackingBlockers: string[];
+  discovery: MonitoringDiscovery;
+}
+
+export interface KpiPeriod {
+  start: string;
+  end: string;
+  previousStart: string;
+  previousEnd: string;
+  days: number;
+}
+
+export type KpiMetricUnit = typeof KpiMetricUnit[keyof typeof KpiMetricUnit];
+
+
+export const KpiMetricUnit = {
+  count: 'count',
+  percent: 'percent',
+  position: 'position',
+} as const;
+
+export interface KpiMetric {
+  key: string;
+  label: string;
+  /** @nullable */
+  value: number | null;
+  /** @nullable */
+  previous: number | null;
+  /** @nullable */
+  change: number | null;
+  unit: KpiMetricUnit;
+}
+
+export type KpiRowValues = {[key: string]: number | null};
+
+export interface KpiRow {
+  label: string;
+  values: KpiRowValues;
+}
+
+export interface KpiTable {
+  title: string;
+  rows: KpiRow[];
+}
+
+export interface KpiSource {
+  source: string;
+  state: MonitoringState;
+  message: string;
+  timezone: string;
+  /** @nullable */
+  updatedAt: string | null;
+  /** @nullable */
+  dataThrough: string | null;
+  metrics: KpiMetric[];
+  series: KpiRow[];
+  tables: KpiTable[];
+  limitations: string[];
+}
+
+export type KpiDashboardDataMode = typeof KpiDashboardDataMode[keyof typeof KpiDashboardDataMode];
+
+
+export const KpiDashboardDataMode = {
+  synthetic: 'synthetic',
+  live: 'live',
+} as const;
+
+export interface KpiDashboard {
+  period: KpiPeriod;
+  dataMode: KpiDashboardDataMode;
+  operational: KpiSource;
+  ga4: KpiSource;
+  searchConsole: KpiSource;
+}
+
 export interface EditorialSource {
   /** @maxLength 300 */
   title: string;
@@ -527,6 +691,31 @@ export interface PrivateAttachment {
   uploadedBy: string;
   createdAt: string;
 }
+
+export type StartMonitoringGoogle200 = {
+  url: string;
+};
+
+export type GetKpiDashboardParams = {
+days?: GetKpiDashboardDays;
+/**
+ * @pattern ^\d{4}-\d{2}-\d{2}$
+ */
+start?: string;
+/**
+ * @pattern ^\d{4}-\d{2}-\d{2}$
+ */
+end?: string;
+};
+
+export type GetKpiDashboardDays = typeof GetKpiDashboardDays[keyof typeof GetKpiDashboardDays];
+
+
+export const GetKpiDashboardDays = {
+  NUMBER_7: 7,
+  NUMBER_28: 28,
+  NUMBER_90: 90,
+} as const;
 
 export type ListInternalLeadsParams = {
 status?: LeadStatus;

@@ -462,3 +462,17 @@ mtime_ms = 1794479966317
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/9d921409-5dcf-4024-b110-b70d5d5915ec/ebd10f67-c044-4fea-a5fc-817afa711d1f"
 storage_version_token = "1794479981462322"
 content_type = "image/png"
+
+[[outputs]]
+id = "qnSVZXCOYrQQ2OfalPu7Z"
+uri = "file://docs/monitoring/GUIDA.html"
+type = "html"
+title = "Guida italiana a Dashboard e Monitoraggio"
+description = "Configurazione OAuth Google, lettura dei KPI, ruoli, limiti dei dati e tracking disattivato."
+logical_id = "09fc89ae-1d39-4d77-9533-5bfc3e223f9a"
+content_hash = "sha256:110a29784a6b3169380de66694600361254011bcb68d8cc7cfc50a8fedf9d436"
+size = 15164
+mtime_ms = 1794502657003
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/09fc89ae-1d39-4d77-9533-5bfc3e223f9a/6a40b2e1-4e55-4370-8ef9-9c04ecb9fcf8"
+storage_version_token = "1794503688102395"
+content_type = "text/html"

@@ -15,6 +15,8 @@ const permissions = [
   "members:manage",
   "attachments:manage",
   "notifications:read",
+  "kpi:read",
+  "monitoring:manage",
 ];
 
 test("owner has all internal permissions", () => {
@@ -36,6 +38,10 @@ test("editor can edit leads, CMS and attachments but cannot manage members", () 
     assert.equal(hasPermission("editor", permission), true, permission);
   }
   assert.equal(hasPermission("editor", "members:manage"), false);
+  assert.equal(hasPermission("editor", "monitoring:manage"), false);
+  assert.equal(hasPermission("editor", "kpi:read"), true);
+  assert.equal(hasPermission("viewer", "monitoring:manage"), false);
+  assert.equal(hasPermission("viewer", "kpi:read"), true);
 });
 
 test("viewer can read leads and CMS but cannot write or access private files", () => {

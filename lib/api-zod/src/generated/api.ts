@@ -8,6 +8,211 @@
 import * as zod from 'zod';
 
 
+export const getMonitoringResponseTagsMeasurementIdRegExp = new RegExp('^(|G-[A-Z0-9]{4,20})$');
+export const getMonitoringResponseTagsContainerIdRegExp = new RegExp('^(|GTM-[A-Z0-9]{4,20})$');
+
+
+export const GetMonitoringResponse = zod.object({
+  "environment": zod.enum(['development', 'production']),
+  "canManage": zod.boolean(),
+  "oauthConfigured": zod.boolean(),
+  "connected": zod.boolean(),
+  "services": zod.array(zod.object({
+  "service": zod.enum(['ga4', 'searchConsole']),
+  "state": zod.enum(['not_configured', 'disconnected', 'property_required', 'unchecked', 'ready', 'empty', 'delayed', 'revoked', 'forbidden', 'quota', 'unavailable', 'stale']),
+  "property": zod.string().nullable(),
+  "lastCheckedAt": zod.string().nullable(),
+  "lastSuccessAt": zod.string().nullable(),
+  "error": zod.string().nullable()
+})),
+  "tags": zod.object({
+  "measurementId": zod.string().regex(getMonitoringResponseTagsMeasurementIdRegExp),
+  "containerId": zod.string().regex(getMonitoringResponseTagsContainerIdRegExp)
+}),
+  "updatedAt": zod.string(),
+  "trackingEnabled": zod.literal(false),
+  "trackingBlockers": zod.array(zod.string()),
+  "discovery": zod.object({
+  "url": zod.string(),
+  "checkedAt": zod.string(),
+  "findings": zod.array(zod.string()),
+  "limitations": zod.string()
+})
+})
+
+
+export const StartMonitoringGoogleResponse = zod.object({
+  "url": zod.string()
+})
+
+
+export const FinishMonitoringGoogleResponse = zod.void()
+
+
+export const DisconnectMonitoringGoogleResponse = zod.object({
+  "message": zod.string()
+})
+
+
+export const ListMonitoringPropertiesParams = zod.object({
+  "service": zod.enum(['ga4', 'searchConsole'])
+})
+
+export const ListMonitoringPropertiesResponseItem = zod.object({
+  "id": zod.string(),
+  "label": zod.string(),
+  "timezone": zod.string()
+})
+export const ListMonitoringPropertiesResponse = zod.array(ListMonitoringPropertiesResponseItem)
+
+
+export const SelectMonitoringPropertyParams = zod.object({
+  "service": zod.enum(['ga4', 'searchConsole'])
+})
+
+export const selectMonitoringPropertyBodyPropertyMax = 500;
+
+
+
+export const SelectMonitoringPropertyBody = zod.object({
+  "property": zod.string().min(1).max(selectMonitoringPropertyBodyPropertyMax)
+})
+
+export const SelectMonitoringPropertyResponse = zod.object({
+  "message": zod.string()
+})
+
+
+export const VerifyMonitoringServiceParams = zod.object({
+  "service": zod.enum(['ga4', 'searchConsole'])
+})
+
+export const VerifyMonitoringServiceResponse = zod.object({
+  "message": zod.string()
+})
+
+
+export const saveMonitoringTagsBodyMeasurementIdRegExp = new RegExp('^(|G-[A-Z0-9]{4,20})$');
+export const saveMonitoringTagsBodyContainerIdRegExp = new RegExp('^(|GTM-[A-Z0-9]{4,20})$');
+
+
+export const SaveMonitoringTagsBody = zod.object({
+  "measurementId": zod.string().regex(saveMonitoringTagsBodyMeasurementIdRegExp),
+  "containerId": zod.string().regex(saveMonitoringTagsBodyContainerIdRegExp)
+})
+
+export const SaveMonitoringTagsResponse = zod.object({
+  "message": zod.string()
+})
+
+
+export const getKpiDashboardQueryDaysDefault = 28;
+export const getKpiDashboardQueryStartRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
+export const getKpiDashboardQueryEndRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
+
+
+export const GetKpiDashboardQueryParams = zod.object({
+  "days": zod.union([zod.literal(7),zod.literal(28),zod.literal(90)]).default(getKpiDashboardQueryDaysDefault),
+  "start": zod.coerce.string().regex(getKpiDashboardQueryStartRegExp).optional(),
+  "end": zod.coerce.string().regex(getKpiDashboardQueryEndRegExp).optional()
+})
+
+export const GetKpiDashboardResponse = zod.object({
+  "period": zod.object({
+  "start": zod.string(),
+  "end": zod.string(),
+  "previousStart": zod.string(),
+  "previousEnd": zod.string(),
+  "days": zod.number().int()
+}),
+  "dataMode": zod.enum(['synthetic', 'live']),
+  "operational": zod.object({
+  "source": zod.string(),
+  "state": zod.enum(['not_configured', 'disconnected', 'property_required', 'unchecked', 'ready', 'empty', 'delayed', 'revoked', 'forbidden', 'quota', 'unavailable', 'stale']),
+  "message": zod.string(),
+  "timezone": zod.string(),
+  "updatedAt": zod.string().nullable(),
+  "dataThrough": zod.string().nullable(),
+  "metrics": zod.array(zod.object({
+  "key": zod.string(),
+  "label": zod.string(),
+  "value": zod.number().nullable(),
+  "previous": zod.number().nullable(),
+  "change": zod.number().nullable(),
+  "unit": zod.enum(['count', 'percent', 'position'])
+})),
+  "series": zod.array(zod.object({
+  "label": zod.string(),
+  "values": zod.record(zod.string(), zod.number().nullable())
+})),
+  "tables": zod.array(zod.object({
+  "title": zod.string(),
+  "rows": zod.array(zod.object({
+  "label": zod.string(),
+  "values": zod.record(zod.string(), zod.number().nullable())
+}))
+})),
+  "limitations": zod.array(zod.string())
+}),
+  "ga4": zod.object({
+  "source": zod.string(),
+  "state": zod.enum(['not_configured', 'disconnected', 'property_required', 'unchecked', 'ready', 'empty', 'delayed', 'revoked', 'forbidden', 'quota', 'unavailable', 'stale']),
+  "message": zod.string(),
+  "timezone": zod.string(),
+  "updatedAt": zod.string().nullable(),
+  "dataThrough": zod.string().nullable(),
+  "metrics": zod.array(zod.object({
+  "key": zod.string(),
+  "label": zod.string(),
+  "value": zod.number().nullable(),
+  "previous": zod.number().nullable(),
+  "change": zod.number().nullable(),
+  "unit": zod.enum(['count', 'percent', 'position'])
+})),
+  "series": zod.array(zod.object({
+  "label": zod.string(),
+  "values": zod.record(zod.string(), zod.number().nullable())
+})),
+  "tables": zod.array(zod.object({
+  "title": zod.string(),
+  "rows": zod.array(zod.object({
+  "label": zod.string(),
+  "values": zod.record(zod.string(), zod.number().nullable())
+}))
+})),
+  "limitations": zod.array(zod.string())
+}),
+  "searchConsole": zod.object({
+  "source": zod.string(),
+  "state": zod.enum(['not_configured', 'disconnected', 'property_required', 'unchecked', 'ready', 'empty', 'delayed', 'revoked', 'forbidden', 'quota', 'unavailable', 'stale']),
+  "message": zod.string(),
+  "timezone": zod.string(),
+  "updatedAt": zod.string().nullable(),
+  "dataThrough": zod.string().nullable(),
+  "metrics": zod.array(zod.object({
+  "key": zod.string(),
+  "label": zod.string(),
+  "value": zod.number().nullable(),
+  "previous": zod.number().nullable(),
+  "change": zod.number().nullable(),
+  "unit": zod.enum(['count', 'percent', 'position'])
+})),
+  "series": zod.array(zod.object({
+  "label": zod.string(),
+  "values": zod.record(zod.string(), zod.number().nullable())
+})),
+  "tables": zod.array(zod.object({
+  "title": zod.string(),
+  "rows": zod.array(zod.object({
+  "label": zod.string(),
+  "values": zod.record(zod.string(), zod.number().nullable())
+}))
+})),
+  "limitations": zod.array(zod.string())
+})
+})
+
+
 export const ListEditorialResponseItem = zod.object({
   "id": zod.string(),
   "identity": zod.string(),
