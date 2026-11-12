@@ -1,8 +1,20 @@
 # Homepage media provenance
 
-## Cefalù geographic panorama correction — preview awaiting visual confirmation
+## Cathedral-left revision — visual placement approved
 
-The active family is now **`cefalu-hero-geography-*`**. The previous
+The owner approved the cathedral to the left of La Rocca on 2026-11-12.
+The active family is `cefalu-hero-left-*`, including mobile and social images.
+The previous geographic revision remains unchanged for comparison.
+`assets/hero/cefalu-panorama-left-retouch.png` combines that panorama patch with
+a feathered local correction moving the single cathedral left and removing it
+from the centre. The approved terrace, building, sky and foreground are retained.
+The encoder and checker reconstruct all 11 derivatives from the original plus
+this combined patch. Dimensions, crops and encoding quality are unchanged.
+This visual approval does not authorize publication.
+
+## Previous geographic panorama correction — retained, no longer active
+
+The previous family is **`cefalu-hero-geography-*`**. The older
 `cefalu-hero-*` family and the original `approved-hero-*` files remain untouched
 for comparison. This is not owner approval or permission to publish.
 

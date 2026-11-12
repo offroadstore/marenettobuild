@@ -36,10 +36,10 @@ for (const width of [390, 580, 699, 700, 768, 1000, 1100, 1440, 1920]) {
     const hero = page.locator('.mbh-hero img');
     await expect.poll(() => hero.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
     const current = await hero.evaluate((img: HTMLImageElement) => img.currentSrc);
-    expect(current).toContain('cefalu-hero-geography-');
-    await expect(hero).toHaveAttribute('src', /cefalu-hero-geography-1672\.jpg$/);
+    expect(current).toContain('cefalu-hero-left-');
+    await expect(hero).toHaveAttribute('src', /cefalu-hero-left-1672\.jpg$/);
     for (const source of await page.locator('.mbh-hero source').all()) {
-      await expect(source).toHaveAttribute('srcset', /^.*cefalu-hero-geography-.*$/);
+      await expect(source).toHaveAttribute('srcset', /^.*cefalu-hero-left-.*$/);
       expect(await source.getAttribute('srcset')).not.toContain('approved-hero');
     }
     expect(current.includes('-mobile-')).toBe(width < 700);

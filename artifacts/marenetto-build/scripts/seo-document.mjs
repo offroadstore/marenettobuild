@@ -24,11 +24,11 @@ export function renderDocument(template, { edition, body, alternates = [], canon
     `<meta name="robots" content="noindex, nofollow" />`,
     `<meta name="description" content="${escapeHtml(description)}" />`,
     ...Object.entries({ title, description, url: canonical, type: edition?.kind === 'article' ? 'article' : 'website', locale: locale === 'it' ? 'it_IT' : locale }).map(([key, value]) => `<meta property="og:${key}" content="${escapeHtml(value)}" />`),
-    `<meta property="og:image" content="${SEO_ORIGIN}/media/home/cefalu-hero-geography-1672.jpg" />`,
+    `<meta property="og:image" content="${SEO_ORIGIN}/media/home/cefalu-hero-left-1672.jpg" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${escapeHtml(title)}" />`,
     `<meta name="twitter:description" content="${escapeHtml(description)}" />`,
-    `<meta name="twitter:image" content="${SEO_ORIGIN}/media/home/cefalu-hero-geography-1672.jpg" />`,
+    `<meta name="twitter:image" content="${SEO_ORIGIN}/media/home/cefalu-hero-left-1672.jpg" />`,
   ];
   if (status === 200) {
     metas.push(`<link rel="canonical" href="${escapeHtml(canonical)}" />`);

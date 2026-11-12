@@ -16,6 +16,11 @@ to appear to the LEFT of La Rocca, not centred in front of it.
 while preserving the approved foreground. Do not treat an earlier merged image
 as visual approval of its geography.
 
+The owner confirmed the locally retouched cathedral-left image on 2026-11-12.
+**Why:** This fixes the intended landmark placement for subsequent revisions.
+**How to apply:** Preserve that placement; the confirmation is not permission
+to publish or replace the foreground.
+
 **Why:** The owner requested correction of the illustrated monument using the
 ita.travel Cefalù photograph as a geographic reference only, explicitly excluding
 replacement with that photograph or claims to its reuse rights.

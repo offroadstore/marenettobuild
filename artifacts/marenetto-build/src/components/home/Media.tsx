@@ -20,11 +20,11 @@ export function IllustrativeImage({ name, widths, sizes, alt, width, height, eag
 
 /**
  * Local Cefalù correction of the owner-supplied AI illustration, 1672×941.
- * Preview revision, not new owner approval. Derivatives are never upscaled. The mobile crop
+ * Cathedral-left placement approved by the owner. Derivatives are never upscaled. The mobile crop
  * retains the stone building and Cefalù; high-DPR / wide screens need a larger original.
  */
 export function HeroPhoto({ children }: { children: ReactNode }) {
-  const base = `${import.meta.env.BASE_URL}media/home/cefalu-hero-geography`;
+  const base = `${import.meta.env.BASE_URL}media/home/cefalu-hero-left`;
   return <section className="mbh-hero" data-testid="section-hero">
     <div className="mbh-hero__stage">
       <picture>

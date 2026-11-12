@@ -53,7 +53,7 @@ for (const locale of ['it', 'en']) {
       const hero = page.locator('.mbh-hero img');
       await expect.poll(() => hero.evaluate((node: HTMLImageElement) => node.complete && node.naturalWidth > 0)).toBe(true);
       expect(await hero.evaluate((node: HTMLImageElement) => new URL(node.currentSrc).origin === location.origin)).toBe(true);
-      expect(await hero.evaluate((node: HTMLImageElement) => node.currentSrc)).toContain('cefalu-hero-geography-');
+      expect(await hero.evaluate((node: HTMLImageElement) => node.currentSrc)).toContain('cefalu-hero-left-');
       await expect(hero).toHaveAttribute('width', '1672');
       await expect(hero).toHaveAttribute('height', '941');
 

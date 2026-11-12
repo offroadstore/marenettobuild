@@ -6,7 +6,7 @@ import path from 'node:path';
 const root = path.resolve(import.meta.dirname, '..');
 const workspace = path.resolve(root, '../..');
 const original = path.join(workspace, 'attached_assets/0_hero_marenetto_build_1794264904110.png');
-const patch = path.join(root, 'assets/hero/cefalu-panorama-retouch.png');
+const patch = path.join(root, 'assets/hero/cefalu-panorama-left-retouch.png');
 const master = path.join(workspace, 'generated-artifacts/cefalu-panorama/corrected-master.png');
 const magick = (...args) => execFileSync('magick', args, { maxBuffer: 16 * 1024 * 1024 });
 const before = magick(original, '-depth', '8', 'rgb:-');
@@ -30,7 +30,7 @@ if (changed < 20000) throw new Error('Expected a panorama revision, not a tower-
 for (const width of [768, 1280, 1672, 450, 900]) {
   const mobile = width === 450 || width === 900;
   for (const format of [...['avif', 'webp'], ...(width === 1672 ? ['jpg'] : [])]) {
-    const file = path.join(root, `public/media/home/cefalu-hero-geography-${mobile ? 'mobile-' : ''}${width}.${format}`);
+    const file = path.join(root, `public/media/home/cefalu-hero-left-${mobile ? 'mobile-' : ''}${width}.${format}`);
     const args = [master, ...(mobile ? ['-crop', '900x941+440+0', '+repage'] : []),
       '-resize', `${width}x>`, '-quality', format === 'jpg' ? '86' : '82', `${format}:-`];
     const expected = magick(...args);
