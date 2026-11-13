@@ -8,3 +8,9 @@ For isolated esbuild test replacements, resolve runtime dependencies with a reso
 **Why:** A virtual test replacement importing PostgreSQL through its workspace symlink resolved the entry but lost the package's transitive dependencies during bundling; this looked like missing packages even though installation was healthy.
 
 **How to apply:** Use Node's package resolver from the owning package when constructing virtual-module imports, and leave application dependency declarations intact. Test-only authentication replacements must remain isolated from application builds.
+
+Browser component fixtures bundled outside Vite should receive their route/content inventory as plain data rather than importing the full content catalog.
+
+**Why:** Transitive catalog imports can require both Vite environment replacement and glob expansion before a component mounts. Fixing only environment constants leaves another unrelated bootstrap failure, obscuring the behavior under test.
+
+**How to apply:** Keep the real application as the inventory owner; inject a minimal inventory into the same production component for isolated consent/browser tests. Do not add a runtime preview bypass to make tests collect analytics.

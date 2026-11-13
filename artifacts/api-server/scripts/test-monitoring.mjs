@@ -49,11 +49,15 @@ process.exitCode = result.status ?? 1;
 if (process.exitCode === 0) {
   const uiOut = path.join(root, 'generated-artifacts/monitoring/ui-tests.mjs');
   await build({
-    entryPoints: [path.join(root, 'artifacts/marenetto-build/tests/monitoring.fixture.tsx')],
+    stdin: { contents: `import './artifacts/marenetto-build/tests/monitoring.fixture.tsx'; import './artifacts/marenetto-build/tests/analytics.fixture.tsx';`, resolveDir: root, loader: 'tsx' },
     outfile: uiOut, bundle: true, platform: 'node', format: 'esm', jsx: 'automatic',
     loader: { '.css': 'empty' },
     banner: { js: "import { createRequire } from 'node:module'; const require=createRequire(import.meta.url);" },
   });
   const ui = spawnSync(process.execPath, ['--test', uiOut], { cwd: root, stdio: 'inherit' });
   process.exitCode = ui.status ?? 1;
+}
+if (process.exitCode === 0) {
+  const runtime = spawnSync(process.execPath, ['--test', path.join(root, 'artifacts/marenetto-build/analytics-runtime/runtime.test.mjs')], { cwd: root, stdio: 'inherit' });
+  process.exitCode = runtime.status ?? 1;
 }

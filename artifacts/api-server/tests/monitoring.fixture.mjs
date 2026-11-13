@@ -9,6 +9,7 @@ import { addDays, dayInTimezone, decryptTokens, encryptTokens, getPeriod, hash, 
 import { getSettings, accessToken, lockedSettings } from '../src/lib/monitoring/store.ts';
 import { exchangeToken, googleJson, listProperties } from '../src/lib/monitoring/google.ts';
 import { gaReport, searchReport, ReportCache, reportCache } from '../src/lib/monitoring/reports.ts';
+import { collectionFingerprint, collectionStatus, verifyWebStream } from '../src/lib/monitoring/collection.ts';
 
 test('calendar periods, equal comparisons and weighted-rate conventions', () => {
   const now = new Date('2026-11-12T12:00:00Z');
@@ -37,6 +38,12 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
     const u=new URL(url);
     if(u.hostname==='127.0.0.1')return realFetch(url,init);
     calls.push({host:u.hostname,path:u.pathname,body:init.body});
+    if (u.hostname === 'metrics.example.net') {
+      assert.equal(u.pathname, '/_analytics-runtime/health');
+      assert.equal(init.credentials, 'omit');
+      assert.equal(init.redirect, 'error');
+      return fixtureResponse(mode === 'runtimeMismatch' ? {} : { runtime: 'marenetto-ga4-v1', siteOrigin: 'https://www.example.com', runtimeOrigin: 'https://metrics.example.net' }, mode === 'runtimeUnavailable' ? 503 : 200);
+    }
     assert.ok(['oauth2.googleapis.com','analyticsadmin.googleapis.com','analyticsdata.googleapis.com','www.googleapis.com','searchconsole.googleapis.com'].includes(u.hostname),`Unexpected network host ${u.hostname}`);
     if(u.pathname==='/revoke')return new Response('',{status:revokeOk?200:503});
     if(mode==='timeout')throw new DOMException('fixture','TimeoutError');
@@ -51,8 +58,11 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
       return fixtureResponse({access_token:'fixture-access',refresh_token:'fixture-refresh',expires_in:3600,scope:mode==='partialScopes'?scopes[0]:mode==='extraScopes'?[...scopes,'https://www.googleapis.com/auth/analytics.edit'].join(' '):scopes.join(' ')});
     }
     if(u.pathname.includes('accountSummaries'))return fixtureResponse({accountSummaries:[{displayName:'Fixture account',propertySummaries:[{property:'properties/123',displayName:'Fixture GA4'}]}],...(pagination&&!u.searchParams.has('pageToken')?{nextPageToken:'page-two'}:{})});
+    if(u.pathname.endsWith('/enhancedMeasurementSettings'))return fixtureResponse(mode==='enhancedMissing'?{}:{streamEnabled:mode==='enhancedOn'});
+    if(u.pathname.endsWith('/dataStreams'))return fixtureResponse({dataStreams:[{name:'properties/123/dataStreams/456',type:'WEB_DATA_STREAM',webStreamData:{measurementId:'G-ABCD1234',defaultUri:mode==='wrongOrigin'?'https://wrong.example.com':'https://www.example.com/'}}]});
     if(u.hostname==='analyticsadmin.googleapis.com')return fixtureResponse({timeZone:'Europe/Rome'});
     if(u.hostname==='analyticsdata.googleapis.com'){
+      if(u.pathname.endsWith(':runRealtimeReport')) return fixtureResponse(mode==='empty'?{rowCount:0}:{rows:[{dimensionValues:[{value:'page_view'}],metricValues:[{value:'1'}]}]});
       const reports=JSON.parse(init.body).requests.map((r,i)=>{
         assert.deepEqual(r.metrics.map(m=>m.name),['activeUsers','sessions','screenPageViews','engagementRate']);
         if(mode==='empty')return {rows:[],metadata:{}};
@@ -74,7 +84,8 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
     await pool.query(`CREATE TABLE monitoring_settings (
       environment text PRIMARY KEY, revision text NOT NULL, encrypted_tokens text,
       ga4_property text, search_console_property text, measurement_id text NOT NULL DEFAULT '',
-      container_id text NOT NULL DEFAULT '', checks jsonb NOT NULL DEFAULT '{}',updated_at timestamptz NOT NULL DEFAULT now());
+      container_id text NOT NULL DEFAULT '', collection_enabled boolean NOT NULL DEFAULT false, collection_check jsonb,
+      checks jsonb NOT NULL DEFAULT '{}',updated_at timestamptz NOT NULL DEFAULT now());
       CREATE TABLE monitoring_oauth_states (hash text PRIMARY KEY,environment text NOT NULL,member_id integer NOT NULL,session_hash text NOT NULL,verifier text NOT NULL,revision text NOT NULL,expires_at timestamptz NOT NULL);
       CREATE TABLE project_requests (created_at timestamptz NOT NULL,is_synthetic boolean NOT NULL,lead_status text NOT NULL,service text NOT NULL,preferred_language text NOT NULL);
       INSERT INTO project_requests VALUES
@@ -97,6 +108,15 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
     assert.equal(r.data.canManage,false);assert.equal(r.data.trackingEnabled,false);
     assert.equal(r.data.services[0].state,'not_configured');
     assert.equal(r.data.tags.measurementId,'G-YP31TW342Z','owner supplied ID is configuration only');
+    assert.equal((await request('/monitoring/public','anonymous')).data.enabled,false);
+    for (const path of ['/internal/monitoring/collection/verify','/internal/monitoring/collection/realtime']) {
+      assert.equal((await request(path,'viewer','POST')).status,403);
+      assert.equal((await request(path,'editor','POST')).status,403);
+    }
+    assert.equal((await request('/internal/monitoring/collection','editor','PUT',{enabled:true})).status,403);
+    assert.equal((await request('/internal/monitoring/collection','owner','PUT',{enabled:true})).status,409);
+    assert.equal((await request('/internal/monitoring/collection','owner','PUT',{enabled:'true'})).status,400);
+    assert.equal((await request('/internal/monitoring/collection','owner','PUT',{enabled:false},{origin:'https://evil.invalid'})).status,403);
     assert.equal((await request('/internal/monitoring/google/start','editor','POST')).status,403);
     assert.equal((await request('/internal/monitoring/tags','viewer','PUT',{})).status,403);
     assert.equal((await request('/internal/monitoring/tags','owner','PUT',{measurementId:'G-ABCD1234',containerId:''},{origin:'https://evil.invalid'})).status,403);
@@ -161,6 +181,59 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
     assert.equal((await request('/internal/monitoring/properties/searchConsole','owner','PUT',{property:'sc-domain:example.invalid'})).status,200);
     assert.equal((await request('/internal/monitoring/verify/ga4','owner','POST')).status,200);
     assert.equal((await request('/internal/monitoring/verify/searchConsole','owner','POST')).status,200);
+    // Production collection simulated only in the isolated DB/provider bundle.
+    process.env.MARENETTO_ANALYTICS_ORIGIN='https://www.example.com';
+    process.env.MARENETTO_ANALYTICS_RUNTIME_ORIGIN='https://metrics.example.net';
+    process.env.MARENETTO_ANALYTICS_RUNTIME_APPROVED='true';
+    process.env.MARENETTO_ANALYTICS_PRIVACY_URL='https://www.example.com/privacy';
+    process.env.MARENETTO_ANALYTICS_PRIVACY_VERSION='fixture-notice';
+    process.env.MARENETTO_ANALYTICS_PRIVACY_APPROVED='true';
+    process.env.MARENETTO_ANALYTICS_RELEASE_APPROVED='true';
+    let row=await getSettings();
+    assert.ok(collectionStatus(row).blockers.some(v=>v.includes('preview')));
+    const check=await verifyWebStream(row,'fixture-access');
+    for(const failed of ['enhancedOn','enhancedMissing','wrongOrigin','runtimeMismatch','runtimeUnavailable']) {
+      mode=failed; await assert.rejects(verifyWebStream(row,'fixture-access'));
+    }
+    mode='ok';
+    process.env.NODE_ENV='production';
+    await db.insert(settings).values({environment:'production',revision:'production-fixture',encryptedTokens:encryptTokens({refresh:'fixture-refresh',access:'fixture-access',expires:Date.now()+3600000}),ga4Property:'properties/123',measurementId:'G-ABCD1234',collectionCheck:check});
+    row=await getSettings();
+    assert.equal(check.fingerprint,collectionFingerprint(row));
+    assert.equal(collectionStatus(row).blockers.length,0);
+    assert.equal((await request('/internal/monitoring/collection','owner','PUT',{enabled:true})).status,200);
+    assert.equal((await request('/internal/monitoring')).data.trackingEnabled,true);
+    assert.equal((await request('/monitoring/public','anonymous')).data.enabled,false,'preview/console host never gets production config');
+    r=await request('/monitoring/public','anonymous','GET',undefined,{'x-forwarded-host':'www.example.com'});
+    assert.equal(r.data.enabled,true);assert.equal(r.data.measurementId,'G-ABCD1234');
+    assert.doesNotMatch(JSON.stringify(r.data),/properties\/|refresh|fixture-access|stream|tokens/);
+    assert.equal((await request('/internal/monitoring/collection/realtime','owner','POST')).status,200);
+    assert.ok((await request('/internal/monitoring')).data.collection.realtimeReceivedAt);
+    mode='empty';
+    assert.match((await request('/internal/monitoring/collection/realtime','owner','POST')).data.message,/nessun evento/);
+    mode='ok';
+    for(const key of ['MARENETTO_ANALYTICS_PRIVACY_APPROVED','MARENETTO_ANALYTICS_RELEASE_APPROVED','MARENETTO_ANALYTICS_RUNTIME_APPROVED']) {
+      process.env[key]='false';
+      assert.equal((await request('/monitoring/public','anonymous','GET',undefined,{'x-forwarded-host':'www.example.com'})).data.enabled,false);
+      process.env[key]='true';
+    }
+    process.env.MARENETTO_ANALYTICS_RUNTIME_ORIGIN='https://tracking.example.com';
+    assert.equal(collectionStatus(await getSettings()).enabled,false,'a subdomain is not an independent cookie boundary');
+    process.env.MARENETTO_ANALYTICS_RUNTIME_ORIGIN='https://metrics.example.net';
+    await db.update(settings).set({collectionCheck:{...check,checkedAt:'invalid'}}).where(eq(settings.environment,'production'));
+    assert.equal(collectionStatus(await getSettings()).enabled,false);
+    assert.equal((await request('/internal/monitoring/collection/verify','owner','POST')).status,200);
+    mode='enhancedOn';
+    assert.equal((await request('/internal/monitoring/collection/verify','owner','POST')).status,400);
+    assert.equal((await getSettings()).collectionEnabled,false);
+    mode='ok';
+    assert.equal((await request('/internal/monitoring/collection/verify','owner','POST')).status,200);
+    assert.equal((await request('/internal/monitoring/collection','owner','PUT',{enabled:true})).status,200);
+    assert.equal((await request('/internal/monitoring/tags','owner','PUT',{measurementId:'G-ABCD1234',containerId:''})).status,200);
+    assert.equal((await getSettings()).collectionEnabled,false);
+    assert.equal((await getSettings()).collectionCheck,null);
+    await db.delete(settings).where(eq(settings.environment,'production'));
+    process.env.NODE_ENV='development';
     const period=getPeriod({start:'2026-01-10',end:'2026-01-10'});
     let ga=await gaReport('properties/123','fixture-access',period);
     assert.equal(ga.metrics[0].value,100);assert.equal(ga.metrics[0].previous,50);
@@ -221,6 +294,8 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
     process.env.NODE_ENV='production';
     assert.equal((await getSettings()).encryptedTokens,null);
     assert.equal((await getSettings()).containerId,'','settings separated across environments');
+    await pool.query('ALTER TABLE monitoring_settings RENAME TO unavailable_settings');
+    assert.equal((await request('/monitoring/public','anonymous')).data.enabled,false,'missing schema fails closed');
   } finally {
     globalThis.fetch=realFetch;
     if(server)await new Promise(r=>server.close(r));

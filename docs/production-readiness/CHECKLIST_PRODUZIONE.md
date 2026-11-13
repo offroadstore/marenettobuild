@@ -2,6 +2,14 @@
 
 ## P0 — autorizzare il rilascio soltanto dopo queste prove
 
+- [ ] **Analytics e tracking BLOCCANTI per l’uscita da Framework360**: seguire `docs/monitoring/GUIDA.html`; distinguere implementato, configurato e collaudato, senza dichiarare operativo il solo codice.
+- [ ] Configurare OAuth Google aziendale, autorizzare l’account del Titolare, scegliere proprietà reali e documentare la continuità (o assenza) con lo storico. Verifiche datate indipendenti per GA4 e Search Console.
+- [ ] Confermare origine pubblica finale, autorizzazione raccolta, informativa/versione approvata e controlli nelle lingue servite; nessun dominio dedotto da preview o sito storico.
+- [ ] Predisporre e autorizzare separatamente il runtime su un dominio registrabile distinto da sito/console, senza login, API o cookie condivisi; seguire `artifacts/marenetto-build/analytics-runtime/README.md`. Verificare Host, TLS, CSP e `/health`; nessun deployment o DNS è autorizzato dalla sola preparazione del codice.
+- [ ] Confermare via API flusso web corrispondente a proprietà/ID/origine ed enhanced measurement spento; una sola installazione GA4, GTM non installato.
+- [ ] Sul solo dominio autorizzato: test consenziente reale, ricezione evento/ora/percorso in GA4 Realtime/DebugView, pageview SPA senza doppioni, clic distinti da richiesta salvata; nessun dato personale/query/frammento nei payload.
+- [ ] Verificare prima del consenso, rifiuto, revoca, cookie e navigazione SPA a login/console/demo/revisione: nessun nuovo invio Google. Provare stop del Titolare e configurazione non leggibile.
+- [ ] Ricontrollare report elaborati GA4 dopo 24–48 ore e Search Console dopo 2–3 giorni con evidenze datate. Credenziali/proprietà, informative, dominio e prove reali restano **pendenti**, non sostituibili da fixture.
 - [ ] Eliminare/mitigare con verifica tutte le dipendenze critiche/alte applicabili; rieseguire scansioni e test.
 - [ ] Riconciliare l’inventario con fonti pubbliche/CMS autorevoli; decidere su translation-ok, feed e candidati non dimostrati.
 - [ ] Approvare i testi italiani modificati e le vere edizioni straniere pubblicabili; non esporre bozze come traduzioni approvate.

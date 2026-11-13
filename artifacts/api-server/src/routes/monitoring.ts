@@ -6,6 +6,7 @@ import { db, monitoringSettingsTable as settings, monitoringOauthStatesTable as 
 import {
   GetMonitoringResponse, GetKpiDashboardResponse, SaveMonitoringTagsBody,
   SelectMonitoringPropertyBody, ListMonitoringPropertiesParams,
+  GetPublicMonitoringResponse, SaveMonitoringCollectionBody,
   type GoogleReportService, type MonitoringState, type KpiSource,
 } from "@workspace/api-zod";
 import { requireInternalAccess, requirePermission } from "../middlewares/internalAccess";
@@ -14,6 +15,7 @@ import { exchangeToken, gaPropertyTimezone, listProperties, revokeToken } from "
 import { accessToken, getSettings, lockedSettings, recordCheck, savePatch, setConnection } from "../lib/monitoring/store";
 import { fetchReport, reportCache } from "../lib/monitoring/reports";
 import { operationalReport } from "../lib/monitoring/operational";
+import { collectionStatus, realtimeReceipt, verifyWebStream } from "../lib/monitoring/collection";
 
 const router: IRouter = Router();
 const prefix = "/internal/monitoring";
@@ -58,9 +60,22 @@ const serviceParam = (req: Request): GoogleReportService => {
 };
 const propertyFor = (row: Awaited<ReturnType<typeof getSettings>>, service: GoogleReportService) => service === "ga4" ? row.ga4Property : row.searchConsoleProperty;
 
+router.get("/monitoring/public", async (req, res) => {
+  res.set({ "Cache-Control": "no-store", "Referrer-Policy": "no-referrer", "Vary": "Host" });
+  const off = { enabled: false, origin: "", runtimeOrigin: "", measurementId: "", privacyUrl: "", privacyVersion: "", expiresAt: new Date(Date.now() + 60000).toISOString() };
+  try {
+    const row = await getSettings(), status = collectionStatus(row);
+    const allowed = status.enabled && new URL(status.collection.origin).host === requestHost(req) && req.get("sec-fetch-site") !== "cross-site";
+    res.json(GetPublicMonitoringResponse.parse(allowed ? {
+      ...off, enabled: true, origin: status.collection.origin, runtimeOrigin: status.collection.runtimeOrigin, measurementId: row.measurementId,
+      privacyUrl: status.collection.privacyUrl, privacyVersion: status.collection.privacyVersion,
+    } : off));
+  } catch { res.json(GetPublicMonitoringResponse.parse(off)); }
+});
 router.get(prefix, requirePermission("kpi:read"), asyncRoute(async (req, res) => {
   const row = await getSettings();
   const configured = Boolean(oauthConfig());
+  const collection = collectionStatus(row);
   res.json(GetMonitoringResponse.parse({
     environment: environment(), canManage: req.internalMember!.role === "owner",
     oauthConfigured: configured, connected: Boolean(row.encryptedTokens),
@@ -72,15 +87,48 @@ router.get(prefix, requirePermission("kpi:read"), asyncRoute(async (req, res) =>
     }),
     tags: { measurementId: row.measurementId, containerId: row.containerId },
     updatedAt: row.updatedAt.toISOString(),
-    trackingEnabled: false,
-    trackingBlockers: [
-      "Installazione dei tag non attivabile in questa versione: nessuno script di tracking viene caricato.",
-      "Prima di una futura attivazione servono dominio pubblico approvato, approvazione privacy/rilascio e consenso analytics separato e revocabile.",
-      "Preview e aree private sempre escluse; il consenso al contatto non è un consenso analytics.",
-      "GTM è un contenitore di tag, non una fonte di KPI. Collegare i report Google non installa tag.",
-    ],
+    trackingEnabled: collection.enabled,
+    trackingBlockers: collection.blockers,
+    collection: collection.collection,
     discovery,
   }));
+}));
+router.put(`${prefix}/collection`, requirePermission("monitoring:manage"), asyncRoute(async (req, res) => {
+  const parsed = SaveMonitoringCollectionBody.safeParse(req.body);
+  if (!parsed.success) throw new MonitoringError("unavailable", "Specificare attivazione o disattivazione.", 400);
+  await lockedSettings(async (tx, row) => {
+    const status = collectionStatus(row);
+    if (parsed.data.enabled && status.blockers.length) throw new MonitoringError("not_configured", status.blockers.join(" "), 409);
+    await tx.update(settings).set({ collectionEnabled: parsed.data.enabled, updatedAt: new Date() }).where(eq(settings.environment, row.environment));
+  });
+  res.json({ message: parsed.data.enabled ? "Raccolta abilitata sul solo dominio approvato, dopo consenso analytics. Ricezione reale ancora da collaudare." : "Raccolta disattivata. Le pagine già aperte interrompono il runtime entro 60 secondi; la revoca del visitatore è immediata." });
+}));
+router.post(`${prefix}/collection/verify`, requirePermission("monitoring:manage"), asyncRoute(async (_req, res) => {
+  const row = await getSettings();
+  try {
+    const token = await accessToken(row.revision), check = await verifyWebStream(row, token.access);
+    await lockedSettings(async (tx, current) => {
+      if (current.revision !== row.revision) throw new MonitoringError("disconnected", "Configurazione cambiata: ripetere la verifica.", 409);
+      await tx.update(settings).set({ collectionCheck: check }).where(eq(settings.environment, row.environment));
+    });
+    res.json({ message: "Flusso web, ID, origine e enhanced measurement disattivato verificati tramite Google; raggiungibilità e origini del runtime dedicato confermate. Non è una prova di ricezione dal nuovo sito; verifica valida 24 ore." });
+  } catch (error) {
+    await lockedSettings(async (tx, current) => {
+      if (current.revision === row.revision) await tx.update(settings).set({ collectionEnabled: false, collectionCheck: null }).where(eq(settings.environment, row.environment));
+    });
+    throw error;
+  }
+}));
+router.post(`${prefix}/collection/realtime`, requirePermission("monitoring:manage"), asyncRoute(async (_req, res) => {
+  const row = await getSettings();
+  if (!collectionStatus(row).enabled || !row.collectionCheck) throw new MonitoringError("not_configured", "Prima verificare il flusso e abilitare la raccolta.", 409);
+  const token = await accessToken(row.revision), received = await realtimeReceipt(row, token.access);
+  const now = new Date().toISOString();
+  await lockedSettings(async (tx, current) => {
+    if (current.revision !== row.revision || !current.collectionEnabled || !current.collectionCheck) throw new MonitoringError("disconnected", "Configurazione cambiata.", 409);
+    await tx.update(settings).set({ collectionCheck: { ...current.collectionCheck, realtimeCheckedAt: now, ...(received ? { realtimeReceivedAt: now } : {}) } }).where(eq(settings.environment, row.environment));
+  });
+  res.json({ message: received ? "Realtime ha restituito eventi negli ultimi 30 minuti. Confrontare nel provider ora, dominio e percorso del test consenziente: altri siti nella stessa proprietà possono contribuire. Questa lettura non certifica da sola il nuovo sito." : "Realtime letto, ma nessun evento atteso ricevuto. Nessuna ricezione certificata; controllare consenso, blocchi e ritardi del provider." });
 }));
 router.post(`${prefix}/google/start`, requirePermission("monitoring:manage"), asyncRoute(async (req, res) => {
   const config = oauthConfig();
@@ -131,7 +179,7 @@ router.post(`${prefix}/google/disconnect`, requirePermission("monitoring:manage"
     if (row.encryptedTokens) {
       try { revoked = await revokeToken(decryptTokens(row.encryptedTokens).refresh); } catch { revoked = false; }
     }
-    await tx.update(settings).set({ encryptedTokens: null, ga4Property: null, searchConsoleProperty: null, checks: {}, revision: randomUUID(), updatedAt: new Date() }).where(eq(settings.environment, row.environment));
+    await tx.update(settings).set({ encryptedTokens: null, ga4Property: null, searchConsoleProperty: null, checks: {}, collectionEnabled: false, collectionCheck: null, revision: randomUUID(), updatedAt: new Date() }).where(eq(settings.environment, row.environment));
     await tx.delete(states).where(eq(states.environment, row.environment));
   });
   reportCache.clear();
@@ -160,7 +208,7 @@ router.put(`${prefix}/properties/:service`, requirePermission("monitoring:manage
     if (current.revision !== row.revision) throw new MonitoringError("disconnected", "Configurazione cambiata. Ricaricare.", 409);
     const checks = { ...current.checks };
     delete checks[service];
-    await tx.update(settings).set({ [service === "ga4" ? "ga4Property" : "searchConsoleProperty"]: parsed.data.property, checks, revision: randomUUID(), updatedAt: new Date() }).where(eq(settings.environment, current.environment));
+    await tx.update(settings).set({ [service === "ga4" ? "ga4Property" : "searchConsoleProperty"]: parsed.data.property, checks, ...(service === "ga4" ? { collectionEnabled: false, collectionCheck: null } : {}), revision: randomUUID(), updatedAt: new Date() }).where(eq(settings.environment, current.environment));
   });
   reportCache.clear();
   res.json({ message: "Proprietà selezionata dai servizi accessibili. Eseguire la verifica o aprire la Dashboard." });
@@ -188,9 +236,9 @@ router.post(`${prefix}/verify/:service`, requirePermission("monitoring:manage"),
 router.put(`${prefix}/tags`, requirePermission("monitoring:manage"), asyncRoute(async (req, res) => {
   const parsed = SaveMonitoringTagsBody.safeParse(req.body);
   if (!parsed.success) throw new MonitoringError("unavailable", "Identificativi non validi: usare G-… per GA4 o GTM-… per Tag Manager; lasciare vuoto per rimuovere.", 400);
-  await savePatch(parsed.data);
+  await savePatch({ ...parsed.data, collectionEnabled: false, collectionCheck: null });
   reportCache.clear();
-  res.json({ message: "Identificativi pubblici salvati. Tracking disattivato: nessun tag installato, nessuna autorizzazione ai report aggiunta." });
+  res.json({ message: "Identificativi salvati. Raccolta disattivata e verifiche flusso azzerate: riverificare prima di attivare. GTM non è installato." });
 }));
 async function googleSource(service: GoogleReportService, period: ReturnType<typeof getPeriod>): Promise<KpiSource> {
   const title = service === "ga4" ? "Google Analytics 4" : "Google Search Console";

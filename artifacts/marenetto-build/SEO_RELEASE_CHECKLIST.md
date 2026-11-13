@@ -21,6 +21,9 @@
 
 ## Controlli sul futuro host definitivo
 
+- [ ] **Blocco analytics del passaggio da Framework360**: completare la checklist P0 e `docs/monitoring/GUIDA.html`, inclusi OAuth, continuità della proprietà, consenso, raccolta reale e ricontrolli differiti. Il solo salvataggio di G-… non supera il blocco.
+- [ ] Runtime analytics su origine HTTPS dedicata, dominio registrabile distinto e nessuna API/login/cookie condiviso; verificare raggiungibilità, CSP e isolamento prima della raccolta. Predisposizione del runtime non autorizza DNS o pubblicazione.
+- [ ] Nessun tag in preview/login/console/demo/revisione, anche dopo navigazione SPA; un solo GA4 diretto e GTM non installato. Informative approvate e origine autorizzata sono prerequisiti distinti dal consenso visitatore.
 - [ ] Impostare l’origine confermata nel build, senza dedurla dal nome del progetto.
 - [ ] Verificare build e servizio Node preparati, porta, MIME, asset e comportamento delle route. Nessun fallback a home per route sconosciute.
 - [ ] Provare HTTP reale senza JavaScript su ogni URL ammissibile, non soltanto la navigazione SPA.

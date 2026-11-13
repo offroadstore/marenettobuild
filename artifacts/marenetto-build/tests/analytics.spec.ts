@@ -1,0 +1,159 @@
+import { test, expect, type Page } from '@playwright/test';
+import { createRequire } from 'node:module';
+import { resolve } from 'node:path';
+import { readFile } from 'node:fs/promises';
+import { runtimePolicy, runtimeDocument } from '../analytics-runtime/policy.mjs';
+const apiRequire = createRequire(resolve(import.meta.dirname, '../../api-server/package.json'));
+const { build } = apiRequire('esbuild');
+let bundle = '';
+test.beforeAll(async () => {
+  const result = await build({
+    entryPoints: [resolve(import.meta.dirname, 'analytics-browser.fixture.tsx')],
+    bundle: true, write: false, platform: 'browser', format: 'iife', jsx: 'automatic',
+    tsconfig: resolve(import.meta.dirname, '../tsconfig.json'),
+    loader: { '.css': 'empty' }, define: { 'process.env.NODE_ENV': '"test"', 'import.meta.env.BASE_URL': '"/"' },
+  });
+  bundle = result.outputFiles[0].text;
+});
+
+async function setup(page: Page, origin = 'https://analytics-test.example.com') {
+  const runtimeOrigin = 'https://metrics-runtime.example.net';
+  const requests: string[] = [], events: any[] = [], probes: any[] = [];
+  let configAvailable = true, receiptMode = 'error';
+  await page.route('**/*', async route => {
+    const request = route.request(), u = new URL(request.url());
+    if (u.origin === runtimeOrigin) {
+      const policy = runtimePolicy({ NODE_ENV: 'production', MARENETTO_ANALYTICS_ORIGIN: origin,
+        MARENETTO_ANALYTICS_RUNTIME_ORIGIN: runtimeOrigin, MARENETTO_ANALYTICS_RUNTIME_APPROVED: 'true',
+        MARENETTO_ANALYTICS_RELEASE_APPROVED: 'true', MARENETTO_ANALYTICS_PRIVACY_APPROVED: 'true' });
+      if (!policy) { await route.fulfill({ status: 404 }); return; }
+      const script = u.pathname === '/_analytics-runtime/runtime.js';
+      await route.fulfill({ contentType: script ? 'application/javascript' : 'text/html',
+        headers: { 'Content-Security-Policy': policy.csp, 'Referrer-Policy': 'no-referrer' },
+        body: script ? await readFile(resolve(import.meta.dirname, '../analytics-runtime/client.js'), 'utf8') : runtimeDocument(policy) });
+      return;
+    }
+    if (['www.googletagmanager.com', 'www.google-analytics.com'].includes(u.hostname)) {
+      requests.push(request.url());
+      if (u.pathname === '/gtag/js') {
+        await route.fulfill({ contentType: 'application/javascript', body: `
+          const probe={parentDOM:false,parentStorage:false,parentTimer:false,frameStorage:false};
+          try{void parent.document.body;probe.parentDOM=true;}catch{}
+          try{void parent.localStorage.length;probe.parentStorage=true;}catch{}
+          try{parent.setInterval(()=>{},100);probe.parentTimer=true;}catch{}
+          try{void localStorage.length;probe.frameStorage=true;}catch{}
+          document.cookie='_ga=GA1.1.123.456; Path=/';
+          document.cookie='session=forbidden; Path=/';
+          fetch('https://www.google-analytics.com/g/collect',{method:'POST',body:JSON.stringify(['isolation',probe])});
+          const run=a=>{
+            if(a[0]==='event')fetch('https://www.google-analytics.com/g/collect',{method:'POST',body:JSON.stringify(Array.from(a))});
+          };
+          dataLayer.forEach(run);dataLayer.push=function(a){Array.prototype.push.call(this,a);run(a);};
+          // Simulate a provider with background activity, destroyed on withdrawal.
+          setInterval(()=>fetch('https://www.google-analytics.com/g/collect',{method:'POST',body:'["heartbeat"]'}),100);
+        ` });
+      } else {
+        const data = JSON.parse(request.postData() || 'null');
+        if (data?.[0] === 'event') events.push(data);
+        if (data?.[0] === 'isolation') probes.push(data[1]);
+        await route.fulfill({ status: 204, headers: { 'Access-Control-Allow-Origin': '*' } });
+      }
+      return;
+    }
+    if (u.origin !== origin) { await route.abort(); return; }
+    if (u.pathname === '/fixture.js') { await route.fulfill({ contentType: 'application/javascript', body: bundle }); return; }
+    if (u.pathname === '/api/editorial/active') { await route.fulfill({ json: [] }); return; }
+    if (u.pathname === '/api/monitoring/public') {
+      if (!configAvailable) { await route.fulfill({ status: 503, json: { error: 'fixture unavailable' } }); return; }
+      await route.fulfill({ json: { enabled: true, origin, runtimeOrigin, measurementId: 'G-FIXTURE123', privacyUrl: origin + '/privacy', privacyVersion: 'fixture-v1', expiresAt: new Date(Date.now() + 60000).toISOString() } }); return;
+    }
+    if (u.pathname === '/api/project-requests') {
+      await route.fulfill(receiptMode === 'error' ? { status: 500, json: { error: 'fixture failed' } } : { status: 201, json: { code: 'private-reference', isSynthetic: receiptMode === 'synthetic' } }); return;
+    }
+    await route.fulfill({ contentType: 'text/html', body: '<!doctype html><html><body><div id="root"></div><script src="/fixture.js"></script></body></html>' });
+  });
+  await page.goto(origin + '/?email=private@example.com#secret');
+  return { requests, events, probes, unavailable: () => { configAvailable = false; }, receipt: (mode: string) => { receiptMode = mode; } };
+}
+
+test('consent/refusal/reload, SPA deduplication, contact vs stored enquiry, exclusion and immediate revoke', async ({ page }) => {
+  const f = await setup(page);
+  await expect(page.getByTestId('analytics-reject')).toBeVisible();
+  expect(f.requests).toHaveLength(0);
+  await page.getByTestId('analytics-reject').click();
+  await page.reload();
+  await expect(page.getByTestId('analytics-preferences')).toBeVisible();
+  await expect(page.getByTestId('analytics-accept')).toHaveCount(0);
+  expect(f.requests).toHaveLength(0);
+  await page.getByRole('button', { name: 'Preferenze analytics', exact: true }).click();
+  await page.getByTestId('analytics-accept').click();
+  await expect.poll(() => f.requests.filter(url => new URL(url).pathname === '/gtag/js').length).toBe(1);
+  await expect.poll(() => f.events.filter(e => e[1] === 'page_view').length).toBe(1);
+  await expect.poll(() => f.probes.length).toBe(1);
+  expect(f.probes[0]).toMatchObject({ parentDOM: false, parentStorage: false, parentTimer: false });
+  expect(await page.locator('iframe').getAttribute('sandbox')).toBe('allow-scripts allow-same-origin');
+  expect(await page.locator('iframe').getAttribute('src')).toBe('https://metrics-runtime.example.net/_analytics-runtime/');
+  expect(await page.locator('iframe').getAttribute('srcdoc')).toBeNull();
+  await expect.poll(() => page.evaluate(() => document.cookie)).toContain('_ga=GA1.1.123.456');
+  expect(await page.evaluate(() => document.cookie)).not.toContain('session=forbidden');
+  await page.getByRole('link', { name: 'Servizi', exact: true }).click();
+  await expect.poll(() => f.events.filter(e => e[1] === 'page_view').length).toBe(2);
+  await page.getByRole('link', { name: 'Servizi', exact: true }).click();
+  expect(f.events.filter(e => e[1] === 'page_view')).toHaveLength(2);
+  // Prevent the contact href's external side effect without suppressing capture.
+  await page.evaluate(() => document.addEventListener('click', e => {
+    if ((e.target as Element).closest('a[href^="mailto:"],a[href^="tel:"],a[href^="https://wa.me"]')) e.preventDefault();
+  }));
+  for (const name of ['Phone', 'Email', 'WhatsApp']) await page.getByRole('link', { name, exact: true }).click();
+  await expect.poll(() => f.events.filter(e => e[1] === 'contact_click').length).toBe(3);
+  await page.getByRole('button', { name: 'Submit fixture' }).click();
+  expect(f.events.filter(e => e[1] === 'generate_lead')).toHaveLength(0);
+  f.receipt('synthetic');
+  await page.getByRole('button', { name: 'Submit fixture' }).click();
+  expect(f.events.filter(e => e[1] === 'generate_lead')).toHaveLength(0);
+  f.receipt('live');
+  await page.getByRole('button', { name: 'Submit fixture' }).click();
+  await expect.poll(() => f.events.filter(e => e[1] === 'generate_lead').length).toBe(1);
+  await page.getByRole('button', { name: 'Submit fixture' }).click();
+  expect(f.events.filter(e => e[1] === 'generate_lead')).toHaveLength(1);
+  expect(JSON.stringify(f.events)).not.toMatch(/private|secret|mailto|390000|query|#/);
+  for (const event of f.events) {
+    expect(Object.keys(event[2]).sort()).toEqual((event[1] === 'contact_click' ? ['contact_channel', 'page_location', 'page_referrer', 'page_title', 'send_to'] : ['page_location', 'page_referrer', 'page_title', 'send_to']).sort());
+    expect(event[2].page_referrer).toBe('');
+  }
+  for (const name of ['Console', 'Login', 'Demo', 'Review']) {
+    await page.getByRole('link', { name, exact: true }).click();
+    await expect(page.locator('iframe')).toHaveCount(0);
+    const count = f.requests.length;
+    await page.waitForTimeout(250);
+    expect(f.requests).toHaveLength(count);
+    await page.getByRole('link', { name: 'Home', exact: true }).click();
+    await expect(page.locator('iframe')).toHaveCount(1);
+  }
+  await page.evaluate(() => { document.cookie = '_ga=test; path=/; Secure'; document.cookie = '_ga_FIXTURE=test; path=/; Secure'; });
+  await page.getByTestId('analytics-withdraw').click();
+  await expect(page.locator('iframe')).toHaveCount(0);
+  expect(await page.evaluate(() => document.cookie)).not.toContain('_ga');
+  const count = f.requests.length;
+  await page.waitForTimeout(300);
+  expect(f.requests).toHaveLength(count);
+  await page.reload();
+  await expect(page.getByTestId('analytics-preferences')).toBeVisible();
+  await expect(page.locator('iframe')).toHaveCount(0);
+});
+
+test('a preview never loads Google even with forged enabled config; unavailable config stops an active runtime', async ({ page }) => {
+  const preview = await setup(page, 'https://preview.replit.dev');
+  await page.getByRole('button', { name: 'Preferenze analytics', exact: true }).click();
+  await expect(page.getByTestId('analytics-accept')).toBeDisabled();
+  expect(preview.requests).toHaveLength(0);
+  await page.unrouteAll();
+  const f = await setup(page);
+  await page.getByTestId('analytics-accept').click();
+  await expect(page.locator('iframe')).toHaveCount(1);
+  f.unavailable();
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+  await expect(page.locator('iframe')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Preferenze analytics', exact: true }).click();
+  await expect(page.getByTestId('analytics-accept')).toBeDisabled();
+});

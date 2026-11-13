@@ -5,6 +5,7 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+import type { MonitoringCollection } from './monitoringCollection';
 import type { MonitoringDiscovery } from './monitoringDiscovery';
 import type { MonitoringService } from './monitoringService';
 import type { MonitoringSettingsEnvironment } from './monitoringSettingsEnvironment';
@@ -18,7 +19,8 @@ export interface MonitoringSettings {
   services: MonitoringService[];
   tags: MonitoringTagInput;
   updatedAt: string;
-  trackingEnabled: false;
+  trackingEnabled: boolean;
+  collection: MonitoringCollection;
   trackingBlockers: string[];
   discovery: MonitoringDiscovery;
 }

@@ -4,6 +4,7 @@ import {
   useGetMonitoring, getGetMonitoringQueryKey, useStartMonitoringGoogle, useDisconnectMonitoringGoogle,
   useListMonitoringProperties, getListMonitoringPropertiesQueryKey, useSelectMonitoringProperty,
   useVerifyMonitoringService, useSaveMonitoringTags,
+  useSaveMonitoringCollection, useVerifyMonitoringCollection, useVerifyMonitoringRealtime,
   type GoogleReportService, type MonitoringService, type MonitoringSettings,
 } from '@workspace/api-client-react';
 import { Link2, LockKeyhole, RefreshCw, ShieldCheck, Unlink } from 'lucide-react';
@@ -38,7 +39,7 @@ export function MonitoringPanel() {
   };
   const s = settings.data;
   return <div className="int-content mon-root">
-    <div className="int-section-intro"><div><span className="int-kicker">MONITORAGGIO / FONTI</span><h2>Da dove arrivano i numeri.</h2><p>Autorizzazioni in sola lettura, identificativi pubblici e verifiche sul sito attuale. Nessuno script di tracciamento viene caricato.</p></div>{s && <span className="int-count-pill"><ShieldCheck size={14} /> {s.canManage ? 'Gestione: titolare' : 'Sola consultazione'} · {s.environment === 'production' ? 'produzione' : 'sviluppo'}</span>}</div>
+    <div className="int-section-intro"><div><span className="int-kicker">MONITORAGGIO / FONTI</span><h2>Da dove arrivano i numeri.</h2><p>Report GA4, Search Console e raccolta sul sito sono verificati separatamente. Un identificativo salvato non prova che il monitoraggio funzioni.</p></div>{s && <span className="int-count-pill"><ShieldCheck size={14} /> {s.canManage ? 'Gestione: titolare' : 'Sola consultazione'} · {s.environment === 'production' ? 'produzione' : 'sviluppo'}</span>}</div>
     {flash && <Notice tone={flash.tone}>{flash.text} <button className="int-text-button" onClick={() => setFlash(null)} data-testid="button-dismiss-flash">Chiudi</button></Notice>}
     {settings.isLoading && <><div className="int-skeleton wide" /><div className="int-skeleton" /></>}
     {settings.isError && <Notice tone="error">{errorText(settings.error, 'Impossibile leggere la configurazione del monitoraggio.')} <button className="int-small-button" onClick={() => settings.refetch()} data-testid="button-monitoring-retry"><RefreshCw size={13} /> Riprova</button></Notice>}
@@ -46,6 +47,7 @@ export function MonitoringPanel() {
       <Connection s={s} onChanged={invalidateAll} setFlash={setFlash} />
       <div className="mon-two">{s.services.map(svc => <ServiceCard key={svc.service} svc={svc} s={s} onChanged={invalidateAll} setFlash={setFlash} />)}</div>
       <TagsForm s={s} onChanged={invalidateAll} setFlash={setFlash} />
+      <Collection s={s} onChanged={invalidateAll} setFlash={setFlash} />
       <Discovery s={s} />
     </>}
   </div>;
@@ -114,8 +116,8 @@ function TagsForm({ s, onChanged, setFlash }: { s: MonitoringSettings; onChanged
     save.mutate({ data: sent }, { onSuccess: r => { dirty.current = { measurementId: false, containerId: false }; setFlash({ tone: 'ok', text: r.message || 'Identificativi salvati.' }); onChanged(); }, onError: () => setForm(sent) });
   };
   return <section className="int-panel mon-block" aria-labelledby="mon-tags">
-    <div className="mon-source-head"><div><span className="int-kicker">IDENTIFICATIVI PUBBLICI</span><h3 id="mon-tags">Misurazione sul sito</h3></div><span className="mon-state s-not_configured" data-testid="status-tracking">Tracciamento disattivato</span></div>
-    <p className="mon-copy">Sono codici pubblici, non credenziali. Salvarli registra solo la configurazione: nessuno script viene caricato sul sito. Il contenitore GTM non è una fonte di report.</p>
+    <div className="mon-source-head"><div><span className="int-kicker">IDENTIFICATIVI PUBBLICI</span><h3 id="mon-tags">Misurazione sul sito</h3></div><span className="mon-state s-not_configured">GTM non installato</span></div>
+    <p className="mon-copy">Sono codici pubblici, non credenziali. Salvarli non attiva tag: disabilita la raccolta e richiede una nuova verifica. Unica modalità supportata: GA4 diretto, con consenso; GTM resta solo un identificativo facoltativo, mai caricato.</p>
     <p className="mon-note">Ultimo aggiornamento della configurazione servizi: {fmtDate(s.updatedAt, true)}. Per GTM è verificato solo il formato dell’identificativo; nessun collegamento o controllo dei tag installati è dichiarato riuscito.</p>
     <form className="mon-tags" onSubmit={submit}>
       <label>ID misurazione GA4<input value={form.measurementId} onChange={e => set('measurementId', e.target.value)} disabled={!s.canManage || save.isPending} placeholder="G-XXXXXXX" maxLength={23} aria-invalid={invalid.measurementId} aria-describedby="tag-ga-help" spellCheck={false} autoComplete="off" data-testid="input-measurement-id" /><small id="tag-ga-help">{invalid.measurementId ? 'Formato atteso: G- seguito da 4–20 lettere maiuscole o cifre.' : 'Lasciare vuoto se non usato.'}</small></label>
@@ -123,7 +125,38 @@ function TagsForm({ s, onChanged, setFlash }: { s: MonitoringSettings; onChanged
       {s.canManage && <button className="int-primary" type="submit" disabled={save.isPending || unchanged || invalid.measurementId || invalid.containerId} data-testid="button-save-tags">{save.isPending ? 'Salvataggio…' : 'Salva configurazione'}</button>}
     </form>
     {save.isError && <Notice tone="error">{errorText(save.error, 'Identificativi non salvati. Controllare il formato e riprovare.')}</Notice>}
-    <div className="mon-blockers"><strong>Perché il tracciamento resta spento</strong>{s.trackingBlockers.length ? <ul>{s.trackingBlockers.map(b => <li key={b}>{b}</li>)}</ul> : <p className="mon-note">Nessun motivo indicato dal server; il tracciamento resta comunque disattivato.</p>}</div>
+  </section>;
+}
+
+function Collection({ s, onChanged, setFlash }: { s: MonitoringSettings; onChanged: () => void; setFlash: Flash }) {
+  const save = useSaveMonitoringCollection(), verify = useVerifyMonitoringCollection(), realtime = useVerifyMonitoringRealtime();
+  const c = s.collection;
+  const pending = save.isPending || verify.isPending || realtime.isPending;
+  const success = (result: { message: string }) => { setFlash({ tone: 'info', text: result.message }); onChanged(); };
+  return <section className="int-panel mon-block" aria-labelledby="collection-title">
+    <div className="mon-source-head"><h3 id="collection-title">Raccolta visitatori · GA4 diretto</h3><span className={`mon-state ${s.trackingEnabled ? 's-ready' : 's-not_configured'}`} data-testid="status-tracking">{s.trackingEnabled ? 'Abilitata dopo consenso' : 'Tracciamento disattivato'}</span></div>
+    <p className="mon-copy">{c.status}. La lettura dei report non certifica la ricezione dal nuovo sito. Preview, login, console, demo e revisione sono sempre esclusi, anche dopo navigazione da pagine pubbliche.</p>
+    <dl className="mon-meta">
+      <div><dt>Origine approvata</dt><dd>{c.origin || 'non confermata'}</dd></div>
+      <div><dt>Informativa approvata</dt><dd>{c.privacyUrl || 'non disponibile'} · {c.privacyVersion || 'versione mancante'}</dd></div>
+      <div><dt>Runtime isolato</dt><dd>{c.runtimeOrigin || 'origine dedicata non configurata'} · distinto dal dominio del sito e dalla console</dd></div>
+      <div><dt>Flusso web</dt><dd>{c.stream || 'non verificato'}</dd></div>
+      <div><dt>Verifica flusso, runtime / no automatismi</dt><dd>{fmtDate(c.checkedAt, true)} · validità 24 ore</dd></div>
+      <div><dt>Ultima lettura Realtime</dt><dd>{fmtDate(c.realtimeCheckedAt, true)}</dd></div>
+      <div><dt>Eventi osservati nella proprietà</dt><dd>{fmtDate(c.realtimeReceivedAt, true)} · provenienza dal nuovo sito da confrontare nel provider</dd></div>
+    </dl>
+    <Notice>Collaudo sul dominio finale ancora distinto: annotare test consenziente, ora e percorso in GA4 Realtime/DebugView; ricontrollare report GA4 dopo 24–48 ore e Search Console dopo 2–3 giorni. Nessuno storico Framework360 è stato importato.</Notice>
+    {s.trackingBlockers.length > 0 && <div className="mon-blockers"><strong>Prerequisiti mancanti</strong><ul>{s.trackingBlockers.map(b => <li key={b}>{b}</li>)}</ul></div>}
+    {s.canManage && <div className="mon-actions">
+      <button className="int-small-button" disabled={pending || !s.connected || !c.origin || !c.runtimeOrigin || !s.services.find(v => v.service === 'ga4')?.property} onClick={() => verify.mutate(undefined, { onSuccess: success, onSettled: onChanged })} data-testid="button-verify-stream">Verifica flusso e runtime</button>
+      <button className="int-primary" disabled={pending || s.trackingEnabled || s.trackingBlockers.length > 0} onClick={() => {
+        if (window.confirm(`Abilitare GA4 su ${c.origin}? Solo dopo consenso analytics esplicito. Questo non autorizza pubblicazione o cambio DNS.`)) save.mutate({ data: { enabled: true } }, { onSuccess: success });
+      }} data-testid="button-enable-collection">Abilita raccolta</button>
+      <button className="int-small-button danger" disabled={pending || !c.requested} onClick={() => save.mutate({ data: { enabled: false } }, { onSuccess: success })} data-testid="button-disable-collection">Disattiva raccolta</button>
+      <button className="int-small-button" disabled={pending || !s.trackingEnabled} onClick={() => realtime.mutate(undefined, { onSuccess: success })} data-testid="button-verify-realtime">Leggi Realtime</button>
+    </div>}
+    {(save.isError || verify.isError || realtime.isError) && <Notice tone="error">{errorText(save.error || verify.error || realtime.error, 'Verifica non riuscita. Nessun successo presunto.')}</Notice>}
+    <p className="mon-note">Revoca del visitatore immediata: distrugge il runtime Google e rimuove i cookie analytics controllabili. Stop del titolare entro 60 secondi sulle pagine attive; configurazione non leggibile o scaduta = nessuna raccolta. Clic contatto ≠ richiesta acquisita; invio riuscito solo dopo salvataggio reale.</p>
   </section>;
 }
 

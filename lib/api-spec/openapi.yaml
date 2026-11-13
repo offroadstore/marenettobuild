@@ -17,6 +17,50 @@ tags:
   - name: storage
     description: Private attachment upload and serving.
 paths:
+  /monitoring/public:
+    get:
+      operationId: getPublicMonitoring
+      responses:
+        "200":
+          description: Fail-closed collection configuration, never credentials
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PublicMonitoring" }
+  /internal/monitoring/collection:
+    put:
+      operationId: saveMonitoringCollection
+      tags: [internal]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/MonitoringCollectionInput" }
+      responses:
+        "200":
+          description: Owner-only activation or emergency stop
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MonitoringAction" }
+  /internal/monitoring/collection/verify:
+    post:
+      operationId: verifyMonitoringCollection
+      tags: [internal]
+      responses:
+        "200":
+          description: Check matching web stream and disabled enhanced measurement
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MonitoringAction" }
+  /internal/monitoring/collection/realtime:
+    post:
+      operationId: verifyMonitoringRealtime
+      tags: [internal]
+      responses:
+        "200":
+          description: Dated realtime read, not an end-to-end release approval
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MonitoringAction" }
   /internal/monitoring:
     get:
       operationId: getMonitoring
@@ -115,7 +159,7 @@ paths:
             schema: { $ref: "#/components/schemas/MonitoringTagInput" }
       responses:
         "200":
-          description: Public identifiers only; installation remains disabled
+          description: Public identifiers only; changes disable collection and invalidate its checks
           content:
             application/json:
               schema: { $ref: "#/components/schemas/MonitoringAction" }
@@ -678,6 +722,37 @@ paths:
           description: Attachment not found
 components:
   schemas:
+    MonitoringCollectionInput:
+      type: object
+      additionalProperties: false
+      required: [enabled]
+      properties:
+        enabled: { type: boolean }
+    PublicMonitoring:
+      type: object
+      required: [enabled, origin, runtimeOrigin, measurementId, privacyUrl, privacyVersion, expiresAt]
+      properties:
+        enabled: { type: boolean }
+        origin: { type: string }
+        runtimeOrigin: { type: string, description: "Dedicated HTTPS analytics origin on a different registrable domain; never the site or console origin." }
+        measurementId: { type: string }
+        privacyUrl: { type: string }
+        privacyVersion: { type: string }
+        expiresAt: { type: string }
+    MonitoringCollection:
+      type: object
+      required: [requested, origin, runtimeOrigin, privacyUrl, privacyVersion, stream, checkedAt, realtimeCheckedAt, realtimeReceivedAt, status]
+      properties:
+        requested: { type: boolean }
+        origin: { type: string }
+        runtimeOrigin: { type: string }
+        privacyUrl: { type: string }
+        privacyVersion: { type: string }
+        stream: { type: [string, "null"] }
+        checkedAt: { type: [string, "null"] }
+        realtimeCheckedAt: { type: [string, "null"] }
+        realtimeReceivedAt: { type: [string, "null"] }
+        status: { type: string }
     GoogleReportService:
       type: string
       enum: [ga4, searchConsole]
@@ -731,7 +806,7 @@ components:
         limitations: { type: string }
     MonitoringSettings:
       type: object
-      required: [environment, canManage, oauthConfigured, connected, services, tags, updatedAt, trackingEnabled, trackingBlockers, discovery]
+      required: [environment, canManage, oauthConfigured, connected, services, tags, updatedAt, trackingEnabled, trackingBlockers, collection, discovery]
       properties:
         environment: { type: string, enum: [development, production] }
         canManage: { type: boolean }
@@ -742,7 +817,8 @@ components:
           items: { $ref: "#/components/schemas/MonitoringService" }
         tags: { $ref: "#/components/schemas/MonitoringTagInput" }
         updatedAt: { type: string }
-        trackingEnabled: { type: boolean, const: false }
+        trackingEnabled: { type: boolean }
+        collection: { $ref: "#/components/schemas/MonitoringCollection" }
         trackingBlockers:
           type: array
           items: { type: string }

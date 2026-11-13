@@ -39,7 +39,7 @@ export async function accessToken(expectedRevision?: string): Promise<{ access: 
   });
 }
 export async function setConnection(tx: typeof db, row: MonitoringSettingsRecord, tokens: Tokens) {
-  await tx.update(settings).set({ encryptedTokens: encryptTokens(tokens), revision: randomUUID(), ga4Property: null, searchConsoleProperty: null, checks: {}, updatedAt: new Date() }).where(eq(settings.environment, row.environment));
+  await tx.update(settings).set({ encryptedTokens: encryptTokens(tokens), revision: randomUUID(), ga4Property: null, searchConsoleProperty: null, checks: {}, collectionEnabled: false, collectionCheck: null, updatedAt: new Date() }).where(eq(settings.environment, row.environment));
   await tx.delete(states).where(eq(states.environment, row.environment));
 }
 export async function recordCheck(service: GoogleReportService, revision: string, state: MonitoringState, error: string | null) {
@@ -47,6 +47,7 @@ export async function recordCheck(service: GoogleReportService, revision: string
   const succeeded = ["ready", "empty", "delayed"].includes(state);
   // Atomic JSONB merge avoids losing parallel updates from the other service.
   await db.update(settings).set({
+    ...(service === "ga4" && ["revoked", "forbidden"].includes(state) ? { collectionEnabled: false, collectionCheck: null } : {}),
     checks: sql`jsonb_set(${settings.checks}, ARRAY[${service}], jsonb_build_object(
       'state', ${state}::text, 'checkedAt', ${now}::text,
       'successAt', CASE WHEN ${succeeded} THEN to_jsonb(${now}::text) ELSE COALESCE(${settings.checks}->${service}->'successAt', 'null'::jsonb) END,

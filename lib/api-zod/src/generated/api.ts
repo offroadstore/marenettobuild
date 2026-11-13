@@ -8,6 +8,36 @@
 import * as zod from 'zod';
 
 
+export const GetPublicMonitoringResponse = zod.object({
+  "enabled": zod.boolean(),
+  "origin": zod.string(),
+  "runtimeOrigin": zod.string().describe('Dedicated HTTPS analytics origin on a different registrable domain; never the site or console origin.'),
+  "measurementId": zod.string(),
+  "privacyUrl": zod.string(),
+  "privacyVersion": zod.string(),
+  "expiresAt": zod.string()
+})
+
+
+export const SaveMonitoringCollectionBody = zod.object({
+  "enabled": zod.boolean()
+})
+
+export const SaveMonitoringCollectionResponse = zod.object({
+  "message": zod.string()
+})
+
+
+export const VerifyMonitoringCollectionResponse = zod.object({
+  "message": zod.string()
+})
+
+
+export const VerifyMonitoringRealtimeResponse = zod.object({
+  "message": zod.string()
+})
+
+
 export const getMonitoringResponseTagsMeasurementIdRegExp = new RegExp('^(|G-[A-Z0-9]{4,20})$');
 export const getMonitoringResponseTagsContainerIdRegExp = new RegExp('^(|GTM-[A-Z0-9]{4,20})$');
 
@@ -30,7 +60,19 @@ export const GetMonitoringResponse = zod.object({
   "containerId": zod.string().regex(getMonitoringResponseTagsContainerIdRegExp)
 }),
   "updatedAt": zod.string(),
-  "trackingEnabled": zod.literal(false),
+  "trackingEnabled": zod.boolean(),
+  "collection": zod.object({
+  "requested": zod.boolean(),
+  "origin": zod.string(),
+  "runtimeOrigin": zod.string(),
+  "privacyUrl": zod.string(),
+  "privacyVersion": zod.string(),
+  "stream": zod.string().nullable(),
+  "checkedAt": zod.string().nullable(),
+  "realtimeCheckedAt": zod.string().nullable(),
+  "realtimeReceivedAt": zod.string().nullable(),
+  "status": zod.string()
+}),
   "trackingBlockers": zod.array(zod.string()),
   "discovery": zod.object({
   "url": zod.string(),

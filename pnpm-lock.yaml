@@ -213,6 +213,9 @@ importers:
       sanitize-html:
         specifier: ^2.18.1
         version: 2.18.1
+      tldts:
+        specifier: ^7.4.26
+        version: 7.4.26
     devDependencies:
       '@types/cookie-parser':
         specifier: ^1.4.10
@@ -395,6 +398,9 @@ importers:
       embla-carousel-react:
         specifier: ^8.6.0
         version: 8.6.0(react@19.1.4)
+      esbuild:
+        specifier: 0.28.2
+        version: 0.28.2
       framer-motion:
         specifier: 'catalog:'
         version: 12.43.0(react-dom@19.1.4(react@19.1.4))(react@19.1.4)
@@ -437,6 +443,9 @@ importers:
       tailwindcss:
         specifier: 'catalog:'
         version: 4.3.3
+      tldts:
+        specifier: ^7.4.26
+        version: 7.4.26
       tw-animate-css:
         specifier: ^1.4.0
         version: 1.4.0
@@ -3300,6 +3309,13 @@ packages:
   tinyglobby@0.2.17:
     resolution: {integrity: sha512-wXR/dYpcqKmfWpEdZjiKJOwCNFndD0DMnrW/cYjVGttEkBfVgcLFHoNrlj47mjOVic9yyNu65alsgF4NQyTa2g==}
     engines: {node: '>=12.0.0'}
+
+  tldts-core@7.4.26:
+    resolution: {integrity: sha512-fMNX6ToAFZa2pWrKUd95hhwzx4f6tc+TLtjAstkj6L20FCmbsQ7SCciD3tAJQ/er+SmAlanZ8x0qFkNDZaftIg==}
+
+  tldts@7.4.26:
+    resolution: {integrity: sha512-ImrRMX8xrz7KZKdINMHBTsEWNlPxzI/CdDXEXmV3Fp0jAU31x1ZD4YmrAPGCz325aXYSuBPG5k6v2wRmWbm2QQ==}
+    hasBin: true
 
   to-regex-range@5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
@@ -6217,6 +6233,12 @@ snapshots:
     dependencies:
       fdir: 6.5.0(picomatch@4.0.7)
       picomatch: 4.0.7
+
+  tldts-core@7.4.26: {}
+
+  tldts@7.4.26:
+    dependencies:
+      tldts-core: 7.4.26
 
   to-regex-range@5.0.1:
     dependencies:

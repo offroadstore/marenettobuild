@@ -38,8 +38,13 @@ import { HistoricalContents } from '@/pages/historical';
 import { EditorialRuntime, useActiveEditorial, useEditorialStatus, editorialPathKey } from '@/lib/editorial-runtime';
 import type { EditorialActive } from '@workspace/api-client-react';
 import { usePageMeta } from '@/lib/meta';
+import { AnalyticsPreferences } from '@/components/AnalyticsPreferences';
+import { trackSavedRequest } from '@/lib/analytics/browser';
 
 const queryClient = new QueryClient();
+// Restored historical pages have state "reviewed", not a new publication
+// approval. Their known public paths are measurable; draft/review pages are not.
+const analyticsPublicEditions = editions.filter(e => e.state === 'published' || e.state === 'reviewed');
 
 const clerkPubKey = typeof window === 'undefined' ? undefined : publishableKeyFromHost(window.location.hostname, import.meta.env.VITE_CLERK_PUBLISHABLE_KEY);
 type Lang = string;
@@ -657,7 +662,7 @@ function RequestPage({ lang, editorial = false }: { lang: Lang; editorial?: bool
       preferredChannel: form.preferredChannel, ...(form.budget.trim() ? { budget: form.budget.trim() } : {}), ...(form.desiredPeriod.trim() ? { desiredPeriod: form.desiredPeriod.trim() } : {}),
       needsAccommodation: form.needsAccommodation, needsMobility: form.needsMobility, privacyAccepted: form.privacyAccepted, idempotencyKey: keyRef.current,
     };
-    create.mutate({ data: payload }, { onSuccess: result => { setReceipt({ code: result.code, status: result.status, notificationStatus: result.notificationStatus, isSynthetic: result.isSynthetic }); setReview(false); } });
+    create.mutate({ data: payload }, { onSuccess: result => { trackSavedRequest(result); setReceipt({ code: result.code, status: result.status, notificationStatus: result.notificationStatus, isSynthetic: result.isSynthetic }); setReview(false); } });
   };
   const label = localizeChoice(lang, { group1: 'La richiesta', type: 'Di cosa hai bisogno?', property: 'Tipo di proprietà', service: 'Servizio', location: 'Dove si trova la proprietà?', stage: 'A che punto sei?', message: 'Raccontaci meglio', group2: 'Come ricontattarti', name: 'Nome e cognome', email: 'Email', phone: 'Telefono / WhatsApp', channel: 'Canale preferito', lang: 'Lingua preferita', group3: 'Altri dettagli', budget: 'Budget indicativo (opzionale)', period: 'Periodo desiderato (opzionale)', accom: 'Potresti aver bisogno di un alloggio durante i lavori', mobility: 'Hai esigenze di accessibilità o mobilità da segnalarci', privacy: 'Ho letto e accetto l’informativa privacy per essere ricontattato in merito a questa richiesta.', submit: 'Rivedi la richiesta', sending: 'Invio in corso…', requestType: ['Progetto / lavori', 'Manutenzione', 'Acquisto'], required: 'I campi contrassegnati con * sono necessari. La richiesta non conferma disponibilità o avvio dei lavori.' }, { group1: 'Your enquiry', type: 'What do you need?', property: 'Property type', service: 'Service', location: 'Where is the property?', stage: 'What stage are you at?', message: 'Tell us a little more', group2: 'How to reach you', name: 'Name', email: 'Email', phone: 'Phone / WhatsApp', channel: 'Preferred contact channel', lang: 'Preferred language', group3: 'A few more details', budget: 'Indicative budget (optional)', period: 'Desired timing (optional)', accom: 'You may need accommodation during the work', mobility: 'You have accessibility or mobility needs to let us know about', privacy: 'I have read and accept the privacy notice so I can be contacted about this enquiry.', submit: 'Review your enquiry', sending: 'Sending…', requestType: ['Project / building work', 'Maintenance', 'Purchase'], required: 'Fields marked * are required. Sending an enquiry does not confirm availability or a start date.' });
   const requestTypes: ProjectRequestInput['requestType'][] = ['project', 'maintenance', 'purchase'];
@@ -1077,7 +1082,7 @@ function App({ ssrPath, editorialActive }: { ssrPath?: string; editorialActive?:
   useEffect(() => { document.documentElement.dataset.hydrated = 'true'; setHydrated(true); }, []);
   const pathname = ssrPath ?? window.location.pathname;
   const needsAuth = /^\/(internal|sign-in|sign-up)(\/|$)/.test(pathname.slice(basePath.length));
-  return <QueryClientProvider client={queryClient}><TooltipProvider><EditorialRuntime initial={editorialActive}><WouterRouter base={basePath} ssrPath={ssrPath}>{needsAuth && clerkPubKey ? <ClerkProviderWithRoutes /> : <Router />}<Toaster /></WouterRouter></EditorialRuntime></TooltipProvider></QueryClientProvider>;
+  return <QueryClientProvider client={queryClient}><TooltipProvider><EditorialRuntime initial={editorialActive}><WouterRouter base={basePath} ssrPath={ssrPath}>{needsAuth && clerkPubKey ? <ClerkProviderWithRoutes /> : <Router />}<AnalyticsPreferences publicEditions={analyticsPublicEditions} /><Toaster /></WouterRouter></EditorialRuntime></TooltipProvider></QueryClientProvider>;
 }
 
 function SignInPage() {

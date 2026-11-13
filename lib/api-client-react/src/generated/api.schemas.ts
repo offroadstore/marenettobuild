@@ -5,6 +5,38 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+export interface MonitoringCollectionInput {
+  enabled: boolean;
+}
+
+export interface PublicMonitoring {
+  enabled: boolean;
+  origin: string;
+  /** Dedicated HTTPS analytics origin on a different registrable domain; never the site or console origin. */
+  runtimeOrigin: string;
+  measurementId: string;
+  privacyUrl: string;
+  privacyVersion: string;
+  expiresAt: string;
+}
+
+export interface MonitoringCollection {
+  requested: boolean;
+  origin: string;
+  runtimeOrigin: string;
+  privacyUrl: string;
+  privacyVersion: string;
+  /** @nullable */
+  stream: string | null;
+  /** @nullable */
+  checkedAt: string | null;
+  /** @nullable */
+  realtimeCheckedAt: string | null;
+  /** @nullable */
+  realtimeReceivedAt: string | null;
+  status: string;
+}
+
 export type GoogleReportService = typeof GoogleReportService[keyof typeof GoogleReportService];
 
 
@@ -92,7 +124,8 @@ export interface MonitoringSettings {
   services: MonitoringService[];
   tags: MonitoringTagInput;
   updatedAt: string;
-  trackingEnabled: false;
+  trackingEnabled: boolean;
+  collection: MonitoringCollection;
   trackingBlockers: string[];
   discovery: MonitoringDiscovery;
 }
