@@ -476,3 +476,17 @@ mtime_ms = 1794585668312
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/09fc89ae-1d39-4d77-9533-5bfc3e223f9a/054ade44-996f-41dd-a3a5-e82ff308f7dc"
 storage_version_token = "1794585806612985"
 content_type = "text/html"
+
+[[outputs]]
+id = "y84YKqhdbOWsuzNy9DFYo"
+uri = "file://generated-artifacts/category-redesign/confronto-categorie.html"
+type = "html"
+title = "Categorie Marenetto Build — prima e dopo"
+description = "Confronti a pagina intera desktop/mobile, General Contractor, griglia articoli e controlli homepage/articolo. Baseline ricostruita dal componente precedente."
+logical_id = "5f4f3596-0d2c-4aad-bab8-917ec53b1bd0"
+content_hash = "sha256:011c5faea4be6d123c2aa8349aa5bff62ea23306daca88d0b7d19648556b28c1"
+size = 5749005
+mtime_ms = 1794826414800
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/5f4f3596-0d2c-4aad-bab8-917ec53b1bd0/14fcb5b1-69b9-440c-a1ad-b838078aa4bc"
+storage_version_token = "1794826429778594"
+content_type = "text/html"

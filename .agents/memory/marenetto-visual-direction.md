@@ -58,3 +58,16 @@ the photographic homepage, rather than labels on each picture.
 
 **How to apply:** Apply only to known illustrative AI imagery; when authorised
 real photographs replace it, remove the corresponding group disclosure.
+
+Visual comparison baselines must prove that they show the requested route,
+not merely that rendering succeeded. Identify reconstructed baselines as such,
+rather than presenting them as the user's original screenshot.
+
+**Why:** A baseline generator retained an already-rendered homepage template even
+though the requested component body was correct. Unrelated “before” images
+became identical without throwing; checking only the intermediate render missed
+the error.
+
+**How to apply:** Match the release SSR environment for reconstructed baselines,
+assert each final HTML document's actual heading, and use identical viewports
+for before/after.

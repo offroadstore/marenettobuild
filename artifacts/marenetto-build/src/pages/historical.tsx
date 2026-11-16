@@ -3,6 +3,8 @@ import { historicalDocument, type HistoricalPage } from '@/content/historical';
 import { HeroPhoto } from '@/components/home/Media';
 import { HistoricalHomeSections } from '@/components/home/HistoricalHomeSections';
 import { extractHistoricalHome } from '@/content/historical-home';
+import { extractHistoricalCategory, isCategoryFamily } from '@/content/historical-category';
+import { HistoricalCategoryView } from '@/components/historical/HistoricalCategory';
 import { editionByPath } from '@/localization/edition-inventory';
 import { updateStructuredData } from '@/lib/structured-data';
 import pendingMessages from '@/content/pending-content.json';
@@ -65,6 +67,11 @@ export function HistoricalContents({ page, actions }: { page: HistoricalPage; ac
       <h1 className="mbh-h1">{page.h1}</h1><div data-preserved-ui="">{actions}</div>
     </div></HeroPhoto></section>{' '}
     {homeData && <HistoricalHomeSections home={homeData} />}
+  </div>;
+  const categoryData = page.kind !== 'article' && isCategoryFamily(page.family) ? extractHistoricalCategory(document.html) : null;
+  if (categoryData) return <div data-historical-body="" data-historical-category={page.family} data-editorial-state={page.state === 'awaiting-confirmation' ? 'review-pending' : undefined} data-correction-state={page.editorialCorrection ? page.locale === 'it' ? 'owner-authorized-preview' : 'translation-draft' : undefined} lang={page.contentLanguage} onClick={preserveCampaign}>
+    {page.locale !== 'it' && page.contentLanguage === 'it' && <div className="mb-cat-note container"><p lang={page.locale} data-source-language="it">{sourceLanguageLabels[page.locale] ?? 'Testo in italiano'}</p></div>}
+    <HistoricalCategoryView data={categoryData} h1={page.h1} currentKey={page.key} />
   </div>;
   return <section className="section"><div className="container">
     {page.kind === 'article' && <><h1 className="display-title">{page.h1}</h1>{document.dateLabel ? <span>{document.dateLabel}</span> : document.publishedOn && <time dateTime={document.publishedOn}>{document.publishedOn.slice(0, 10)}</time>}{document.image && <figure><img className="historical-cover" src={document.image} alt={document.imageAlt} loading="eager" />{document.imageCaption && <figcaption>{document.imageCaption}</figcaption>}</figure>}</>}

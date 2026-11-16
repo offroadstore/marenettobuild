@@ -1,0 +1,17 @@
+import { readFile, writeFile } from 'node:fs/promises';
+import path from 'node:path';
+
+const output = path.resolve(import.meta.dirname, '../../../generated-artifacts/category-redesign');
+const image = async (file, label) => `<figure><figcaption>${label}</figcaption><img alt="${label}" src="data:image/jpeg;base64,${(await readFile(path.join(output, file))).toString('base64')}" loading="lazy"></figure>`;
+const sections = [];
+for (const [name, title] of [['general-contractor', 'General Contractor — /general-contractor/'], ['home', 'Homepage — controllo delle pagine escluse'], ['article', 'Articolo — controllo delle pagine escluse']]) {
+  for (const width of [1440, 390]) {
+    sections.push(`<section><h2>${title}</h2><p>Viewport ${width} × 900 pixel CSS. Pagina intera; le altezze dipendono dal contenuto.</p><div class="pair">${await image(`${name}-${width}-before.jpg`, 'Prima — composizione precedente')}${await image(`${name}-${width}-after.jpg`, 'Dopo — build di rilascio')}</div></section>`);
+  }
+}
+for (const width of [1440, 390]) {
+  sections.push(`<section><h2>Categoria con più articoli — Edilizia e Ristrutturazioni</h2><p>Viewport ${width} × 900 pixel CSS. Pagina intera.</p>${await image(`edilizia-e-ristrutturazioni-${width}-after.jpg`, 'Griglia con sette articoli originali')}</section>`);
+}
+const html = `<!doctype html><html lang="it"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Marenetto Build — confronto categorie</title><style>*{box-sizing:border-box}body{margin:0;background:#f7f2e8;color:#25211d;font:16px/1.6 system-ui,sans-serif}header,main{max-width:1500px;padding:24px;margin:auto}h1{font-size:clamp(28px,4vw,44px);line-height:1.2}h2{font-size:24px}section{padding:24px 0;border-top:1px solid #d5c5af}.pair{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}figure{margin:0;min-width:0}figcaption{font-weight:600;color:#7a3f24;margin-bottom:10px}img{display:block;width:100%;height:auto;border:1px solid #e2d7c4}p{max-width:100ch}@media(max-width:700px){.pair{grid-template-columns:1fr}}</style><header><p>Solo anteprima · Nessuna pubblicazione</p><h1>Le categorie, prima e dopo</h1><p>Le sei famiglie editoriali sono state ricomposte in 54 edizioni linguistiche, mantenendo testi, ordine, URL e fotografie storiche. General Contractor ha un solo risultato; Edilizia e Ristrutturazioni ne ha sette. Due categorie mantengono il messaggio originale di assenza di contenuti.</p><p><strong>Metodo:</strong> il “prima” è una nuova resa SSR del componente precedente alla modifica, recuperato da Git, senza cambiare il progetto attivo. Usa gli stessi cataloghi, immagini locali e stili di rilascio; i nuovi stili sono circoscritti esclusivamente alla nuova struttura delle categorie. Non è lo screenshot originale dell’utente. Il “dopo” è acquisito dal build di rilascio con JavaScript disabilitato: l’impaginazione non richiede hydration. Homepage e articolo sono confrontati alle stesse viewport per verificare l’assenza di modifiche globali.</p><p>Le immagini storiche illustrative non costituiscono prova di lavori eseguiti. Le regole editoriali, le note sulle immagini e l’esclusione dall’indicizzazione restano invariate.</p></header><main>${sections.join('')}</main></html>`;
+await writeFile(path.join(output, 'confronto-categorie.html'), html);
+console.log('generated-artifacts/category-redesign/confronto-categorie.html');
