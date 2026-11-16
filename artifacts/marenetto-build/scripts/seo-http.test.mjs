@@ -1,18 +1,16 @@
 import assert from 'node:assert/strict';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
-import { spawn } from 'node:child_process';
 import { test } from 'node:test';
 import path from 'node:path';
+import { editorialTopology } from './test-support/editorial-topology.mjs';
 
 const root = path.resolve(import.meta.dirname, '..');
 const reportDir = path.resolve(root, '../../generated-artifacts/seo-audit');
 const manifest = JSON.parse(await readFile(path.join(root, 'dist/public/route-manifest.json'), 'utf8'));
-const port = 4196;
-const origin = `http://127.0.0.1:${port}`;
 test('real HTTP delivery: every edition, redirects, errors, indexing and canonical', { timeout: 120000 }, async () => {
-  const child = spawn(process.execPath, ['scripts/serve-seo.mjs'], { cwd: root, env: { ...process.env, PORT: String(port) }, stdio: ['ignore', 'pipe', 'inherit'] });
+  const topology = await editorialTopology({ viaProxy: true });
+  const { origin } = topology;
   try {
-    await new Promise((resolve, reject) => { child.stdout.once('data', resolve); child.once('error', reject); child.once('exit', code => { if (code) reject(new Error(`Handler failed: ${code}`)); }); });
     const results = [];
     for (const pathname of Object.keys(manifest.pages)) {
       const response = await fetch(`${origin}${pathname}`);
@@ -101,5 +99,5 @@ test('real HTTP delivery: every edition, redirects, errors, indexing and canonic
     assert.equal(malformed.status, 400, 'malformed percent encoding is a client error, not a hidden server failure');
     await mkdir(reportDir, { recursive: true });
     await writeFile(path.join(reportDir, 'http-results.json'), JSON.stringify({ pagesChecked: results.length, redirectsChecked: Object.keys(manifest.redirects).length, errorsChecked: 5, results }, null, 2));
-  } finally { child.kill('SIGTERM'); }
+  } finally { await topology.close(); }
 });

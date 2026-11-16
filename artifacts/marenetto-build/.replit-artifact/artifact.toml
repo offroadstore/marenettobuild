@@ -23,6 +23,12 @@ args = ["node", "artifacts/marenetto-build/scripts/serve-seo.mjs"]
 [services.production.run.env]
 PORT = "19698"
 NODE_ENV = "production"
+# Same-revision API listener declared by artifacts/api-server; not the
+# deployment proxy's dynamically assigned port or the public deployment URL.
+EDITORIAL_API_ORIGIN = "http://127.0.0.1:8080"
+
+[services.production.health.startup]
+path = "/"
 
 [services.env]
 PORT = "19698"

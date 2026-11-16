@@ -11,3 +11,4 @@
 - [Cefalù panorama](cefalu-panorama.md) — Duomo is inland below La Rocca; correct locally without changing the approved foreground or treating references as reusable assets.
 - [Monitoring consent boundary](monitoring-consent-boundary.md) — Owner authorized configuring monitoring; report access and visitor tracking consent remain separate.
 - [Isolated pnpm test bundles](isolated-pnpm-test-bundles.md) — Resolve virtual test-module imports from their owning package, not a symlink path.
+- [Same-revision readiness](same-revision-readiness.md) — Startup editorial checks must reach this deployment, not its public domain or an assumed proxy mapping.
