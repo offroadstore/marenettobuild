@@ -71,3 +71,14 @@ the error.
 **How to apply:** Match the release SSR environment for reconstructed baselines,
 assert each final HTML document's actual heading, and use identical viewports
 for before/after.
+
+The public language picker must show native language names with optional flag
+hints, not editorial states such as “Originale storico recuperato” or
+“Traduzione da approvare”. Removing those labels does not approve translations.
+
+**Why:** The owner found internal editorial wording confusing in the public menu,
+and explicitly asked to verify browser-language suggestions during this work.
+
+**How to apply:** Keep editorial approval in owner-facing controls. Verify that
+browser-language suggestions reach the actual home route, including recovered
+pages, respect explicit choices and URLs, and never infer nationality.

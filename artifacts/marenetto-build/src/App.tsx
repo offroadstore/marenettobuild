@@ -1,6 +1,6 @@
 import { type AnchorHTMLAttributes, type FormEvent, type ReactNode, useEffect, useRef, useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ArrowRight, ChevronDown, House, Mail, MapPin, Menu, MessageCircle, Phone, X } from 'lucide-react';
+import { ArrowRight, Check, ChevronDown, House, Mail, MapPin, Menu, MessageCircle, Phone, X } from 'lucide-react';
 import { useCreateProjectRequest, type ProjectRequestInput } from '@workspace/api-client-react';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
@@ -31,7 +31,8 @@ import { chooseLanguage, isAutomaticVisitor, readSavedLanguage, saveLanguageChoi
 import { getLocale, getLocaleDirection, LANGUAGE_CHOICES, LOCALES, PAGE_KEYS, PUBLISHED_LOCALES } from '@/localization/locales';
 import { getLocalizedCopy, isLocaleCatalogLoaded, loadLocaleCatalog, localizeChoice, localizeNode, translateText } from '@/localization/runtime';
 import { isTranslationReviewMode, setTranslationReviewMode } from '@/localization/runtime';
-import { editions, editionByPath, editionDisplayStatus, reviewPathForEdition, canonicalEdition, equivalentEditions, getEdition, redirects } from '@/localization/edition-inventory';
+import { editions, editionByPath, reviewPathForEdition, canonicalEdition, equivalentEditions, getEdition, redirects } from '@/localization/edition-inventory';
+import { languageFlag } from '@/localization/language-flags';
 import { updateStructuredData } from '@/lib/structured-data';
 import { historicalPage, historicalPending, historicalArticleForPreview, historicalLoaded, loadHistorical, historicalNavigation, type HistoricalPage as HistoricalPageRecord } from '@/content/historical';
 import { HistoricalContents } from '@/pages/historical';
@@ -333,7 +334,7 @@ function Header({ lang, page, articleSlug, editionId }: { lang: Lang; page: Page
       </nav>
       <div className="nav-actions">
         <div className="language-picker">
-          <button ref={langButtonRef} type="button" className="lang-switch" aria-label={getLocale(lang)?.nativeName ?? lang} aria-expanded={languageMenuOpen} aria-haspopup="menu" onClick={() => { setMenuOpen(false); setLanguageMenuOpen(open => !open); }} data-testid="link-language">{lang.toUpperCase()} <ChevronDown size={12} /></button>
+          <button ref={langButtonRef} type="button" className="lang-switch" aria-label={getLocale(lang)?.nativeName ?? lang} aria-expanded={languageMenuOpen} aria-haspopup="menu" onClick={() => { setMenuOpen(false); setLanguageMenuOpen(open => !open); }} data-testid="link-language"><span className="language-flag" aria-hidden="true">{languageFlag(lang)}</span>{lang.toUpperCase()} <ChevronDown size={12} /></button>
           {languageMenuOpen && <div ref={languageMenuRef} className="language-menu" role="menu" onKeyDown={event => {
             const keys = ['ArrowDown', 'ArrowUp', 'Home', 'End'];
             if (!keys.includes(event.key)) return;
@@ -347,8 +348,7 @@ function Header({ lang, page, articleSlug, editionId }: { lang: Lang; page: Page
           }}>{LOCALES.map(locale => {
             const edition = getEdition(locale.code, editionId ?? articleSlug ?? page);
             if (!edition) return null;
-            const statusLabel = editionDisplayStatus(edition);
-            return <Link key={locale.code} href={withCampaignParams(edition.path)} role="menuitem" lang={locale.code} dir={locale.direction} aria-label={locale.nativeName} aria-describedby={statusLabel ? `edition-state-${locale.code}` : undefined} aria-current={locale.code === lang ? 'true' : undefined} data-edition-state={edition.state} onClick={() => { saveLanguageChoice(locale.code); setLanguageMenuOpen(false); }}>{locale.nativeName}{statusLabel && <small id={`edition-state-${locale.code}`} lang="it" dir="ltr"> · {statusLabel}</small>}</Link>;
+            return <Link key={locale.code} href={withCampaignParams(edition.path)} role="menuitem" lang={locale.code} aria-label={locale.nativeName} aria-current={locale.code === lang ? 'true' : undefined} onClick={() => { saveLanguageChoice(locale.code); setLanguageMenuOpen(false); }}><span className="language-flag" aria-hidden="true">{languageFlag(locale.code)}</span><span className="language-name" dir={locale.direction}>{locale.nativeName}</span>{locale.code === lang && <Check size={15} aria-hidden="true" className="language-selected" />}</Link>;
           })}</div>}
         </div>
         <PageLink page="request" lang={lang} className={`button${page === 'request' ? ' is-quiet' : ''}`} data-testid="nav-request">{requestLabel}<ArrowRight size={14} /></PageLink>
@@ -984,17 +984,27 @@ function Router() {
   </Switch><span style={{ display: 'none' }} aria-hidden="true">{lang}{page}</span></RoutedErrorBoundary>;
 }
 
-// First entry on the Italian home: send visitors to their browser language (or saved choice).
-function HomeEntry() {
+// Suggest, never force, a language on the root home, including recovered editions.
+function BrowserLanguageSuggestion() {
+  const [path] = useLocation();
+  const editorialStatus = useEditorialStatus();
   const [suggested, setSuggested] = useState<string | null>(null);
   useEffect(() => {
-    const code = chooseLanguage(navigator.languages?.length ? navigator.languages : [navigator.language], readSavedLanguage(), LOCALES.map(locale => locale.code));
+    setSuggested(null);
+    if (path !== '/' || editorialStatus !== 'verified' || isAutomaticVisitor(navigator.userAgent)) return;
+    const available = LOCALES.filter(locale => getEdition(locale.code, 'home')).map(locale => locale.code);
+    const code = chooseLanguage(navigator.languages?.length ? navigator.languages : [navigator.language], readSavedLanguage(), available);
     if (code !== 'it') setSuggested(code);
-  }, []);
-  return <>{suggested && <aside className="language-suggestion" aria-label="Lingua">
+  }, [path, editorialStatus]);
+  if (path !== '/' || editorialStatus !== 'verified') return null;
+  return suggested && <aside className="language-suggestion" aria-label="Lingua" data-testid="language-suggestion">
     <a href={withCampaignParams(`${routes[suggested].home}${window.location.hash}`)} lang={suggested} onClick={() => saveLanguageChoice(suggested)}>{getLocale(suggested)?.nativeName}</a>
     <button type="button" onClick={() => { saveLanguageChoice('it'); setSuggested(null); }}>Continua in italiano</button>
-  </aside>}<LocalizedSitePage page="home" lang="it" /></>;
+  </aside>;
+}
+
+function HomeEntry() {
+  return <LocalizedSitePage page="home" lang="it" />;
 }
 
 function useHashFragmentNavigation(path: string) {
@@ -1082,7 +1092,7 @@ function App({ ssrPath, editorialActive }: { ssrPath?: string; editorialActive?:
   useEffect(() => { document.documentElement.dataset.hydrated = 'true'; setHydrated(true); }, []);
   const pathname = ssrPath ?? window.location.pathname;
   const needsAuth = /^\/(internal|sign-in|sign-up)(\/|$)/.test(pathname.slice(basePath.length));
-  return <QueryClientProvider client={queryClient}><TooltipProvider><EditorialRuntime initial={editorialActive}><WouterRouter base={basePath} ssrPath={ssrPath}>{needsAuth && clerkPubKey ? <ClerkProviderWithRoutes /> : <Router />}<AnalyticsPreferences publicEditions={analyticsPublicEditions} /><Toaster /></WouterRouter></EditorialRuntime></TooltipProvider></QueryClientProvider>;
+  return <QueryClientProvider client={queryClient}><TooltipProvider><EditorialRuntime initial={editorialActive}><WouterRouter base={basePath} ssrPath={ssrPath}><BrowserLanguageSuggestion />{needsAuth && clerkPubKey ? <ClerkProviderWithRoutes /> : <Router />}<AnalyticsPreferences publicEditions={analyticsPublicEditions} /><Toaster /></WouterRouter></EditorialRuntime></TooltipProvider></QueryClientProvider>;
 }
 
 function SignInPage() {

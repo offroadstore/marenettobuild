@@ -6,7 +6,7 @@
 @plugin "@tailwindcss/typography";
 
 /* Advisory only: URL and explicit language choice always remain authoritative. */
-.language-suggestion { position: relative; z-index: 60; display: flex; justify-content: center; gap: 1.5rem; padding: .5rem 1rem; background: #f8f6f0; color: #25302a; font-size: .8rem; }
+.language-suggestion { position: relative; z-index: 60; display: flex; flex-wrap:wrap; justify-content: center; gap: .5rem 1.5rem; padding: .65rem 1rem; background: #f8f6f0; color: #25302a; font-size: .85rem; }
 .language-suggestion a, .language-suggestion button { text-decoration: underline; }
 .site-shell a[href^="tel:"], .site-shell a[href^="mailto:"], .site-shell .footer-phone-row { direction: ltr; unicode-bidi: isolate; }
 
@@ -144,9 +144,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .nav-actions { display: flex; align-items: center; gap: 16px; }
 .language-picker { position: relative; }
 .lang-switch { display:flex; align-items:center; gap:5px; border: 0; background: transparent; font-weight: 700; font-size: 11px; letter-spacing: .08em; cursor: pointer; padding: 10px 4px; }
-.language-menu { position:absolute; z-index:20; inset-block-start:calc(100% + 10px); inset-inline-end:0; display:flex; flex-direction:column; min-width:190px; max-height:min(65vh,480px); overflow-y:auto; padding:6px; background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow); }
-.language-menu a { padding:9px 11px; font-size:12px; }
-.language-menu a:hover, .language-menu a[aria-current="true"] { background:var(--stone); color:var(--copper); }
+.language-menu { position:absolute; z-index:20; inset-block-start:calc(100% + 10px); inset-inline-end:0; display:flex; flex-direction:column; width:230px; max-width:calc(100vw - 32px); max-height:min(65vh,480px); overflow-y:auto; overscroll-behavior:contain; padding:6px; background:var(--paper); border:1px solid var(--line); border-radius:8px; box-shadow:var(--shadow); }
+.language-menu a { display:flex; align-items:center; gap:10px; min-height:44px; padding:9px 11px; font-size:14px; line-height:1.4; border-radius:4px; }
+.language-menu a:hover, .language-menu a:focus-visible, .language-menu a[aria-current="true"] { background:var(--stone); color:var(--ink); }
+.language-menu a:focus-visible { outline:2px solid var(--ink); outline-offset:-2px; }
+.language-flag { font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif; font-size:18px; line-height:1; flex-shrink:0; }
+.language-name { flex:1; text-align:start; }
+.language-selected { flex-shrink:0; }
 .locale-loading, .locale-load-error { display:grid; min-height:100vh; place-items:center; padding:24px; text-align:center; color:var(--ink); }
 .locale-load-error { color:#8b3827; }
 .menu-toggle { display: none; border: 1px solid var(--line); background: transparent; border-radius: 50%; width: 42px; height: 42px; align-items: center; justify-content: center; cursor: pointer; }
