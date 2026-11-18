@@ -397,7 +397,7 @@ function Footer({ lang }: { lang: Lang }) {
         </div></div>
       </div>
       <IllustrationNote lang={lang} />
-      <div className="footer-bottom"><span lang="it">© {new Date().getFullYear()} Marenetto Build · Dati societari in attesa di conferma.</span><span>{it ? 'Cefalù · Sicilia' : 'Cefalù · Sicily'}</span><Link href={withCampaignParams(routes[it ? 'en' : 'it'].home)} onClick={() => saveLanguageChoice(it ? 'en' : 'it')}>{it ? 'English' : 'Italiano'} <ArrowRight size={12} /></Link></div>
+      <div className="footer-bottom"><span lang="it">© {new Date().getFullYear()} Marenetto S.r.l. unipersonale · P.IVA IT06471740826 · SS 113, 73b, 90015 Cefalù (PA)</span><span>{it ? 'Cefalù · Sicilia' : 'Cefalù · Sicily'}</span><Link href={withCampaignParams(routes[it ? 'en' : 'it'].home)} onClick={() => saveLanguageChoice(it ? 'en' : 'it')}>{it ? 'English' : 'Italiano'} <ArrowRight size={12} /></Link></div>
     </div>
   </footer></>);
 }

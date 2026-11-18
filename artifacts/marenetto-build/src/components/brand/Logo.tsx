@@ -1,31 +1,34 @@
 import '@/styles/brand.css';
 
-/** Diagonal M monogram adapted from the supplied banner; font independent. Not used for the site header. */
+/*
+ * Marenetto Build logo, approved by the owner on 18 November 2026.
+ * Monogram (viewBox -2 -6 106 106, stroke 12, miter joins, butt caps):
+ *   copper stroke  M50 50 L86 14 V64  — the roof pitch, drawn first
+ *   carbon stroke  M14 94 V14 L90 90  — post and diagonal brace, drawn on top
+ * Wordmark: MARENETTO in Archivo Expanded 700, with the copper BUILD band below.
+ * Colours: carbon #1E1D1B, copper #B5623A, lime white #F4F0E8.
+ * All sizes derive from --logo-h (the rendered height of the monogram).
+ */
+
+const ROOF = 'M50 50 L86 14 V64';
+const FRAME = 'M14 94 V14 L90 90';
+
 export function LogoMark({ size = 40, className }: { size?: number; className?: string }) {
-  return <svg className={className} width={size} height={size} viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-    <g fill="none" stroke="currentColor" strokeWidth="4.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M5 4 43 43M5 37V13l17 16M28 16 43 3v29" />
-    </g>
+  return <svg className={className} width={size} height={size} viewBox="-2 -6 106 106" aria-hidden="true" focusable="false">
+    <path d={ROOF} fill="none" stroke="#B5623A" strokeWidth="12" strokeLinejoin="miter" strokeLinecap="butt" />
+    <path d={FRAME} fill="none" stroke="currentColor" strokeWidth="12" strokeLinejoin="miter" strokeLinecap="butt" />
   </svg>;
 }
 
-const SRC = `${import.meta.env.BASE_URL}brand/current-logo.png`;
-
-/**
- * Hybrid logo chosen by the owner: the thin historical M and the spaced MARENETTO are the
- * unmodified historical raster (public/brand/current-logo.png, 1536x560), shown through two
- * CSS crop windows; BUILD.COM sits below the name in a bar, as in public/brand/design-reference.png.
- * Neither original file is altered and nothing is redrawn. Source coordinates (px in the PNG):
- *   M monogram  x 260-451, y 181-374  (191x193)
- *   MARENETTO   x 510-1307, y 246-322 (797x76)
- * All sizes derive from --logo-h (rendered height of the M).
- */
 export function Logo({ variant = 'light' }: { variant?: 'light' | 'dark' }) {
   return <span className={`mb-logo mb-logo--${variant}`} dir="ltr">
-    <span className="mb-logo__crop mb-logo__crop--m"><img src={SRC} alt="" width={1536} height={560} decoding="async" /></span>
-    <span className="mb-logo__stack">
-      <span className="mb-logo__crop mb-logo__crop--name"><img src={SRC} alt="" width={1536} height={560} decoding="async" /></span>
-      <span className="mb-logo__bar" aria-hidden="true">BUILD.COM</span>
+    <svg className="mb-logo__mark" viewBox="-2 -6 106 106" aria-hidden="true" focusable="false">
+      <path className="mb-logo__roof" d={ROOF} />
+      <path className="mb-logo__frame" d={FRAME} />
+    </svg>
+    <span className="mb-logo__words" aria-hidden="true">
+      <span className="mb-logo__name">MARENETTO</span>
+      <span className="mb-logo__bar"><span className="mb-logo__build">BUILD</span></span>
     </span>
   </span>;
 }

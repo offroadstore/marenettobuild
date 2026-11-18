@@ -20,11 +20,11 @@ for (const width of [390, 580, 699, 700, 768, 1000, 1100, 1440, 1920]) {
     ] as const) {
       const box = await page.locator(selector).boundingBox();
       expect(box?.height).toBeCloseTo(height, 1);
-      // Source crop proportions: 191px monogram + 40px gap + 797px name,
-      // relative to the 193px monogram height.
-      expect(box?.width).toBeCloseTo(height * 1028 / 193, 1);
-      await expect(page.locator(`${selector} .mb-logo__bar`)).toHaveCSS('background-color', 'rgb(36, 70, 86)');
-      await expect(page.locator(`${selector} img`).first()).toHaveAttribute('src', /brand\/current-logo\.png$/);
+      // Vector logo approved on 18 Nov 2026: monogram + MARENETTO + copper BUILD band.
+      expect(box?.width).toBeGreaterThan(height * 3);
+      await expect(page.locator(`${selector} .mb-logo__mark`)).toHaveCount(1);
+      await expect(page.locator(`${selector} .mb-logo__bar`)).toHaveCSS('background-color', 'rgb(181, 98, 58)');
+      await expect(page.locator(`${selector} .mb-logo__name`)).toHaveText('MARENETTO');
     }
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
     await expect(page.locator('.mbh-h1')).toHaveCSS('font-family', /sans/i);
