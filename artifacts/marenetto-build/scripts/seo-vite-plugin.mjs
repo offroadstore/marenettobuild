@@ -25,6 +25,14 @@ export function seoPreviewPlugin() {
             return res.end(req.method === 'HEAD' ? undefined : await readFile(`${server.config.root}/public/${feed}`));
           }
           const module = await server.ssrLoadModule('/src/entry-server.tsx');
+          const blockedLocale = module.blockedPublicLocale(decodeURIComponent(pathname));
+          if (blockedLocale) {
+            const { body } = await module.render(pathname, blockedLocale);
+            const template = await server.transformIndexHtml(pathname, await readFile(`${server.config.root}/index.html`, 'utf8'));
+            const html = renderDocument(template, { edition: { locale: blockedLocale, state: 'draft' }, body, status: 404 });
+            res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-cache' });
+            return res.end(req.method === 'HEAD' ? undefined : html);
+          }
           const active = await readActiveEditorial();
           const live = active.find(e => [e.path,...(e.aliases ?? [])].some(path => key(path) === key(pathname)));
           const dynamicLibrary = module.editions.find(e => key(e.path) === key(pathname) && ['articles','guides','search'].includes(e.id));

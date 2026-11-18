@@ -23,7 +23,8 @@ test('the editorial matrix has 29 unique requested languages', () => {
 
 test('legacy locale records retain their recorded metadata and approvals, not approval of current pages', () => {
   const published = locales.filter(locale => locale.publication === 'published');
-  assert.equal(published.length, 29);
+  // Owner decision 18 Nov 2026: 12 public languages; the other 17 stay as hidden drafts.
+  assert.deepEqual(published.map(locale => locale.code).sort(), ['da', 'de', 'en', 'es', 'fr', 'it', 'nl', 'no', 'pl', 'pt', 'ru', 'sv']);
   const routePaths = [];
   for (const locale of published) {
     assert.equal(locale.copyStatus, 'complete');
@@ -37,7 +38,7 @@ test('legacy locale records retain their recorded metadata and approvals, not ap
       routePaths.push(pages[locale.code][page].path);
     }
   }
-  assert.equal(new Set(routePaths).size, 174);
+  assert.equal(new Set(routePaths).size, 72);
 });
 
 test('legacy reviewed catalogs cover stored keys and SEO fields, not human review of current rendered editions', async () => {
@@ -106,10 +107,23 @@ test('RTL locales have direction and script-specific font assignments', async ()
 test('the build renders complete documents and only includes page-approved equivalents', async () => {
   const sitemap = await readFile(path.join(output, 'sitemap.xml'), 'utf8');
   const manifest = JSON.parse(await readFile(path.join(output, 'route-manifest.json'), 'utf8'));
-  const eligible = Object.values(manifest.editions).filter(edition => edition.state === 'published' && edition.approval && edition.sitemap);
-  assert.equal((sitemap.match(/<url>/g) ?? []).length, eligible.length);
-  assert.equal((sitemap.match(/hreflang="it-IT"/g) ?? []).length, eligible.length);
-  assert.doesNotMatch(sitemap, /hreflang="(?:en|nl|pt|uk|sl|sr)"/);
+  const approved = Object.values(manifest.editions).filter(edition => edition.state === 'published' && edition.approval);
+  const eligible = approved.filter(edition => edition.sitemap);
+  const localeTag = ({ locale }) => locale === 'it' ? 'it-IT' : locale;
+  const fullUrl = edition => new URL(edition.path, manifest.origin).href;
+  const alternatesFor = edition => approved.filter(other => other.id === edition.id);
+  const allowedLocales = new Set(locales.filter(record => record.publication === 'published').map(record => record.code));
+  const records = [...sitemap.matchAll(/<url><loc>([^<]+)<\/loc>(.*?)<\/url>/g)];
+  assert.deepEqual(records.map(match => match[1]).sort(), eligible.map(fullUrl).sort());
+  for (const [, url, links] of records) {
+    const edition = eligible.find(candidate => fullUrl(candidate) === url);
+    assert.ok(allowedLocales.has(edition.locale), url);
+    assert.deepEqual(
+      [...links.matchAll(/hreflang="([^"]+)" href="([^"]+)"/g)].map(([, lang, href]) => [lang, href]).sort(),
+      alternatesFor(edition).map(other => [localeTag(other), fullUrl(other)]).sort(),
+      url,
+    );
+  }
 
   for (const locale of locales.filter(record => record.publication === 'published')) {
     for (const pageKey of requiredPages) {
@@ -125,7 +139,11 @@ test('the build renders complete documents and only includes page-approved equiv
       assert.ok(html.includes('name="description"'));
       if (holding) assert.doesNotMatch(html, /rel="canonical"/);
       else assert.ok(html.includes(`rel="canonical" href="${canonical}"`));
-       assert.equal((html.match(/rel="alternate" hreflang=/g) ?? []).length, !holding && manifest.editions[routePath]?.state === 'published' ? 2 : 0);
+      const edition = manifest.editions[routePath];
+      const alternates = !holding && edition?.state === 'published' ? alternatesFor(edition) : [];
+      const expectedTags = alternates.map(localeTag);
+      if (alternates.some(other => other.locale === 'it')) expectedTags.push('x-default');
+      assert.deepEqual([...html.matchAll(/rel="alternate" hreflang="([^"]+)"/g)].map(match => match[1]).sort(), expectedTags.sort(), routePath);
        assert.match(html, new RegExp(`<html lang="${locale.code === 'it' ? 'it-IT' : locale.code}" dir="ltr"`));
        assert.match(html, new RegExp(`class="site-shell" lang="${locale.code === 'it' ? 'it-IT' : locale.code}" dir="${locale.direction}"`));
        assert.equal((html.match(/<h1(?:\s|>)/g) ?? []).length, 1);
@@ -148,7 +166,7 @@ test('approved translations are present in the production bundle while preview i
 test('preview catalogs cover every source key and stay marked for owner review', async () => {
   const entries = JSON.parse(await readFile(path.join(root, 'src/localization/preview-sources.json'), 'utf8')).entries;
   const ids = Object.keys(entries);
-  assert.equal(ids.length, 441);
+  assert.equal(ids.length, 446);
   const locales = JSON.parse(await readFile(path.join(root, 'src/localization/locales.json'), 'utf8'));
   const codes = (Array.isArray(locales) ? locales : locales.locales).map(l => l.code).filter(c => c !== 'it');
   assert.equal(codes.length, 28);
@@ -171,7 +189,7 @@ test('browser language detection only chooses published locales, honouring prior
   assert.equal(chooseLanguage(['fr-CA', 'en'], null, published), 'fr');
   assert.equal(chooseLanguage(['xx-YY', 'nl-BE', 'en'], null, published), 'nl');
   assert.equal(chooseLanguage(['nb-NO'], null, published), 'no');
-  assert.equal(chooseLanguage(['he-IL'], null, published), 'he');
+  assert.equal(chooseLanguage(['he-IL'], null, published), 'it');
   assert.equal(chooseLanguage(['ja-JP', 'zh-CN'], null, published), 'it');
   assert.equal(chooseLanguage([], null, published), 'it');
   assert.equal(chooseLanguage(['en-US'], 'de', published), 'de');

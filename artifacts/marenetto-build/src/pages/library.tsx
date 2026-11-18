@@ -5,7 +5,7 @@ import { articles, claimLabels, guides, reviewLabels, type Article } from '@/con
 import { withCampaignParams } from '@/lib/campaign';
 import { usePageMeta } from '@/lib/meta';
 import { useLibraryLocale } from '@/localization/library-context';
-import { isTranslationReviewMode } from '@/localization/runtime';
+import { showsTranslatedCopy } from '@/localization/runtime';
 import { historicalPage, historicalArticleForPreview } from '@/content/historical';
 import { useActiveEditorial } from '@/lib/editorial-runtime';
 import { useEditorialArticles } from '@/content/editorial-articles';
@@ -31,8 +31,8 @@ function StatusPill({ a }: { a: Article }) {
 export function ArticleCard({ a, kind = 'archive', index }: { a: Article; kind?: 'archive' | 'guide' | 'search'; index: number }) {
   const { lang, render, articleHref, date: formatDate } = useLibraryLocale();
   const live = useActiveEditorial().find(e => e.locale === lang && e.identity === a.slug && e.revisionId !== 'withdrawn');
-  const original = !live && !isTranslationReviewMode() ? historicalPage(articleHref(a.slug)) ?? historicalArticleForPreview(articleHref(a.slug)) : undefined;
-  const card = <Link href={withCampaignParams(live?.path ?? articleHref(a.slug))} lang={live?.content.contentLanguage ?? (isTranslationReviewMode() ? lang : 'it')} className="lib-card" data-testid={`card-${kind}-${a.slug}`}>
+  const original = !live && !showsTranslatedCopy(lang) ? historicalPage(articleHref(a.slug)) ?? historicalArticleForPreview(articleHref(a.slug)) : undefined;
+  const card = <Link href={withCampaignParams(live?.path ?? articleHref(a.slug))} lang={live?.content.contentLanguage ?? (showsTranslatedCopy(lang) ? lang : 'it')} className="lib-card" data-testid={`card-${kind}-${a.slug}`}>
     <div className="lib-card-media">{a.image && <img src={a.image} alt={a.imageAlt} loading="lazy" />}<span className="lib-card-index">{String(index + 1).padStart(2, '0')}</span></div>
     <div className="lib-card-body">
       <div className="lib-card-meta"><span>{a.category}</span><span>{formatDate(a.publishedOn)}</span></div>
@@ -184,7 +184,7 @@ export function ArticleDetailPage({ a }: { a: Article }) {
     </section>
     <section className="section tight">
       <div className="container article-layout">
-        <article className="article-body" lang={isTranslationReviewMode() ? lang : 'it'} dir={isTranslationReviewMode() && ['ar', 'he'].includes(lang) ? 'rtl' : 'ltr'}>
+        <article className="article-body" lang={showsTranslatedCopy(lang) ? lang : 'it'} dir={showsTranslatedCopy(lang) && ['ar', 'he'].includes(lang) ? 'rtl' : 'ltr'}>
           {a.reviewStatus === 'documentary-review' && a.approvedFullText ? <>
             <div className="review-note" role="note" data-testid="note-review-approved">
               <ShieldAlert size={20} />

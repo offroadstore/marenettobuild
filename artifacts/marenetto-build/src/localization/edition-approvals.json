@@ -139,6 +139,1458 @@
       "approvalEvidence": "Existing Italian documentary review; not professional sign-off",
       "approvalDate": null,
       "origin": "legacy record; no new approval inferred"
+    },
+    "en:home": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:services": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:process": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:abroad": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:request": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:contact": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:articles": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:guides": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:impresa-edile-a-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:cappotto-termico-vs-intonaco-termico-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:gestione-manutenzione-immobile": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:garden-design-esclusivo": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:opere-in-pietra-e-prospetti": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:pavimenti-stampati-in-resina": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:piscine-e-laghetti-zen": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:cucine-in-muratura-luxury": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "en:tecniche-avanzate-gestione-deformazioni-strutture-edili": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:home": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:services": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:process": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:abroad": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:request": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:contact": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:articles": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:guides": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:impresa-edile-a-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:cappotto-termico-vs-intonaco-termico-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:gestione-manutenzione-immobile": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:garden-design-esclusivo": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:opere-in-pietra-e-prospetti": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:pavimenti-stampati-in-resina": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:piscine-e-laghetti-zen": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:cucine-in-muratura-luxury": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "de:tecniche-avanzate-gestione-deformazioni-strutture-edili": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:home": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:services": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:process": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:abroad": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:request": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:contact": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:articles": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:guides": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:impresa-edile-a-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:cappotto-termico-vs-intonaco-termico-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:gestione-manutenzione-immobile": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:garden-design-esclusivo": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:opere-in-pietra-e-prospetti": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:pavimenti-stampati-in-resina": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:piscine-e-laghetti-zen": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:cucine-in-muratura-luxury": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "fr:tecniche-avanzate-gestione-deformazioni-strutture-edili": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:home": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:services": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:process": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:abroad": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:request": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:contact": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:articles": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:guides": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:impresa-edile-a-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:cappotto-termico-vs-intonaco-termico-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:gestione-manutenzione-immobile": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:garden-design-esclusivo": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:opere-in-pietra-e-prospetti": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:pavimenti-stampati-in-resina": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:piscine-e-laghetti-zen": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:cucine-in-muratura-luxury": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "es:tecniche-avanzate-gestione-deformazioni-strutture-edili": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:home": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:services": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:process": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:abroad": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:request": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:contact": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:articles": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:guides": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:impresa-edile-a-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:cappotto-termico-vs-intonaco-termico-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:gestione-manutenzione-immobile": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:garden-design-esclusivo": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:opere-in-pietra-e-prospetti": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:pavimenti-stampati-in-resina": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:piscine-e-laghetti-zen": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:cucine-in-muratura-luxury": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "nl:tecniche-avanzate-gestione-deformazioni-strutture-edili": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:home": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:services": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:process": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:abroad": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:request": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:contact": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:articles": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:guides": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:impresa-edile-a-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:cappotto-termico-vs-intonaco-termico-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:gestione-manutenzione-immobile": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:garden-design-esclusivo": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:opere-in-pietra-e-prospetti": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:pavimenti-stampati-in-resina": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:piscine-e-laghetti-zen": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:cucine-in-muratura-luxury": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pt:tecniche-avanzate-gestione-deformazioni-strutture-edili": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:home": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:services": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:process": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:abroad": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:request": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:contact": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:articles": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:guides": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:impresa-edile-a-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:cappotto-termico-vs-intonaco-termico-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:gestione-manutenzione-immobile": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:garden-design-esclusivo": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:opere-in-pietra-e-prospetti": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:pavimenti-stampati-in-resina": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:piscine-e-laghetti-zen": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:cucine-in-muratura-luxury": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "pl:tecniche-avanzate-gestione-deformazioni-strutture-edili": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:home": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:services": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:process": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:abroad": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:request": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:contact": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:articles": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:guides": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:impresa-edile-a-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:cappotto-termico-vs-intonaco-termico-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:gestione-manutenzione-immobile": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:garden-design-esclusivo": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:opere-in-pietra-e-prospetti": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:pavimenti-stampati-in-resina": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:piscine-e-laghetti-zen": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:cucine-in-muratura-luxury": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "ru:tecniche-avanzate-gestione-deformazioni-strutture-edili": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:home": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:services": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:process": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:abroad": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:request": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:contact": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:articles": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:guides": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:impresa-edile-a-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:cappotto-termico-vs-intonaco-termico-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:gestione-manutenzione-immobile": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:garden-design-esclusivo": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:opere-in-pietra-e-prospetti": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:pavimenti-stampati-in-resina": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:piscine-e-laghetti-zen": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:cucine-in-muratura-luxury": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "sv:tecniche-avanzate-gestione-deformazioni-strutture-edili": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:home": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:services": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:process": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:abroad": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:request": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:contact": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:articles": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:guides": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:impresa-edile-a-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:cappotto-termico-vs-intonaco-termico-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:gestione-manutenzione-immobile": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:garden-design-esclusivo": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:opere-in-pietra-e-prospetti": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:pavimenti-stampati-in-resina": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:piscine-e-laghetti-zen": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:cucine-in-muratura-luxury": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "no:tecniche-avanzate-gestione-deformazioni-strutture-edili": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:home": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:services": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:process": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:abroad": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:request": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:contact": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:articles": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:guides": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:impresa-edile-a-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:cappotto-termico-vs-intonaco-termico-cefalu": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:gestione-manutenzione-immobile": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:garden-design-esclusivo": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:opere-in-pietra-e-prospetti": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:pavimenti-stampati-in-resina": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:piscine-e-laghetti-zen": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:cucine-in-muratura-luxury": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
+    },
+    "da:tecniche-avanzate-gestione-deformazioni-strutture-edili": {
+      "state": "published",
+      "approvalEvidence": "Owner instruction, 18 Nov 2026: publish complete copy in 12 languages. AI translation; no native-speaker review recorded.",
+      "approvalDate": "2026-11-18",
+      "origin": "owner decision recorded via Claude session"
     }
   }
 }

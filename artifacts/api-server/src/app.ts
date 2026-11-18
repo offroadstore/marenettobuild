@@ -34,7 +34,35 @@ app.use(
   }),
 );
 app.use(CLERK_PROXY_PATH, clerkProxyMiddleware());
-app.use(cors({ credentials: true, origin: true }));
+// CORS: only the site's own origins may call the API with credentials.
+// Extra origins can be added with ALLOWED_ORIGINS (comma separated, full https:// origins).
+const allowedOrigins = new Set(
+  [
+    "https://marenettobuild.com",
+    "https://www.marenettobuild.com",
+    ...(process.env.ALLOWED_ORIGINS ?? "").split(","),
+    ...[process.env.REPLIT_DOMAINS, process.env.REPLIT_DEV_DOMAIN]
+      .flatMap((value) => (value ?? "").split(","))
+      .map((domain) => (domain.trim() ? `https://${domain.trim()}` : "")),
+  ]
+    .map((origin) => origin.trim().replace(/\/+$/, ""))
+    .filter(Boolean),
+);
+app.use(
+  cors({
+    credentials: true,
+    origin(origin, callback) {
+      // Same-origin and server-to-server requests carry no Origin header.
+      callback(null, !origin || allowedOrigins.has(origin));
+    },
+  }),
+);
+app.use((_req, res, next) => {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader("X-Frame-Options", "DENY");
+  next();
+});
 app.use(
   clerkMiddleware((req) => ({
     publishableKey: publishableKeyFromHost(

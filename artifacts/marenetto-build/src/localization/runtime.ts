@@ -1,6 +1,7 @@
 import { Children, cloneElement, isValidElement, type ReactNode } from 'react';
 import sourceData from './catalogs/sources.json';
 import { portugueseReviewTerms, serbianCyrillic } from './editorial-conventions';
+import localeRecords from './locales.json';
 
 type ApprovedCatalog = {
   locale: string;
@@ -19,6 +20,11 @@ const missing = new Set<string>();
 const localizedValues: Record<string, Set<string>> = {};
 export function setTranslationReviewMode(value: boolean) { reviewMode = value; }
 export function isTranslationReviewMode() { return reviewMode; }
+// Owner decision, 18 Nov 2026: the complete translated copy is public for the 12 published locales.
+const publicTranslatedLocales = new Set((localeRecords as { code: string; publication: string }[])
+  .filter(record => record.publication === 'published' && record.code !== 'it').map(record => record.code));
+/** True when this locale shows the full translated copy (review mode, or a published locale). */
+export function showsTranslatedCopy(locale: string) { return locale !== 'it' && (reviewMode || publicTranslatedLocales.has(locale)); }
 export function resetTranslationFindings() { missing.clear(); }
 export function translationFindings() { return [...missing].sort(); }
 let previewSourceToId: Record<string, string> = {};
@@ -39,7 +45,7 @@ export function translateText(locale: string, source: string): string {
   const trailing = source.match(/\s*$/)?.[0] ?? '';
   const normalized = normalizeSource(source);
   const previewId = previewSourceToId[normalized];
-  const preview = reviewMode && previewId ? previewCatalogs[locale]?.[previewId] : undefined;
+  const preview = showsTranslatedCopy(locale) && previewId ? previewCatalogs[locale]?.[previewId] : undefined;
   if (preview) return `${leading}${locale === 'sr' ? serbianCyrillic(preview) : locale === 'pt' ? portugueseReviewTerms(preview) : preview}${trailing}`;
   if (locale === 'en') return source;
   const id = sourceToId[normalized];
@@ -50,7 +56,7 @@ export function translateText(locale: string, source: string): string {
 }
 
 export function isLocaleCatalogLoaded(locale: string): boolean {
-  return locale === 'it' || Boolean((!reviewMode || previewCatalogs[locale]) && (locale === 'en' || approvedCatalogs[locale]));
+  return locale === 'it' || Boolean((!showsTranslatedCopy(locale) || previewCatalogs[locale]) && (locale === 'en' || approvedCatalogs[locale]));
 }
 
 export async function loadLocaleCatalog(locale: string): Promise<void> {
@@ -65,7 +71,7 @@ export async function loadLocaleCatalog(locale: string): Promise<void> {
     approvedCatalogs[locale] = catalog.translations;
     localizedValues[locale] = new Set(Object.values(catalog.translations).map(value => normalizeSource(locale === 'sr' ? serbianCyrillic(value) : value)));
   }
-  if (!reviewMode) return;
+  if (!showsTranslatedCopy(locale)) return;
   const previewSources = (await import('./preview-sources.json')).default;
   previewSourceToId = Object.fromEntries(Object.entries(previewSources.entries).map(([id, text]) => [normalizeSource(text), id]));
   const previewLoader = previewLoaders[`./preview/${locale}.json`];

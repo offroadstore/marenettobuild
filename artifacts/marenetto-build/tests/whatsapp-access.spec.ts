@@ -125,11 +125,11 @@ test('a page without a hero still shows the header link', async ({ page }) => {
   expect(d!.y + d!.height).toBeLessThanOrEqual(h!.y + h!.height);
 });
 
-test('English and Arabic labels, one WhatsApp float per page', async ({ page }) => {
+test('English public and Arabic review labels, one WhatsApp float per page', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await openPage(page, '/en/');
   await expect(page.getByTestId('whatsapp-float-link')).toHaveAttribute('aria-label', 'Write to us on WhatsApp');
-  await openPage(page, '/ar/');
+  await openPage(page, '/__localization-review/ar/home');
   await expect(page.getByTestId('whatsapp-float')).toHaveCount(1);
   await expect.poll(async () => (await page.getByTestId('whatsapp-float-link').getAttribute('aria-label')) ?? '').toContain('راسلنا');
   const text = new URL((await page.getByTestId('whatsapp-float-link').getAttribute('href'))!).searchParams.get('text');

@@ -29,7 +29,7 @@ test('real HTTP delivery: every edition, redirects, errors, indexing and canonic
       assert.equal(new Set(alternates.map(a => a.locale)).size, alternates.length, pathname);
       results.push({ path: pathname, status: response.status, h1: true, body: true, canonical, alternates });
     }
-    for (const [pathname, label] of [['/', 'Scrivici su WhatsApp'], ['/en/', 'Write to us on WhatsApp'], ['/ar/', 'راسلنا على واتساب']]) {
+    for (const [pathname, label] of [['/', 'Scrivici su WhatsApp'], ['/en/', 'Write to us on WhatsApp'], ['/__localization-review/ar/home', 'راسلنا على واتساب']]) {
       const html = await (await fetch(`${origin}${pathname}`)).text();
       const widget = [...html.matchAll(/<a\b[^>]*>/g)].map(match => match[0]).find(tag => tag.includes('data-testid="whatsapp-float-link"'));
       assert.ok(widget, `Initial WhatsApp link at ${pathname}`);
@@ -52,7 +52,9 @@ test('real HTTP delivery: every edition, redirects, errors, indexing and canonic
       assert.equal(response.status, 410);
       assert.match(await response.text(), /410/);
     }
-    for (const pathname of ['/random-nonexistent-20261110', '/en/random-invalid', '/content/it/nonexistent']) {
+    const locales = JSON.parse(await readFile(path.join(root, 'src/localization/locales.json'), 'utf8'));
+    const blockedPaths = locales.filter(locale => locale.publication === 'blocked').flatMap(({ code }) => [`/${code}/`, `/${code}/services`, `/content/${code}/test`]);
+    for (const pathname of ['/random-nonexistent-20261110', '/en/random-invalid', '/content/it/nonexistent', ...blockedPaths]) {
       const response = await fetch(`${origin}${pathname}`);
       assert.equal(response.status, 404, pathname);
       assert.doesNotMatch(await response.text(), /rel="canonical"/);
@@ -61,7 +63,13 @@ test('real HTTP delivery: every edition, redirects, errors, indexing and canonic
     const eligible = Object.values(manifest.editions).filter(edition => edition.state === 'published' && edition.approval && edition.sitemap);
     assert.equal((sitemap.match(/<url>/g) ?? []).length, eligible.length);
     assert.doesNotMatch(sitemap, /\/(?:ricerca|search|internal|__localization-review)(?:<|\/)/);
-    assert.doesNotMatch(sitemap, /comprare-e-ristrutturare/); // Exact claims await confirmation, never inherit approval.
+    // The translated replacement can be approved without approving the exact
+    // historical copy. Check the actual held URLs, not a shared article slug.
+    const sitemapUrls = new Set([...sitemap.matchAll(/(?:<loc>|hreflang="[^"]+" href=")([^<"]+)/g)].map(match => match[1]));
+    for (const pathname of Object.keys(manifest.unreviewedArticles ?? {})) {
+      assert.equal(sitemapUrls.has(new URL(pathname, manifest.origin).href), false, pathname);
+      assert.equal(sitemapUrls.has(new URL(`${pathname}/`, manifest.origin).href), false, `${pathname}/`);
+    }
     for (const pathname of Object.keys(manifest.heldPages)) {
       const response = await fetch(`${origin}${pathname}`);
       const html = await response.text();
@@ -89,10 +97,6 @@ test('real HTTP delivery: every edition, redirects, errors, indexing and canonic
       assert.ok(file.endsWith('/index.html'), pathname);
     }
     assert.equal(Object.keys(manifest.unreviewedArticles ?? {}).length, 45, 'all five held article families remain served in all nine historic source locales');
-    const sitemapWithheld = await (await fetch(`${origin}/sitemap.xml`)).text();
-    for (const pathname of Object.keys(manifest.unreviewedArticles ?? {})) {
-      assert.doesNotMatch(sitemapWithheld, new RegExp(pathname.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
-    }
     const robots = await (await fetch(`${origin}/robots.txt`)).text();
     assert.match(robots, /Disallow: \//);
     const malformed = await fetch(`${origin}/%ZZ`);

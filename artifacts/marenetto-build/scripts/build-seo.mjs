@@ -11,14 +11,16 @@ const template = await readFile(path.join(output, 'index.html'), 'utf8');
 process.env.NODE_ENV = 'production';
 const vite = await createServer({ configFile: path.join(root, 'vite.config.ts'), server: { middlewareMode: true }, appType: 'custom' });
 try {
-  const { render, editions, redirects, excludedRoutes, equivalentEditions, canonicalEdition, editionStructuredData, reviewPathForEdition, reviewHubEdition, historicalInventory: originalInventory } = await vite.ssrLoadModule('/src/entry-server.tsx');
+  const { render, editions, redirects: allRedirects, blockedPublicLocale, excludedRoutes, equivalentEditions, canonicalEdition, editionStructuredData, reviewPathForEdition, reviewHubEdition, historicalInventory: originalInventory } = await vite.ssrLoadModule('/src/entry-server.tsx');
+  const redirects = Object.fromEntries(Object.entries(allRedirects).filter(([source, target]) => !blockedPublicLocale(source) && !blockedPublicLocale(target)));
+  const publicEditions = editions.filter(edition => !blockedPublicLocale(edition.path));
   const matrix = [];
-  const heldOriginals = originalInventory.filter(page => page.state === 'awaiting-confirmation' && !page.editorialCorrection);
+  const heldOriginals = originalInventory.filter(page => !blockedPublicLocale(page.path) && page.state === 'awaiting-confirmation' && !page.editorialCorrection);
   const heldArticles = heldOriginals.filter(page => page.kind === 'article');
   const heldNonArticles = heldOriginals.filter(page => page.kind !== 'article');
   const pendingMessages = JSON.parse(await readFile(path.join(root, 'src/content/pending-content.json'), 'utf8'));
   const manifest = { origin: SEO_ORIGIN, indexing: false, pages: {}, errors: {}, redirects, excludedRoutes, heldPages: {}, unreviewedArticles: {}, correctedPages: {}, feeds: JSON.parse(await readFile(path.join(root, 'src/content/historical/feeds.json'), 'utf8')), heldFeeds: JSON.parse(await readFile(path.join(root, 'src/content/historical/held-feeds.json'), 'utf8')) };
-  for (const edition of editions) {
+  for (const edition of publicEditions) {
     if (heldOriginals.some(original => original.key === (edition.path.replace(/\/+$/, '') || '/'))) continue;
     const { body, fullTextProof, missingTranslations } = await render(edition.path, edition.locale);
     if (!body.includes('<h1') || body.includes('aria-busy="true"')) throw new Error(`Incomplete server render: ${edition.path}`);
@@ -85,9 +87,9 @@ try {
   const gone = await render('/translation-ok', 'it');
   await writeFile(path.join(output, '410.html'), renderDocument(template, { body: gone.body, status: 410 }));
   await writeFile(path.join(output, 'private-shell.html'), template);
-  manifest.editions = Object.fromEntries(editions.map(edition => [edition.path, edition]));
+  manifest.editions = Object.fromEntries(publicEditions.map(edition => [edition.path, edition]));
   await writeFile(path.join(output, 'route-manifest.json'), JSON.stringify(manifest, null, 2));
-  const published = editions.filter(e => e.sitemap && e.state === 'published' && e.approval);
+  const published = publicEditions.filter(e => e.sitemap && e.state === 'published' && e.approval);
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${published.map(e => `  <url><loc>${escapeHtml(new URL(e.path, SEO_ORIGIN).href)}</loc>${equivalentEditions(e.id).map(a => `<xhtml:link rel="alternate" hreflang="${a.locale === 'it' ? 'it-IT' : a.locale}" href="${escapeHtml(new URL(a.path, SEO_ORIGIN).href)}" />`).join('')}</url>`).join('\n')}\n</urlset>\n`;
   await writeFile(path.join(output, 'sitemap.xml'), sitemap);
   await writeFile(path.join(output, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
