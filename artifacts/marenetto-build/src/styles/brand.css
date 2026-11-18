@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,700&family=Barlow:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap');
 /* Shared public presentation theme — approved layout. One sans family (Barlow, existing).
    Palette (centralized, exact): #FFFFFF #F8F9F8 #244656 #25343B #536168 #E3E8EA.
    Contrast: #25343B/#FFF 12.4 · #536168/#FFF 6.3 · #FFF/#244656 10.1 · #244656/#F8F9F8 9.6.
@@ -37,18 +37,20 @@
 .site-shell:has(> .topbar) ::selection { background:var(--mb-blue); color:#fff; }
 .site-shell:has(> .topbar) a:focus-visible, .site-shell:has(> .topbar) button:focus-visible { outline:2px solid var(--mb-blue); outline-offset:3px; }
 
-/* Logo (approved 18 Nov 2026): vector monogram + MARENETTO + copper BUILD band.
-   The box height equals --logo-h; every measure derives from it. */
-.mb-logo { --logo-h:32px; display:inline-flex; align-items:center; gap:calc(var(--logo-h) * .26); height:var(--logo-h); line-height:0; }
-.mb-logo .mb-logo__mark { display:block; flex:none; width:var(--logo-h); height:var(--logo-h); overflow:visible; }
-.mb-logo .mb-logo__frame, .mb-logo .mb-logo__roof { fill:none; stroke-width:12; stroke-linejoin:miter; stroke-linecap:butt; }
-.mb-logo .mb-logo__frame { stroke:#1E1D1B; }
-.mb-logo .mb-logo__roof { stroke:#B5623A; }
-.mb-logo .mb-logo__words { display:inline-flex; flex-direction:column; align-items:stretch; gap:calc(var(--logo-h) * .07); margin:0; }
-.mb-logo .mb-logo__words .mb-logo__name { display:block; margin:0 -.16em 0 0; font-family:'Archivo', 'Barlow', sans-serif; font-stretch:125%; font-weight:700; font-size:calc(var(--logo-h) * .34); line-height:1; letter-spacing:.16em; text-transform:none; color:#1E1D1B; white-space:nowrap; }
-.mb-logo .mb-logo__words .mb-logo__bar { display:flex; align-items:center; height:calc(var(--logo-h) * .36); margin:0; padding:0 calc(var(--logo-h) * .14); background:#B5623A; }
-.mb-logo .mb-logo__words .mb-logo__build { display:block; margin:0 -.34em 0 0; font-family:'Archivo', 'Barlow', sans-serif; font-stretch:125%; font-weight:700; font-size:calc(var(--logo-h) * .235); line-height:1; letter-spacing:.34em; text-transform:none; color:#F4F0E8; white-space:nowrap; }
+/* Logo: original raster crops, original colors. Visible width = k * 1028 (M 191 + gap 40 + name 797).
+   --logo-h 32px -> ~170px · 38px -> ~202px · 43px -> ~229px. */
+.mb-logo { --logo-h:32px; --k:calc(var(--logo-h) / 193); display:inline-flex; align-items:center; gap:calc(var(--k) * 40); line-height:0; }
+.mb-logo__crop { display:block; position:relative; overflow:hidden; flex:none; }
+.mb-logo__crop img { position:absolute; display:block; max-width:none; width:calc(var(--k) * 1536); height:calc(var(--k) * 560); }
+.mb-logo__crop--m { width:calc(var(--k) * 191); height:calc(var(--k) * 193); }
+.mb-logo__crop--m img { left:calc(var(--k) * -260); top:calc(var(--k) * -181); }
+.mb-logo__crop--name { width:calc(var(--k) * 797); height:calc(var(--k) * 76); }
+.mb-logo__crop--name img { left:calc(var(--k) * -510); top:calc(var(--k) * -246); }
+.mb-logo__stack { display:flex; flex-direction:column; gap:calc(var(--k) * 14); }
+.mb-logo .mb-logo__bar, .footer .wordmark .mb-logo__bar, .footer-logo-band .wordmark .mb-logo__bar { display:flex; align-items:center; height:calc(var(--k) * 90); padding-left:calc(var(--k) * 16); background:#244656; color:#fff; font-family:'Barlow',sans-serif; font-weight:700; font-size:calc(var(--k) * 62); letter-spacing:.18em; line-height:1; white-space:nowrap; }
 .wordmark .mb-logo, .wordmark .mb-logo span { margin-top:0; }
+/* Footer is now a light surface: the dark variant renders the original raster exactly like the header. */
+.mb-logo--dark .mb-logo__crop img { filter:none; opacity:1; }
 @media (min-width:700px) { .mb-logo { --logo-h:38px; } }
 @media (min-width:1100px) { .mb-logo { --logo-h:43px; } }
 @media (max-width:359px) { .topbar .mb-logo { --logo-h:28px; } }

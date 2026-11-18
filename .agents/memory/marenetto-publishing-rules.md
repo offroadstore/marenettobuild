@@ -29,7 +29,7 @@ Preserve the thin lines of the current historical monogram and MARENETTO letteri
 
 **Why:** After comparing both assets, the user selected MARENETTO / BUILD.COM and clarified: “preferisco le linee sottili del logo attuale con la scritta build come quella del logo nuovo”.
 
-**How to apply:** Preserve the original source files and use a reversible composition in preview. The clarified choice permits combining these elements, not inventing another mark or publishing the change to production.
+**How to apply:** Keep the exact logo already online (thin historical mark and blue BUILD.COM band), including its header/footer treatment and favicon. The owner explicitly prohibited changing it after a release branch introduced a different mark. General approval to merge or publish does not authorize a logo redesign.
 
 For the production launch, use the recorded owner authorization in the production-readiness documentation instead of the historical NO-GO decision.
 
