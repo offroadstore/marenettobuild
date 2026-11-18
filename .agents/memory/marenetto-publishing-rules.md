@@ -30,3 +30,9 @@ Preserve the thin lines of the current historical monogram and MARENETTO letteri
 **Why:** After comparing both assets, the user selected MARENETTO / BUILD.COM and clarified: “preferisco le linee sottili del logo attuale con la scritta build come quella del logo nuovo”.
 
 **How to apply:** Preserve the original source files and use a reversible composition in preview. The clarified choice permits combining these elements, not inventing another mark or publishing the change to production.
+
+For the production launch, use the recorded owner authorization in the production-readiness documentation instead of the historical NO-GO decision.
+
+**Why:** The owner explicitly superseded those decision blocks while retaining technical release gates and limiting the approved language set and analytics collection.
+
+**How to apply:** Do not ask again for the same approval; check the written scope, keep preview and private routes unindexed, and obtain fresh approval for additional editions or materially changed translations.
