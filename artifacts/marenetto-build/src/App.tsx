@@ -28,7 +28,7 @@ import { shadcn } from '@clerk/themes';
 import { InternalEntry, OwnerDemo, PublishedCmsPage } from '@/pages/internal-surfaces';
 import publicPageData from '@/localization/public-pages.json';
 import { chooseLanguage, isAutomaticVisitor, readSavedLanguage, saveLanguageChoice } from '@/localization/detect';
-import { getLocale, getLocaleDirection, LANGUAGE_CHOICES, LOCALES, PAGE_KEYS, PUBLISHED_LOCALES } from '@/localization/locales';
+import { blockedPublicLocale, getLocale, getLocaleDirection, LANGUAGE_CHOICES, LOCALES, PAGE_KEYS, PUBLISHED_LOCALES } from '@/localization/locales';
 import { getLocalizedCopy, isLocaleCatalogLoaded, loadLocaleCatalog, localizeChoice, localizeNode, translateText } from '@/localization/runtime';
 import { isTranslationReviewMode, setTranslationReviewMode, showsTranslatedCopy } from '@/localization/runtime';
 import { editions, editionByPath, reviewPathForEdition, canonicalEdition, equivalentEditions, getEdition, redirects } from '@/localization/edition-inventory';
@@ -899,6 +899,8 @@ function Router() {
   useHashFragmentNavigation(path);
   const lang = getLang(path);
   const page = getPage(path);
+  const blockedLocale = blockedPublicLocale(path);
+  if (blockedLocale) return <NotFound lang={blockedLocale} />;
   const privateShell = /^\/(?:internal|sign-in|sign-up)(?:\/|$)/.test(path) || /^\/owner-demo\/?$/.test(path);
   if (!privateShell && editorialStatus !== 'verified') return <div className="site-shell" lang="it" dir="ltr"><main className="container" style={{ paddingBlock: '5rem' }} data-testid="editorial-state" role={editorialStatus === 'loading' ? 'status' : 'alert'} aria-busy={editorialStatus === 'loading'}>
     <h1>{editorialStatus === 'loading' ? 'Verifica dei contenuti in corso' : 'Contenuti temporaneamente non disponibili'}</h1>

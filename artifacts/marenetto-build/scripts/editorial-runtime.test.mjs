@@ -8,26 +8,34 @@ const content = (title, language, body = '<p>Testo attivo.</p>') => ({
 });
 const article = (locale) => ({
   identity:'synthetic-runtime', locale, path:`${locale==='it'?'':`/${locale}`}/synthetic-runtime`,
-  kind:'article', revisionId:`active-${locale}`, content:content(locale==='it'?'Articolo italiano sintetico':'مقال عربي اصطناعي',locale,'<h1>Titolo interno</h1><p>Corpo attivo.</p>'),
+  kind:'article', revisionId:`active-${locale}`, content:content(({it:'Articolo italiano sintetico', ar:'مقال عربي اصطناعي', ru:'Тестовая статья'})[locale],locale,'<h1>Titolo interno</h1><p>Corpo attivo.</p>'),
 });
 
 test('initial HTML renders the selected exact active revision, including Unicode aliases and one H1', async () => {
-  const live={...article('ar'),aliases:['/ar/اختبار']};
-  const result=await render('/ar/%D8%A7%D8%AE%D8%AA%D8%A8%D8%A7%D8%B1','ar',[live]);
-  assert.match(result.body,/data-active-revision="active-ar"/);
+  const live={...article('ru'),aliases:['/ru/проверка']};
+  const result=await render(encodeURI(live.aliases[0]),'ru',[live]);
+  assert.match(result.body,/data-active-revision="active-ru"/);
   assert.ok(result.body.includes(live.content.title));
   assert.equal((result.body.match(/<h1(?:\s|>)/g)??[]).length,1);
-  assert.match(result.body,/dir="rtl"/);
+  assert.match(result.body,/lang="ru"/);
 });
 
-test('an edited archive page lists the Arabic active article rather than the Italian revision', async () => {
-  const archive={identity:'articles',locale:'ar',path:'/ar/articles',kind:'page',revisionId:'archive-active',content:content('الأرشيف','ar')};
-  const result=await render('/ar/articles','ar',[article('it'),article('ar'),archive]);
+test('an edited archive page lists the Russian active article rather than the Italian revision', async () => {
+  const archive={identity:'articles',locale:'ru',path:'/ru/articles',kind:'page',revisionId:'archive-active',content:content('Архив','ru')};
+  const result=await render('/ru/articles','ru',[article('it'),article('ru'),archive]);
   assert.match(result.body,/data-active-revision="archive-active"/);
   assert.match(result.body,/data-testid="active-article-listing"/);
-  assert.ok(result.body.includes(article('ar').content.title));
+  assert.ok(result.body.includes(article('ru').content.title));
   assert.ok(!result.body.includes(article('it').content.title));
-  assert.ok(result.body.includes('/ar/synthetic-runtime'));
+  assert.ok(result.body.includes('/ru/synthetic-runtime'));
+});
+
+test('an active revision cannot publish a blocked-language URL', async () => {
+  const live=article('ar');
+  const result=await render(live.path,'ar',[live]);
+  assert.ok(!result.body.includes(live.content.title));
+  assert.doesNotMatch(result.body,/data-active-revision=/);
+  assert.match(result.body,/404/);
 });
 
 test('a withdrawn existing article never falls back to its static public body', async () => {

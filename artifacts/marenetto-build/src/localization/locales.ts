@@ -23,6 +23,12 @@ export function getLocale(code: string): LocaleRecord | undefined {
   return LOCALES.find(locale => locale.code === code);
 }
 
+/** Locale prefixes remain usable in the explicit editorial review namespace only. */
+export function blockedPublicLocale(path: string): string | undefined {
+  const code = path.match(/^\/(?:content\/)?([a-z]{2})(?:\/|$)/)?.[1];
+  return code && getLocale(code)?.publication === 'blocked' ? code : undefined;
+}
+
 export function canPublishLocale(locale: LocaleRecord): boolean {
   return locale.copyStatus === 'complete'
     && locale.reviewStatus === 'approved-current-copy'

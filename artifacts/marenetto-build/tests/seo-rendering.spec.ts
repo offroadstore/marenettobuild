@@ -29,7 +29,7 @@ test('isolated synthetic forms keep data after errors and show a receipt', async
   test.setTimeout(120_000);
   const results = [];
   const matrix = JSON.parse(await readFile(path.join(reportDir, 'route-matrix.json'), 'utf8'));
-  for (const locale of ['it', 'nl', 'pt', 'uk', 'sl', 'sr']) {
+  for (const locale of ['it', 'nl', 'pt', 'sv', 'no', 'da']) {
     const requests: Record<string, unknown>[] = [];
     await page.route('**/api/project-requests', async route => {
       requests.push(route.request().postDataJSON());
@@ -109,7 +109,7 @@ test('explicit Italian URL, keyboard language selection, RTL mobile geometry and
   await mkdir(reportDir, { recursive: true });
   await writeFile(path.join(reportDir, 'lab-metrics.json'), JSON.stringify({ scope: 'Local Chromium, 390x844, no network/CPU throttling; not field CWV, INP not measured', metrics }, null, 2));
   for (const locale of ['ar', 'he']) {
-    await page.goto(`/${locale}/`, { waitUntil: 'domcontentloaded' });
+    await page.goto(`/__localization-review/${locale}/home`, { waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => document.documentElement.dataset.hydrated === 'true');
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
     expect(await page.evaluate(() => Math.abs(document.documentElement.getBoundingClientRect().left))).toBeLessThanOrEqual(1);

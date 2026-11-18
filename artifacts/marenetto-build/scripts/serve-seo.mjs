@@ -3,7 +3,7 @@ import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { resolveRoute, redirectQuery } from './seo-document.mjs';
 import { readActiveEditorial, editorialDocument, editorialUnavailableHTML, withEditorialSnapshot, key } from './editorial-http.mjs';
-import { render } from '../dist/server/entry-server.mjs';
+import { blockedPublicLocale, render } from '../dist/server/entry-server.mjs';
 
 const root = path.resolve(import.meta.dirname, '../dist/public');
 const manifest = JSON.parse(await readFile(path.join(root, 'route-manifest.json'), 'utf8'));
@@ -20,6 +20,12 @@ export const server = createServer(async (req, res) => {
   try {
     const url = new URL(req.url, 'http://localhost');
     const pathname = decodeURIComponent(url.pathname);
+    const blockedLocale = blockedPublicLocale(pathname);
+    if (blockedLocale) {
+      const content = await readFile(path.join(root, manifest.errors[blockedLocale] ?? '404.html'));
+      res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-cache' });
+      return res.end(req.method === 'HEAD' ? undefined : content);
+    }
     let verifiedActive;
     const asset = pathname === '/owner-demo' || /^\/(?:assets|media|brand|documents|internal|sign-in|sign-up|api)(?:\/|$)/.test(pathname) || /\.[a-z0-9]+$/i.test(pathname);
     if (!asset) {
