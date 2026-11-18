@@ -646,6 +646,9 @@ function RequestPage({ lang, editorial = false }: { lang: Lang; editorial?: bool
   const create = useCreateProjectRequest();
   const keyRef = useRef<string>(typeof crypto !== 'undefined' && 'randomUUID' in crypto ? crypto.randomUUID() : `marenetto-${Date.now()}-${Math.random().toString(36).slice(2)}`);
   const formRef = useRef<HTMLFormElement>(null);
+  const openedAt = useRef(0);
+  const companyWebsite = useRef<HTMLInputElement>(null);
+  useEffect(() => { openedAt.current = Date.now(); }, []);
   const update = (key: keyof RequestFormState, value: string | boolean) => setForm(old => ({ ...old, [key]: value } as RequestFormState));
   const field = (key: keyof RequestFormState, label: string, opts: { required?: boolean; placeholder?: string; type?: string; full?: boolean; minLength?: number; maxLength?: number } = {}) => <div className={`field${opts.full ? ' full' : ''}`}>
     <label htmlFor={`field-${key}`}>{label}{opts.required && <span aria-hidden="true"> *</span>}</label>
@@ -663,6 +666,8 @@ function RequestPage({ lang, editorial = false }: { lang: Lang; editorial?: bool
       message: form.message, preferredLanguage: form.preferredLanguage, name: form.name, email: form.email, ...(form.phone.trim() ? { phone: form.phone.trim() } : {}),
       preferredChannel: form.preferredChannel, ...(form.budget.trim() ? { budget: form.budget.trim() } : {}), ...(form.desiredPeriod.trim() ? { desiredPeriod: form.desiredPeriod.trim() } : {}),
       needsAccommodation: form.needsAccommodation, needsMobility: form.needsMobility, privacyAccepted: form.privacyAccepted, idempotencyKey: keyRef.current,
+      formOpenedAt: openedAt.current,
+      companyWebsite: companyWebsite.current?.value ?? '',
     };
     create.mutate({ data: payload }, { onSuccess: result => { trackSavedRequest(result); setReceipt({ code: result.code, status: result.status, notificationStatus: result.notificationStatus, isSynthetic: result.isSynthetic }); setReview(false); } });
   };
@@ -692,6 +697,7 @@ function RequestPage({ lang, editorial = false }: { lang: Lang; editorial?: bool
                 : field.validity.typeMismatch ? text('Inserisci un indirizzo email valido.', 'Please enter a valid email address.')
                 : text('Controlla questo campo.', 'Please check this field.'));
             }}>
+            <div hidden aria-hidden="true"><input ref={companyWebsite} name="companyWebsite" tabIndex={-1} autoComplete="off" /></div>
             <h2 className="form-section-title">{label.group1}</h2>
             <div className="field full"><span className="field-label">{label.type} *</span><div className="radio-row">{requestTypes.map((value, i) => <label className="radio-choice" key={value}><input type="radio" name="requestType" value={value} checked={form.requestType === value} onChange={() => update('requestType', value)} data-testid={`radio-request-${value}`} /><span>{label.requestType[i]}</span></label>)}</div></div>
             <div className="form-grid" style={{ marginTop: 18 }}>

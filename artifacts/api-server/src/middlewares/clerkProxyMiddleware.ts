@@ -53,6 +53,18 @@ export function clerkProxyMiddleware(): RequestHandler {
         delete headers["transfer-encoding"];
         delete headers.connection;
         delete headers["keep-alive"];
+        // Keep the application's CORS allowlist and security headers on the
+        // proxy response instead of replacing them with upstream values.
+        for (const name of Object.keys(headers)) {
+          const own = res.getHeader(name);
+          if (name === "vary" && own && headers[name]) {
+            headers[name] = `${own}, ${headers[name]}`;
+          } else if (name.startsWith("access-control-")) {
+            delete headers[name];
+          } else if (name === "content-security-policy" && own && headers[name]) {
+            headers[name] = [String(own), String(headers[name])];
+          } else if (own !== undefined) delete headers[name];
+        }
         const status = proxyRes.statusCode ?? 502;
         if (status < 200 || status === 204) delete headers["content-length"];
         const bodyless =

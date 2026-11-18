@@ -75,7 +75,7 @@ export function seoPreviewPlugin() {
             structuredData: route.edition && original?.state !== 'awaiting-confirmation' ? module.editionStructuredData(route.edition, SEO_ORIGIN) : [],
           });
           res.writeHead(route.status, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-cache' });
-          return res.end(req.method === 'HEAD' ? undefined : html.replace('</head>', `<script>window.__EDITORIAL_ACTIVE__=${JSON.stringify(active).replaceAll('<','\\u003c')};</script></head>`));
+          return res.end(req.method === 'HEAD' ? undefined : withEditorialSnapshot(html, active));
         } catch (error) {
           if (error.code === 'EDITORIAL_UNAVAILABLE') {
             res.writeHead(503, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'Retry-After': '30' });

@@ -53,7 +53,7 @@ export async function readActiveEditorial() {
 }
 export const editorialUnavailableHTML = '<!doctype html><html lang="it" dir="ltr"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><title>Contenuti temporaneamente non disponibili</title></head><body><main><h1>Contenuti temporaneamente non disponibili</h1><p>Non possiamo verificare quali revisioni sono attive. Riprova tra poco: nessuna copia precedente viene ripubblicata.</p></main></body></html>';
 export function withEditorialSnapshot(html, active) {
-  return html.replace('</head>', `<script>window.__EDITORIAL_ACTIVE__=${JSON.stringify(active).replaceAll('<','\\u003c')};</script></head>`);
+  return html.replace('</head>', `<script type="application/json" id="editorial-active">${JSON.stringify(active).replaceAll('<','\\u003c')}</script></head>`);
 }
 export function editorialDocument(template, rendered, edition, active, status = 200) {
   const selected = edition && { ...edition, title: edition.content.seoTitle || edition.content.title, description: edition.content.seoDescription || edition.content.summary, state: 'reviewed' };

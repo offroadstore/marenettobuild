@@ -1038,6 +1038,8 @@ export const createProjectRequestBodyIdempotencyKeyMax = 100;
 
 
 export const CreateProjectRequestBody = zod.object({
+  "formOpenedAt": zod.number().int().describe('Client time in Unix milliseconds when the form opened.'),
+  "companyWebsite": zod.string().optional().describe('Leave empty. Anti-spam field.'),
   "requestType": zod.enum(['project', 'maintenance', 'purchase']),
   "propertyType": zod.string().min(1).max(createProjectRequestBodyPropertyTypeMax),
   "service": zod.string().min(1).max(createProjectRequestBodyServiceMax),

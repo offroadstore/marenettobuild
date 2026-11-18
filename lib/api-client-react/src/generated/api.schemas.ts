@@ -401,6 +401,10 @@ export const ProjectRequestInputPreferredChannel = {
 } as const;
 
 export interface ProjectRequestInput {
+  /** Client time in Unix milliseconds when the form opened. */
+  formOpenedAt: number;
+  /** Leave empty. Anti-spam field. */
+  companyWebsite?: string;
   requestType: ProjectRequestInputRequestType;
   /**
      * @minLength 1

@@ -51,6 +51,7 @@ overrides:
   'typedoc>markdown-it': ^14.3.3
   'minimatch>brace-expansion': ^5.0.11
   'postcss>source-map-js': ^1.2.2
+  '@tailwindcss/node>source-map-js': ^1.2.2
   '@esbuild-kit/esm-loader': npm:tsx@^4.21.0
   '@expo/ngrok-bin>@expo/ngrok-bin-darwin-arm64': '-'
   '@expo/ngrok-bin>@expo/ngrok-bin-darwin-x64': '-'

@@ -47,7 +47,7 @@ for (const viaProxy of [false, true]) {
       const html = await response.text();
       assert.equal(response.status, 200);
       assert.match(html, /<h1[\s>]/);
-      assert.match(html, /window\.__EDITORIAL_ACTIVE__=\[\]/);
+      assert.match(html, /id="editorial-active">\[\]<\/script>/);
       assert.equal(response.headers.get('x-robots-tag'), 'noindex, nofollow');
       assert.equal(topology.requests, 1, 'cold startup checks editorial storage, not only API health');
       assert.deepEqual(await (await fetch(`${topology.origin}/api/editorial/active`)).json(), []);

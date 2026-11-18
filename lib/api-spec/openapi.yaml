@@ -1027,6 +1027,12 @@ components:
     ProjectRequestInput:
       type: object
       properties:
+        formOpenedAt:
+          type: integer
+          description: Client time in Unix milliseconds when the form opened.
+        companyWebsite:
+          type: string
+          description: Leave empty. Anti-spam field.
         requestType:
           type: string
           enum: [project, maintenance, purchase]
@@ -1085,6 +1091,7 @@ components:
           minLength: 12
           maxLength: 100
       required:
+        - formOpenedAt
         - requestType
         - propertyType
         - service

@@ -18,6 +18,7 @@
 //   export type Post = typeof postsTable.$inferSelect;
 
 export * from "./project-requests";
+export * from "./project-request-rate";
 export * from "./internal-members";
 export * from "./cms-pages";
 export * from "./notifications";

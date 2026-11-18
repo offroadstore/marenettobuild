@@ -1,6 +1,7 @@
 import { randomBytes } from "node:crypto";
 import { Router, type IRouter, type Request } from "express";
 import { and, eq } from "drizzle-orm";
+import { isSpamSubmission, reserveProjectRequest } from "../lib/project-request-rate";
 import {
   db,
   notificationsTable,
@@ -17,13 +18,6 @@ import {
 } from "../lib/aruba-mailer";
 
 const router: IRouter = Router();
-const rateWindowMs = 60_000;
-const rateLimit = 6;
-const recentRequests = new Map<string, number[]>();
-
-function requestAddress(address: string | undefined): string {
-  return address || "unknown";
-}
 
 function makeCode(): string {
   return `MB-${randomBytes(5).toString("hex").toUpperCase()}`;
@@ -169,16 +163,17 @@ async function deliverLeadNotification(
 
 router.post("/project-requests", async (req, res): Promise<void> => {
   const now = Date.now();
-  const address = requestAddress(req.ip);
-  const attempts = (recentRequests.get(address) ?? []).filter(
-    (timestamp) => now - timestamp < rateWindowMs,
-  );
-  if (attempts.length >= rateLimit) {
-    res.status(429).json({ error: "Too many requests. Please try again shortly." });
+  const liveMode = liveDataApproved();
+  if (isSpamSubmission(req.body, now)) {
+    res.status(201).json(CreateProjectRequestResponse.parse({
+      code: liveMode ? makeCode() : "DEMO-MB-001",
+      status: "received",
+      createdAt: new Date(now).toISOString(),
+      notificationStatus: "pending_provider",
+      isSynthetic: !liveMode,
+    }));
     return;
   }
-  attempts.push(now);
-  recentRequests.set(address, attempts);
 
   const parsed = CreateProjectRequestBody.safeParse(req.body);
   if (!parsed.success) {
@@ -186,19 +181,29 @@ router.post("/project-requests", async (req, res): Promise<void> => {
     return;
   }
 
-  const input = parsed.data;
+  const { formOpenedAt: _openedAt, companyWebsite: _trap, ...input } = parsed.data;
   if (input.privacyAccepted !== true) {
     res.status(400).json({ error: "A valid contact method and privacy confirmation are required." });
     return;
   }
 
-  const liveMode = liveDataApproved();
   const storedInput = liveMode ? input : syntheticPreviewLead;
   const contactMatchesChannel =
     (storedInput.preferredChannel === "email" && Boolean(storedInput.email)) ||
     (storedInput.preferredChannel !== "email" && Boolean(storedInput.phone));
   if (!contactMatchesChannel) {
     res.status(400).json({ error: "A valid contact method is required." });
+    return;
+  }
+
+  try {
+    if (!await reserveProjectRequest(req.ip ?? req.socket.remoteAddress ?? "unknown")) {
+      res.status(429).json({ error: "Too many requests. Please try again shortly." });
+      return;
+    }
+  } catch {
+    req.log.error("Project request rate limit unavailable");
+    res.status(503).json({ error: "We could not save the request. Please try again." });
     return;
   }
 
@@ -249,7 +254,7 @@ router.post("/project-requests", async (req, res): Promise<void> => {
     await db
       .select()
       .from(projectRequestsTable)
-      .where(eq(projectRequestsTable.idempotencyKey, input.idempotencyKey))
+      .where(eq(projectRequestsTable.idempotencyKey, storedInput.idempotencyKey))
       .limit(1)
   )[0];
   if (!stored) {

@@ -12,7 +12,7 @@ test('cold private shell cannot reveal a withdrawn article while publication sta
   });
   try {
     await openPage(page, '/owner-demo');
-    expect(await page.evaluate(() => window.__EDITORIAL_ACTIVE__)).toBeUndefined();
+    await expect(page.locator('#editorial-active')).toHaveCount(0);
     let documentRequests = 0;
     page.on('request', request => { if (request.isNavigationRequest() && new URL(request.url()).pathname === withdrawn.path) documentRequests++; });
     await page.evaluate(target => {

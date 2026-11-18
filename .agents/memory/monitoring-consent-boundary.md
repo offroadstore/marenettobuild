@@ -9,6 +9,10 @@ The owner explicitly authorized configuring and using monitoring. Do not keep re
 
 **How to apply:** Continue configuring the reporting capability independently. Explain missing Google OAuth application setup or account consent as specific technical requirements. Do not infer privacy approval, consent from visitors, or authorization to load tags on the public website from that statement.
 
+**Publication check:** Replit can inject a telemetry script from `i.replit.com` into live HTML even when the app does not reference it and the local build has none. Do not whitelist it merely to silence CSP Report-Only messages.
+
+**Why:** It is platform telemetry, not a dependency of the consent-gated site; allowing it would add an unrelated collection path.
+
 Analytics isolation must prevent provider code from accessing the main site's authenticated context, not merely put it in a removable element. Do not grant a script-enabled srcdoc frame same-origin access.
 
 **Why:** A same-origin frame can read the parent and install timers there, which defeats removal-based revocation and exposes an owner visiting the public site while signed in.

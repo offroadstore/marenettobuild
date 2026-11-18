@@ -1,5 +1,6 @@
 import app from "./app";
 import { logger } from "./lib/logger";
+import { cleanProjectRequestAttempts } from "./lib/project-request-rate";
 
 const rawPort = process.env["PORT"];
 
@@ -22,4 +23,9 @@ app.listen(port, (err) => {
   }
 
   logger.info({ port }, "Server listening");
+  const purge = () => void cleanProjectRequestAttempts().catch(() =>
+    logger.warn("Could not clean expired project request attempts"),
+  );
+  purge();
+  setInterval(purge, 15 * 60_000).unref();
 });

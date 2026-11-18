@@ -4,10 +4,14 @@ import { getActiveEditorial } from '@workspace/api-client-react';
 
 type EditorialStatus = 'loading' | 'verified' | 'unavailable';
 const EditorialContext = createContext<{ active: EditorialActive[]; status: EditorialStatus }>({ active: [], status: 'loading' });
-declare global { interface Window { __EDITORIAL_ACTIVE__?: EditorialActive[] } }
+function readSnapshot(): unknown {
+  if (typeof document === 'undefined') return undefined;
+  try { return JSON.parse(document.getElementById('editorial-active')?.textContent ?? 'null'); }
+  catch { return undefined; }
+}
 export function EditorialRuntime({ initial, children }: { initial?: EditorialActive[]; children: ReactNode }) {
   const [snapshot, setSnapshot] = useState<{ active: EditorialActive[]; status: EditorialStatus }>(() => {
-    const supplied = initial ?? (typeof window === 'undefined' ? undefined : window.__EDITORIAL_ACTIVE__);
+    const supplied = initial ?? readSnapshot();
     return Array.isArray(supplied) ? { active: supplied, status: 'verified' } : { active: [], status: 'loading' };
   });
   useEffect(() => {
