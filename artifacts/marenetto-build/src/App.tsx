@@ -30,7 +30,7 @@ import publicPageData from '@/localization/public-pages.json';
 import { chooseLanguage, isAutomaticVisitor, readSavedLanguage, saveLanguageChoice } from '@/localization/detect';
 import { getLocale, getLocaleDirection, LANGUAGE_CHOICES, LOCALES, PAGE_KEYS, PUBLISHED_LOCALES } from '@/localization/locales';
 import { getLocalizedCopy, isLocaleCatalogLoaded, loadLocaleCatalog, localizeChoice, localizeNode, translateText } from '@/localization/runtime';
-import { isTranslationReviewMode, setTranslationReviewMode } from '@/localization/runtime';
+import { isTranslationReviewMode, setTranslationReviewMode, showsTranslatedCopy } from '@/localization/runtime';
 import { editions, editionByPath, reviewPathForEdition, canonicalEdition, equivalentEditions, getEdition, redirects } from '@/localization/edition-inventory';
 import { languageFlag } from '@/localization/language-flags';
 import { updateStructuredData } from '@/lib/structured-data';
@@ -131,6 +131,7 @@ const copyBase = {
       { title: 'Esterni, giardini e piscine', desc: 'Interventi su terrazze, percorsi, giardini e piscine: valutiamo terreno, drenaggi e accessi prima di definire le lavorazioni.', items: ['Giardini e aree esterne', 'Pietra, pavimentazioni e cucine esterne', 'Piscine e relativa manutenzione, con attività concordate'] },
       { title: 'Cura e gestione della proprietà', desc: 'Controlli periodici, piccole riparazioni e servizi per la casa, con attività e frequenza fissate per il tuo immobile.', items: ['Manutenzione immobiliare e piccoli interventi', 'Pulizie e servizi collegati agli appartamenti', 'Cura della proprietà e servizi per gli affitti, su accordo specifico'] },
       { title: 'Prima dell’acquisto', desc: 'Partiamo dall’immobile e dai cambiamenti che hai in mente. Le verifiche tecniche e documentali competono ai professionisti incaricati.', items: ['Assistenza tecnica prima dell’acquisto', 'Raccolta delle esigenze e delle trasformazioni desiderate', 'Verifiche professionali e documentali a cura dei tecnici incaricati'] },
+      { title: 'Tetti e coperture', desc: 'Riparazione e rifacimento di tetti a falda e coperture piane: coppi e tegole, impermeabilizzazioni, isolamento, grondaie e lattonerie. Prima ispezioniamo la copertura, poi definiamo le lavorazioni e chi le esegue.', items: ['Rifacimento tetti, coppi e impermeabilizzazioni', 'Isolamento del tetto, grondaie, pluviali e lattonerie', 'Controlli dopo i temporali e manutenzione stagionale del tetto'] },
     ] },
     process: { heading: 'Quattro passaggi per capirci.', intro: 'Dal piccolo intervento alla ristrutturazione, definiamo il percorso in base alla casa e a ciò che vuoi realizzare.', steps: [
       ['01', 'Ci racconti la situazione', 'Dove si trova la casa, cosa vuoi fare, eventuali foto. Puoi scriverci via WhatsApp, email o con il modulo di richiesta.'],
@@ -156,6 +157,7 @@ const copyBase = {
       { title: 'Outdoor spaces, gardens and pools', desc: 'Work on terraces, paths, gardens and pools: we consider terrain, drainage and access before defining the tasks.', items: ['Gardens and outdoor areas', 'Stonework, paving and outdoor kitchens', 'Pools and their upkeep, with agreed tasks'] },
       { title: 'Property care and management', desc: 'Regular checks, small repairs and home services, with tasks and frequency set for your property.', items: ['Property maintenance and smaller repairs', 'Cleaning and apartment-related services', 'Property care and rental-related services, under a specific agreement'] },
       { title: 'Before you buy', desc: 'We start with the property and the changes you have in mind. Technical and document checks belong to the appointed professionals.', items: ['Support before a purchase', 'Clarifying needs and desired changes', 'Professional and document checks by the appointed specialists'] },
+      { title: 'Roofs and coverings', desc: 'Repair and renewal of pitched and flat roofs: tiles, waterproofing, insulation, gutters and flashing. We inspect the roof first, then define the work and who carries it out.', items: ['Roof renewal, terracotta tiles and waterproofing', 'Roof insulation, gutters, downpipes and flashing', 'Checks after storms and seasonal roof maintenance'] },
     ] },
     process: { heading: 'Four steps to understand your project.', intro: 'From a small repair to a renovation, we shape the next steps around the property and what you want to achieve.', steps: [
       ['01', 'Describe the situation', 'Where the property is, what you want to do, any photos. Reach us by WhatsApp, email or the enquiry form.'],
@@ -173,7 +175,7 @@ const copyBase = {
 };
 const copy = new Proxy(copyBase, {
   get(target, key, receiver) {
-    if (!isTranslationReviewMode() && typeof key === 'string' && key !== 'it') {
+    if (typeof key === 'string' && key !== 'it' && !showsTranslatedCopy(key)) {
       return getLocalizedCopy(key, copySource as Record<string, typeof copySource.en>);
     }
     if (typeof key !== 'string' || key in target) return Reflect.get(target, key, receiver);
@@ -345,7 +347,7 @@ function Header({ lang, page, articleSlug, editionId }: { lang: Lang; page: Page
             const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1
               : (current + (event.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
             items[next]?.focus();
-          }}>{LOCALES.map(locale => {
+          }}>{PUBLISHED_LOCALES.map(locale => {
             const edition = getEdition(locale.code, editionId ?? articleSlug ?? page);
             if (!edition) return null;
             return <Link key={locale.code} href={withCampaignParams(edition.path)} role="menuitem" lang={locale.code} aria-label={locale.nativeName} aria-current={locale.code === lang ? 'true' : undefined} onClick={() => { saveLanguageChoice(locale.code); setLanguageMenuOpen(false); }}><span className="language-flag" aria-hidden="true">{languageFlag(locale.code)}</span><span className="language-name" dir={locale.direction}>{locale.nativeName}</span>{locale.code === lang && <Check size={15} aria-hidden="true" className="language-selected" />}</Link>;
@@ -423,7 +425,7 @@ function PageHero({ lang, page }: { lang: Lang; page: Exclude<CorePage, 'home'> 
 }
 
 function buildHomeCopy(lang: Lang): HomeCopy {
-  if (!isTranslationReviewMode() && !['it', 'en'].includes(lang)) {
+  if (!showsTranslatedCopy(lang) && !['it', 'en'].includes(lang)) {
     const c = copy[lang];
     // Reuse the previously approved phrases; do not silently load the newer draft.
     return {
@@ -838,16 +840,16 @@ function SitePage({ page, lang }: { page: CorePage; lang: Lang }) {
   const main = page === 'request' ? contents : localizeNode(lang, contents);
   const footer = localizeNode(lang, <Footer lang={lang} />);
   return <div className="site-shell" lang={lang === 'it' ? 'it-IT' : lang} dir={getLocaleDirection(lang)}>
-    {header}<main>{lang !== 'it' && <p className="container translation-review-status" lang="it" role="note">Traduzione da approvare: non ancora approvata come equivalente pubblico. <a href={`/__localization-review/${lang}/${page}`}>Apri la bozza da revisionare</a></p>}<WhatsAppAccess lang={lang} />{main}</main>{footer}
+    {header}<main>{lang !== 'it' && !(showsTranslatedCopy(lang) && !isTranslationReviewMode()) && <p className="container translation-review-status" lang="it" role="note">Traduzione da approvare: non ancora approvata come equivalente pubblico. <a href={`/__localization-review/${lang}/${page}`}>Apri la bozza da revisionare</a></p>}<WhatsAppAccess lang={lang} />{main}</main>{footer}
   </div>;
 }
 
 function LibraryShell({ page, children, lang = 'it', articleSlug }: { page: Page; children: ReactNode; lang?: Lang; articleSlug?: string }) {
-  const contentLocale = isTranslationReviewMode() ? lang : 'it';
+  const contentLocale = showsTranslatedCopy(lang) ? lang : 'it';
   const hasLocalArticles = useActiveEditorial().some(e => e.kind === 'article' && e.locale === lang);
   return <LibraryLocale.Provider value={hasLocalArticles ? lang : contentLocale}><div className="site-shell" lang={lang === 'it' ? 'it-IT' : lang} dir={getLocaleDirection(lang)}>
     <Header lang={lang} page={page} articleSlug={articleSlug} />
-    <main><WhatsAppAccess lang={lang} />{lang !== 'it' && <p className="container translation-review-status" role="note" data-testid="translation-review-notice" lang="it" dir="ltr">{isTranslationReviewMode() ? 'Bozza tradotta · in attesa della revisione del titolare.' : hasLocalArticles ? 'Archivio misto: le edizioni attive hanno la lingua indicata; le altre mantengono il testo originale italiano.' : 'Testo originale italiano · nessuna traduzione approvata.'} <a href={articleSlug ? `/${articleSlug}` : libraryPath('it', page as 'articles' | 'guides' | 'search')}>Leggi l’edizione italiana</a></p>}<div lang={contentLocale} dir={getLocaleDirection(contentLocale)}>{children}</div></main>
+    <main><WhatsAppAccess lang={lang} />{lang !== 'it' && !(showsTranslatedCopy(lang) && !isTranslationReviewMode()) && <p className="container translation-review-status" role="note" data-testid="translation-review-notice" lang="it" dir="ltr">{isTranslationReviewMode() ? 'Bozza tradotta · in attesa della revisione del titolare.' : hasLocalArticles ? 'Archivio misto: le edizioni attive hanno la lingua indicata; le altre mantengono il testo originale italiano.' : 'Testo originale italiano · nessuna traduzione approvata.'} <a href={articleSlug ? `/${articleSlug}` : libraryPath('it', page as 'articles' | 'guides' | 'search')}>Leggi l’edizione italiana</a></p>}<div lang={contentLocale} dir={getLocaleDirection(contentLocale)}>{children}</div></main>
     <Footer lang={lang} />
   </div></LibraryLocale.Provider>;
 }
@@ -992,7 +994,7 @@ function BrowserLanguageSuggestion() {
   useEffect(() => {
     setSuggested(null);
     if (path !== '/' || editorialStatus !== 'verified' || isAutomaticVisitor(navigator.userAgent)) return;
-    const available = LOCALES.filter(locale => getEdition(locale.code, 'home')).map(locale => locale.code);
+    const available = PUBLISHED_LOCALES.filter(locale => getEdition(locale.code, 'home')).map(locale => locale.code);
     const code = chooseLanguage(navigator.languages?.length ? navigator.languages : [navigator.language], readSavedLanguage(), available);
     if (code !== 'it') setSuggested(code);
   }, [path, editorialStatus]);

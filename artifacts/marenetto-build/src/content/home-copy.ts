@@ -110,4 +110,4 @@ export const homeCopy: Record<'it' | 'en' | 'de', HomeCopy> = {
 };
 
 /** Stable anchors on the localized ServicesPage, in group order. */
-export const SERVICE_GROUP_IDS = ['costruzioni', 'finiture', 'infiltrazioni', 'esterni', 'cura-proprieta', 'prima-acquisto'] as const;
+export const SERVICE_GROUP_IDS = ['costruzioni', 'finiture', 'infiltrazioni', 'esterni', 'cura-proprieta', 'prima-acquisto', 'tetti'] as const;

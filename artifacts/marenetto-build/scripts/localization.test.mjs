@@ -23,7 +23,8 @@ test('the editorial matrix has 29 unique requested languages', () => {
 
 test('legacy locale records retain their recorded metadata and approvals, not approval of current pages', () => {
   const published = locales.filter(locale => locale.publication === 'published');
-  assert.equal(published.length, 29);
+  // Owner decision 18 Nov 2026: 12 public languages; the other 17 stay as hidden drafts.
+  assert.deepEqual(published.map(locale => locale.code).sort(), ['da', 'de', 'en', 'es', 'fr', 'it', 'nl', 'no', 'pl', 'pt', 'ru', 'sv']);
   const routePaths = [];
   for (const locale of published) {
     assert.equal(locale.copyStatus, 'complete');
@@ -37,7 +38,7 @@ test('legacy locale records retain their recorded metadata and approvals, not ap
       routePaths.push(pages[locale.code][page].path);
     }
   }
-  assert.equal(new Set(routePaths).size, 174);
+  assert.equal(new Set(routePaths).size, 72);
 });
 
 test('legacy reviewed catalogs cover stored keys and SEO fields, not human review of current rendered editions', async () => {
@@ -148,7 +149,7 @@ test('approved translations are present in the production bundle while preview i
 test('preview catalogs cover every source key and stay marked for owner review', async () => {
   const entries = JSON.parse(await readFile(path.join(root, 'src/localization/preview-sources.json'), 'utf8')).entries;
   const ids = Object.keys(entries);
-  assert.equal(ids.length, 441);
+  assert.equal(ids.length, 446);
   const locales = JSON.parse(await readFile(path.join(root, 'src/localization/locales.json'), 'utf8'));
   const codes = (Array.isArray(locales) ? locales : locales.locales).map(l => l.code).filter(c => c !== 'it');
   assert.equal(codes.length, 28);
@@ -171,7 +172,7 @@ test('browser language detection only chooses published locales, honouring prior
   assert.equal(chooseLanguage(['fr-CA', 'en'], null, published), 'fr');
   assert.equal(chooseLanguage(['xx-YY', 'nl-BE', 'en'], null, published), 'nl');
   assert.equal(chooseLanguage(['nb-NO'], null, published), 'no');
-  assert.equal(chooseLanguage(['he-IL'], null, published), 'he');
+  assert.equal(chooseLanguage(['he-IL'], null, published), 'it');
   assert.equal(chooseLanguage(['ja-JP', 'zh-CN'], null, published), 'it');
   assert.equal(chooseLanguage([], null, published), 'it');
   assert.equal(chooseLanguage(['en-US'], 'de', published), 'de');
