@@ -1,2 +1,9 @@
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /internal
+Disallow: /api/
+Disallow: /owner-demo
+Disallow: /sign-in
+Disallow: /sign-up
+Disallow: /__localization-review
+Sitemap: https://www.marenettobuild.com/sitemap.xml

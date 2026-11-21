@@ -1,4 +1,4 @@
-export const SEO_ORIGIN = new URL(process.env.VITE_PUBLIC_SITE_URL || 'https://preview.invalid').origin;
+export const SEO_ORIGIN = 'https://www.marenettobuild.com';
 export const escapeHtml = value => String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 export function redirectQuery(search, target) {
   const allowed = new Set(['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_id']);

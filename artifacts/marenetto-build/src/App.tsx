@@ -53,7 +53,7 @@ type Page = 'home' | 'services' | 'process' | 'abroad' | 'request' | 'contact' |
 
 type PageMetadata = { path: string; title: string; description: string };
 type CorePage = 'home' | 'services' | 'process' | 'abroad' | 'request' | 'contact';
-const PUBLIC_SITE_ORIGIN = import.meta.env.VITE_PUBLIC_SITE_URL || 'https://preview.invalid';
+const PUBLIC_SITE_ORIGIN = 'https://www.marenettobuild.com';
 const seoCopy = publicPageData as Record<Lang, Record<CorePage, PageMetadata>>;
 const routes = Object.fromEntries(LOCALES.map(locale => {
   const pages = seoCopy[locale.code];
@@ -839,7 +839,10 @@ function SitePage({ page, lang }: { page: CorePage; lang: Lang }) {
       alternate.dataset.localeAlternate = 'true';
       document.head.appendChild(alternate);
     }
-    setMeta('meta[name="robots"]', 'name', 'robots', 'noindex, nofollow');
+    setMeta('meta[name="robots"]', 'name', 'robots', document.documentElement.dataset.publicIndexing === 'true' &&
+      window.location.hostname === 'www.marenettobuild.com' && !isTranslationReviewMode() &&
+      ['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da'].includes(lang)
+      ? 'index, follow' : 'noindex, nofollow');
   }, [lang, page]);
   const header = localizeNode(lang, <Header lang={lang} page={page} />);
   const contents = <ContactContents lang={lang} page={page} />;
@@ -1097,12 +1100,42 @@ function ActiveEditorialPage({ edition }: { edition: EditorialActive }) {
 }
 function pageForEditorial(edition: EditorialActive): Page { return edition.kind === 'article' ? 'articles' : PAGE_KEYS.includes(edition.identity as CorePage) ? edition.identity as CorePage : 'home'; }
 
+function PublicReleaseMetadata() {
+  const [pathname] = useLocation();
+  const active = useActiveEditorial();
+  useEffect(() => {
+    if (document.documentElement.dataset.publicIndexing !== 'true' ||
+      window.location.hostname !== 'www.marenettobuild.com') return;
+    const approved = new Set(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']);
+    const normalized = (path: string) => path.replace(/\/+$/, '') || '/';
+    const withdrawn = new Set(active.filter(e => e.revisionId === 'withdrawn')
+      .flatMap(e => [e.path, ...(e.aliases ?? [])]).map(normalized));
+    const entries = editions.filter(e => approved.has(e.locale) && e.kind !== 'search' &&
+      e.path !== '/en/articoli/' && !e.path.startsWith('/__localization-review') && !withdrawn.has(normalized(e.path)));
+    const edition = entries.find(e => normalized(e.path) === normalized(pathname));
+    document.querySelector('meta[name="robots"]')?.setAttribute('content', edition ? 'index, follow' : 'noindex, nofollow');
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(link => link.remove());
+    if (!edition) return;
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', PUBLIC_SITE_ORIGIN + edition.path);
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', PUBLIC_SITE_ORIGIN + edition.path);
+    const equivalents = entries.filter(e => e.id === edition.id);
+    for (const e of equivalents) {
+      for (const language of e.locale === 'it' ? ['it-IT', 'x-default'] : [e.locale]) {
+        const link = document.createElement('link');
+        link.rel = 'alternate'; link.hreflang = language; link.href = PUBLIC_SITE_ORIGIN + e.path;
+        document.head.appendChild(link);
+      }
+    }
+  }, [pathname, active]);
+  return null;
+}
+
 function App({ ssrPath, editorialActive }: { ssrPath?: string; editorialActive?: EditorialActive[] }) {
   const [, setHydrated] = useState(false);
   useEffect(() => { document.documentElement.dataset.hydrated = 'true'; setHydrated(true); }, []);
   const pathname = ssrPath ?? window.location.pathname;
   const needsAuth = /^\/(internal|sign-in|sign-up)(\/|$)/.test(pathname.slice(basePath.length));
-  return <QueryClientProvider client={queryClient}><TooltipProvider><EditorialRuntime initial={editorialActive}><WouterRouter base={basePath} ssrPath={ssrPath}><BrowserLanguageSuggestion />{needsAuth && clerkPubKey ? <ClerkProviderWithRoutes /> : <Router />}<AnalyticsPreferences publicEditions={analyticsPublicEditions} /><Toaster /></WouterRouter></EditorialRuntime></TooltipProvider></QueryClientProvider>;
+  return <QueryClientProvider client={queryClient}><TooltipProvider><EditorialRuntime initial={editorialActive}><WouterRouter base={basePath} ssrPath={ssrPath}><BrowserLanguageSuggestion />{needsAuth && clerkPubKey ? <ClerkProviderWithRoutes /> : <Router />}<PublicReleaseMetadata /><AnalyticsPreferences publicEditions={analyticsPublicEditions} /><Toaster /></WouterRouter></EditorialRuntime></TooltipProvider></QueryClientProvider>;
 }
 
 function SignInPage() {

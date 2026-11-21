@@ -36,3 +36,7 @@ For the production launch, use the recorded owner authorization in the productio
 **Why:** The owner explicitly superseded those decision blocks while retaining technical release gates and limiting the approved language set and analytics collection.
 
 **How to apply:** Do not ask again for the same approval; check the written scope, keep preview and private routes unindexed, and obtain fresh approval for additional editions or materially changed translations.
+
+Open indexing only after the canonical WWW domain and permanent redirects have been verified in production.
+
+**Why:** The owner explicitly ordered the launch this way; a valid certificate alone does not prove the redirect chain is correct. Record edge-managed HTTP redirects separately from application redirects.

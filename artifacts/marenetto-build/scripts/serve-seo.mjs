@@ -2,6 +2,7 @@ import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { setWebSecurityHeaders } from './security-policy.mjs';
+import { canonicalRedirect, indexingEnabled, PUBLIC_ROBOTS, publicEditions, publicDocument, releaseSitemap } from './public-release.mjs';
 import { resolveRoute, redirectQuery } from './seo-document.mjs';
 import { readActiveEditorial, editorialDocument, editorialUnavailableHTML, withEditorialSnapshot, key } from './editorial-http.mjs';
 import { blockedPublicLocale, render } from '../dist/server/entry-server.mjs';
@@ -17,6 +18,42 @@ export const server = createServer(async (req, res) => {
   try {
     const url = new URL(req.url, 'http://localhost');
     const pathname = decodeURIComponent(url.pathname);
+    const destination = canonicalRedirect(req, manifest);
+    if (destination) {
+      res.writeHead(308, { Location: destination, 'Cache-Control': 'no-cache' });
+      return res.end();
+    }
+    const released = indexingEnabled(req);
+    let releaseEntries;
+    // Final status and verified editorial state govern indexing, including
+    // errors and withdrawn articles. Preview documents stay noindex.
+    const writeHead = res.writeHead.bind(res);
+    res.writeHead = function (status, ...args) {
+      const suppliedHeaders = args.find(value => value && typeof value === 'object');
+      const contentType = suppliedHeaders?.['Content-Type'] ?? res.getHeader('Content-Type');
+      if (released && status === 200 && String(contentType ?? '').startsWith('text/html') &&
+        releaseEntries?.some(e => e.path === pathname)) res.removeHeader('X-Robots-Tag');
+      return writeHead(status, ...args);
+    };
+    const end = res.end.bind(res);
+    res.end = function (content, ...args) {
+      if (released && res.statusCode === 200 && String(res.getHeader('Content-Type') ?? '').startsWith('text/html')) {
+        const edition = releaseEntries?.find(e => e.path === pathname);
+        if (edition && content !== undefined) {
+          content = publicDocument(content, edition, releaseEntries);
+        }
+      }
+      return end(content, ...args);
+    };
+    if (pathname === '/robots.txt') {
+      res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-cache' });
+      return res.end(req.method === 'HEAD' ? undefined : released ? PUBLIC_ROBOTS : 'User-agent: *\nDisallow: /\n');
+    }
+    if (pathname === '/sitemap.xml' && released) {
+      const active = await readActiveEditorial();
+      res.writeHead(200, { 'Content-Type': 'application/xml', 'Cache-Control': 'no-cache' });
+      return res.end(req.method === 'HEAD' ? undefined : releaseSitemap(publicEditions(manifest, active)));
+    }
     const blockedLocale = blockedPublicLocale(pathname);
     if (blockedLocale) {
       const content = await readFile(path.join(root, manifest.errors[blockedLocale] ?? '404.html'));
@@ -28,6 +65,7 @@ export const server = createServer(async (req, res) => {
     if (!asset) {
       const active = await readActiveEditorial();
       verifiedActive = active;
+      releaseEntries = publicEditions(manifest, active);
       const live = active.find(e => [e.path,...(e.aliases ?? [])].some(path => key(path) === key(pathname)));
       const existing = Object.values(manifest.editions ?? {}).find(e => key(e.path) === key(pathname));
       const dynamicLibrary = existing && ['articles','guides','search'].includes(existing.id) && active.some(e => e.kind === 'article' && e.locale === existing.locale);

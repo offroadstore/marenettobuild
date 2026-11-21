@@ -104,7 +104,7 @@ test("CORS allowlist and security headers cover success, preflight and errors", 
   ]) {
     const r = await fetch(origin + path, options);
     assert.equal(r.status, status);
-    for (const header of ["x-robots-tag", "x-frame-options", "referrer-policy", "permissions-policy", "strict-transport-security", "x-content-type-options"]) {
+    for (const header of ["x-robots-tag", "x-frame-options", "referrer-policy", "permissions-policy", "x-content-type-options"]) {
       assert.ok(r.headers.get(header), header);
     }
     assert.match(r.headers.get("content-security-policy-report-only") ?? "", /^default-src 'self'/);

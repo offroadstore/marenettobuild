@@ -17,7 +17,7 @@ async function close(server) {
 
 // Real TCP transport: a synthetic API, a path-routing gateway and the actual
 // production HTML process. No fetch monkeypatches or database changes.
-export async function editorialTopology({ snapshot = [], viaProxy = false } = {}) {
+export async function editorialTopology({ snapshot = [], viaProxy = false, publicIndexing = false } = {}) {
   let mode = 'available';
   let webOrigin;
   let requests = 0;
@@ -37,7 +37,7 @@ export async function editorialTopology({ snapshot = [], viaProxy = false } = {}
   const gateway = createServer((req, res) => {
     const target = req.url.startsWith('/api/') ? apiOrigin : webOrigin;
     if (!target) { res.writeHead(503); res.end(); return; }
-    const upstream = request(new URL(req.url, target), { method: req.method }, response => {
+    const upstream = request(new URL(req.url, target), { method: req.method, headers: req.headers }, response => {
       res.writeHead(response.statusCode, response.headers);
       response.pipe(res);
     });
@@ -58,7 +58,7 @@ export async function editorialTopology({ snapshot = [], viaProxy = false } = {}
     const entry = `import {once} from 'node:events'; const {server}=await import('./scripts/serve-seo.mjs'); if(!server.listening)await once(server,'listening'); console.log('TEST_PORT='+server.address().port);`;
     child = spawn(process.execPath, ['--input-type=module', '-e', entry], {
       cwd: root,
-      env: { ...process.env, NODE_ENV: 'production', PORT: '0', EDITORIAL_API_ORIGIN: viaProxy ? origin : apiOrigin },
+      env: { ...process.env, NODE_ENV: 'production', MARENETTO_PUBLIC_INDEXING: String(publicIndexing), PORT: '0', EDITORIAL_API_ORIGIN: viaProxy ? origin : apiOrigin },
       stdio: ['ignore', 'pipe', 'pipe'],
     });
     child.stderr.on('data', chunk => { if (logs.length < 30) logs.push(chunk.toString()); });

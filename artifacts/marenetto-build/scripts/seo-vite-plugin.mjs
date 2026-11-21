@@ -9,6 +9,10 @@ export function seoPreviewPlugin() {
       server.middlewares.use(async (req, res, next) => {
         const url = new URL(req.url, 'http://preview.invalid');
         const pathname = url.pathname;
+        if (pathname === '/robots.txt') {
+          res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8', 'X-Robots-Tag': 'noindex, nofollow' });
+          return res.end(req.method === 'HEAD' ? undefined : 'User-agent: *\nDisallow: /\n');
+        }
         if (!['GET', 'HEAD'].includes(req.method) || /^\/(?:@|src\/|node_modules\/|assets\/|media\/|brand\/|api(?:\/|$)|__mockup(?:\/|$))/.test(pathname) || /\.(?:js|css|json|svg|png|jpe?g|webp|avif|woff2?|txt|xml)(?:$|\?)/.test(pathname)) return next();
         res.setHeader('X-Robots-Tag', 'noindex, nofollow');
         if (/^\/(?:internal|sign-in|sign-up)(?:\/|$)/.test(pathname) || pathname === '/owner-demo') return next();

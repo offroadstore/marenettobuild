@@ -20,7 +20,8 @@ app.use((_req, res, next) => {
   res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
   res.setHeader("X-Frame-Options", "DENY");
   res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
-  res.setHeader("Strict-Transport-Security", "max-age=63072000; includeSubDomains");
+  // Replit's HTTPS edge supplies HSTS in production; do not duplicate it.
+  if (process.env.NODE_ENV !== "production") res.setHeader("Strict-Transport-Security", "max-age=63072000; includeSubDomains");
   res.setHeader("X-Robots-Tag", "noindex, nofollow");
   res.setHeader(
     process.env.MARENETTO_CSP_MODE === "enforce" ? "Content-Security-Policy" : "Content-Security-Policy-Report-Only",
