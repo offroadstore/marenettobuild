@@ -75,7 +75,7 @@ timeoutMs = 20000
 ARUBA_SMTP_FROM = "info@marenetto.com"
 ARUBA_SMTP_HOST = "smtps.aruba.it"
 ARUBA_SMTP_PORT = "465"
-ARUBA_SMTP_TO = "info@marenetto.com"
+ARUBA_SMTP_TO = "info@marenettobuild.com"
 ARUBA_SMTP_USER = "info@marenetto.com"
 INTERNAL_INVITES = "hermangeraci@gmail.com:owner,fabio@offroadstore.it:editor"
 
