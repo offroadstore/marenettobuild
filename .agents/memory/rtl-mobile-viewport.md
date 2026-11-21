@@ -1,10 +1,10 @@
 ---
 name: RTL mobile viewport
-description: Separate document direction from locale content direction in this SPA.
+description: Owner-required document RTL and the historical mobile viewport regression.
 ---
 
-Keep the outer document direction LTR in the client-side app and apply RTL to the locale-specific site shell.
+Do not restore the old fixed-LTR document workaround without owner approval. Arabic and Hebrew must use RTL on the document as well as the locale-specific content.
 
-**Why:** Dynamically changing root direction can affect Chromium mobile viewport geometry even when the content itself fits. Locale-shell direction preserves RTL reading without changing the outer viewport.
+**Why:** The owner explicitly requested locale-dependent document direction, superseding the earlier LTR-root workaround. Changing root direction previously affected Chromium mobile viewport geometry even when content fitted, so the historical regression still needs attention.
 
-**How to apply:** When testing RTL in this SPA, verify the rendered page at mobile width and keep document-level direction separate from the locale shell unless root RTL behavior is revalidated across supported browsers.
+**How to apply:** Validate document and shell direction, horizontal overflow and viewport offset on mobile in both RTL locales, including navigation back to an LTR page. Correct any geometry regression rather than silently forcing the document back to LTR.

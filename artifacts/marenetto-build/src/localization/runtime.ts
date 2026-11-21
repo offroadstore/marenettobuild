@@ -1,7 +1,7 @@
 import { Children, cloneElement, isValidElement, type ReactNode } from 'react';
 import sourceData from './catalogs/sources.json';
 import { portugueseReviewTerms, serbianCyrillic } from './editorial-conventions';
-import localeRecords from './locales.json';
+import localeRecords from './locales.json' with { type: 'json' };
 
 type ApprovedCatalog = {
   locale: string;

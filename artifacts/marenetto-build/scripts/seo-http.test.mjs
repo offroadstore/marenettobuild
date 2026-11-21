@@ -3,10 +3,26 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { test } from 'node:test';
 import path from 'node:path';
 import { editorialTopology } from './test-support/editorial-topology.mjs';
+import { renderDocument } from './seo-document.mjs';
+import { setWebSecurityHeaders } from './security-policy.mjs';
 
 const root = path.resolve(import.meta.dirname, '..');
 const reportDir = path.resolve(root, '../../generated-artifacts/seo-audit');
 const manifest = JSON.parse(await readFile(path.join(root, 'dist/public/route-manifest.json'), 'utf8'));
+test('HTML document direction follows the locale, including Arabic and Hebrew', () => {
+  const template = '<html lang="it" dir="ltr"><head><title>Test</title></head><body><div id="root"></div></body></html>';
+  for (const [locale, direction] of [['ar', 'rtl'], ['he', 'rtl'], ['it', 'ltr'], ['en', 'ltr'], ['unknown', 'ltr']]) {
+    const html = renderDocument(template, { edition: { locale, path: '/' }, body: '<main>Test</main>' });
+    assert.match(html, new RegExp(`<html lang="${locale === 'it' ? 'it-IT' : locale}" dir="${direction}"`));
+  }
+});
+
+test('application HSTS is one day without subdomain coverage; production keeps edge ownership', () => {
+  const headers = new Map();
+  setWebSecurityHeaders({ setHeader: (name, value) => headers.set(name.toLowerCase(), value) });
+  assert.equal(headers.get('strict-transport-security'), process.env.NODE_ENV === 'production' ? undefined : 'max-age=86400');
+});
+
 test('real HTTP delivery: every edition, redirects, errors, indexing and canonical', { timeout: 120000 }, async () => {
   const topology = await editorialTopology({ viaProxy: true });
   const { origin } = topology;

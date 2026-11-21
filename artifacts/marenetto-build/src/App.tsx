@@ -793,8 +793,7 @@ function SitePage({ page, lang }: { page: CorePage; lang: Lang }) {
     const htmlLang = lang === 'it' ? 'it-IT' : lang;
     document.title = metadata.title;
     document.documentElement.lang = htmlLang;
-    // Keep the outer viewport LTR; the site shell carries the page's RTL direction.
-    document.documentElement.dir = 'ltr';
+    document.documentElement.dir = direction;
 
     const setMeta = (selector: string, attribute: 'name' | 'property', key: string, content: string) => {
       let element = document.head.querySelector<HTMLMetaElement>(selector);
@@ -1067,7 +1066,7 @@ function ActiveEditorialPage({ edition }: { edition: EditorialActive }) {
   usePageMeta({ title: content.seoTitle || content.title, description: content.seoDescription || content.summary, path: edition.path, type: edition.kind === 'article' ? 'article' : 'website' });
   useEffect(() => {
     document.documentElement.lang = locale;
-    document.documentElement.dir = 'ltr';
+    document.documentElement.dir = getLocaleDirection(locale);
     document.querySelectorAll('link[rel="alternate"][hreflang], script[type="application/ld+json"]').forEach(node => node.remove());
     const title = content.seoTitle || content.title;
     const description = content.seoDescription || content.summary;

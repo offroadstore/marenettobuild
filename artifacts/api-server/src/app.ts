@@ -21,7 +21,7 @@ app.use((_req, res, next) => {
   res.setHeader("X-Frame-Options", "DENY");
   res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
   // Replit's HTTPS edge supplies HSTS in production; do not duplicate it.
-  if (process.env.NODE_ENV !== "production") res.setHeader("Strict-Transport-Security", "max-age=63072000; includeSubDomains");
+  if (process.env.NODE_ENV !== "production") res.setHeader("Strict-Transport-Security", "max-age=86400");
   res.setHeader("X-Robots-Tag", "noindex, nofollow");
   res.setHeader(
     process.env.MARENETTO_CSP_MODE === "enforce" ? "Content-Security-Policy" : "Content-Security-Policy-Report-Only",

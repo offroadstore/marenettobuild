@@ -1,3 +1,5 @@
+import { getLocaleDirection } from '../src/localization/locale-direction.mjs';
+
 export const SEO_ORIGIN = 'https://www.marenettobuild.com';
 export const escapeHtml = value => String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 export function redirectQuery(search, target) {
@@ -14,7 +16,7 @@ export function renderDocument(template, { edition, body, alternates = [], canon
   const description = edition?.description ?? 'La pagina richiesta non è disponibile. Torna alla homepage di Marenetto Build.';
   const canonical = new URL(canonicalPath ?? edition?.path ?? '/', SEO_ORIGIN).href;
   let html = template
-    .replace(/<html[^>]*>/, `<html lang="${locale === 'it' ? 'it-IT' : locale}" dir="ltr" data-edition-locale="${locale}">`)
+    .replace(/<html[^>]*>/, `<html lang="${locale === 'it' ? 'it-IT' : locale}" dir="${getLocaleDirection(locale)}" data-edition-locale="${locale}">`)
     .replace(/<title>[\s\S]*?<\/title>/, '')
     .replace(/<link\b[^>]*rel="(?:canonical|alternate)"[^>]*>/g, '')
     .replace(/<meta\b[^>]*(?:name="(?:description|robots|twitter:[^"]+)"|property="og:[^"]+")[^>]*>/g, '')

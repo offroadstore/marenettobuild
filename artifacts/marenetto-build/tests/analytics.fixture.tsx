@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { AnalyticsRuntime, CONSENT_MAX_AGE, consentValue, safePath, validConfig, excludedPath } from '../src/lib/analytics/runtime';
 import { analyticsCopy } from '../src/lib/analytics/copy';
-import locales from '../src/localization/locales.json';
+import locales from '../src/localization/locales.json' with { type: 'json' };
 
 test('consent, revoke, SPA, expired/unavailable configuration and minimal event fields', () => {
   let now = Date.now();

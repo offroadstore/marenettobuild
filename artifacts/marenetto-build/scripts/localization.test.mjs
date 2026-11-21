@@ -144,7 +144,7 @@ test('the build renders complete documents and only includes page-approved equiv
       const expectedTags = alternates.map(localeTag);
       if (alternates.some(other => other.locale === 'it')) expectedTags.push('x-default');
       assert.deepEqual([...html.matchAll(/rel="alternate" hreflang="([^"]+)"/g)].map(match => match[1]).sort(), expectedTags.sort(), routePath);
-       assert.match(html, new RegExp(`<html lang="${locale.code === 'it' ? 'it-IT' : locale.code}" dir="ltr"`));
+       assert.match(html, new RegExp(`<html lang="${locale.code === 'it' ? 'it-IT' : locale.code}" dir="${locale.direction}"`));
        assert.match(html, new RegExp(`class="site-shell" lang="${locale.code === 'it' ? 'it-IT' : locale.code}" dir="${locale.direction}"`));
        assert.equal((html.match(/<h1(?:\s|>)/g) ?? []).length, 1);
        assert.doesNotMatch(html, /<div id="root"><\/div>/);

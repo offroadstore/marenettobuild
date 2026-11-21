@@ -6,6 +6,7 @@ import { articlePath, libraryPath } from '@/localization/paths';
 import { canonicalEdition, getEdition, equivalentEditions } from '@/localization/edition-inventory';
 import { isTranslationReviewMode } from '@/localization/runtime';
 import { updateStructuredData } from './structured-data';
+import { getLocaleDirection } from '@/localization/locales';
 
 export type PageMeta = { title: string; description: string; path: string; type?: 'website' | 'article'; lang?: string };
 
@@ -29,7 +30,7 @@ export function usePageMeta({ title, description, path, type = 'website', lang =
     document.title = title;
     const routeLocale = location.match(/^\/(?:__localization-review\/)?([a-z]{2})(?:\/|$)/)?.[1] ?? 'it';
     document.documentElement.lang = routeLocale;
-    document.documentElement.dir = 'ltr';
+    document.documentElement.dir = getLocaleDirection(routeLocale);
     setMeta('name', 'robots', 'noindex, nofollow');
     setMeta('name', 'description', description);
     setMeta('property', 'og:title', title);

@@ -36,5 +36,5 @@ export function setWebSecurityHeaders(res) {
   res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
   // Production TLS and HSTS are supplied by Replit's edge. Setting the same
   // header here produces a duplicated Strict-Transport-Security field.
-  if (process.env.NODE_ENV !== 'production') res.setHeader('Strict-Transport-Security', 'max-age=63072000; includeSubDomains');
+  if (process.env.NODE_ENV !== 'production') res.setHeader('Strict-Transport-Security', 'max-age=86400');
 }

@@ -5,6 +5,20 @@ import { and, eq, gt, lte, sql } from "drizzle-orm";
 const tenMinutesMs = 10 * 60_000;
 const dayMs = 24 * 60 * 60_000;
 
+export function getProjectRequestIpKey(environment: NodeJS.ProcessEnv = process.env): string | Buffer {
+  const salt = environment.PROJECT_REQUEST_IP_SALT;
+  if (salt) {
+    if (salt.length < 32) throw new Error("PROJECT_REQUEST_IP_SALT must contain at least 32 characters.");
+    return salt;
+  }
+  const sessionSecret = environment.SESSION_SECRET;
+  if (!sessionSecret || sessionSecret.length < 32) {
+    throw new Error("PROJECT_REQUEST_IP_SALT or a SESSION_SECRET of at least 32 characters is required.");
+  }
+  // Domain-separate the IP hashing key from the session signing key.
+  return createHmac("sha256", sessionSecret).update("marenetto-project-request-ip-v1").digest();
+}
+
 export function isSpamSubmission(body: unknown, now: number): boolean {
   if (!body || typeof body !== "object") return false;
   if ("companyWebsite" in body && body.companyWebsite !== undefined && body.companyWebsite !== "") return true;
@@ -13,9 +27,7 @@ export function isSpamSubmission(body: unknown, now: number): boolean {
 }
 
 export async function reserveProjectRequest(address: string): Promise<boolean> {
-  const salt = process.env.PROJECT_REQUEST_IP_SALT ??
-    (process.env.NODE_ENV === "production" ? undefined : process.env.SESSION_SECRET);
-  if (!salt || salt.length < 32) throw new Error("PROJECT_REQUEST_IP_SALT is not configured.");
+  const salt = getProjectRequestIpKey();
   const ipHash = createHmac("sha256", salt)
     .update(address.replace(/^::ffff:/i, "").toLowerCase())
     .digest("hex");

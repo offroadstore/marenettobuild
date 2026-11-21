@@ -1,4 +1,5 @@
-import localeData from './locales.json';
+import localeData from './locales.json' with { type: 'json' };
+export { getLocaleDirection } from './locale-direction.mjs';
 
 export const PAGE_KEYS = ['home', 'services', 'process', 'abroad', 'request', 'contact'] as const;
 export type PublicPage = typeof PAGE_KEYS[number];
@@ -33,10 +34,6 @@ export function canPublishLocale(locale: LocaleRecord): boolean {
   return locale.copyStatus === 'complete'
     && locale.reviewStatus === 'approved-current-copy'
     && PAGE_KEYS.every(page => locale.completePages.includes(page));
-}
-
-export function getLocaleDirection(code: string): LocaleDirection {
-  return getLocale(code)?.direction ?? 'ltr';
 }
 
 export function assertLocaleRegistryIsSafe(): void {

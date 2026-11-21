@@ -111,6 +111,7 @@ test('explicit Italian URL, keyboard language selection, RTL mobile geometry and
   for (const locale of ['ar', 'he']) {
     await page.goto(`/__localization-review/${locale}/home`, { waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => document.documentElement.dataset.hydrated === 'true');
+    await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
     expect(await page.evaluate(() => Math.abs(document.documentElement.getBoundingClientRect().left))).toBeLessThanOrEqual(1);
     await expect(page.locator('.site-shell')).toHaveCSS('direction', 'rtl');
