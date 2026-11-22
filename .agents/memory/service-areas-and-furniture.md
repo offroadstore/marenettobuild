@@ -3,7 +3,7 @@ name: Service areas and premium furniture
 description: Owner-defined local construction scope, worldwide custom furniture and truthful presentation rules.
 ---
 
-Construction and renovation are offered only within approximately 60 km of
+Construction and renovation are offered only within 60 km of
 Cefalù. Premium custom furniture, including exclusive cement/microcement tables
 and design pieces, is offered worldwide with the team travelling.
 
@@ -26,10 +26,43 @@ while authorizing a premium furniture section and worldwide positioning.
 **How to apply:** Preserve the distinction between an offered service and
 evidence of completed work; use Product data only for real defined products.
 
-Do not mention real-estate agencies or partners on the public site or imply
-partnerships.
+Do not mention real-estate agencies on the public site. The owner now authorizes
+a categories-only professional network: general contractors, technical practices
+and specialist firms, with no named partners or logos implying agreements.
 
-**Why:** The owner explicitly states that there are no agreements.
+**Why:** On 2026-11-22 the owner requested a professional-network section,
+superseding the earlier blanket restriction only for category-level collaboration
+descriptions. This does not establish named agreements or individual credentials.
 
-**How to apply:** Apply this restriction to existing copy, translations, new
-service pages, metadata, structured data and AI-oriented descriptions.
+**How to apply:** Describe coordination positively, never client exchanges or
+criticism of other providers. Preserve the agency ban in copy, translations,
+metadata, images, schema and AI-oriented summaries. Do not invent specific
+partners, years, qualifications, contracts or worldwide building coverage.
+
+Radiant floors, radiant walls, finishes and bespoke special details are
+owner-confirmed direct services, not partner categories. Distinguish them from
+the professional network; they do not inherit worldwide furniture coverage.
+
+**Why:** The owner explicitly identified these as “servizi che facciamo NOI
+direttamente” and requested heating/cooling radiant content plus service-page
+integration.
+
+**How to apply:** Keep the distinction in the pillar, relevant service pages,
+articles and translations. Do not infer internal design qualifications,
+certifications or other trades from the direct-service statement. Images for
+radiant systems and glazing/windows must illustrate finished Mediterranean-style
+interiors, not exposed installations or unfinished sites; label their AI origin.
+
+The owner also confirms coverage through the company or its network for
+insulation/thermal envelopes, roof/terrace waterproofing, timber roofs/roofing,
+heat pumps and air conditioning, smart-home lighting/shutters/alarms, stone
+and marble work, lime plaster and old stone-house restoration, bespoke kitchens,
+bioclimatic pergolas and exterior awnings.
+
+**Why:** The owner explicitly added these categories but did not identify
+which are performed in-house and which by the network.
+
+**How to apply:** Include the confirmed offering without labeling all of it
+as direct work. Preserve the previously confirmed direct radiant/finishing
+scope; obtain category-level execution details before making stronger claims.
+These additions do not expand local building coverage or imply worldwide kitchens.

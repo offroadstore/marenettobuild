@@ -24,7 +24,7 @@ for (const page of index.filter(p => p.family === '/')) {
     assert.ok(home.story.link.href.endsWith('/chi-siamo/'));
     const out = JSON.stringify(home);
     assert.ok(!out.includes('image/svg+xml') && !out.includes('{general'));
-    if (page.locale === 'it') assert.equal(home.reviews.names.length, 9);
-    else assert.equal(home.reviews, null);
+    assert.equal(home.reviews, undefined, 'Reviewer identities must never enter public home data');
+    assert.doesNotMatch(out, /Hannah Erika|Salvatore Ruffa|Sal G\b/);
   });
 }

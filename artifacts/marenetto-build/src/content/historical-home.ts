@@ -9,7 +9,6 @@ export type HistoricalHome = {
   articles: HomeArticle[];
   news: { heading: string; subtitle: string | null; readLabel: string | null } | null;
   story: { heading: string; text: string; link: { href: string; label: string } | null } | null;
-  reviews: { heading: string; names: string[] } | null;
 };
 
 const ENTITIES: Record<string, string> = { nbsp: ' ', amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", rsquo: '\u2019', lsquo: '\u2018', ldquo: '\u201c', rdquo: '\u201d', hellip: '\u2026', ndash: '\u2013', mdash: '\u2014', reg: '\u00ae', egrave: '\u00e8', agrave: '\u00e0', ugrave: '\u00f9', ograve: '\u00f2', igrave: '\u00ec', eacute: '\u00e9' };
@@ -86,12 +85,6 @@ export function extractHistoricalHome(source: string): HistoricalHome {
     if (head) story = { heading: head.text, text: plainText(html.slice(head.end, storyLinkIndex)).replace(/\{general->website->\{name\}\}?/g, 'Marenetto Build'), link: { href: attr(storyLink[1]), label: plainText(storyLink[2]) } };
   }
 
-  let reviews: HistoricalHome['reviews'] = null;
-  const newsHeadIndex = firstH4 ? ([...h2s].reverse().find(h => h.index < firstH4.index)?.index ?? html.length) : html.length;
-  const reviewHead = h2s.find(h => h.index > Math.max(storyLinkIndex, firstCard) && h.index < newsHeadIndex);
-  if (reviewHead) {
-    const names = all(html.slice(reviewHead.end, newsHeadIndex), /<b\b[^>]*>([\s\S]*?)<\/b>/gi).map(b => plainText(b.inner)).filter(Boolean);
-    if (names.length) reviews = { heading: reviewHead.text, names };
-  }
-  return { intro, support, articles, news, story, reviews };
+  // Owner withdrew the copied reviews: never extract reviewer identities into public data.
+  return { intro, support, articles, news, story };
 }

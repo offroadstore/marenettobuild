@@ -12,6 +12,7 @@ import { IllustrationNote } from '@/components/home/IllustrationNote';
 import { WhatsAppAccess, WhatsAppNavLink } from '@/components/WhatsAppAccess';
 import { COMPANY_CONTACT, COMPANY_PHONE, emailHref, telHref, whatsappHref } from '@/config/contact';
 import { MobileContactBar } from '@/components/home/MobileContactBar';
+import { GoogleReviews } from '@/components/home/GoogleReviews';
 import { homeCopy, SERVICE_GROUP_IDS, type HomeCopy } from '@/content/home-copy';
 import { articlePath, libraryPath } from '@/localization/paths';
 import { LibraryLocale } from '@/localization/library-context';
@@ -552,6 +553,9 @@ function HomePage({ lang }: { lang: Lang }) {
       </div>
     </section>)}
 
+    <section className="mbx mbx-section mbx-story" aria-labelledby="mbx-reviews-h">
+      <div className="mbh-wrap"><GoogleReviews locale={lang} /></div>
+    </section>
   </div>;
 }
 

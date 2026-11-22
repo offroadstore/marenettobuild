@@ -48,6 +48,52 @@ function Inner({ lang }: { lang: string }) {
   const { label, href } = useWhatsAppCopy(lang);
   const closeLabel = closeWhatsApp[lang];
 
+  // On narrow screens the floating control must yield to readable content,
+  // links, form controls and cookie dialogs rather than cover them while scrolling.
+  useEffect(() => {
+    const box = boxRef.current;
+    if (!box || closed) return;
+    let frame = 0;
+    const check = () => {
+      frame = 0;
+      if (window.innerWidth >= 700) { box.removeAttribute('data-obscures-content'); return; }
+      if (drag.current?.moved) return;
+      const rect = box.getBoundingClientRect();
+      const blocked = [...document.querySelectorAll<HTMLElement>(
+        'a, button, input, textarea, select, [role="dialog"], h1, h2, h3, h4, h5, h6, p, li, dt, dd, label, figcaption',
+      )].some(element => {
+        if (box.contains(element) || !element.getClientRects().length) return false;
+        const style = getComputedStyle(element);
+        if (style.visibility === 'hidden' || style.display === 'none' || style.opacity === '0') return false;
+        const r = element.getBoundingClientRect();
+        return r.width > 0 && r.height > 0 && r.left < rect.right + 4 && r.right > rect.left - 4
+          && r.top < rect.bottom + 4 && r.bottom > rect.top - 4;
+      });
+      box.toggleAttribute('data-obscures-content', blocked);
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(check); };
+    const observer = new ResizeObserver(schedule);
+    observer.observe(document.body);
+    const mutations = new MutationObserver(schedule);
+    mutations.observe(document.body, { childList: true, subtree: true });
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    window.addEventListener('pointerup', schedule);
+    document.addEventListener('focusin', schedule);
+    window.visualViewport?.addEventListener('resize', schedule);
+    schedule();
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      mutations.disconnect();
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      window.removeEventListener('pointerup', schedule);
+      document.removeEventListener('focusin', schedule);
+      window.visualViewport?.removeEventListener('resize', schedule);
+    };
+  }, [closed, pos]);
+
   const clamp = useCallback((x: number, y: number) => {
     const box = boxRef.current;
     const vv = window.visualViewport;

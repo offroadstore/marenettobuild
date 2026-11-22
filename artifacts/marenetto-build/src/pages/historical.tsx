@@ -2,6 +2,7 @@ import { useEffect, type MouseEvent, type ReactNode } from 'react';
 import { historicalDocument, type HistoricalPage } from '@/content/historical';
 import { HeroPhoto } from '@/components/home/Media';
 import { HistoricalHomeSections } from '@/components/home/HistoricalHomeSections';
+import { GoogleReviews } from '@/components/home/GoogleReviews';
 import { extractHistoricalHome } from '@/content/historical-home';
 import { extractHistoricalCategory, isCategoryFamily } from '@/content/historical-category';
 import { HistoricalCategoryView } from '@/components/historical/HistoricalCategory';
@@ -66,8 +67,11 @@ export function HistoricalContents({ page, actions }: { page: HistoricalPage; ac
     <section className="mbh-opening"><HeroPhoto><div className="mbh-hero__copy">
       <h1 className="mbh-h1">{page.h1}</h1><div data-preserved-ui="">{actions}</div>
     </div></HeroPhoto></section>{' '}
-    {homeData && <HistoricalHomeSections home={homeData} />}
+    {homeData && <HistoricalHomeSections home={homeData} locale={page.locale} />}
   </div>;
+  if (page.family === '/recensioni') return <section className="mbx mbx-section" lang={page.locale}>
+    <div className="container"><GoogleReviews locale={page.locale} heading="h1" /></div>
+  </section>;
   const categoryData = page.kind !== 'article' && isCategoryFamily(page.family) ? extractHistoricalCategory(document.html) : null;
   if (categoryData) return <div data-historical-body="" data-historical-category={page.family} data-editorial-state={page.state === 'awaiting-confirmation' ? 'review-pending' : undefined} data-correction-state={page.editorialCorrection ? page.locale === 'it' ? 'owner-authorized-preview' : 'translation-draft' : undefined} lang={page.contentLanguage} onClick={preserveCampaign}>
     {page.locale !== 'it' && page.contentLanguage === 'it' && <div className="mb-cat-note container"><p lang={page.locale} data-source-language="it">{sourceLanguageLabels[page.locale] ?? 'Testo in italiano'}</p></div>}
