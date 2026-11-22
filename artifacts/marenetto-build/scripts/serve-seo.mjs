@@ -2,16 +2,16 @@ import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { setWebSecurityHeaders } from './security-policy.mjs';
-import { canonicalRedirect, indexingEnabled, PUBLIC_ROBOTS, publicEditions, publicDocument, releaseSitemap } from './public-release.mjs';
+import { canonicalRedirect, publicHost, indexingEnabled, PUBLIC_ROBOTS, PUBLIC_ORIGIN, publicEditions, publicDocument, releaseSitemap } from './public-release.mjs';
 import { resolveRoute, redirectQuery } from './seo-document.mjs';
 import { readActiveEditorial, editorialDocument, editorialUnavailableHTML, withEditorialSnapshot, key } from './editorial-http.mjs';
-import { blockedPublicLocale, render } from '../dist/server/entry-server.mjs';
+import { blockedPublicLocale, render, companyStructuredData } from '../dist/server/entry-server.mjs';
 
 const root = path.resolve(import.meta.dirname, '../dist/public');
 const manifest = JSON.parse(await readFile(path.join(root, 'route-manifest.json'), 'utf8'));
 const editions = Object.keys(manifest.pages).map(path => ({ path }));
 const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml', '.xml': 'application/xml', '.txt': 'text/plain', '.jpg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.avif': 'image/avif', '.woff2': 'font/woff2' };
-// Deliberately preview-only. Production indexing is NOT enabled by an env typo or host header.
+// Production indexing requires both the explicit Configuration and canonical host.
 export const server = createServer(async (req, res) => {
   setWebSecurityHeaders(res);
   if (!['GET', 'HEAD'].includes(req.method)) { res.writeHead(405, { Allow: 'GET, HEAD' }); return res.end(); }
@@ -20,7 +20,9 @@ export const server = createServer(async (req, res) => {
     const pathname = decodeURIComponent(url.pathname);
     const destination = canonicalRedirect(req, manifest);
     if (destination) {
-      res.writeHead(308, { Location: destination, 'Cache-Control': 'no-cache' });
+      const hostRedirect = publicHost(req) === 'marenettobuild.com' ||
+        String(req.headers['x-forwarded-proto'] ?? 'https').split(',')[0].trim() === 'http';
+      res.writeHead(hostRedirect ? 301 : 308, { Location: destination, 'Cache-Control': 'no-cache' });
       return res.end();
     }
     const released = indexingEnabled(req);
@@ -31,8 +33,12 @@ export const server = createServer(async (req, res) => {
     res.writeHead = function (status, ...args) {
       const suppliedHeaders = args.find(value => value && typeof value === 'object');
       const contentType = suppliedHeaders?.['Content-Type'] ?? res.getHeader('Content-Type');
-      if (released && status === 200 && String(contentType ?? '').startsWith('text/html') &&
-        releaseEntries?.some(e => e.path === pathname)) res.removeHeader('X-Robots-Tag');
+      const publicResource = /^\/(?:media|brand)\//.test(pathname) ||
+        ['/robots.txt', '/sitemap.xml', '/favicon.svg'].includes(pathname);
+      if (released && status === 200 && (publicResource ||
+        (String(contentType ?? '').startsWith('text/html') && releaseEntries?.some(e => e.path === pathname)))) {
+        res.removeHeader('X-Robots-Tag');
+      }
       return writeHead(status, ...args);
     };
     const end = res.end.bind(res);
@@ -40,7 +46,11 @@ export const server = createServer(async (req, res) => {
       if (released && res.statusCode === 200 && String(res.getHeader('Content-Type') ?? '').startsWith('text/html')) {
         const edition = releaseEntries?.find(e => e.path === pathname);
         if (edition && content !== undefined) {
-          content = publicDocument(content, edition, releaseEntries);
+          content = publicDocument(content, edition, releaseEntries, companyStructuredData(PUBLIC_ORIGIN));
+        } else if (content !== undefined) {
+          // The marker enables host-scoped client routing, not indexing of this
+          // private/duplicate document. Its noindex headers and meta stay intact.
+          content = String(content).replace('<html ', '<html data-public-indexing="true" ');
         }
       }
       return end(content, ...args);
@@ -132,4 +142,4 @@ export const server = createServer(async (req, res) => {
   }
 });
 if (!process.env.PORT || !Number.isInteger(Number(process.env.PORT))) throw new Error('A valid PORT is required.');
-server.listen(Number(process.env.PORT), '0.0.0.0', () => console.log(`Preview HTTP handler listening on ${process.env.PORT}; indexing disabled`));
+server.listen(Number(process.env.PORT), '0.0.0.0', () => console.log(`HTTP handler listening on ${process.env.PORT}; canonical indexing ${process.env.MARENETTO_PUBLIC_INDEXING === 'true' ? 'enabled on WWW only' : 'disabled'}`));

@@ -1,4 +1,5 @@
 import { escapeHtml, redirectQuery, resolveRoute } from './seo-document.mjs';
+import { isNativeEdition, releaseMetadata, mergeActiveMetadata } from '../src/localization/public-seo.mjs';
 
 export const PUBLIC_ORIGIN = 'https://www.marenettobuild.com';
 export const APPROVED_LOCALES = new Set(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']);
@@ -35,15 +36,16 @@ export function canonicalRedirect(req, manifest, env = process.env) {
   return `${PUBLIC_ORIGIN}${target}${route.status === 308 ? redirectQuery(url.search, target) : url.search}`;
 }
 export function indexingEnabled(req, env = process.env) {
-  // Second release gate, enabled only after production redirects are proven.
+  // Explicit production Configuration; never infer release from a build alone.
   return env.NODE_ENV === 'production' && env.MARENETTO_PUBLIC_INDEXING === 'true' &&
-    publicHost(req) === 'www.marenettobuild.com';
+    publicHost(req) === 'www.marenettobuild.com' &&
+    String(req.headers['x-forwarded-proto'] ?? 'https').split(',')[0].trim().toLowerCase() === 'https';
 }
 export function publicEditions(manifest, active = []) {
   const withdrawn = new Set(active.filter(e => e.revisionId === 'withdrawn')
     .flatMap(e => [e.path, ...(e.aliases ?? [])]).map(path => path.replace(/\/+$/, '') || '/'));
-  return Object.values(manifest.editions).filter(e =>
-    APPROVED_LOCALES.has(e.locale) && e.kind !== 'search' && manifest.pages[e.path] &&
+  return mergeActiveMetadata(Object.values(manifest.editions), active).filter(e =>
+    APPROVED_LOCALES.has(e.locale) && isNativeEdition(e) && e.kind !== 'search' && manifest.pages[e.path] &&
     e.path !== '/en/articoli/' && !e.path.startsWith('/__localization-review') &&
     !withdrawn.has(e.path.replace(/\/+$/, '') || '/'));
 }
@@ -62,8 +64,17 @@ export function alternateLinks(edition, entries) {
 export function releaseSitemap(entries) {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${entries.map(e => `  <url><loc>${escapeHtml(PUBLIC_ORIGIN + e.path)}</loc>${alternateLinks(e, entries).map(a => `<xhtml:link rel="alternate" hreflang="${a.lang}" href="${escapeHtml(PUBLIC_ORIGIN + a.path)}" />`).join('')}</url>`).join('\n')}\n</urlset>\n`;
 }
-export function publicDocument(html, edition, entries) {
+export function publicDocument(html, edition, entries, organization) {
+  const metadata = releaseMetadata(edition, String(html), entries);
+  if (organization && !String(html).includes('"@type":"GeneralContractor"')) {
+    html = String(html).replace('</head>', `<script type="application/ld+json">${JSON.stringify({
+      '@context': 'https://schema.org', '@graph': [organization],
+    }).replaceAll('<', '\\u003c')}</script>\n</head>`);
+  }
   return String(html).replace('<html ', '<html data-public-indexing="true" ')
+    .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(metadata.title)}</title>`)
+    .replace(/(<meta\b[^>]*(?:name="(?:description|twitter:description)"|property="og:description")[^>]*content=")[^"]*"/g, `$1${escapeHtml(metadata.description)}"`)
+    .replace(/(<meta\b[^>]*(?:name="twitter:title"|property="og:title")[^>]*content=")[^"]*"/g, `$1${escapeHtml(metadata.title)}"`)
     .replace(/<meta\b[^>]*name="robots"[^>]*>/g, '<meta name="robots" content="index, follow" />')
     .replace(/<link\b[^>]*rel="(?:canonical|alternate)"[^>]*>/g, '')
     .replace(/(<meta\b[^>]*property="og:url"[^>]*content=")[^"]*"/g, `$1${PUBLIC_ORIGIN}${escapeHtml(edition.path)}"`)

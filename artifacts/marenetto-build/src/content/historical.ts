@@ -8,15 +8,22 @@ type SourceUpdate = { oldLabel: string; newLabel: string; title: string; sourceS
 const sourceUpdates = sourceUpdateData as Record<string, SourceUpdate>;
 
 const media = mediaData as Record<string, string>;
-const historicalLogos = new Set(Object.entries(media).filter(([source]) => source.includes('/img/logos/')).map(([, target]) => target));
-const localMedia = (value: string) => media[value] ?? value;
+const optimizedMedia: Record<string, string> = {
+  '/api/historical-media/efd6e76bd864df306bde2e7d0d02c0bbbd21ef0dac17c26a4e34bd3b2b6e8377.png': '/media/optimized-historical/efd6e76bd864df306bde2e7d0d02c0bbbd21ef0dac17c26a4e34bd3b2b6e8377.webp',
+  '/api/historical-media/0d54c619c311c74cbf6047aed8c6c325410850dc12012731823955c588b21e51.png': '/media/optimized-historical/0d54c619c311c74cbf6047aed8c6c325410850dc12012731823955c588b21e51.webp',
+};
+const localMedia = (value: string) => optimizedMedia[media[value] ?? value] ?? media[value] ?? value;
+const historicalLogos = new Set(Object.entries(media).filter(([source]) => source.includes('/img/logos/')).map(([, target]) => localMedia(target)));
 function localMediaHTML(html: string) {
+  html = html.replace(/href="\/contatos\/?"/g, 'href="/pt/contatti/"');
   // Keep words, alt and caption untouched. Replace only exact inventoried URLs.
   for (const [source, destination] of Object.entries(media).sort((a, b) => b[0].length - a[0].length)) {
     html = html.replaceAll(source.replaceAll('&', '&amp;'), destination).replaceAll(source, destination);
   }
+  for (const [source, destination] of Object.entries(optimizedMedia)) html = html.replaceAll(source, destination);
   // Local filenames are hashes: retain the logo's role after URL replacement.
   return html.replace(/<img\b[^>]*>/gi, tag => {
+    if (/^<img\s*\/?>$/i.test(tag)) return '';
     const src = tag.match(/\bsrc="([^"]+)"/i)?.[1];
     return src && historicalLogos.has(src) ? tag.replace(/^<img\b/i, '<img data-historical-logo=""') : tag;
   });

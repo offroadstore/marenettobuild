@@ -19,6 +19,18 @@ Historical approval of a translation catalog must not be extended to a newer pag
 composition. In particular, a key can exist while still containing the English
 source. Mechanical script conversion does not turn English into a translation.
 
+Multilingual indexing must represent the language of the actual page body, not
+just the navigation. Keep foreign-language wrappers around Italian content
+reachable, but do not advertise them as independent translations in sitemap or
+hreflang.
+
+**Why:** The owner requested Google indexing without duplicate pages; the existing
+multilingual inventory also contained Italian content behind foreign locale URLs.
+Changing only titles or language labels would falsely imply translated content.
+
+**How to apply:** Reassess eligibility when real body translations are delivered
+and reviewed. Do not restore indexing merely because a locale's interface is public.
+
 **Why:** The SEO investigation found populated review catalogs whose new commercial
 phrases were unchanged English, despite a global approval flag on older locale data.
 

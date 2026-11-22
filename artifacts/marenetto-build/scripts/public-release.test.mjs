@@ -3,6 +3,21 @@ import { readFile } from 'node:fs/promises';
 import { test } from 'node:test';
 import { APPROVED_LOCALES, PUBLIC_ORIGIN, canonicalRedirect, indexingEnabled, publicEditions } from './public-release.mjs';
 import { editorialTopology } from './test-support/editorial-topology.mjs';
+import { isNativeEdition, releaseMetadata, mergeActiveMetadata } from '../src/localization/public-seo.mjs';
+
+test('public SEO excludes language wrappers and preserves active editorial metadata', () => {
+  const original = { id: 'articles', path: '/articoli/', locale: 'it', contentLanguage: 'it', title: 'Articoli | marenettobuild.com', description: '' };
+  assert.equal(isNativeEdition(original), true);
+  assert.equal(isNativeEdition({ ...original, locale: 'en' }), false);
+  const active = [{ path: original.path, revisionId: 'active-revision', content: { seoTitle: 'Titolo scelto dal titolare', seoDescription: 'Descrizione scelta dal titolare' } }];
+  const [merged] = mergeActiveMetadata([original], active);
+  assert.deepEqual(releaseMetadata(merged), { title: active[0].content.seoTitle, description: active[0].content.seoDescription });
+  const snippet = '<main><p>Un testo pertinente alla pagina con informazioni sufficientemente dettagliate per la descrizione nei risultati di ricerca.</p></main>';
+  assert.ok(releaseMetadata(original, snippet).description.includes('testo pertinente'));
+  const first = { ...original, id: 'first', path: '/first', title: 'Prima pagina', description: 'Una descrizione ripetuta.' };
+  const second = { ...first, id: 'second', path: '/second', title: 'Seconda pagina' };
+  assert.notEqual(releaseMetadata(first, '', [first, second]).description, releaseMetadata(second, '', [first, second]).description);
+});
 
 const manifest = JSON.parse(await readFile(new URL('../dist/public/route-manifest.json', import.meta.url), 'utf8'));
 const request = (host, path, proto = 'https') => ({ headers: { 'x-forwarded-host': host, 'x-forwarded-proto': proto }, url: path });
@@ -33,7 +48,7 @@ test('actual release handler: canonical, robots, XML sitemap, reciprocal alterna
   const get = (path, extra = {}) => fetch(topology.origin + path, { headers, redirect: 'manual', ...extra });
   try {
     const response = await get('/', { headers: { ...headers, 'x-forwarded-host': 'marenettobuild.com' } });
-    assert.equal(response.status, 308);
+    assert.equal(response.status, 301);
     assert.equal(response.headers.get('location'), PUBLIC_ORIGIN + '/');
     const robots = await (await get('/robots.txt')).text();
     assert.match(robots, /Allow: \//);
@@ -42,9 +57,12 @@ test('actual release handler: canonical, robots, XML sitemap, reciprocal alterna
     assert.match(robots, /Sitemap: https:\/\/www\.marenettobuild\.com\/sitemap.xml/);
     const xmlResponse = await get('/sitemap.xml');
     assert.equal(xmlResponse.headers.get('content-type'), 'application/xml');
+    assert.equal(xmlResponse.headers.get('x-robots-tag'), null);
+    assert.equal((await get('/robots.txt')).headers.get('x-robots-tag'), null);
     const xml = await xmlResponse.text();
     const entries = publicEditions(manifest);
-    assert.ok(entries.length > 300);
+    assert.ok(entries.length > 200);
+    assert.ok(entries.every(e => e.locale === e.contentLanguage), 'do not index foreign wrappers around Italian copy');
     assert.deepEqual(new Set(entries.map(e => e.locale)), APPROVED_LOCALES);
     const urls = [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map(([, block]) => ({
       loc: block.match(/<loc>([^<]+)<\/loc>/)[1],
@@ -75,8 +93,11 @@ test('actual release handler: canonical, robots, XML sitemap, reciprocal alterna
       const head = await get(home.path, { method: 'HEAD' });
       assert.equal(head.headers.get('x-robots-tag'), null);
     }
-    const preview = await get('/', { headers: { ...headers, 'x-forwarded-host': 'preview.replit.app' } });
-    assert.equal(preview.headers.get('x-robots-tag'), 'noindex, nofollow');
+    for (const host of ['preview.replit.app', 'preview.replit.dev']) {
+      const preview = await get('/', { headers: { ...headers, 'x-forwarded-host': host } });
+      assert.equal(preview.headers.get('x-robots-tag'), 'noindex, nofollow');
+      assert.match(await preview.text(), /name="robots" content="noindex, nofollow"/);
+    }
     const previewRobots = await (await get('/robots.txt', { headers: { ...headers, 'x-forwarded-host': 'preview.replit.app' } })).text();
     assert.match(previewRobots, /^Disallow: \/$/m);
     for (const path of ['/internal', '/owner-demo', '/__localization-review', '/ar/', '/he/', '/fi/', '/hu/', '/random-nonexistent']) {

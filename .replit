@@ -83,6 +83,8 @@ INTERNAL_INVITES = "hermangeraci@gmail.com:owner,fabio@offroadstore.it:editor"
 MARENETTO_PRIVACY_APPROVED = "true"
 MARENETTO_PROVIDERS_APPROVED = "true"
 MARENETTO_TESTING_APPROVED = "true"
+VITE_PUBLIC_SITE_URL = "https://www.marenettobuild.com"
+MARENETTO_PUBLIC_INDEXING = "true"
 
 [nix]
 channel = "stable-25_05"

@@ -37,6 +37,7 @@ import { updateStructuredData } from '@/lib/structured-data';
 import { historicalPage, historicalPending, historicalArticleForPreview, historicalLoaded, loadHistorical, historicalNavigation, type HistoricalPage as HistoricalPageRecord } from '@/content/historical';
 import { HistoricalContents } from '@/pages/historical';
 import { EditorialRuntime, useActiveEditorial, useEditorialStatus, editorialPathKey } from '@/lib/editorial-runtime';
+import { applyPublicReleaseMetadata } from '@/lib/public-release-meta';
 import type { EditorialActive } from '@workspace/api-client-react';
 import { usePageMeta } from '@/lib/meta';
 import { AnalyticsPreferences } from '@/components/AnalyticsPreferences';
@@ -785,6 +786,7 @@ function LocalizationReviewIndex() {
   </div>;
 }
 function SitePage({ page, lang }: { page: CorePage; lang: Lang }) {
+  const active = useActiveEditorial();
   useEffect(() => {
     const metadata = getEdition(lang, page) ?? seoCopy[lang][page];
     const pagePath = routes[lang][page];
@@ -842,7 +844,8 @@ function SitePage({ page, lang }: { page: CorePage; lang: Lang }) {
       window.location.hostname === 'www.marenettobuild.com' && !isTranslationReviewMode() &&
       ['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da'].includes(lang)
       ? 'index, follow' : 'noindex, nofollow');
-  }, [lang, page]);
+    applyPublicReleaseMetadata(window.location.pathname, active);
+  }, [lang, page, active]);
   const header = localizeNode(lang, <Header lang={lang} page={page} />);
   const contents = <ContactContents lang={lang} page={page} />;
   const main = page === 'request' ? contents : localizeNode(lang, contents);
@@ -1063,6 +1066,7 @@ function RoutedErrorBoundary({ children }: { children: ReactNode }) {
 
 function ActiveEditorialPage({ edition }: { edition: EditorialActive }) {
   const { content, locale } = edition;
+  const active = useActiveEditorial();
   usePageMeta({ title: content.seoTitle || content.title, description: content.seoDescription || content.summary, path: edition.path, type: edition.kind === 'article' ? 'article' : 'website' });
   useEffect(() => {
     document.documentElement.lang = locale;
@@ -1082,7 +1086,8 @@ function ActiveEditorialPage({ edition }: { edition: EditorialActive }) {
       element.content = value;
     }
     document.querySelector('link[rel="canonical"]')?.setAttribute('href',canonical);
-  }, [edition]);
+    applyPublicReleaseMetadata(edition.path, active);
+  }, [edition, active]);
   const core = edition.identity as CorePage;
   return <div className="site-shell" lang={locale} dir={getLocaleDirection(locale)}>
     <Header lang={locale} page={pageForEditorial(edition)} />
@@ -1103,28 +1108,7 @@ function PublicReleaseMetadata() {
   const [pathname] = useLocation();
   const active = useActiveEditorial();
   useEffect(() => {
-    if (document.documentElement.dataset.publicIndexing !== 'true' ||
-      window.location.hostname !== 'www.marenettobuild.com') return;
-    const approved = new Set(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']);
-    const normalized = (path: string) => path.replace(/\/+$/, '') || '/';
-    const withdrawn = new Set(active.filter(e => e.revisionId === 'withdrawn')
-      .flatMap(e => [e.path, ...(e.aliases ?? [])]).map(normalized));
-    const entries = editions.filter(e => approved.has(e.locale) && e.kind !== 'search' &&
-      e.path !== '/en/articoli/' && !e.path.startsWith('/__localization-review') && !withdrawn.has(normalized(e.path)));
-    const edition = entries.find(e => normalized(e.path) === normalized(pathname));
-    document.querySelector('meta[name="robots"]')?.setAttribute('content', edition ? 'index, follow' : 'noindex, nofollow');
-    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(link => link.remove());
-    if (!edition) return;
-    document.querySelector('link[rel="canonical"]')?.setAttribute('href', PUBLIC_SITE_ORIGIN + edition.path);
-    document.querySelector('meta[property="og:url"]')?.setAttribute('content', PUBLIC_SITE_ORIGIN + edition.path);
-    const equivalents = entries.filter(e => e.id === edition.id);
-    for (const e of equivalents) {
-      for (const language of e.locale === 'it' ? ['it-IT', 'x-default'] : [e.locale]) {
-        const link = document.createElement('link');
-        link.rel = 'alternate'; link.hreflang = language; link.href = PUBLIC_SITE_ORIGIN + e.path;
-        document.head.appendChild(link);
-      }
-    }
+    applyPublicReleaseMetadata(pathname, active);
   }, [pathname, active]);
   return null;
 }

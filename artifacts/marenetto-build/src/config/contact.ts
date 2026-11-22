@@ -25,9 +25,15 @@ export const emailHref = (subject: string) => `mailto:${COMPANY_CONTACT.email}?s
 
 export function companyStructuredData(origin: string) {
   return {
-    '@type': 'Organization', '@id': `${origin}/#organization`,
+    '@type': 'GeneralContractor', '@id': `${origin}/#organization`,
     name: COMPANY_CONTACT.name, url: `${origin}/`, logo: `${origin}/favicon.svg`,
     email: COMPANY_CONTACT.email, telephone: COMPANY_PHONE.e164,
+    image: `${origin}/media/home/cefalu-hero-left-1672.jpg`,
+    address: {
+      '@type': 'PostalAddress', streetAddress: COMPANY_CONTACT.streetAddress,
+      addressLocality: 'Cefalù', addressRegion: 'PA', postalCode: '90015', addressCountry: 'IT',
+    },
+    areaServed: { '@type': 'Place', name: COMPANY_CONTACT.areaServed },
   };
 }
 
