@@ -1,0 +1,42 @@
+---
+name: Privacy and AI transparency
+description: Owner requirements for factual privacy notices, conditional consent and per-image AI disclosure.
+---
+
+Privacy and cookie information, controls and AI transparency must cover all
+12 public languages. Use only documented company details, actual services and
+approved retention periods; disclose missing or unconfirmed information.
+
+**Why:** The owner requires verified implementation, not invented legal facts
+or a decorative claim of GDPR compliance.
+
+**How to apply:** Inventory actual cookies, storage and third-party requests.
+If only technical tools are active, do not add an unnecessary consent banner.
+Otherwise block consent-requiring tools until choice, offer equally prominent
+accept/reject plus customization, record choices minimally and allow revocation
+through footer preferences. Do not confuse a contact request with marketing consent.
+
+AI-generated or AI-modified images require individual visible, localized labels
+as well as the general footer disclosure and linked AI-use page. Unknown
+provenance is not proof of authenticity; ordinary resizing/WebP conversion is
+not evidence of AI generation.
+
+**Why:** The owner explicitly replaced the earlier footer-only disclosure
+direction with per-image transparency and prohibited AI imagery as real-work evidence.
+
+**How to apply:** Keep an evidence-based asset inventory. Preserve the approved
+logo and hero masters, label their presentation where applicable, and reserve
+portfolio/before-after evidence for documented originals. Claim team verification
+only after actual human review; distinguish the owner's broad disclosure policy
+from the specific legal scope of AI Act Article 50.
+
+YouTube embeds require a valid external-media choice before loading, with
+local placeholders when a video is absent or consent is refused/revoked.
+
+**Why:** The owner requested article/video episodes with cookie-gated loading
+and prohibited invented content. Privacy-enhanced embeds alone do not establish
+consent or justify fabricated video metadata.
+
+**How to apply:** Avoid remote player/thumbnail requests before consent. Publish
+VideoObject and a claimed transcript only for an actual available video with
+verified metadata; an article is not a transcript of a video never recorded.

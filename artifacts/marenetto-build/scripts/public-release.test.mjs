@@ -1,9 +1,60 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import { test } from 'node:test';
 import { APPROVED_LOCALES, PUBLIC_ORIGIN, canonicalRedirect, indexingEnabled, publicEditions } from './public-release.mjs';
 import { editorialTopology } from './test-support/editorial-topology.mjs';
 import { isNativeEdition, releaseMetadata, mergeActiveMetadata } from '../src/localization/public-seo.mjs';
+import { build } from 'esbuild';
+
+test('Google ownership file is permanent, exact, unredirected and outside the sitemap', async () => {
+  const topology = await editorialTopology({ publicIndexing: true });
+  const path = '/googledaf4e170f04727ce.html';
+  const headers = { 'x-forwarded-host': 'www.marenettobuild.com', 'x-forwarded-proto': 'https', 'accept-language': 'fr-FR' };
+  try {
+    const get = (url, options = {}) => fetch(topology.origin + url, { headers, redirect: 'manual', ...options });
+    const response = await get(path);
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get('location'), null);
+    assert.equal(response.headers.get('x-robots-tag'), null);
+    assert.match(response.headers.get('content-type'), /^text\/html/);
+    assert.equal(await response.text(), 'google-site-verification: googledaf4e170f04727ce.html');
+    const head = await get(path, { method: 'HEAD' });
+    assert.equal(head.status, 200);
+    assert.equal(head.headers.get('x-robots-tag'), null);
+    assert.equal(await head.text(), '');
+    assert.ok(!(await (await get('/sitemap.xml')).text()).includes(path));
+    topology.setMode('http_status');
+    assert.equal((await get(path)).status, 200, 'independent of editorial availability');
+    const preview = await get(path, { headers: { ...headers, 'x-forwarded-host': 'preview.replit.dev' } });
+    assert.equal(preview.status, 200);
+    assert.equal(preview.headers.get('x-robots-tag'), 'noindex, nofollow', 'preview remains excluded');
+  } finally {
+    await topology.close();
+  }
+});
+
+test('all generated HTML documents use only the official public email', async () => {
+  const root = new URL('../dist/public/', import.meta.url);
+  const files = (await readdir(root, { recursive: true })).filter(file => file.endsWith('.html'));
+  assert.ok(files.length > 300, 'check the full generated multilingual site, not one page');
+  for (const file of files) {
+    const html = await readFile(new URL(file, root), 'utf8');
+    assert.doesNotMatch(html, /info@marenettobuild\.com/i, file);
+  }
+});
+
+test('the official public email replaces retired legacy text and mailto links', async () => {
+  const built = await build({ entryPoints: [new URL('../src/config/contact.ts', import.meta.url).pathname], bundle: true, write: false, platform: 'node', format: 'esm' });
+  const contact = await import(`data:text/javascript;base64,${Buffer.from(built.outputFiles[0].text).toString('base64')}`);
+  assert.equal(contact.COMPANY_CONTACT.email, 'info@marenetto.com');
+  assert.equal(contact.companyStructuredData(PUBLIC_ORIGIN).email, 'info@marenetto.com');
+  assert.equal(contact.emailHref('Preventivo'), 'mailto:info@marenetto.com?subject=Preventivo');
+  assert.equal(
+    contact.normalizePublicContact('<a href="mailto:info@marenettobuild.com?subject=Progetto">INFO@MARENETTOBUILD.COM</a>'),
+    '<a href="mailto:info@marenetto.com?subject=Progetto">info@marenetto.com</a>',
+  );
+  assert.equal(contact.normalizePublicContact('info@marenetto.com'), 'info@marenetto.com');
+});
 
 test('public SEO excludes language wrappers and preserves active editorial metadata', () => {
   const original = { id: 'articles', path: '/articoli/', locale: 'it', contentLanguage: 'it', title: 'Articoli | marenettobuild.com', description: '' };

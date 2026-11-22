@@ -1,10 +1,28 @@
 ---
 name: Business contact approval
-description: Owner confirmation of the visible business email and limits of delivery verification.
+description: Definitive owner decision on the public mailbox and limits of delivery evidence.
 ---
-The owner confirmed the existing visible business email as the site contact on 2026-11-10.
-This approval does not establish mailbox delivery, SMTP setup, legal identity or address verification.
 
-**Why:** The audit found a conflicting schema email; the owner chose the visible contact rather than the schema-only alternative.
+The historical-domain mailbox in the central company contact is the definitive
+official public address, not a temporary fallback. Use it identically across
+all languages, structured data, footer, privacy pages and llms.txt. Never
+display or propose migration to the alternative Build-domain mailbox.
 
-**How to apply:** Use the confirmed central contact consistently, including structured data. Never report a mailto link check as evidence of email delivery.
+**Why:** On 2026-11-22 the owner explicitly confirmed that the official mailbox
+is monitored and superseded the earlier conditional plan to switch addresses
+after delivery verification.
+
+**How to apply:** Apply the central contact to legacy rendered copy as well as
+new pages. Preserve documentary originals without republishing obsolete contact
+details. Keep private notification routing separate; this public-contact
+decision does not authorize changing SMTP settings.
+
+The owner's confirmation is evidence of their chosen monitored contact, not
+an independent inbox-delivery test performed by the agent. Do not send test
+messages or use SMTP recipient probes.
+
+**Why:** The owner prohibited real email tests. Contact approval does not verify
+SMTP delivery, legal identity or the company address.
+
+**How to apply:** Describe the evidence accurately and do not reopen the mailbox
+choice without a new owner instruction.

@@ -21,6 +21,11 @@ export const COMPANY_CONTACT = {
     address: 'historical-visible-data-awaiting-confirmation',
   },
 } as const;
+/** Apply the owner's official contact to legacy public copy, not source archives. */
+export function normalizePublicContact(value: string): string {
+  return value.replace(/info@marenettobuild\.com/gi, COMPANY_CONTACT.email);
+}
+
 export const emailHref = (subject: string) => `mailto:${COMPANY_CONTACT.email}?subject=${encodeURIComponent(subject)}`;
 
 export function companyStructuredData(origin: string) {

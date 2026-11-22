@@ -26,6 +26,13 @@ export const server = createServer(async (req, res) => {
       return res.end();
     }
     const released = indexingEnabled(req);
+    // Permanent ownership proof: exact static response, outside page/locale routing.
+    if (pathname === '/googledaf4e170f04727ce.html') {
+      const content = await readFile(path.join(root, 'googledaf4e170f04727ce.html'), 'utf8');
+      if (released) res.removeHeader('X-Robots-Tag');
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-cache' });
+      return res.end(req.method === 'HEAD' ? undefined : content.trimEnd());
+    }
     let releaseEntries;
     // Final status and verified editorial state govern indexing, including
     // errors and withdrawn articles. Preview documents stay noindex.

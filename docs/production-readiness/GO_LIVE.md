@@ -1,5 +1,7 @@
 # Marenetto Build — verifica per la messa online
 
+**Contatto pubblico definitivo:** [decisione del titolare](PUBLIC_CONTACT_DECISION.md), valida anche per le Fasi 2, 3 e 4; supera le precedenti ipotesi di cambio della casella pubblica. Non modifica la configurazione SMTP.
+
 **Ultimo aggiornamento: 22 novembre 2026. Nuovo candidato SEO pronto per Republish del titolare; verifica esterna post-pubblicazione ancora da eseguire.** Vedi [rapporto SEO e prove aggiornate](SEO_REPUBLISH_2026-11-22.md). Su richiesta del titolare è ora attiva la Configuration di produzione per l'indicizzazione esclusiva di HTTPS WWW. Le sezioni del 21 novembre qui sotto sono prove storiche e non descrivono la configurazione candidata attuale.
 
 ## Aggiornamento dominio e indicizzazione — 21 novembre 2026

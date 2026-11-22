@@ -3,6 +3,7 @@ import amendments from './historical-editorial/manifest.json';
 import mediaData from './historical-media.json';
 import sourceUpdateData from './historical-source-updates.json';
 import { recoverArticleThumbnails } from './historical-thumbnails';
+import { normalizePublicContact } from '@/config/contact';
 
 type SourceUpdate = { oldLabel: string; newLabel: string; title: string; sourceSHA256: string; bodySHA256: string; acquiredAt: string; sourceBody: string };
 const sourceUpdates = sourceUpdateData as Record<string, SourceUpdate>;
@@ -15,6 +16,7 @@ const optimizedMedia: Record<string, string> = {
 const localMedia = (value: string) => optimizedMedia[media[value] ?? value] ?? media[value] ?? value;
 const historicalLogos = new Set(Object.entries(media).filter(([source]) => source.includes('/img/logos/')).map(([, target]) => localMedia(target)));
 function localMediaHTML(html: string) {
+  html = normalizePublicContact(html);
   html = html.replace(/href="\/contatos\/?"/g, 'href="/pt/contatti/"');
   // Keep words, alt and caption untouched. Replace only exact inventoried URLs.
   for (const [source, destination] of Object.entries(media).sort((a, b) => b[0].length - a[0].length)) {
@@ -35,7 +37,8 @@ const inventory = originalInventory.map(page => {
   const correction = corrections[page.key] ?? null;
   if (correction && (correction.sourceSHA256 !== page.sourceSHA256 || correction.publicationApproved)) throw new Error(`Invalid historical correction authorization: ${page.path}`);
   const update = sourceUpdates[page.key];
-  return { ...page, ...(update ? { title: update.title, h1: update.newLabel, sourceSHA256: update.sourceSHA256, bodySHA256: update.bodySHA256, acquiredAt: update.acquiredAt } : {}),
+  return { ...page, blockedBy: page.blockedBy.map(normalizePublicContact),
+    ...(update ? { title: update.title, h1: update.newLabel, sourceSHA256: update.sourceSHA256, bodySHA256: update.bodySHA256, acquiredAt: update.acquiredAt } : {}),
     contentLanguage: correction?.contentLanguage ?? page.contentLanguage, editorialCorrection: correction };
 });
 
@@ -79,7 +82,10 @@ export function loadHistorical(locale: string): Promise<void> {
       // Only the two literal labels independently recovered in full are updated.
       if (update && document.html.split(update.oldLabel).length !== 3) throw new Error(`Source update no longer applies unambiguously: ${key}`);
       return [key, {
-        ...document, title: update?.newLabel ?? document.title,
+        ...document, title: normalizePublicContact(update?.newLabel ?? document.title),
+        description: normalizePublicContact(document.description),
+        imageAlt: normalizePublicContact(document.imageAlt),
+        imageCaption: document.imageCaption ? normalizePublicContact(document.imageCaption) : null,
         html: localMediaHTML(recoverArticleThumbnails(update ? document.html.replaceAll(update.oldLabel, update.newLabel) : document.html, covers)),
         image: document.image ? localMedia(document.image) : null,
       }];

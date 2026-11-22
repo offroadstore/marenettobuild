@@ -25,3 +25,11 @@ while authorizing a premium furniture section and worldwide positioning.
 
 **How to apply:** Preserve the distinction between an offered service and
 evidence of completed work; use Product data only for real defined products.
+
+Do not mention real-estate agencies or partners on the public site or imply
+partnerships.
+
+**Why:** The owner explicitly states that there are no agreements.
+
+**How to apply:** Apply this restriction to existing copy, translations, new
+service pages, metadata, structured data and AI-oriented descriptions.
