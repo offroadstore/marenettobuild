@@ -9,6 +9,10 @@ export function seoPreviewPlugin() {
       server.middlewares.use(async (req, res, next) => {
         const url = new URL(req.url, 'http://preview.invalid');
         const pathname = url.pathname;
+        if (pathname === '/llms.txt') {
+          res.setHeader('X-Robots-Tag', 'noindex, nofollow');
+          return next();
+        }
         if (pathname === '/robots.txt') {
           res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8', 'X-Robots-Tag': 'noindex, nofollow' });
           return res.end(req.method === 'HEAD' ? undefined : 'User-agent: *\nDisallow: /\n');

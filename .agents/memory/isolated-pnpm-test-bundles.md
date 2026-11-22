@@ -14,3 +14,15 @@ Browser component fixtures bundled outside Vite should receive their route/conte
 **Why:** Transitive catalog imports can require both Vite environment replacement and glob expansion before a component mounts. Fixing only environment constants leaves another unrelated bootstrap failure, obscuring the behavior under test.
 
 **How to apply:** Keep the real application as the inventory owner; inject a minimal inventory into the same production component for isolated consent/browser tests. Do not add a runtime preview bypass to make tests collect analytics.
+
+Use consistent JSON import attributes between a fixture and the module it
+configures when bundling isolated tests.
+
+**Why:** esbuild can treat imports of the same JSON path with and without
+attributes as separate module instances. A fixture may mutate one policy
+object while the tested code continues using another, producing misleading
+consent failures.
+
+**How to apply:** Prefer explicit test dependency injection; when sharing a
+test configuration module, keep its import identity consistent and verify
+that production defaults remain unchanged.

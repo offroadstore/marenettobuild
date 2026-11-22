@@ -3,6 +3,10 @@ import test from 'node:test';
 import { AnalyticsRuntime, CONSENT_MAX_AGE, consentValue, safePath, validConfig, excludedPath } from '../src/lib/analytics/runtime';
 import { analyticsCopy } from '../src/lib/analytics/copy';
 import locales from '../src/localization/locales.json' with { type: 'json' };
+import publicHosts from '../src/config/public-hosts.json';
+
+// Isolated test configuration only; never added to the shipped allowlist.
+Object.assign(publicHosts, { siteHosts: ['www.example.com'], analyticsRuntimeHosts: ['metrics.example.net'] });
 
 test('consent, revoke, SPA, expired/unavailable configuration and minimal event fields', () => {
   let now = Date.now();

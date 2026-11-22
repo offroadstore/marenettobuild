@@ -5,6 +5,10 @@ import { Router, Link } from 'wouter';
 import { AnalyticsPreferences } from '../src/components/AnalyticsPreferences';
 import { EditorialRuntime } from '../src/lib/editorial-runtime';
 import { trackSavedRequest } from '../src/lib/analytics/browser';
+import publicHosts from '../src/config/public-hosts.json';
+
+// Only this test entrypoint admits these synthetic origins.
+Object.assign(publicHosts, { siteHosts: ['analytics-test.example.com'], analyticsRuntimeHosts: ['metrics-runtime.example.net'] });
 
 const publicEditions = [{ path: '/', locale: 'it' }, { path: '/servizi', locale: 'it' }];
 function Harness() {

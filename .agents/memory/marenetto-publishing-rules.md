@@ -15,15 +15,18 @@ Historical site images may be reused as illustrative material, but must not impl
 
 **How to apply:** Apply these rules to content migration, portfolio work, localization, CMS workflows, owner-area messaging and every production release.
 
-Do not reproduce customer reviewer names, review texts, ratings or counts.
-Use a localized outbound Google reviews link rather than a copied testimonials
-section or Google widget. A Maps search is only a fallback, not a verified listing.
+Do not restore copied historical testimonials or name-only reviewer lists.
+The owner now authorizes real reviews through official Google Places API (New),
+fetched server-side with unmodified original text and required author/Google
+attributions. Keep the outbound Google link as a fallback, not a verified listing.
 
-**Why:** The owner explicitly removed the broken name-only testimonials section
-because it exposed private individuals and requested a Google link instead.
+**Why:** After removing the broken historical lists, the owner explicitly
+superseded the link-only direction with an official API-backed reviews request.
 
 **How to apply:** Apply across home and review pages in every public language;
-do not restore names from historical archives or generate Review/AggregateRating.
+do not generate Review/AggregateRating or infer permission for scraping, rewriting,
+or unrestricted storage. Keep browser-to-Google requests out of the intended
+server-only design, including author photos; the owner supplies the credentials.
 
 Historical approval of a translation catalog must not be extended to a newer page
 composition. In particular, a key can exist while still containing the English

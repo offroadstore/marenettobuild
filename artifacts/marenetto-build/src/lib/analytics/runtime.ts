@@ -1,14 +1,15 @@
 import type { PublicMonitoring } from '@workspace/api-client-react';
-import { getDomain } from 'tldts';
+import publicHosts from '../../config/public-hosts.json';
 
 export type AnalyticsEvent = 'page_view' | 'contact_click' | 'generate_lead';
 export type Choice = 'accepted' | 'rejected';
 export const CONSENT_KEY = 'marenetto.analytics.v1';
 export const CONSENT_MAX_AGE = 180 * 86400000;
-export function isPreviewOrigin(origin: string) {
+export function isPreviewOrigin(origin: string, allowedHosts: readonly string[] = publicHosts.siteHosts) {
   try {
     const u = new URL(origin);
-    return u.protocol !== 'https:' || /(?:replit\.(?:dev|app)|repl\.co|localhost|\.invalid)$/.test(u.hostname) || /^[\d.]+$/.test(u.hostname) || u.hostname.includes(':');
+    return u.protocol !== 'https:' || u.origin !== origin || Boolean(u.port) ||
+      !allowedHosts.includes(u.hostname);
   } catch { return true; }
 }
 export const excludedPath = (path: string) => /^\/(?:internal|sign-in|sign-up|owner-demo|content|api)(?:\/|$)/i.test(path) || path.includes('__') || /(?:^|\/)(?:demo|preview|review)(?:\/|$)/i.test(path);
@@ -22,10 +23,10 @@ export function validConfig(config: PublicMonitoring | null, origin: string, now
   try {
     if (new URL(config.privacyUrl).origin !== origin) return false;
     const runtime = new URL(config.runtimeOrigin);
-    const siteDomain = getDomain(new URL(origin).hostname, { allowPrivateDomains: true });
-    const runtimeDomain = getDomain(runtime.hostname, { allowPrivateDomains: true });
-    if (runtime.origin !== config.runtimeOrigin || runtime.port || isPreviewOrigin(config.runtimeOrigin) ||
-      !siteDomain || !runtimeDomain || siteDomain === runtimeDomain) return false;
+    // Both build validation and the server verify registrable-domain isolation.
+    // The browser accepts only exact hosts from the reviewed configuration.
+    if (runtime.origin !== config.runtimeOrigin || runtime.port ||
+      isPreviewOrigin(config.runtimeOrigin, publicHosts.analyticsRuntimeHosts)) return false;
   } catch { return false; }
   const expiry = Date.parse(config.expiresAt);
   return Number.isFinite(expiry) && expiry > now && expiry <= now + 65000;

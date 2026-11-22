@@ -13,6 +13,33 @@ The owner explicitly authorized configuring and using monitoring. Do not keep re
 
 **Why:** It is platform telemetry, not a dependency of the consent-gated site; allowing it would add an unrelated collection path.
 
+The owner explicitly requires removal of platform analytics from production.
+Disabling it requires the Publishing “Enable analytics” setting and a new
+publication; an app-code change alone cannot remove a proxy-injected script.
+Recheck the currently documented setting before giving instructions.
+
+**Why:** Live HTML contained the platform tracker while the deployable app
+contained neither that URL nor platform analytics calls.
+
+**How to apply:** Do not substitute DOM removal, URL obfuscation or a permissive
+CSP for disabling the injector. Do not remove security checks merely to empty
+a text search.
+
+The owner requires no platform-name occurrences in distributed application
+code, including domain blacklists and public-suffix data; Clerk internals are
+the explicit exception. Use exact host allowlists instead of enumerating
+providers in the browser. Validate registrable-domain isolation at build time
+and independently on the server, rather than shipping the suffix database.
+
+**Why:** The owner explicitly rejected leaving technical domain strings in the
+public bundle and requested a neutral configuration-based rule, without
+weakening consent or authentication.
+
+**How to apply:** Keep an unconfigured analytics runtime blocked; whitelist
+only confirmed hosts on a separate registrable domain. Do not introduce test
+hosts into production configuration, rewrite Clerk internals or obfuscate
+forbidden strings to pass the distribution scan.
+
 Analytics isolation must prevent provider code from accessing the main site's authenticated context, not merely put it in a removable element. Do not grant a script-enabled srcdoc frame same-origin access.
 
 **Why:** A same-origin frame can read the parent and install timers there, which defeats removal-based revocation and exposes an owner visiting the public site while signed in.

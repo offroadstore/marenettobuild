@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --config vite.config.ts --host 0.0.0.0",
-    "build": "vite build --config vite.config.ts && node scripts/build-seo.mjs && node scripts/build-runtime.mjs",
+    "build": "vite build --config vite.config.ts && node scripts/build-seo.mjs && node scripts/build-runtime.mjs && node scripts/production-assets.mjs",
     "test:i18n": "node --test scripts/localization.test.mjs",
     "audit:release": "node scripts/release-audit.mjs",
     "test:analytics": "playwright test --config=playwright.analytics.config.ts",
@@ -13,7 +13,7 @@
     "build:analytics-runtime": "node analytics-runtime/build.mjs",
     "test:analytics-runtime": "node --test analytics-runtime/runtime.test.mjs",
     "serve": "node scripts/serve-seo.mjs",
-    "test:seo": "node --test scripts/seo-http.test.mjs scripts/editorial-corrections.test.mjs scripts/editorial-runtime.test.mjs scripts/editorial-outage.test.mjs scripts/public-release.test.mjs",
+    "test:seo": "node --test scripts/seo-http.test.mjs scripts/editorial-corrections.test.mjs scripts/editorial-runtime.test.mjs scripts/editorial-outage.test.mjs scripts/public-release.test.mjs scripts/production-cleanup.test.mjs",
     "test:routes": "PORT=4188 BASE_PATH=/ pnpm run build && playwright test --config=playwright.config.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },

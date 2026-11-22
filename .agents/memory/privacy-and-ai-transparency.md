@@ -16,6 +16,19 @@ Otherwise block consent-requiring tools until choice, offer equally prominent
 accept/reject plus customization, record choices minimally and allow revocation
 through footer preferences. Do not confuse a contact request with marketing consent.
 
+For callback enquiries, the owner requires automatic deletion after 24 months,
+except where the enquiry became an acquired client. A privacy-read
+acknowledgement is mandatory and initially unchecked; marketing permission and
+permission to use WhatsApp are separate, optional and initially unchecked.
+Consent evidence must include date/time, notice version and language.
+
+**Why:** The owner expressly defined the callback retention policy and
+separated responding to an enquiry from permission for offers or WhatsApp.
+
+**How to apply:** Reflect these business rules in the callback flow, retention
+process and privacy notice; do not infer marketing permission from submission
+or treat a closed enquiry as proof of an acquired client.
+
 AI-generated or AI-modified images require individual visible, localized labels
 as well as the general footer disclosure and linked AI-use page. Unknown
 provenance is not proof of authenticity; ordinary resizing/WebP conversion is

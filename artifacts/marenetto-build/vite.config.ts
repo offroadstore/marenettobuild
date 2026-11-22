@@ -4,8 +4,9 @@ import tailwindcss from '@tailwindcss/vite';
 import ts from 'typescript';
 import { defineConfig } from 'vite';
 
-import runtimeErrorOverlay from '@replit/vite-plugin-runtime-error-modal';
 import { seoPreviewPlugin } from './scripts/seo-vite-plugin.mjs';
+import { validatePublicHosts } from './scripts/public-host-policy.mjs';
+import publicHosts from './src/config/public-hosts.json';
 
 const rawPort = process.env.PORT;
 
@@ -75,7 +76,9 @@ function localizationDraftPlugin() {
   };
 }
 
-export default defineConfig({
+export default defineConfig(async ({ command, mode }) => {
+  validatePublicHosts(publicHosts);
+  return {
   base: basePath,
   // Concurrent route validation and the managed preview must not overwrite
   // each other's optimized React runtime (development vs SSR production).
@@ -85,10 +88,12 @@ export default defineConfig({
     localizationDraftPlugin(),
     react(),
     tailwindcss({ optimize: false }),
-    runtimeErrorOverlay(),
-    ...(process.env.NODE_ENV !== 'production' &&
+    ...(command === 'serve' && mode !== 'production' && process.env.NODE_ENV !== 'production' &&
     process.env.REPL_ID !== undefined
       ? [
+          await import('@replit/vite-plugin-runtime-error-modal').then((m) =>
+            m.default(),
+          ),
           await import('@replit/vite-plugin-cartographer').then((m) =>
             m.cartographer({
               root: path.resolve(import.meta.dirname, '..'),
@@ -114,8 +119,21 @@ export default defineConfig({
   },
   root: path.resolve(import.meta.dirname),
   build: {
+    // Never publish client source code or debugging maps.
+    sourcemap: false,
     outDir: path.resolve(import.meta.dirname, 'dist/public'),
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        // Keep the authentication dependency intact and auditable, rather than
+        // replacing its internal environment handling or provider strings.
+        onlyExplicitManualChunks: true,
+        manualChunks(id: string) {
+          if (id.includes('/node_modules/@clerk/')) return 'clerk-vendor';
+          if (id.includes('/node_modules/')) return 'vendor';
+        },
+      },
+    },
   },
   server: {
     proxy: { '/api/editorial/active': { target: 'http://localhost:80', changeOrigin: true } },
@@ -132,4 +150,5 @@ export default defineConfig({
     host: '0.0.0.0',
     allowedHosts: true,
   },
+  };
 });

@@ -18,6 +18,11 @@ export const server = createServer(async (req, res) => {
   try {
     const url = new URL(req.url, 'http://localhost');
     const pathname = decodeURIComponent(url.pathname);
+    // Defence in depth: generated maps and technical asset notes are not public.
+    if (/(?:\.map|\/README(?:\.md)?)$/i.test(pathname)) {
+      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' });
+      return res.end(req.method === 'HEAD' ? undefined : 'Not found');
+    }
     const destination = canonicalRedirect(req, manifest);
     if (destination) {
       const hostRedirect = publicHost(req) === 'marenettobuild.com' ||
@@ -41,7 +46,7 @@ export const server = createServer(async (req, res) => {
       const suppliedHeaders = args.find(value => value && typeof value === 'object');
       const contentType = suppliedHeaders?.['Content-Type'] ?? res.getHeader('Content-Type');
       const publicResource = /^\/(?:media|brand)\//.test(pathname) ||
-        ['/robots.txt', '/sitemap.xml', '/favicon.svg'].includes(pathname);
+        ['/robots.txt', '/sitemap.xml', '/favicon.svg', '/llms.txt'].includes(pathname);
       if (released && status === 200 && (publicResource ||
         (String(contentType ?? '').startsWith('text/html') && releaseEntries?.some(e => e.path === pathname)))) {
         res.removeHeader('X-Robots-Tag');
@@ -121,7 +126,7 @@ export const server = createServer(async (req, res) => {
     let status = route.status;
     if (route.edition) file = manifest.pages[route.edition.path];
     else if (/^\/(internal|sign-in|sign-up)(\/|$)/.test(pathname) || pathname === '/owner-demo') { file = 'private-shell.html'; status = 200; }
-    else if (/^\/(?:assets|media|brand|documents)\//.test(pathname) || ['/favicon.svg', '/robots.txt', '/sitemap.xml'].includes(pathname)) {
+    else if (/^\/(?:assets|media|brand|documents)\//.test(pathname) || ['/favicon.svg', '/robots.txt', '/sitemap.xml', '/llms.txt'].includes(pathname)) {
       file = pathname.slice(1);
       status = 200;
     } else file = status === 410 ? '410.html' : manifest.errors[pathname.split('/')[1]] ?? '404.html';

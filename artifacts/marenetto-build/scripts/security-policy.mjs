@@ -7,6 +7,8 @@ function analyticsFrameOrigin(value) {
 }
 
 export function setWebSecurityHeaders(res) {
+  res.removeHeader?.('Server');
+  res.removeHeader?.('X-Powered-By');
   // The same-origin proxy serves Clerk's SDK. Fraud protection rotates its
   // client hostname, so scope the wildcard to that exact service suffix.
   const clerkProtect = 'https://*.client.protect.clerk.com';
