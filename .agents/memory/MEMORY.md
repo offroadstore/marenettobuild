@@ -12,3 +12,4 @@
 - [Monitoring consent boundary](monitoring-consent-boundary.md) — Owner authorized configuring monitoring; report access and visitor tracking consent remain separate.
 - [Isolated pnpm test bundles](isolated-pnpm-test-bundles.md) — Resolve virtual test-module imports from their owning package, not a symlink path.
 - [Same-revision readiness](same-revision-readiness.md) — Startup editorial checks must reach this deployment, not its public domain or an assumed proxy mapping.
+- [Service areas and furniture](service-areas-and-furniture.md) — Building work stays within about 60 km of Cefalù; premium custom furniture is worldwide, with no invented projects or city duplicates.
