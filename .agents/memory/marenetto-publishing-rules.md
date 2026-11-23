@@ -5,7 +5,19 @@ description: Durable business constraints for claims, international content and 
 
 Marenetto Build must not publish invented projects, certifications, guarantees, staffing, equipment, prices, availability, reviews or performance claims. Technical and contractual statements require pertinent review. The site must distinguish current capabilities from planned features.
 
-All requested language versions must cover the complete public site before being called complete. Empty routes, homepage-only translations and automatic publication of unreviewed technical, insurance or contractual text are not acceptable. The site owner personally approves translations before publication. A translated interface does not imply that staff speak every published language.
+All requested language versions must cover the complete public site before being called complete. Empty routes, homepage-only translations and automatic publication of unreviewed technical, insurance or contractual text are not acceptable. A translated interface does not imply that staff speak every published language.
+
+Verified pages may be prepared as indexable without a further owner approval
+round once SEO, AI transparency and actual language content have passed review.
+The owner, not the agent, performs the publication.
+
+**Why:** The owner explicitly superseded the earlier requirement for another
+approval before releasing verified pages, while retaining quality checks and
+personal control over Republish.
+
+**How to apply:** Do not request the same release approval again for pages that
+meet those checks. Do not treat this authorization as verification of unfinished
+translations or permission to index preview/private routes or to deploy.
 
 Preview environments must remain excluded from indexing and use synthetic data until hosting region, privacy suppliers and release prerequisites are verified.
 
@@ -60,7 +72,9 @@ For the production launch, use the recorded owner authorization in the productio
 
 **Why:** The owner explicitly superseded those decision blocks while retaining technical release gates and limiting the approved language set and analytics collection.
 
-**How to apply:** Do not ask again for the same approval; check the written scope, keep preview and private routes unindexed, and obtain fresh approval for additional editions or materially changed translations.
+**How to apply:** Do not ask again for the same approval; check the written scope,
+keep preview and private routes unindexed, and apply the current verified-page
+authorization above instead of requiring another approval for every new edition.
 
 Open indexing only after the canonical WWW domain and permanent redirects have been verified in production.
 
