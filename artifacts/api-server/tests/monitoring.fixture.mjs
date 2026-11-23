@@ -12,6 +12,7 @@ import { exchangeToken, googleJson, listProperties } from '../src/lib/monitoring
 import { gaReport, searchReport, ReportCache, reportCache } from '../src/lib/monitoring/reports.ts';
 import { collectionFingerprint, collectionStatus, verifyWebStream } from '../src/lib/monitoring/collection.ts';
 import { runVisibilityFixtures } from './visibility.fixture.mjs';
+import legalPolicy from '../../../lib/legal-policy/analytics.json' with { type: 'json' };
 
 test('calendar periods, equal comparisons and weighted-rate conventions', () => {
   const now = new Date('2026-11-12T12:00:00Z');
@@ -220,7 +221,7 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
     assert.equal(r.data.enabled,true);assert.equal(r.data.measurementId,'G-D0QJL17CVC');
     assert.equal(r.data.mode,'direct');
     assert.equal(r.data.runtimeOrigin,'');
-    assert.equal(r.data.privacyVersion,'2026-11-23');
+    assert.equal(r.data.privacyVersion,legalPolicy.privacyVersion);
     assert.equal(r.data.privacyUrl,'https://www.marenettobuild.com/cookie');
     assert.doesNotMatch(JSON.stringify(r.data),/properties\/|refresh|fixture-access|stream|tokens/);
     assert.equal((await request('/internal/monitoring/collection/realtime','owner','POST')).status,200);

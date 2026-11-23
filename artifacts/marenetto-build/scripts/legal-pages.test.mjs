@@ -17,9 +17,10 @@ const policy = JSON.parse(await readFile(new URL('../../lib/legal-policy/analyti
 const manifest = JSON.parse(await readFile(new URL('dist/public/route-manifest.json', root), 'utf8'));
 const escape = value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#x27;');
 
-test('supplied legal file is byte-identical to the recorded revision; analytics version is unchanged', () => {
-  assert.equal(createHash('sha256').update(source).digest('hex'), proof.sha256);
-  assert.equal(LEGAL_VERSION, '2026-11-23');
+test('legal file matches the authorized Meta amendment; baseline provenance remains recorded', () => {
+  assert.equal(proof.sha256, 'a9a70c11f52983c86923c2f4f9ae0ea3873359d8ca04b166f3f35ff8eef53715');
+  assert.equal(createHash('sha256').update(source).digest('hex'), proof.amendment.sha256);
+  assert.equal(LEGAL_VERSION, proof.amendment.version);
   assert.equal(policy.privacyVersion, LEGAL_VERSION);
   assert.equal(policy.privacyUrl, 'https://www.marenettobuild.com/cookie');
   assert.equal(AI_NOTICE, 'Il sito utilizza contenuti generati tramite intelligenza artificiale.');
@@ -53,6 +54,10 @@ test('production and preview deliver every original block, correct metadata and 
         assert.ok(html.includes(`<h2>${escape(block.h)}</h2>`), block.h);
         for (const p of block.p ?? []) assert.ok(html.includes(`<p>${escape(p)}</p>`), p);
         for (const li of block.ul ?? []) assert.ok(html.includes(`<li>${escape(li)}</li>`), li);
+        for (const link of block.links ?? []) {
+          assert.ok(html.includes(`href="${escape(link.href)}"`), link.href);
+          assert.ok(html.includes(`>${escape(link.label)}</a>`), link.label);
+        }
       }
       assert.ok(html.includes(AI_NOTICE));
       assert.ok(sitemap.includes(`<loc>https://www.marenettobuild.com${legal.path}</loc>`));

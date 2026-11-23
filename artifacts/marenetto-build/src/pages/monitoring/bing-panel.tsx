@@ -35,7 +35,7 @@ export function BingPanel({ setFlash }: { setFlash: Flash }) {
 
 export function MetaUnavailable() {
   return <section className="int-panel mon-block" aria-labelledby="mon-meta-src" data-testid="section-meta">
-    <div className="mon-source-head"><div><span className="int-kicker">FONTE SOCIAL</span><h3 id="mon-meta-src">Meta</h3></div><span className="mon-state s-not_configured" data-testid="status-meta">Non configurata</span></div>
-    <p className="mon-copy">Nessuna integrazione Meta è attiva: non vengono letti né mostrati dati da Facebook o Instagram.</p>
+    <div className="mon-source-head"><div><span className="int-kicker">FONTE SOCIAL</span><h3 id="mon-meta-src">Meta</h3></div><span className="mon-state s-not_configured" data-testid="status-meta">Pixel installato, dati non collegati</span></div>
+    <p className="mon-copy">Il Pixel si attiva solo con consenso marketing sulle pagine pubbliche. L’installazione non certifica la ricezione degli eventi. Nessun collegamento a Insights o report Facebook e Instagram.</p>
   </section>;
 }

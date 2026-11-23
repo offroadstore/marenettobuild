@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { build } from 'esbuild';
 import { resolve } from 'node:path';
+import { LEGAL_VERSION } from '../src/content/legal';
 let bundle = '';
 test.beforeAll(async () => {
   const result = await build({
@@ -37,7 +38,7 @@ test('direct GA waits for consent, sanitizes events, reloads on revocation and n
     if (u.pathname === '/api/editorial/active') { await route.fulfill({ json: [] }); return; }
     if (u.pathname === '/api/monitoring/public') {
       await route.fulfill({ json: { enabled: true, mode: 'direct', origin, runtimeOrigin: '',
-        measurementId: 'G-D0QJL17CVC', privacyUrl: origin + '/cookie', privacyVersion: '2026-11-23',
+        measurementId: 'G-D0QJL17CVC', privacyUrl: origin + '/cookie', privacyVersion: LEGAL_VERSION,
         expiresAt: new Date(Date.now() + 60000).toISOString() } }); return;
     }
     if (u.pathname === '/fixture.js') { await route.fulfill({ contentType: 'application/javascript', body: bundle }); return; }

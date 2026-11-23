@@ -2,6 +2,7 @@ import { type AnchorHTMLAttributes, type FormEvent, type ReactNode, useEffect, u
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ArrowRight, Check, ChevronDown, House, Mail, MapPin, Menu, MessageCircle, Phone, X } from 'lucide-react';
 import { useCreateProjectRequest, type ProjectRequestInput } from '@workspace/api-client-react';
+import { browserMarketing } from '@/lib/analytics/marketing';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -691,8 +692,11 @@ function RequestPage({ lang, editorial = false }: { lang: Lang; editorial?: bool
       companyWebsite: companyWebsite.current?.value ?? '',
     };
     if (create.isPending || receipt) return;
+    const marketing = browserMarketing();
+    const attempt = marketing?.attempt();
     create.mutate({ data: payload }, { onSuccess: result => {
       if (result.status !== 'sent') return;
+      if (attempt) marketing?.sent(attempt);
       setReceipt(true); setReview(false); setForm(initialForm(lang));
       create.reset();
     } });

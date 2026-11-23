@@ -5,7 +5,10 @@ import { getLocaleDirection } from '@/localization/locales';
 import { useActiveEditorial, useEditorialStatus } from '@/lib/editorial-runtime';
 import { browserAnalytics } from '@/lib/analytics/browser';
 import { analyticsCopy } from '@/lib/analytics/copy';
-import { CONSENT_KEY, CONSENT_MAX_AGE, consentValue, excludedPath, isPreviewOrigin, safePath, validConfig, type Choice } from '@/lib/analytics/runtime';
+import { CONSENT_MAX_AGE, excludedPath, isPreviewOrigin, safePath, validConfig } from '@/lib/analytics/runtime';
+import { PREFERENCES_KEY, readPreferences, savePreferences, type Preferences } from '@/lib/analytics/preferences';
+import { browserMarketing } from '@/lib/analytics/marketing';
+import { categoryCopy } from '@/lib/analytics/category-copy';
 import { legalPages } from '@/content/legal';
 import { useFixedAccessSpace } from '@/lib/analytics/fixed-access';
 import { COOKIE_PREFERENCES_EVENT } from './CookiePreferencesLink';
@@ -15,9 +18,13 @@ export function AnalyticsPreferences({ publicEditions }: { publicEditions: reado
   const [path] = useLocation();
   const active = useActiveEditorial(), editorialStatus = useEditorialStatus();
   const [config, setConfig] = useState<PublicMonitoring | null>(null);
-  const [choice, setChoice] = useState<Choice | null>(null);
+  const [choice, setChoice] = useState<Preferences | null>(null);
+  const [restored, setRestored] = useState(false);
+  const [custom, setCustom] = useState(false);
+  const [statistics, setStatistics] = useState(false), [marketing, setMarketing] = useState(false);
+  const [storageError, setStorageError] = useState(false);
+  const storageBlocked = useRef(false);
   const [open, setOpen] = useState(false);
-  const [restoredConfig, setRestoredConfig] = useState<PublicMonitoring | null>(null);
   const opener = useRef<HTMLElement | null>(null);
   const bar = useRef<HTMLElement>(null);
   useFixedAccessSpace();
@@ -29,22 +36,24 @@ export function AnalyticsPreferences({ publicEditions }: { publicEditions: reado
   const allowed = editorialStatus === 'verified' ? safePath(path, paths) : null;
   const locale = active.find(e => [e.path, encodeURI(e.path)].includes(path))?.locale ?? publicEditions.find(e => [e.path, encodeURI(e.path)].includes(path))?.locale ?? 'it';
   const text = analyticsCopy[locale];
+  const categories = categoryCopy[locale];
   const enabled = Boolean(config && typeof window !== 'undefined' && validConfig(config, window.location.origin));
   const visible = Boolean(text && !excludedPath(path) && (allowed || legalPages.some(page => page.path === path)));
   // Legal pages share the footer controls, but never extend the measured inventory.
-  const available = Boolean(visible && enabled);
-  const show = visible && (open || (available && restoredConfig === config && !choice));
+  const available = Boolean(visible && typeof window !== 'undefined' && !isPreviewOrigin(window.location.origin));
+  const show = visible && (open || (available && restored && !choice));
 
   useEffect(() => {
     const reopen = (event: Event) => {
       if (!visible) return;
       opener.current = (event as CustomEvent<HTMLElement>).detail;
-      setOpen(value => !value);
+      setOpen(true); setCustom(true);
+      setStatistics(choice?.statistics ?? false); setMarketing(choice?.marketing ?? false);
       requestAnimationFrame(() => bar.current?.focus({ preventScroll: true }));
     };
     window.addEventListener(COOKIE_PREFERENCES_EVENT, reopen);
     return () => window.removeEventListener(COOKIE_PREFERENCES_EVENT, reopen);
-  }, [visible]);
+  }, [visible, choice]);
   useEffect(() => { setOpen(false); opener.current = null; }, [path]);
   useEffect(() => {
     try {
@@ -76,38 +85,51 @@ export function AnalyticsPreferences({ publicEditions }: { publicEditions: reado
   }, [allowed, text, visible]);
 
   useEffect(() => {
-    const runtime = browserAnalytics();
-    runtime?.configure(config);
-    if (!available || !config) { runtime?.navigate(null); runtime?.consent(null); setChoice(null); setRestoredConfig(null); return; }
     let timer: ReturnType<typeof setTimeout>;
     const restore = () => {
-      let saved: Choice | null = null;
+      let saved: Preferences | null = null;
       clearTimeout(timer);
       try {
-        const raw = localStorage.getItem(CONSENT_KEY);
-        saved = consentValue(raw, config);
-        // A long-lived open tab must expire too. Never refresh the stored timestamp.
-        if (saved) timer = setTimeout(restore, Math.min(86400000, Math.max(1, JSON.parse(raw!).at + CONSENT_MAX_AGE - Date.now())));
+        // Preserve a failed withdrawal across GA's mandatory controlled reload,
+        // even when a read-only browser refuses to remove the old accepted record.
+        storageBlocked.current ||= history.state?.cookieConsentBlocked === true ||
+          sessionStorage.getItem('marenetto.cookie-storage-blocked') === 'true';
+        if (!storageBlocked.current) saved = readPreferences(localStorage.getItem(PREFERENCES_KEY));
+        if (saved) timer = setTimeout(restore, Math.min(86400000, Math.max(1, saved.at + CONSENT_MAX_AGE - Date.now())));
       } catch { /* storage denied: default no tracking */ }
-      setChoice(saved); setRestoredConfig(config); runtime?.consent(saved);
-      runtime?.navigate(allowed);
+      setChoice(saved); setRestored(true); setStorageError(storageBlocked.current);
+      if (!saved) { browserAnalytics()?.consent(null); browserMarketing()?.consent(false); }
     };
     restore();
     const changed = (event: StorageEvent) => {
-      if ((!event.storageArea || event.storageArea === localStorage) && (!event.key || event.key === CONSENT_KEY)) {
+      if (!event.key || event.key === PREFERENCES_KEY) {
         restore(); setOpen(false);
       }
     };
     window.addEventListener('storage', changed);
-    return () => { clearTimeout(timer); window.removeEventListener('storage', changed); };
-  }, [config, available, allowed]);
+    window.addEventListener('focus', restore);
+    const visibleAgain = () => { if (document.visibilityState === 'visible') restore(); };
+    document.addEventListener('visibilitychange', visibleAgain);
+    return () => { clearTimeout(timer); window.removeEventListener('storage', changed); window.removeEventListener('focus', restore); document.removeEventListener('visibilitychange', visibleAgain); };
+  }, [choice?.at]);
+
+  useEffect(() => {
+    const runtime = browserAnalytics(), meta = browserMarketing();
+    runtime?.configure(config);
+    runtime?.navigate(available ? allowed : null);
+    runtime?.consent(available && choice?.statistics && enabled ? 'accepted' : 'rejected');
+    meta?.navigate(available ? allowed : null);
+    meta?.consent(Boolean(available && choice?.marketing));
+  }, [choice, available, allowed, config, enabled]);
 
   // Stop BEFORE history changes into an excluded/unknown route; React effects
   // alone run too late to stop an already loaded provider's background timers.
   useEffect(() => {
     const check = (destination: string) => {
       const target = new URL(destination, window.location.href);
-      if (target.origin !== window.location.origin || !safePath(target.pathname, paths)) browserAnalytics()?.navigate(null);
+      if (target.origin !== window.location.origin || !safePath(target.pathname, paths)) {
+        browserAnalytics()?.navigate(null); browserMarketing()?.navigate(null);
+      }
     };
     const push = history.pushState, replace = history.replaceState;
     const wrap = (original: typeof history.pushState): typeof history.pushState => function (state, unused, url) {
@@ -122,7 +144,7 @@ export function AnalyticsPreferences({ publicEditions }: { publicEditions: reado
       if (!element || !safePath(window.location.pathname, paths)) return;
       const href = element.getAttribute('href') ?? '';
       const channel = /^tel:/i.test(href) ? 'phone' : /^mailto:/i.test(href) ? 'email' : /^https:\/\/(?:wa\.me|api\.whatsapp\.com)\//i.test(href) ? 'whatsapp' : null;
-      if (channel) browserAnalytics()?.contact(channel);
+      if (channel) { browserAnalytics()?.contact(channel); browserMarketing()?.contact(); }
     };
     window.addEventListener('popstate', back);
     document.addEventListener('click', clicks, true);
@@ -132,19 +154,28 @@ export function AnalyticsPreferences({ publicEditions }: { publicEditions: reado
       window.removeEventListener('popstate', back); document.removeEventListener('click', clicks, true);
     };
   }, [paths]);
-  useEffect(() => () => browserAnalytics()?.navigate(null), []);
+  useEffect(() => () => { browserAnalytics()?.navigate(null); browserMarketing()?.navigate(null); }, []);
 
-  const choose = (next: Choice) => {
-    if (!config || !validConfig(config, window.location.origin)) return;
-    if (next === 'rejected' && choice === 'accepted' && config.mode === 'direct' && opener.current?.isConnected) {
+  const choose = (stats: boolean, ads: boolean) => {
+    if (!available) return;
+    if (!stats && choice?.statistics && config?.mode === 'direct' && opener.current?.isConnected) {
       try { sessionStorage.setItem('marenetto.cookie-focus', 'footer'); } catch { /* storage may be denied */ }
     }
-    browserAnalytics()?.consent(next);
-    setChoice(next); setOpen(false);
-    try {
-      if (config && enabled) localStorage.setItem(CONSENT_KEY, JSON.stringify({ choice: next, mode: config.mode ?? 'isolated', origin: config.origin, runtimeOrigin: config.runtimeOrigin, version: config.privacyVersion, id: config.measurementId, at: Date.now() }));
-      else localStorage.removeItem(CONSENT_KEY);
-    } catch { /* no persistent preference without storage */ }
+    const saved = savePreferences(stats, ads);
+    // Persist before granting or triggering GA's controlled withdrawal reload.
+    if (!saved) {
+      storageBlocked.current = true;
+      try { sessionStorage.setItem('marenetto.cookie-storage-blocked', 'true'); } catch { /* history is the independent reload guard */ }
+      try { history.replaceState({ ...history.state, cookieConsentBlocked: true }, ''); } catch { /* storage remains denied in this document */ }
+      try { localStorage.removeItem(PREFERENCES_KEY); } catch { /* no implicit consent */ }
+    } else {
+      storageBlocked.current = false;
+      try { sessionStorage.removeItem('marenetto.cookie-storage-blocked'); } catch { /* optional persistence guard */ }
+      try { history.replaceState({ ...history.state, cookieConsentBlocked: false }, ''); } catch { /* no consent is inferred */ }
+    }
+    browserAnalytics()?.consent(saved?.statistics && enabled ? 'accepted' : 'rejected');
+    browserMarketing()?.consent(Boolean(saved?.marketing));
+    setChoice(saved); setOpen(!saved); setStorageError(!saved); setCustom(false);
     if (opener.current?.isConnected) opener.current.focus({ preventScroll: true });
     opener.current = null;
   };
@@ -158,12 +189,24 @@ export function AnalyticsPreferences({ publicEditions }: { publicEditions: reado
         }
       }}>
       <div className="analytics-preferences__inner">
-        <p>{available ? text.message : text.inactive} <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/cookie`}>{text.info}</a></p>
-        {available && <div className="analytics-actions">
-          <button type="button" onClick={() => choose('accepted')} data-testid="analytics-accept">{text.accept}</button>
-          <button type="button" onClick={() => choose('rejected')} data-testid="analytics-reject">{text.reject}</button>
-        </div>}
+        <p>{available ? categories.message : text.inactive} <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/cookie`}>{text.info}</a></p>
+        {available && <>
+          <div className="analytics-actions">
+            <button type="button" onClick={() => choose(true, true)} data-testid="analytics-accept">{text.accept}</button>
+            <button type="button" onClick={() => choose(false, false)} data-testid="analytics-reject">{text.reject}</button>
+          </div>
+          <button className="cookie-customize" type="button" aria-expanded={custom} aria-controls="cookie-categories" onClick={() => {
+            setCustom(v => !v); setStatistics(choice?.statistics ?? false); setMarketing(choice?.marketing ?? false);
+          }} data-testid="cookie-customize">{categories.customize}</button>
+        </>}
       </div>
+      {available && custom && <fieldset id="cookie-categories" className="cookie-categories">
+        <legend>{text.preferences}</legend>
+        <label><input type="checkbox" checked={statistics} onChange={e => setStatistics(e.target.checked)} data-testid="consent-statistics" />{categories.statistics}</label>
+        <label><input type="checkbox" checked={marketing} onChange={e => setMarketing(e.target.checked)} data-testid="consent-marketing" />{categories.marketing}</label>
+        <button type="button" onClick={() => choose(statistics, marketing)} data-testid="cookie-save">{categories.save}</button>
+      </fieldset>}
+      {storageError && <p role="alert">{categories.storageError}</p>}
     </aside>}
   </>;
 }

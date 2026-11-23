@@ -21,10 +21,12 @@ export function renderDocument(template, { edition, body, alternates = [], canon
   let html = template
     .replace(/<html[^>]*>/, `<html lang="${locale === 'it' ? 'it-IT' : locale}" dir="${getLocaleDirection(locale)}" data-edition-locale="${locale}">`)
     .replace(/<title>[\s\S]*?<\/title>/, '')
+    .replace(/<meta\b[^>]*name="facebook-domain-verification"[^>]*>/g, '')
     .replace(/<link\b[^>]*rel="(?:canonical|alternate)"[^>]*>/g, '')
     .replace(/<meta\b[^>]*(?:name="(?:description|robots|twitter:[^"]+)"|property="og:[^"]+")[^>]*>/g, '')
     .replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, '');
   const metas = [
+    '<meta name="facebook-domain-verification" content="5uk7oyoskduu3td99b45m9r58i1cd7" />',
     `<title>${escapeHtml(title)}</title>`,
     `<meta name="robots" content="noindex, nofollow" />`,
     `<meta name="description" content="${escapeHtml(description)}" />`,

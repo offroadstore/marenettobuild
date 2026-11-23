@@ -61,3 +61,24 @@ Matching or customer data transfer.
 **How to apply:** Update notices only within the authorized Meta scope and explain
 technical network data honestly. Maintain private-route exclusion, compact consent
 UI and footer reopening; do not equate installation with connected Insights data.
+
+The Meta integration deliberately uses the official manual image transport,
+not the executable SDK, and omits cross-origin credentials and HTTP referrer.
+No Meta first-party advertising identifiers are generated.
+
+**Why:** The SDK's documented automatic URL/referrer and page/button collection
+conflicts with the strict boundary around public enquiry data. A reduced,
+explicit transport avoids executing vendor code next to the form; attribution
+is correspondingly limited and event receipt must not be certified locally.
+
+**How to apply:** Do not replace it with the SDK or add matching/click identifiers
+as a routine optimization. Any such change needs a new privacy and consent review.
+
+Failed consent withdrawals must remain denied across a provider's required
+document reload, not merely until React next restores storage.
+
+**Why:** A browser can allow reading an old grant while refusing its replacement
+or deletion. Reloading to unload third-party code can otherwise restore that grant.
+
+**How to apply:** Treat failed writes as a separate denial condition that survives
+the controlled reload. Clear it only following a successfully saved explicit choice.

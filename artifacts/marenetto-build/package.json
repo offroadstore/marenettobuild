@@ -15,6 +15,7 @@
     "audit:phase2": "node scripts/phase2-audit.mjs",
     "audit:release": "node scripts/release-audit.mjs",
     "test:analytics": "playwright test --config=playwright.analytics.config.ts",
+    "test:marketing": "node --test scripts/marketing.test.mjs",
     "serve:analytics-runtime": "node analytics-runtime/server.mjs",
     "build:analytics-runtime": "node analytics-runtime/build.mjs",
     "test:analytics-runtime": "node --test analytics-runtime/runtime.test.mjs",

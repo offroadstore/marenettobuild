@@ -10,6 +10,7 @@ export function LegalContents({ content }: { content: LegalPageContent }) {
       <h2>{block.h}</h2>
       {block.p?.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
       {block.ul && <ul>{block.ul.map(item => <li key={item}>{item}</li>)}</ul>}
+      {block.links && <ul>{block.links.map(link => <li key={link.href}><a href={link.href} rel="noreferrer" referrerPolicy="no-referrer">{link.label}</a></li>)}</ul>}
     </section>)}
     <p>Versione {LEGAL_VERSION}</p>
   </main>;

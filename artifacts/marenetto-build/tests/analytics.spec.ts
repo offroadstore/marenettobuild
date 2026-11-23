@@ -160,34 +160,34 @@ test('a preview never loads Google even with forged enabled config; unavailable 
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   await expect(page.locator('iframe')).toHaveCount(0);
   await page.getByTestId('cookie-preferences-link').click();
-  await expect(page.getByTestId('analytics-accept')).toHaveCount(0);
+  await expect(page.getByTestId('analytics-accept')).toBeVisible();
 });
 
 test('existing choices survive config refresh and a new tab without renewing the timestamp; tabs synchronize both choices', async ({ page, context }) => {
   const f = await setup(page);
   await page.getByTestId('analytics-reject').click();
-  const stored = await page.evaluate(() => localStorage.getItem('marenetto.analytics.v1'));
+  const stored = await page.evaluate(() => localStorage.getItem('marenetto.cookies.v2'));
   await page.reload();
   await expect(page.getByTestId('analytics-preferences')).toHaveCount(0);
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   await page.getByRole('link', { name: 'Servizi', exact: true }).click();
   await expect(page).toHaveURL(/\/servizi/);
   await expect(page.getByTestId('analytics-preferences')).toHaveCount(0);
-  expect(await page.evaluate(() => localStorage.getItem('marenetto.analytics.v1'))).toBe(stored);
+  expect(await page.evaluate(() => localStorage.getItem('marenetto.cookies.v2'))).toBe(stored);
   expect(f.requests).toHaveLength(0);
   const other = await context.newPage();
   const second = await setup(other);
   await expect(other.getByTestId('analytics-preferences')).toHaveCount(0);
-  expect(await other.evaluate(() => localStorage.getItem('marenetto.analytics.v1'))).toBe(stored);
+  expect(await other.evaluate(() => localStorage.getItem('marenetto.cookies.v2'))).toBe(stored);
   await page.getByTestId('cookie-preferences-link').click();
-  expect(await page.evaluate(() => localStorage.getItem('marenetto.analytics.v1'))).toBe(stored);
+  expect(await page.evaluate(() => localStorage.getItem('marenetto.cookies.v2'))).toBe(stored);
   await page.getByTestId('analytics-accept').click();
   await expect(other.locator('iframe')).toHaveCount(1);
   await expect(other.getByTestId('analytics-preferences')).toHaveCount(0);
-  const accepted = await page.evaluate(() => localStorage.getItem('marenetto.analytics.v1'));
+  const accepted = await page.evaluate(() => localStorage.getItem('marenetto.cookies.v2'));
   await other.reload();
   await expect(other.locator('iframe')).toHaveCount(1);
-  expect(await other.evaluate(() => localStorage.getItem('marenetto.analytics.v1'))).toBe(accepted);
+  expect(await other.evaluate(() => localStorage.getItem('marenetto.cookies.v2'))).toBe(accepted);
   await other.getByTestId('cookie-preferences-link').click();
   await expect(other.locator('iframe')).toHaveCount(1);
   await other.getByTestId('analytics-reject').click();
@@ -203,8 +203,8 @@ for (const choice of ['accepted', 'rejected']) {
     const f = await setup(page);
     await page.getByTestId('analytics-reject').click();
     await page.evaluate(choice => {
-      const v = JSON.parse(localStorage.getItem('marenetto.analytics.v1')!);
-      localStorage.setItem('marenetto.analytics.v1', JSON.stringify({ ...v, choice, at: Date.now() - 180 * 86400000 + 1500 }));
+      const v = JSON.parse(localStorage.getItem('marenetto.cookies.v2')!);
+      localStorage.setItem('marenetto.cookies.v2', JSON.stringify({ ...v, statistics: choice === 'accepted', marketing: false, at: Date.now() - 180 * 86400000 + 1500 }));
     }, choice);
     await page.reload();
     if (choice === 'accepted') await expect(page.locator('iframe')).toHaveCount(1);

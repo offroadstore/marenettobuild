@@ -10,6 +10,12 @@
 .analytics-actions button:hover{background:#eeece6}
 .analytics-preferences a:focus-visible,.analytics-actions button:focus-visible,.cookie-preferences-link:focus-visible{outline:3px solid #9a634c;outline-offset:2px}
 .cookie-preferences-link{font-size:.875rem;text-decoration:underline;text-underline-offset:3px}
+.cookie-customize,.cookie-categories button{font:inherit;color:inherit;background:transparent;border:1px solid #69716a;border-radius:3px;min-height:44px;padding:.375rem .75rem;cursor:pointer}
+.cookie-customize{border-color:transparent;text-decoration:underline;flex-shrink:0}
+.cookie-categories{max-width:84rem;margin:.5rem auto 0;padding:.5rem;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:.5rem 1rem;border:1px solid #d9d5ca}
+.cookie-categories label{display:flex;align-items:center;gap:.5rem;min-height:44px;cursor:pointer}
+.cookie-categories input{width:20px;height:20px;accent-color:#25302a}
+.analytics-preferences :is(button,input):focus-visible{outline:3px solid #9a634c;outline-offset:2px}
 .fixed-access-space{height:calc(var(--cookie-bar-height,0px) + var(--contact-bar-height,0px))}
 .site-shell:has(> .topbar){padding-bottom:0}
 .site-shell .mb-cbar{bottom:var(--cookie-bar-height,0px)}
@@ -21,5 +27,7 @@ html{scroll-padding-bottom:calc(var(--cookie-bar-height,0px) + var(--contact-bar
   .analytics-preferences__inner{display:block;text-align:center}
   .analytics-preferences p{display:inline}
   .analytics-actions{margin-inline:.375rem}
+  .cookie-customize{min-height:44px}
+  .analytics-preferences{max-height:65dvh;overflow:auto}
 }
 @media(prefers-reduced-motion:reduce){.mb-cbar{transition:none}}

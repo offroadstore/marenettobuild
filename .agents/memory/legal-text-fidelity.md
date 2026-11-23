@@ -10,6 +10,17 @@ local hosting-label replacement.
 Do not otherwise rewrite, certify or translate it. Preserve per-image AI labels and
 other notices alongside the supplied general AI disclosure.
 
+The owner subsequently authorized targeted amendments for Meta Pixel and
+independent marketing consent, including removal of the no-marketing claim and
+an effective notice-version update. The imported revision remains the baseline;
+do not overwrite those authorized amendments by reimporting it blindly.
+
+**Why:** An explicit later authorization supersedes byte identity only within
+that narrow scope, not the general restriction on rewriting the Italian notices.
+
+**How to apply:** Preserve baseline provenance separately from the amended
+notice's integrity evidence; keep the production scanner unchanged.
+
 **Why:** The owner explicitly limited this integration to the supplied Italian
 texts and superseded earlier multilingual legal-page and general AI wording
 requirements, while prohibiting unrelated motto changes.

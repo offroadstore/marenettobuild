@@ -1,6 +1,7 @@
 /**
  * Preparation boundary only: no advertising loader, credentials or activation.
- * Future adapters must live in the reviewed isolated provider runtime. The form's
+ * This callback adapter stays unconfigured. The separately authorized public
+ * email-only form uses the manual image transport in marketing.ts. The form's
  * marketing checkbox must NEVER be wired to these cookie-consent grants.
  */
 export type AdvertisingProvider = 'meta' | 'googleAds';
