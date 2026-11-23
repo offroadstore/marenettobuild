@@ -15,4 +15,6 @@ export interface AiProviderStatus {
   blockers: string[];
   /** @nullable */
   maximumUsd: number | null;
+  /** @nullable */
+  estimatedUsd?: number | null;
 }

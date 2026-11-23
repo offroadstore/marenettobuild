@@ -37,7 +37,7 @@ export function AiSettings({ setFlash }: { setFlash: Flash }) {
   const budget = Number(form.budget);
   const budgetBad = form.budget.trim() === '' || !Number.isFinite(budget) || budget < 0 || budget > 10000;
   const qBad = form.questions.map(q => q.text.trim().length < 10 || q.text.trim().length > 240);
-  const weeklyBlocked = !v.workerReady || budget <= 0;
+  const weeklyBlocked = budget <= 0 || v.blockers.some(b => /Anteprima|sviluppo/i.test(b));
   const isDirty = dirty.current;
   const active = v.campaigns.find(campaignActive);
   const configured = v.providers.filter(p => p.configured && !p.blockers.length);
@@ -52,18 +52,24 @@ export function AiSettings({ setFlash }: { setFlash: Flash }) {
   };
   const runNow = () => {
     if (runBlock || start.isPending) return;
-    if (!window.confirm(`Avviare ora un controllo IA? Verranno usate chiamate a pagamento, entro il budget residuo di ${usd(v.remainingUsd)}.`)) return;
+    if (!window.confirm(`Avviare ora un controllo IA dal server? Stima ${usd(v.campaignEstimateUsd)}, massimo prudenziale ${usd(v.campaignMaximumUsd)}. Residuo ${usd(v.remainingUsd)}: se insufficiente, il controllo può terminare parzialmente bloccato. Nessun superamento del budget.`)) return;
     start.mutate(undefined, { onSuccess: r => { setFlash({ tone: 'info', text: r.message || 'Controllo messo in coda.' }); refresh(); }, onSettled: refresh });
   };
 
   return <section className="int-panel mon-block" aria-labelledby="mon-ai" data-testid="section-ai-settings">
-    <div className="mon-source-head"><div><span className="int-kicker">VISIBILITÀ IA / SOLO TITOLARE</span><h3 id="mon-ai">Visibilità nelle IA</h3></div><span className={`mon-state ${v.weeklyEnabled ? 's-ready' : 's-not_configured'}`} data-testid="status-ai-weekly">{v.weeklyEnabled ? 'Calendario attivo' : 'Calendario spento'}</span></div>
+    <div className="mon-source-head"><div><span className="int-kicker">VISIBILITÀ IA / SOLO TITOLARE</span><h3 id="mon-ai">Visibilità nelle IA</h3></div><span className="mon-state s-not_configured" data-testid="status-ai-weekly">{v.weeklyEnabled ? 'Calendario autorizzato · scheduler da verificare' : 'Calendario spento'}</span></div>
     <MethodNote />
-    <dl className="mon-meta" data-testid="list-ai-budget"><div><dt>Budget mensile</dt><dd>{usd(v.budgetUsd)}</dd></div><div><dt>Spesa riconciliata ({v.month})</dt><dd>{usd(v.spentUsd)}</dd></div><div><dt>Riservato / costo incerto</dt><dd>{usd(v.reservedUsd)}</dd></div><div><dt>Residuo</dt><dd>{usd(v.remainingUsd)}</dd></div><div><dt>Worker esterno</dt><dd>{v.workerReady ? 'pronto' : 'non configurato'}</dd></div></dl>
+    <dl className="mon-meta" data-testid="list-ai-budget"><div><dt>Budget mensile</dt><dd>{usd(v.budgetUsd)}</dd></div><div><dt>Spesa riconciliata ({v.month})</dt><dd>{usd(v.spentUsd)}</dd></div><div><dt>Riservato / costo incerto</dt><dd>{usd(v.reservedUsd)}</dd></div><div><dt>Residuo</dt><dd>{usd(v.remainingUsd)}</dd></div><div><dt>Esecuzione manuale</dt><dd>Server del sito · nessun worker esterno richiesto</dd></div></dl>
+    <div data-testid="ai-campaign-cost">
+      <p className="mon-copy"><strong>Controllo completo: {v.questionCount ?? v.questions.filter(q => q.enabled).length} domande × 2 provider</strong> · stima {usd(v.campaignEstimateUsd)} · massimo prudenziale {usd(v.campaignMaximumUsd)}.</p>
+      <p className="mon-note">Stima illustrativa: due passaggi da 6.000 token in ingresso e 512 in uscita, una ricerca per domanda. Non è una garanzia: il contenuto restituito dalla ricerca può aumentare il costo. Gemini resta bloccato.</p>
+      {(v.campaignMaximumUsd ?? 0) > v.remainingUsd && <Notice tone="warn">Il massimo prudenziale supera il residuo: alcune domande potrebbero essere bloccate. Il tetto completo sotto 1 USD non è garantibile con i limiti documentati; non usiamo la stima per autorizzare la spesa.</Notice>}
+    </div>
+    <p className="mon-note">{v.calendarStatus ?? 'Calendario da predisporre separatamente.'} L’avvio manuale non richiede calendario, firma o heartbeat. Il costo della Scheduled Deployment è separato dal budget API.</p>
     {v.blockers.length > 0 && <div className="mon-blockers" data-testid="list-ai-blockers"><strong>Prerequisiti mancanti</strong><ul>{v.blockers.map(b => <li key={b}>{b}</li>)}</ul></div>}
     <div className="mon-providers">{v.providers.map(p => <div key={p.provider} className="mon-provider" data-testid={`card-ai-provider-${p.provider}`}>
       <div className="mon-summary-head"><strong>{providerNames[p.provider] ?? p.provider}</strong><span className={`mon-state ${p.configured && !p.blockers.length ? 's-ready' : 's-not_configured'}`}>{!p.configured ? 'Non configurato' : p.blockers.length ? 'Bloccato' : 'Configurato'}</span></div>
-      <p className="mon-note">{p.model || 'modello non indicato'} · {p.method || 'metodo non indicato'} · tetto {usd(p.maximumUsd)}</p>
+      <p className="mon-note">{p.model || 'modello non indicato'} · {p.method || 'metodo non indicato'} · per domanda: stima {usd(p.estimatedUsd)}, tetto {usd(p.maximumUsd)}</p>
       {p.blockers.length > 0 && <ul className="mon-findings">{p.blockers.map(b => <li key={b}>{b}</li>)}</ul>}
     </div>)}</div>
     <form className="mon-ai-form" onSubmit={submit}>
@@ -71,7 +77,7 @@ export function AiSettings({ setFlash }: { setFlash: Flash }) {
         <label>Budget mensile (USD)<input type="number" min={0} max={10000} step="0.01" inputMode="decimal" value={form.budget} aria-invalid={budgetBad} onChange={e => edit(f => ({ ...f, budget: e.target.value }))} data-testid="input-ai-budget" /><small>{budgetBad ? 'Valore tra 0 e 10.000.' : 'Con 0 nessuna chiamata parte.'}</small></label>
         <label className="mon-check"><input type="checkbox" checked={form.weekly && !weeklyBlocked} disabled={weeklyBlocked} onChange={e => edit(f => ({ ...f, weekly: e.target.checked }))} data-testid="checkbox-ai-weekly" /> Controllo settimanale ({v.schedule || 'lunedì 09:00 Europe/Rome'})</label>
       </div>
-      {weeklyBlocked && <p className="mon-note" data-testid="text-ai-weekly-blocked">Il calendario resta spento: richiede {!v.workerReady ? 'un worker esterno firmato configurato' : ''}{!v.workerReady && budget <= 0 ? ' e ' : ''}{budget <= 0 ? 'un budget maggiore di zero' : ''}.</p>}
+      {weeklyBlocked && <p className="mon-note" data-testid="text-ai-weekly-blocked">Il calendario richiede produzione e budget positivo; il comando programmato va configurato separatamente. Nessun worker esterno è necessario per “Controlla ora”.</p>}
       <ol className="mon-questions">{form.questions.map((q, i) => <li key={q.id} data-testid={`row-ai-question-${q.id}`}>
         <span className="mon-qid">{q.id.toUpperCase()} <small>v{q.version}</small></span>
         <textarea value={q.text} rows={2} maxLength={240} aria-label={`Testo domanda ${q.id}`} aria-invalid={qBad[i]} onChange={e => edit(f => ({ ...f, questions: f.questions.map(x => x.id === q.id ? { ...x, text: e.target.value } : x) }))} data-testid={`input-ai-question-${q.id}`} />

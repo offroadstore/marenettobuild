@@ -24,6 +24,18 @@ aggiornamenti. Il target di costo non autorizza a sottostimare input e ricerca
 fatturati: verificare limiti applicabili, mantenere prenotazioni atomiche ed
 esiti incerti. Nessuna chiamata reale durante sviluppo o test.
 
+Le impostazioni `low`, il limite output e una ricerca per domanda non
+dimostrano un tetto numerico dell’input ricerca: una stima economica non
+può essere usata come prenotazione massima garantita.
+
+**Why:** Le documentazioni consultate distinguono il limite alle ricerche
+dal contenuto fatturato; il target sotto 1 USD non giustifica un limite
+contabile inferiore al peggiore caso documentato.
+
+**How to apply:** Dichiarare separatamente stima, prenotazione prudenziale
+e possibile completamento parziale; non presentare test sintetici entro
+budget come prove di fatturazione reale.
+
 Il grounding Google Search non può essere assimilato a un normale output generativo liberamente analizzabile: i termini consultati il 23 novembre 2026 vietano analisi e raccolta automatizzata dei Grounded Results per costruire uno storico di monitoraggio. Un budget positivo non supera questo vincolo.
 
 **Why:** Il caso d'uso approvato richiede un database analitico, mentre le eccezioni Google riguardano display e cronologia chat, non misurazione della visibilità. La presenza dell'adapter non prova il diritto di eseguirlo.

@@ -22,8 +22,10 @@ await build({
     build.onResolve({ filter: /^@workspace\/db$/ }, () => ({ path: 'db', namespace: 'fixture' }));
     build.onResolve({ filter: /^@clerk\/express$/ }, () => ({ path: 'clerk', namespace: 'fixture' }));
     build.onResolve({ filter: /middlewares\/internalAccess$/ }, () => ({ path: 'auth', namespace: 'fixture' }));
+    build.onResolve({ filter: /\/logger$/ }, () => ({ path: 'logger', namespace: 'fixture' }));
     build.onLoad({ filter: /.*/, namespace: 'fixture' }, args => {
       const files = {
+        logger: `export const logger={info(){},warn(){},error(){}};`,
         db: `import pg from '${pgPath}';
           import {drizzle} from '${drizzlePath}';
           import * as schema from '${root}/lib/db/src/schema/index.ts';

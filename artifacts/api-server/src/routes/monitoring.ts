@@ -1,7 +1,7 @@
 import { Router, type IRouter, type Request, type Response, type NextFunction } from "express";
 import { getAuth } from "@clerk/express";
 import { createHmac, randomUUID, timingSafeEqual } from "node:crypto";
-import { and, eq, gt, lt } from "drizzle-orm";
+import { and, eq, gt, lt, sql } from "drizzle-orm";
 import { db, monitoringSettingsTable as settings, monitoringOauthStatesTable as states } from "@workspace/db";
 import {
   GetMonitoringResponse, GetKpiDashboardResponse, SaveMonitoringTagsBody,
@@ -23,6 +23,8 @@ import { bingConfigured, bingInstructions, bingReport, bingSites, saveBingSite }
 import { collectionEnvironment, collectionStatus, realtimeReceipt, verifyWebStream } from "../lib/monitoring/collection";
 import directPolicy from "../../../../lib/legal-policy/direct-analytics.json";
 import legalPolicy from "../../../../lib/legal-policy/analytics.json";
+import { checkStream, discoveryStatus, scanPublishedSite, streamStatus } from "../lib/monitoring/site-checks";
+import { wakeAiRunner } from "../lib/monitoring/ai-runner";
 
 const router: IRouter = Router();
 const prefix = "/internal/monitoring";
@@ -67,6 +69,33 @@ const serviceParam = (req: Request): GoogleReportService => {
 };
 const propertyFor = (row: Awaited<ReturnType<typeof getSettings>>, service: GoogleReportService) => service === "ga4" ? row.ga4Property : row.searchConsoleProperty;
 
+router.post(`${prefix}/stream/verify`, requirePermission("monitoring:manage"), asyncRoute(async (_req, res) => {
+  const row = await getSettings();
+  let check;
+  try {
+    const token = await accessToken(row.revision);
+    check = await checkStream(row, token.access);
+  } catch {
+    check = { ...streamStatus({ ...row, checks: {} }), state: "error" as const,
+      checkedAt: new Date().toISOString(), message: "Verifica stream non riuscita: controllare collegamento e permessi Google, poi riprovare. GA4 diretto non modificato." };
+  }
+  await lockedSettings(async (tx, current) => {
+    if (current.revision !== row.revision) throw new MonitoringError("unavailable", "Configurazione cambiata: ripetere la verifica.", 409);
+    await tx.update(settings).set({ checks: sql`jsonb_set(${settings.checks}, '{directStream}', ${JSON.stringify(check)}::jsonb)` }).where(eq(settings.environment, current.environment));
+  });
+  res.json({ message: check.message });
+}));
+router.post(`${prefix}/discovery`, requirePermission("monitoring:manage"), asyncRoute(async (_req, res) => {
+  const row = await getSettings();
+  let check;
+  try { check = await scanPublishedSite(); }
+  catch { check = { ...discoveryStatus(row), stale: true, error: "Nuovo controllo non riuscito. L’ultima rilevazione resta obsoleta." }; }
+  await lockedSettings(async (tx, current) => {
+    await tx.update(settings).set({ checks: sql`jsonb_set(${settings.checks}, '{siteDiscovery}', ${JSON.stringify(check)}::jsonb)` }).where(eq(settings.environment, current.environment));
+  });
+  res.json({ message: check.error ?? "HTML del sito pubblicato verificato; non sono stati eseguiti script né inviati eventi." });
+}));
+
 router.get(`${prefix}/ai`, requirePermission("monitoring:manage"), asyncRoute(async (_req, res) => {
   res.json(await getAiVisibility());
 }));
@@ -77,7 +106,9 @@ router.put(`${prefix}/ai`, requirePermission("monitoring:manage"), asyncRoute(as
   res.json({ message: "Impostazioni salvate. Nessun controllo avviato." });
 }));
 router.post(`${prefix}/ai/run`, requirePermission("monitoring:manage"), asyncRoute(async (_req, res) => {
-  res.json({ message: await startCampaign() });
+  const message = await startCampaign();
+  wakeAiRunner();
+  res.json({ message });
 }));
 router.post("/monitoring/ai/tick", asyncRoute(async (req, res) => {
   res.set({ "Cache-Control": "no-store", "Referrer-Policy": "no-referrer" });
@@ -90,6 +121,7 @@ router.post("/monitoring/ai/tick", asyncRoute(async (req, res) => {
   await workerCheckpoint(new Date(Number(minute) * 60000));
   // Enqueue only the current Monday window. No earlier week is recovered.
   try { await startCampaign(true); } catch { /* Budget/config blockers are visible to the owner; no retry of a paid request. */ }
+  wakeAiRunner();
   res.json({ message: "Checkpoint elaborato; nessun recupero di settimane arretrate." });
 }));
 router.get(`${prefix}/bing`, requirePermission("monitoring:manage"), asyncRoute(async (_req, res) => {
@@ -141,7 +173,8 @@ router.get(prefix, requirePermission("kpi:read"), asyncRoute(async (req, res) =>
     trackingEnabled: collection.enabled,
     trackingBlockers: collection.blockers,
     collection: collection.collection,
-    discovery,
+    discovery: discoveryStatus(row),
+    streamCheck: streamStatus(row),
   }));
 }));
 router.put(`${prefix}/collection`, requirePermission("monitoring:manage"), asyncRoute(async (req, res) => {

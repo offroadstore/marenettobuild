@@ -9,6 +9,7 @@ import type { AiCampaign } from './aiCampaign';
 import type { AiObservation } from './aiObservation';
 import type { AiProviderStatus } from './aiProviderStatus';
 import type { AiQuestion } from './aiQuestion';
+import type { AiVisibilityExecutionMode } from './aiVisibilityExecutionMode';
 
 export interface AiVisibility {
   revision: string;
@@ -18,8 +19,17 @@ export interface AiVisibility {
   remainingUsd: number;
   month: string;
   weeklyEnabled: boolean;
+  /**
+     * Legacy field, always false. Neither manual execution nor CLI require a worker heartbeat.
+     * @deprecated
+     */
   workerReady: boolean;
   schedule: string;
+  executionMode?: AiVisibilityExecutionMode;
+  questionCount?: number;
+  campaignEstimateUsd?: number;
+  campaignMaximumUsd?: number;
+  calendarStatus?: string;
   blockers: string[];
   providers: AiProviderStatus[];
   questions: AiQuestion[];

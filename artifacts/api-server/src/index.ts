@@ -2,6 +2,7 @@ import app from "./app";
 import { logger } from "./lib/logger";
 import { cleanProjectRequestAttempts } from "./lib/project-request-rate";
 import { purgeExpiredCalls, recoverCallDeliveries } from "./lib/call-service";
+import { wakeAiRunner } from "./lib/monitoring/ai-runner";
 
 const rawPort = process.env["PORT"];
 
@@ -24,6 +25,9 @@ app.listen(port, (err) => {
   }
 
   logger.info({ port }, "Server listening");
+  // Recovery for persisted manual jobs; this is NOT the weekly scheduler.
+  wakeAiRunner();
+  setInterval(wakeAiRunner, 30_000).unref();
   const purge = () => void cleanProjectRequestAttempts().catch(() =>
     logger.warn("Could not clean expired project request attempts"),
   );

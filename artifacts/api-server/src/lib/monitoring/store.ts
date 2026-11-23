@@ -1,14 +1,23 @@
 import { randomUUID } from "node:crypto";
-import { and, eq, sql } from "drizzle-orm";
+import { and, eq, or, isNull, sql } from "drizzle-orm";
 import { db, monitoringSettingsTable as settings, monitoringOauthStatesTable as states, type MonitoringSettingsRecord } from "@workspace/db";
 import type { GoogleReportService, MonitoringState } from "@workspace/api-zod";
 import { decryptTokens, encryptTokens, environment, MonitoringError, type Tokens } from "./core";
 import { exchangeToken } from "./google";
-import { initialMeasurementId } from "./public-identifiers";
+import { initialMeasurementId, legacyMeasurementId, expectedProperty } from "./public-identifiers";
 
 export async function getSettings(): Promise<MonitoringSettingsRecord> {
   const env = environment();
   await db.insert(settings).values({ environment: env, revision: randomUUID(), measurementId: initialMeasurementId }).onConflictDoNothing();
+  // Conditional and idempotent: only this environment's known legacy setting,
+  // never a custom ID or a property belonging to another site. Also runs after
+  // republish for existing installations, without resetting OAuth or budgets.
+  await db.update(settings).set({
+    measurementId: initialMeasurementId, revision: randomUUID(), updatedAt: new Date(),
+    collectionCheck: null,
+    checks: sql`${settings.checks} - 'directStream'`,
+  }).where(and(eq(settings.environment, env), eq(settings.measurementId, legacyMeasurementId),
+    or(isNull(settings.ga4Property), eq(settings.ga4Property, expectedProperty))));
   const [row] = await db.select().from(settings).where(eq(settings.environment, env));
   return row!;
 }

@@ -5,6 +5,7 @@ import {
   useListMonitoringProperties, getListMonitoringPropertiesQueryKey, useSelectMonitoringProperty,
   useVerifyMonitoringService, useSaveMonitoringTags,
   useSaveMonitoringCollection, useVerifyMonitoringCollection, useVerifyMonitoringRealtime,
+  useVerifyMonitoringStream, useRefreshMonitoringDiscovery,
   type GoogleReportService, type MonitoringService, type MonitoringSettings,
 } from '@workspace/api-client-react';
 import { Link2, LockKeyhole, RefreshCw, ShieldCheck, Unlink } from 'lucide-react';
@@ -49,11 +50,15 @@ export function MonitoringPanel() {
       <Connection s={s} onChanged={invalidateAll} setFlash={setFlash} />
       <div className="mon-two">{s.services.map(svc => <ServiceCard key={svc.service} svc={svc} s={s} onChanged={invalidateAll} setFlash={setFlash} />)}</div>
       <TagsForm s={s} onChanged={invalidateAll} setFlash={setFlash} />
-      <Collection s={s} onChanged={invalidateAll} setFlash={setFlash} />
       {s.canManage && <BingPanel setFlash={setFlash} />}
       {s.canManage && <AiSettings setFlash={setFlash} />}
       <MetaUnavailable />
-      <Discovery s={s} />
+      <Discovery s={s} onChanged={invalidateAll} setFlash={setFlash} />
+      <details className="int-panel mon-block" data-testid="monitoring-advanced">
+        <summary>Avanzate (non in uso)</summary>
+        <p className="mon-copy">Il sito usa GA4 diretto con consenso. Il runtime isolato è un percorso alternativo, non in uso.</p>
+        <Collection s={s} onChanged={invalidateAll} setFlash={setFlash} />
+      </details>
     </>}
   </div>;
 }
@@ -87,6 +92,7 @@ function ServiceCard({ svc, s, onChanged, setFlash }: { svc: MonitoringService; 
   return <section className="int-panel mon-block" aria-labelledby={`svc-${service}`} data-testid={`card-service-${service}`}>
     <div className="mon-source-head"><div><span className="int-kicker">FONTE DI REPORT</span><h3 id={`svc-${service}`}>{serviceNames[service]}</h3></div><StateBadge state={svc.state} /></div>
     <p className="mon-copy">{stateHelp[svc.state]}</p>
+    {service === 'searchConsole' && <p className="mon-note">America/Los_Angeles è il fuso fisso usato da Google per i report di Search Console.</p>}
     <dl className="mon-meta"><div><dt>Proprietà</dt><dd>{svc.property || 'nessuna'}</dd></div><div><dt>Ultima verifica</dt><dd>{fmtDate(svc.lastCheckedAt, true)}</dd></div><div><dt>Ultimo successo</dt><dd>{fmtDate(svc.lastSuccessAt, true)}</dd></div></dl>
     {svc.error && <Notice tone="warn">L’ultima verifica ha segnalato un problema. Stato attuale: {stateHelp[svc.state]}</Notice>}
     {err && <Notice tone="error">{errorText(err, 'Operazione non riuscita. Riprovare.')}</Notice>}
@@ -106,6 +112,7 @@ const TAG_RE = { measurementId: /^(|G-[A-Z0-9]{4,20})$/, containerId: /^(|GTM-[A
 
 function TagsForm({ s, onChanged, setFlash }: { s: MonitoringSettings; onChanged: () => void; setFlash: Flash }) {
   const save = useSaveMonitoringTags();
+  const verifyStream = useVerifyMonitoringStream();
   const [form, setForm] = useState(s.tags);
   const dirty = useRef({ measurementId: false, containerId: false });
   useEffect(() => {
@@ -122,7 +129,13 @@ function TagsForm({ s, onChanged, setFlash }: { s: MonitoringSettings; onChanged
   };
   return <section className="int-panel mon-block" aria-labelledby="mon-tags">
     <div className="mon-source-head"><div><span className="int-kicker">IDENTIFICATIVI PUBBLICI</span><h3 id="mon-tags">Misurazione sul sito</h3></div><span className="mon-state s-not_configured">GTM non installato</span></div>
-    <p className="mon-copy">Sono codici pubblici, non credenziali. Salvarli non attiva tag: disabilita la raccolta e richiede una nuova verifica. Unica modalità supportata: GA4 diretto, con consenso; GTM resta solo un identificativo facoltativo, mai caricato.</p>
+    <p className="mon-copy">Il sito usa GA4 diretto con consenso, ID pubblico effettivo {s.streamCheck?.publicMeasurementId ?? 'G-D0QJL17CVC'}. Salvare questi codici riguarda la configurazione alternativa e non attiva né disattiva il percorso diretto. GTM non viene caricato.</p>
+    {s.streamCheck && <div data-testid="status-measurement-stream">
+      <p className="mon-copy"><strong>{s.streamCheck.state === 'ready' ? 'Stream corrispondente' : s.streamCheck.state === 'mismatch' ? 'ID non corrispondente' : s.streamCheck.state === 'error' ? 'Errore di verifica' : s.streamCheck.state === 'stale' ? 'Verifica obsoleta' : 'Stream non verificato'}</strong> · {s.streamCheck.message}</p>
+      <p className="mon-note">{s.streamCheck.property ?? 'Proprietà non selezionata'} · {s.streamCheck.stream ?? 'Stream non verificato'} · {fmtDate(s.streamCheck.checkedAt, true)}</p>
+    </div>}
+    {s.canManage && <button className="int-small-button" disabled={!s.connected || !s.services.find(v => v.service === 'ga4')?.property || verifyStream.isPending} onClick={() => verifyStream.mutate(undefined, { onSuccess: r => setFlash({ tone: 'info', text: r.message }), onSettled: onChanged })} data-testid="button-verify-measurement-stream">{verifyStream.isPending ? 'Verifica…' : 'Verifica ID nella proprietà GA4'}</button>}
+    {verifyStream.isError && <Notice tone="error">{errorText(verifyStream.error, 'Verifica stream non riuscita.')}</Notice>}
     <p className="mon-note">Ultimo aggiornamento della configurazione servizi: {fmtDate(s.updatedAt, true)}. Per GTM è verificato solo il formato dell’identificativo; nessun collegamento o controllo dei tag installati è dichiarato riuscito.</p>
     <form className="mon-tags" onSubmit={submit}>
       <label>ID misurazione GA4<input value={form.measurementId} onChange={e => set('measurementId', e.target.value)} disabled={!s.canManage || save.isPending} placeholder="G-XXXXXXX" maxLength={23} aria-invalid={invalid.measurementId} aria-describedby="tag-ga-help" spellCheck={false} autoComplete="off" data-testid="input-measurement-id" /><small id="tag-ga-help">{invalid.measurementId ? 'Formato atteso: G- seguito da 4–20 lettere maiuscole o cifre.' : 'Lasciare vuoto se non usato.'}</small></label>
@@ -162,17 +175,21 @@ function Collection({ s, onChanged, setFlash }: { s: MonitoringSettings; onChang
       <button className="int-small-button" disabled={pending || !s.trackingEnabled} onClick={() => realtime.mutate(undefined, { onSuccess: success })} data-testid="button-verify-realtime">Leggi Realtime</button>
     </div>}
     {(save.isError || verify.isError || realtime.isError) && <Notice tone="error">{errorText(save.error || verify.error || realtime.error, 'Verifica non riuscita. Nessun successo presunto.')}</Notice>}
-    <p className="mon-note">Revoca del visitatore immediata: distrugge il runtime Google e rimuove i cookie analytics controllabili. Stop del titolare entro 60 secondi sulle pagine attive; configurazione non leggibile o scaduta = nessuna raccolta. Clic contatto ≠ richiesta acquisita; invio riuscito solo dopo salvataggio reale.</p>
+    <p className="mon-note">Questo percorso alternativo richiede i propri prerequisiti. Clic contatto ≠ richiesta acquisita; il modulo pubblico invia soltanto email, senza salvataggio dei contenuti.</p>
   </section>;
 }
 
-function Discovery({ s }: { s: MonitoringSettings }) {
+function Discovery({ s, onChanged, setFlash }: { s: MonitoringSettings; onChanged: () => void; setFlash: Flash }) {
+  const refresh = useRefreshMonitoringDiscovery();
   const d = s.discovery;
   return <section className="int-panel mon-block" aria-labelledby="mon-disc">
-    <div className="mon-source-head"><div><span className="int-kicker">VERIFICA STATICA DEL SITO ATTUALE</span><h3 id="mon-disc">Cosa abbiamo trovato</h3></div></div>
+    <div className="mon-source-head"><div><span className="int-kicker">VERIFICA HTML PUBBLICO</span><h3 id="mon-disc">Ultima rilevazione statica</h3></div><span className={`mon-state ${d.stale !== false ? 's-stale' : 's-ready'}`}>{d.stale !== false ? 'Obsoleto · non rappresenta il sito attuale' : 'HTML verificato · validità 24 ore'}</span></div>
     <dl className="mon-meta"><div><dt>Pagina controllata</dt><dd className="mon-break">{d.url}</dd></div><div><dt>Data del controllo</dt><dd>{fmtDate(d.checkedAt, true)}</dd></div></dl>
     {d.findings.length ? <ul className="mon-findings">{d.findings.map(f => <li key={f}>{f}</li>)}</ul> : <p className="mon-note">Nessun elemento rilevato.</p>}
-    <Notice>Framework360 rilevato sul sito attuale non significa che i suoi dati siano stati migrati qui. Se non compaiono identificativi GA o GTM, non è una prova definitiva della loro assenza: il controllo legge solo l’HTML statico.</Notice>
+    {d.error && <Notice tone="warn">{d.error}</Notice>}
+    <Notice>Le rilevazioni storiche riguardano il sito precedente e non descrivono quello attuale. Il controllo legge soltanto l’HTML iniziale: non certifica presenza o assenza di strumenti caricati dopo consenso, né ricezione di eventi.</Notice>
+    {s.canManage && <button className="int-small-button" disabled={refresh.isPending} onClick={() => refresh.mutate(undefined, { onSuccess: r => setFlash({ tone: 'info', text: r.message }), onSettled: onChanged })} data-testid="button-refresh-site-discovery">{refresh.isPending ? 'Controllo…' : 'Riesegui sul sito pubblicato'}</button>}
+    {refresh.isError && <Notice tone="error">{errorText(refresh.error, 'Controllo non riuscito. Ultima rilevazione non aggiornata.')}</Notice>}
     {d.limitations && <p className="mon-note">{d.limitations}</p>}
   </section>;
 }

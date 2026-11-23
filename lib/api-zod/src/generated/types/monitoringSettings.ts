@@ -9,6 +9,7 @@ import type { MonitoringCollection } from './monitoringCollection';
 import type { MonitoringDiscovery } from './monitoringDiscovery';
 import type { MonitoringService } from './monitoringService';
 import type { MonitoringSettingsEnvironment } from './monitoringSettingsEnvironment';
+import type { MonitoringStreamCheck } from './monitoringStreamCheck';
 import type { MonitoringTagInput } from './monitoringTagInput';
 
 export interface MonitoringSettings {
@@ -23,4 +24,5 @@ export interface MonitoringSettings {
   collection: MonitoringCollection;
   trackingBlockers: string[];
   discovery: MonitoringDiscovery;
+  streamCheck?: MonitoringStreamCheck;
 }

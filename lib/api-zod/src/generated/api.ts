@@ -8,6 +8,16 @@
 import * as zod from 'zod';
 
 
+export const VerifyMonitoringStreamResponse = zod.object({
+  "message": zod.string()
+})
+
+
+export const RefreshMonitoringDiscoveryResponse = zod.object({
+  "message": zod.string()
+})
+
+
 export const getAiVisibilityResponseQuestionsItemIdRegExp = new RegExp('^q(10|[1-9])$');
 
 export const getAiVisibilityResponseQuestionsItemTextMin = 10;
@@ -32,8 +42,13 @@ export const GetAiVisibilityResponse = zod.object({
   "remainingUsd": zod.number(),
   "month": zod.string(),
   "weeklyEnabled": zod.boolean(),
-  "workerReady": zod.boolean(),
+  "workerReady": zod.boolean().describe('Legacy field, always false. Neither manual execution nor CLI require a worker heartbeat.'),
   "schedule": zod.string(),
+  "executionMode": zod.enum(['site_server']).optional(),
+  "questionCount": zod.number().int().optional(),
+  "campaignEstimateUsd": zod.number().optional(),
+  "campaignMaximumUsd": zod.number().optional(),
+  "calendarStatus": zod.string().optional(),
   "blockers": zod.array(zod.string()),
   "providers": zod.array(zod.object({
   "provider": zod.enum(['openai', 'gemini', 'anthropic']),
@@ -41,7 +56,8 @@ export const GetAiVisibilityResponse = zod.object({
   "model": zod.string(),
   "method": zod.string(),
   "blockers": zod.array(zod.string()),
-  "maximumUsd": zod.number().nullable()
+  "maximumUsd": zod.number().nullable(),
+  "estimatedUsd": zod.number().nullish()
 })),
   "questions": zod.array(zod.object({
   "id": zod.string().regex(getAiVisibilityResponseQuestionsItemIdRegExp),
@@ -539,9 +555,20 @@ export const GetMonitoringResponse = zod.object({
   "discovery": zod.object({
   "url": zod.string(),
   "checkedAt": zod.string(),
+  "stale": zod.boolean().optional(),
+  "error": zod.string().nullish(),
   "findings": zod.array(zod.string()),
   "limitations": zod.string()
-})
+}),
+  "streamCheck": zod.object({
+  "state": zod.enum(['unchecked', 'ready', 'mismatch', 'error', 'stale']),
+  "measurementId": zod.string(),
+  "publicMeasurementId": zod.string(),
+  "property": zod.string().nullable(),
+  "stream": zod.string().nullable(),
+  "checkedAt": zod.string().nullable(),
+  "message": zod.string()
+}).optional()
 })
 
 

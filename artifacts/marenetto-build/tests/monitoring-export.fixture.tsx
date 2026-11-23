@@ -32,6 +32,30 @@ test('kpi:read without monitoring:manage sees no AI numbers, filters, providers;
   assert.ok(html.includes('Fonte indisponibile'));
 });
 
+test('owner can run a $5 campaign on the site server without a worker, with honest cost warning', () => {
+  const qc = new QueryClient({ defaultOptions: { queries: { staleTime: Infinity, retry: false } } });
+  qc.setQueryData(getGetAiVisibilityQueryKey(), {
+    revision: 'five-dollar-fixture', budgetUsd: 5, spentUsd: 0, reservedUsd: 0, remainingUsd: 5, month: '2026-11',
+    weeklyEnabled: false, workerReady: false, executionMode: 'site_server', questionCount: 10,
+    campaignEstimateUsd: .23424, campaignMaximumUsd: 14.44992,
+    calendarStatus: 'Calendario non attivato', schedule: 'lunedì 09:00 Europe/Rome', blockers: [],
+    providers: [
+      { provider: 'openai', configured: true, model: 'gpt-6-luna', method: 'fixture', blockers: [], estimatedUsd: .011712, maximumUsd: .431152 },
+      { provider: 'anthropic', configured: true, model: 'claude-haiku-5-5', method: 'fixture', blockers: [], estimatedUsd: .011712, maximumUsd: 1.01384 },
+      { provider: 'gemini', configured: true, model: 'fixture', method: 'fixture', blockers: ['Gemini bloccato'], maximumUsd: null },
+    ], questions: Array.from({ length: 10 }, (_, i) => ({ id: `q${i + 1}`, version: 1, text: 'Impresa edile a Cefalù', enabled: true })), campaigns: [], results: [],
+  });
+  try {
+    const html = renderToStaticMarkup(<QueryClientProvider client={qc}><AiSettings setFlash={() => {}} /></QueryClientProvider>);
+    for (const text of ['Server del sito', 'nessun worker esterno richiesto', '10 domande × 2 provider', 'alcune domande potrebbero essere bloccate', 'Gemini bloccato']) assert.ok(html.includes(text), text);
+    assert.match(html, /<button[^>]*data-testid="button-ai-run"/);
+    assert.ok(!/<button[^>]*disabled=""[^>]*data-testid="button-ai-run"/.test(html));
+    assert.ok(!/<input[^>]*disabled=""[^>]*data-testid="checkbox-ai-weekly"/.test(html));
+    assert.ok(html.includes('14,45') && html.includes('0,23'));
+    assert.ok(html.includes('non è garantibile'));
+  } finally { qc.clear(); }
+});
+
 test('manager sees AI metrics, evidence with safe links, competitors separate from directories', () => {
   const html = render(['kpi:read', 'monitoring:manage']);
   for (const ok of ['Menzioni OpenAI', '42%', 'Concorrenti citati', 'concorrente.example', 'portale.example', 'API dei fornitori', '&lt;b&gt;estratto&lt;/b&gt;']) assert.ok(html.includes(ok), ok);

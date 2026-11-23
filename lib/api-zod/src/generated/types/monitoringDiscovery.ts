@@ -9,6 +9,9 @@
 export interface MonitoringDiscovery {
   url: string;
   checkedAt: string;
+  stale?: boolean;
+  /** @nullable */
+  error?: string | null;
   findings: string[];
   limitations: string;
 }

@@ -322,8 +322,35 @@ export interface MonitoringService {
 export interface MonitoringDiscovery {
   url: string;
   checkedAt: string;
+  stale?: boolean;
+  /** @nullable */
+  error?: string | null;
   findings: string[];
   limitations: string;
+}
+
+export type MonitoringStreamCheckState = typeof MonitoringStreamCheckState[keyof typeof MonitoringStreamCheckState];
+
+
+export const MonitoringStreamCheckState = {
+  unchecked: 'unchecked',
+  ready: 'ready',
+  mismatch: 'mismatch',
+  error: 'error',
+  stale: 'stale',
+} as const;
+
+export interface MonitoringStreamCheck {
+  state: MonitoringStreamCheckState;
+  measurementId: string;
+  publicMeasurementId: string;
+  /** @nullable */
+  property: string | null;
+  /** @nullable */
+  stream: string | null;
+  /** @nullable */
+  checkedAt: string | null;
+  message: string;
 }
 
 export type MonitoringSettingsEnvironment = typeof MonitoringSettingsEnvironment[keyof typeof MonitoringSettingsEnvironment];
@@ -346,6 +373,7 @@ export interface MonitoringSettings {
   collection: MonitoringCollection;
   trackingBlockers: string[];
   discovery: MonitoringDiscovery;
+  streamCheck?: MonitoringStreamCheck;
 }
 
 export interface KpiPeriod {
@@ -531,6 +559,8 @@ export interface AiProviderStatus {
   blockers: string[];
   /** @nullable */
   maximumUsd: number | null;
+  /** @nullable */
+  estimatedUsd?: number | null;
 }
 
 export interface AiCampaign {
@@ -541,6 +571,13 @@ export interface AiCampaign {
   total: number;
 }
 
+export type AiVisibilityExecutionMode = typeof AiVisibilityExecutionMode[keyof typeof AiVisibilityExecutionMode];
+
+
+export const AiVisibilityExecutionMode = {
+  site_server: 'site_server',
+} as const;
+
 export interface AiVisibility {
   revision: string;
   budgetUsd: number;
@@ -549,8 +586,17 @@ export interface AiVisibility {
   remainingUsd: number;
   month: string;
   weeklyEnabled: boolean;
+  /**
+     * Legacy field, always false. Neither manual execution nor CLI require a worker heartbeat.
+     * @deprecated
+     */
   workerReady: boolean;
   schedule: string;
+  executionMode?: AiVisibilityExecutionMode;
+  questionCount?: number;
+  campaignEstimateUsd?: number;
+  campaignMaximumUsd?: number;
+  calendarStatus?: string;
   blockers: string[];
   providers: AiProviderStatus[];
   questions: AiQuestion[];

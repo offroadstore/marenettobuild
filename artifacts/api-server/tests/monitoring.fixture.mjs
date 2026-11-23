@@ -13,6 +13,7 @@ import { gaReport, searchReport, ReportCache, reportCache } from '../src/lib/mon
 import { collectionFingerprint, collectionStatus, verifyWebStream } from '../src/lib/monitoring/collection.ts';
 import { runVisibilityFixtures } from './visibility.fixture.mjs';
 import legalPolicy from '../../../lib/legal-policy/analytics.json' with { type: 'json' };
+import { scanPublishedSite, streamStatus } from '../src/lib/monitoring/site-checks.ts';
 
 test('calendar periods, equal comparisons and weighted-rate conventions', () => {
   const now = new Date('2026-11-12T12:00:00Z');
@@ -34,13 +35,20 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
   const admin = new pg.Pool({connectionString:process.env.DATABASE_URL});
   const realFetch=globalThis.fetch;
   let server;
-  let calls=[], mode='ok', refreshes=0, revokeOk=true, pagination=false;
+  let calls=[], mode='ok', refreshes=0, revokeOk=true, pagination=false, streamPages=false;
   const gaRow=(values,label)=>({dimensionValues:label?[{value:label}]:undefined,metricValues:values.map(value=>({value:String(value)}))});
   const fixtureResponse=(body,status=200)=>new Response(JSON.stringify(body),{status,headers:{'content-type':'application/json'}});
   globalThis.fetch=async (url,init={})=>{
     const u=new URL(url);
     if(u.hostname==='127.0.0.1')return realFetch(url,init);
     calls.push({host:u.hostname,path:u.pathname,body:init.body});
+    if(u.hostname==='www.marenettobuild.com') {
+      assert.equal(init.redirect,'error');assert.equal(init.credentials,'omit');
+      assert.equal(u.pathname,'/');
+      if(mode==='scanError')throw new Error('private network failure');
+      if(mode==='scanLarge')return new Response('x'.repeat(2000001),{headers:{'content-type':'text/html'}});
+      return new Response('<html><head><meta name="facebook-domain-verification" content="fixture"></head><body>Sito attuale</body></html>',{headers:{'content-type':'text/html'}});
+    }
     if (u.hostname === 'metrics.example.net') {
       assert.equal(u.pathname, '/_analytics-runtime/health');
       assert.equal(init.credentials, 'omit');
@@ -62,7 +70,10 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
     }
     if(u.pathname.includes('accountSummaries'))return fixtureResponse({accountSummaries:[{displayName:'Fixture account',propertySummaries:[{property:'properties/123',displayName:'Fixture GA4'}]}],...(pagination&&!u.searchParams.has('pageToken')?{nextPageToken:'page-two'}:{})});
     if(u.pathname.endsWith('/enhancedMeasurementSettings'))return fixtureResponse(mode==='enhancedMissing'?{}:{streamEnabled:mode==='enhancedOn'});
-    if(u.pathname.endsWith('/dataStreams'))return fixtureResponse({dataStreams:[{name:'properties/123/dataStreams/456',type:'WEB_DATA_STREAM',webStreamData:{measurementId:'G-ABCD1234',defaultUri:mode==='wrongOrigin'?'https://wrong.example.com':'https://www.marenettobuild.com/'}}]});
+    if(u.pathname.endsWith('/dataStreams')){
+      if(streamPages&&!u.searchParams.has('pageToken'))return fixtureResponse({dataStreams:[],nextPageToken:'two'});
+      return fixtureResponse({dataStreams:[{name:'properties/123/dataStreams/456',type:'WEB_DATA_STREAM',webStreamData:{measurementId:mode==='streamMatch'?'G-D0QJL17CVC':mode==='streamMismatch'?'G-OTHER123':'G-ABCD1234',defaultUri:mode==='wrongOrigin'?'https://wrong.example.com':'https://www.marenettobuild.com/'}}]});
+    }
     if(u.hostname==='analyticsadmin.googleapis.com')return fixtureResponse({timeZone:'Europe/Rome'});
     if(u.hostname==='analyticsdata.googleapis.com'){
       if(u.pathname.endsWith(':checkCompatibility')) {
@@ -119,7 +130,9 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
     let r=await request('/internal/monitoring','viewer');
     assert.equal(r.data.canManage,false);assert.equal(r.data.trackingEnabled,false);
     assert.equal(r.data.services[0].state,'not_configured');
-    assert.equal(r.data.tags.measurementId,'G-YP31TW342Z','owner supplied ID is configuration only');
+    assert.equal(r.data.tags.measurementId,'G-D0QJL17CVC','new settings match public configuration without activating tracking');
+    assert.equal(r.data.discovery.stale,true);
+    assert.equal(r.data.streamCheck.state,'unchecked');
     assert.equal((await request('/monitoring/public','anonymous')).data.enabled,false);
     for (const path of ['/internal/monitoring/collection/verify','/internal/monitoring/collection/realtime']) {
       assert.equal((await request(path,'viewer','POST')).status,403);
@@ -140,6 +153,13 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
     assert.ok(!('ai' in dashboard));assert.ok(!('observations' in dashboard));assert.ok(!('ai' in dashboard.compatibility));
     assert.equal(dashboard.ga4.state,'not_configured');
     assert.equal(calls.length,0,'no provider requests before OAuth setup');
+    // Idempotent conditional upgrade, without altering credentials or other environments.
+    await db.update(settings).set({measurementId:'G-YP31TW342Z',ga4Property:'properties/565537156'}).where(eq(settings.environment,'development'));
+    const migrated=await getSettings();assert.equal(migrated.measurementId,'G-D0QJL17CVC');
+    assert.equal((await getSettings()).revision,migrated.revision);
+    await db.update(settings).set({measurementId:'G-YP31TW342Z',ga4Property:'properties/999'}).where(eq(settings.environment,'development'));
+    assert.equal((await getSettings()).measurementId,'G-YP31TW342Z','unrelated property is never overwritten');
+    await db.update(settings).set({measurementId:'G-ABCD1234',ga4Property:null}).where(eq(settings.environment,'development'));
     for(const key of ['MARENETTO_PRIVACY_APPROVED','MARENETTO_PROVIDERS_APPROVED','MARENETTO_TESTING_APPROVED'])process.env[key]='true';
     dashboard=(await request('/internal/dashboard?start=2026-01-10&end=2026-01-10')).data;
     assert.equal(dashboard.dataMode,'live');assert.deepEqual(dashboard.operational.tables,[]);
@@ -191,6 +211,34 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
     assert.equal((await request('/internal/monitoring/properties/ga4','owner','PUT',{property:'properties/unauthorized'})).status,403);
     assert.equal((await request('/internal/monitoring/properties/ga4','owner','PUT',{property:'properties/123'})).status,200);
     assert.equal((await request('/internal/monitoring/properties/searchConsole','owner','PUT',{property:'sc-domain:example.invalid'})).status,200);
+    for(const path of ['/internal/monitoring/stream/verify','/internal/monitoring/discovery']) {
+      for(const role of ['viewer','editor'])assert.equal((await request(path,role,'POST')).status,403);
+      assert.equal((await request(path,'owner','POST',undefined,{origin:'https://evil.invalid'})).status,403);
+    }
+    assert.equal((await request('/internal/monitoring/stream/verify','owner','POST')).status,200);
+    assert.equal((await request('/internal/monitoring')).data.streamCheck.state,'mismatch','saved foreign ID differs from direct public ID');
+    await db.update(settings).set({measurementId:'G-D0QJL17CVC'}).where(eq(settings.environment,'development'));
+    mode='streamMatch';streamPages=true;
+    assert.equal((await request('/internal/monitoring/stream/verify','owner','POST')).status,200);
+    let checked=(await request('/internal/monitoring')).data.streamCheck;
+    assert.equal(checked.state,'ready');assert.equal(checked.stream,'properties/123/dataStreams/456');
+    assert.equal(streamStatus(await getSettings(),Date.now()+25*3600000).state,'stale');
+    assert.equal(streamStatus({...await getSettings(),ga4Property:'properties/987'}).state,'unchecked','old verification is not applied to a new property');
+    assert.ok(calls.some(c=>c.path.endsWith('/dataStreams')));
+    streamPages=false;mode='forbidden';
+    await request('/internal/monitoring/stream/verify','owner','POST');
+    assert.equal((await request('/internal/monitoring')).data.streamCheck.state,'error');
+    mode='ok';
+    await request('/internal/monitoring/discovery','owner','POST');
+    const fresh=(await request('/internal/monitoring')).data.discovery;
+    assert.equal(fresh.stale,false);assert.match(fresh.findings.join(' '),/Nessun riferimento Framework360/);
+    assert.match(fresh.findings.join(' '),/non prova/);
+    mode='scanError';await request('/internal/monitoring/discovery','owner','POST');
+    const staleDiscovery=(await request('/internal/monitoring')).data.discovery;
+    assert.equal(staleDiscovery.stale,true);assert.equal(staleDiscovery.checkedAt,fresh.checkedAt);assert.ok(staleDiscovery.error);
+    mode='scanLarge';await assert.rejects(scanPublishedSite());
+    mode='ok';
+    await db.update(settings).set({measurementId:'G-ABCD1234'}).where(eq(settings.environment,'development'));
     assert.equal((await request('/internal/monitoring/verify/ga4','owner','POST')).status,200);
     assert.equal((await request('/internal/monitoring/verify/searchConsole','owner','POST')).status,200);
     // Production collection simulated only in the isolated DB/provider bundle.

@@ -1,4 +1,5 @@
-// External minute runner, intentionally NOT configured or executed on delivery.
+// Optional cross-deployment scheduled command, NOT configured or executed on delivery.
+// Manual site execution and the shared-DB CLI never need this signed transport.
 // Runtime-only secret. Never print endpoint, key, signature, response or error.
 import { createHmac } from 'node:crypto';
 try {

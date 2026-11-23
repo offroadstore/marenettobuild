@@ -98,6 +98,142 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
+export const getVerifyMonitoringStreamUrl = () => {
+
+
+
+
+  return `/api/internal/monitoring/stream/verify`
+}
+
+export const verifyMonitoringStream = async ( options?: Parameters<typeof customFetch>[1]): Promise<MonitoringAction> => {
+
+  return customFetch<MonitoringAction>(getVerifyMonitoringStreamUrl(),
+  {
+    ...options,
+    method: 'POST'
+
+
+  }
+);}
+
+
+
+
+
+export const getVerifyMonitoringStreamMutationKey = () => ['verifyMonitoringStream'] as const;
+
+export const getVerifyMonitoringStreamMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof verifyMonitoringStream>>, TError,void, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof verifyMonitoringStream>>, TError,void, TContext> => {
+
+const mutationKey = getVerifyMonitoringStreamMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof verifyMonitoringStream>>, void> = () => {
+
+
+          return  verifyMonitoringStream(requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type VerifyMonitoringStreamMutationResult = NonNullable<Awaited<ReturnType<typeof verifyMonitoringStream>>>
+
+    export type VerifyMonitoringStreamMutationError = ErrorType<unknown>
+
+
+    export const useVerifyMonitoringStream = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof verifyMonitoringStream>>, TError,void, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof verifyMonitoringStream>>,
+        TError,
+        void,
+        TContext
+      > => {
+      return useMutation(getVerifyMonitoringStreamMutationOptions(options));
+    }
+
+export const getRefreshMonitoringDiscoveryUrl = () => {
+
+
+
+
+  return `/api/internal/monitoring/discovery`
+}
+
+export const refreshMonitoringDiscovery = async ( options?: Parameters<typeof customFetch>[1]): Promise<MonitoringAction> => {
+
+  return customFetch<MonitoringAction>(getRefreshMonitoringDiscoveryUrl(),
+  {
+    ...options,
+    method: 'POST'
+
+
+  }
+);}
+
+
+
+
+
+export const getRefreshMonitoringDiscoveryMutationKey = () => ['refreshMonitoringDiscovery'] as const;
+
+export const getRefreshMonitoringDiscoveryMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof refreshMonitoringDiscovery>>, TError,void, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof refreshMonitoringDiscovery>>, TError,void, TContext> => {
+
+const mutationKey = getRefreshMonitoringDiscoveryMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof refreshMonitoringDiscovery>>, void> = () => {
+
+
+          return  refreshMonitoringDiscovery(requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type RefreshMonitoringDiscoveryMutationResult = NonNullable<Awaited<ReturnType<typeof refreshMonitoringDiscovery>>>
+
+    export type RefreshMonitoringDiscoveryMutationError = ErrorType<unknown>
+
+
+    export const useRefreshMonitoringDiscovery = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof refreshMonitoringDiscovery>>, TError,void, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof refreshMonitoringDiscovery>>,
+        TError,
+        void,
+        TContext
+      > => {
+      return useMutation(getRefreshMonitoringDiscoveryMutationOptions(options));
+    }
+
 export const getGetAiVisibilityUrl = () => {
 
 

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { and, eq } from 'drizzle-orm';
 import { createHmac } from 'node:crypto';
 import { db, aiVisibilitySettingsTable as settings, aiJobsTable as jobs, aiCampaignsTable as campaigns } from '@workspace/db';
-import { initialQuestions, maximumMicros, safeQuestion, monthInRome, weeklySlot, productionExecution, models } from '../src/lib/monitoring/ai-policy.ts';
+import { initialQuestions, maximumMicros, estimatedMicros, outputLimit, executionBlockers, safeQuestion, monthInRome, weeklySlot, productionExecution, models } from '../src/lib/monitoring/ai-policy.ts';
 import { buildAiRequest, normalizeAi, safeEvidence, callAi } from '../src/lib/monitoring/ai-adapters.ts';
 import { getAiSettings, saveAiSettings, startCampaign, workerCheckpoint, getAiVisibility, monthLedger, aiKpi } from '../src/lib/monitoring/ai-store.ts';
 import { normalizeFilters, filterStatus, languagePaths, reportLabel } from '../src/lib/monitoring/filters.ts';
@@ -43,6 +43,14 @@ export async function runVisibilityFixtures({request,pool}) {
     assert.equal(safeEvidence('https://paginegialle.it/','Edilizia Fixture S.R.L. costruzioni').kind,'directory');
     for (const provider of ['openai','gemini','anthropic']) {
       const req=buildAiRequest(provider,initialQuestions[0].text);
+      if(provider==='openai') {
+        assert.equal(req.body.max_output_tokens,outputLimit);assert.equal(req.body.max_tool_calls,1);
+        assert.equal(req.body.tools[0].return_token_budget,'default');
+      }
+      if(provider==='anthropic') {
+        assert.equal(req.body.max_tokens,outputLimit);assert.equal(req.body.tools[0].max_uses,1);
+        assert.equal(req.body.thinking.type,'disabled');
+      }
       assert.ok(!JSON.stringify(req).includes('Marenetto'));
       assert.ok(/web_search|google_search/.test(JSON.stringify(req.body)));
       const result=normalizeAi(provider,fixture(provider),initialQuestions[0],'fixture',now);
@@ -61,6 +69,11 @@ export async function runVisibilityFixtures({request,pool}) {
     const paused=fixture('anthropic'); paused.stop_reason='pause_turn';
     assert.equal(normalizeAi('anthropic',paused,initialQuestions[0],'x',now).observation.status,'error');
     assert.ok(normalizeAi('anthropic',fixture('anthropic'),initialQuestions[0],'x',now).chargedMicros < maximumMicros.anthropic);
+    assert.equal(normalizeAi('anthropic',fixture('anthropic'),initialQuestions[0],'x',now).chargedMicros,10150);
+    const long=fixture('anthropic');long.usage.input_tokens=100001;
+    assert.equal(normalizeAi('anthropic',long,initialQuestions[0],'x',now).chargedMicros,60251);
+    assert.ok(10*(estimatedMicros.openai+estimatedMicros.anthropic)/1e6<.8);
+    assert.ok(10*(maximumMicros.openai+maximumMicros.anthropic)/1e6>1,'never substitute estimated cost for provable maximum');
 
     for (const role of ['viewer','editor']) {
       for (const [url,verb,body] of [['/internal/monitoring/ai','GET'],['/internal/monitoring/ai','PUT',{}],['/internal/monitoring/ai/run','POST'],['/internal/monitoring/bing','GET'],['/internal/monitoring/bing/sites','GET'],['/internal/monitoring/bing','PUT',{property:'https://example.invalid/'}]]) assert.equal((await request(url,role,verb,body)).status,403,url);
@@ -109,25 +122,39 @@ export async function runVisibilityFixtures({request,pool}) {
     process.env.OPENAI_API_KEY='fixture-only';process.env.ANTHROPIC_API_KEY='fixture-only';process.env.GEMINI_API_KEY='fixture-only';
     assert.ok(productionExecution());
     row=await getAiSettings();
-    await db.update(settings).set({budgetMicros:100_000_000,workerAt:now}).where(eq(settings.environment,'production'));
+    await db.update(settings).set({budgetMicros:5_000_000,workerAt:null}).where(eq(settings.environment,'production'));
+    assert.deepEqual(executionBlockers(5_000_000,null,now),[],'manual execution has no heartbeat prerequisite');
     const starts=await Promise.all(Array.from({length:5},()=>startCampaign(false,now)));
     assert.equal(starts.filter(s=>s.startsWith('Controllo accodato')).length,1);
     assert.equal((await db.select().from(campaigns).where(eq(campaigns.environment,'production'))).length,1);
     let paid=0;
     const adapter=async(p,q,id)=>{paid++;return normalizeAi(p,fixture(p),q,id,now);};
-    for(let i=1;i<=35;i++)await Promise.all([workerCheckpoint(new Date(now.getTime()+i*60000),adapter),workerCheckpoint(new Date(now.getTime()+i*60000),adapter)]);
-    assert.ok(paid>0&&paid<=20);assert.equal(network,0);
+    for(let i=1;i<=35;i++)await Promise.all([workerCheckpoint(new Date(now.getTime()+i*1000),adapter),workerCheckpoint(new Date(now.getTime()+i*1000),adapter)]);
+    assert.equal(paid,20,'all ten questions and both providers finish at $5 with synthetic small bills; no minute throttle');assert.equal(network,0);
     const allJobs=await db.select().from(jobs).where(eq(jobs.environment,'production'));
     assert.equal(allJobs.length,30);assert.ok(allJobs.every(j=>j.checkpoint===2));
     assert.ok(allJobs.filter(j=>j.provider==='gemini').every(j=>j.state==='blocked'&&j.reservedMicros===0));
     const ledger=await monthLedger(db,now);
-    assert.ok(ledger.spent+ledger.reserved<=100_000_000);
+    assert.ok(ledger.spent+ledger.reserved<=5_000_000);
     assert.ok(ledger.spent>0&&ledger.reserved>0,'verified Claude bill reconciles; OpenAI upper bound stays held');
     const history=await getAiVisibility(); assert.equal(history.campaigns[0].completed,30);
+    assert.equal(history.budgetUsd,5);assert.equal(history.executionMode,'site_server');
+    assert.equal(history.campaignEstimateUsd,.23424);
+    assert.ok(history.campaignMaximumUsd>5,'UI honestly reports whole-campaign uncertainty');
     const kpi=await aiKpi(getPeriod({start:'2026-11-23',end:'2026-11-23'},new Date('2026-11-24T12:00:00Z')),true);
     assert.ok(kpi.source.metrics.some(m=>m.key==='mention_anthropic'&&m.value===1&&m.previous===null));
     assert.ok(kpi.source.metrics.some(m=>m.key==='valid_gemini'&&m.value===null));
     assert.equal(kpi.source.series.length,1);
+    // A positive budget is not unlimited: finish at most one more inexpensive
+    // reservation, then persist blocked outcomes without making paid retries.
+    const residualTime = new Date(now.getTime()+7200000);
+    await startCampaign(false,residualTime);
+    const beforeResidual=paid;
+    for(let i=0;i<35;i++)await workerCheckpoint(new Date(residualTime.getTime()+i*1000),adapter);
+    assert.equal(paid-beforeResidual,1);
+    const exhausted=await monthLedger(db,now);
+    assert.ok(exhausted.spent+exhausted.reserved<=5_000_000);
+    assert.ok((await db.select().from(jobs).where(eq(jobs.environment,'production'))).some(j=>j.provider!=='gemini'&&j.state==='blocked'));
     await db.update(settings).set({budgetMicros:1_000_000_000,workerAt:new Date('2026-11-30T08:00:00Z'),weeklyEnabled:true,lastStartAt:null}).where(eq(settings.environment,'production'));
     const scheduled=await Promise.all([startCampaign(true,new Date('2026-11-30T08:00:00Z')),startCampaign(true,new Date('2026-11-30T08:00:00Z'))]);
     assert.equal(scheduled.filter(s=>s.startsWith('Controllo accodato')).length,1);

@@ -3,7 +3,7 @@ import { and, desc, eq, lt, sql } from "drizzle-orm";
 import { db, aiVisibilitySettingsTable as settings, aiCampaignsTable as campaigns, aiJobsTable as jobs } from "@workspace/db";
 import { GetAiVisibilityResponse, type AiObservation, type AiProvider, type AiSettingsInput, type KpiPeriod, type KpiSource } from "@workspace/api-zod";
 import { dayInTimezone, environment, emptySource, metric, MonitoringError } from "./core";
-import { executionBlockers, initialQuestions, maximumMicros, method, models, monthInRome, providerPolicy, providers, safeQuestion, weeklySlot } from "./ai-policy";
+import { estimatedMicros, executionBlockers, initialQuestions, maximumMicros, method, models, monthInRome, productionExecution, providerPolicy, providers, safeQuestion, weeklySlot } from "./ai-policy";
 import { callAi } from "./ai-adapters";
 
 export async function getAiSettings() {
@@ -36,7 +36,7 @@ export async function saveAiSettings(input: AiSettingsInput) {
       return { ...q, text: q.text.trim().replace(/\s+/g, " "), version: old.version + (old.text !== q.text.trim().replace(/\s+/g, " ") ? 1 : 0) };
     });
     if (input.weeklyEnabled && executionBlockers(Math.round(input.budgetUsd * 1e6), row.workerAt).length) {
-      throw new MonitoringError("not_configured", "Calendario non attivabile: servono produzione, budget positivo e worker esterno autenticato.", 409);
+      throw new MonitoringError("not_configured", "Calendario non attivabile: servono produzione e budget positivo. Il comando programmato va predisposto separatamente.", 409);
     }
     await tx.update(settings).set({ questions, budgetMicros: Math.round(input.budgetUsd * 1e6), weeklyEnabled: input.weeklyEnabled, revision: randomUUID() }).where(eq(settings.environment, row.environment));
   });
@@ -66,13 +66,14 @@ export async function startCampaign(scheduled = false, now = new Date()) {
       id: randomUUID(), environment: row.environment, campaignId: id, question, provider, model: models[provider], method, state: "queued", at: now,
     }))));
     await tx.update(settings).set({ lastStartAt: now }).where(eq(settings.environment, row.environment));
-    return "Controllo accodato. Il worker autenticato elabora ogni domanda/provider una sola volta.";
+    return "Controllo accodato sul server del sito. Ogni domanda/provider viene elaborata una sola volta entro il residuo: il costo massimo dell’intero controllo può superare il budget e lasciare esiti bloccati.";
   });
 }
 
 export async function workerCheckpoint(now = new Date(), adapter = callAi) {
   const claim = await withAiLock(async (tx, row) => {
-    if (row.workerAt && Math.floor(row.workerAt.getTime() / 60000) >= Math.floor(now.getTime() / 60000)) return null;
+    // Concurrency is controlled by the row lock and persisted running lease,
+    // not a once-per-minute heartbeat. A local drain can process all jobs.
     await tx.update(settings).set({ workerAt: now }).where(eq(settings.environment, row.environment));
     // Minimized observations expire after 400 days. Old unsettled reservations
     // cannot affect the current accounting month. No request payloads exist.
@@ -83,7 +84,7 @@ export async function workerCheckpoint(now = new Date(), adapter = callAi) {
     for (const job of lost) await tx.update(jobs).set({ state: "uncertain", result: unfinished(job, "uncertain", now), checkpoint: 2 }).where(eq(jobs.id, job.id));
     const activeCalls = await tx.select({ id: jobs.id }).from(jobs).where(and(eq(jobs.environment, row.environment), eq(jobs.state, "running"))).limit(1);
     if (activeCalls.length) return null;
-    const [job] = await tx.select().from(jobs).where(and(eq(jobs.environment, row.environment), eq(jobs.state, "queued"))).orderBy(jobs.at, jobs.id).limit(1).for("update");
+    const [job] = await tx.select().from(jobs).where(and(eq(jobs.environment, row.environment), eq(jobs.state, "queued"))).orderBy(jobs.at, sql`${jobs.question}->>'id'`, jobs.provider, jobs.id).limit(1).for("update");
     if (!job) {
       await tx.update(campaigns).set({ state: "finished" }).where(and(eq(campaigns.environment, row.environment), eq(campaigns.state, "queued"), sql`NOT EXISTS (SELECT 1 FROM ${jobs} WHERE ${jobs.campaignId} = ${campaigns.id} AND ${jobs.state} IN ('queued','running'))`));
       return null;
@@ -92,13 +93,14 @@ export async function workerCheckpoint(now = new Date(), adapter = callAi) {
     const ledger = await monthLedger(tx, now);
     if (executionBlockers(row.budgetMicros, now, now).length || policy.blockers.length || maximum === null || ledger.spent + ledger.reserved + maximum > row.budgetMicros || job.model !== policy.model || job.method !== policy.method || now.getTime() - job.at.getTime() > 86400000) {
       await tx.update(jobs).set({ state: "blocked", result: unfinished(job, "blocked", now), checkpoint: 2 }).where(eq(jobs.id, job.id));
-      return null;
+      return { blocked: true as const };
     }
     // Row lock serializes all manual/weekly runs, month rollover and budget edits.
     await tx.update(jobs).set({ state: "running", reservedMicros: maximum, month: monthInRome(now), claimedAt: now, checkpoint: 1 }).where(eq(jobs.id, job.id));
-    return { ...job, reservedMicros: maximum };
+    return { ...job, reservedMicros: maximum, blocked: false as const };
   });
-  if (!claim) return;
+  if (!claim) return false;
+  if (claim.blocked) return true;
   try {
     const result = await adapter(claim.provider as AiProvider, claim.question, claim.id, claim.reservedMicros);
     await withAiLock(async tx => {
@@ -111,6 +113,7 @@ export async function workerCheckpoint(now = new Date(), adapter = callAi) {
   } catch {
     await db.update(jobs).set({ state: "uncertain", result: unfinished(claim, "uncertain", now), checkpoint: 2 }).where(and(eq(jobs.id, claim.id), eq(jobs.state, "running")));
   }
+  return true;
 }
 export async function getAiVisibility() {
   const row = await getAiSettings(), ledger = await monthLedger(db);
@@ -119,9 +122,14 @@ export async function getAiVisibility() {
   const results = await observationHistory();
   return GetAiVisibilityResponse.parse({
     revision: row.revision, budgetUsd: row.budgetMicros / 1e6, spentUsd: ledger.spent / 1e6, reservedUsd: ledger.reserved / 1e6, remainingUsd: Math.max(0, row.budgetMicros - ledger.spent - ledger.reserved) / 1e6,
-    month: monthInRome(), weeklyEnabled: row.weeklyEnabled, workerReady: Boolean(row.workerAt && Date.now() - row.workerAt.getTime() < 180000),
+    month: monthInRome(), weeklyEnabled: row.weeklyEnabled, workerReady: false,
+    executionMode: "site_server", questionCount: row.questions.filter(q => q.enabled).length,
+    campaignEstimateUsd: row.questions.filter(q => q.enabled).length * providers.reduce((sum, p) => sum + (estimatedMicros[p] ?? 0), 0) / 1e6,
+    campaignMaximumUsd: row.questions.filter(q => q.enabled).length * providers.reduce((sum, p) => sum + (maximumMicros[p] ?? 0), 0) / 1e6,
+    calendarStatus: row.weeklyEnabled ? "Calendario autorizzato nel pannello; esecuzione effettiva da verificare nella Scheduled Deployment. Nessuna attivazione automatica."
+      : "Calendario spento. Comando Node predisposto per Scheduled Deployment, non attivato.",
     schedule: "Lunedì 09:00 Europe/Rome; finestra 15 minuti; nessun recupero di settimane saltate.",
-    blockers: executionBlockers(row.budgetMicros, row.workerAt), providers: providers.map(p => providerPolicy(p)), questions: row.questions,
+    blockers: executionBlockers(row.budgetMicros), providers: providers.map(p => providerPolicy(p)), questions: row.questions,
     campaigns: recent.map(c => { const p = progress.find(p => p.campaignId === c.id); return { id: c.id, at: c.at.toISOString(), state: p?.completed === p?.total ? "finished" : c.state, completed: p?.completed ?? 0, total: p?.total ?? 0 }; }),
     results,
   });

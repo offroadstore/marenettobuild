@@ -97,30 +97,57 @@ Etichette, destinatario, idempotenza e trasporto email restano invariati.
    modelli, termini e costi correnti. Non bastano le chiavi presenti.
    L'anteprima è bloccata anche con NODE_ENV=production e budget positivo:
    serve inoltre `REPLIT_DEPLOYMENT=1`.
-3. Predisporre un runner **esterno**, una volta al minuto, che esegua
-   `node scripts/monitoring-ai-tick.mjs` verso il deployment finale.
-   Il codice applicativo non usa timer, cron in memoria o keep-alive:
-   è compatibile con autoscale/spindown. **Non è stato configurato.**
-4. Quando il titolare deciderà di attivarlo, configurare nel runner e
-   nel server un segreto dedicato `MONITORING_AI_TRIGGER_KEY` di64 cifre
-   esadecimali tramite Secrets. Non riutilizzare la chiave di cifratura
-   OAuth `MONITORING_TOKEN_KEY` e non inserirlo in URL o log.
-   Nel runner configurare `MONITORING_AI_ENDPOINT` con HTTPS del deployment
-   finale e percorso esatto `/api/monitoring/ai/tick`, senza query.
-   Ottenere l'origine reale dalle impostazioni del deployment, non dalla
-   preview. Nessuna credenziale viene creata o cambiata dalla consegna.
-5. Il runner firma HMAC-SHA256, chiave decodificata hex, stringa esatta:
-   `POST\n/api/monitoring/ai/tick\n<minuto Unix>`. Header
-   `x-monitoring-minute` e `x-monitoring-signature`; finestra±1minuto,
-   confronto costante. Nessun body o segreto nella richiesta.
-   Timeout90s, nessun retry immediato. Non usare un browser per richiamarlo.
-6. Il checkpoint autenticato aggiorna heartbeat durevole, pronto per180s;
-   processa al massimo un job per minuto. Reinvii nello stesso minuto
-   non avanzano una seconda chiamata. Il runner non abilita il calendario
-   e, a budget0, non causa richieste IA.
+3. **Controlla ora** accoda sul server del sito e sveglia un esecutore
+   asincrono locale: nessun worker esterno, firma o heartbeat richiesto.
+   Il browser può essere chiuso. Il riavvio del server riprende solo i job
+   mai chiamati; un timer ogni30s aiuta il recupero mentre il processo è
+   attivo, ma **non viene presentato come scheduler affidabile su Autoscale**.
+4. Per il calendario predisporre una **Scheduled Deployment** dello stesso
+   codice. Build standard: `pnpm install --frozen-lockfile` e
+   `pnpm --filter @workspace/api-server run build`; run finita dalla root:
+   `pnpm --filter @workspace/api-server run ai:scheduled`.
+   Il build produce `artifacts/api-server/dist/ai-scheduled.mjs`; il comando
+   non apre porte, chiude il pool DB e termina. Non usare il server web
+   come comando schedulato. Nessuna Scheduled Deployment è stata attivata.
+5. Condividere **esplicitamente lo stesso database di PRODUZIONE** e le tabelle migrate:
+   `DATABASE_URL`, `OPENAI_API_KEY`, `ANTHROPIC_API_KEY` nei Secrets,
+   senza copiarne valori in codice o documenti. Gemini non è necessario.
+   `NODE_ENV=production` è impostato dal comando, `REPLIT_DEPLOYMENT=1`
+   deve essere presente perché eseguito come deployment, non in preview.
+   Nessuna chiave trigger aggiuntiva serve per la CLI.
+   **Attenzione:** non presumere che una Scheduled Deployment riceva
+   automaticamente il database della pubblicazione Autoscale: la
+   [documentazione dei tipi di pubblicazione](https://docs.replit.com/features/publishing/deployment-types)
+   distingue le connessioni. Il tecnico deve verificare/configurare la
+   connessione allo stesso DB tramite le impostazioni supportate, non
+   usare il database di sviluppo o crearne uno vuoto.
+   Se non è possibile condividere direttamente tale connessione, usare
+   nella Scheduled Deployment il comando già disponibile
+   `node scripts/monitoring-ai-tick.mjs` verso il dominio pubblico finale.
+   Solo in questo caso la firma HMAC è indispensabile per autenticare il
+   comando cross-deployment: predisporre `MONITORING_AI_TRIGGER_KEY`
+   (64cifre hex, stesso valore sui due deployment) nei Secrets e
+   `MONITORING_AI_ENDPOINT` in Configuration con l’URL HTTPS esatto
+   `/api/monitoring/ai/tick`, senza query. Nessun heartbeat richiesto
+   per manuale o calendario; il server usa comunque la propria coda DB.
+   Non è un servizio worker esterno da acquistare. Nulla è stato attivato.
+6. Pianificazione raccomandata: ogni5minuti, più gating interno lunedì
+   09:00–09:14 **Europe/Rome**. Se la UI consente il fuso Europe/Rome,
+   usare `*/5 * * * *` con quel fuso; essendo ogni5minuti è comunque
+   indipendente dall’ora UTC e copre cambio ora legale e recupero della
+   coda. Solo nella finestra locale si accoda una nuova campagna settimanale.
+   Il resto del tempo recupera soltanto job già accodati. Configurare un
+   timeout che consenta fino a30job×60s più overhead (es.35minuti se
+   disponibile); una terminazione anticipata lascia checkpoint durevoli,
+   non causa retry di chiamate a esito incerto. L’overlap dei comandi è
+   serializzato via DB. Risorse/costo dei job programmati sono **separati**
+   dal budget API e vanno verificati dal titolare prima dell’attivazione.
+   L’endpoint HTTP firmato precedente resta opzionale e necessario soltanto
+   per l’alternativa cross-deployment, mai per usare pulsante o CLI locale.
 7. Solo il titolare imposta un budget positivo. “Controlla ora” e calendario
    usano la stessa coda e lo stesso ledger, senza un interruttore live
-   indipendente dal budget. Il calendario richiede anche heartbeat fresco.
+   indipendente dal budget. Il calendario richiede la selezione nel pannello
+   **e** la Scheduled Deployment effettivamente predisposta.
    Lunedì09:00–09:14 Europe/Rome (finestra tecnica per il trigger), una sola
    campagna per settimana. DST gestita con Intl/IANA. Se la finestra è
    saltata, non si recupera nessuna settimana arretrata.

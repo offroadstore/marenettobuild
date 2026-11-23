@@ -17,6 +17,26 @@ tags:
   - name: storage
     description: Private attachment upload and serving.
 paths:
+  /internal/monitoring/stream/verify:
+    post:
+      operationId: verifyMonitoringStream
+      tags: [internal]
+      responses:
+        "200":
+          description: Stream membership checked independently from isolated runtime
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MonitoringAction" }
+  /internal/monitoring/discovery:
+    post:
+      operationId: refreshMonitoringDiscovery
+      tags: [internal]
+      responses:
+        "200":
+          description: Current static HTML checked, or last result retained as stale
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MonitoringAction" }
   /internal/monitoring/ai:
     get:
       operationId: getAiVisibility
@@ -1125,10 +1145,23 @@ components:
       properties:
         url: { type: string }
         checkedAt: { type: string }
+        stale: { type: boolean }
+        error: { type: [string, "null"] }
         findings:
           type: array
           items: { type: string }
         limitations: { type: string }
+    MonitoringStreamCheck:
+      type: object
+      required: [state, measurementId, publicMeasurementId, property, stream, checkedAt, message]
+      properties:
+        state: { type: string, enum: [unchecked, ready, mismatch, error, stale] }
+        measurementId: { type: string }
+        publicMeasurementId: { type: string }
+        property: { type: [string, "null"] }
+        stream: { type: [string, "null"] }
+        checkedAt: { type: [string, "null"] }
+        message: { type: string }
     MonitoringSettings:
       type: object
       required: [environment, canManage, oauthConfigured, connected, services, tags, updatedAt, trackingEnabled, trackingBlockers, collection, discovery]
@@ -1148,6 +1181,7 @@ components:
           type: array
           items: { type: string }
         discovery: { $ref: "#/components/schemas/MonitoringDiscovery" }
+        streamCheck: { $ref: "#/components/schemas/MonitoringStreamCheck" }
     KpiPeriod:
       type: object
       required: [start, end, previousStart, previousEnd, days]
@@ -1259,6 +1293,7 @@ components:
         method: { type: string }
         blockers: { type: array, items: { type: string } }
         maximumUsd: { type: [number, "null"] }
+        estimatedUsd: { type: [number, "null"] }
     AiSourceEvidence:
       type: object
       required: [url, host, kind]
@@ -1303,8 +1338,13 @@ components:
         remainingUsd: { type: number }
         month: { type: string }
         weeklyEnabled: { type: boolean }
-        workerReady: { type: boolean }
+        workerReady: { type: boolean, deprecated: true, description: "Legacy field, always false. Neither manual execution nor CLI require a worker heartbeat." }
         schedule: { type: string }
+        executionMode: { type: string, enum: [site_server] }
+        questionCount: { type: integer }
+        campaignEstimateUsd: { type: number }
+        campaignMaximumUsd: { type: number }
+        calendarStatus: { type: string }
         blockers: { type: array, items: { type: string } }
         providers: { type: array, items: { $ref: "#/components/schemas/AiProviderStatus" } }
         questions: { type: array, items: { $ref: "#/components/schemas/AiQuestion" } }

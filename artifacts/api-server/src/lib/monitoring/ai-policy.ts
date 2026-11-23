@@ -2,7 +2,7 @@ import type { AiProvider, AiProviderStatus, AiQuestion } from "@workspace/api-zo
 import { dayInTimezone } from "./core";
 
 export const providers: AiProvider[] = ["openai", "gemini", "anthropic"];
-export const method = "independent-neutral-search-v1";
+export const method = "independent-neutral-search-economy-v2";
 export const initialQuestions: AiQuestion[] = [
   "migliore impresa edile a Cefalù",
   "ristrutturazione casa Cefalù chi chiamare",
@@ -33,14 +33,22 @@ export function weeklySlot(now: Date) {
 // NODE_ENV alone is not deployment proof: production builds are also previewed.
 export const productionExecution = () => process.env.NODE_ENV === "production" && process.env.REPLIT_DEPLOYMENT === "1";
 export const keyNames: Record<AiProvider, string> = { openai: "OPENAI_API_KEY", gemini: "GEMINI_API_KEY", anthropic: "ANTHROPIC_API_KEY" };
-export const models: Record<AiProvider, string> = { openai: "gpt-6.2-astra", gemini: "gemini-3.5-flash-lite", anthropic: "claude-sonnet-4-6" };
+export const models: Record<AiProvider, string> = { openai: "gpt-6-luna", gemini: "gemini-3.5-flash-lite", anthropic: "claude-haiku-5-5" };
 export const PRICE_REVIEW_UNTIL = "2026-12-23T00:00:00Z";
-// Upper bounds in USD micro-units. See docs/monitoring/PROVIDER.md.
-// 2 model passes, full input window per pass, 4096 generated tokens per pass,
-// one paid search. Use expensive context tier, no free credits or cached discounts.
+export const outputLimit = 768;
+// USD micro-units; two passes, full context and expensive context tier.
+// search_context_size/max_uses do NOT guarantee an input-token cap.
+// See PROVIDER.md: the requested < $1 worst-case campaign is not provable.
 export const maximumMicros: Record<AiProvider, number | null> = {
-  openai: Math.ceil(2 * (922000 * 16 + 4096 * 60) + 10000),
-  anthropic: Math.ceil(2 * (1000000 * 3 + 4096 * 15) + 10000),
+  openai: Math.ceil(2 * (1050000 * 0.2 + outputLimit * 0.75) + 10000),
+  anthropic: Math.ceil(2 * (1000000 * 0.5 + outputLimit * 2.5) + 10000),
+  gemini: null,
+};
+// Illustrative planning scenario, NOT a spending authorization or observed bill:
+// 2 passes at 6000 input and 512 output tokens, one paid search, short tier.
+export const estimatedMicros: Record<AiProvider, number | null> = {
+  openai: Math.ceil(2 * (6000 * 0.1 + 512 * 0.5) + 10000),
+  anthropic: Math.ceil(2 * (6000 * 0.1 + 512 * 0.5) + 10000),
   gemini: null,
 };
 export function providerPolicy(provider: AiProvider, now = new Date()): AiProviderStatus {
@@ -50,12 +58,13 @@ export function providerPolicy(provider: AiProvider, now = new Date()): AiProvid
   // Only inspect key existence; never return/read its value here.
   const configured = Object.prototype.hasOwnProperty.call(process.env, keyNames[provider]);
   if (!configured) blockers.push("Credenziale server non configurata.");
-  return { provider, configured, model: models[provider], method, blockers, maximumUsd: maximumMicros[provider] === null ? null : maximumMicros[provider]! / 1e6 };
+  return { provider, configured, model: models[provider], method, blockers,
+    maximumUsd: maximumMicros[provider] === null ? null : maximumMicros[provider]! / 1e6,
+    estimatedUsd: estimatedMicros[provider] === null ? null : estimatedMicros[provider]! / 1e6 };
 }
-export function executionBlockers(budgetMicros: number, workerAt: Date | null, now = new Date()) {
+export function executionBlockers(budgetMicros: number, _workerAt?: Date | null, _now = new Date()) {
   return [
     ...(!productionExecution() ? ["Anteprima o sviluppo: esecuzioni IA vietate."] : []),
     ...(budgetMicros <= 0 ? ["Budget mensile USD pari a zero: ogni avvio è bloccato."] : []),
-    ...(!workerAt || now.getTime() - workerAt.getTime() > 180000 ? ["Worker esterno autenticato non predisposto o heartbeat scaduto."] : []),
   ];
 }
