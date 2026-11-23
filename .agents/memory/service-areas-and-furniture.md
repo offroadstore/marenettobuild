@@ -93,3 +93,22 @@ country-service promises.
 **How to apply:** Require complete real Arabic content, document-level RTL and
 local Arabic fonts; a target market is not proof of an overseas office, an
 Arabic-speaking team or a completed project there.
+
+The owner confirms a professional-studio offering: selecting a stone block
+with the architect/client at the quarry or by video; cutting to supplied
+measurements/drawings; crated worldwide shipping and optional on-site assembly.
+Materials include Etna lava stone, Sicilian natural stone, hand-painted
+majolica by master ceramicists, cement and microcement. Products include
+tables, countertops, outdoor kitchens, counters and commissioned majolica panels.
+
+**Why:** The owner explicitly extended the bespoke offering for architects and
+interior designers; this is not evidence of completed projects or owned quarries.
+
+**How to apply:** Describe renders, technical drawings/data, physical samples
+on request, CAD/3D when available, one contact and project-specific written
+timing without fabricating downloadable resources or standard lead times.
+Use “condizioni dedicate agli studi professionali, comunicate su richiesta”
+and faithful translations; never percentages, commissions or compensation.
+Laboratory/quarry visits are by appointment, including video calls. Do not
+mention trade fairs in any form. Obtain owner permission before enabling
+professional enquiry attachments when storage is required.
