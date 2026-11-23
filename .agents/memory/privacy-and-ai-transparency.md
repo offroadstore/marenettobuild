@@ -22,6 +22,17 @@ acknowledgement is mandatory and initially unchecked; marketing permission and
 permission to use WhatsApp are separate, optional and initially unchecked.
 Consent evidence must include date/time, notice version and language.
 
+Serve site fonts from the site's own domain, not Google Fonts or another
+third-party font CDN, while preserving the approved typography and required
+language glyphs.
+
+**Why:** The owner requires removing visitor requests to Google Fonts without
+changing the site's appearance.
+
+**How to apply:** Use licensed local WOFF2 assets, only the needed weights,
+font-display swap and targeted preloads. Keep remote font imports and connection
+hints out of served CSS/HTML and remove their CSP allowances.
+
 **Why:** The owner expressly defined the callback retention policy and
 separated responding to an enquiry from permission for offers or WhatsApp.
 
