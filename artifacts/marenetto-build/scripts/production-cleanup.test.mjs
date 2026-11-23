@@ -17,6 +17,9 @@ test('the production guard rejects trackers, development code and both map forma
   const directory = await mkdtemp(path.join(os.tmpdir(), 'mb-production-'));
   try {
     for (const content of [
+      '@import url("https://fonts.googleapis.com/css2?family=Barlow");',
+      '<link rel="preconnect" href="https://fonts.gstatic.com">',
+      '<link rel="dns-prefetch" href="//fonts.googleapis.com">',
       '<script src="https://i.replit.com/script.js"></script>',
       'window.umami.track("example")',
       'window.umami?.track("example")',

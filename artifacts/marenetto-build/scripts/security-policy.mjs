@@ -16,8 +16,8 @@ export function setWebSecurityHeaders(res) {
   const directives = [
     "default-src 'self'",
     `script-src 'self' https://cdn.protect.clerk.com ${clerkProtect}`,
-    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-    "font-src 'self' https://fonts.gstatic.com",
+    "style-src 'self' 'unsafe-inline'",
+    "font-src 'self'",
     "img-src 'self' data: blob: https://img.clerk.com https://storage.googleapis.com",
     `connect-src 'self' https://storage.googleapis.com ${[clerkProtect, ...[18443, 2082, 8443, 992].map(port => `${clerkProtect}:${port}`)].join(' ')}`,
     `frame-src 'self'${analytics ? ` ${analytics}` : ''}`,

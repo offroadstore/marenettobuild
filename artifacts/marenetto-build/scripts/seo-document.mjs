@@ -1,5 +1,6 @@
 import { getLocaleDirection } from '../src/localization/locale-direction.mjs';
 import { releaseMetadata } from '../src/localization/public-seo.mjs';
+import { withFontPreload } from './font-preloads.mjs';
 
 export const SEO_ORIGIN = 'https://www.marenettobuild.com';
 export const escapeHtml = value => String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
@@ -45,7 +46,7 @@ export function renderDocument(template, { edition, body, alternates = [], canon
     }
   }
   if (structuredData.length) metas.push(`<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@graph': structuredData }).replaceAll('<', '\\u003c')}</script>`);
-  return html.replace('</head>', `${metas.join('\n')}\n</head>`)
+  return withFontPreload(html, locale, edition?.path).replace('</head>', `${metas.join('\n')}\n</head>`)
     .replace('<div id="root"></div>', `<div id="root">${body}</div>`);
 }
 

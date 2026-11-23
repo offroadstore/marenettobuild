@@ -5,6 +5,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 // Check actual deployable bytes. Authentication vendor code is kept intact in
 // a separate chunk; only its own implementation strings may be exempted.
 const forbidden = [
+  ['remote Google Fonts reference', /fonts\.(?:googleapis|gstatic)\.com/i],
   ['platform fingerprint', /replit|repl\.co|cartographer/i],
   ['platform tracker URL', /\bi\.replit\.com\b/i],
   ['platform analytics access', /(?:window|globalThis)\s*(?:\??\.\s*umami\b|(?:\?\.)?\[\s*['"]umami['"]\s*\])/],

@@ -1,10 +1,17 @@
 import { readFile } from 'node:fs/promises';
+import { withFontPreload } from './font-preloads.mjs';
 import { renderDocument, resolveRoute, redirectQuery, SEO_ORIGIN } from './seo-document.mjs';
 import { readActiveEditorial, editorialDocument, editorialUnavailableHTML, withEditorialSnapshot, key } from './editorial-http.mjs';
 
 export function seoPreviewPlugin() {
   return {
     name: 'marenetto-html-response',
+    transformIndexHtml: {
+      order: 'post',
+      handler(html, context) {
+        return withFontPreload(html, 'it', context.path);
+      },
+    },
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
         const url = new URL(req.url, 'http://preview.invalid');

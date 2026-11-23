@@ -2,6 +2,7 @@ import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { setWebSecurityHeaders } from './security-policy.mjs';
+import { withFontPreload } from './font-preloads.mjs';
 import { canonicalRedirect, publicHost, indexingEnabled, PUBLIC_ROBOTS, PUBLIC_ORIGIN, publicEditions, publicDocument, releaseSitemap } from './public-release.mjs';
 import { resolveRoute, redirectQuery } from './seo-document.mjs';
 import { readActiveEditorial, editorialDocument, editorialUnavailableHTML, withEditorialSnapshot, key } from './editorial-http.mjs';
@@ -140,6 +141,7 @@ export const server = createServer(async (req, res) => {
       'Cache-Control': file.startsWith('assets/') ? 'public, max-age=31536000, immutable' : file.startsWith('media/') ? 'public, max-age=86400' : 'no-cache',
     });
     if (verifiedActive && file.endsWith('.html')) content = withEditorialSnapshot(content.toString('utf8'), verifiedActive);
+    if (file === 'private-shell.html') content = withFontPreload(content.toString('utf8'), 'it', pathname);
     res.end(req.method === 'HEAD' ? undefined : content);
   } catch (error) {
     if (error.code === 'EDITORIAL_UNAVAILABLE') {

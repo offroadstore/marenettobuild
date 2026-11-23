@@ -18,3 +18,4 @@
 - [Multilingual SEO metadata](seo-metadata-policy.md) — Historical fidelity does not require generic titles; localize search metadata and verify initial HTML as well as client navigation.
 - [Google review data policy](google-reviews-data-policy.md) — Short TTLs do not authorize review caching; keep avatar delivery server-only and distinguish throttles from spending caps.
 - [HTTP date validation](http-date-validation.md) — Generated date validators may require Date objects even when clients send strings; test valid filters as well as invalid dates.
+- [Font source validation](font-source-validation.md) — Google Fonts can serve extensionless WOFF2 URLs; validate format and bytes rather than the URL suffix.

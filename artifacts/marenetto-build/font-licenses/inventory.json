@@ -1,0 +1,482 @@
+[
+  {
+    "family": "Barlow",
+    "subset": "latin-ext",
+    "weight": "400",
+    "file": "barlow-latin-ext-400-122b24bc2a90.woff2",
+    "sha256": "122b24bc2a90b0abe189f5229768bf2e9ba641324fe2459b48850079625934f1",
+    "bytes": 14268,
+    "source": "https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/barlow/v13/7cHpv4kjgoGqM7E_Ass52Hs.woff2"
+  },
+  {
+    "family": "Barlow",
+    "subset": "latin",
+    "weight": "400",
+    "file": "barlow-latin-400-b0a8ad37ac45.woff2",
+    "sha256": "b0a8ad37ac45f5fb22ced461576db72e44e295107aad7a9c8a7a4bad728fd03b",
+    "bytes": 22196,
+    "source": "https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/barlow/v13/7cHpv4kjgoGqM7E_DMs5.woff2"
+  },
+  {
+    "family": "Barlow",
+    "subset": "latin-ext",
+    "weight": "500",
+    "file": "barlow-latin-ext-500-3facdf66b607.woff2",
+    "sha256": "3facdf66b60778c7e64693013be7799e6686b2488dad65525b4036e211ab03e0",
+    "bytes": 14416,
+    "source": "https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/barlow/v13/7cHqv4kjgoGqM7E3_-gs6VospT4.woff2"
+  },
+  {
+    "family": "Barlow",
+    "subset": "latin",
+    "weight": "500",
+    "file": "barlow-latin-500-cd759df8ef9e.woff2",
+    "sha256": "cd759df8ef9efc98fee14307b4eb5ba27f08b1f8f2f3ad2872432e25c89907a8",
+    "bytes": 22008,
+    "source": "https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/barlow/v13/7cHqv4kjgoGqM7E3_-gs51os.woff2"
+  },
+  {
+    "family": "Barlow",
+    "subset": "latin-ext",
+    "weight": "600",
+    "file": "barlow-latin-ext-600-b7f099c42196.woff2",
+    "sha256": "b7f099c421968b583734bc631e6706bff8fc23908112a219f5f0e37f59b03b32",
+    "bytes": 14968,
+    "source": "https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/barlow/v13/7cHqv4kjgoGqM7E30-8s6VospT4.woff2"
+  },
+  {
+    "family": "Barlow",
+    "subset": "latin",
+    "weight": "600",
+    "file": "barlow-latin-600-4b52ddd4836b.woff2",
+    "sha256": "4b52ddd4836b592df0e4832b8286956883cdc651b015126bdd18f184b7f90cc3",
+    "bytes": 22772,
+    "source": "https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/barlow/v13/7cHqv4kjgoGqM7E30-8s51os.woff2"
+  },
+  {
+    "family": "Barlow",
+    "subset": "latin-ext",
+    "weight": "700",
+    "file": "barlow-latin-ext-700-88c786d5fa87.woff2",
+    "sha256": "88c786d5fa8700a201615bc7b8ede09d209ec5d08cc3dd0a30ea1c4baff3476f",
+    "bytes": 14836,
+    "source": "https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/barlow/v13/7cHqv4kjgoGqM7E3t-4s6VospT4.woff2"
+  },
+  {
+    "family": "Barlow",
+    "subset": "latin",
+    "weight": "700",
+    "file": "barlow-latin-700-2d797dd8b35d.woff2",
+    "sha256": "2d797dd8b35dcb3413e1af9d7052b3f4f8c341a147cdcb01f4f06af80db53289",
+    "bytes": 22788,
+    "source": "https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/barlow/v13/7cHqv4kjgoGqM7E3t-4s51os.woff2"
+  },
+  {
+    "family": "Gilda Display",
+    "subset": "latin-ext",
+    "weight": "400",
+    "file": "gilda-display-latin-ext-400-1550b21a79ba.woff2",
+    "sha256": "1550b21a79ba2dcc033dc49a8d0befb8d8ac98a76b4bbe2948360c0cfe129dbc",
+    "bytes": 13528,
+    "source": "https://fonts.googleapis.com/css2?family=Gilda+Display&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/gildadisplay/v20/t5tmIRoYMoaYG0WEOh7HwMeR3TDPr6OH.woff2"
+  },
+  {
+    "family": "Gilda Display",
+    "subset": "latin",
+    "weight": "400",
+    "file": "gilda-display-latin-400-d2b0a9deb02f.woff2",
+    "sha256": "d2b0a9deb02fe9d4d8348e4c4f470e53588175de06a563574af8d8c896b089e2",
+    "bytes": 20204,
+    "source": "https://fonts.googleapis.com/css2?family=Gilda+Display&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/gildadisplay/v20/t5tmIRoYMoaYG0WEOh7HwMeR3T7Prw.woff2"
+  },
+  {
+    "family": "Manrope",
+    "subset": "cyrillic-ext",
+    "weight": "400 800",
+    "file": "manrope-cyrillic-ext-400-800-3c09135e88bb.woff2",
+    "sha256": "3c09135e88bbfcd848e99be137710afbb615a8d9a73c5c48e6cb0245a162af1d",
+    "bytes": 2588,
+    "source": "https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/manrope/v23/xn7gYHE41ni1AdIRggqxSuXd.woff2"
+  },
+  {
+    "family": "Manrope",
+    "subset": "cyrillic",
+    "weight": "400 800",
+    "file": "manrope-cyrillic-400-800-447c49583b1b.woff2",
+    "sha256": "447c49583b1b735cc6f566151db1d24354cec41076c55dd98455cfbde9e806c1",
+    "bytes": 14352,
+    "source": "https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/manrope/v23/xn7gYHE41ni1AdIRggOxSuXd.woff2"
+  },
+  {
+    "family": "Manrope",
+    "subset": "greek",
+    "weight": "400 800",
+    "file": "manrope-greek-400-800-e507c109c317.woff2",
+    "sha256": "e507c109c31789b33994646b457ee288639324516357250607c9b1398186e069",
+    "bytes": 9268,
+    "source": "https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/manrope/v23/xn7gYHE41ni1AdIRggSxSuXd.woff2"
+  },
+  {
+    "family": "Manrope",
+    "subset": "latin-ext",
+    "weight": "400 800",
+    "file": "manrope-latin-ext-400-800-2f7335119075.woff2",
+    "sha256": "2f7335119075b2079f1d882530bbc18728461612bf90743203d73a74a48f4d9b",
+    "bytes": 15160,
+    "source": "https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/manrope/v23/xn7gYHE41ni1AdIRggmxSuXd.woff2"
+  },
+  {
+    "family": "Manrope",
+    "subset": "latin",
+    "weight": "400 800",
+    "file": "manrope-latin-400-800-8c2def024c1b.woff2",
+    "sha256": "8c2def024c1bf31aacf3624ae3c4d701269b4ec3dc765c04830839f0d36b2d9e",
+    "bytes": 24532,
+    "source": "https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/manrope/v23/xn7gYHE41ni1AdIRggexSg.woff2"
+  },
+  {
+    "family": "Newsreader",
+    "subset": "latin-ext",
+    "weight": "400 500",
+    "file": "newsreader-latin-ext-400-500-45683de03de3.woff2",
+    "sha256": "45683de03de37187604102316c0b42c0cb2d8dc9c4140a20ad471c3148cc1278",
+    "bytes": 86608,
+    "source": "https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400..500&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/newsreader/v26/cY9AfjOCX1hbuyalUrK439DyjJBG.woff2"
+  },
+  {
+    "family": "Newsreader",
+    "subset": "latin",
+    "weight": "400 500",
+    "file": "newsreader-latin-400-500-6e4f2958c3a7.woff2",
+    "sha256": "6e4f2958c3a7c4a80acde4e5a679abe7e01bc1e30b92be3c7a8b696ef401d101",
+    "bytes": 132000,
+    "source": "https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400..500&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/newsreader/v26/cY9AfjOCX1hbuyalUrK4397yjA.woff2"
+  },
+  {
+    "family": "Noto Sans",
+    "subset": "cyrillic-ext",
+    "weight": "400 800",
+    "file": "noto-sans-cyrillic-ext-400-800-a8a3b0dd135e.woff2",
+    "sha256": "a8a3b0dd135ebff04e0bf47805a80e791b463b5f2f1d8882e912faa8373de640",
+    "bytes": 56956,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/l/font?kit=o-0xIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjcz6L1SoM-jCpoiyD9A71WwaMiUNhe27Ouvt-FZjZm0IU&skey=2b960fe17823056f&v=v42"
+  },
+  {
+    "family": "Noto Sans",
+    "subset": "cyrillic",
+    "weight": "400 800",
+    "file": "noto-sans-cyrillic-400-800-5aca2686c9c1.woff2",
+    "sha256": "5aca2686c9c10234d21aa7f98be1b58c311a6d7b7ec4ed39b20f065fd910e3e4",
+    "bytes": 17124,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/l/font?kit=o-0xIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjcz6L1SoM-jCpoiyD9A71WwaMiUNhe27Ouvt-FbzZm0IU&skey=2b960fe17823056f&v=v42"
+  },
+  {
+    "family": "Noto Sans",
+    "subset": "greek-ext",
+    "weight": "400 800",
+    "file": "noto-sans-greek-ext-400-800-adfc51e5ade6.woff2",
+    "sha256": "adfc51e5ade635eb76a1b79f23676e60282c47a3e7b2503086244190a7929f4d",
+    "bytes": 8596,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/l/font?kit=o-0xIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjcz6L1SoM-jCpoiyD9A71WwaMiUNhe27Ouvt-FZzZm0IU&skey=2b960fe17823056f&v=v42"
+  },
+  {
+    "family": "Noto Sans",
+    "subset": "greek",
+    "weight": "400 800",
+    "file": "noto-sans-greek-400-800-627f1f9d90aa.woff2",
+    "sha256": "627f1f9d90aadfe2326b54dcd8e9b707461bf949126975c35617f03f90e251d2",
+    "bytes": 17968,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/l/font?kit=o-0xIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjcz6L1SoM-jCpoiyD9A71WwaMiUNhe27Ouvt-FaDZm0IU&skey=2b960fe17823056f&v=v42"
+  },
+  {
+    "family": "Noto Sans",
+    "subset": "latin-ext",
+    "weight": "400 800",
+    "file": "noto-sans-latin-ext-400-800-887f3e22cd5f.woff2",
+    "sha256": "887f3e22cd5f6cfd65a4967f7c22fac52598976770a587335c450c8460a95d82",
+    "bytes": 135216,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/l/font?kit=o-0xIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjcz6L1SoM-jCpoiyD9A71WwaMiUNhe27Ouvt-FZTZm0IU&skey=2b960fe17823056f&v=v42"
+  },
+  {
+    "family": "Noto Sans",
+    "subset": "latin",
+    "weight": "400 800",
+    "file": "noto-sans-latin-400-800-113336bd5d57.woff2",
+    "sha256": "113336bd5d57c150432979150f9b7bc9cae6a0f3c9eed92e9d44473517fde6d7",
+    "bytes": 29100,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/l/font?kit=o-0xIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjcz6L1SoM-jCpoiyD9A71WwaMiUNhe27Ouvt-FazZm&skey=2b960fe17823056f&v=v42"
+  },
+  {
+    "family": "Noto Sans Arabic",
+    "subset": "arabic",
+    "weight": "400 800",
+    "file": "noto-sans-arabic-arabic-400-800-ce85091f0209.woff2",
+    "sha256": "ce85091f020920b65762b387b194ef59457ea5b25b760f2dcc35240a94bb8669",
+    "bytes": 165960,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notosansarabic/v33/nwpCtLGrOAZMl5nJ_wfgRg3DrWFZWsnVBJ_sS6tlqHHFlj4wv4r4xA.woff2"
+  },
+  {
+    "family": "Noto Sans Arabic",
+    "subset": "math",
+    "weight": "400 800",
+    "file": "noto-sans-arabic-math-400-800-2c7bffd56133.woff2",
+    "sha256": "2c7bffd56133bb333f6f23d240ba72ee767aa3e7de67cb71fb83bbb3595ded2b",
+    "bytes": 22716,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notosansarabic/v33/nwpCtLGrOAZMl5nJ_wfgRg3DrWFZWsnVBJ_sS6tlqHHFlj5Jv4r4xA.woff2"
+  },
+  {
+    "family": "Noto Sans Arabic",
+    "subset": "symbols",
+    "weight": "400 800",
+    "file": "noto-sans-arabic-symbols-400-800-090786c8626f.woff2",
+    "sha256": "090786c8626fb67f5c50809079ed7fe42eb68b95d1afccffeb86943ec10254a2",
+    "bytes": 14584,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notosansarabic/v33/nwpCtLGrOAZMl5nJ_wfgRg3DrWFZWsnVBJ_sS6tlqHHFlj5bv4r4xA.woff2"
+  },
+  {
+    "family": "Noto Sans Arabic",
+    "subset": "latin-ext",
+    "weight": "400 800",
+    "file": "noto-sans-arabic-latin-ext-400-800-27fe6458d54b.woff2",
+    "sha256": "27fe6458d54bcf13a2fe92228dd932ef3de9439267ca214e5c9f6bb02659e614",
+    "bytes": 16816,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notosansarabic/v33/nwpCtLGrOAZMl5nJ_wfgRg3DrWFZWsnVBJ_sS6tlqHHFlj47v4r4xA.woff2"
+  },
+  {
+    "family": "Noto Sans Arabic",
+    "subset": "latin",
+    "weight": "400 800",
+    "file": "noto-sans-arabic-latin-400-800-fed070abc960.woff2",
+    "sha256": "fed070abc960c5f214fcb02b7b178cdab751ef7facd79a899f571bc21d38b8f8",
+    "bytes": 31416,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notosansarabic/v33/nwpCtLGrOAZMl5nJ_wfgRg3DrWFZWsnVBJ_sS6tlqHHFlj41v4o.woff2"
+  },
+  {
+    "family": "Noto Sans Hebrew",
+    "subset": "cyrillic-ext",
+    "weight": "400 800",
+    "file": "noto-sans-hebrew-cyrillic-ext-400-800-a8d376cc2113.woff2",
+    "sha256": "a8d376cc2113e5ab5174bf306b27ebb3b46f84c2e4ce527dd58d110aaf265471",
+    "bytes": 1200,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notosanshebrew/v50/or30Q7v33eiDljA1IufXTtVf7V6RvEEdhQlk0LlGxCyaePiZTNzENg.woff2"
+  },
+  {
+    "family": "Noto Sans Hebrew",
+    "subset": "greek-ext",
+    "weight": "400 800",
+    "file": "noto-sans-hebrew-greek-ext-400-800-a8d376cc2113.woff2",
+    "sha256": "a8d376cc2113e5ab5174bf306b27ebb3b46f84c2e4ce527dd58d110aaf265471",
+    "bytes": 1200,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notosanshebrew/v50/or30Q7v33eiDljA1IufXTtVf7V6RvEEdhQlk0LlGxCyaePiYTNzENg.woff2"
+  },
+  {
+    "family": "Noto Sans Hebrew",
+    "subset": "hebrew",
+    "weight": "400 800",
+    "file": "noto-sans-hebrew-hebrew-400-800-8dd0a0bc744e.woff2",
+    "sha256": "8dd0a0bc744eca2c6d5d618bf002f8ef98b2948b31020e3cb64fe3587c9abb74",
+    "bytes": 12264,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notosanshebrew/v50/or30Q7v33eiDljA1IufXTtVf7V6RvEEdhQlk0LlGxCyaePiWTNzENg.woff2"
+  },
+  {
+    "family": "Noto Sans Hebrew",
+    "subset": "latin-ext",
+    "weight": "400 800",
+    "file": "noto-sans-hebrew-latin-ext-400-800-c088f4c4bf6d.woff2",
+    "sha256": "c088f4c4bf6d47d549adf622d8cd3c5e19164e7ead11931d8a2ff8832ba256d8",
+    "bytes": 11560,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notosanshebrew/v50/or30Q7v33eiDljA1IufXTtVf7V6RvEEdhQlk0LlGxCyaePiaTNzENg.woff2"
+  },
+  {
+    "family": "Noto Sans Hebrew",
+    "subset": "latin",
+    "weight": "400 800",
+    "file": "noto-sans-hebrew-latin-400-800-27fd789f4089.woff2",
+    "sha256": "27fd789f4089b6aa76494638b3f94a6c00c69a0519e38add75a3c7e852cab1bc",
+    "bytes": 20192,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400..800&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notosanshebrew/v50/or30Q7v33eiDljA1IufXTtVf7V6RvEEdhQlk0LlGxCyaePiUTNw.woff2"
+  },
+  {
+    "family": "Noto Naskh Arabic",
+    "subset": "arabic",
+    "weight": "400 700",
+    "file": "noto-naskh-arabic-arabic-400-700-2a10d33e1f71.woff2",
+    "sha256": "2a10d33e1f7129ab2b6ec76666e82ac5b509fbcfa7b4a3a1289bff42d2d64cd7",
+    "bytes": 94032,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400..700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notonaskharabic/v44/RrQKbpV-9Dd1b1OAGA6M9PkyDuVBeN2DHV20Lg.woff2"
+  },
+  {
+    "family": "Noto Naskh Arabic",
+    "subset": "math",
+    "weight": "400 700",
+    "file": "noto-naskh-arabic-math-400-700-8e60f95fdb5e.woff2",
+    "sha256": "8e60f95fdb5e14d50f2571de500b312a96831e4fc7ecc6f30c54b54e4d5f4e48",
+    "bytes": 14284,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400..700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notonaskharabic/v44/RrQKbpV-9Dd1b1OAGA6M9PkyDuVBeN36HV20Lg.woff2"
+  },
+  {
+    "family": "Noto Naskh Arabic",
+    "subset": "symbols",
+    "weight": "400 700",
+    "file": "noto-naskh-arabic-symbols-400-700-ab68a53d846a.woff2",
+    "sha256": "ab68a53d846a9683111a565632e34ec0d5869f95ee28868035f72ad394dcfa38",
+    "bytes": 9408,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400..700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notonaskharabic/v44/RrQKbpV-9Dd1b1OAGA6M9PkyDuVBeN3oHV20Lg.woff2"
+  },
+  {
+    "family": "Noto Naskh Arabic",
+    "subset": "latin-ext",
+    "weight": "400 700",
+    "file": "noto-naskh-arabic-latin-ext-400-700-3d7795251bdf.woff2",
+    "sha256": "3d7795251bdfdecb545a745ae027a05fbcd60c824b2a374fe3921881fbe4279b",
+    "bytes": 10392,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400..700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notonaskharabic/v44/RrQKbpV-9Dd1b1OAGA6M9PkyDuVBeN2IHV20Lg.woff2"
+  },
+  {
+    "family": "Noto Naskh Arabic",
+    "subset": "latin",
+    "weight": "400 700",
+    "file": "noto-naskh-arabic-latin-400-700-2a30d48ddf0a.woff2",
+    "sha256": "2a30d48ddf0a75254b40b236fcfe789aed180526224ccb5089fd0b49999e0ec0",
+    "bytes": 19696,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400..700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notonaskharabic/v44/RrQKbpV-9Dd1b1OAGA6M9PkyDuVBeN2GHV0.woff2"
+  },
+  {
+    "family": "Noto Serif Hebrew",
+    "subset": "hebrew",
+    "weight": "400 700",
+    "file": "noto-serif-hebrew-hebrew-400-700-b5535c575a15.woff2",
+    "sha256": "b5535c575a15a5cccb8ac562dd2c606e39696236d86abc86d65946baf1dfacfe",
+    "bytes": 18412,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Serif+Hebrew:wght@400..700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notoserifhebrew/v30/k3k5o9MMPvpLmixYH7euCwmkS9DohjX1-kRyiqyBqIxnoLbD-VBMyDY.woff2"
+  },
+  {
+    "family": "Noto Serif Hebrew",
+    "subset": "latin-ext",
+    "weight": "400 700",
+    "file": "noto-serif-hebrew-latin-ext-400-700-f8a07051f754.woff2",
+    "sha256": "f8a07051f754383decb14c7cad95349baae7b376f679c5af4551e21f473846e8",
+    "bytes": 15828,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Serif+Hebrew:wght@400..700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notoserifhebrew/v30/k3k5o9MMPvpLmixYH7euCwmkS9DohjX1-kRyiqyBqIxnoLbD9VBMyDY.woff2"
+  },
+  {
+    "family": "Noto Serif Hebrew",
+    "subset": "latin",
+    "weight": "400 700",
+    "file": "noto-serif-hebrew-latin-400-700-621141beab70.woff2",
+    "sha256": "621141beab7031108d4c1528eaa7ab1f845535235dce4ccbf8fc12d93e82bf58",
+    "bytes": 29204,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Serif+Hebrew:wght@400..700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notoserifhebrew/v30/k3k5o9MMPvpLmixYH7euCwmkS9DohjX1-kRyiqyBqIxnoLbD-1BM.woff2"
+  },
+  {
+    "family": "Noto Serif",
+    "subset": "cyrillic-ext",
+    "weight": "400 700",
+    "file": "noto-serif-cyrillic-ext-400-700-7c7afb20d33e.woff2",
+    "sha256": "7c7afb20d33e30ec38245187464419281115615db288f294414f49802396b612",
+    "bytes": 89100,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400..700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notoserif/v33/ga6daw1J5X9T9RW6j9bNVls-hfgvz8JcMofYTYf3D33Esw.woff2"
+  },
+  {
+    "family": "Noto Serif",
+    "subset": "cyrillic",
+    "weight": "400 700",
+    "file": "noto-serif-cyrillic-400-700-54e3bd0c4a00.woff2",
+    "sha256": "54e3bd0c4a002b0f76bf9c758507fe9bb170f9e364ea4ecc85fc8b22819bca7e",
+    "bytes": 24572,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400..700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notoserif/v33/ga6daw1J5X9T9RW6j9bNVls-hfgvz8JcMofYTYf-D33Esw.woff2"
+  },
+  {
+    "family": "Noto Serif",
+    "subset": "greek-ext",
+    "weight": "400 700",
+    "file": "noto-serif-greek-ext-400-700-9b3f4c4ff3ad.woff2",
+    "sha256": "9b3f4c4ff3adefd2476a2ac234ac3c72bea116c21a6f98dbe5d524c38b239c46",
+    "bytes": 12704,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400..700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notoserif/v33/ga6daw1J5X9T9RW6j9bNVls-hfgvz8JcMofYTYf2D33Esw.woff2"
+  },
+  {
+    "family": "Noto Serif",
+    "subset": "greek",
+    "weight": "400 700",
+    "file": "noto-serif-greek-400-700-1252037b6f1d.woff2",
+    "sha256": "1252037b6f1d6e86c49f59cd4b2cc953413fcad1fc3659a55aacfb4ae5f42531",
+    "bytes": 27844,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400..700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notoserif/v33/ga6daw1J5X9T9RW6j9bNVls-hfgvz8JcMofYTYf5D33Esw.woff2"
+  },
+  {
+    "family": "Noto Serif",
+    "subset": "math",
+    "weight": "400 700",
+    "file": "noto-serif-math-400-700-d4a6aba2cb46.woff2",
+    "sha256": "d4a6aba2cb4636b371991a197aed964f2308b7e3d5f5748bfe8d1b9af191f3a7",
+    "bytes": 65124,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400..700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notoserif/v33/ga6daw1J5X9T9RW6j9bNVls-hfgvz8JcMofYTYeGD33Esw.woff2"
+  },
+  {
+    "family": "Noto Serif",
+    "subset": "latin-ext",
+    "weight": "400 700",
+    "file": "noto-serif-latin-ext-400-700-2654f8d1261a.woff2",
+    "sha256": "2654f8d1261a420fc81628122bee9d494b493227e3d7d9baa4238360b92b11d3",
+    "bytes": 186552,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400..700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notoserif/v33/ga6daw1J5X9T9RW6j9bNVls-hfgvz8JcMofYTYf0D33Esw.woff2"
+  },
+  {
+    "family": "Noto Serif",
+    "subset": "latin",
+    "weight": "400 700",
+    "file": "noto-serif-latin-400-700-462814562340.woff2",
+    "sha256": "46281456234014ceb2a79bff447245de0f76b8d803be0738972ed374c3206c5b",
+    "bytes": 36756,
+    "source": "https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400..700&display=swap",
+    "upstream": "https://fonts.gstatic.com/s/notoserif/v33/ga6daw1J5X9T9RW6j9bNVls-hfgvz8JcMofYTYf6D30.woff2"
+  }
+]
