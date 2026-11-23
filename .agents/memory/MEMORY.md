@@ -22,3 +22,4 @@
 - [Font source validation](font-source-validation.md) — Google Fonts can serve extensionless WOFF2 URLs; validate format and bytes rather than the URL suffix.
 - [Legal text fidelity](legal-text-fidelity.md) — Import the designated remote Italian legal file as-is; keep the original build scanner without legal exceptions.
 - [Contact and direct analytics decisions](contact-and-direct-analytics-decisions.md) — Owner chose email-only enquiries and direct consent-gated GA4; separate plans must precede implementation.
+- [AI visibility budget](ai-visibility-budget.md) — Three search-enabled providers, zero initial budget; keys alone do not authorize paid calls.
