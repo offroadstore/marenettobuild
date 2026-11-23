@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs';
 import { defineConfig } from '@playwright/test';
 export default defineConfig({
-  testDir: './tests', testMatch: 'analytics.spec.ts', timeout: 30000, workers: 1,
+  testDir: './tests', testMatch: ['analytics.spec.ts', 'direct-analytics.spec.ts'], timeout: 30000, workers: 1,
   outputDir: '../../generated-artifacts/monitoring/browser-results',
   reporter: 'list',
   use: { browserName: 'chromium', launchOptions: {

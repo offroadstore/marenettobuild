@@ -20,3 +20,5 @@
 - [Google review data policy](google-reviews-data-policy.md) — Short TTLs do not authorize review caching; keep avatar delivery server-only and distinguish throttles from spending caps.
 - [HTTP date validation](http-date-validation.md) — Generated date validators may require Date objects even when clients send strings; test valid filters as well as invalid dates.
 - [Font source validation](font-source-validation.md) — Google Fonts can serve extensionless WOFF2 URLs; validate format and bytes rather than the URL suffix.
+- [Legal text fidelity](legal-text-fidelity.md) — Import the designated remote Italian legal file as-is; keep the original build scanner without legal exceptions.
+- [Contact and direct analytics decisions](contact-and-direct-analytics-decisions.md) — Owner chose email-only enquiries and direct consent-gated GA4; separate plans must precede implementation.

@@ -42,7 +42,7 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
       assert.equal(u.pathname, '/_analytics-runtime/health');
       assert.equal(init.credentials, 'omit');
       assert.equal(init.redirect, 'error');
-      return fixtureResponse(mode === 'runtimeMismatch' ? {} : { runtime: 'marenetto-ga4-v1', siteOrigin: 'https://www.example.com', runtimeOrigin: 'https://metrics.example.net' }, mode === 'runtimeUnavailable' ? 503 : 200);
+      return fixtureResponse(mode === 'runtimeMismatch' ? {} : { runtime: 'marenetto-ga4-v1', siteOrigin: 'https://www.marenettobuild.com', runtimeOrigin: 'https://metrics.example.net' }, mode === 'runtimeUnavailable' ? 503 : 200);
     }
     assert.ok(['oauth2.googleapis.com','analyticsadmin.googleapis.com','analyticsdata.googleapis.com','www.googleapis.com','searchconsole.googleapis.com'].includes(u.hostname),`Unexpected network host ${u.hostname}`);
     if(u.pathname==='/revoke')return new Response('',{status:revokeOk?200:503});
@@ -59,7 +59,7 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
     }
     if(u.pathname.includes('accountSummaries'))return fixtureResponse({accountSummaries:[{displayName:'Fixture account',propertySummaries:[{property:'properties/123',displayName:'Fixture GA4'}]}],...(pagination&&!u.searchParams.has('pageToken')?{nextPageToken:'page-two'}:{})});
     if(u.pathname.endsWith('/enhancedMeasurementSettings'))return fixtureResponse(mode==='enhancedMissing'?{}:{streamEnabled:mode==='enhancedOn'});
-    if(u.pathname.endsWith('/dataStreams'))return fixtureResponse({dataStreams:[{name:'properties/123/dataStreams/456',type:'WEB_DATA_STREAM',webStreamData:{measurementId:'G-ABCD1234',defaultUri:mode==='wrongOrigin'?'https://wrong.example.com':'https://www.example.com/'}}]});
+    if(u.pathname.endsWith('/dataStreams'))return fixtureResponse({dataStreams:[{name:'properties/123/dataStreams/456',type:'WEB_DATA_STREAM',webStreamData:{measurementId:'G-ABCD1234',defaultUri:mode==='wrongOrigin'?'https://wrong.example.com':'https://www.marenettobuild.com/'}}]});
     if(u.hostname==='analyticsadmin.googleapis.com')return fixtureResponse({timeZone:'Europe/Rome'});
     if(u.hostname==='analyticsdata.googleapis.com'){
       if(u.pathname.endsWith(':runRealtimeReport')) return fixtureResponse(mode==='empty'?{rowCount:0}:{rows:[{dimensionValues:[{value:'page_view'}],metricValues:[{value:'1'}]}]});
@@ -182,11 +182,12 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
     assert.equal((await request('/internal/monitoring/verify/ga4','owner','POST')).status,200);
     assert.equal((await request('/internal/monitoring/verify/searchConsole','owner','POST')).status,200);
     // Production collection simulated only in the isolated DB/provider bundle.
-    process.env.MARENETTO_ANALYTICS_ORIGIN='https://www.example.com';
+    process.env.MARENETTO_ANALYTICS_ORIGIN='https://www.marenettobuild.com';
     process.env.MARENETTO_ANALYTICS_RUNTIME_ORIGIN='https://metrics.example.net';
     process.env.MARENETTO_ANALYTICS_RUNTIME_APPROVED='true';
-    process.env.MARENETTO_ANALYTICS_PRIVACY_URL='https://www.example.com/privacy';
-    process.env.MARENETTO_ANALYTICS_PRIVACY_VERSION='fixture-notice';
+    // Stale environment metadata must not override the supplied legal policy.
+    process.env.MARENETTO_ANALYTICS_PRIVACY_URL='https://www.marenettobuild.com/obsolete';
+    process.env.MARENETTO_ANALYTICS_PRIVACY_VERSION='obsolete-notice';
     process.env.MARENETTO_ANALYTICS_PRIVACY_APPROVED='true';
     process.env.MARENETTO_ANALYTICS_RELEASE_APPROVED='true';
     let row=await getSettings();
@@ -204,8 +205,12 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
     assert.equal((await request('/internal/monitoring/collection','owner','PUT',{enabled:true})).status,200);
     assert.equal((await request('/internal/monitoring')).data.trackingEnabled,true);
     assert.equal((await request('/monitoring/public','anonymous')).data.enabled,false,'preview/console host never gets production config');
-    r=await request('/monitoring/public','anonymous','GET',undefined,{'x-forwarded-host':'www.example.com'});
-    assert.equal(r.data.enabled,true);assert.equal(r.data.measurementId,'G-ABCD1234');
+    r=await request('/monitoring/public','anonymous','GET',undefined,{'x-forwarded-host':'www.marenettobuild.com'});
+    assert.equal(r.data.enabled,true);assert.equal(r.data.measurementId,'G-D0QJL17CVC');
+    assert.equal(r.data.mode,'direct');
+    assert.equal(r.data.runtimeOrigin,'');
+    assert.equal(r.data.privacyVersion,'2026-11-23');
+    assert.equal(r.data.privacyUrl,'https://www.marenettobuild.com/cookie');
     assert.doesNotMatch(JSON.stringify(r.data),/properties\/|refresh|fixture-access|stream|tokens/);
     assert.equal((await request('/internal/monitoring/collection/realtime','owner','POST')).status,200);
     assert.ok((await request('/internal/monitoring')).data.collection.realtimeReceivedAt);
@@ -214,10 +219,11 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
     mode='ok';
     for(const key of ['MARENETTO_ANALYTICS_PRIVACY_APPROVED','MARENETTO_ANALYTICS_RELEASE_APPROVED','MARENETTO_ANALYTICS_RUNTIME_APPROVED']) {
       process.env[key]='false';
-      assert.equal((await request('/monitoring/public','anonymous','GET',undefined,{'x-forwarded-host':'www.example.com'})).data.enabled,false);
+      assert.equal((await request('/monitoring/public','anonymous','GET',undefined,{'x-forwarded-host':'www.marenettobuild.com'})).data.mode,'direct',
+        'The approved direct path is independent of isolated-runtime approval flags');
       process.env[key]='true';
     }
-    process.env.MARENETTO_ANALYTICS_RUNTIME_ORIGIN='https://tracking.example.com';
+    process.env.MARENETTO_ANALYTICS_RUNTIME_ORIGIN='https://tracking.marenettobuild.com';
     assert.equal(collectionStatus(await getSettings()).enabled,false,'a subdomain is not an independent cookie boundary');
     process.env.MARENETTO_ANALYTICS_RUNTIME_ORIGIN='https://metrics.example.net';
     await db.update(settings).set({collectionCheck:{...check,checkedAt:'invalid'}}).where(eq(settings.environment,'production'));

@@ -43,7 +43,8 @@ import { applyPublicReleaseMetadata } from '@/lib/public-release-meta';
 import type { EditorialActive } from '@workspace/api-client-react';
 import { usePageMeta } from '@/lib/meta';
 import { AnalyticsPreferences } from '@/components/AnalyticsPreferences';
-import { trackSavedRequest } from '@/lib/analytics/browser';
+import { AI_NOTICE, legalPages } from '@/content/legal';
+import { LegalContents } from '@/pages/legal';
 import { translationCandidates, supplementalCandidates, translationCandidate, translationApproved, translationSourceChanged, translationNotices } from '@/localization/phase2';
 
 const queryClient = new QueryClient();
@@ -375,6 +376,12 @@ function Header({ lang, page, articleSlug, editionId }: { lang: Lang; page: Page
   </header>);
 }
 
+function LegalFooterLinks() {
+  return <span lang="it" dir="ltr"><Link href="/privacy">Privacy</Link> · <Link href="/cookie">Cookie e analytics</Link></span>;
+}
+function LegalAiNotice() {
+  return <p lang="it" dir="ltr" className="footer-ai-notice">{AI_NOTICE}</p>;
+}
 function Footer({ lang }: { lang: Lang }) {
   const it = lang === 'it';
   const message = localizeChoice(lang, 'Buongiorno, vorrei parlare della mia proprietà a Cefalù.', 'Hello, I would like to discuss my property in Cefalù.');
@@ -404,7 +411,8 @@ function Footer({ lang }: { lang: Lang }) {
       </div>
       <IllustrationNote lang={lang} />
       <CallPrivacyFooter lang={lang} />
-      <div className="footer-bottom"><span lang="it">© {new Date().getFullYear()} Marenetto S.r.l. unipersonale · P.IVA IT06471740826 · SS 113, 73b, 90015 Cefalù (PA)</span><span>{it ? 'Cefalù · Sicilia' : 'Cefalù · Sicily'}</span><Link href={withCampaignParams(routes[it ? 'en' : 'it'].home)} onClick={() => saveLanguageChoice(it ? 'en' : 'it')}>{it ? 'English' : 'Italiano'} <ArrowRight size={12} /></Link></div>
+      <div className="footer-bottom"><span lang="it">© {new Date().getFullYear()} Marenetto S.r.l. unipersonale · P.IVA IT06471740826 · SS 113, 73b, 90015 Cefalù (PA)</span><LegalFooterLinks /><span>{it ? 'Cefalù · Sicilia' : 'Cefalù · Sicily'}</span><Link href={withCampaignParams(routes[it ? 'en' : 'it'].home)} onClick={() => saveLanguageChoice(it ? 'en' : 'it')}>{it ? 'English' : 'Italiano'} <ArrowRight size={12} /></Link></div>
+      <LegalAiNotice />
     </div>
   </footer></>);
 }
@@ -629,7 +637,7 @@ function ContactPage({ lang }: { lang: Lang }) {
           <div className="contact-method"><Phone size={17} /><div><small>{it ? 'Telefono' : 'Phone'}</small><a href={telHref} data-testid="link-phone">{COMPANY_PHONE.display}</a></div></div>
           <div className="contact-method"><Mail size={17} /><div><small>Email</small><a href={emailHref(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))} data-testid="link-email" dir="ltr">{COMPANY_CONTACT.email}</a></div></div>
           <div className="contact-method"><MapPin size={17} /><div><small>{it ? 'Indirizzo' : 'Address'}</small><span lang="it">Cefalù · Sicilia<br />Sede esatta in attesa di conferma aziendale.</span></div></div>
-          <div className="contact-note">{localizeChoice(lang, 'Anteprima sintetica: non inserire dati personali reali. Per un contatto effettivo usa email, telefono o WhatsApp.', 'Synthetic preview: do not enter real personal information. The form discards the details entered and creates only a demo lead. For a real enquiry, use email, phone or WhatsApp.')}</div>
+          <div className="contact-note">{localizeChoice(lang, 'Il modulo invia la richiesta via email, senza salvarne una copia nel sito.', 'The form sends your enquiry by email without keeping a copy on the site.')}</div>
         </aside>
         <div className="contact-content"><SectionLabel>{it ? 'Richiesta' : 'Enquiry'}</SectionLabel><h2 className="display-title">{it ? 'Che cosa ti serve?' : 'What do you need?'}</h2>
           <div className="contact-cta-list">
@@ -650,14 +658,14 @@ function RequestPage({ lang, editorial = false }: { lang: Lang; editorial?: bool
   const text = (italian: string, english: string) => localizeChoice(lang, italian, english);
   const [form, setForm] = useState<RequestFormState>(() => initialForm(lang));
   const [review, setReview] = useState(false);
-  const [receipt, setReceipt] = useState<{ code: string; status: string; notificationStatus: string; isSynthetic: boolean } | null>(null);
-  const create = useCreateProjectRequest();
+  const [receipt, setReceipt] = useState<boolean>(false);
+  const create = useCreateProjectRequest({ mutation: { gcTime: 0, retry: false } });
   const keyRef = useRef<string>(typeof crypto !== 'undefined' && 'randomUUID' in crypto ? crypto.randomUUID() : `marenetto-${Date.now()}-${Math.random().toString(36).slice(2)}`);
   const formRef = useRef<HTMLFormElement>(null);
   const openedAt = useRef(0);
   const companyWebsite = useRef<HTMLInputElement>(null);
   useEffect(() => { openedAt.current = Date.now(); }, []);
-  const update = (key: keyof RequestFormState, value: string | boolean) => setForm(old => ({ ...old, [key]: value } as RequestFormState));
+  const update = (key: keyof RequestFormState, value: string | boolean) => { keyRef.current = crypto.randomUUID(); setForm(old => ({ ...old, [key]: value } as RequestFormState)); };
   const field = (key: keyof RequestFormState, label: string, opts: { required?: boolean; placeholder?: string; type?: string; full?: boolean; minLength?: number; maxLength?: number } = {}) => <div className={`field${opts.full ? ' full' : ''}`}>
     <label htmlFor={`field-${key}`}>{label}{opts.required && <span aria-hidden="true"> *</span>}</label>
     <input id={`field-${key}`} data-testid={`input-${key}`} value={form[key] as string} onChange={e => update(key, e.target.value)} placeholder={opts.placeholder} type={opts.type || 'text'} required={opts.required} minLength={opts.minLength} maxLength={opts.maxLength} />
@@ -677,7 +685,12 @@ function RequestPage({ lang, editorial = false }: { lang: Lang; editorial?: bool
       formOpenedAt: openedAt.current,
       companyWebsite: companyWebsite.current?.value ?? '',
     };
-    create.mutate({ data: payload }, { onSuccess: result => { trackSavedRequest(result); setReceipt({ code: result.code, status: result.status, notificationStatus: result.notificationStatus, isSynthetic: result.isSynthetic }); setReview(false); } });
+    if (create.isPending || receipt) return;
+    create.mutate({ data: payload }, { onSuccess: result => {
+      if (result.status !== 'sent') return;
+      setReceipt(true); setReview(false); setForm(initialForm(lang));
+      create.reset();
+    } });
   };
   const label = localizeChoice(lang, { group1: 'La richiesta', type: 'Di cosa hai bisogno?', property: 'Tipo di proprietà', service: 'Servizio', location: 'Dove si trova la proprietà?', stage: 'A che punto sei?', message: 'Raccontaci meglio', group2: 'Come ricontattarti', name: 'Nome e cognome', email: 'Email', phone: 'Telefono / WhatsApp', channel: 'Canale preferito', lang: 'Lingua preferita', group3: 'Altri dettagli', budget: 'Budget indicativo (opzionale)', period: 'Periodo desiderato (opzionale)', accom: 'Potresti aver bisogno di un alloggio durante i lavori', mobility: 'Hai esigenze di accessibilità o mobilità da segnalarci', privacy: 'Ho letto e accetto l’informativa privacy per essere ricontattato in merito a questa richiesta.', submit: 'Rivedi la richiesta', sending: 'Invio in corso…', requestType: ['Progetto / lavori', 'Manutenzione', 'Acquisto'], required: 'I campi contrassegnati con * sono necessari. La richiesta non conferma disponibilità o avvio dei lavori.' }, { group1: 'Your enquiry', type: 'What do you need?', property: 'Property type', service: 'Service', location: 'Where is the property?', stage: 'What stage are you at?', message: 'Tell us a little more', group2: 'How to reach you', name: 'Name', email: 'Email', phone: 'Phone / WhatsApp', channel: 'Preferred contact channel', lang: 'Preferred language', group3: 'A few more details', budget: 'Indicative budget (optional)', period: 'Desired timing (optional)', accom: 'You may need accommodation during the work', mobility: 'You have accessibility or mobility needs to let us know about', privacy: 'I have read and accept the privacy notice so I can be contacted about this enquiry.', submit: 'Review your enquiry', sending: 'Sending…', requestType: ['Project / building work', 'Maintenance', 'Purchase'], required: 'Fields marked * are required. Sending an enquiry does not confirm availability or a start date.' });
   const requestTypes: ProjectRequestInput['requestType'][] = ['project', 'maintenance', 'purchase'];
@@ -690,7 +703,7 @@ function RequestPage({ lang, editorial = false }: { lang: Lang; editorial?: bool
     {!editorial && <PageHero lang={lang} page="request" />}
     <section className="section">
       <div className="container request-layout">
-        <aside className="request-aside"><SectionLabel>{text('Un buon punto di partenza', 'A useful place to start')}</SectionLabel><h2 className="display-title">{text('Con calma, con i dettagli che hai.', 'No rush. Share what you know.')}</h2><p>{text('Questa anteprima scarta i dati inseriti e conserva solo un lead sintetico. Non inserire dati personali reali. Le notifiche interne sono persistenti; gli invii email attendono l’approvazione del fornitore.', 'This preview discards the details entered and stores only a synthetic lead. Do not enter real personal information. In-app notifications persist; email delivery awaits provider approval.')}</p><p>{text('Per un contatto effettivo, scrivi a info@marenetto.com, chiama o invia un messaggio WhatsApp al numero aziendale.', 'For a real enquiry, email info@marenetto.com, call or send a WhatsApp message to the company number.')}</p><div className="language-note">{text('Puoi indicare una lingua preferita fra quelle richieste; la risposta automatica non è ancora attiva.', 'You can select any requested language; automated replies are not active yet.')}</div></aside>
+        <aside className="request-aside"><SectionLabel>{text('Un buon punto di partenza', 'A useful place to start')}</SectionLabel><h2 className="display-title">{text('Con calma, con i dettagli che hai.', 'No rush. Share what you know.')}</h2><p>{text('La richiesta viene inviata via email a info@marenetto.com. Il sito non salva i dati del modulo nel database. In anteprima l’invio email è disabilitato: non inserire dati personali reali.', 'Your enquiry is emailed to info@marenetto.com. The site does not save form data in its database. Email sending is disabled in preview: do not enter real personal details.')}</p><p>{text('Puoi anche scrivere a info@marenetto.com, chiamare o inviare un messaggio WhatsApp al numero aziendale.', 'You can also email info@marenetto.com, call or send a WhatsApp message to the company number.')}</p><div className="language-note">{text('Puoi indicare una lingua preferita fra quelle richieste; la risposta automatica non è ancora attiva.', 'You can select any requested language; automated replies are not active yet.')}</div></aside>
         <div>
           <form className="form-card" ref={formRef} onSubmit={submitRequest} noValidate={false}
             onInputCapture={event => {
@@ -705,6 +718,7 @@ function RequestPage({ lang, editorial = false }: { lang: Lang; editorial?: bool
                 : field.validity.typeMismatch ? text('Inserisci un indirizzo email valido.', 'Please enter a valid email address.')
                 : text('Controlla questo campo.', 'Please check this field.'));
             }}>
+            <fieldset className="request-fields" hidden={receipt} disabled={receipt || create.isPending}>
             <div hidden aria-hidden="true"><input ref={companyWebsite} name="companyWebsite" tabIndex={-1} autoComplete="off" /></div>
             <h2 className="form-section-title">{label.group1}</h2>
             <div className="field full"><span className="field-label">{label.type} *</span><div className="radio-row">{requestTypes.map((value, i) => <label className="radio-choice" key={value}><input type="radio" name="requestType" value={value} checked={form.requestType === value} onChange={() => update('requestType', value)} data-testid={`radio-request-${value}`} /><span>{label.requestType[i]}</span></label>)}</div></div>
@@ -735,7 +749,7 @@ function RequestPage({ lang, editorial = false }: { lang: Lang; editorial?: bool
                 <label className="check-row"><input type="checkbox" checked={form.needsAccommodation} onChange={e => update('needsAccommodation', e.target.checked)} data-testid="check-accommodation" /><span>{label.accom}</span></label>
                 <label className="check-row" style={{ marginTop: 12 }}><input type="checkbox" checked={form.needsMobility} onChange={e => update('needsMobility', e.target.checked)} data-testid="check-mobility" /><span>{label.mobility}</span></label>
               </div>
-              <div className="field full"><label className="check-row"><input type="checkbox" required checked={form.privacyAccepted} onChange={e => update('privacyAccepted', e.target.checked)} data-testid="check-privacy" /><span>{label.privacy} *</span></label></div>
+              <div className="field full"><label className="check-row"><input type="checkbox" required checked={form.privacyAccepted} onChange={e => update('privacyAccepted', e.target.checked)} data-testid="check-privacy" /><span>{lang === 'it' ? <>Ho letto e accetto l’<a href={`${basePath}/privacy`} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()} data-testid="request-privacy-link">informativa privacy</a> per essere ricontattato in merito a questa richiesta.</> : label.privacy} *</span></label>{lang !== 'it' && <a href={`${basePath}/privacy`} target="_blank" rel="noopener noreferrer" lang="it">Informativa privacy</a>}</div>
             </div>
             {create.isError && <div className="error-box" role="alert" data-testid="status-error">{text('Non siamo riusciti a inviare la richiesta. I tuoi dati sono ancora qui: controlla la connessione e riprova.', 'We could not send your enquiry. Your details are still here: check your connection and try again.')}</div>}
             {!receipt && !review && <div className="form-footer"><span className="form-hint">{label.required}</span><button className="button" type="submit" data-testid="button-review">{label.submit}<ArrowRight size={15} /></button></div>}
@@ -747,9 +761,10 @@ function RequestPage({ lang, editorial = false }: { lang: Lang; editorial?: bool
               {create.isError && <div className="error-box" role="alert">{text('Invio non riuscito. Puoi modificare i dettagli o riprovare; nessun dato è stato cancellato.', 'Sending failed. Edit your details or try again; nothing has been cleared.')}</div>}
               <div className="form-footer"><button type="button" className="button outline" onClick={() => setReview(false)} data-testid="button-edit">{text('Modifica', 'Edit')}</button><button type="button" className="button" disabled={create.isPending} onClick={() => { if (formRef.current?.reportValidity()) formRef.current.requestSubmit(); }} data-testid="button-submit">{create.isPending ? label.sending : text('Invia richiesta', 'Send enquiry')}<ArrowRight size={15} /></button></div>
             </div>}
-            {receipt && <div className="success-box" role="status" data-testid="status-success"><SectionLabel>{receipt.status === 'received' ? text('Richiesta ricevuta', 'Enquiry received') : text('Richiesta registrata', 'Enquiry recorded')}</SectionLabel><span className="success-code">{receipt.code}</span>{receipt.isSynthetic && <p>{text('Conserva questo codice di riferimento. È stato creato un lead sintetico; i dettagli inseriti non sono stati conservati. ', 'Keep this reference code. A synthetic lead was created; the details you entered were not retained.')}</p>}{receipt.notificationStatus === 'pending_provider' && <p>{text('La notifica email al fornitore è in attesa di configurazione. ', 'Email notification to the provider is awaiting configuration.')}</p>}<p>{text('Gli allegati privati restano disabilitati finché privacy, fornitore e collaudo non sono approvati.', 'Private attachments remain disabled until privacy, provider, and testing approvals are complete.')}</p></div>}
+            </fieldset>
+            {receipt && <div className="success-box" role="status" data-testid="status-success"><SectionLabel>{text('Email inviata', 'Email sent')}</SectionLabel><p>{text('La richiesta è stata inviata a info@marenetto.com. Grazie per averci contattato.', 'Your enquiry has been sent to info@marenetto.com. Thank you for contacting us.')}</p></div>}
           </form>
-          {!receipt && <div className="language-note">{text('I dettagli vengono inviati solo dopo aver accettato l’informativa privacy. Per allegati o documenti, contattaci direttamente: il modulo non gestisce caricamenti.', 'Your details are sent only after accepting the privacy notice. For documents or attachments, contact us directly: this form does not support uploads.')}</div>}
+          {!receipt && <div className="language-note">{text('I dettagli vengono inviati via email solo dopo aver accettato l’informativa privacy, senza conservarne una copia nel sito.', 'Your details are emailed only after you accept the privacy notice, without keeping a copy on the site.')}</div>}
         </div>
       </div>
     </section>
@@ -948,6 +963,8 @@ function Router() {
     <p>Prima di mostrare un testo dobbiamo verificare quali revisioni sono attive. Nessuna copia precedente viene ripubblicata.</p>
     {editorialStatus === 'unavailable' && <button className="int-primary" onClick={() => window.location.reload()}>Riprova</button>}
   </main></div>;
+  const legal = legalPages.find(content => content.path === path);
+  if (legal) return <div className="site-shell" lang="it" dir="ltr"><Header lang="it" page="contact" editionId={legal.path.slice(1)} /><LegalContents content={legal} /><Footer lang="it" /></div>;
   const live = active.find(edition => [edition.path,...(edition.aliases ?? [])].some(candidate => editorialPathKey(candidate) === editorialPathKey(path)));
   if (live) return live.revisionId === 'withdrawn' ? <NotFound lang={live.locale} /> : <LocaleGate lang={live.locale}><ActiveEditorialPage edition={live} /></LocaleGate>;
   const candidate = translationCandidate(path);

@@ -5,12 +5,15 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+import type { PublicMonitoringMode } from './publicMonitoringMode';
 
 export interface PublicMonitoring {
   enabled: boolean;
   origin: string;
   /** Dedicated HTTPS analytics origin on a different registrable domain; never the site or console origin. */
   runtimeOrigin: string;
+  /** Direct consent-gated site loader, or the retained isolated runtime. */
+  mode?: PublicMonitoringMode;
   measurementId: string;
   privacyUrl: string;
   privacyVersion: string;

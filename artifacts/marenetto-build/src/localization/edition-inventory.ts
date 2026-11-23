@@ -8,10 +8,11 @@ import approvalLedger from './edition-approvals.json';
 import { historicalInventory } from '@/content/historical';
 import { editionStatusLabel } from './edition-status';
 import { allTranslationCandidates, translationApproved, translationCandidate } from './phase2';
+import { legalPages } from '@/content/legal';
 
 export type EditionState = 'draft' | 'translated' | 'reviewed' | 'published';
 export type Edition = {
-  id: string; locale: string; path: string; kind: 'core' | 'archive' | 'article' | 'search';
+  id: string; locale: string; path: string; kind: 'core' | 'archive' | 'article' | 'search' | 'legal';
   state: EditionState; approval: string | null; source: string;
   title: string; description: string; contentLanguage: string; sitemap: boolean;
   coreMetadata?: { title: string; description: string };
@@ -106,6 +107,14 @@ for (const translation of allTranslationCandidates) {
     source: `phase2:${translation.sourcePath}@${translation.sourceRevisionSHA256}`,
   });
 }
+// Owner-supplied legal editions are Italian only, independently of core-page approvals.
+editions.push(...legalPages.map(content => ({
+  id: content.path.slice(1), locale: 'it', path: content.path, kind: 'legal' as const,
+  title: content.title, description: content.description, contentLanguage: 'it',
+  state: 'published' as const, approval: 'Owner-supplied legal texts, 23 November 2026',
+  source: 'offroadstore/marenettobuild legal-pages; content/legal.ts',
+  sitemap: true,
+})));
 export const editionByPath = new Map(editions.map(edition => [edition.path, edition]));
 export function editionDisplayStatus(edition: Edition) {
   if (edition.translationRevision) return edition.approval ? '' : 'Traduzione confrontata · da approvare';

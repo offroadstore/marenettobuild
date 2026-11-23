@@ -327,6 +327,7 @@ export const GetPublicMonitoringResponse = zod.object({
   "enabled": zod.boolean(),
   "origin": zod.string(),
   "runtimeOrigin": zod.string().describe('Dedicated HTTPS analytics origin on a different registrable domain; never the site or console origin.'),
+  "mode": zod.enum(['direct', 'isolated']).optional().describe('Direct consent-gated site loader, or the retained isolated runtime.'),
   "measurementId": zod.string(),
   "privacyUrl": zod.string(),
   "privacyVersion": zod.string(),
@@ -1375,11 +1376,7 @@ export const CreateProjectRequestBody = zod.object({
 })
 
 export const CreateProjectRequestResponse = zod.object({
-  "code": zod.string(),
-  "status": zod.enum(['received']),
-  "createdAt": zod.coerce.date(),
-  "notificationStatus": zod.enum(['pending_provider', 'sending', 'sent', 'failed']),
-  "isSynthetic": zod.boolean()
+  "status": zod.enum(['sent'])
 })
 
 

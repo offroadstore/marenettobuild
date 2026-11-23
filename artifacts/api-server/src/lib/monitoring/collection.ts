@@ -2,6 +2,7 @@ import type { MonitoringSettingsRecord } from "@workspace/db";
 import { environment, hash, oauthConfig, MonitoringError } from "./core";
 import { authHeaders, googleJson } from "./google";
 import { getDomain } from "tldts";
+import legalPolicy from "../../../../../lib/legal-policy/analytics.json";
 
 // Deliberately independent of the preview host and the historical website discovery.
 export function collectionEnvironment() {
@@ -13,10 +14,10 @@ export function collectionEnvironment() {
       !/(?:replit\.(?:dev|app)|repl\.co|localhost|\.invalid)$/.test(u.hostname) &&
       /^[a-z0-9-]+(?:\.[a-z0-9-]+)+$/.test(u.hostname) && !/^[\d.]+$/.test(u.hostname)) origin = u.origin;
   } catch { /* missing or malformed is blocked */ }
-  const privacyVersion = process.env.MARENETTO_ANALYTICS_PRIVACY_VERSION ?? "";
+  const privacyVersion = legalPolicy.privacyVersion;
   let privacyUrl = "";
   try {
-    const u = new URL(process.env.MARENETTO_ANALYTICS_PRIVACY_URL ?? "");
+    const u = new URL(legalPolicy.privacyUrl);
     if (origin && u.origin === origin && !u.search && !u.hash && !u.username && !u.password) privacyUrl = u.href;
   } catch { /* no unapproved notice */ }
   let runtimeOrigin = "";

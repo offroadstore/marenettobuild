@@ -286,6 +286,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .request-aside h2 { font-size:42px; margin:20px 0 16px; letter-spacing:-.06em; }
 .request-aside p { color:#666c65; font-size:13px; line-height:1.8; }
 .form-card { background:var(--stone); padding:38px; }
+.request-fields { border:0; margin:0; padding:0; min-width:0; }
 .form-section-title { font-size:17px; margin:0 0 22px; font-weight:600; letter-spacing:-.03em; }
 .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px 16px; }
 .field { display:flex; flex-direction:column; gap:8px; }

@@ -100,7 +100,7 @@ export function AnalyticsPreferences({ publicEditions }: { publicEditions: reado
     browserAnalytics()?.consent(next);
     setChoice(next); setOpen(false);
     try {
-      if (config && enabled) localStorage.setItem(CONSENT_KEY, JSON.stringify({ choice: next, origin: config.origin, runtimeOrigin: config.runtimeOrigin, version: config.privacyVersion, id: config.measurementId, at: Date.now() }));
+      if (config && enabled) localStorage.setItem(CONSENT_KEY, JSON.stringify({ choice: next, mode: config.mode ?? 'isolated', origin: config.origin, runtimeOrigin: config.runtimeOrigin, version: config.privacyVersion, id: config.measurementId, at: Date.now() }));
       else localStorage.removeItem(CONSENT_KEY);
     } catch { /* no persistent preference without storage */ }
     opener.current?.focus();
@@ -113,7 +113,7 @@ export function AnalyticsPreferences({ publicEditions }: { publicEditions: reado
       <button type="button" onClick={() => choose('rejected')} data-testid="analytics-withdraw">{text[4]}</button>
     </div>
     {show && <section id="analytics-options" aria-label={text[0]}>
-      <p>{text[1]}</p>{enabled && <a href={config!.privacyUrl} target="_blank" rel="noopener noreferrer">{text[6]}</a>}
+      <p>{text[1]}</p><a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/cookie`} target="_blank" rel="noopener noreferrer">{text[6]}</a>
       <div className="analytics-controls">
         <button type="button" disabled={!enabled} onClick={() => choose('accepted')} data-testid="analytics-accept">{text[2]}</button>
         <button type="button" onClick={() => choose('rejected')} data-testid="analytics-reject">{text[3]}</button>

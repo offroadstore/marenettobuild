@@ -25,6 +25,7 @@ export async function exportEditorialCatalog() {
     });
   }
   for (const edition of editions) {
+    if (edition.kind === 'legal') continue; // Immutable owner-supplied texts, not CMS drafts.
     const id = edition.id.startsWith('historical:') ? identity(edition.id.slice(11)) : edition.id;
     const existing = records.find(record => record.identity === id && record.locale === edition.locale);
     const article = articles.find(article => article.slug === id);

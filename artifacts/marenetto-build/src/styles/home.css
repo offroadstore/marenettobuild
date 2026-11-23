@@ -1,3 +1,10 @@
+.legal-page { padding-block: 4rem; max-width: 960px; overflow-wrap: anywhere; }
+.legal-page h1 { margin-bottom: 1.5rem; }
+.legal-page section { margin-block: 2rem; }
+.legal-page h2 { margin-bottom: 1rem; }
+.legal-page p, .legal-page li { line-height: 1.75; margin-bottom: .8rem; }
+.legal-page ul { list-style: disc; padding-inline-start: 1.5rem; }
+.footer-ai-notice { margin-top: 1rem; font-size: .8rem; }
 /* Homepage presentation only — approved layout. Tokens from brand.css. Sans only. */
 .mbh { background:var(--mb-white, #fff); }
 .mbh-wrap { width:min(1260px, calc(100% - 2 * var(--mb-gutter))); margin-inline:auto; }

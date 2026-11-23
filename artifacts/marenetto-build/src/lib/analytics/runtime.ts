@@ -1,5 +1,11 @@
 import type { PublicMonitoring } from '@workspace/api-client-react';
 import publicHosts from '../../config/public-hosts.json';
+import legalPolicy from '../../../../../lib/legal-policy/analytics.json';
+import { LEGAL_VERSION } from '../../content/legal';
+import directPolicy from '../../../../../lib/legal-policy/direct-analytics.json';
+
+export const ANALYTICS_LEGAL_POLICY = legalPolicy;
+if (legalPolicy.privacyVersion !== LEGAL_VERSION) throw new Error('Analytics legal version differs from the supplied notice.');
 
 export type AnalyticsEvent = 'page_view' | 'contact_click' | 'generate_lead';
 export type Choice = 'accepted' | 'rejected';
@@ -22,11 +28,17 @@ export function validConfig(config: PublicMonitoring | null, origin: string, now
     !/^G-[A-Z0-9]{4,20}$/.test(config.measurementId) || !config.privacyVersion) return false;
   try {
     if (new URL(config.privacyUrl).origin !== origin) return false;
+    if (origin === 'https://www.marenettobuild.com' &&
+      (config.privacyUrl !== legalPolicy.privacyUrl || config.privacyVersion !== LEGAL_VERSION)) return false;
+    if (config.mode === 'direct') {
+      if (config.origin !== directPolicy.origin || config.measurementId !== directPolicy.measurementId || config.runtimeOrigin !== '') return false;
+    } else {
     const runtime = new URL(config.runtimeOrigin);
     // Both build validation and the server verify registrable-domain isolation.
     // The browser accepts only exact hosts from the reviewed configuration.
     if (runtime.origin !== config.runtimeOrigin || runtime.port ||
       isPreviewOrigin(config.runtimeOrigin, publicHosts.analyticsRuntimeHosts)) return false;
+    }
   } catch { return false; }
   const expiry = Date.parse(config.expiresAt);
   return Number.isFinite(expiry) && expiry > now && expiry <= now + 65000;
@@ -34,7 +46,7 @@ export function validConfig(config: PublicMonitoring | null, origin: string, now
 export function consentValue(raw: string | null, config: PublicMonitoring, now = Date.now()): Choice | null {
   try {
     const v = JSON.parse(raw ?? 'null');
-    return v && v.origin === config.origin && v.runtimeOrigin === config.runtimeOrigin && v.version === config.privacyVersion && v.id === config.measurementId &&
+    return v && (v.mode ?? 'isolated') === (config.mode ?? 'isolated') && v.origin === config.origin && v.runtimeOrigin === config.runtimeOrigin && v.version === config.privacyVersion && v.id === config.measurementId &&
       ['accepted', 'rejected'].includes(v.choice) && Number.isFinite(v.at) && v.at <= now && now - v.at < CONSENT_MAX_AGE ? v.choice : null;
   } catch { return null; }
 }
@@ -46,8 +58,8 @@ export interface RuntimePort {
   clearCookies(): void;
 }
 
-// One state machine owns every event. Tests inject a recording port; production
-// uses a disposable iframe so Google cannot keep background timers after revocation.
+// One state machine owns every event. Tests inject a recording port. Direct mode
+// disables collection and reloads on stop; the isolated alternative destroys its frame.
 export class AnalyticsRuntime {
   private config: PublicMonitoring | null = null;
   private choice: Choice | null = null;
@@ -58,7 +70,7 @@ export class AnalyticsRuntime {
   private receipts = new Set<string>();
   constructor(private port: RuntimePort, private origin: string, private clock = () => Date.now()) {}
   configure(config: PublicMonitoring | null) {
-    const identity = config ? JSON.stringify([config.origin, config.runtimeOrigin, config.measurementId, config.privacyVersion]) : '';
+    const identity = config ? JSON.stringify([config.mode, config.origin, config.runtimeOrigin, config.measurementId, config.privacyVersion]) : '';
     if (identity !== this.identity || !validConfig(config, this.origin, this.clock())) {
       this.stop(); this.choice = null;
     }

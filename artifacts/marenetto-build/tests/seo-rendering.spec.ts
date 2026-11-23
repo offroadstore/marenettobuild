@@ -24,7 +24,7 @@ test('ICU calendar hydration regression in bs mk be', async ({ page }, testInfo)
   expect(errors).toEqual([]);
 });
 
-test('isolated synthetic forms keep data after errors and show a receipt', async ({ page }, testInfo) => {
+test('email-only forms keep data after errors and show only a send confirmation', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'production-preview');
   test.setTimeout(120_000);
   const results = [];
@@ -34,7 +34,7 @@ test('isolated synthetic forms keep data after errors and show a receipt', async
     await page.route('**/api/project-requests', async route => {
       requests.push(route.request().postDataJSON());
       await route.fulfill({ status: requests.length === 1 ? 503 : 200, contentType: 'application/json',
-        body: JSON.stringify(requests.length === 1 ? { error: 'synthetic isolated failure' } : { code: 'SYNTHETIC-SEO-ONLY', status: 'received', notificationStatus: 'isolated_test', isSynthetic: true }) });
+        body: JSON.stringify(requests.length === 1 ? { error: 'synthetic isolated failure' } : { status: 'sent' }) });
     });
     const requestEdition = matrix.editions.find((edition: { locale: string; id: string; path: string }) => edition.locale === locale && edition.id === 'request' && !edition.path.startsWith('/__'));
     await page.goto(requestEdition.path, { waitUntil: 'domcontentloaded' });
@@ -50,7 +50,9 @@ test('isolated synthetic forms keep data after errors and show a receipt', async
     await expect(page.getByTestId('status-error')).toBeVisible();
     await expect(page.getByTestId('input-name')).toHaveValue('Synthetic SEO Test');
     await page.getByTestId('button-submit').click();
-    await expect(page.locator('.success-code')).toHaveText('SYNTHETIC-SEO-ONLY');
+    await expect(page.getByTestId('status-success')).toBeVisible();
+    await expect(page.locator('.success-code')).toHaveCount(0);
+    await expect(page.getByTestId('input-name')).not.toBeVisible();
     expect(requests).toHaveLength(2);
     expect(requests[0].idempotencyKey).toBe(requests[1].idempotencyKey);
     results.push({ locale, errorPreservedData: true, syntheticReceipt: true, realApiCalls: 0, realNotifications: 0 });

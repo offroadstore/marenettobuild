@@ -966,6 +966,7 @@ components:
         enabled: { type: boolean }
         origin: { type: string }
         runtimeOrigin: { type: string, description: "Dedicated HTTPS analytics origin on a different registrable domain; never the site or console origin." }
+        mode: { type: string, enum: [direct, isolated], description: "Direct consent-gated site loader, or the retained isolated runtime." }
         measurementId: { type: string }
         privacyUrl: { type: string }
         privacyVersion: { type: string }
@@ -1339,25 +1340,11 @@ components:
     ProjectRequestReceipt:
       type: object
       properties:
-        code:
-          type: string
         status:
           type: string
-          enum: [received]
-        createdAt:
-          type: string
-          format: date-time
-        notificationStatus:
-          type: string
-          enum: [pending_provider, sending, sent, failed]
-        isSynthetic:
-          type: boolean
+          enum: [sent]
       required:
-        - code
         - status
-        - createdAt
-        - notificationStatus
-        - isSynthetic
     LeadStatus:
       type: string
       enum: [new, reviewing, waiting, approved, closed]

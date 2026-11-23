@@ -214,11 +214,24 @@ export interface MonitoringCollectionInput {
   enabled: boolean;
 }
 
+/**
+ * Direct consent-gated site loader, or the retained isolated runtime.
+ */
+export type PublicMonitoringMode = typeof PublicMonitoringMode[keyof typeof PublicMonitoringMode];
+
+
+export const PublicMonitoringMode = {
+  direct: 'direct',
+  isolated: 'isolated',
+} as const;
+
 export interface PublicMonitoring {
   enabled: boolean;
   origin: string;
   /** Dedicated HTTPS analytics origin on a different registrable domain; never the site or console origin. */
   runtimeOrigin: string;
+  /** Direct consent-gated site loader, or the retained isolated runtime. */
+  mode?: PublicMonitoringMode;
   measurementId: string;
   privacyUrl: string;
   privacyVersion: string;
@@ -675,25 +688,11 @@ export type ProjectRequestReceiptStatus = typeof ProjectRequestReceiptStatus[key
 
 
 export const ProjectRequestReceiptStatus = {
-  received: 'received',
-} as const;
-
-export type ProjectRequestReceiptNotificationStatus = typeof ProjectRequestReceiptNotificationStatus[keyof typeof ProjectRequestReceiptNotificationStatus];
-
-
-export const ProjectRequestReceiptNotificationStatus = {
-  pending_provider: 'pending_provider',
-  sending: 'sending',
   sent: 'sent',
-  failed: 'failed',
 } as const;
 
 export interface ProjectRequestReceipt {
-  code: string;
   status: ProjectRequestReceiptStatus;
-  createdAt: string;
-  notificationStatus: ProjectRequestReceiptNotificationStatus;
-  isSynthetic: boolean;
 }
 
 export type LeadStatus = typeof LeadStatus[keyof typeof LeadStatus];

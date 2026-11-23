@@ -1,4 +1,9 @@
 ---
+
+The owner's newer direction supersedes the dedicated-domain requirement for
+the proposed direct GA4 path only. Retain the isolated runtime implementation.
+Read `contact-and-direct-analytics-decisions.md` before new analytics work;
+separate plan approval is required before implementing that change.
 name: Monitoring consent boundary
 description: Distinguish owner authorization to configure reporting from permission to track visitors.
 ---

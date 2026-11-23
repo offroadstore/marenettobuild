@@ -1,6 +1,7 @@
 import type { PublicMonitoring } from '@workspace/api-client-react';
 import { AnalyticsRuntime, type RuntimePort, type AnalyticsEvent } from './runtime';
 import { callAdvertisingConversions } from './call-conversions';
+import { directPort } from './direct';
 
 export function clearAnalyticsCookies() {
   const names = document.cookie.split(';').map(c => c.trim().split('=')[0]).filter(n => /^_ga(?:_|$)|^_gid$|^_gat(?:_|$)/.test(n));
@@ -79,7 +80,19 @@ export function iframePort(): RuntimePort {
 let runtime: AnalyticsRuntime | null = null;
 export function browserAnalytics() {
   if (typeof window === 'undefined') return null;
-  return runtime ??= new AnalyticsRuntime(iframePort(), window.location.origin);
+  if (!runtime) {
+    const isolated = iframePort(), direct = directPort(clearAnalyticsCookies);
+    let port: RuntimePort = isolated;
+    const dispatch: RuntimePort = {
+      start(config, path) { port = config.mode === 'direct' ? direct : isolated; port.start(config, path); },
+      send(...args) { port.send(...args); },
+      stop() { port.stop(); },
+      clearCookies: clearAnalyticsCookies,
+    };
+    runtime = new AnalyticsRuntime(dispatch, window.location.origin);
+    window.addEventListener('pagehide', () => runtime?.stop());
+  }
+  return runtime;
 }
 export const trackSavedRequest = (receipt: { code: string; isSynthetic: boolean }) => {
   browserAnalytics()?.saved(receipt);

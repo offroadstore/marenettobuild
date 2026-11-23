@@ -15,7 +15,9 @@ import { exchangeToken, gaPropertyTimezone, listProperties, revokeToken } from "
 import { accessToken, getSettings, lockedSettings, recordCheck, savePatch, setConnection } from "../lib/monitoring/store";
 import { fetchReport, reportCache } from "../lib/monitoring/reports";
 import { operationalReport } from "../lib/monitoring/operational";
-import { collectionStatus, realtimeReceipt, verifyWebStream } from "../lib/monitoring/collection";
+import { collectionEnvironment, collectionStatus, realtimeReceipt, verifyWebStream } from "../lib/monitoring/collection";
+import directPolicy from "../../../../lib/legal-policy/direct-analytics.json";
+import legalPolicy from "../../../../lib/legal-policy/analytics.json";
 
 const router: IRouter = Router();
 const prefix = "/internal/monitoring";
@@ -62,7 +64,15 @@ const propertyFor = (row: Awaited<ReturnType<typeof getSettings>>, service: Goog
 
 router.get("/monitoring/public", async (req, res) => {
   res.set({ "Cache-Control": "no-store", "Referrer-Policy": "no-referrer", "Vary": "Host" });
-  const off = { enabled: false, origin: "", runtimeOrigin: "", measurementId: "", privacyUrl: "", privacyVersion: "", expiresAt: new Date(Date.now() + 60000).toISOString() };
+  if (environment() === "production" && requestHost(req) === new URL(directPolicy.origin).host && req.get("sec-fetch-site") !== "cross-site") {
+    res.json(GetPublicMonitoringResponse.parse({
+      ...directPolicy, enabled: true, runtimeOrigin: '', ...legalPolicy,
+      expiresAt: new Date(Date.now() + 60000).toISOString(),
+    }));
+    return;
+  }
+  const policy = collectionEnvironment();
+  const off = { enabled: false, origin: "", runtimeOrigin: "", measurementId: "", privacyUrl: policy.privacyUrl || "https://www.marenettobuild.com/cookie", privacyVersion: policy.privacyVersion, expiresAt: new Date(Date.now() + 60000).toISOString() };
   try {
     const row = await getSettings(), status = collectionStatus(row);
     const allowed = status.enabled && new URL(status.collection.origin).host === requestHost(req) && req.get("sec-fetch-site") !== "cross-site";

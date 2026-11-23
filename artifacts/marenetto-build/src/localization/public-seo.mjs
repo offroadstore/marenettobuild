@@ -47,6 +47,10 @@ const text = value => String(value ?? '').replace(/<[^>]+>/g, ' ').replace(/&nbs
   .replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/\s+/g, ' ').trim();
 
 export function releaseMetadata(edition, html = '', entries = []) {
+  if (edition.kind === 'legal') return {
+    title: edition.title.endsWith(' | Marenetto Build') ? edition.title : `${edition.title} | Marenetto Build`,
+    description: edition.description,
+  };
   const core = homeMetadata[edition.locale] &&
     (edition.id === 'home' ? homeMetadata[edition.locale] : libraryMetadata[edition.locale]?.[edition.id] ?? edition.coreMetadata);
   const genericHome = /^(?:Home|Startseite|Accueil|Inicio|Início|Start|Hjem|Forside|Strona główna|Главная)\s*(?:[|—–-].*)?$/i.test(edition.title);

@@ -5,13 +5,8 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
-import type { ProjectRequestReceiptNotificationStatus } from './projectRequestReceiptNotificationStatus';
 import type { ProjectRequestReceiptStatus } from './projectRequestReceiptStatus';
 
 export interface ProjectRequestReceipt {
-  code: string;
   status: ProjectRequestReceiptStatus;
-  createdAt: Date;
-  notificationStatus: ProjectRequestReceiptNotificationStatus;
-  isSynthetic: boolean;
 }

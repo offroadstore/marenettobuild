@@ -10,5 +10,5 @@ export type ProjectRequestReceiptStatus = typeof ProjectRequestReceiptStatus[key
 
 
 export const ProjectRequestReceiptStatus = {
-  received: 'received',
+  sent: 'sent',
 } as const;

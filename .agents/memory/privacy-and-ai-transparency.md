@@ -3,8 +3,12 @@ name: Privacy and AI transparency
 description: Owner requirements for factual privacy notices, conditional consent and per-image AI disclosure.
 ---
 
-Privacy and cookie information, controls and AI transparency must cover all
-12 public languages. Use only documented company details, actual services and
+General consent controls and per-image AI transparency must cover all
+12 public languages. The owner-supplied legal pages are an explicit exception:
+keep `/privacy` and `/cookie` exclusively Italian, with their original wording
+unchanged from the latest owner-designated remote revision as documented in
+`legal-text-fidelity.md`. Do not recreate foreign legal editions or replace the supplied general
+AI notice with older wording. Use only documented company details, actual services and
 approved retention periods; disclose missing or unconfirmed information.
 
 **Why:** The owner requires verified implementation, not invented legal facts
@@ -15,6 +19,11 @@ If only technical tools are active, do not add an unnecessary consent banner.
 Otherwise block consent-requiring tools until choice, offer equally prominent
 accept/reject plus customization, record choices minimally and allow revocation
 through footer preferences. Do not confuse a contact request with marketing consent.
+
+The public `/richiesta` form now has an owner-requested email-only direction,
+with no database persistence, subject to a separate plan before implementation;
+see `contact-and-direct-analytics-decisions.md`. Do not confuse this new rule
+with the separate callback flow described below.
 
 For callback enquiries, the owner requires automatic deletion after 24 months,
 except where the enquiry became an acquired client. A privacy-read

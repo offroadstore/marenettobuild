@@ -134,7 +134,8 @@ function Collection({ s, onChanged, setFlash }: { s: MonitoringSettings; onChang
   const pending = save.isPending || verify.isPending || realtime.isPending;
   const success = (result: { message: string }) => { setFlash({ tone: 'info', text: result.message }); onChanged(); };
   return <section className="int-panel mon-block" aria-labelledby="collection-title">
-    <div className="mon-source-head"><h3 id="collection-title">Raccolta visitatori · GA4 diretto</h3><span className={`mon-state ${s.trackingEnabled ? 's-ready' : 's-not_configured'}`} data-testid="status-tracking">{s.trackingEnabled ? 'Abilitata dopo consenso' : 'Tracciamento disattivato'}</span></div>
+    <div className="mon-source-head"><h3 id="collection-title">Runtime isolato · percorso alternativo</h3><span className={`mon-state ${s.trackingEnabled ? 's-ready' : 's-not_configured'}`} data-testid="status-tracking">{s.trackingEnabled ? 'Abilitata dopo consenso' : 'Tracciamento disattivato'}</span></div>
+    <p className="mon-copy">Il sito pubblico usa il percorso GA4 diretto G-D0QJL17CVC, esclusivamente dopo consenso. I controlli e i prerequisiti qui sotto riguardano soltanto il runtime isolato alternativo: non attivano né disattivano il percorso diretto. La ricezione reale in Google va verificata separatamente.</p>
     <p className="mon-copy">{c.status}. La lettura dei report non certifica la ricezione dal nuovo sito. Preview, login, console, demo e revisione sono sempre esclusi, anche dopo navigazione da pagine pubbliche.</p>
     <dl className="mon-meta">
       <div><dt>Origine approvata</dt><dd>{c.origin || 'non confermata'}</dd></div>
