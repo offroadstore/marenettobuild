@@ -50,8 +50,9 @@ function Inner({ lang }: { lang: string }) {
   const { label, href } = useWhatsAppCopy(lang);
   const closeLabel = closeWhatsApp[lang];
 
-  // Keep mobile controls usable by moving to nearby free space before hiding.
-  // If the viewport has no free slot (e.g. a consent dialog), content wins.
+  // Keep controls usable by moving to nearby free space before hiding.
+  // Apply on desktop too: a closed cookie bar must not leave WhatsApp covering
+  // footer contacts or language/preferences links.
   useEffect(() => {
     const box = boxRef.current;
     if (!box || closed) return;
@@ -63,11 +64,10 @@ function Inner({ lang }: { lang: string }) {
     };
     const check = () => {
       frame = 0;
-      if (window.innerWidth >= 700) { move(0, 0); box.removeAttribute('data-obscures-content'); return; }
       if (drag.current) return;
       const rect = box.getBoundingClientRect();
       const obstacles = [...document.querySelectorAll<HTMLElement>(
-        'header, a, button, input, textarea, select, [role="dialog"], h1, h2, h3, h4, h5, h6, p, li, dt, dd, label, figcaption',
+        'header, a, button, input, textarea, select, [role="dialog"], .analytics-preferences, .mb-cbar:not([data-hidden]), h1, h2, h3, h4, h5, h6, p, li, dt, dd, label, figcaption',
       )].flatMap(element => {
         if (box.contains(element) || !element.getClientRects().length) return [];
         const style = getComputedStyle(element);
@@ -90,6 +90,7 @@ function Inner({ lang }: { lang: string }) {
     mutations.observe(document.body, { childList: true, subtree: true });
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', schedule);
+    window.addEventListener('marenetto:fixed-access-resize', schedule);
     window.addEventListener('pointerup', schedule);
     window.addEventListener('pointercancel', schedule);
     document.addEventListener('focusin', schedule);
@@ -104,6 +105,7 @@ function Inner({ lang }: { lang: string }) {
       mutations.disconnect();
       window.removeEventListener('scroll', schedule);
       window.removeEventListener('resize', schedule);
+      window.removeEventListener('marenetto:fixed-access-resize', schedule);
       window.removeEventListener('pointerup', schedule);
       window.removeEventListener('pointercancel', schedule);
       document.removeEventListener('focusin', schedule);

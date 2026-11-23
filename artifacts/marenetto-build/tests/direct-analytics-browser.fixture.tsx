@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import { Link, Router } from 'wouter';
 import { AnalyticsPreferences } from '../src/components/AnalyticsPreferences';
+import { CookiePreferencesLink } from '../src/components/CookiePreferencesLink';
 import { EditorialRuntime } from '../src/lib/editorial-runtime';
 
 createRoot(document.getElementById('root')!).render(<EditorialRuntime initial={[]}><Router>
@@ -10,4 +11,5 @@ createRoot(document.getElementById('root')!).render(<EditorialRuntime initial={[
     <Link href="/internal">Console</Link><Link href="/sign-in">Login</Link><Link href="/sign-up">Register</Link>
     <a href="tel:+3900000000">Phone</a>
   </main>
+  <footer><CookiePreferencesLink lang="it" /></footer>
 </Router></EditorialRuntime>);

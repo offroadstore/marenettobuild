@@ -215,7 +215,7 @@ export function CallRequestAccess({ lang, page }: { lang: string; page: string }
       const visible = (el: DOMRect | undefined) => !!el && el.top < window.innerHeight && el.bottom > 0;
       let blocked = visible(inflow) || (!!footer && footer.top < window.innerHeight);
       if (!blocked) {
-        const els = document.querySelectorAll<HTMLElement>('main a, main button, main input, main select, main textarea, main h1, main h2, main h3, main p, main li, main label, main img, [data-testid="whatsapp-float"], .mb-cbar, [role="dialog"]');
+        const els = document.querySelectorAll<HTMLElement>('main a, main button, main input, main select, main textarea, main h1, main h2, main h3, main p, main li, main label, main img, [data-testid="whatsapp-float"], .mb-cbar:not([data-hidden]), .analytics-preferences, [role="dialog"]');
         for (const el of els) { if (el === btn || btn.contains(el)) continue; const o = el.getBoundingClientRect(); if (o.width && o.height && hit(o)) { blocked = true; break; } }
       }
       btn.toggleAttribute('data-hidden', blocked);
@@ -223,10 +223,11 @@ export function CallRequestAccess({ lang, page }: { lang: string; page: string }
     const schedule = () => { if (!frame) frame = requestAnimationFrame(check); };
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', schedule);
+    window.addEventListener('marenetto:fixed-access-resize', schedule);
     const mo = new MutationObserver(schedule);
     mo.observe(document.body, { childList: true, subtree: true });
     schedule();
-    return () => { cancelAnimationFrame(frame); mo.disconnect(); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); };
+    return () => { cancelAnimationFrame(frame); mo.disconnect(); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); window.removeEventListener('marenetto:fixed-access-resize', schedule); };
   }, [page]);
 
   const ctx = CTX.includes(page) ? c.ctx[page as CtxPage] : null;

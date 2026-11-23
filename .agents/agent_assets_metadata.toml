@@ -560,3 +560,59 @@ mtime_ms = 1795427209188
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/c735dd27-15df-4dff-93b3-57808c2f3e0c/8f2dbca0-23e2-4a36-b917-14e97485ba81"
 storage_version_token = "1795427245688562"
 content_type = "text/html"
+
+[[outputs]]
+id = "xdp6gpF5v9xrYHXYp5edf"
+uri = "file://generated-artifacts/cookie-consent/mobile375-initial.png"
+type = "image"
+title = "Cookie · mobile 375 px"
+description = "Stato iniziale: barra compatta, azioni equivalenti e contatti separati."
+logical_id = "fbd8fd2f-67ef-4d44-9d92-496a4934db6e"
+content_hash = "sha256:6dc4c4e925c4f64e8710e2983a8ee8ab9c2054cf6acd4de66393c0376c00d823"
+size = 270387
+mtime_ms = 1795441224330
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/fbd8fd2f-67ef-4d44-9d92-496a4934db6e/8dcc1051-38c8-4d39-8b1f-1da412680f7b"
+storage_version_token = "1795441660108332"
+content_type = "image/png"
+
+[[outputs]]
+id = "XpWjN03o8AvHZVuFysEjh"
+uri = "file://generated-artifacts/cookie-consent/mobile375-accepted.png"
+type = "image"
+title = "Cookie · scelta salvata"
+description = "Mobile 375 px dopo Accetta: nessun controllo cookie fisso residuo."
+logical_id = "482f04dc-5d12-41cf-85e0-1d0cc3d093d8"
+content_hash = "sha256:3fcd5fed9f9e9b66a8f04a91ad1062244503ebb1d8f7c212b62f270d8f01ac43"
+size = 272195
+mtime_ms = 1795441236714
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/482f04dc-5d12-41cf-85e0-1d0cc3d093d8/da710153-a7a7-4005-b521-e21014b0bd67"
+storage_version_token = "1795441660692755"
+content_type = "image/png"
+
+[[outputs]]
+id = "VqcKIz1pV_jIYemXpefBl"
+uri = "file://generated-artifacts/cookie-consent/desktop1440-initial.png"
+type = "image"
+title = "Cookie · desktop"
+description = "Stato iniziale a 1440 px; motto e contatti non coperti."
+logical_id = "87f41e35-c134-423a-884a-4b15835252c5"
+content_hash = "sha256:623106e0a1feef2d4cd647ec22f1de803b76206b9d398ca90d5eb8f72c79c909"
+size = 1237247
+mtime_ms = 1795441186442
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/87f41e35-c134-423a-884a-4b15835252c5/68922bb0-7614-45d2-8001-054846c827be"
+storage_version_token = "1795441661312406"
+content_type = "image/png"
+
+[[outputs]]
+id = "arupuva8k91kDghNWOSi-"
+uri = "file://generated-artifacts/cookie-consent/desktop1440-accepted.png"
+type = "image"
+title = "Cookie · desktop dopo la scelta"
+description = "Barra rimossa dopo il consenso, senza controlli flottanti residui."
+logical_id = "63cf015a-6e1e-4f23-8767-65d5b081ab3b"
+content_hash = "sha256:e8ad742ddcd2a6caf0f7b0dfec825a955b37c1794ec841b4dd5b0851eb80e8a4"
+size = 1245685
+mtime_ms = 1795441199798
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/63cf015a-6e1e-4f23-8767-65d5b081ab3b/b4232a25-1b67-483f-9558-5fae2e4e2f8f"
+storage_version_token = "1795441661907514"
+content_type = "image/png"

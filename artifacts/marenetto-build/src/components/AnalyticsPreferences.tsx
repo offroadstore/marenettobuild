@@ -5,7 +5,10 @@ import { getLocaleDirection } from '@/localization/locales';
 import { useActiveEditorial, useEditorialStatus } from '@/lib/editorial-runtime';
 import { browserAnalytics } from '@/lib/analytics/browser';
 import { analyticsCopy } from '@/lib/analytics/copy';
-import { CONSENT_KEY, consentValue, isPreviewOrigin, safePath, validConfig, type Choice } from '@/lib/analytics/runtime';
+import { CONSENT_KEY, CONSENT_MAX_AGE, consentValue, excludedPath, isPreviewOrigin, safePath, validConfig, type Choice } from '@/lib/analytics/runtime';
+import { legalPages } from '@/content/legal';
+import { useFixedAccessSpace } from '@/lib/analytics/fixed-access';
+import { COOKIE_PREFERENCES_EVENT } from './CookiePreferencesLink';
 import './analytics-preferences.css';
 
 export function AnalyticsPreferences({ publicEditions }: { publicEditions: readonly { path: string; locale: string }[] }) {
@@ -14,7 +17,10 @@ export function AnalyticsPreferences({ publicEditions }: { publicEditions: reado
   const [config, setConfig] = useState<PublicMonitoring | null>(null);
   const [choice, setChoice] = useState<Choice | null>(null);
   const [open, setOpen] = useState(false);
-  const opener = useRef<HTMLButtonElement>(null);
+  const [restoredConfig, setRestoredConfig] = useState<PublicMonitoring | null>(null);
+  const opener = useRef<HTMLElement | null>(null);
+  const bar = useRef<HTMLElement>(null);
+  useFixedAccessSpace();
   const paths = useMemo(() => {
     const records = new Map(publicEditions.map(e => [e.path, true]));
     for (const edition of active) for (const candidate of [edition.path, ...(edition.aliases ?? [])]) records.set(candidate, edition.revisionId !== 'withdrawn');
@@ -24,11 +30,33 @@ export function AnalyticsPreferences({ publicEditions }: { publicEditions: reado
   const locale = active.find(e => [e.path, encodeURI(e.path)].includes(path))?.locale ?? publicEditions.find(e => [e.path, encodeURI(e.path)].includes(path))?.locale ?? 'it';
   const text = analyticsCopy[locale];
   const enabled = Boolean(config && typeof window !== 'undefined' && validConfig(config, window.location.origin));
-  const visible = Boolean(allowed && text);
+  const visible = Boolean(text && !excludedPath(path) && (allowed || legalPages.some(page => page.path === path)));
+  // Legal pages share the footer controls, but never extend the measured inventory.
   const available = Boolean(visible && enabled);
+  const show = visible && (open || (available && restoredConfig === config && !choice));
 
   useEffect(() => {
-    if (!allowed || !text || isPreviewOrigin(window.location.origin)) { browserAnalytics()?.navigate(null); setConfig(null); return; }
+    const reopen = (event: Event) => {
+      if (!visible) return;
+      opener.current = (event as CustomEvent<HTMLElement>).detail;
+      setOpen(value => !value);
+      requestAnimationFrame(() => bar.current?.focus({ preventScroll: true }));
+    };
+    window.addEventListener(COOKIE_PREFERENCES_EVENT, reopen);
+    return () => window.removeEventListener(COOKIE_PREFERENCES_EVENT, reopen);
+  }, [visible]);
+  useEffect(() => { setOpen(false); opener.current = null; }, [path]);
+  useEffect(() => {
+    try {
+      if (sessionStorage.getItem('marenetto.cookie-focus') === 'footer') {
+        sessionStorage.removeItem('marenetto.cookie-focus');
+        document.querySelector<HTMLElement>('[data-testid="cookie-preferences-link"]')?.focus({ preventScroll: true });
+      }
+    } catch { /* optional focus restoration, never a consent fallback */ }
+  }, []);
+
+  useEffect(() => {
+    if (!visible || !text || isPreviewOrigin(window.location.origin)) { browserAnalytics()?.navigate(null); setConfig(null); return; }
     let alive = true, generation = 0;
     let expiry: ReturnType<typeof setTimeout>;
     const refresh = async () => {
@@ -45,22 +73,33 @@ export function AnalyticsPreferences({ publicEditions }: { publicEditions: reado
     const timer = setInterval(refresh, 30000);
     window.addEventListener('focus', refresh);
     return () => { alive = false; clearInterval(timer); clearTimeout(expiry); window.removeEventListener('focus', refresh); };
-  }, [allowed, text]);
+  }, [allowed, text, visible]);
 
   useEffect(() => {
     const runtime = browserAnalytics();
     runtime?.configure(config);
-    runtime?.navigate(available ? allowed : null);
-    if (!available || !config) { runtime?.consent(null); setChoice(null); return; }
+    if (!available || !config) { runtime?.navigate(null); runtime?.consent(null); setChoice(null); setRestoredConfig(null); return; }
+    let timer: ReturnType<typeof setTimeout>;
     const restore = () => {
       let saved: Choice | null = null;
-      try { saved = consentValue(localStorage.getItem(CONSENT_KEY), config); } catch { /* storage denied: default no tracking */ }
-      setChoice(saved); runtime?.consent(saved);
+      clearTimeout(timer);
+      try {
+        const raw = localStorage.getItem(CONSENT_KEY);
+        saved = consentValue(raw, config);
+        // A long-lived open tab must expire too. Never refresh the stored timestamp.
+        if (saved) timer = setTimeout(restore, Math.min(86400000, Math.max(1, JSON.parse(raw!).at + CONSENT_MAX_AGE - Date.now())));
+      } catch { /* storage denied: default no tracking */ }
+      setChoice(saved); setRestoredConfig(config); runtime?.consent(saved);
+      runtime?.navigate(allowed);
     };
     restore();
-    const changed = (event: StorageEvent) => { if (!event.key || event.key === CONSENT_KEY) restore(); };
+    const changed = (event: StorageEvent) => {
+      if ((!event.storageArea || event.storageArea === localStorage) && (!event.key || event.key === CONSENT_KEY)) {
+        restore(); setOpen(false);
+      }
+    };
     window.addEventListener('storage', changed);
-    return () => window.removeEventListener('storage', changed);
+    return () => { clearTimeout(timer); window.removeEventListener('storage', changed); };
   }, [config, available, allowed]);
 
   // Stop BEFORE history changes into an excluded/unknown route; React effects
@@ -96,29 +135,35 @@ export function AnalyticsPreferences({ publicEditions }: { publicEditions: reado
   useEffect(() => () => browserAnalytics()?.navigate(null), []);
 
   const choose = (next: Choice) => {
-    if (next === 'accepted' && (!config || !enabled)) return;
+    if (!config || !validConfig(config, window.location.origin)) return;
+    if (next === 'rejected' && choice === 'accepted' && config.mode === 'direct' && opener.current?.isConnected) {
+      try { sessionStorage.setItem('marenetto.cookie-focus', 'footer'); } catch { /* storage may be denied */ }
+    }
     browserAnalytics()?.consent(next);
     setChoice(next); setOpen(false);
     try {
       if (config && enabled) localStorage.setItem(CONSENT_KEY, JSON.stringify({ choice: next, mode: config.mode ?? 'isolated', origin: config.origin, runtimeOrigin: config.runtimeOrigin, version: config.privacyVersion, id: config.measurementId, at: Date.now() }));
       else localStorage.removeItem(CONSENT_KEY);
     } catch { /* no persistent preference without storage */ }
-    opener.current?.focus();
+    if (opener.current?.isConnected) opener.current.focus({ preventScroll: true });
+    opener.current = null;
   };
-  if (!visible || !text) return null;
-  const show = open || (enabled && !choice);
-  return <aside className={`analytics-preferences${enabled ? '' : ' analytics-preferences--inactive'}`} lang={locale} dir={getLocaleDirection(locale)} aria-label={text[0]} data-testid="analytics-preferences">
-    <div className="analytics-controls">
-      <button type="button" ref={opener} onClick={() => setOpen(v => !v)} aria-expanded={show} aria-controls="analytics-options">{text[0]}</button>
-      <button type="button" onClick={() => choose('rejected')} data-testid="analytics-withdraw">{text[4]}</button>
-    </div>
-    {show && <section id="analytics-options" aria-label={text[0]}>
-      <p>{text[1]}</p><a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/cookie`} target="_blank" rel="noopener noreferrer">{text[6]}</a>
-      <div className="analytics-controls">
-        <button type="button" disabled={!enabled} onClick={() => choose('accepted')} data-testid="analytics-accept">{text[2]}</button>
-        <button type="button" onClick={() => choose('rejected')} data-testid="analytics-reject">{text[3]}</button>
-        {(choice || !enabled) && <button type="button" onClick={() => { setOpen(false); opener.current?.focus(); }}>{text[5]}</button>}
+  return <>
+    <div className="fixed-access-space" aria-hidden="true" />
+    {show && text && <aside ref={bar} id="analytics-options" tabIndex={-1} className="analytics-preferences"
+      lang={locale} dir={getLocaleDirection(locale)} aria-label={text.preferences} data-testid="analytics-preferences"
+      onKeyDown={event => {
+        if (event.key === 'Escape' && open) {
+          setOpen(false); opener.current?.focus({ preventScroll: true }); opener.current = null;
+        }
+      }}>
+      <div className="analytics-preferences__inner">
+        <p>{available ? text.message : text.inactive} <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/cookie`}>{text.info}</a></p>
+        {available && <div className="analytics-actions">
+          <button type="button" onClick={() => choose('accepted')} data-testid="analytics-accept">{text.accept}</button>
+          <button type="button" onClick={() => choose('rejected')} data-testid="analytics-reject">{text.reject}</button>
+        </div>}
       </div>
-    </section>}
-  </aside>;
+    </aside>}
+  </>;
 }

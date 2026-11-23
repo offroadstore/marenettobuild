@@ -3,6 +3,7 @@
 import { createRoot } from 'react-dom/client';
 import { Router, Link } from 'wouter';
 import { AnalyticsPreferences } from '../src/components/AnalyticsPreferences';
+import { CookiePreferencesLink } from '../src/components/CookiePreferencesLink';
 import { EditorialRuntime } from '../src/lib/editorial-runtime';
 import { trackSavedRequest } from '../src/lib/analytics/browser';
 import publicHosts from '../src/config/public-hosts.json';
@@ -28,6 +29,7 @@ function Harness() {
         if (r.ok) trackSavedRequest(await r.json());
       }}>Submit fixture</button>
     </main>
+    <footer><CookiePreferencesLink lang="it" /></footer>
   </Router></EditorialRuntime>;
 }
 createRoot(document.getElementById('root')!).render(<Harness />);

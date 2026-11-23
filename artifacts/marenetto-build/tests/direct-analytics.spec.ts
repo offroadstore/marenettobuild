@@ -48,7 +48,7 @@ test('direct GA waits for consent, sanitizes events, reloads on revocation and n
   expect(loads).toHaveLength(0);
   await page.getByTestId('analytics-reject').click();
   await page.reload(); expect(loads).toHaveLength(0);
-  await page.getByRole('button', { name: 'Preferenze analytics', exact: true }).click();
+  await page.getByTestId('cookie-preferences-link').click();
   await page.getByTestId('analytics-accept').click();
   await expect.poll(() => loads.length).toBe(1);
   await expect.poll(() => events.length).toBe(1);
@@ -58,9 +58,11 @@ test('direct GA waits for consent, sanitizes events, reloads on revocation and n
   await expect.poll(() => events.length).toBe(2);
   expect(JSON.stringify(events)).not.toMatch(/private|secret|@|#/);
   expect(events[1][2].page_location).toBe(origin + '/servizi');
+  await page.getByTestId('cookie-preferences-link').click();
+  expect(loads).toHaveLength(1);
   await Promise.all([
     page.waitForEvent('load'),
-    page.getByTestId('analytics-withdraw').click(),
+    page.getByTestId('analytics-reject').click(),
   ]);
   await expect(page.locator('#marenetto-direct-analytics')).toHaveCount(0);
   await expect.poll(() => page.evaluate(() => Boolean((window as any).dataLayer))).toBe(false);
@@ -73,7 +75,7 @@ test('direct GA waits for consent, sanitizes events, reloads on revocation and n
     expect(loads).toHaveLength(1);
   }
   await page.goto(origin + '/');
-  await page.getByRole('button', { name: 'Preferenze analytics', exact: true }).click();
+  await page.getByTestId('cookie-preferences-link').click();
   await page.getByTestId('analytics-accept').click();
   await expect.poll(() => loads.length).toBe(2);
   await Promise.all([

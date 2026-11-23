@@ -38,8 +38,8 @@ test('legal links retain enquiry state, hydrate in Italian and remain available 
   await expect(page).toHaveURL(/\/cookie$/);
   await expect(page.locator('h1')).toHaveText(cookiePage.title);
   await expect(page.locator('.footer-ai-notice')).toHaveText(AI_NOTICE);
-  await page.getByRole('button', { name: 'Preferenze analytics', exact: true }).click();
-  await expect(page.getByTestId('analytics-accept')).toBeDisabled();
+  await page.getByTestId('cookie-preferences-link').click();
+  await expect(page.getByTestId('analytics-accept')).toHaveCount(0);
   await expect(page.locator('#analytics-options a')).toHaveAttribute('href', '/cookie');
   await page.locator('.footer-bottom').getByRole('link', { name: 'Privacy', exact: true }).click();
   await expect(page.locator('h1')).toHaveText(privacyPage.title);

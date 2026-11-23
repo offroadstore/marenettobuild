@@ -67,5 +67,18 @@ test('persistent consent is scoped, expires, tolerates malformed storage; contro
   assert.equal(consentValue(JSON.stringify({ ...v, choice: 'rejected' }), config, now), 'rejected');
   assert.equal(consentValue(JSON.stringify({ ...v, runtimeOrigin: 'https://elsewhere.example.net' }), config, now), null);
   for (const raw of [null, 'bad', '{}', JSON.stringify({ ...v, origin: 'https://evil.example.com' }), JSON.stringify({ ...v, version: 'old' }), JSON.stringify({ ...v, at: now - CONSENT_MAX_AGE - 1 })]) assert.equal(consentValue(raw, config, now), null);
-  for (const locale of locales) assert.equal(analyticsCopy[locale.code]?.length, 7, locale.code);
+  for (const locale of locales) {
+    const text = analyticsCopy[locale.code];
+    assert.ok(text && Object.values(text).every(value => typeof value === 'string' && value.length > 0), locale.code);
+  }
+  assert.equal(analyticsCopy.it.message + ' ' + analyticsCopy.it.info, 'Usiamo cookie di statistica solo con il tuo consenso. Info');
+  for (const choice of ['accepted', 'rejected']) {
+    const raw = JSON.stringify({ ...v, choice, at: now - CONSENT_MAX_AGE + 1 });
+    assert.equal(consentValue(raw, config, now), choice);
+    assert.equal(consentValue(raw, config, now + 1), null, 'exact expiry for both choices');
+    for (const field of ['origin', 'runtimeOrigin', 'privacyVersion', 'measurementId', 'mode']) {
+      assert.equal(consentValue(raw, { ...config, [field]: 'changed' }, now), null, field);
+    }
+    assert.equal(consentValue(JSON.stringify({ ...v, choice, at: now + 1 }), config, now), null);
+  }
 });

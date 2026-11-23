@@ -82,10 +82,10 @@ test('consent/refusal/reload, SPA deduplication, contact vs stored enquiry, excl
   expect(f.requests).toHaveLength(0);
   await page.getByTestId('analytics-reject').click();
   await page.reload();
-  await expect(page.getByTestId('analytics-preferences')).toBeVisible();
+  await expect(page.getByTestId('analytics-preferences')).toHaveCount(0);
   await expect(page.getByTestId('analytics-accept')).toHaveCount(0);
   expect(f.requests).toHaveLength(0);
-  await page.getByRole('button', { name: 'Preferenze analytics', exact: true }).click();
+  await page.getByTestId('cookie-preferences-link').click();
   await page.getByTestId('analytics-accept').click();
   await expect.poll(() => f.requests.filter(url => new URL(url).pathname === '/gtag/js').length).toBe(1);
   await expect.poll(() => f.events.filter(e => e[1] === 'page_view').length).toBe(1);
@@ -131,21 +131,26 @@ test('consent/refusal/reload, SPA deduplication, contact vs stored enquiry, excl
     await expect(page.locator('iframe')).toHaveCount(1);
   }
   await page.evaluate(() => { document.cookie = '_ga=test; path=/; Secure'; document.cookie = '_ga_FIXTURE=test; path=/; Secure'; });
-  await page.getByTestId('analytics-withdraw').click();
+  await page.getByTestId('cookie-preferences-link').click();
+  await expect(page.locator('iframe')).toHaveCount(1);
+  await page.getByTestId('analytics-reject').click();
+  await expect(page.getByTestId('cookie-preferences-link')).toBeFocused();
+  await expect(page.getByTestId('analytics-preferences')).toHaveCount(0);
   await expect(page.locator('iframe')).toHaveCount(0);
   expect(await page.evaluate(() => document.cookie)).not.toContain('_ga');
   const count = f.requests.length;
   await page.waitForTimeout(300);
   expect(f.requests).toHaveLength(count);
   await page.reload();
-  await expect(page.getByTestId('analytics-preferences')).toBeVisible();
+  await expect(page.getByTestId('analytics-preferences')).toHaveCount(0);
   await expect(page.locator('iframe')).toHaveCount(0);
 });
 
 test('a preview never loads Google even with forged enabled config; unavailable config stops an active runtime', async ({ page }) => {
   const preview = await setup(page, 'https://preview.replit.dev');
-  await page.getByRole('button', { name: 'Preferenze analytics', exact: true }).click();
-  await expect(page.getByTestId('analytics-accept')).toBeDisabled();
+  await page.getByTestId('cookie-preferences-link').click();
+  await expect(page.getByTestId('analytics-preferences')).toContainText('Le statistiche non sono attive.');
+  await expect(page.getByTestId('analytics-accept')).toHaveCount(0);
   expect(preview.requests).toHaveLength(0);
   await page.unrouteAll();
   const f = await setup(page);
@@ -154,6 +159,58 @@ test('a preview never loads Google even with forged enabled config; unavailable 
   f.unavailable();
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   await expect(page.locator('iframe')).toHaveCount(0);
-  await page.getByRole('button', { name: 'Preferenze analytics', exact: true }).click();
-  await expect(page.getByTestId('analytics-accept')).toBeDisabled();
+  await page.getByTestId('cookie-preferences-link').click();
+  await expect(page.getByTestId('analytics-accept')).toHaveCount(0);
 });
+
+test('existing choices survive config refresh and a new tab without renewing the timestamp; tabs synchronize both choices', async ({ page, context }) => {
+  const f = await setup(page);
+  await page.getByTestId('analytics-reject').click();
+  const stored = await page.evaluate(() => localStorage.getItem('marenetto.analytics.v1'));
+  await page.reload();
+  await expect(page.getByTestId('analytics-preferences')).toHaveCount(0);
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+  await page.getByRole('link', { name: 'Servizi', exact: true }).click();
+  await expect(page).toHaveURL(/\/servizi/);
+  await expect(page.getByTestId('analytics-preferences')).toHaveCount(0);
+  expect(await page.evaluate(() => localStorage.getItem('marenetto.analytics.v1'))).toBe(stored);
+  expect(f.requests).toHaveLength(0);
+  const other = await context.newPage();
+  const second = await setup(other);
+  await expect(other.getByTestId('analytics-preferences')).toHaveCount(0);
+  expect(await other.evaluate(() => localStorage.getItem('marenetto.analytics.v1'))).toBe(stored);
+  await page.getByTestId('cookie-preferences-link').click();
+  expect(await page.evaluate(() => localStorage.getItem('marenetto.analytics.v1'))).toBe(stored);
+  await page.getByTestId('analytics-accept').click();
+  await expect(other.locator('iframe')).toHaveCount(1);
+  await expect(other.getByTestId('analytics-preferences')).toHaveCount(0);
+  const accepted = await page.evaluate(() => localStorage.getItem('marenetto.analytics.v1'));
+  await other.reload();
+  await expect(other.locator('iframe')).toHaveCount(1);
+  expect(await other.evaluate(() => localStorage.getItem('marenetto.analytics.v1'))).toBe(accepted);
+  await other.getByTestId('cookie-preferences-link').click();
+  await expect(other.locator('iframe')).toHaveCount(1);
+  await other.getByTestId('analytics-reject').click();
+  await expect(page.locator('iframe')).toHaveCount(0);
+  await expect(other.locator('iframe')).toHaveCount(0);
+  await expect(page.getByTestId('analytics-preferences')).toHaveCount(0);
+  expect(second.requests.length).toBeGreaterThan(0);
+  await other.close();
+});
+
+for (const choice of ['accepted', 'rejected']) {
+  test(`a stored ${choice} choice expires in an open tab and does not renew on restore`, async ({ page }) => {
+    const f = await setup(page);
+    await page.getByTestId('analytics-reject').click();
+    await page.evaluate(choice => {
+      const v = JSON.parse(localStorage.getItem('marenetto.analytics.v1')!);
+      localStorage.setItem('marenetto.analytics.v1', JSON.stringify({ ...v, choice, at: Date.now() - 180 * 86400000 + 1500 }));
+    }, choice);
+    await page.reload();
+    if (choice === 'accepted') await expect(page.locator('iframe')).toHaveCount(1);
+    else expect(f.requests).toHaveLength(0);
+    await expect(page.getByTestId('analytics-preferences')).toBeVisible();
+    await expect(page.locator('iframe')).toHaveCount(0);
+    await expect(page.getByTestId('analytics-accept')).toBeVisible();
+  });
+}

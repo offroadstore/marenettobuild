@@ -44,6 +44,7 @@ import { applyPublicReleaseMetadata } from '@/lib/public-release-meta';
 import type { EditorialActive } from '@workspace/api-client-react';
 import { usePageMeta } from '@/lib/meta';
 import { AnalyticsPreferences } from '@/components/AnalyticsPreferences';
+import { CookiePreferencesLink } from '@/components/CookiePreferencesLink';
 import { AI_NOTICE, legalPages } from '@/content/legal';
 import { LegalContents } from '@/pages/legal';
 import { translationCandidates, supplementalCandidates, translationCandidate, translationApproved, translationSourceChanged, translationNotices } from '@/localization/phase2';
@@ -413,6 +414,7 @@ function Footer({ lang }: { lang: Lang }) {
       </div>
       <IllustrationNote lang={lang} />
       <CallPrivacyFooter lang={lang} />
+      <CookiePreferencesLink lang={lang} />
       <div className="footer-bottom"><span lang="it">© {new Date().getFullYear()} Marenetto S.r.l. unipersonale · P.IVA IT06471740826 · SS 113, 73b, 90015 Cefalù (PA)</span><LegalFooterLinks /><span>{it ? 'Cefalù · Sicilia' : 'Cefalù · Sicily'}</span><Link href={withCampaignParams(routes[it ? 'en' : 'it'].home)} onClick={() => saveLanguageChoice(it ? 'en' : 'it')}>{it ? 'English' : 'Italiano'} <ArrowRight size={12} /></Link></div>
       <LegalAiNotice />
     </div>
