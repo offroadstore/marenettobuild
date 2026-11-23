@@ -66,3 +66,30 @@ which are performed in-house and which by the network.
 as direct work. Preserve the previously confirmed direct radiant/finishing
 scope; obtain category-level execution details before making stronger claims.
 These additions do not expand local building coverage or imply worldwide kitchens.
+
+The owner separately authorizes the international “Atelier Marenetto” service:
+on-site masonry outdoor kitchens, wood-fired ovens, tables and furnishings with
+hand-painted Sicilian majolica, lava stone and cement, for villas, palaces,
+resorts and yachts. This specific offering extends the earlier worldwide
+furniture scope; it does not globalize ordinary construction or every kitchen.
+
+**Why:** The owner expressly defined a distinct international service, rather
+than a general expansion of the local building business.
+
+**How to apply:** Present six steps: confidential enquiry; client measurements
+or plans; 3D render; approval; artisanal materials prepared in Sicily and shipped;
+Marenetto team building/assembling on site. Use discreet luxury positioning and
+projects on request, without public prices, invented delivery times, guaranteed
+country access, maritime compliance or fabricated completed work. Service schema
+may describe worldwide scope while specific destinations remain project-dependent.
+
+Arabic is requested as a thirteenth public language, alongside—not instead
+of—the existing twelve, with communication adapted for UAE, Saudi Arabia,
+Qatar and Kuwait.
+
+**Why:** The owner identified these target markets while forbidding unsupported
+country-service promises.
+
+**How to apply:** Require complete real Arabic content, document-level RTL and
+local Arabic fonts; a target market is not proof of an overseas office, an
+Arabic-speaking team or a completed project there.
