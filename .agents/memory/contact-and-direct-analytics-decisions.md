@@ -47,3 +47,17 @@ and that the remaining fixed preferences/withdrawal strip could not be closed.
 Reopening alone does not change consent; Reject after acceptance withdraws it.
 Preserve valid stored choices across this visual-only change. Target one desktop
 row and two mobile rows at 375 px without sacrificing legibility or tap targets.
+
+The owner subsequently authorized Meta Pixel with a marketing consent category
+separate from analytics, denied by default and revocable. The former
+statistics-only consent UI and legal claim of no marketing are superseded for
+this integration; existing analytics consent must never imply marketing consent.
+Google advertising consent remains denied.
+
+**Why:** The owner explicitly requested Meta measurement/advertising, but limited
+events to public PageView and non-personal Lead/Contact and prohibited Advanced
+Matching or customer data transfer.
+
+**How to apply:** Update notices only within the authorized Meta scope and explain
+technical network data honestly. Maintain private-route exclusion, compact consent
+UI and footer reopening; do not equate installation with connected Insights data.
