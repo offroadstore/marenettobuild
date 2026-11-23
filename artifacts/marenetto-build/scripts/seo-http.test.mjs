@@ -97,7 +97,11 @@ test('real HTTP delivery: every edition, redirects, errors, indexing and canonic
     for (const [pathname, file] of Object.entries(manifest.unreviewedArticles ?? {})) {
       const original = manifest.editions[Object.keys(manifest.editions).find(route => route.replace(/\/+$/, '') === pathname)];
       assert.ok(original, `Historical article edition exists: ${pathname}`);
-      assert.equal(original.state, 'draft', pathname);
+      assert.equal(original.state, original.translationRevision ? 'reviewed' : 'draft', pathname);
+      if (original.translationRevision) {
+        assert.equal(original.translationApprovalRevision, undefined, 'automated comparison must not approve publication');
+        assert.equal(original.sitemap, false);
+      }
       assert.equal(original.approval, null, pathname);
       assert.equal(original.sitemap, false, pathname);
       const response = await fetch(`${origin}${original.path}`);

@@ -79,6 +79,19 @@ accorpati, e alcune interfacce straniere conservano corpi italiani.
 estraneo alle correzioni e identificare la lingua effettiva senza inventare
 paragrafi mancanti o dedurre completezza dal numero delle route.
 
+Nei documenti misti con markup storico escapato, tradurre soltanto sottostringhe
+italiane identificate esattamente; non affidare alla traduzione del nodo completo
+anche la pulizia del markup o delle frasi già nella lingua corretta.
+
+**Why:** Una proposta automatizzata di traduzione può interpretare il markup
+malformato come rumore e cancellare frasi circostanti, pur restituendo un testo
+fluido. Anche una lingua dichiarata come nativa può contenere passaggi italiani.
+
+**How to apply:** Confrontare il DOM effettivamente servito con la sorgente,
+registrare sostituzioni prima/dopo e verificare che tutto il testo esterno alle
+sostituzioni, i numeri e la struttura rimangano invariati. Non estendere
+l'approvazione precedente alla revisione così corretta.
+
 Un'acquisizione con zero errori di trasporto può comunque contenere risposte
 HTTP 429 del CMS e non dimostra copertura delle fonti. Contare separatamente
 status HTTP, contenuti confrontabili, tentativi rinviati e verifiche browser

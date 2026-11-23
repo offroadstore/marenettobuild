@@ -1,0 +1,1622 @@
+[
+  {
+    "path": "/",
+    "id": "home",
+    "locale": "it",
+    "sha256": "2537a5659d7309481cbe959b2164147b004b494774a55dc5bba9c06b0ea2ba93"
+  },
+  {
+    "path": "/servizi",
+    "id": "services",
+    "locale": "it",
+    "sha256": "1b63a5e0802ad565d1ef0ae21a770848754296925a248963b4f41f496dfed37b"
+  },
+  {
+    "path": "/chi-siamo/",
+    "id": "process",
+    "locale": "it",
+    "sha256": "91af882f471021b76d4b27b500e054b2df82059b8d0e7b096d9474e5d0fe0dee"
+  },
+  {
+    "path": "/proprietari-all-estero",
+    "id": "abroad",
+    "locale": "it",
+    "sha256": "50c07f753c15f3416123732411178532d09402409665c83a0e4140653d99db20"
+  },
+  {
+    "path": "/richiesta",
+    "id": "request",
+    "locale": "it",
+    "sha256": "b2f60492c7e39382f5a1228b0eac86820934a67377258dba1a150738ce563415"
+  },
+  {
+    "path": "/contatti/",
+    "id": "contact",
+    "locale": "it",
+    "sha256": "6bd5071f411c8573d7afffade8dadd17a57ae56174bacff815fabf9b93464c7a"
+  },
+  {
+    "path": "/articoli/",
+    "id": "articles",
+    "locale": "it",
+    "sha256": "c108b45c6a52deba491bd156798c1b2f8e768f018589b31085e2d7e101f7d555"
+  },
+  {
+    "path": "/guide",
+    "id": "guides",
+    "locale": "it",
+    "sha256": "16d531c3cec9db9f091081db5bf016e864639d997fe0f5fda93624b4cc54afa8"
+  },
+  {
+    "path": "/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali/",
+    "id": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+    "locale": "it",
+    "sha256": "45e997297c7d583555167c6e242e3040a9b459835d1489a23882cde42cdadd19"
+  },
+  {
+    "path": "/impresa-edile-a-cefalu/",
+    "id": "impresa-edile-a-cefalu",
+    "locale": "it",
+    "sha256": "02a3628222d781dbe2ba403e293ff2dd671dfea7b3d4d06c0f10948e0a03d61d"
+  },
+  {
+    "path": "/ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni/",
+    "id": "ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni",
+    "locale": "it",
+    "sha256": "1477368d380131cebd1fe6b5756869b507b81a0c77ea9e440c576711fc98ba7f"
+  },
+  {
+    "path": "/garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto/",
+    "id": "garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto",
+    "locale": "it",
+    "sha256": "67786b4e8bc4ed603b68a73cf949e085828b18a5775b33d989ccd6cb79e5276c"
+  },
+  {
+    "path": "/cappotto-termico-vs-intonaco-termico-cefalu/",
+    "id": "cappotto-termico-vs-intonaco-termico-cefalu",
+    "locale": "it",
+    "sha256": "cdcd00bb22ea9a61bd5bcf99d8a55bccf11a06323cd72a7e467375d0fb5cd9d1"
+  },
+  {
+    "path": "/pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete/",
+    "id": "pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete",
+    "locale": "it",
+    "sha256": "7540f954dd95b2f968abd7ef1c712aa444553afbbe482117e74778331dddd8e6"
+  },
+  {
+    "path": "/ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam/",
+    "id": "ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam",
+    "locale": "it",
+    "sha256": "c781c4fd5c038172b57cd32ff4c16fb6351358e9a5f569afbad2524aa9948866"
+  },
+  {
+    "path": "/gestione-manutenzione-immobile/",
+    "id": "gestione-manutenzione-immobile",
+    "locale": "it",
+    "sha256": "894459298e09d32588fc1cf00b70dc74ea48ae81acf1ee6581e37c2d957ab770"
+  },
+  {
+    "path": "/garden-design-esclusivo/",
+    "id": "garden-design-esclusivo",
+    "locale": "it",
+    "sha256": "5e7526d1a7386c19fa705007ab26ea73274f319aa8e10d5cda639e2171734e3c"
+  },
+  {
+    "path": "/opere-in-pietra-e-prospetti/",
+    "id": "opere-in-pietra-e-prospetti",
+    "locale": "it",
+    "sha256": "b6cf36d9253106036617725a2b6206f1b7b8f6d2281b80c2d4d7f6224955cf90"
+  },
+  {
+    "path": "/pavimenti-stampati-in-resina/",
+    "id": "pavimenti-stampati-in-resina",
+    "locale": "it",
+    "sha256": "735d933dfce006693bb9b73263199f9e16ed6d70ea1bc0ad4f0733da772f7c0d"
+  },
+  {
+    "path": "/piscine-e-laghetti-zen/",
+    "id": "piscine-e-laghetti-zen",
+    "locale": "it",
+    "sha256": "491f15b813572e936e65cc9d672cf4de0623d657c59ffc6863763fe7a745be30"
+  },
+  {
+    "path": "/cucine-in-muratura-luxury/",
+    "id": "cucine-in-muratura-luxury",
+    "locale": "it",
+    "sha256": "a1a67a580d178159441f23c0ae7f2f5c19aa1e756729ae11445b45e2e5bacaea"
+  },
+  {
+    "path": "/tecniche-avanzate-gestione-deformazioni-strutture-edili/",
+    "id": "tecniche-avanzate-gestione-deformazioni-strutture-edili",
+    "locale": "it",
+    "sha256": "14b98da7c8b823cc90e9eb4e0922b1064263ffefccbd7d917f713bbfd23bd732"
+  },
+  {
+    "path": "/en/",
+    "id": "home",
+    "locale": "en",
+    "sha256": "2e4daa3256810d72067196f64dba62f04a477b23ef4bb891c89ea025a89cfb31"
+  },
+  {
+    "path": "/en/services",
+    "id": "services",
+    "locale": "en",
+    "sha256": "d60b039e6b2fe330ea0257152590f1fe9a38599e54c7bf4b08ebed2c33e5d447"
+  },
+  {
+    "path": "/en/owners-abroad",
+    "id": "abroad",
+    "locale": "en",
+    "sha256": "1472d3b3482275befffe7816a0ac2f281cfcdd5ed2f4a67d1fbdc4e1bfb2c48b"
+  },
+  {
+    "path": "/en/request",
+    "id": "request",
+    "locale": "en",
+    "sha256": "9511b4fc2946140afcfe3595faa522cc26799537a71ec6789e89c0bba160ef19"
+  },
+  {
+    "path": "/en/articles/",
+    "id": "articles",
+    "locale": "en",
+    "sha256": "be70bf904e119ee3e78cd0084c9575a7c29fd7593a6957aacd37cf1d704131e6"
+  },
+  {
+    "path": "/en/buying-and-renovating-a-house-in-cefalu-a-technical-guide-to-the-5-essential-checks/",
+    "id": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+    "locale": "en",
+    "sha256": "138e97c3ab3ef9efe4b598125d830f748912cca4899f1a9e986618f1fe2af62f"
+  },
+  {
+    "path": "/en/construction-company-in-cefalu-turning-your-vision-into-reality/",
+    "id": "impresa-edile-a-cefalu",
+    "locale": "en",
+    "sha256": "b44605dca1d06320e0d9b9e3fe1a704d5f2f9ef100be31273e9f8745a366ecb1"
+  },
+  {
+    "path": "/en/water-and-moisture-leak-detection-how-to-address-it-without-demolition/",
+    "id": "ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni",
+    "locale": "en",
+    "sha256": "eb0692e3f7d0a953bca94544114c74c5694ae3d256a4c0400a55b7892a9b2c81"
+  },
+  {
+    "path": "/en/10-year-warranty-on-construction-work-the-marenetto-decennial-insurance-policy/",
+    "id": "garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto",
+    "locale": "en",
+    "sha256": "efbeaf707b4383f7f477762c26b6053b707065315677dce68ee353a5dd452835"
+  },
+  {
+    "path": "/en/thermal-insulation-vs-thermal-plaster-the-best-choice-for-sicily/",
+    "id": "cappotto-termico-vs-intonaco-termico-cefalu",
+    "locale": "en",
+    "sha256": "9e4d885634dabd9060e9d729dd664426604fdea7fe5d1e926570d0a42b6ec64d"
+  },
+  {
+    "path": "/en/isoplam-outdoor-floors-complete-guide-to-stamped-concrete-and-skyconcrete/",
+    "id": "pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete",
+    "locale": "en",
+    "sha256": "5daf2157d362a6ca2bc10d4ed5d293f6e080f19d6b67d14a9ba23eef23527150"
+  },
+  {
+    "path": "/en/renovate-without-demolition-the-complete-guide-to-microverlayr-isoplam-microcement/",
+    "id": "ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam",
+    "locale": "en",
+    "sha256": "6f2ed1b7a6923e9c5bc811562f5139cc7b96c87c66936be32f99cbbae5eddcbe"
+  },
+  {
+    "path": "/en/property-maintenance-management/",
+    "id": "gestione-manutenzione-immobile",
+    "locale": "en",
+    "sha256": "1095c38401f400fba37ee1097071908b383e416f45c9fe0e4f8080a57aced64d"
+  },
+  {
+    "path": "/en/exclusive-garden-design/",
+    "id": "garden-design-esclusivo",
+    "locale": "en",
+    "sha256": "687276412ae5d20c985ec0437e415b8e16c9c07410eadae0492f61f0e38e566a"
+  },
+  {
+    "path": "/en/stone-works-and-facades/",
+    "id": "opere-in-pietra-e-prospetti",
+    "locale": "en",
+    "sha256": "35e4265251e44c6971dcd04c188a0507b46eb00467f2f70481e69a597d6cbc1e"
+  },
+  {
+    "path": "/en/stamped-resin-flooring/",
+    "id": "pavimenti-stampati-in-resina",
+    "locale": "en",
+    "sha256": "a32b8101615c1b56af1663bf168fe7129120468a2048ca890b9d6e79b8c814aa"
+  },
+  {
+    "path": "/en/zen-pools-and-ponds/",
+    "id": "piscine-e-laghetti-zen",
+    "locale": "en",
+    "sha256": "09f5323acf6436555a984f98396ba65425185ac1d10439ad67db22dbb574b502"
+  },
+  {
+    "path": "/en/luxury-built-in-kitchens/",
+    "id": "cucine-in-muratura-luxury",
+    "locale": "en",
+    "sha256": "cf1292f1a8722b4dbfc6e1314d21ff1ae06e0ea078aa28a69c18d33d3014b823"
+  },
+  {
+    "path": "/en/advanced-techniques-for-managing-deformations-in-modern-building-structures/",
+    "id": "tecniche-avanzate-gestione-deformazioni-strutture-edili",
+    "locale": "en",
+    "sha256": "3217d6fe2dde7db14a4469a8de8e5a6f5c9821c3cb8cfe906cbce9a5f41fd41d"
+  },
+  {
+    "path": "/fr/",
+    "id": "home",
+    "locale": "fr",
+    "sha256": "0ff37535d2f56ebcc189ba3eb5a46582ed3ce2e1408e9c87138104a8e32c043c"
+  },
+  {
+    "path": "/fr/services",
+    "id": "services",
+    "locale": "fr",
+    "sha256": "6d2498d50de5d2bfb4167b2a4346ddc747092bcb4b4bd779c91aad230af8ae57"
+  },
+  {
+    "path": "/fr/owners-abroad",
+    "id": "abroad",
+    "locale": "fr",
+    "sha256": "ab79855b15f06b5f2dca47b8ce3661ad28b7bd4ba71e1195e2fc35220e989af4"
+  },
+  {
+    "path": "/fr/request",
+    "id": "request",
+    "locale": "fr",
+    "sha256": "a1f66f047a4f55add49c786939269bac9971dc6027527242d91f6d988bd6d35f"
+  },
+  {
+    "path": "/fr/articles/",
+    "id": "articles",
+    "locale": "fr",
+    "sha256": "13982ee6f056e57fa048e2aa490eb65702ba21c8eaee99736a6ca39c52168161"
+  },
+  {
+    "path": "/fr/acheter-et-renover-une-maison-a-cefalu-guide-technique-des-5-controles-essentiels/",
+    "id": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+    "locale": "fr",
+    "sha256": "1c443a3264e8bd376ea3ac7d50f2908105f788ec5d783c6766c3cdd1985f21f1"
+  },
+  {
+    "path": "/fr/entreprise-de-construction-a-cefalu-nous-donnons-vie-a-votre-vision/",
+    "id": "impresa-edile-a-cefalu",
+    "locale": "fr",
+    "sha256": "3618fc885af497eb7a0328ed7d68fd837e77ff0406ce9b32e7cbb03963b50e68"
+  },
+  {
+    "path": "/fr/recherche-de-fuites-d-eau-et-d-humidite-comment-agir-sans-demolir/",
+    "id": "ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni",
+    "locale": "fr",
+    "sha256": "b16385e5c8b8a65dc49e5b9c17de350921bc75a2fc37858eddf1abfd166f6d99"
+  },
+  {
+    "path": "/fr/garantie-decennale-sur-les-travaux-de-construction-la-police-decennale-marenetto/",
+    "id": "garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto",
+    "locale": "fr",
+    "sha256": "2cd6fcbf6da6e84aaf0b64f2fe19065193a6115eada4ba8f4fa6c5317cddbabc"
+  },
+  {
+    "path": "/fr/isolation-thermique-par-exterieur-vs-enduit-thermique-le-meilleur-choix-pour-la-sicile/",
+    "id": "cappotto-termico-vs-intonaco-termico-cefalu",
+    "locale": "fr",
+    "sha256": "0094cef0dbb62e4ce080cae428b23341e4f425c7ce584deefbba6029fa45e78b"
+  },
+  {
+    "path": "/fr/revetements-exterieurs-isoplam-guide-complet-du-beton-imprime-et-skyconcrete/",
+    "id": "pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete",
+    "locale": "fr",
+    "sha256": "66b0aa5b6731a713bf071d6c85ce3bba23648759f24ab934c6e710d4952974b8"
+  },
+  {
+    "path": "/fr/renover-sans-demolir-le-guide-complet-du-microciment-microverlayr-isoplam/",
+    "id": "ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam",
+    "locale": "fr",
+    "sha256": "1b88fbe79b59171f7316b70d3623a5491c767afae50f09d75c8782b061325433"
+  },
+  {
+    "path": "/fr/gestion-de-la-maintenance-immobiliere/",
+    "id": "gestione-manutenzione-immobile",
+    "locale": "fr",
+    "sha256": "274ead7dcef12a57541b39b2e40385b51c746b4e89405f9503c3a8464d9f0875"
+  },
+  {
+    "path": "/fr/conception-de-jardin-exclusive/",
+    "id": "garden-design-esclusivo",
+    "locale": "fr",
+    "sha256": "efd6592fb445d4ef2b14bd044a615acecc94826e1b9375e30801b32388de9391"
+  },
+  {
+    "path": "/fr/oeuvres-en-pierre-et-facades/",
+    "id": "opere-in-pietra-e-prospetti",
+    "locale": "fr",
+    "sha256": "8087b209a9e0d9cb1488eb784b9fc6d353fb844a16b5f35c93d6747542bd018b"
+  },
+  {
+    "path": "/fr/sols-en-resine-imprimee/",
+    "id": "pavimenti-stampati-in-resina",
+    "locale": "fr",
+    "sha256": "916285aa297a3f6b4ca1b77bfed10498b0a3d6b68d3c8a65bc48cb886be22709"
+  },
+  {
+    "path": "/fr/piscines-et-etangs-zen/",
+    "id": "piscine-e-laghetti-zen",
+    "locale": "fr",
+    "sha256": "1ff9906acd31c8cbe1876c258d87312174e1871baf98d2c79670a2149e7de558"
+  },
+  {
+    "path": "/fr/cuisines-en-maconnerie-de-luxe/",
+    "id": "cucine-in-muratura-luxury",
+    "locale": "fr",
+    "sha256": "e63d5babecb3e8aaa75bbdee5bbfdadb2ba9f0213942f3c1c0b4363f65fa478d"
+  },
+  {
+    "path": "/fr/techniques-avancees-pour-la-gestion-des-deformations-dans-les-structures-de-construction-modernes/",
+    "id": "tecniche-avanzate-gestione-deformazioni-strutture-edili",
+    "locale": "fr",
+    "sha256": "aad232dec84ba54b0ae76fc9914e4cda53afed452f5f7a030666d004a1b682bb"
+  },
+  {
+    "path": "/de/",
+    "id": "home",
+    "locale": "de",
+    "sha256": "5f9afcd283bb74aec987034da6faba0b39ca826f7023406779fe2c64c76fcbb1"
+  },
+  {
+    "path": "/de/services",
+    "id": "services",
+    "locale": "de",
+    "sha256": "b87121d1255ef41f416f3f712cd4f236c1a576409716066e4111b3b87ed5dfb8"
+  },
+  {
+    "path": "/de/owners-abroad",
+    "id": "abroad",
+    "locale": "de",
+    "sha256": "5643e0b11281595f1b4d468195575ac1e6478d97fbe0262ac8d0d4282db10878"
+  },
+  {
+    "path": "/de/request",
+    "id": "request",
+    "locale": "de",
+    "sha256": "18326a130cdaebfc031c8da144b54bf42593a0a502db19d8597c2852ea2490d0"
+  },
+  {
+    "path": "/de/artikel/",
+    "id": "articles",
+    "locale": "de",
+    "sha256": "b6b070bda68a17f8e2f7f7e0d47d4dbcbc1f6478e3cb3d8ad3ebcb0dbb0d30d3"
+  },
+  {
+    "path": "/de/hauskauf-und-renovierung-in-cefalu-technischer-leitfaden-zu-den-5-wichtigsten-pruefungen/",
+    "id": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+    "locale": "de",
+    "sha256": "583e7c6b59c660df87476f151b3ce2e756673e7cc6b97f9d5d1902649f1879c8"
+  },
+  {
+    "path": "/de/bauunternehmen-in-cefalu-wir-verwandeln-ihre-vision-in-wirklichkeit/",
+    "id": "impresa-edile-a-cefalu",
+    "locale": "de",
+    "sha256": "6b3c50b7b55ecf79bb8fb330323f399cd9f74c8bf353377214b4812090135d42"
+  },
+  {
+    "path": "/de/suche-nach-wassereintritt-und-feuchtigkeit-wie-man-ohne-abrissmassnahmen-vorgeht/",
+    "id": "ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni",
+    "locale": "de",
+    "sha256": "555a401bcc153bd1d1cf80b10ed9d53f167b27efe73f30b61fcb201147cf07d8"
+  },
+  {
+    "path": "/de/10-jahre-bauarbeiten-garantie-die-marenetto-zehnjahresversicherung/",
+    "id": "garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto",
+    "locale": "de",
+    "sha256": "c3b268497594c98b2328f854bfde6de0b02be105255eea064280c43a3553ec1c"
+  },
+  {
+    "path": "/de/waermedaemmung-vs-waermedaermputz-die-beste-wahl-fuer-sizilien/",
+    "id": "cappotto-termico-vs-intonaco-termico-cefalu",
+    "locale": "de",
+    "sha256": "baa4fb6e05d7059076d1c8973ae9b07e0c3ae962b494e24ae378a9a20d13f670"
+  },
+  {
+    "path": "/de/isoplam-aussenboeden-umfassender-leitfaden-zu-stempelbeton-und-skyconcrete/",
+    "id": "pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete",
+    "locale": "de",
+    "sha256": "14763ffbd7fa68383d14be3ca1b4ccbaee2c4b4c2d78b6e03cb31255692491ff"
+  },
+  {
+    "path": "/de/sanieren-ohne-abriss-der-umfassende-leitfaden-fuer-microverlayr-isoplam-mikrozement/",
+    "id": "ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam",
+    "locale": "de",
+    "sha256": "9df225cda1e33b6b125b427c215876feba8e519cee2056d97f47eab0a8304ee8"
+  },
+  {
+    "path": "/de/gebaeudemanagement/",
+    "id": "gestione-manutenzione-immobile",
+    "locale": "de",
+    "sha256": "1b6f20d8d926f945aa0ffa9b1bda655d911656b800dde5e24e030443e6c6598d"
+  },
+  {
+    "path": "/de/exklusives-gartendesign/",
+    "id": "garden-design-esclusivo",
+    "locale": "de",
+    "sha256": "176d929eef2cb96c21a9f9772351b0855ffd616e9971b16154b193e930988d17"
+  },
+  {
+    "path": "/de/steinarbeiten-und-fassaden/",
+    "id": "opere-in-pietra-e-prospetti",
+    "locale": "de",
+    "sha256": "f7c73f6ce2cbbb4a84efddfe7da68aaea78f5f049aeb126eb6792b2e283bca36"
+  },
+  {
+    "path": "/de/gussbodenbelaege-aus-harz/",
+    "id": "pavimenti-stampati-in-resina",
+    "locale": "de",
+    "sha256": "373d59976ed767103dd1bd9e70a2d5b46b418b29c6ddd40f5a56e915dd220a95"
+  },
+  {
+    "path": "/de/zen-pools-und-teiche/",
+    "id": "piscine-e-laghetti-zen",
+    "locale": "de",
+    "sha256": "942b59259e7903a709ba6eb14814877deb9266c56708c0ef664e109143454932"
+  },
+  {
+    "path": "/de/luxurioese-massivholzkuechen/",
+    "id": "cucine-in-muratura-luxury",
+    "locale": "de",
+    "sha256": "d26ca216bc797f504559578010855a6af2535a104f1877b33c5109a69cd6aadd"
+  },
+  {
+    "path": "/de/fortgeschrittene-techniken-zur-steuerung-von-verformungen-in-modernen-bauwerken/",
+    "id": "tecniche-avanzate-gestione-deformazioni-strutture-edili",
+    "locale": "de",
+    "sha256": "d039abbeeff0b3bdef5cde78b5d7e0c2493d13ae2193a01151f35ed4bfab9343"
+  },
+  {
+    "path": "/nl/",
+    "id": "home",
+    "locale": "nl",
+    "sha256": "d4f7268266108797deb97db2f02e7aea988c78694eec174e5c2ca15fb082f098"
+  },
+  {
+    "path": "/nl/services",
+    "id": "services",
+    "locale": "nl",
+    "sha256": "be9ad85461e5695c5a2b26d1820eddf33399b0faf4f0c685b9ba6d7d3a6f1c60"
+  },
+  {
+    "path": "/nl/owners-abroad",
+    "id": "abroad",
+    "locale": "nl",
+    "sha256": "7b2a7bbf4b505543f06ccdc3eb527c6016ef29ea614ee5b7ccc74f5272a303fe"
+  },
+  {
+    "path": "/nl/request",
+    "id": "request",
+    "locale": "nl",
+    "sha256": "d9f76d4ae5639561ac6215e1d5537a5de41bdebf048b4474cd4793c351977fc7"
+  },
+  {
+    "path": "/nl/artikelen/",
+    "id": "articles",
+    "locale": "nl",
+    "sha256": "34fdee5497ef7e5d420775cde78d6a6fba4f946cea394218c9f87bd8e1313df1"
+  },
+  {
+    "path": "/nl/een-huis-kopen-en-renoveren-in-cefalu-technische-gids-voor-de-5-essentiele-controles/",
+    "id": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+    "locale": "nl",
+    "sha256": "090aadaf2bab0f070becdd1433adaf8ae8cab16166591e23ff924037acdfe995"
+  },
+  {
+    "path": "/nl/bouwbedrijf-in-cefalu-wij-brengen-jouw-visie-tot-leven/",
+    "id": "impresa-edile-a-cefalu",
+    "locale": "nl",
+    "sha256": "3b78abba68257ea8a9adf20484e1cd108e98a476612e65281bf700e80eb4021c"
+  },
+  {
+    "path": "/nl/opsporing-van-water-en-vochtinfiltraties-hoe-te-handelen-zonder-sloopwerkzaamheden/",
+    "id": "ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni",
+    "locale": "nl",
+    "sha256": "59ebf5c9e7974a2abf23006a23b878a5d2d7d3c357ba755e2b50ed47a181470a"
+  },
+  {
+    "path": "/nl/10-jaar-garantie-op-bouwwerkzaamheden-de-decennialijnse-polis-van-marenetto/",
+    "id": "garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto",
+    "locale": "nl",
+    "sha256": "4700b440364ee710487b637fc2aad737ce21f0571f7beba40d32a0e447da2a1a"
+  },
+  {
+    "path": "/nl/thermische-isolatie-vs-thermische-pleister-de-beste-keuze-voor-sicilie/",
+    "id": "cappotto-termico-vs-intonaco-termico-cefalu",
+    "locale": "nl",
+    "sha256": "27e29d264ca179279f87e37117af28fc1b9cbcb19f6dc21d32f47acc328a99c1"
+  },
+  {
+    "path": "/nl/isoplam-buitenvloeren-uitgebreide-gids-voor-gestempeld-beton-en-skyconcrete/",
+    "id": "pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete",
+    "locale": "nl",
+    "sha256": "78e9710f5cae0298afc9286cbf464a92cffdf5cc186b0a24ba62314c627996f5"
+  },
+  {
+    "path": "/nl/renoveren-zonder-slopen-de-complete-gids-voor-microverlayr-isoplam-microcement/",
+    "id": "ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam",
+    "locale": "nl",
+    "sha256": "6c80d282f9ada97d8b778b5f4845624233da78089ab41afe5fe174a78ea79237"
+  },
+  {
+    "path": "/nl/gebouwonderhoud-beheer/",
+    "id": "gestione-manutenzione-immobile",
+    "locale": "nl",
+    "sha256": "a977fb73ebe53ee80cc92921fc0fd074432668458ab9f62bc5cfe26047281001"
+  },
+  {
+    "path": "/nl/exclusief-tuinontwerp/",
+    "id": "garden-design-esclusivo",
+    "locale": "nl",
+    "sha256": "d546503e6cac77d9dc73058df2c2a234a2d5149d9e30ed4ac1401c8267f7a1b0"
+  },
+  {
+    "path": "/nl/steenwerken-en-gevels/",
+    "id": "opere-in-pietra-e-prospetti",
+    "locale": "nl",
+    "sha256": "e9dcff97ce9480c49e543c6b0661ab534f36c4b1642d7f3832db2375a50ca40b"
+  },
+  {
+    "path": "/nl/gegoten-vloeren-in-hars/",
+    "id": "pavimenti-stampati-in-resina",
+    "locale": "nl",
+    "sha256": "e5a368a7648374b581011ef489f342553a6e201ef3d06a9fcc64689742c514dd"
+  },
+  {
+    "path": "/nl/zen-zwembaden-en-vijvers/",
+    "id": "piscine-e-laghetti-zen",
+    "locale": "nl",
+    "sha256": "83c0c99d79e6e68b5ec6a08db82194697c47c65bd9c423b713f673773af372b1"
+  },
+  {
+    "path": "/nl/luxe-maatwerk-keukens/",
+    "id": "cucine-in-muratura-luxury",
+    "locale": "nl",
+    "sha256": "14141ccb500e77757d4d66be8847619fd0378fc7c097609862336b586b694091"
+  },
+  {
+    "path": "/nl/geavanceerde-technieken-voor-het-beheren-van-vervormingen-in-moderne-bouwconstructies/",
+    "id": "tecniche-avanzate-gestione-deformazioni-strutture-edili",
+    "locale": "nl",
+    "sha256": "19deb0f40b398d16989ab9783c9021b56221bd015026a43f4f3ab8a880918c5d"
+  },
+  {
+    "path": "/es/",
+    "id": "home",
+    "locale": "es",
+    "sha256": "88d530fabcfd8e61ad0ee71437499dde18bff95190989fed247f1b35f23ebfeb"
+  },
+  {
+    "path": "/es/services",
+    "id": "services",
+    "locale": "es",
+    "sha256": "64e2981b049a4461fe89926e8fe9e4fc92164f3090b3193092fa2741d6833e5f"
+  },
+  {
+    "path": "/es/owners-abroad",
+    "id": "abroad",
+    "locale": "es",
+    "sha256": "6e8ec407974d6431312d30b2255021f1daee2717a49ce86520c11cf392070163"
+  },
+  {
+    "path": "/es/request",
+    "id": "request",
+    "locale": "es",
+    "sha256": "48e07bf9dfa99b14025a4ab01210b9bcdb142d03dae068d35e8fb1c8afe72a75"
+  },
+  {
+    "path": "/es/articulos/",
+    "id": "articles",
+    "locale": "es",
+    "sha256": "abd0e77c1a7dfeef03b7b444b415a93221936aa401a74ad121bb004f65d61e1d"
+  },
+  {
+    "path": "/es/comprar-y-renovar-casa-en-cefalu-guia-tecnica-de-los-5-controles-esenciales/",
+    "id": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+    "locale": "es",
+    "sha256": "be9fbc38a261c01e4735308ccf2d88bca023a63b68beff6ca7c757c1b3c189c0"
+  },
+  {
+    "path": "/es/empresa-constructora-en-cefalu-convertimos-tu-vision-en-realidad/",
+    "id": "impresa-edile-a-cefalu",
+    "locale": "es",
+    "sha256": "f0b7fd8c8899b1d5d8314dda13e4b816a703c56eb90e558e95777cafaaee5f59"
+  },
+  {
+    "path": "/es/deteccion-de-filtraciones-de-agua-y-humedad-como-actuar-sin-realizar-demoliciones/",
+    "id": "ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni",
+    "locale": "es",
+    "sha256": "f3d03e96b216e9f7d3c18778e7b1f961a62428ff513940854b770c320c9bfe35"
+  },
+  {
+    "path": "/es/garantia-de-10-anos-en-trabajos-de-construccion-la-poliza-decenal-marenetto/",
+    "id": "garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto",
+    "locale": "es",
+    "sha256": "b9b002625c8ba2022c65f5180044905d8209b44251afe0143064230bca05cce9"
+  },
+  {
+    "path": "/es/aislamiento-termico-exterior-vs-revoque-termico-la-mejor-opcion-para-sicilia/",
+    "id": "cappotto-termico-vs-intonaco-termico-cefalu",
+    "locale": "es",
+    "sha256": "4b9e101df8f2cf837549c880687fc5d51e67640a3b51c168e32fedab4078dd52"
+  },
+  {
+    "path": "/es/suelos-exteriores-isoplam-guia-completa-de-hormigon-impreso-y-skyconcrete/",
+    "id": "pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete",
+    "locale": "es",
+    "sha256": "157b7f4274cf16569e287d9a71159c269a36c616a81f206c7307413ea86364b0"
+  },
+  {
+    "path": "/es/reformar-sin-derribar-la-guia-completa-del-microcemento-microverlayr-isoplam/",
+    "id": "ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam",
+    "locale": "es",
+    "sha256": "81f477c7f4f4f46ad58d1c665a04a2745a731018a6f4b4a1a5fed759c5d5a65d"
+  },
+  {
+    "path": "/es/gestion-del-mantenimiento-de-la-propiedad/",
+    "id": "gestione-manutenzione-immobile",
+    "locale": "es",
+    "sha256": "065a5a730f9768da533cbbb4b32799bbd652682231ece511cc112b5e7dc88b5e"
+  },
+  {
+    "path": "/es/diseno-de-jardines-exclusivo/",
+    "id": "garden-design-esclusivo",
+    "locale": "es",
+    "sha256": "cc22d42b4c2fbb2ae054f5872b9ce09055526638a7b50c9bfc01a7a06435627b"
+  },
+  {
+    "path": "/es/obras-en-piedra-y-fachadas/",
+    "id": "opere-in-pietra-e-prospetti",
+    "locale": "es",
+    "sha256": "6977dc34749aed234d8a4d1770f497d45ecb1439af5c50095c9fe751671e94d2"
+  },
+  {
+    "path": "/es/suelos-impresos-de-resina/",
+    "id": "pavimenti-stampati-in-resina",
+    "locale": "es",
+    "sha256": "dd4bacee53f195758fedf4bdbe65b15d99302e26e309f045972017b9a1788c03"
+  },
+  {
+    "path": "/es/piscinas-y-estanques-zen/",
+    "id": "piscine-e-laghetti-zen",
+    "locale": "es",
+    "sha256": "cfab32bd38e54efc7e5a9abe81b31c993dc5a70963e528f5c5ced014f7bd3e35"
+  },
+  {
+    "path": "/es/cocinas-de-obra-de-lujo/",
+    "id": "cucine-in-muratura-luxury",
+    "locale": "es",
+    "sha256": "67290ff29756e1d39585185603cc17aa5c0163f4de22ff0c7f39e41d0a126536"
+  },
+  {
+    "path": "/es/tecnicas-avanzadas-para-el-manejo-de-deformaciones-en-estructuras-edificadas-modernas/",
+    "id": "tecniche-avanzate-gestione-deformazioni-strutture-edili",
+    "locale": "es",
+    "sha256": "1e0367f5b6c8c3023913729a1bcac161a267d87927226056a476527fe29a2e0b"
+  },
+  {
+    "path": "/pt/",
+    "id": "home",
+    "locale": "pt",
+    "sha256": "30f8bda8475887296fee2190db9b76a0faad7cccd5422109365aa3daf45b5ea2"
+  },
+  {
+    "path": "/pt/services",
+    "id": "services",
+    "locale": "pt",
+    "sha256": "c7422fe0274103c847f63c1cc140af69067bc40cbf71e49dea03d8dae1a548a6"
+  },
+  {
+    "path": "/pt/owners-abroad",
+    "id": "abroad",
+    "locale": "pt",
+    "sha256": "3a22d821130d2d6a1ea6c319a02ae49e8546326773d952a0b06250cb5d2f602b"
+  },
+  {
+    "path": "/pt/request",
+    "id": "request",
+    "locale": "pt",
+    "sha256": "47a6b8307fe105aafccff26b343ffb2185b7198256f6b95dffe765ff6b7fc306"
+  },
+  {
+    "path": "/pt/artigos/",
+    "id": "articles",
+    "locale": "pt",
+    "sha256": "6ca74e29fcbeb25329497262f59d8e5061dcde3c970a571aea877286e6c4327d"
+  },
+  {
+    "path": "/pt/comprar-e-reformar-casa-em-cefalu-guia-tecnica-dos-5-controles-essenciais/",
+    "id": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+    "locale": "pt",
+    "sha256": "491c44d92708c8fdd334ee6a1b88445f6579ba301f5c88a0bebd66d1f2998300"
+  },
+  {
+    "path": "/pt/empresa-de-construcao-em-cefalu-transformamos-a-sua-visao-em-realidade/",
+    "id": "impresa-edile-a-cefalu",
+    "locale": "pt",
+    "sha256": "b2abcaff70f892ca3dbf4b75034796ee3f2ddc7ca2d8a54da90beaa9594f1eaf"
+  },
+  {
+    "path": "/pt/deteccao-de-infiltracoes-e-umidade-como-agir-sem-demolicoes/",
+    "id": "ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni",
+    "locale": "pt",
+    "sha256": "3ad68064dbc6303722a9ac183644e62cf233357dfd95f23efa7d9b5459b2d7c8"
+  },
+  {
+    "path": "/pt/garantia-de-10-anos-para-obras-de-construcao-a-apolice-decenal-marenetto/",
+    "id": "garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto",
+    "locale": "pt",
+    "sha256": "eee55920b5e571f4c39b8014f3076ffdb7da3ad39d62060fb91f90e49e7a0057"
+  },
+  {
+    "path": "/pt/isolamento-termico-exterior-vs-revestimento-termico-a-melhor-escolha-para-a-sicilia/",
+    "id": "cappotto-termico-vs-intonaco-termico-cefalu",
+    "locale": "pt",
+    "sha256": "c878661f00a3541ab07755baa95cc2b70ceabe3d77ba06514b12c5c238d4e54c"
+  },
+  {
+    "path": "/pt/pavimentos-externos-isoplam-guia-completo-de-concreto-estampado-e-skyconcrete/",
+    "id": "pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete",
+    "locale": "pt",
+    "sha256": "067f1c53c3605ad6d167db0911118ffc08943023cd5a3cffce225f1077a9ac16"
+  },
+  {
+    "path": "/pt/reformar-sem-demolir-o-guia-completo-do-microcimento-microverlayr-isoplam/",
+    "id": "ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam",
+    "locale": "pt",
+    "sha256": "24b063ca11c897ecb853c1068cad8ef6f4ec4fe97d59aaba9e025823ecc90931"
+  },
+  {
+    "path": "/pt/gestao-de-manutencao-do-imovel/",
+    "id": "gestione-manutenzione-immobile",
+    "locale": "pt",
+    "sha256": "207f434ba34a581a9baaa3db6e05f981391b18fa02d81a04618012d4870310ab"
+  },
+  {
+    "path": "/pt/design-de-jardim-exclusivo/",
+    "id": "garden-design-esclusivo",
+    "locale": "pt",
+    "sha256": "22313f709fe3f7440181ecf6320e7603214e1378224d7cb5b7d748b0968266cd"
+  },
+  {
+    "path": "/pt/trabalhos-em-pedra-e-fachadas/",
+    "id": "opere-in-pietra-e-prospetti",
+    "locale": "pt",
+    "sha256": "b95b8fa9499069ef36d50fa9288c82a303dc1b0775be708275b0398f4c7b74bc"
+  },
+  {
+    "path": "/pt/pavimentos-estampados-em-resina/",
+    "id": "pavimenti-stampati-in-resina",
+    "locale": "pt",
+    "sha256": "23987e7df95c62c64824f9d44b42806660deca32b05e8ec6328cfe456c8d7851"
+  },
+  {
+    "path": "/pt/piscinas-e-lagos-zen/",
+    "id": "piscine-e-laghetti-zen",
+    "locale": "pt",
+    "sha256": "b32efb7185556565f700c00f0e561f59d1093d25e63cf6c44755f118fc0d005c"
+  },
+  {
+    "path": "/pt/cozinhas-de-alvenaria-luxuosas/",
+    "id": "cucine-in-muratura-luxury",
+    "locale": "pt",
+    "sha256": "a26fc2cf20bfb98e87f9aeb9945fe1b29a3e735885294972b6e1808b16b6e5f3"
+  },
+  {
+    "path": "/pt/tecnicas-avancadas-para-o-controle-de-deformacoes-em-estruturas-edificios-modernos/",
+    "id": "tecniche-avanzate-gestione-deformazioni-strutture-edili",
+    "locale": "pt",
+    "sha256": "19649beeb7080916a6e052e437c14091d65f58fa4df379f1c11d4eb88489c838"
+  },
+  {
+    "path": "/ru/",
+    "id": "home",
+    "locale": "ru",
+    "sha256": "a261d35e40caefb7e6b71480600051f216c4303b6744aa4630481ef1c69acd44"
+  },
+  {
+    "path": "/ru/services",
+    "id": "services",
+    "locale": "ru",
+    "sha256": "39f169d0f519a9420e041cbd7efcd973f0b89882051f38f0a29e0c5c4885b7c0"
+  },
+  {
+    "path": "/ru/owners-abroad",
+    "id": "abroad",
+    "locale": "ru",
+    "sha256": "53cc472d9af0c4af271f8eb39c28b830d943ecba4fe88ada5288bd7ad1fdc552"
+  },
+  {
+    "path": "/ru/request",
+    "id": "request",
+    "locale": "ru",
+    "sha256": "e12a325f7f869a77db36bb26a8ba61bd27f6ccb88ebd30923f8bb429ca90319f"
+  },
+  {
+    "path": "/ru/stati/",
+    "id": "articles",
+    "locale": "ru",
+    "sha256": "6adfa4d0625a6e10044693a6a08a6b05e831cc16042ec7994d0921d50d371cac"
+  },
+  {
+    "path": "/ru/pokupka-i-remont-doma-v-chefalu-tehnicheskoe-rukovodstvo-po-5-osnovnym-proverkam/",
+    "id": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+    "locale": "ru",
+    "sha256": "405b5a1f8bf66fcd02d1c9a5313167c5dadb7dedfdfde8e5d906ed713283ef59"
+  },
+  {
+    "path": "/ru/stroitelnaja-kompanija-v-chefalu-prevraschaem-vashi-idei-v-realnost/",
+    "id": "impresa-edile-a-cefalu",
+    "locale": "ru",
+    "sha256": "382e97e78b3072f7153f4842adbb7f01305ea924991d6fb1bb9e7b00b38ffe13"
+  },
+  {
+    "path": "/ru/poisk-protechek-vody-i-vlazhnosti-kak-ustranit-bez-snosa/",
+    "id": "ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni",
+    "locale": "ru",
+    "sha256": "935762e8f9aa75060334fb3a5cf8e8148d5f1666769bcf7a00c66d719fdf27ed"
+  },
+  {
+    "path": "/ru/10-letnjaja-garantija-na-stroitelnye-raboty-desjatiletnij-polis-marenetto/",
+    "id": "garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto",
+    "locale": "ru",
+    "sha256": "dd6a4e4fb3819aeb8ac45976d72bc644bed1bd7b8b03b56d5c6e52e1f0af1cc9"
+  },
+  {
+    "path": "/ru/teplyj-fasad-protiv-teploizoljacionnoj-shtukaturki-luchshij-vybor-dlja-sicilii/",
+    "id": "cappotto-termico-vs-intonaco-termico-cefalu",
+    "locale": "ru",
+    "sha256": "dc07b11e4a2e35b790353f08e2062efd8fe90a460323231ddba8b02d34fb5af1"
+  },
+  {
+    "path": "/ru/naruzhnye-pokrytija-isoplam-polnoe-rukovodstvo-po-shtampovannomu-betonu-i-skyconcrete/",
+    "id": "pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete",
+    "locale": "ru",
+    "sha256": "06217a348f65bfdb9b91a19dcf77ef70b859fc957bb5a96701c2bec0c70905a4"
+  },
+  {
+    "path": "/ru/remont-bez-snosa-polnoe-rukovodstvo-po-mikrocementu-microverlayr-isoplam/",
+    "id": "ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam",
+    "locale": "ru",
+    "sha256": "6b34362416de73794ed7ea84761e2a921337306ba54c1fb9ee7962ddf74bc11d"
+  },
+  {
+    "path": "/ru/upravlenie-tehnicheskim-obsluzhivaniem-zdanija/",
+    "id": "gestione-manutenzione-immobile",
+    "locale": "ru",
+    "sha256": "d04e47f16efcf012ccf806b7edc0fd08e3b3dac1b623024f5d3d5e6898650e74"
+  },
+  {
+    "path": "/ru/ekskljuzivnyj-dizajn-sada/",
+    "id": "garden-design-esclusivo",
+    "locale": "ru",
+    "sha256": "2843729ed0e287ea7ff3f67f2e91bf6f0022c84e2a951ab98eb2a13ac8404279"
+  },
+  {
+    "path": "/ru/kamennye-raboty-i-fasady/",
+    "id": "opere-in-pietra-e-prospetti",
+    "locale": "ru",
+    "sha256": "f72e649aeee0fc1bb8cf738835b707bf08241e0cb3d17e670bea82cc5967ac1b"
+  },
+  {
+    "path": "/ru/nalivnye-poly-iz-smoly/",
+    "id": "pavimenti-stampati-in-resina",
+    "locale": "ru",
+    "sha256": "70817c01c0510800625890a217d9de55107360d01ed3f504afcb413f6107a254"
+  },
+  {
+    "path": "/ru/zen-bassejny-i-prudy/",
+    "id": "piscine-e-laghetti-zen",
+    "locale": "ru",
+    "sha256": "44f18d6285cbaba51c3a5eba2540bbed8050c0800215187c7fe8af2827cb380e"
+  },
+  {
+    "path": "/ru/roskoshnye-kuhni-iz-kirpicha/",
+    "id": "cucine-in-muratura-luxury",
+    "locale": "ru",
+    "sha256": "2aa414adce846ba3c3be7721376406297af4b4696c0d92eaca9cda18904b7e19"
+  },
+  {
+    "path": "/ru/prodvinutye-metody-upravlenija-deformacijami-v-sovremennyh-stroitelnyh-konstrukcijah/",
+    "id": "tecniche-avanzate-gestione-deformazioni-strutture-edili",
+    "locale": "ru",
+    "sha256": "145afd9efb533d49ef6e74371c2da00d5af4ed816917d6b49e2469766b0156a4"
+  },
+  {
+    "path": "/pl/",
+    "id": "home",
+    "locale": "pl",
+    "sha256": "e8c91d80a001bb78b115d2c72e1230768ac4db41e19c0b7e7003be705ae72011"
+  },
+  {
+    "path": "/pl/services",
+    "id": "services",
+    "locale": "pl",
+    "sha256": "e667115329028da4971d431353e48c2aba7d2b77895e6e241c7087cfca382aa4"
+  },
+  {
+    "path": "/pl/owners-abroad",
+    "id": "abroad",
+    "locale": "pl",
+    "sha256": "8074dcdddf5050bccc00fa7c5c2262e0136eb4d05e133cae623dfffed8d17462"
+  },
+  {
+    "path": "/pl/request",
+    "id": "request",
+    "locale": "pl",
+    "sha256": "752b578492460345b8139ca969aa971347ad2e6bc21aba28f8605313bb58c9a3"
+  },
+  {
+    "path": "/pl/artykuly/",
+    "id": "articles",
+    "locale": "pl",
+    "sha256": "926d6c6d8c1631c4aa48e9c9014397a69410d0d3d2564738ee1712006e910435"
+  },
+  {
+    "path": "/pl/kupno-i-remont-domu-w-cefalu-techniczny-przewodnik-po-5-kluczowych-kontrolach/",
+    "id": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+    "locale": "pl",
+    "sha256": "a9e0f30a2d59c994340dd939213bd05538c23cd9c1a27798c05b487cff387c31"
+  },
+  {
+    "path": "/pl/firma-budowlana-w-cefalu-przeksztalcamy-twoja-wizje-w-rzeczywistosc/",
+    "id": "impresa-edile-a-cefalu",
+    "locale": "pl",
+    "sha256": "2d73b109a305d906b8c4e96367dee8fc3df6e377643330b97194048e05b4b05e"
+  },
+  {
+    "path": "/pl/wykrywanie-przeciekow-wody-i-wilgoci-jak-dzialac-bez-koniecznosci-rozbiorek/",
+    "id": "ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni",
+    "locale": "pl",
+    "sha256": "5ce2dec0fb7cb597a67d43a2899643ed00d1d7e2974aa2b8342c2873032989fb"
+  },
+  {
+    "path": "/pl/10-letnia-gwarancja-na-prace-budowlane-polisa-dekenalna-marenetto/",
+    "id": "garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto",
+    "locale": "pl",
+    "sha256": "05e23cfcf124c3c099712acf12c36270dacbf477f825b8ec4a19d8415595c7cb"
+  },
+  {
+    "path": "/pl/ocieplenie-zewnetrzne-kontra-tynk-termiczny-najlepszy-wybor-dla-sycylii/",
+    "id": "cappotto-termico-vs-intonaco-termico-cefalu",
+    "locale": "pl",
+    "sha256": "301be830eaae00253ca8ddb7a7357f61cc67dfc0232bd1acb0710234f9bf7bdc"
+  },
+  {
+    "path": "/pl/podlogi-zewnetrzne-isoplam-kompletny-przewodnik-po-betonie-wzorcowym-i-skyconcrete/",
+    "id": "pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete",
+    "locale": "pl",
+    "sha256": "6513cc0b0e9f6b44353ccf7bc8e62fe9d586e935e07a12adb67ca2b77267d403"
+  },
+  {
+    "path": "/pl/renowacja-bez-rozbiorki-kompletny-przewodnik-po-mikrocemencie-microverlayr-isoplam/",
+    "id": "ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam",
+    "locale": "pl",
+    "sha256": "19cfa215b7a0f3896153f5ef1d911a66ce3918111353da7c2eb01a764a5d478f"
+  },
+  {
+    "path": "/pl/zarzadzanie-konserwacja-nieruchomosci/",
+    "id": "gestione-manutenzione-immobile",
+    "locale": "pl",
+    "sha256": "eba0d929fd7463ca99f3d78f3e8e6642dbb0f57fa61b88df7dd44461cc08fc4f"
+  },
+  {
+    "path": "/pl/ekskluzywny-projekt-ogrodu/",
+    "id": "garden-design-esclusivo",
+    "locale": "pl",
+    "sha256": "cd01a00dd4583fc9dd41e6ebb639d420a200f5be1b35693125401df248c6ac4c"
+  },
+  {
+    "path": "/pl/prace-kamieniarskie-i-elewacje/",
+    "id": "opere-in-pietra-e-prospetti",
+    "locale": "pl",
+    "sha256": "b914150a38a54e475e444f6d136153767de882efae0ed80cbb3f8a7ddd7dfac4"
+  },
+  {
+    "path": "/pl/posadzki-zywiczne-z-wzorem/",
+    "id": "pavimenti-stampati-in-resina",
+    "locale": "pl",
+    "sha256": "d7f08f626b5186fb05ba5b506b3a1da2dde2cc9c07b9cca7ae697f1c16a97257"
+  },
+  {
+    "path": "/pl/baseny-i-stawy-zen/",
+    "id": "piscine-e-laghetti-zen",
+    "locale": "pl",
+    "sha256": "08efda6d980a91ec82962a09c7e58580363d44f456dbfd36c0d7d5c771a0c9f0"
+  },
+  {
+    "path": "/pl/luksusowe-kuchnie-murowane/",
+    "id": "cucine-in-muratura-luxury",
+    "locale": "pl",
+    "sha256": "9e3834058d9ed97d1c3b644c6f1b0ab8d91f31dd42ccc2b383fb72b1378e5009"
+  },
+  {
+    "path": "/pl/zaawansowane-techniki-zarzadzania-odksztalceniami-w-nowoczesnych-konstrukcjach-budowlanych/",
+    "id": "tecniche-avanzate-gestione-deformazioni-strutture-edili",
+    "locale": "pl",
+    "sha256": "f694cd1c976036a6ab15c0d5e4fa18c07c645bee72adaa5cb7526d481bbf01f0"
+  },
+  {
+    "path": "/sv/",
+    "id": "home",
+    "locale": "sv",
+    "sha256": "48b81ef0ecd32073de24853512240d92b9af458b9b8de761b055c59e3164291f"
+  },
+  {
+    "path": "/sv/services",
+    "id": "services",
+    "locale": "sv",
+    "sha256": "516bd545e106f8ed99d8bb446ef8a55e920512779ba4bfd8cf8bf5f3965d9837"
+  },
+  {
+    "path": "/sv/how-we-work",
+    "id": "process",
+    "locale": "sv",
+    "sha256": "282c4dcd84645f83724a2286ffe641d484529eacb2b32a0d504c96156a4531f0"
+  },
+  {
+    "path": "/sv/owners-abroad",
+    "id": "abroad",
+    "locale": "sv",
+    "sha256": "3301ba03915035eb67bbd14e638670cadfc46a73523f228e5d75f647b86e67c0"
+  },
+  {
+    "path": "/sv/request",
+    "id": "request",
+    "locale": "sv",
+    "sha256": "da09b5f007f0ffbd126331a09677070228cb9683f3069cd680e59045a692bf55"
+  },
+  {
+    "path": "/sv/contact",
+    "id": "contact",
+    "locale": "sv",
+    "sha256": "0caa8b1e12c6e730f5b3b14e12b457f742593942ad47d86d2a536e82ac68d8a6"
+  },
+  {
+    "path": "/no/",
+    "id": "home",
+    "locale": "no",
+    "sha256": "7750c1e4f8e681a148fd6f2c25a0b3ac9d30b1a4c7b27e8d726f140f4f32a13e"
+  },
+  {
+    "path": "/no/services",
+    "id": "services",
+    "locale": "no",
+    "sha256": "8f662873ee630bbdf6634d8c31da6e89c83ad702595811abdf1d501e85317500"
+  },
+  {
+    "path": "/no/how-we-work",
+    "id": "process",
+    "locale": "no",
+    "sha256": "573cf1b2977df6f0767cc1fd7230bd5e5b8b98dda9aef43c4833cbf5687d255f"
+  },
+  {
+    "path": "/no/owners-abroad",
+    "id": "abroad",
+    "locale": "no",
+    "sha256": "b9d3c5e1eab25208f2c6a70c1d62f12cc58925a75a41e541d0fe7470736df128"
+  },
+  {
+    "path": "/no/request",
+    "id": "request",
+    "locale": "no",
+    "sha256": "664f6f449fd537b7ab9301e6f681fccc187bf73389b85789976fc3cd9c57aacc"
+  },
+  {
+    "path": "/no/contact",
+    "id": "contact",
+    "locale": "no",
+    "sha256": "66f0b61ea6057c2d9bf97c1fb0c7bf4a338ab146d4d3a94977210b11104d4795"
+  },
+  {
+    "path": "/da/",
+    "id": "home",
+    "locale": "da",
+    "sha256": "8d289c386b98f6e8e756117cd40d9441c9bf099db5ac686d87ea625abbef7a03"
+  },
+  {
+    "path": "/da/services",
+    "id": "services",
+    "locale": "da",
+    "sha256": "eafa6429428b4a19e4ee2ba39b99b33d08c52272745146e08cfe5179c9c43230"
+  },
+  {
+    "path": "/da/how-we-work",
+    "id": "process",
+    "locale": "da",
+    "sha256": "18dae6c370fed474f8c710ab10c318bf7e7987a61ef90c6c26555f5b2c376bf1"
+  },
+  {
+    "path": "/da/owners-abroad",
+    "id": "abroad",
+    "locale": "da",
+    "sha256": "03acad07f06b84542373363114c745647d096bf639345171fc7ab256da3f5bb1"
+  },
+  {
+    "path": "/da/request",
+    "id": "request",
+    "locale": "da",
+    "sha256": "f4eba5e50042569809d9beaeb7401d0466d3f9e23b700e24b32133ca7c19d034"
+  },
+  {
+    "path": "/da/contact",
+    "id": "contact",
+    "locale": "da",
+    "sha256": "7c8e8562719bdb8ad74d5b5122cfbefd97f48d402d666cd599f16eb232d4fe87"
+  },
+  {
+    "path": "/recensioni/",
+    "id": "historical:/recensioni",
+    "locale": "it",
+    "sha256": "4cd2ad585c9d09dd79bb843ef9e557a66ae01daeb1f69f0f4b54e92929580e11"
+  },
+  {
+    "path": "/en/recensioni/",
+    "id": "historical:/recensioni",
+    "locale": "en",
+    "sha256": "982e8691e803bcfaf538b7295b2e3702f175a8170e48fda67e056c9b95cbdd9b"
+  },
+  {
+    "path": "/fr/recensioni/",
+    "id": "historical:/recensioni",
+    "locale": "fr",
+    "sha256": "3ba2191a49ebb0e13b18f11b95ff638af3d03b1ae9138793ff06be7fc9fed83b"
+  },
+  {
+    "path": "/de/recensioni/",
+    "id": "historical:/recensioni",
+    "locale": "de",
+    "sha256": "a357e744afb9b83615cf3e7e96e59e8ca58a837970e92983ebd847cda19cf088"
+  },
+  {
+    "path": "/es/recensioni/",
+    "id": "historical:/recensioni",
+    "locale": "es",
+    "sha256": "4177aad9681dac59b6509d8e3d2bbd4fa8eeef43fda8e4b8ab91767c51bf1a6c"
+  },
+  {
+    "path": "/nl/recensioni/",
+    "id": "historical:/recensioni",
+    "locale": "nl",
+    "sha256": "e516ded0fb3ddf0cc8147ef6c3d7269d823438d4b88dbc6b4748bc925d4ba911"
+  },
+  {
+    "path": "/ru/recensioni/",
+    "id": "historical:/recensioni",
+    "locale": "ru",
+    "sha256": "afef4cd6c24dd7ada6ce3cdb7bcf21020653dea352f290f8388017cdda5b9980"
+  },
+  {
+    "path": "/pt/recensioni/",
+    "id": "historical:/recensioni",
+    "locale": "pt",
+    "sha256": "c7f4d90375433dc26c5f1d0fd4353becc2ac1c0f53cac8f8c83adf20d4d3333c"
+  },
+  {
+    "path": "/pl/recensioni/",
+    "id": "historical:/recensioni",
+    "locale": "pl",
+    "sha256": "4a444182ff48ed2eeb80d884668d3a030fa1ecffe91551d8b851313691601ff5"
+  },
+  {
+    "path": "/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto/",
+    "id": "historical:/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto",
+    "locale": "it",
+    "sha256": "331092111851ecd8b206398454a528e1616ab21bf0aec5f46eb648839f920a99"
+  },
+  {
+    "path": "/general-contractor/",
+    "id": "historical:/general-contractor",
+    "locale": "it",
+    "sha256": "38ed97a6b24a5067e905b2ef10c706265c4758eeec43135e4122ff235a1bb3c8"
+  },
+  {
+    "path": "/en/general-contractor/",
+    "id": "historical:/general-contractor",
+    "locale": "en",
+    "sha256": "95310ad6fddf75fc77d6d6cf6f7ae811d57a2ed1d755fec91e4321cf389c593d"
+  },
+  {
+    "path": "/fr/entrepreneur-general/",
+    "id": "historical:/general-contractor",
+    "locale": "fr",
+    "sha256": "962d51decbd3a0b5c7cdcdb9e4e511622620568691aa3247c4a4ef3946361809"
+  },
+  {
+    "path": "/de/generalunternehmer/",
+    "id": "historical:/general-contractor",
+    "locale": "de",
+    "sha256": "9a3c13d179a0cae3ca4c90f27f6b01c0dfd1257e47fa68c0c4117c6b00f2a7c1"
+  },
+  {
+    "path": "/es/contratista-general/",
+    "id": "historical:/general-contractor",
+    "locale": "es",
+    "sha256": "9eb87d9ce25340501a9c328130ae0c0b74c8d31654d40aaedc1f8c06c5788626"
+  },
+  {
+    "path": "/nl/aannemer/",
+    "id": "historical:/general-contractor",
+    "locale": "nl",
+    "sha256": "88c916aacee70d26df2d3ca6948d60ec157b11285173663089a3849d503af542"
+  },
+  {
+    "path": "/ru/generalnyj-podrjadchik/",
+    "id": "historical:/general-contractor",
+    "locale": "ru",
+    "sha256": "8692866f3b86209f8189ce1529f8a15bfe319e685c442a348cc70090c3efea78"
+  },
+  {
+    "path": "/pt/empreiteiro-geral/",
+    "id": "historical:/general-contractor",
+    "locale": "pt",
+    "sha256": "7b2914094239e5f99b147f700e318f255010c7b75c6aac29722b2053cc1bd267"
+  },
+  {
+    "path": "/pl/glowny-wykonawca/",
+    "id": "historical:/general-contractor",
+    "locale": "pl",
+    "sha256": "65e926dfc6a5b0d7b920e71c6b79accf6b63d7cb9de79ad96146b4d04b557227"
+  },
+  {
+    "path": "/edilizia-e-ristrutturazioni/",
+    "id": "historical:/edilizia-e-ristrutturazioni",
+    "locale": "it",
+    "sha256": "f4c8309034e0017b96944061ad40404eb6680710ca889393d64ad739d9f3d06d"
+  },
+  {
+    "path": "/en/construction-and-renovations/",
+    "id": "historical:/edilizia-e-ristrutturazioni",
+    "locale": "en",
+    "sha256": "e859ce2b8f641c3e718f1b367b58a6a8af4d711a1a16fd9bac3afa13232f50f9"
+  },
+  {
+    "path": "/fr/construction-et-renovations/",
+    "id": "historical:/edilizia-e-ristrutturazioni",
+    "locale": "fr",
+    "sha256": "042b0a7e136779420c48bb5e4f1ba60e83e23fb709c0f19984feba9f881394cd"
+  },
+  {
+    "path": "/de/bau-und-renovierung/",
+    "id": "historical:/edilizia-e-ristrutturazioni",
+    "locale": "de",
+    "sha256": "5e9140efe9d745423a5da8fa81599ec708d287f85775773621d78c36bb1a24ee"
+  },
+  {
+    "path": "/es/construccion-y-renovaciones/",
+    "id": "historical:/edilizia-e-ristrutturazioni",
+    "locale": "es",
+    "sha256": "c22e9d7e5603acb3d9a6a15051124d86a2cd49e7b7dc10cca4b38e6ca5f2cecf"
+  },
+  {
+    "path": "/nl/bouw-en-renovaties/",
+    "id": "historical:/edilizia-e-ristrutturazioni",
+    "locale": "nl",
+    "sha256": "e7a123f811ad00fae93835a33ba64fce52b47ad53a86376ccd8e9a5e6565f088"
+  },
+  {
+    "path": "/ru/stroitelstvo-i-remont/",
+    "id": "historical:/edilizia-e-ristrutturazioni",
+    "locale": "ru",
+    "sha256": "7e2f260fd134f1c22905091645aed52f3a8042e4e8e8a6d3d890af9192715425"
+  },
+  {
+    "path": "/pt/construcao-e-reformas/",
+    "id": "historical:/edilizia-e-ristrutturazioni",
+    "locale": "pt",
+    "sha256": "e5eb64565dd2354f64c2027ba2103595a8f5b190923a102f974c42ebee80a68a"
+  },
+  {
+    "path": "/pl/budownictwo-i-remonty/",
+    "id": "historical:/edilizia-e-ristrutturazioni",
+    "locale": "pl",
+    "sha256": "20afd2e25cb4a6026cc6777d0ff56896e14728bfe8f05549f2958411ff4aa922"
+  },
+  {
+    "path": "/bonus-edilizi-e-permessi/",
+    "id": "historical:/bonus-edilizi-e-permessi",
+    "locale": "it",
+    "sha256": "1a53268d697567028e9b539d6b45de061d2093f353206df4624d5f96326c333c"
+  },
+  {
+    "path": "/en/building-bonuses-and-permits/",
+    "id": "historical:/bonus-edilizi-e-permessi",
+    "locale": "en",
+    "sha256": "0e8e7560463f7244f16af29d21c1df1561be77f5a1a65fb21b28461df1607f72"
+  },
+  {
+    "path": "/fr/bonus-de-construction-et-permis/",
+    "id": "historical:/bonus-edilizi-e-permessi",
+    "locale": "fr",
+    "sha256": "ada6fd3e286a4f8e53d4418a5102f0b67b49b9b94758405359eb9db26dfd160b"
+  },
+  {
+    "path": "/de/bau-boni-und-genehmigungen/",
+    "id": "historical:/bonus-edilizi-e-permessi",
+    "locale": "de",
+    "sha256": "24acdb2eb904363da6fe4e706239449d471bb162d5664a670efc64f9c0344d1e"
+  },
+  {
+    "path": "/es/bonos-de-construccion-y-permisos/",
+    "id": "historical:/bonus-edilizi-e-permessi",
+    "locale": "es",
+    "sha256": "efe4ab73e765eabfe4d47788d86f3cd2ebce60a9e3a13e625a8419961dfa6553"
+  },
+  {
+    "path": "/nl/bouwbonussen-en-vergunningen/",
+    "id": "historical:/bonus-edilizi-e-permessi",
+    "locale": "nl",
+    "sha256": "15da6a8572e16a11b4c963ef19f497d6de9a4039c41d551bd5e4405e9f8dd617"
+  },
+  {
+    "path": "/ru/stroitelnye-bonusy-i-razreshenija/",
+    "id": "historical:/bonus-edilizi-e-permessi",
+    "locale": "ru",
+    "sha256": "e03c5e72da61c6f47e961740523e5fc11b0d3ab30ddb86ab83f32c05414fcf59"
+  },
+  {
+    "path": "/pt/bonus-de-construcao-e-licencas/",
+    "id": "historical:/bonus-edilizi-e-permessi",
+    "locale": "pt",
+    "sha256": "1098205fc152f1bcfe5bc5806929f6405181589e11ff11ed73dd633f25fbc9aa"
+  },
+  {
+    "path": "/pl/bonus-budowlane-i-zezwolenia/",
+    "id": "historical:/bonus-edilizi-e-permessi",
+    "locale": "pl",
+    "sha256": "daef9ec195074710929c25224490add9615a0c06757b1dc9c008169012e400e9"
+  },
+  {
+    "path": "/cantieri-e-lavori/",
+    "id": "historical:/cantieri-e-lavori",
+    "locale": "it",
+    "sha256": "4c995f45d8fe9d75d3264f2c5b201ca51a883cf23507c2da2a3e56b15c1d76c4"
+  },
+  {
+    "path": "/en/shipyards-and-construction/",
+    "id": "historical:/cantieri-e-lavori",
+    "locale": "en",
+    "sha256": "134920d109c1a0649b545dbf3ed5fad90d4096188458a2d7fa42ef41be2cdcd5"
+  },
+  {
+    "path": "/fr/chantiers-et-travaux/",
+    "id": "historical:/cantieri-e-lavori",
+    "locale": "fr",
+    "sha256": "9587c059bb445b5e99399efd2d4a9c6a04f61ffae29b39bea61b1ef8d64502d7"
+  },
+  {
+    "path": "/de/baustellen-und-arbeiten/",
+    "id": "historical:/cantieri-e-lavori",
+    "locale": "de",
+    "sha256": "0f41492b60561b060788bee11e76ccb82cb5f20eb44bb8f560eddb27bd40afc9"
+  },
+  {
+    "path": "/es/obras-y-construcciones/",
+    "id": "historical:/cantieri-e-lavori",
+    "locale": "es",
+    "sha256": "dc901b5ff48921f465de78e1e496593ca98039fa4f6046bde3f94dee8a27e856"
+  },
+  {
+    "path": "/nl/scheepswerven-en-werken/",
+    "id": "historical:/cantieri-e-lavori",
+    "locale": "nl",
+    "sha256": "c1aede122a28e3743a952e00407b854db954c5e20353fa3939edfe3c1eaf0e78"
+  },
+  {
+    "path": "/ru/stroitelnye-ploschadki-i-raboty/",
+    "id": "historical:/cantieri-e-lavori",
+    "locale": "ru",
+    "sha256": "977443991962aceb6365b81f39d6cc96b1b1452260725753b8fb46b3b6128a7a"
+  },
+  {
+    "path": "/pt/construcoes-e-obras/",
+    "id": "historical:/cantieri-e-lavori",
+    "locale": "pt",
+    "sha256": "3e0ee234b63128a6a0b13b4c7a1357daaab5b3164d45d2e67c0c4cfbb097fa94"
+  },
+  {
+    "path": "/pl/budowy-i-prace/",
+    "id": "historical:/cantieri-e-lavori",
+    "locale": "pl",
+    "sha256": "6868e4116020c3f6ac6be3dd02a21eb7005148664e6da6a78ecdaa58e96c97ff"
+  },
+  {
+    "path": "/outdoor-e-garden-design/",
+    "id": "historical:/outdoor-e-garden-design",
+    "locale": "it",
+    "sha256": "5141d90205418bcd5802c970e18c05e8b07bc73b3b27a57adda9c0de9205a0a4"
+  },
+  {
+    "path": "/en/outdoor-and-garden-design/",
+    "id": "historical:/outdoor-e-garden-design",
+    "locale": "en",
+    "sha256": "bcad52f190bb771e43ba983412f0ba0b2369c0f64094b28cf70c41ce6bb2ed2a"
+  },
+  {
+    "path": "/fr/conception-d-exterieur-et-de-jardin/",
+    "id": "historical:/outdoor-e-garden-design",
+    "locale": "fr",
+    "sha256": "a455b41baa56bff22f5ef0378b507ea4572d33afcc9b34b88c2881091249d8e8"
+  },
+  {
+    "path": "/de/aussenbereich-und-gartengestaltung/",
+    "id": "historical:/outdoor-e-garden-design",
+    "locale": "de",
+    "sha256": "80ea2e391e3825642ef86cbb2aabb392a438fa0596d58ec51ac1eac3c0e23a0e"
+  },
+  {
+    "path": "/es/diseno-de-exteriores-y-jardines/",
+    "id": "historical:/outdoor-e-garden-design",
+    "locale": "es",
+    "sha256": "1ff3e89c7e76607510c67291f90d9bf943ee40f8c5d801d49d659c313c0c6b96"
+  },
+  {
+    "path": "/nl/buiten-en-tuinontwerp/",
+    "id": "historical:/outdoor-e-garden-design",
+    "locale": "nl",
+    "sha256": "86abdb042bde01a888a2688ad89389c1777d5c381b2103287993838a08e18511"
+  },
+  {
+    "path": "/ru/dizajn-ulicy-i-sada/",
+    "id": "historical:/outdoor-e-garden-design",
+    "locale": "ru",
+    "sha256": "467d2c3b0e94f72b5a62095eace667b15f78583c3f9518206eb721e46d486539"
+  },
+  {
+    "path": "/pt/design-para-exterior-e-jardim/",
+    "id": "historical:/outdoor-e-garden-design",
+    "locale": "pt",
+    "sha256": "99839b7a544853830550b92ea56105a2edbc79f470f929c1fef7429fbb82a280"
+  },
+  {
+    "path": "/pl/projektowanie-przestrzeni-zewnetrznych-i-ogrodow/",
+    "id": "historical:/outdoor-e-garden-design",
+    "locale": "pl",
+    "sha256": "9f10cb24c979788423a3bb91d8365614608fa01f83b51dc3c7b7449253064adf"
+  },
+  {
+    "path": "/assistenza-e-pronto-intervento/",
+    "id": "historical:/assistenza-e-pronto-intervento",
+    "locale": "it",
+    "sha256": "93892db8683d21f538e06ee0c36cccf7d2922774ed075832cbbef29e9a67fce0"
+  },
+  {
+    "path": "/en/support-and-emergency-service/",
+    "id": "historical:/assistenza-e-pronto-intervento",
+    "locale": "en",
+    "sha256": "947580a2f2215fd724e0f76257d1e623be21567791ad3d90f49e81abd20d789e"
+  },
+  {
+    "path": "/fr/assistance-et-intervention-d-urgence/",
+    "id": "historical:/assistenza-e-pronto-intervento",
+    "locale": "fr",
+    "sha256": "ee3c0eb093bc85dddcec7e8176dac783dd8d9fc536b6851afaa28d9fff9ca7bc"
+  },
+  {
+    "path": "/de/support-und-notfallhilfe/",
+    "id": "historical:/assistenza-e-pronto-intervento",
+    "locale": "de",
+    "sha256": "268eb3473f243d2da42d5962de27f501aa50fb6c51fd13ca7db0d483a8da7a93"
+  },
+  {
+    "path": "/es/asistencia-y-servicio-de-emergencia/",
+    "id": "historical:/assistenza-e-pronto-intervento",
+    "locale": "es",
+    "sha256": "f525cc44ca36656f9774701eb8d2cf79564e8787d30bd1c3e3a66ed71171b6c4"
+  },
+  {
+    "path": "/nl/ondersteuning-en-spoedhulp/",
+    "id": "historical:/assistenza-e-pronto-intervento",
+    "locale": "nl",
+    "sha256": "c37816a068c2053dd2208e688c3abef21e73ebc05255bf873919c06d978642e7"
+  },
+  {
+    "path": "/ru/podderzhka-i-ekstrennoe-reagirovanie/",
+    "id": "historical:/assistenza-e-pronto-intervento",
+    "locale": "ru",
+    "sha256": "b090792c4fd78c47e110fc50e4abc6b266bbf2b93c6faf53c7362919403e4787"
+  },
+  {
+    "path": "/pt/assistencia-e-atendimento-imediato/",
+    "id": "historical:/assistenza-e-pronto-intervento",
+    "locale": "pt",
+    "sha256": "5cb1bcb0ce37395e29e4e6246c42e4b29fe535d67012e84cd46b4d2b4fe44f4e"
+  },
+  {
+    "path": "/pl/wsparcie-i-szybka-interwencja/",
+    "id": "historical:/assistenza-e-pronto-intervento",
+    "locale": "pl",
+    "sha256": "707967f34ca665a4a27e237fa6f5d55cd654ea786efd5c2f68c35dfa77998a98"
+  },
+  {
+    "path": "/tag/edilizia-cefalu/",
+    "id": "historical:/tag/edilizia-cefalu",
+    "locale": "it",
+    "sha256": "fd1d84b7fc2e8ffe9427efb667e27443042ac0bbda6fc909704885183337cb40"
+  },
+  {
+    "path": "/tag/impresa-edile-cefalu/",
+    "id": "historical:/tag/impresa-edile-cefalu",
+    "locale": "it",
+    "sha256": "6db2f3c85bc4672d78dbcc021a66f6e592b4e56dd512c178b97f23fb63043975"
+  },
+  {
+    "path": "/tag/endoscopio/",
+    "id": "historical:/tag/endoscopio",
+    "locale": "it",
+    "sha256": "561ffaee33635386fe2911aebfee19fccf7e8a1761ac79d9ebb487ee37412032"
+  },
+  {
+    "path": "/tag/geofono/",
+    "id": "historical:/tag/geofono",
+    "locale": "it",
+    "sha256": "7839beaf6762bc9dcd402c3b02bfc9ce363678ac719212a578147ff4af2242ec"
+  },
+  {
+    "path": "/tag/igrometro/",
+    "id": "historical:/tag/igrometro",
+    "locale": "it",
+    "sha256": "4cc30eda591e1f593d93882c2fbfe4ae27a8743b88a0492d883492b6c172dd0b"
+  },
+  {
+    "path": "/tag/termografia/",
+    "id": "historical:/tag/termografia",
+    "locale": "it",
+    "sha256": "9c5ed367fea97f09289a7e9c0534b4e22229f384552d74dcee73b150034853cf"
+  },
+  {
+    "path": "/tag/termo-camera/",
+    "id": "historical:/tag/termo-camera",
+    "locale": "it",
+    "sha256": "7cb21c63625eba6dba97285a809240db6dbc69137efceb8ef19bebb7ed32f7b0"
+  },
+  {
+    "path": "/tag/garden/",
+    "id": "historical:/tag/garden",
+    "locale": "it",
+    "sha256": "2bf6f3360abbc6bfff4b5171505b90b4435984f181d7d211c4ea0285af032690"
+  },
+  {
+    "path": "/tag/pavimento-in-resina/",
+    "id": "historical:/tag/pavimento-in-resina",
+    "locale": "it",
+    "sha256": "45772547bc7206ba3db45d8eb007db82306f7a8bf172816aeb1e2fde98ca0db2"
+  },
+  {
+    "path": "/tag/resina/",
+    "id": "historical:/tag/resina",
+    "locale": "it",
+    "sha256": "d4c40e63abd3dcf8958be96ce0c1d6a0e6e245a71d8ff433861f63bea0eb7fd5"
+  },
+  {
+    "path": "/tag/microcemento/",
+    "id": "historical:/tag/microcemento",
+    "locale": "it",
+    "sha256": "3917db3d629a1029b9c0c2910934338150dca435d0480d2a2981ed4e8f8f2a02"
+  },
+  {
+    "path": "/tag/microverlay/",
+    "id": "historical:/tag/microverlay",
+    "locale": "it",
+    "sha256": "7d0158f5a33bc25cc13dca58176e37e889067e96d768a865530606d6a4e39556"
+  },
+  {
+    "path": "/tag/isoplam/",
+    "id": "historical:/tag/isoplam",
+    "locale": "it",
+    "sha256": "c814c454c6c1e9d660bb8e5cd5e252e481f213a50021463c24aeefa3f623e693"
+  },
+  {
+    "path": "/tag/costruzione/",
+    "id": "historical:/tag/costruzione",
+    "locale": "it",
+    "sha256": "0688263a2ee899def7b46d427c58846812850a93dcd47b742617b1b43fab3c83"
+  }
+]

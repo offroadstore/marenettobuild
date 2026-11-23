@@ -3,14 +3,24 @@ export function isNativeEdition(edition) {
   return edition.contentLanguage === edition.locale;
 }
 
+// Legacy release evidence is not extended to a newly translated revision.
+export function hasTranslationApproval(edition) {
+  return !edition.translationSourceStale && (!edition.translationRevision || Boolean(edition.approval &&
+    edition.translationApprovalRevision === edition.translationRevision));
+}
+
 export function mergeActiveMetadata(entries, active) {
   return entries.map(entry => {
     const live = active.find(item => item.path === entry.path && item.revisionId !== 'withdrawn');
-    return live?.content ? { ...entry,
+    const normalized = path => path.replace(/\/+$/, '') || '/';
+    const translationSourceStale = entry.translationSourcePath && active.some(item =>
+      [item.path, ...(item.aliases ?? [])].some(path => normalized(path) === normalized(entry.translationSourcePath)));
+    const candidate = translationSourceStale ? { ...entry, translationSourceStale: true } : entry;
+    return live?.content ? { ...candidate,
       title: live.content.seoTitle || live.content.title || entry.title,
       description: live.content.seoDescription || live.content.summary || entry.description,
       contentLanguage: live.content.contentLanguage || entry.contentLanguage,
-    } : entry;
+    } : candidate;
   });
 }
 

@@ -4,6 +4,7 @@ import { X } from 'lucide-react';
 import { whatsappHref } from '@/config/contact';
 import { localizeChoice } from '@/localization/runtime';
 import { closeWhatsApp, openWhatsApp } from '@/localization/operational-copy';
+import { whatsappPlacement } from '@/lib/whatsapp-placement';
 
 function WhatsAppLogo({ size }: { size: number }) {
   return <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true" focusable="false" fill="currentColor">
@@ -42,36 +43,47 @@ function Inner({ lang }: { lang: string }) {
   const closed = useClosed();
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
   const boxRef = useRef<HTMLDivElement>(null);
+  const avoidance = useRef({ x: 0, y: 0 });
   const drag = useRef<{ id: number; startX: number; startY: number; originX: number; originY: number; moved: boolean } | null>(null);
   const suppressClick = useRef(false);
 
   const { label, href } = useWhatsAppCopy(lang);
   const closeLabel = closeWhatsApp[lang];
 
-  // On narrow screens the floating control must yield to readable content,
-  // links, form controls and cookie dialogs rather than cover them while scrolling.
+  // Keep mobile controls usable by moving to nearby free space before hiding.
+  // If the viewport has no free slot (e.g. a consent dialog), content wins.
   useEffect(() => {
     const box = boxRef.current;
     if (!box || closed) return;
     let frame = 0;
+    let stopped = false;
+    const move = (x: number, y: number) => {
+      avoidance.current = { x, y };
+      box.style.transform = x || y ? `translate(${x}px, ${y}px)` : '';
+    };
     const check = () => {
       frame = 0;
-      if (window.innerWidth >= 700) { box.removeAttribute('data-obscures-content'); return; }
-      if (drag.current?.moved) return;
+      if (window.innerWidth >= 700) { move(0, 0); box.removeAttribute('data-obscures-content'); return; }
+      if (drag.current) return;
       const rect = box.getBoundingClientRect();
-      const blocked = [...document.querySelectorAll<HTMLElement>(
-        'a, button, input, textarea, select, [role="dialog"], h1, h2, h3, h4, h5, h6, p, li, dt, dd, label, figcaption',
-      )].some(element => {
-        if (box.contains(element) || !element.getClientRects().length) return false;
+      const obstacles = [...document.querySelectorAll<HTMLElement>(
+        'header, a, button, input, textarea, select, [role="dialog"], h1, h2, h3, h4, h5, h6, p, li, dt, dd, label, figcaption',
+      )].flatMap(element => {
+        if (box.contains(element) || !element.getClientRects().length) return [];
         const style = getComputedStyle(element);
-        if (style.visibility === 'hidden' || style.display === 'none' || style.opacity === '0') return false;
-        const r = element.getBoundingClientRect();
-        return r.width > 0 && r.height > 0 && r.left < rect.right + 4 && r.right > rect.left - 4
-          && r.top < rect.bottom + 4 && r.bottom > rect.top - 4;
+        return style.visibility === 'hidden' || style.display === 'none' || style.opacity === '0'
+          ? [] : [element.getBoundingClientRect()];
       });
-      box.toggleAttribute('data-obscures-content', blocked);
+      const preferred = { left: rect.left - avoidance.current.x, top: rect.top - avoidance.current.y,
+        width: rect.width, height: rect.height };
+      const place = whatsappPlacement(preferred, obstacles, {
+        width: window.visualViewport?.width ?? window.innerWidth,
+        height: window.visualViewport?.height ?? window.innerHeight,
+      });
+      move(place ? place.left - preferred.left : 0, place ? place.top - preferred.top : 0);
+      box.toggleAttribute('data-obscures-content', !place);
     };
-    const schedule = () => { if (!frame) frame = requestAnimationFrame(check); };
+    const schedule = () => { if (!stopped && !frame) frame = requestAnimationFrame(check); };
     const observer = new ResizeObserver(schedule);
     observer.observe(document.body);
     const mutations = new MutationObserver(schedule);
@@ -79,17 +91,23 @@ function Inner({ lang }: { lang: string }) {
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', schedule);
     window.addEventListener('pointerup', schedule);
+    window.addEventListener('pointercancel', schedule);
     document.addEventListener('focusin', schedule);
+    document.fonts.addEventListener('loadingdone', schedule);
+    void document.fonts.ready.then(schedule);
     window.visualViewport?.addEventListener('resize', schedule);
     schedule();
     return () => {
+      stopped = true;
       cancelAnimationFrame(frame);
       observer.disconnect();
       mutations.disconnect();
       window.removeEventListener('scroll', schedule);
       window.removeEventListener('resize', schedule);
       window.removeEventListener('pointerup', schedule);
+      window.removeEventListener('pointercancel', schedule);
       document.removeEventListener('focusin', schedule);
+      document.fonts.removeEventListener('loadingdone', schedule);
       window.visualViewport?.removeEventListener('resize', schedule);
     };
   }, [closed, pos]);
@@ -120,6 +138,11 @@ function Inner({ lang }: { lang: string }) {
   const onPointerDown = (e: React.PointerEvent<HTMLAnchorElement>) => {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
     const rect = boxRef.current!.getBoundingClientRect();
+    // Start dragging from the visible, collision-adjusted location, not its
+    // original CSS corner; otherwise the first pointer move jumps.
+    avoidance.current = { x: 0, y: 0 };
+    boxRef.current!.style.transform = '';
+    setPos({ x: rect.left, y: rect.top });
     drag.current = { id: e.pointerId, startX: e.clientX, startY: e.clientY, originX: rect.left, originY: rect.top, moved: false };
     e.currentTarget.setPointerCapture(e.pointerId);
   };

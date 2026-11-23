@@ -490,3 +490,17 @@ mtime_ms = 1794826414800
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/5f4f3596-0d2c-4aad-bab8-917ec53b1bd0/14fcb5b1-69b9-440c-a1ad-b838078aa4bc"
 storage_version_token = "1794826429778594"
 content_type = "text/html"
+
+[[outputs]]
+id = "7BRlttBZjYblSoas3Z7wD"
+uri = "file://generated-artifacts/phase2/traduzioni-revisionabili.html"
+type = "html"
+title = "Fase 2 — traduzioni revisionabili delle 80 URL e 8 correzioni"
+description = "Fascicolo affiancato con fonti, glossario e revisioni esatte. Le 88 revisioni attendono l’approvazione effettiva del titolare. Nessuna pubblicazione eseguita."
+logical_id = "afed2e59-43c3-4810-9a5a-52738185588a"
+content_hash = "sha256:097a23fc1928d3ceef87fa129a8f611d4de5c4016ea525cb2441a02e3b781fd5"
+size = 1796473
+mtime_ms = 1795390493825
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/afed2e59-43c3-4810-9a5a-52738185588a/d47b1a29-bc9b-4ccf-af9b-428280d0fd9d"
+storage_version_token = "1795390645616567"
+content_type = "text/html"

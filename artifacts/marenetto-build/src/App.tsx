@@ -43,6 +43,7 @@ import type { EditorialActive } from '@workspace/api-client-react';
 import { usePageMeta } from '@/lib/meta';
 import { AnalyticsPreferences } from '@/components/AnalyticsPreferences';
 import { trackSavedRequest } from '@/lib/analytics/browser';
+import { translationCandidates, supplementalCandidates, translationCandidate, translationApproved, translationSourceChanged, translationNotices } from '@/localization/phase2';
 
 const queryClient = new QueryClient();
 // Restored historical pages have state "reviewed", not a new publication
@@ -779,6 +780,28 @@ function LocalizationReviewIndex() {
         <SectionLabel>Revisione editoriale</SectionLabel>
         <h1 className="display-title">29 lingue nel percorso editoriale</h1>
         <p className="section-intro">L’originale italiano e le 28 edizioni straniere restano nel perimetro. Le bozze qui collegate sono revisionabili, non approvate: non entrano negli equivalenti pubblicabili. Questa anteprima non richiede accesso; non inserirvi dati riservati.</p>
+        <section aria-labelledby="phase2-heading">
+          <h2 id="phase2-heading">Fase 2 · 80 traduzioni confrontate</h2>
+          <p>24 pagine storiche, 14 archivi e 42 articoli. Confronto automatizzato, non certificazione linguistica umana.
+            Ogni approvazione dovrà riferirsi alla revisione esatta indicata; le vecchie approvazioni non si estendono a questi testi.</p>
+          {PUBLISHED_LOCALES.filter(l => l.code !== 'it').map(locale => <details key={locale.code}>
+            <summary>{locale.nativeName} · {translationCandidates.filter(e => e.locale === locale.code).length} URL</summary>
+            <ul>{translationCandidates.filter(e => e.locale === locale.code).map(e => <li key={e.path}>
+              <a href={e.path} lang={e.locale}>{e.title}</a>{' · '}
+              <a href={e.sourcePath} lang="it">Sorgente italiana</a>{' · '}
+              {translationApproved(e) ? 'Approvata' : 'Da approvare'}{' · '}
+              <code>{e.revisionSHA256}</code>
+            </li>)}</ul>
+          </details>)}
+        </section>
+        <section aria-labelledby="phase2-extra-heading">
+          <h2 id="phase2-extra-heading">Altre 8 edizioni storiche miste</h2>
+          <p>L’audit dei 270 URL precedenti ha individuato altri passaggi italiani. Le correzioni seguenti sono separate dalle 80 candidate e non ereditano approvazioni.</p>
+          <ul>{supplementalCandidates.map(e => <li key={e.path}>
+            <a href={e.path} lang={e.locale}>{e.title}</a>{' · '}<a href={e.sourcePath} lang="it">Sorgente italiana</a>{' · '}
+            Da approvare · <code>{e.revisionSHA256}</code>
+          </li>)}</ul>
+        </section>
         <div className="translation-review-list">
           {pendingLocales.map(locale => <article className="translation-review-row" key={locale.code}>
             <div><h2>{locale.nativeName}</h2><p>{locale.code.toUpperCase()} · {locale.direction.toUpperCase()} · In attesa della tua approvazione</p></div>
@@ -862,9 +885,10 @@ function SitePage({ page, lang }: { page: CorePage; lang: Lang }) {
 function LibraryShell({ page, children, lang = 'it', articleSlug }: { page: Page; children: ReactNode; lang?: Lang; articleSlug?: string }) {
   const contentLocale = showsTranslatedCopy(lang) ? lang : 'it';
   const hasLocalArticles = useActiveEditorial().some(e => e.kind === 'article' && e.locale === lang);
+  const candidate = translationCandidate(articleSlug ? articlePath(lang, articleSlug) : libraryPath(lang, page as 'articles' | 'guides' | 'search'));
   return <LibraryLocale.Provider value={hasLocalArticles ? lang : contentLocale}><div className="site-shell" lang={lang === 'it' ? 'it-IT' : lang} dir={getLocaleDirection(lang)}>
     <Header lang={lang} page={page} articleSlug={articleSlug} />
-    <main><WhatsAppAccess lang={lang} />{lang !== 'it' && !(showsTranslatedCopy(lang) && !isTranslationReviewMode()) && <p className="container translation-review-status" role="note" data-testid="translation-review-notice" lang="it" dir="ltr">{isTranslationReviewMode() ? 'Bozza tradotta · in attesa della revisione del titolare.' : hasLocalArticles ? 'Archivio misto: le edizioni attive hanno la lingua indicata; le altre mantengono il testo originale italiano.' : 'Testo originale italiano · nessuna traduzione approvata.'} <a href={articleSlug ? `/${articleSlug}` : libraryPath('it', page as 'articles' | 'guides' | 'search')}>Leggi l’edizione italiana</a></p>}<div lang={contentLocale} dir={getLocaleDirection(contentLocale)}>{children}</div></main>
+    <main><WhatsAppAccess lang={lang} />{candidate && !translationApproved(candidate) && <p className="container translation-review-status" lang={lang} role="note">{translationNotices[lang].review}</p>}{lang !== 'it' && !(showsTranslatedCopy(lang) && !isTranslationReviewMode()) && <p className="container translation-review-status" role="note" data-testid="translation-review-notice" lang="it" dir="ltr">{isTranslationReviewMode() ? 'Bozza tradotta · in attesa della revisione del titolare.' : hasLocalArticles ? 'Archivio misto: le edizioni attive hanno la lingua indicata; le altre mantengono il testo originale italiano.' : 'Testo originale italiano · nessuna traduzione approvata.'} <a href={articleSlug ? `/${articleSlug}` : libraryPath('it', page as 'articles' | 'guides' | 'search')}>Leggi l’edizione italiana</a></p>}<div lang={contentLocale} dir={getLocaleDirection(contentLocale)}>{children}</div></main>
     <Footer lang={lang} />
   </div></LibraryLocale.Provider>;
 }
@@ -924,6 +948,10 @@ function Router() {
   </main></div>;
   const live = active.find(edition => [edition.path,...(edition.aliases ?? [])].some(candidate => editorialPathKey(candidate) === editorialPathKey(path)));
   if (live) return live.revisionId === 'withdrawn' ? <NotFound lang={live.locale} /> : <LocaleGate lang={live.locale}><ActiveEditorialPage edition={live} /></LocaleGate>;
+  const candidate = translationCandidate(path);
+  if (candidate && translationSourceChanged(candidate, active)) return <div className="site-shell" lang={lang}><main className="container section">
+    <h1>{translationNotices[lang].review}</h1><p role="alert">{translationNotices[lang].changed}</p>
+  </main></div>;
   const libraryEdition = editions.find(edition => editorialPathKey(edition.path) === editorialPathKey(path) && ['articles','guides','search'].includes(edition.id));
   if (libraryEdition && active.some(e => e.kind === 'article' && e.locale === libraryEdition.locale)) return <LocaleGate lang={libraryEdition.locale}><LocalizedLibraryPage lang={libraryEdition.locale} page={libraryEdition.id as 'articles' | 'guides' | 'search'} /></LocaleGate>;
   const recovered = historicalPage(path) ?? historicalArticleForPreview(path) ?? historicalPending(path);

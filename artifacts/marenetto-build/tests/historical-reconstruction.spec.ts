@@ -20,7 +20,10 @@ test('recovered English navigation pages keep the native historical URL rather t
   for (const original of originals.filter(row => row.locale === 'en' && row.state === 'restored' && row.kind !== 'article')) {
     await openPage(page, original.path);
     await expect(page).toHaveURL(url => url.pathname === original.path);
-    await expect(page.locator('main h1')).toHaveText(original.h1);
+    // The public reviews page deliberately links to real Google reviews;
+    // it no longer republishes the archived CMS reviews widget.
+    await expect(page.locator('main h1')).toHaveText(original.family === '/recensioni'
+      ? 'Read our customers’ reviews on Google' : original.h1);
   }
 });
 

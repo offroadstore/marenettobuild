@@ -7,12 +7,14 @@ import { serbianCyrillic } from './editorial-conventions';
 import approvalLedger from './edition-approvals.json';
 import { historicalInventory } from '@/content/historical';
 import { editionStatusLabel } from './edition-status';
+import { allTranslationCandidates, translationApproved, translationCandidate } from './phase2';
 
 export type EditionState = 'draft' | 'translated' | 'reviewed' | 'published';
 export type Edition = {
   id: string; locale: string; path: string; kind: 'core' | 'archive' | 'article' | 'search';
   state: EditionState; approval: string | null; source: string;
   title: string; description: string; contentLanguage: string; sitemap: boolean;
+  translationRevision?: string; translationApprovalRevision?: string; translationSourcePath?: string;
 };
 
 // Approval attaches to an edition, not to the existence of a catalog key.
@@ -89,8 +91,22 @@ for (const original of historicalInventory.filter(page => page.state === 'restor
     source: `historical snapshot ${original.sourceSHA256}; ${original.source}`,
   });
 }
+for (const translation of allTranslationCandidates) {
+  const edition = editions.find(e => e.path === translation.path);
+  if (!edition) throw new Error(`Unregistered translation: ${translation.path}`);
+  const approved = translationApproved(translation);
+  Object.assign(edition, { title: translation.title, description: translation.description,
+    contentLanguage: translation.locale, state: approved ? 'published' : 'reviewed',
+    approval: approved ? translation.approval!.evidence : null, sitemap: approved,
+    translationRevision: translation.revisionSHA256,
+    translationSourcePath: translation.sourcePath,
+    translationApprovalRevision: approved ? translation.approval!.revisionSHA256 : undefined,
+    source: `phase2:${translation.sourcePath}@${translation.sourceRevisionSHA256}`,
+  });
+}
 export const editionByPath = new Map(editions.map(edition => [edition.path, edition]));
 export function editionDisplayStatus(edition: Edition) {
+  if (edition.translationRevision) return edition.approval ? '' : 'Traduzione confrontata · da approvare';
   return editionStatusLabel(edition, historicalInventory.find(page => page.path === edition.path));
 }
 export function equivalentEditions(id: string) {
@@ -100,6 +116,7 @@ export function getEdition(locale: string, id: string) {
   return editions.find(edition => edition.locale === locale && edition.id === id);
 }
 export function reviewPathForEdition(edition: Edition) {
+  if (translationCandidate(edition.path)) return edition.path;
   if (edition.source.startsWith('historical snapshot ')) return edition.path;
   const segment = edition.kind === 'article' ? `articles/${edition.id}` : edition.id;
   return `/__localization-review/${edition.locale}/${segment}`;

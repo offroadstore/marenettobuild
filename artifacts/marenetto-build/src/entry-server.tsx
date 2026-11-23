@@ -5,6 +5,7 @@ import { editions, reviewPathForEdition } from './localization/edition-inventory
 import { articleBySlug } from './content/articles';
 import { historicalPage, historicalPending, loadHistorical } from './content/historical';
 import type { EditorialActive } from '@workspace/api-client-react';
+import { translationCandidate, translationSourceChanged } from './localization/phase2';
 export { editions, redirects, excludedRoutes, equivalentEditions, canonicalEdition, reviewPathForEdition, reviewHubEdition } from './localization/edition-inventory';
 export { companyStructuredData } from './config/contact';
 export { editionStructuredData } from './lib/structured-data';
@@ -29,7 +30,9 @@ export function render(path: string, locale: string, active: EditorialActive[] =
     const currentEdition = edition ?? editions.find(e => e.path === path);
     const article = currentEdition ? articleBySlug.get(currentEdition.id) : undefined;
     let fullTextProof;
-    if (!active.some(edition => edition.path.replace(/\/+$/, '') === path.replace(/\/+$/, '')) && article?.approvedFullText && !historicalPage(path) && !historicalPending(path)) {
+    const translation = translationCandidate(path);
+    const sourceChanged = translation && translationSourceChanged(translation, active);
+    if (!sourceChanged && !active.some(edition => edition.path.replace(/\/+$/, '') === path.replace(/\/+$/, '')) && article?.approvedFullText && !historicalPage(path) && !historicalPending(path)) {
       const translated = showsTranslatedCopy(locale);
       const text = translated ? translateText(locale, article.approvedFullText) : article.approvedFullText;
       const blocks = text.trim().split(/\n\s*\n/).filter(Boolean).flatMap(block => block.startsWith('- ') ? block.split('\n').map(line => line.slice(2)) : [block.replace(/^## /, '')]);

@@ -10,6 +10,7 @@ import { editionByPath } from '@/localization/edition-inventory';
 import { updateStructuredData } from '@/lib/structured-data';
 import pendingMessages from '@/content/pending-content.json';
 import { withCampaignParams } from '@/lib/campaign';
+import { translationCandidate, translationApproved, translationNotices } from '@/localization/phase2';
 const PUBLIC_SITE_ORIGIN = new URL(import.meta.env.VITE_PUBLIC_SITE_URL || 'https://preview.invalid').origin;
 
 // Keep the recovered document untouched on the server. Carry only permitted
@@ -24,6 +25,7 @@ function preserveCampaign(event: MouseEvent<HTMLElement>) {
 
 export function HistoricalContents({ page, actions }: { page: HistoricalPage; actions?: ReactNode }) {
   const document = historicalDocument(page);
+  const translation = translationCandidate(page.path);
   const home = page.family === '/';
   const homeData = home ? extractHistoricalHome(document.html) : null;
   const pendingMessage = pendingMessages[page.locale as keyof typeof pendingMessages] ?? pendingMessages.it;
@@ -78,6 +80,7 @@ export function HistoricalContents({ page, actions }: { page: HistoricalPage; ac
     <HistoricalCategoryView data={categoryData} h1={page.h1} currentKey={page.key} />
   </div>;
   return <section className="section"><div className="container">
+    {translation && !translationApproved(translation) && <p lang={page.locale} role="note">{translationNotices[page.locale].review}</p>}
     {page.kind === 'article' && <><h1 className="display-title">{page.h1}</h1>{document.dateLabel ? <span>{document.dateLabel}</span> : document.publishedOn && <time dateTime={document.publishedOn}>{document.publishedOn.slice(0, 10)}</time>}{document.image && <figure><img className="historical-cover" src={document.image} alt={document.imageAlt} loading="eager" />{document.imageCaption && <figcaption>{document.imageCaption}</figcaption>}</figure>}</>}
     {page.locale !== 'it' && page.contentLanguage === 'it' && <p lang={page.locale} data-source-language="it">{sourceLanguageLabels[page.locale] ?? 'Testo in italiano'}</p>}
     <article className={`historical-content${page.kind === 'article' ? ' article-body' : ''}`} data-historical-body="" data-editorial-state={page.state === 'awaiting-confirmation' ? 'review-pending' : undefined} data-correction-state={page.editorialCorrection ? page.locale === 'it' ? 'owner-authorized-preview' : 'translation-draft' : undefined} lang={page.contentLanguage} onClick={preserveCampaign} dangerouslySetInnerHTML={{ __html: document.html }} />

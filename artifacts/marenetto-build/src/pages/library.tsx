@@ -216,7 +216,7 @@ export function ArticleDetailPage({ a }: { a: Article }) {
           </div>
           <div className="aside-block">
             <small>Fonti verificate</small>
-            {a.review.sources.length ? <ul className="claim-list">{a.review.sources.map(source => <li key={`${source.url}-${source.verifiedAt}`}><a href={source.url} target="_blank" rel="noreferrer">{source.title}</a><br />{source.scope} · consultata il {formatDate(source.verifiedAt)}</li>)}</ul> : <span>Nessuna fonte di approvazione registrata.</span>}
+             {a.review.sources.length ? <ul className="claim-list">{a.review.sources.map(source => <li key={`${source.url}-${source.verifiedAt}`}><a href={source.url} lang="it" target="_blank" rel="noreferrer">{source.title}</a><br />{source.scope} · consultata il {formatDate(source.verifiedAt)}</li>)}</ul> : <span>Nessuna fonte di approvazione registrata.</span>}
           </div>
           <div className="aside-block">
             <small>Controllo delle affermazioni</small>
@@ -224,7 +224,7 @@ export function ArticleDetailPage({ a }: { a: Article }) {
               ? <ul className="claim-list" data-testid="list-claims">{a.claimsToReview.map(c => <li key={c}>{claimLabels[c]}</li>)}</ul>
               : <span data-testid="list-claims">Nessun punto segnalato nel testo pubblicato; le affermazioni non documentate dell’originale sono state rimosse o qualificate.</span>}
           </div>
-          <div className="aside-block"><small>{lang === 'it' ? 'Titolo originale' : t('Original Italian title')}</small><span className="orig-title" lang="it">{a.originalTitle}</span></div>
+           <div className="aside-block"><small>Titolo originale</small><span className="orig-title" lang="en">{a.originalTitle}</span></div>
           <div className="aside-block"><small>Percorso storico</small><code>/{a.slug}/</code></div>
           {lang !== 'it' && <div className="aside-block"><a href={withCampaignParams(`/${a.slug}`)} lang="it">{t('Testo originale italiano')}</a></div>}
           <Link href={withCampaignParams(publicHref('request'))} className="button" data-testid="link-article-request">Parliamone<ArrowRight size={14} /></Link>

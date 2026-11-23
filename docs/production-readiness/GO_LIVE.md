@@ -2,6 +2,23 @@
 
 **Contatto pubblico definitivo:** [decisione del titolare](PUBLIC_CONTACT_DECISION.md), valida anche per le Fasi 2, 3 e 4; supera le precedenti ipotesi di cambio della casella pubblica. Non modifica la configurazione SMTP.
 
+## Fase 2 — candidato traduzioni
+
+**Candidato alla validazione finale per il republish.** Il blocco WhatsApp mobile
+è stato corretto dopo autorizzazione del titolare: sette test geometrici e cinque
+scenari browser mirati superati, al viewport originale da 780 pixel, senza
+disattivare la protezione dei contenuti. Il completamento resta vincolato
+all'esito dei controlli configurati, non aggirati. Nessuna pubblicazione
+eseguita dall'agente e nessuna nuova approvazione dei testi registrata.
+Vedi [traduzioni, riconciliazione e limiti](FASE_2_TRADUZIONI.md).
+
+Le 80 URL pianificate hanno contenuti nella lingua dichiarata. L'audit dei 270
+URL precedenti ha individuato altre 8 edizioni miste, corrette separatamente.
+Il totale resta **350 URL: 262 già idonee + 80 candidate + 8 correzioni
+aggiuntive**. Le 88 revisioni nuove non ereditano approvazioni: rimangono noindex,
+fuori da sitemap/hreflang fino all'approvazione effettiva del testo identificato.
+Le sezioni successive restano prove storiche, non il conteggio del candidato.
+
 **Ultimo aggiornamento: 22 novembre 2026. Nuovo candidato SEO pronto per Republish del titolare; verifica esterna post-pubblicazione ancora da eseguire.** Vedi [rapporto SEO e prove aggiornate](SEO_REPUBLISH_2026-11-22.md). Su richiesta del titolare è ora attiva la Configuration di produzione per l'indicizzazione esclusiva di HTTPS WWW. Le sezioni del 21 novembre qui sotto sono prove storiche e non descrivono la configurazione candidata attuale.
 
 ## Aggiornamento dominio e indicizzazione — 21 novembre 2026

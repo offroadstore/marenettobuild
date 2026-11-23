@@ -1,0 +1,574 @@
+{
+  "en": [
+    {
+      "italian": "massetto",
+      "note": "Floor leveling layer.",
+      "translation": "screed"
+    },
+    {
+      "italian": "cappotto",
+      "note": "Thermal wall insulation system.",
+      "translation": "external insulation"
+    },
+    {
+      "italian": "impianti",
+      "note": "Systems such as plumbing and electricity.",
+      "translation": "building services"
+    },
+    {
+      "italian": "infissi",
+      "note": "Structural fixtures for openings.",
+      "translation": "windows/doors"
+    },
+    {
+      "italian": "supporto",
+      "note": "Underlying surface for material application.",
+      "translation": "substrate"
+    },
+    {
+      "italian": "infiltrazioni",
+      "note": "Water penetration into building structures.",
+      "translation": "water ingress"
+    },
+    {
+      "italian": "contatore",
+      "note": "Device for measuring utility usage.",
+      "translation": "meter"
+    },
+    {
+      "italian": "ristrutturazione chiavi in mano",
+      "note": "Full-service project delivery.",
+      "translation": "turnkey renovation"
+    },
+    {
+      "italian": "notarius",
+      "note": "Italian legal officer for property transactions.",
+      "translation": "notary"
+    },
+    {
+      "italian": "sopralluogo",
+      "note": "On-site professional assessment.",
+      "translation": "site inspection"
+    }
+  ],
+  "fr": [
+    {
+      "italian": "cappotto",
+      "note": "ITE",
+      "translation": "isolation thermique par l’extérieur"
+    },
+    {
+      "italian": "massetto",
+      "note": "Support de sol",
+      "translation": "chape"
+    },
+    {
+      "italian": "infissi",
+      "note": "Fenêtres et portes",
+      "translation": "menuiseries"
+    },
+    {
+      "italian": "supporto",
+      "note": "Surface de base",
+      "translation": "support"
+    },
+    {
+      "italian": "impianti",
+      "note": "Services techniques",
+      "translation": "installations"
+    },
+    {
+      "italian": "infiltrazioni",
+      "note": "Entrée d'eau",
+      "translation": "infiltrations"
+    },
+    {
+      "italian": "finiture",
+      "note": "Aspect esthétique final",
+      "translation": "finitions"
+    },
+    {
+      "italian": "demolizioni",
+      "note": "Travaux de déconstruction",
+      "translation": "démolitions"
+    },
+    {
+      "italian": "ristrutturazione",
+      "note": "Remise en état",
+      "translation": "rénovation"
+    },
+    {
+      "italian": "prospetto",
+      "note": "Élévation extérieure",
+      "translation": "façade"
+    }
+  ],
+  "de": [
+    {
+      "italian": "Massetto",
+      "note": "Floor substrate layer.",
+      "translation": "Estrich"
+    },
+    {
+      "italian": "Cappotto termico",
+      "note": "External thermal insulation.",
+      "translation": "Wärmedämmverbundsystem (WDVS)"
+    },
+    {
+      "italian": "Infissi",
+      "note": "Building joinery.",
+      "translation": "Fenster und Türen"
+    },
+    {
+      "italian": "Impiantistica",
+      "note": "Mechanical, electrical, plumbing installations.",
+      "translation": "Gebäudetechnik"
+    },
+    {
+      "italian": "Sopraluogo",
+      "note": "Site visit/survey.",
+      "translation": "Vor-Ort-Besichtigung"
+    },
+    {
+      "italian": "CILA/SCIA",
+      "note": "Italian administrative building notification forms.",
+      "translation": "CILA/SCIA (Baugenehmigungsverfahren)"
+    },
+    {
+      "italian": "Chiavi in mano",
+      "note": "Turnkey construction service.",
+      "translation": "Schlüsselfertig"
+    },
+    {
+      "italian": "Prospetto",
+      "note": "External face of a building.",
+      "translation": "Fassade"
+    },
+    {
+      "italian": "Supporto",
+      "note": "Substrate for surfaces.",
+      "translation": "Untergrund"
+    },
+    {
+      "italian": "Ristrutturazione",
+      "note": "General building renovation.",
+      "translation": "Renovierung"
+    }
+  ],
+  "nl": [
+    {
+      "italian": "Cappotto",
+      "note": "Thermische isolatie aan de buitenkant van de gevel.",
+      "translation": "Buitengevelisolatie"
+    },
+    {
+      "italian": "Massetto",
+      "note": "Dekvloerlaag voor afwerking.",
+      "translation": "Screed / Vloerplaat"
+    },
+    {
+      "italian": "Supporto",
+      "note": "De laag waarop materiaal wordt aangebracht.",
+      "translation": "Ondergrond"
+    },
+    {
+      "italian": "Infissi",
+      "note": "Niet te verwarren met algemeen meubilair.",
+      "translation": "Raamkozijnen en deuren"
+    },
+    {
+      "italian": "Infiltrazioni",
+      "note": "Het binnendringen van water in de constructie.",
+      "translation": "Lekkages"
+    },
+    {
+      "italian": "Chiavi in mano",
+      "note": "Volledig ontzorgde oplevering.",
+      "translation": "Turn-key"
+    },
+    {
+      "italian": "Impiantistica",
+      "note": "Betreft elektrische en loodgietersinstallaties.",
+      "translation": "Installatietechniek"
+    },
+    {
+      "italian": "Sopralluogo",
+      "note": "Bezoek ter plaatse voor beoordeling.",
+      "translation": "Inspectie"
+    },
+    {
+      "italian": "Prospetto",
+      "note": "De gevel van een gebouw op een bouwtekening.",
+      "translation": "Aanzicht"
+    },
+    {
+      "italian": "Cementizio",
+      "note": "Op basis van cement.",
+      "translation": "Cementgebonden"
+    }
+  ],
+  "es": [
+    {
+      "italian": "Cappotto termico",
+      "note": "Standardized for thermal building insulation.",
+      "translation": "SATE (Sistema de Aislamiento Térmico Exterior)"
+    },
+    {
+      "italian": "Infissi",
+      "note": "Specifically window and door fixtures.",
+      "translation": "Ventanas y puertas"
+    },
+    {
+      "italian": "Massetto",
+      "note": "The leveling layer for flooring.",
+      "translation": "Solera / recrecido"
+    },
+    {
+      "italian": "Supporto",
+      "note": "The base surface for application.",
+      "translation": "Sustrato / soporte"
+    },
+    {
+      "italian": "Impianti",
+      "note": "Services like plumbing, HVAC, or electrical.",
+      "translation": "Instalaciones (edificación)"
+    },
+    {
+      "italian": "Chiavi in mano",
+      "note": "Complete design-to-delivery service.",
+      "translation": "Llave en mano"
+    },
+    {
+      "italian": "CILA/SCIA",
+      "note": "Italian administrative permits; kept as acronyms.",
+      "translation": "CILA/SCIA (Trámites urbanísticos)"
+    },
+    {
+      "italian": "Infiltrazioni",
+      "note": "Water ingress issues, not literal meteorological terms.",
+      "translation": "Filtraciones"
+    },
+    {
+      "italian": "Ristrutturazione",
+      "note": "Used for building renovations.",
+      "translation": "Reforma / rehabilitación"
+    },
+    {
+      "italian": "Sopraluogo",
+      "note": "Site survey or inspection.",
+      "translation": "Inspección / visita de obra"
+    }
+  ],
+  "pt": [
+    {
+      "italian": "Impianti",
+      "note": "Services or systems (electrical, hydraulic) in a building.",
+      "translation": "Instalações"
+    },
+    {
+      "italian": "Supporto",
+      "note": "Structural base or substrate for finishes.",
+      "translation": "Suporte / Sub-base"
+    },
+    {
+      "italian": "Massetto",
+      "note": "Screed layer for floors.",
+      "translation": "Betonilha / Enchimento"
+    },
+    {
+      "italian": "Cappotto termico",
+      "note": "External thermal insulation composite system.",
+      "translation": "Sistema ETICS (capoto)"
+    },
+    {
+      "italian": "Infissi",
+      "note": "Windows and doors.",
+      "translation": "Caixilharia / Portas e janelas"
+    },
+    {
+      "italian": "Contatore",
+      "note": "Utility meter.",
+      "translation": "Contador"
+    },
+    {
+      "italian": "Sopraluogo",
+      "note": "Site inspection.",
+      "translation": "Vistoria"
+    },
+    {
+      "italian": "Chiavi in mano",
+      "note": "Turnkey construction project.",
+      "translation": "Chave na mão"
+    },
+    {
+      "italian": "CILA/SCIA",
+      "note": "Italian building permit notifications.",
+      "translation": "CILA/SCIA"
+    },
+    {
+      "italian": "Prospetto",
+      "note": "Building facade.",
+      "translation": "Alçado"
+    }
+  ],
+  "ru": [
+    {
+      "italian": "massetto",
+      "note": "Floor base layer",
+      "translation": "стяжка"
+    },
+    {
+      "italian": "cappotto",
+      "note": "External thermal insulation system",
+      "translation": "внешняя теплоизоляция"
+    },
+    {
+      "italian": "infissi",
+      "note": "Windows and doors",
+      "translation": "окна и двери"
+    },
+    {
+      "italian": "impianti",
+      "note": "Building services and installations",
+      "translation": "инженерные сети"
+    },
+    {
+      "italian": "supporto",
+      "note": "Construction substrate",
+      "translation": "основание"
+    },
+    {
+      "italian": "contatore",
+      "note": "Utility meter",
+      "translation": "счетчик"
+    },
+    {
+      "italian": "infiltrazioni",
+      "note": "Rainwater ingress",
+      "translation": "инфильтрация воды"
+    },
+    {
+      "italian": "chiavi in mano",
+      "note": "Turnkey construction service",
+      "translation": "под ключ"
+    },
+    {
+      "italian": "sopralluogo",
+      "note": "Site inspection",
+      "translation": "осмотр объекта"
+    },
+    {
+      "italian": "notarius",
+      "note": "Italian civil law official",
+      "translation": "нотариус"
+    }
+  ],
+  "pl": [
+    {
+      "italian": "massetto",
+      "note": "warstwa podkładowa pod posadzkę",
+      "translation": "wylewka"
+    },
+    {
+      "italian": "cappotto",
+      "note": "zewnętrzna izolacja termiczna budynku",
+      "translation": "ocieplenie termiczne"
+    },
+    {
+      "italian": "infissi",
+      "note": "okna i drzwi",
+      "translation": "stolarka otworowa"
+    },
+    {
+      "italian": "impianti",
+      "note": "systemy budowlane techniczne",
+      "translation": "instalacje"
+    },
+    {
+      "italian": "supporto",
+      "note": "powierzchnia bazowa pod wykończenia",
+      "translation": "podłoże"
+    },
+    {
+      "italian": "ristrutturazione",
+      "note": "odnowienie lub przebudowa",
+      "translation": "renowacja"
+    },
+    {
+      "italian": "chiavi in mano",
+      "note": "usługa w pełni gotowa do użytku",
+      "translation": "pod klucz"
+    },
+    {
+      "italian": "sopralluogo",
+      "note": "weryfikacja na miejscu",
+      "translation": "oględziny"
+    },
+    {
+      "italian": "cantiere",
+      "note": "obszar wykonywania prac",
+      "translation": "plac budowy"
+    },
+    {
+      "italian": "preventivo",
+      "note": "wycena prac",
+      "translation": "kosztorys"
+    }
+  ],
+  "sv": [
+    {
+      "italian": "massetto",
+      "note": "Substrate layer for flooring.",
+      "translation": "avjämningsmassa / pågjutning"
+    },
+    {
+      "italian": "cappotto termico",
+      "note": "External thermal insulation system.",
+      "translation": "termisk isolering (utanpåliggande)"
+    },
+    {
+      "italian": "infissi",
+      "note": "Structural openings.",
+      "translation": "fönster och dörrar"
+    },
+    {
+      "italian": "impianti",
+      "note": "Building services like plumbing/electrical.",
+      "translation": "installationer / system"
+    },
+    {
+      "italian": "supporto",
+      "note": "Substrate surface for materials.",
+      "translation": "underlag"
+    },
+    {
+      "italian": "autorizzazione paesaggistica",
+      "note": "Legal permit for works in sensitive areas.",
+      "translation": "landskapstillstånd"
+    },
+    {
+      "italian": "infiltrazioni",
+      "note": "Water ingress phenomena.",
+      "translation": "infiltration / fuktinträngning"
+    },
+    {
+      "italian": "notaio",
+      "note": "Italian civil law notary.",
+      "translation": "notarie"
+    },
+    {
+      "italian": "cucina in muratura",
+      "note": "Masonry/built-in kitchen structure.",
+      "translation": "platsbyggt kök"
+    },
+    {
+      "italian": "posa",
+      "note": "Installation process.",
+      "translation": "applicering / läggning"
+    }
+  ],
+  "no": [
+    {
+      "italian": "massetto",
+      "note": "Concrete screed layer.",
+      "translation": "avrettingslag"
+    },
+    {
+      "italian": "cappotto termico",
+      "note": "External wall insulation system.",
+      "translation": "utvendig termisk isolasjon"
+    },
+    {
+      "italian": "infissi",
+      "note": "Building fixtures for openings.",
+      "translation": "vinduer og dører"
+    },
+    {
+      "italian": "supporto",
+      "note": "Substrate surface for applications.",
+      "translation": "underlag"
+    },
+    {
+      "italian": "impianti",
+      "note": "Building services/installations.",
+      "translation": "tekniske anlegg"
+    },
+    {
+      "italian": "notarius",
+      "note": "Refers to the Italian public official.",
+      "translation": "notarius"
+    },
+    {
+      "italian": "autorizzazione paesaggistica",
+      "note": "Landscape/environmental permit.",
+      "translation": "landskapstillatelse"
+    },
+    {
+      "italian": "cemento stampato",
+      "note": "Textured decorative concrete.",
+      "translation": "stanset betong"
+    },
+    {
+      "italian": "infiltrazioni",
+      "note": "Water ingress phenomena.",
+      "translation": "lekkasjer"
+    },
+    {
+      "italian": "fessurazioni",
+      "note": "Cracking in building structures.",
+      "translation": "riss/sprekker"
+    }
+  ],
+  "da": [
+    {
+      "italian": "impianti",
+      "note": "Building services/installations.",
+      "translation": "installationer"
+    },
+    {
+      "italian": "supporto",
+      "note": "Substrate/base surface.",
+      "translation": "underlag"
+    },
+    {
+      "italian": "massetto",
+      "note": "Screed.",
+      "translation": "gulvbelægning/afretningslag"
+    },
+    {
+      "italian": "cappotto",
+      "note": "External insulation.",
+      "translation": "udvendig isolering"
+    },
+    {
+      "italian": "contatore",
+      "note": "Meter (e.g., water, gas).",
+      "translation": "måler"
+    },
+    {
+      "italian": "infissi",
+      "note": "Windows/doors.",
+      "translation": "vinduer og døre"
+    },
+    {
+      "italian": "infiltrazioni",
+      "note": "Rainwater ingress/leakage.",
+      "translation": "indtrængen af vand"
+    },
+    {
+      "italian": "prospetto",
+      "note": "Facade/elevation.",
+      "translation": "facade"
+    },
+    {
+      "italian": "muratura",
+      "note": "Masonry.",
+      "translation": "murværk"
+    },
+    {
+      "italian": "notaio",
+      "note": "Italian notary (civil law).",
+      "translation": "notar"
+    }
+  ]
+}

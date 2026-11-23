@@ -1,5 +1,5 @@
 import { escapeHtml, redirectQuery, resolveRoute } from './seo-document.mjs';
-import { isNativeEdition, releaseMetadata, mergeActiveMetadata } from '../src/localization/public-seo.mjs';
+import { isNativeEdition, hasTranslationApproval, releaseMetadata, mergeActiveMetadata } from '../src/localization/public-seo.mjs';
 
 export const PUBLIC_ORIGIN = 'https://www.marenettobuild.com';
 export const APPROVED_LOCALES = new Set(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']);
@@ -45,7 +45,7 @@ export function publicEditions(manifest, active = []) {
   const withdrawn = new Set(active.filter(e => e.revisionId === 'withdrawn')
     .flatMap(e => [e.path, ...(e.aliases ?? [])]).map(path => path.replace(/\/+$/, '') || '/'));
   return mergeActiveMetadata(Object.values(manifest.editions), active).filter(e =>
-    APPROVED_LOCALES.has(e.locale) && isNativeEdition(e) && e.kind !== 'search' && manifest.pages[e.path] &&
+    APPROVED_LOCALES.has(e.locale) && isNativeEdition(e) && hasTranslationApproval(e) && e.kind !== 'search' && manifest.pages[e.path] &&
     e.path !== '/en/articoli/' && !e.path.startsWith('/__localization-review') &&
     !withdrawn.has(e.path.replace(/\/+$/, '') || '/'));
 }

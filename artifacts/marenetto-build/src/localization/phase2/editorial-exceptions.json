@@ -1,0 +1,16 @@
+{
+  "authorization": "Owner instruction: do not republish references to real-estate agencies or partners or suggest nonexistent agreements.",
+  "changes": [
+    {
+      "source": "/chi-siamo/",
+      "before": "un partner affidabile",
+      "after": "un referente affidabile"
+    },
+    {
+      "source": "/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto/",
+      "before": "un unico partner",
+      "after": "un unico referente"
+    }
+  ],
+  "appliesTo": "24 translated historical destinations only; original documentary sources remain unchanged"
+}

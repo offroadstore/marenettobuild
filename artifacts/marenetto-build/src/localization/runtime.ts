@@ -14,6 +14,7 @@ const approvedCatalogs: Record<string, Record<string, string>> = {};
 type PreviewCatalog = { locale: string; reviewStatus: 'awaiting-owner-review'; translations: Record<string, string> };
 const previewLoaders = import.meta.glob<PreviewCatalog>('./preview/[a-z][a-z].json', { import: 'default' });
 const correctionLoaders = import.meta.glob<PreviewCatalog>('./draft-corrections/[a-z][a-z].json', { import: 'default' });
+const phase2Loaders = import.meta.glob<{ locale: string; translations: Record<string, string> }>('./phase2/[a-z][a-z].json', { import: 'default' });
 const previewCatalogs: Record<string, Record<string, string>> = {};
 let reviewMode = false;
 const missing = new Set<string>();
@@ -82,7 +83,9 @@ export async function loadLocaleCatalog(locale: string): Promise<void> {
   const correctionLoader = correctionLoaders[`./draft-corrections/${locale}.json`];
   const correction = correctionLoader ? await correctionLoader() : null;
   if (correction && (correction.locale !== locale || correction.reviewStatus !== 'awaiting-owner-review')) throw new Error(`Invalid draft correction catalog: ${locale}`);
-  previewCatalogs[locale] = { ...preview.translations, ...correction?.translations };
+  const phase2 = await phase2Loaders[`./phase2/${locale}.json`]?.();
+  if (phase2 && phase2.locale !== locale) throw new Error(`Invalid phase 2 locale: ${locale}`);
+  previewCatalogs[locale] = { ...preview.translations, ...correction?.translations, ...phase2?.translations };
   Object.values(previewCatalogs[locale]).forEach(value => localizedValues[locale]?.add(normalizeSource(locale === 'sr' ? serbianCyrillic(value) : value)));
 }
 

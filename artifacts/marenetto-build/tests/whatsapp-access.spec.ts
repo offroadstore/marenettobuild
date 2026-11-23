@@ -100,6 +100,42 @@ for (const vp of viewports) {
   });
 }
 
+test('phone floating action yields to visible content at the regular 780px viewport', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 780 });
+  await openPage(page, '/');
+  await page.evaluate(() => document.fonts.ready);
+  await expect.poll(() => page.getByTestId('whatsapp-float').evaluate(box => {
+    const rect = box.getBoundingClientRect();
+    const overlaps = Array.from(document.querySelectorAll<HTMLElement>(
+      'a,button,input,textarea,select,[role="dialog"],h1,h2,h3,h4,h5,h6,p,li,dt,dd,label,figcaption',
+    )).some(element => {
+      if (box.contains(element) || !element.getClientRects().length) return false;
+      const style = getComputedStyle(element);
+      if (style.visibility === 'hidden' || style.display === 'none' || style.opacity === '0') return false;
+      const other = element.getBoundingClientRect();
+      return other.width > 0 && other.height > 0 && other.left < rect.right + 4 &&
+        other.right > rect.left - 4 && other.top < rect.bottom + 4 && other.bottom > rect.top - 4;
+    });
+    return (getComputedStyle(box).visibility === 'hidden') === overlaps;
+  })).toBe(true);
+});
+
+test('phone action remains hidden while a full-screen dialog has priority', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 780 });
+  await openPage(page, '/');
+  await expect(page.getByTestId('whatsapp-float-link')).toBeVisible();
+  await page.evaluate(() => {
+    const dialog = document.createElement('div');
+    dialog.id = 'test-consent-dialog';
+    dialog.setAttribute('role', 'dialog');
+    dialog.style.cssText = 'position:fixed;inset:0;z-index:100;background:white';
+    document.body.append(dialog);
+  });
+  await expect(page.getByTestId('whatsapp-float-link')).toBeHidden();
+  await page.evaluate(() => document.getElementById('test-consent-dialog')?.remove());
+  await expect(page.getByTestId('whatsapp-float-link')).toBeVisible();
+});
+
 test('keyboard: × closes without opening chat; dock link is focusable; storage is untouched', async ({ page, context }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await openPage(page, '/contatti');

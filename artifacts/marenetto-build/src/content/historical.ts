@@ -4,6 +4,7 @@ import mediaData from './historical-media.json';
 import sourceUpdateData from './historical-source-updates.json';
 import { recoverArticleThumbnails } from './historical-thumbnails';
 import { normalizePublicContact } from '@/config/contact';
+import { translationCandidate } from '@/localization/phase2';
 
 type SourceUpdate = { oldLabel: string; newLabel: string; title: string; sourceSHA256: string; bodySHA256: string; acquiredAt: string; sourceBody: string };
 const sourceUpdates = sourceUpdateData as Record<string, SourceUpdate>;
@@ -18,6 +19,12 @@ const historicalLogos = new Set(Object.entries(media).filter(([source]) => sourc
 function localMediaHTML(html: string) {
   html = normalizePublicContact(html);
   html = html.replace(/href="\/contatos\/?"/g, 'href="/pt/contatti/"');
+  // The historical CTA references #contatti but its final contact section had
+  // no anchor. Restore the target without changing any documentary words.
+  if (html.includes('#contatti') && !/\bid="contatti"/.test(html)) {
+    const position = html.lastIndexOf('<section>');
+    if (position >= 0) html = html.slice(0, position) + html.slice(position).replace('<section>', '<section id="contatti">');
+  }
   // Keep words, alt and caption untouched. Replace only exact inventoried URLs.
   for (const [source, destination] of Object.entries(media).sort((a, b) => b[0].length - a[0].length)) {
     html = html.replaceAll(source.replaceAll('&', '&amp;'), destination).replaceAll(source, destination);
@@ -41,11 +48,21 @@ const inventory = originalInventory.map(page => {
     ...(update ? { title: update.title, h1: update.newLabel, sourceSHA256: update.sourceSHA256, bodySHA256: update.bodySHA256, acquiredAt: update.acquiredAt } : {}),
     contentLanguage: correction?.contentLanguage ?? page.contentLanguage, editorialCorrection: correction };
 });
+// Documentary catalogs above are immutable. A revision-bound translation is a
+// separate composition and never inherits the original's approval.
+for (const page of inventory) {
+  const translation = translationCandidate(page.path);
+  if (translation?.historical) Object.assign(page, {
+    contentLanguage: translation.locale, title: translation.title,
+    h1: translation.h1, description: translation.description,
+  });
+}
 
 export type HistoricalPage = typeof inventory[number];
 type Document = { html: string; title: string; description: string; publishedOn: string | null; dateLabel: string | null; image: string | null; imageAlt: string; imageCaption: string | null };
 const catalogs = import.meta.glob<{ default: Record<string, Document> }>('./historical/*.json');
 const correctedCatalogs = import.meta.glob<{ default: Record<string, Document> }>('./historical-editorial/*.json');
+const translationCatalogs = import.meta.glob<{ default: { historical: Record<string, Document> } }>('../localization/phase2/[a-z][a-z].json');
 const loaded = new Map<string, Record<string, Document>>();
 const pending = new Map<string, Promise<void>>();
 export const historicalInventory = inventory;
@@ -67,7 +84,8 @@ export function loadHistorical(locale: string): Promise<void> {
   const loader = catalogs[`./historical/${locale}.json`];
   if (!loader || loaded.has(locale)) return Promise.resolve();
   if (!pending.has(locale)) pending.set(locale, (async () => {
-    const [original, corrected] = await Promise.all([loader(), correctedCatalogs[`./historical-editorial/${locale}.json`]?.()]);
+    const [original, corrected, translated] = await Promise.all([loader(), correctedCatalogs[`./historical-editorial/${locale}.json`]?.(),
+      translationCatalogs[`../localization/phase2/${locale}.json`]?.()]);
     for (const key of Object.keys(corrected?.default ?? {})) {
       if (!original.default[key] || !corrections[key]) throw new Error(`Unregistered editorial correction: ${locale}:${key}`);
     }
@@ -76,7 +94,7 @@ export function loadHistorical(locale: string): Promise<void> {
         const image = original.default[page.key]?.image;
         return image ? [[page.key, image]] : [];
       }));
-    loaded.set(locale, Object.fromEntries(Object.entries({ ...original.default, ...corrected?.default }).map(([key, document]) => {
+    loaded.set(locale, Object.fromEntries(Object.entries({ ...original.default, ...corrected?.default, ...translated?.default.historical }).map(([key, document]) => {
       const update = sourceUpdates[key];
       // Dated public-source corrections are separate from the immutable catalogs.
       // Only the two literal labels independently recovered in full are updated.

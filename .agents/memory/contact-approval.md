@@ -25,4 +25,6 @@ messages or use SMTP recipient probes.
 SMTP delivery, legal identity or the company address.
 
 **How to apply:** Describe the evidence accurately and do not reopen the mailbox
-choice without a new owner instruction.
+choice without a new owner instruction. Use the confirmed central contact
+consistently, including structured data. Never report a mailto link check as
+evidence of email delivery.
