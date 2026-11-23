@@ -8,6 +8,41 @@
 import * as zod from 'zod';
 
 
+/**
+ * @summary Fresh server-only Places reviews, never stored or statically rendered
+ */
+export const getGoogleReviewsResponseDataOneRatingMax = 5;
+
+
+export const getGoogleReviewsResponseDataOneReviewsItemRatingMax = 5;
+
+export const getGoogleReviewsResponseDataOneReviewsMax = 5;
+
+
+
+export const GetGoogleReviewsResponse = zod.object({
+  "data": zod.union([zod.object({
+  "rating": zod.number().min(1).max(getGoogleReviewsResponseDataOneRatingMax),
+  "userRatingCount": zod.number().int().min(1),
+  "googleMapsUri": zod.string(),
+  "writeReviewUri": zod.string(),
+  "reviews": zod.array(zod.object({
+  "text": zod.string(),
+  "languageCode": zod.string(),
+  "rating": zod.number().min(1).max(getGoogleReviewsResponseDataOneReviewsItemRatingMax),
+  "authorName": zod.string(),
+  "authorUri": zod.string().nullable(),
+  "photoDataUri": zod.string().nullable(),
+  "googleMapsUri": zod.string()
+})).max(getGoogleReviewsResponseDataOneReviewsMax),
+  "attributions": zod.array(zod.object({
+  "provider": zod.string(),
+  "uri": zod.string().nullable()
+}))
+}),zod.null()])
+})
+
+
 export const GetPublicMonitoringResponse = zod.object({
   "enabled": zod.boolean(),
   "origin": zod.string(),

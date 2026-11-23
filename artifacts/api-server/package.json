@@ -9,6 +9,7 @@
     "start": "node --enable-source-maps ./dist/index.mjs",
     "test:permissions": "node --experimental-strip-types --test ./tests/*.test.mjs && node ./scripts/test-monitoring.mjs",
     "test:editorial": "node ../marenetto-build/scripts/export-editorial.mjs && node ./scripts/test-editorial.mjs",
+    "test:google-reviews": "node ./scripts/test-google-reviews.mjs",
     "test:project-requests": "node --test ./scripts/project-request-rate.test.mjs ./scripts/test-project-requests.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },

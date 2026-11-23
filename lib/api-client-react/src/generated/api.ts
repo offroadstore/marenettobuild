@@ -33,6 +33,7 @@ import type {
   EditorialSummary,
   GetKpiDashboardParams,
   GoogleReportService,
+  GoogleReviewsResponse,
   HealthStatus,
   InternalMember,
   InternalMemberInput,
@@ -86,6 +87,83 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   }
   return result;
 };
+
+export const getGetGoogleReviewsUrl = () => {
+
+
+
+
+  return `/api/google-reviews`
+}
+
+/**
+ * @summary Fresh server-only Places reviews, never stored or statically rendered
+ */
+export const getGoogleReviews = async ( options?: Parameters<typeof customFetch>[1]): Promise<GoogleReviewsResponse> => {
+
+  return customFetch<GoogleReviewsResponse>(getGetGoogleReviewsUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetGoogleReviewsQueryKey = () => {
+    return [
+    `/api/google-reviews`
+    ] as const;
+    }
+
+
+export const getGetGoogleReviewsQueryOptions = <TData = Awaited<ReturnType<typeof getGoogleReviews>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getGoogleReviews>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetGoogleReviewsQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getGoogleReviews>>> = ({ signal }) => getGoogleReviews({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getGoogleReviews>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetGoogleReviewsQueryResult = NonNullable<Awaited<ReturnType<typeof getGoogleReviews>>>
+export type GetGoogleReviewsQueryError = ErrorType<unknown>
+
+
+/**
+ * @summary Fresh server-only Places reviews, never stored or statically rendered
+ */
+
+export function useGetGoogleReviews<TData = Awaited<ReturnType<typeof getGoogleReviews>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getGoogleReviews>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetGoogleReviewsQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
 
 export const getGetPublicMonitoringUrl = () => {
 

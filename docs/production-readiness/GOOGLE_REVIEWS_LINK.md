@@ -1,4 +1,9 @@
-# LINK GOOGLE RECENSIONI — DA COMPLETARE
+# LINK GOOGLE RECENSIONI — RIPIEGO
+
+> Il requisito solo-collegamento del 22 novembre è superato dall'integrazione
+> server Places API (New). Vedere [attivazione, policy e verifiche](GOOGLE_PLACES_REVIEWS.md).
+> Questo documento conserva la provenienza del collegamento di ripiego e
+> le verifiche storiche, non descrive più l'intera funzionalità.
 
 **SEGNAPOSTO PER IL TITOLARE: manca il link definitivo alle recensioni della
 scheda Google Business di Marenetto Build.**
@@ -16,8 +21,9 @@ Inserirlo in `GOOGLE_REVIEWS_OFFICIAL_URL` nel file
 Il segnaposto è documentale, per il proprietario: sul sito resta un normale
 pulsante tradotto, non un avviso tecnico per i clienti.
 
-Non importare nomi, testi, stelle o conteggi, non aggiungere widget e non
-generare Review/AggregateRating. Il collegamento non carica Google fino al click.
+In assenza di risposta Places valida resta questo collegamento, senza dati
+inventati. Non aggiungere widget, scraping o Review/AggregateRating.
+Il collegamento non carica Google fino al click.
 
 ## Verifiche sul candidato — 22 novembre 2026
 

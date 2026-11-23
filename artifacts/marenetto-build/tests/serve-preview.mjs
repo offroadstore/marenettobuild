@@ -12,6 +12,18 @@ createServer((req, res) => {
   let pathname;
   try { pathname = new URL(req.url, 'http://localhost').pathname; }
   catch { res.writeHead(400); res.end(); return; }
+  // This standalone test gateway has no /api artifact routing. Keep Places
+  // credential-free in route regressions instead of hitting the static server
+  // (404) or forwarding to a possibly configured, billable Google integration.
+  if (['GET', 'HEAD'].includes(req.method) && pathname === '/api/google-reviews') {
+    res.writeHead(200, {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'private, no-store, max-age=0',
+      'CDN-Cache-Control': 'no-store',
+    });
+    res.end(req.method === 'HEAD' ? undefined : '{"data":null}');
+    return;
+  }
   const publicImage = ['GET', 'HEAD'].includes(req.method)
     && /^\/api\/historical-media\/[a-f0-9]{64}\.(?:png|jpe?g|webp|gif)$/.test(pathname);
   const publicEditorial = ['GET', 'HEAD'].includes(req.method) && pathname === '/api/editorial/active';

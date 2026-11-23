@@ -17,6 +17,20 @@ tags:
   - name: storage
     description: Private attachment upload and serving.
 paths:
+  /google-reviews:
+    get:
+      operationId: getGoogleReviews
+      summary: Fresh server-only Places reviews, never stored or statically rendered
+      responses:
+        "200":
+          description: Null data means keep the existing outbound link
+          headers:
+            Cache-Control:
+              schema: { type: string, const: "private, no-store, max-age=0" }
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GoogleReviewsResponse"
   /monitoring/public:
     get:
       operationId: getPublicMonitoring
@@ -722,6 +736,46 @@ paths:
           description: Attachment not found
 components:
   schemas:
+    GoogleReview:
+      type: object
+      required: [text, languageCode, rating, authorName, authorUri, photoDataUri, googleMapsUri]
+      properties:
+        text: { type: string }
+        languageCode: { type: string }
+        rating: { type: number, minimum: 1, maximum: 5 }
+        authorName: { type: string }
+        authorUri: { type: ["string", "null"] }
+        photoDataUri: { type: ["string", "null"] }
+        googleMapsUri: { type: string }
+    GoogleReviewsAttribution:
+      type: object
+      required: [provider, uri]
+      properties:
+        provider: { type: string }
+        uri: { type: ["string", "null"] }
+    GooglePlaceReviews:
+      type: object
+      required: [rating, userRatingCount, googleMapsUri, writeReviewUri, reviews, attributions]
+      properties:
+        rating: { type: number, minimum: 1, maximum: 5 }
+        userRatingCount: { type: integer, minimum: 1 }
+        googleMapsUri: { type: string }
+        writeReviewUri: { type: string }
+        reviews:
+          type: array
+          maxItems: 5
+          items: { $ref: "#/components/schemas/GoogleReview" }
+        attributions:
+          type: array
+          items: { $ref: "#/components/schemas/GoogleReviewsAttribution" }
+    GoogleReviewsResponse:
+      type: object
+      required: [data]
+      properties:
+        data:
+          oneOf:
+            - { $ref: "#/components/schemas/GooglePlaceReviews" }
+            - { type: "null" }
     MonitoringCollectionInput:
       type: object
       additionalProperties: false

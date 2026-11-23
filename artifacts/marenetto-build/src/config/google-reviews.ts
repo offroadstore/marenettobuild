@@ -1,6 +1,6 @@
-/** SEGNAPOSTO TITOLARE: inserire qui l'URL ufficiale alle recensioni della scheda.
- * Nessuna scheda verificata è stata trovata nelle fonti del progetto.
- * Vedere docs/production-readiness/GOOGLE_REVIEWS_LINK.md. */
+/** Fallback only: no verified listing URL has been supplied.
+ * Live reviews use the server's Places credentials, never this configuration.
+ * See docs/production-readiness/GOOGLE_PLACES_REVIEWS.md. */
 export const GOOGLE_REVIEWS_OFFICIAL_URL: string = '';
 export const GOOGLE_REVIEWS_SEARCH_URL = 'https://www.google.com/maps/search/?api=1&query=Marenetto%20Build%20Cefal%C3%B9';
 export const GOOGLE_REVIEWS_URL = GOOGLE_REVIEWS_OFFICIAL_URL || GOOGLE_REVIEWS_SEARCH_URL;

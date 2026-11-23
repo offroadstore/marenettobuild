@@ -504,3 +504,31 @@ mtime_ms = 1795390493825
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/afed2e59-43c3-4810-9a5a-52738185588a/d47b1a29-bc9b-4ccf-af9b-428280d0fd9d"
 storage_version_token = "1795390645616567"
 content_type = "text/html"
+
+[[outputs]]
+id = "sDZ8KNczgG48dHQ8gX70i"
+uri = "file://generated-artifacts/google-reviews/simulated-390.png"
+type = "image"
+title = "Recensioni: prova mobile simulata"
+description = "Dati sintetici, non recensioni reali. Testi originali, attribuzione Google Maps e pulsanti."
+logical_id = "f6b91a3c-2f40-46c6-94fe-1c803214d0e3"
+content_hash = "sha256:9176fcce041653a63bf56d65f76e697d82f4b086d2a2269b7382b8d45503c55c"
+size = 125888
+mtime_ms = 1795401519191
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/f6b91a3c-2f40-46c6-94fe-1c803214d0e3/142a8330-cdd2-4935-bdc4-c6d6df50a805"
+storage_version_token = "1795401567818076"
+content_type = "image/png"
+
+[[outputs]]
+id = "5z_nPQ_Ydd0iA7DgzLqy1"
+uri = "file://generated-artifacts/google-reviews/simulated-1440.png"
+type = "image"
+title = "Recensioni: prova desktop simulata"
+description = "Dati sintetici, non recensioni reali. Nessuna chiamata Google effettuata per questa prova."
+logical_id = "4e7c3a22-744f-4c3f-b573-612e54bb12f3"
+content_hash = "sha256:61bf3e2fb8e9134ee21488fdf9c42e1dbc14139fe6d993cedc0a16ce7ea61a56"
+size = 137128
+mtime_ms = 1795401518915
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/4e7c3a22-744f-4c3f-b573-612e54bb12f3/6c49838d-0951-4424-8f0c-792c37a41a63"
+storage_version_token = "1795401568435338"
+content_type = "image/png"

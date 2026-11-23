@@ -11,7 +11,8 @@ const { renderToStaticMarkup } = require('react-dom/server');
 const result = await build({
   entryPoints: [fileURLToPath(new URL('../src/components/home/GoogleReviews.tsx', import.meta.url))],
   absWorkingDir: fileURLToPath(new URL('../', import.meta.url)),
-  bundle: true, platform: 'node', format: 'cjs', packages: 'external', write: false, jsx: 'automatic',
+  bundle: true, platform: 'node', format: 'cjs', external: ['react', 'react-dom', 'react-dom/server', 'react/jsx-runtime'], write: false, jsx: 'automatic',
+  define: { 'import.meta.env.BASE_URL': '"/"' },
   alias: { '@': fileURLToPath(new URL('../src', import.meta.url)) },
 });
 const module = { exports: {} };
@@ -20,7 +21,7 @@ const { GoogleReviews } = module.exports;
 
 const locales = JSON.parse(await readFile(new URL('../src/localization/locales.json', import.meta.url), 'utf8'));
 for (const locale of locales.map(item => item.code)) {
-  test(`Google reviews ${locale}: external link only, no copied review data or embeds`, () => {
+  test(`Google reviews ${locale}: SSR link only, no copied review data or embeds`, () => {
     const html = renderToStaticMarkup(React.createElement(GoogleReviews, { locale }));
     assert.match(html, /data-testid="google-reviews-link"/);
     assert.match(html, /target="_blank" rel="noopener noreferrer"/);

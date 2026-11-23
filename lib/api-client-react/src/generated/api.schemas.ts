@@ -5,6 +5,47 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+export interface GoogleReview {
+  text: string;
+  languageCode: string;
+  /**
+     * @minimum 1
+     * @maximum 5
+     */
+  rating: number;
+  authorName: string;
+  /** @nullable */
+  authorUri: string | null;
+  /** @nullable */
+  photoDataUri: string | null;
+  googleMapsUri: string;
+}
+
+export interface GoogleReviewsAttribution {
+  provider: string;
+  /** @nullable */
+  uri: string | null;
+}
+
+export interface GooglePlaceReviews {
+  /**
+     * @minimum 1
+     * @maximum 5
+     */
+  rating: number;
+  /** @minimum 1 */
+  userRatingCount: number;
+  googleMapsUri: string;
+  writeReviewUri: string;
+  /** @maxItems 5 */
+  reviews: GoogleReview[];
+  attributions: GoogleReviewsAttribution[];
+}
+
+export interface GoogleReviewsResponse {
+  data: GooglePlaceReviews | null;
+}
+
 export interface MonitoringCollectionInput {
   enabled: boolean;
 }
