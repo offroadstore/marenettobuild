@@ -56,7 +56,7 @@ export function withEditorialSnapshot(html, active) {
   return html.replace('</head>', `<script type="application/json" id="editorial-active">${JSON.stringify(active).replaceAll('<','\\u003c')}</script></head>`);
 }
 export function editorialDocument(template, rendered, edition, active, status = 200) {
-  const selected = edition && { ...edition, title: edition.content.seoTitle || edition.content.title, description: edition.content.seoDescription || edition.content.summary, state: 'reviewed' };
+  const selected = edition && { ...edition, title: edition.content.seoTitle || edition.content.title, description: edition.content.seoDescription || edition.content.summary, ...rendered.metadata, state: 'reviewed' };
   // Remain noindex. Editorial approval is deliberately not release approval;
   // dynamic editions are not automatically added to hreflang or sitemap.
   return withEditorialSnapshot(renderDocument(template, { edition: status === 200 ? selected : undefined, body: rendered.body, status }), active);

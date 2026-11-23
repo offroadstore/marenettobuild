@@ -1,0 +1,20 @@
+---
+name: Multilingual SEO metadata policy
+description: Separate historical provenance from localized search metadata and preserve server/client consistency.
+---
+
+Il titolare richiede metadati specifici per ogni pagina e lingua pubblica,
+con il brand «Marenetto Build», non il dominio. Le etichette di navigazione
+storiche non sono titoli SEO adeguati. Title, description e Open Graph devono
+essere presenti nell'HTML iniziale, non soltanto dopo JavaScript.
+
+**Why:** Il recupero fedele delle pagine aveva ripristinato anche titoli come
+«Home» e «Startseite», prevalendo sui metadati descrittivi localizzati.
+La fedeltà documentale dei corpi non impone di mantenere metadati SEO generici.
+
+**How to apply:** Trattare i metadati di ricerca come un livello distinto dalla
+provenienza storica e dalle revisioni delle traduzioni. Usare la stessa politica
+per HTML statico, revisioni editoriali attive e navigazione client; preservare
+le scelte SEO editoriali specifiche e non cambiare gli stati di approvazione
+solo per correggere i metadati. Verificare le risposte HTTP senza JavaScript,
+anche con archivio editoriale attivo, prima di consegnare.

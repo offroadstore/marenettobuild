@@ -14,6 +14,7 @@ export type Edition = {
   id: string; locale: string; path: string; kind: 'core' | 'archive' | 'article' | 'search';
   state: EditionState; approval: string | null; source: string;
   title: string; description: string; contentLanguage: string; sitemap: boolean;
+  coreMetadata?: { title: string; description: string };
   translationRevision?: string; translationApprovalRevision?: string; translationSourcePath?: string;
 };
 
@@ -23,6 +24,7 @@ export type Edition = {
 export const editions: Edition[] = LOCALES.flatMap(locale => [
   ...PAGE_KEYS.map(id => ({
     id, locale: locale.code, ...pages[locale.code as keyof typeof pages][id], kind: 'core' as const,
+    coreMetadata: pages[locale.code as keyof typeof pages][id],
     state: locale.code === 'it' ? 'published' as const : 'translated' as const,
     approval: locale.code === 'it' ? 'Owner-supplied Italian layout/copy; existing project approval' : null,
     source: 'App.tsx / home-copy.ts; legacy approved catalog, newer composition requires page review',

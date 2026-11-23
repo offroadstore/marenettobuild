@@ -62,7 +62,7 @@ test('public SEO excludes language wrappers and preserves active editorial metad
   assert.equal(isNativeEdition({ ...original, locale: 'en' }), false);
   const active = [{ path: original.path, revisionId: 'active-revision', content: { seoTitle: 'Titolo scelto dal titolare', seoDescription: 'Descrizione scelta dal titolare' } }];
   const [merged] = mergeActiveMetadata([original], active);
-  assert.deepEqual(releaseMetadata(merged), { title: active[0].content.seoTitle, description: active[0].content.seoDescription });
+  assert.deepEqual(releaseMetadata(merged), { title: active[0].content.seoTitle + ' | Marenetto Build', description: active[0].content.seoDescription });
   const snippet = '<main><p>Un testo pertinente alla pagina con informazioni sufficientemente dettagliate per la descrizione nei risultati di ricerca.</p></main>';
   assert.ok(releaseMetadata(original, snippet).description.includes('testo pertinente'));
   const first = { ...original, id: 'first', path: '/first', title: 'Prima pagina', description: 'Una descrizione ripetuta.' };

@@ -1,3 +1,6 @@
+import { homeMetadata } from './home-seo.mjs';
+import { libraryMetadata } from './library-seo.mjs';
+
 // Language wrappers around Italian copy are not independent translations.
 export function isNativeEdition(edition) {
   return edition.contentLanguage === edition.locale;
@@ -20,6 +23,8 @@ export function mergeActiveMetadata(entries, active) {
       title: live.content.seoTitle || live.content.title || entry.title,
       description: live.content.seoDescription || live.content.summary || entry.description,
       contentLanguage: live.content.contentLanguage || entry.contentLanguage,
+      activeSeoTitle: Boolean(live.content.seoTitle?.trim()),
+      activeSeoDescription: Boolean(live.content.seoDescription?.trim()),
     } : candidate;
   });
 }
@@ -42,7 +47,10 @@ const text = value => String(value ?? '').replace(/<[^>]+>/g, ' ').replace(/&nbs
   .replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/\s+/g, ' ').trim();
 
 export function releaseMetadata(edition, html = '', entries = []) {
-  let title = edition.title;
+  const core = homeMetadata[edition.locale] &&
+    (edition.id === 'home' ? homeMetadata[edition.locale] : libraryMetadata[edition.locale]?.[edition.id] ?? edition.coreMetadata);
+  const genericHome = /^(?:Home|Startseite|Accueil|Inicio|Início|Start|Hjem|Forside|Strona główna|Главная)\s*(?:[|—–-].*)?$/i.test(edition.title);
+  let title = (!edition.activeSeoTitle || genericHome) && core ? core.title : edition.title;
   const names = archiveNames[edition.locale];
   const legacyArchiveTitle = /^(?:Articoli|Articles|Artikel|Artikelen|Artículos|Artigos|Recensioni)\s*\|/i.test(title);
   if (names && legacyArchiveTitle && (edition.id === 'articles' || edition.id === 'historical:/recensioni')) {
@@ -52,12 +60,17 @@ export function releaseMetadata(edition, html = '', entries = []) {
     if (edition.locale === 'no') title = 'Kontakt oss i Cefalù | Marenetto Build';
     if (edition.locale === 'da') title = 'Kontakt os i Cefalù | Marenetto Build';
   }
+  title = text(title).replace(/\b(?:www\.)?marenettobuild\.com\b/gi, 'Marenetto Build')
+    .replace(/\|\s*Marenetto\s*$/i, '| Marenetto Build');
+  if (!/Marenetto Build/i.test(title)) title += ' | Marenetto Build';
   const content = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] ?? html;
   const paragraph = [...content.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)]
     .map(match => text(match[1])).find(value => value.length >= 70);
-  let description = text(edition.description) || paragraph || `${title.split('|')[0].trim()} — Marenetto Build.`;
-  const duplicate = !edition.description || entries.some(other =>
-    other.path !== edition.path && other.description === edition.description);
+  const sourceDescription = !edition.activeSeoDescription && core ? core.description : edition.description;
+  let description = (text(sourceDescription) || paragraph || `${title.split('|')[0].trim()} — Marenetto Build.`)
+    .replace(/\b(?:www\.)?marenettobuild\.com\b/gi, 'Marenetto Build');
+  const duplicate = !sourceDescription || entries.some(other =>
+    other.path !== edition.path && other.description === sourceDescription);
   const topic = title.split('|')[0].trim();
   if (duplicate && !description.toLowerCase().startsWith(topic.toLowerCase())) description = `${topic}. ${description}`;
   if (description.length > 170) description = description.slice(0, 167).replace(/\s+\S*$/, '') + '…';

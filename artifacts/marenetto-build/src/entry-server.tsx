@@ -6,6 +6,7 @@ import { articleBySlug } from './content/articles';
 import { historicalPage, historicalPending, loadHistorical } from './content/historical';
 import type { EditorialActive } from '@workspace/api-client-react';
 import { translationCandidate, translationSourceChanged } from './localization/phase2';
+import { mergeActiveMetadata, releaseMetadata } from './localization/public-seo.mjs';
 export { editions, redirects, excludedRoutes, equivalentEditions, canonicalEdition, reviewPathForEdition, reviewHubEdition } from './localization/edition-inventory';
 export { companyStructuredData } from './config/contact';
 export { editionStructuredData } from './lib/structured-data';
@@ -28,6 +29,9 @@ export function render(path: string, locale: string, active: EditorialActive[] =
       description: translateText(locale, edition.description),
     } : undefined;
     const currentEdition = edition ?? editions.find(e => e.path === path);
+    const resolvedMetadata = metadata ?? (currentEdition
+      ? releaseMetadata(mergeActiveMetadata([currentEdition], active)[0], body, editions)
+      : undefined);
     const article = currentEdition ? articleBySlug.get(currentEdition.id) : undefined;
     let fullTextProof;
     const translation = translationCandidate(path);
@@ -42,7 +46,7 @@ export function render(path: string, locale: string, active: EditorialActive[] =
       if (translated && text === article.approvedFullText) throw new Error(`Article body is still Italian at ${path}`);
       fullTextProof = { slug: article.slug, contentLocale: translated ? locale : 'it', blocks: blocks.length, missingBlocks: 0, originalDate: article.publishedOn, automatedCheckOnly: true };
     }
-    return { body, metadata, fullTextProof, missingTranslations: translationFindings() };
+    return { body, metadata: resolvedMetadata, fullTextProof, missingTranslations: translationFindings() };
   });
   renderQueue = result.catch(() => undefined);
   return result;

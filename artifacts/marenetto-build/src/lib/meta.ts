@@ -3,7 +3,8 @@ import { useLocation } from 'wouter';
 import { LibraryLocale } from '@/localization/library-context';
 import { translateText } from '@/localization/runtime';
 import { articlePath, libraryPath } from '@/localization/paths';
-import { canonicalEdition, getEdition, equivalentEditions } from '@/localization/edition-inventory';
+import { canonicalEdition, getEdition, equivalentEditions, editions } from '@/localization/edition-inventory';
+import { mergeActiveMetadata, releaseMetadata } from '@/localization/public-seo.mjs';
 import { isTranslationReviewMode } from '@/localization/runtime';
 import { updateStructuredData } from './structured-data';
 import { getLocaleDirection } from '@/localization/locales';
@@ -31,14 +32,21 @@ export function usePageMeta({ title, description, path, type = 'website', lang =
   }
   useEffect(() => {
     if (applyPublicReleaseMetadata(location, active)) return;
-    document.title = title;
+    const entries = mergeActiveMetadata(editions, active);
+    const normalized = (value: string) => value.replace(/\/+$/, '') || '/';
+    const selected = entries.find(e => normalized(e.path) === normalized(location));
+    const metadata = releaseMetadata(selected ?? { id: '', locale: lang, path, contentLanguage: lang, title, description },
+      document.querySelector('main')?.outerHTML ?? '', entries);
+    document.title = metadata.title;
     const routeLocale = location.match(/^\/(?:__localization-review\/)?([a-z]{2})(?:\/|$)/)?.[1] ?? 'it';
     document.documentElement.lang = routeLocale;
     document.documentElement.dir = getLocaleDirection(routeLocale);
     setMeta('name', 'robots', 'noindex, nofollow');
-    setMeta('name', 'description', description);
-    setMeta('property', 'og:title', title);
-    setMeta('property', 'og:description', description);
+    setMeta('name', 'description', metadata.description);
+    setMeta('property', 'og:title', metadata.title);
+    setMeta('property', 'og:description', metadata.description);
+    setMeta('name', 'twitter:title', metadata.title);
+    setMeta('name', 'twitter:description', metadata.description);
     setMeta('property', 'og:type', type);
     const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     const edition = getEdition(routeLocale, path === '/articoli' ? 'articles' : path === '/guide' ? 'guides' : path === '/ricerca' ? 'search' : path.replace(/^\/(?:[a-z]{2}\/articles\/)?/, ''));
