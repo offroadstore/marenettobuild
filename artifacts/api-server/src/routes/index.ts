@@ -1,6 +1,7 @@
 import { Router, type IRouter } from "express";
 import healthRouter from "./health";
 import projectRequestsRouter from "./project-requests";
+import callRequestsRouter from "./call-requests";
 import internalRouter from "./internal";
 import historicalMediaRouter from "./historical-media";
 import editorialRouter from "./editorial";
@@ -13,6 +14,7 @@ router.use(healthRouter);
 router.use(googleReviewsRouter);
 router.use(historicalMediaRouter);
 router.use(projectRequestsRouter);
+router.use(callRequestsRouter);
 router.use(editorialRouter);
 router.use(monitoringRouter);
 router.use(internalRouter);

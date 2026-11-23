@@ -22,6 +22,11 @@ import type {
 import type {
   AttachmentFinalizeInput,
   AttachmentUploadInput,
+  CallConfig,
+  CallReceipt,
+  CallRecord,
+  CallRequestInput,
+  CallUpdate,
   CmsPage,
   CmsPageInput,
   CmsPageUpdate,
@@ -31,6 +36,7 @@ import type {
   EditorialInput,
   EditorialSave,
   EditorialSummary,
+  ExportCallRequestsParams,
   GetKpiDashboardParams,
   GoogleReportService,
   GoogleReviewsResponse,
@@ -42,6 +48,7 @@ import type {
   InternalSession,
   KpiDashboard,
   LeadUpdate,
+  ListCallRequestsParams,
   ListCmsPagesParams,
   ListInternalAttachmentsParams,
   ListInternalLeadsParams,
@@ -87,6 +94,466 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   }
   return result;
 };
+
+export const getGetCallRequestConfigUrl = () => {
+
+
+
+
+  return `/api/call-requests/config`
+}
+
+export const getCallRequestConfig = async ( options?: Parameters<typeof customFetch>[1]): Promise<CallConfig> => {
+
+  return customFetch<CallConfig>(getGetCallRequestConfigUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetCallRequestConfigQueryKey = () => {
+    return [
+    `/api/call-requests/config`
+    ] as const;
+    }
+
+
+export const getGetCallRequestConfigQueryOptions = <TData = Awaited<ReturnType<typeof getCallRequestConfig>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getCallRequestConfig>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetCallRequestConfigQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCallRequestConfig>>> = ({ signal }) => getCallRequestConfig({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCallRequestConfig>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetCallRequestConfigQueryResult = NonNullable<Awaited<ReturnType<typeof getCallRequestConfig>>>
+export type GetCallRequestConfigQueryError = ErrorType<unknown>
+
+
+
+export function useGetCallRequestConfig<TData = Awaited<ReturnType<typeof getCallRequestConfig>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getCallRequestConfig>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetCallRequestConfigQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getCreateCallRequestUrl = () => {
+
+
+
+
+  return `/api/call-requests`
+}
+
+export const createCallRequest = async (callRequestInput: CallRequestInput, options?: Parameters<typeof customFetch>[1]): Promise<CallReceipt> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<CallReceipt>(getCreateCallRequestUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(callRequestInput)
+  }
+);}
+
+
+
+
+
+export const getCreateCallRequestMutationKey = () => ['createCallRequest'] as const;
+
+export const getCreateCallRequestMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createCallRequest>>, TError,CreateCallRequestMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof createCallRequest>>, TError,CreateCallRequestMutationVariables, TContext> => {
+
+const mutationKey = getCreateCallRequestMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createCallRequest>>, CreateCallRequestMutationVariables> = (props) => {
+          const {data} = props ?? {};
+
+          return  createCallRequest(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CreateCallRequestMutationResult = NonNullable<Awaited<ReturnType<typeof createCallRequest>>>
+    export type CreateCallRequestMutationBody = BodyType<CallRequestInput>
+    export type CreateCallRequestMutationError = ErrorType<void>
+    export type CreateCallRequestMutationVariables = {data: BodyType<CallRequestInput>}
+
+    export const useCreateCallRequest = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createCallRequest>>, TError,CreateCallRequestMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof createCallRequest>>,
+        TError,
+        CreateCallRequestMutationVariables,
+        TContext
+      > => {
+      return useMutation(getCreateCallRequestMutationOptions(options));
+    }
+
+export const getListCallRequestsUrl = (params?: ListCallRequestsParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : String(value))
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/api/internal/call-requests?${stringifiedParams}` : `/api/internal/call-requests`
+}
+
+export const listCallRequests = async (params?: ListCallRequestsParams, options?: Parameters<typeof customFetch>[1]): Promise<CallRecord[]> => {
+
+  return customFetch<CallRecord[]>(getListCallRequestsUrl(params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListCallRequestsQueryKey = (params?: ListCallRequestsParams,) => {
+    return [
+    `/api/internal/call-requests`, ...(params ? [params] : [])
+    ] as const;
+    }
+
+
+export const getListCallRequestsQueryOptions = <TData = Awaited<ReturnType<typeof listCallRequests>>, TError = ErrorType<void>>(params?: ListCallRequestsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listCallRequests>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListCallRequestsQueryKey(params);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listCallRequests>>> = ({ signal }) => listCallRequests(params, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listCallRequests>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ListCallRequestsQueryResult = NonNullable<Awaited<ReturnType<typeof listCallRequests>>>
+export type ListCallRequestsQueryError = ErrorType<void>
+
+
+
+export function useListCallRequests<TData = Awaited<ReturnType<typeof listCallRequests>>, TError = ErrorType<void>>(
+ params?: ListCallRequestsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listCallRequests>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getListCallRequestsQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getExportCallRequestsUrl = (params?: ExportCallRequestsParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : String(value))
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/api/internal/call-requests/export?${stringifiedParams}` : `/api/internal/call-requests/export`
+}
+
+export const exportCallRequests = async (params?: ExportCallRequestsParams, options?: Parameters<typeof customFetch>[1]): Promise<string> => {
+
+  return customFetch<string>(getExportCallRequestsUrl(params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getExportCallRequestsQueryKey = (params?: ExportCallRequestsParams,) => {
+    return [
+    `/api/internal/call-requests/export`, ...(params ? [params] : [])
+    ] as const;
+    }
+
+
+export const getExportCallRequestsQueryOptions = <TData = Awaited<ReturnType<typeof exportCallRequests>>, TError = ErrorType<void>>(params?: ExportCallRequestsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof exportCallRequests>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getExportCallRequestsQueryKey(params);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof exportCallRequests>>> = ({ signal }) => exportCallRequests(params, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof exportCallRequests>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ExportCallRequestsQueryResult = NonNullable<Awaited<ReturnType<typeof exportCallRequests>>>
+export type ExportCallRequestsQueryError = ErrorType<void>
+
+
+
+export function useExportCallRequests<TData = Awaited<ReturnType<typeof exportCallRequests>>, TError = ErrorType<void>>(
+ params?: ExportCallRequestsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof exportCallRequests>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getExportCallRequestsQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getUpdateCallRequestUrl = (id: number,) => {
+
+
+
+
+  return `/api/internal/call-requests/${id}`
+}
+
+export const updateCallRequest = async (id: number,
+    callUpdate: CallUpdate, options?: Parameters<typeof customFetch>[1]): Promise<CallRecord> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<CallRecord>(getUpdateCallRequestUrl(id),
+  {
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(callUpdate)
+  }
+);}
+
+
+
+
+
+export const getUpdateCallRequestMutationKey = () => ['updateCallRequest'] as const;
+
+export const getUpdateCallRequestMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateCallRequest>>, TError,UpdateCallRequestMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateCallRequest>>, TError,UpdateCallRequestMutationVariables, TContext> => {
+
+const mutationKey = getUpdateCallRequestMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateCallRequest>>, UpdateCallRequestMutationVariables> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  updateCallRequest(id,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdateCallRequestMutationResult = NonNullable<Awaited<ReturnType<typeof updateCallRequest>>>
+    export type UpdateCallRequestMutationBody = BodyType<CallUpdate>
+    export type UpdateCallRequestMutationError = ErrorType<void>
+    export type UpdateCallRequestMutationVariables = {id: number;data: BodyType<CallUpdate>}
+
+    export const useUpdateCallRequest = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateCallRequest>>, TError,UpdateCallRequestMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof updateCallRequest>>,
+        TError,
+        UpdateCallRequestMutationVariables,
+        TContext
+      > => {
+      return useMutation(getUpdateCallRequestMutationOptions(options));
+    }
+
+export const getDeleteCallRequestUrl = (id: number,) => {
+
+
+
+
+  return `/api/internal/call-requests/${id}`
+}
+
+export const deleteCallRequest = async (id: number, options?: Parameters<typeof customFetch>[1]): Promise<void> => {
+
+  return customFetch<void>(getDeleteCallRequestUrl(id),
+  {
+    ...options,
+    method: 'DELETE'
+
+
+  }
+);}
+
+
+
+
+
+export const getDeleteCallRequestMutationKey = () => ['deleteCallRequest'] as const;
+
+export const getDeleteCallRequestMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteCallRequest>>, TError,DeleteCallRequestMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteCallRequest>>, TError,DeleteCallRequestMutationVariables, TContext> => {
+
+const mutationKey = getDeleteCallRequestMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteCallRequest>>, DeleteCallRequestMutationVariables> = (props) => {
+          const {id} = props ?? {};
+
+          return  deleteCallRequest(id,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type DeleteCallRequestMutationResult = NonNullable<Awaited<ReturnType<typeof deleteCallRequest>>>
+
+    export type DeleteCallRequestMutationError = ErrorType<void>
+    export type DeleteCallRequestMutationVariables = {id: number}
+
+    export const useDeleteCallRequest = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteCallRequest>>, TError,DeleteCallRequestMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof deleteCallRequest>>,
+        TError,
+        DeleteCallRequestMutationVariables,
+        TContext
+      > => {
+      return useMutation(getDeleteCallRequestMutationOptions(options));
+    }
 
 export const getGetGoogleReviewsUrl = () => {
 

@@ -49,6 +49,22 @@ export function isArubaSmtpConfigured(): boolean {
   return arubaSmtpConfig() !== null;
 }
 
+/** Dedicated callback transport; callers must enforce approvals and live-only mode. */
+export async function sendArubaCallbackMail(message: { to: string; subject: string; text: string }): Promise<void> {
+  const config = arubaSmtpConfig();
+  if (!config || process.env.NODE_ENV !== "production") throw new Error("Callback delivery unavailable");
+  const transport = createTransport({
+    host: config.host, port: config.port, secure: config.port === 465,
+    auth: { user: config.user, pass: config.password },
+    connectionTimeout: 10_000, greetingTimeout: 10_000, socketTimeout: 20_000,
+    tls: { minVersion: "TLSv1.2" },
+  });
+  try {
+    const result = await transport.sendMail({ from: config.from, ...message });
+    if (!result.accepted?.length || result.rejected?.length) throw new Error("Recipient not accepted");
+  } finally { transport.close(); }
+}
+
 export async function sendArubaLeadNotification(
   lead: ProjectRequest,
 ): Promise<void> {

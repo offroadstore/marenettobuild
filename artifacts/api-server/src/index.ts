@@ -1,6 +1,7 @@
 import app from "./app";
 import { logger } from "./lib/logger";
 import { cleanProjectRequestAttempts } from "./lib/project-request-rate";
+import { purgeExpiredCalls, recoverCallDeliveries } from "./lib/call-service";
 
 const rawPort = process.env["PORT"];
 
@@ -28,4 +29,14 @@ app.listen(port, (err) => {
   );
   purge();
   setInterval(purge, 15 * 60_000).unref();
+  let callbacksBusy = false;
+  const maintainCallbacks = async () => {
+    if (callbacksBusy) return;
+    callbacksBusy = true;
+    try { await purgeExpiredCalls(); await recoverCallDeliveries(); }
+    catch { logger.warn("Callback retention or delivery maintenance unavailable"); }
+    finally { callbacksBusy = false; }
+  };
+  void maintainCallbacks();
+  setInterval(() => void maintainCallbacks(), 60_000).unref();
 });

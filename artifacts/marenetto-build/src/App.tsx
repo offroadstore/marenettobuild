@@ -10,6 +10,7 @@ import { Logo } from '@/components/brand/Logo';
 import { HeroPhoto, IllustrativeImage } from '@/components/home/Media';
 import { IllustrationNote } from '@/components/home/IllustrationNote';
 import { WhatsAppAccess, WhatsAppNavLink } from '@/components/WhatsAppAccess';
+import { CallRequestAccess, CallPrivacyFooter } from '@/components/CallRequestAccess';
 import { COMPANY_CONTACT, COMPANY_PHONE, emailHref, telHref, whatsappHref } from '@/config/contact';
 import { MobileContactBar } from '@/components/home/MobileContactBar';
 import { GoogleReviews } from '@/components/home/GoogleReviews';
@@ -402,6 +403,7 @@ function Footer({ lang }: { lang: Lang }) {
         </div></div>
       </div>
       <IllustrationNote lang={lang} />
+      <CallPrivacyFooter lang={lang} />
       <div className="footer-bottom"><span lang="it">© {new Date().getFullYear()} Marenetto S.r.l. unipersonale · P.IVA IT06471740826 · SS 113, 73b, 90015 Cefalù (PA)</span><span>{it ? 'Cefalù · Sicilia' : 'Cefalù · Sicily'}</span><Link href={withCampaignParams(routes[it ? 'en' : 'it'].home)} onClick={() => saveLanguageChoice(it ? 'en' : 'it')}>{it ? 'English' : 'Italiano'} <ArrowRight size={12} /></Link></div>
     </div>
   </footer></>);
@@ -878,7 +880,7 @@ function SitePage({ page, lang }: { page: CorePage; lang: Lang }) {
   const main = page === 'request' ? contents : localizeNode(lang, contents);
   const footer = localizeNode(lang, <Footer lang={lang} />);
   return <div className="site-shell" lang={lang === 'it' ? 'it-IT' : lang} dir={getLocaleDirection(lang)}>
-    {header}<main>{lang !== 'it' && !(showsTranslatedCopy(lang) && !isTranslationReviewMode()) && <p className="container translation-review-status" lang="it" role="note">Traduzione da approvare: non ancora approvata come equivalente pubblico. <a href={`/__localization-review/${lang}/${page}`}>Apri la bozza da revisionare</a></p>}<WhatsAppAccess lang={lang} />{main}</main>{footer}
+    {header}<main>{lang !== 'it' && !(showsTranslatedCopy(lang) && !isTranslationReviewMode()) && <p className="container translation-review-status" lang="it" role="note">Traduzione da approvare: non ancora approvata come equivalente pubblico. <a href={`/__localization-review/${lang}/${page}`}>Apri la bozza da revisionare</a></p>}<WhatsAppAccess lang={lang} />{main}<CallRequestAccess lang={lang} page={page} /></main>{footer}
   </div>;
 }
 
@@ -888,7 +890,7 @@ function LibraryShell({ page, children, lang = 'it', articleSlug }: { page: Page
   const candidate = translationCandidate(articleSlug ? articlePath(lang, articleSlug) : libraryPath(lang, page as 'articles' | 'guides' | 'search'));
   return <LibraryLocale.Provider value={hasLocalArticles ? lang : contentLocale}><div className="site-shell" lang={lang === 'it' ? 'it-IT' : lang} dir={getLocaleDirection(lang)}>
     <Header lang={lang} page={page} articleSlug={articleSlug} />
-    <main><WhatsAppAccess lang={lang} />{candidate && !translationApproved(candidate) && <p className="container translation-review-status" lang={lang} role="note">{translationNotices[lang].review}</p>}{lang !== 'it' && !(showsTranslatedCopy(lang) && !isTranslationReviewMode()) && <p className="container translation-review-status" role="note" data-testid="translation-review-notice" lang="it" dir="ltr">{isTranslationReviewMode() ? 'Bozza tradotta · in attesa della revisione del titolare.' : hasLocalArticles ? 'Archivio misto: le edizioni attive hanno la lingua indicata; le altre mantengono il testo originale italiano.' : 'Testo originale italiano · nessuna traduzione approvata.'} <a href={articleSlug ? `/${articleSlug}` : libraryPath('it', page as 'articles' | 'guides' | 'search')}>Leggi l’edizione italiana</a></p>}<div lang={contentLocale} dir={getLocaleDirection(contentLocale)}>{children}</div></main>
+    <main><WhatsAppAccess lang={lang} />{candidate && !translationApproved(candidate) && <p className="container translation-review-status" lang={lang} role="note">{translationNotices[lang].review}</p>}{lang !== 'it' && !(showsTranslatedCopy(lang) && !isTranslationReviewMode()) && <p className="container translation-review-status" role="note" data-testid="translation-review-notice" lang="it" dir="ltr">{isTranslationReviewMode() ? 'Bozza tradotta · in attesa della revisione del titolare.' : hasLocalArticles ? 'Archivio misto: le edizioni attive hanno la lingua indicata; le altre mantengono il testo originale italiano.' : 'Testo originale italiano · nessuna traduzione approvata.'} <a href={articleSlug ? `/${articleSlug}` : libraryPath('it', page as 'articles' | 'guides' | 'search')}>Leggi l’edizione italiana</a></p>}<div lang={contentLocale} dir={getLocaleDirection(contentLocale)}>{children}</div><CallRequestAccess lang={lang} page={page} /></main>
     <Footer lang={lang} />
   </div></LibraryLocale.Provider>;
 }
@@ -908,7 +910,7 @@ function RecoveredPage({ page, lang }: { page: HistoricalPageRecord; lang: Lang 
     <main><WhatsAppAccess lang={lang} /><HistoricalContents page={page} actions={<div className="mbh-actions">
       <PageLink lang={lang} page="request" className="mbh-btn mbh-btn--board" data-testid="hero-request">{h.primary}</PageLink>
       <PageLink lang={lang} page="process" className="mbh-hero__link" data-testid="hero-process">{h.secondary}</PageLink>
-    </div>} /></main>
+    </div>} /><CallRequestAccess lang={lang} page={navigationPage} /></main>
     <Footer lang={lang} />
   </div>;
 }

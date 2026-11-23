@@ -16,12 +16,14 @@ import {
 } from '@workspace/api-client-react';
 import {
   ArrowDownToLine, ArrowRight, Bell, Check, ChevronDown, CircleAlert, FileText,
-  HardHat, Languages, Activity, ChartLine, LayoutDashboard, Newspaper, LockKeyhole, LogOut, Plus, Send, Shield, Upload, Users,
+  HardHat, Languages, Activity, ChartLine, LayoutDashboard, PhoneCall, Newspaper, LockKeyhole, LogOut, Plus, Send, Shield, Upload, Users,
 } from 'lucide-react';
 import { Link } from 'wouter';
 import { EditorialPanel, editorialHasUnsavedChanges } from '@/pages/editorial';
 import { DashboardPanel } from '@/pages/monitoring/dashboard';
 import { MonitoringPanel } from '@/pages/monitoring/monitoring';
+import { CallRequestsPanel } from '@/pages/call-requests-panel';
+import '@/styles/call-request.css';
 
 const clerkKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -51,7 +53,7 @@ function InternalLoading() {
   return <div className="internal-shell"><div className="internal-sidebar"><div className="int-brand">M<span>·</span>B</div></div><main className="internal-main"><div className="int-skeleton wide" /><div className="int-skeleton" /><div className="int-skeleton" /></main></div>;
 }
 
-type Tab = 'overview' | 'dashboard' | 'monitoring' | 'leads' | 'cms' | 'articles' | 'languages' | 'notifications' | 'team' | 'files';
+type Tab = 'overview' | 'dashboard' | 'monitoring' | 'leads' | 'cms' | 'articles' | 'languages' | 'notifications' | 'team' | 'files' | 'calls';
 const statusLabels: Record<LeadStatus, string> = { new: 'New', reviewing: 'Reviewing', waiting: 'Waiting', approved: 'Approved', closed: 'Closed' };
 const statuses: LeadStatus[] = ['new', 'reviewing', 'waiting', 'approved', 'closed'];
 const roleLabels: Record<InternalRole, string> = { owner: 'Owner', editor: 'Editor', viewer: 'Viewer' };
@@ -89,6 +91,7 @@ function InternalConsole() {
     { id: 'dashboard', label: 'Dashboard', icon: <ChartLine size={17} />, permission: 'kpi:read' },
     { id: 'monitoring', label: 'Monitoraggio', icon: <Activity size={17} />, permission: 'kpi:read' },
     { id: 'leads', label: 'Enquiries', icon: <HardHat size={17} />, permission: 'leads:read' },
+    ...(session.data?.role === 'owner' ? [{ id: 'calls' as Tab, label: 'Callbacks', icon: <PhoneCall size={17} /> }] : []),
     { id: 'cms', label: 'Website drafts', icon: <FileText size={17} />, permission: 'cms:read' },
     { id: 'articles', label: 'Articoli', icon: <Newspaper size={17} />, permission: 'cms:read' },
     { id: 'languages', label: 'Lingue', icon: <Languages size={17} />, permission: 'cms:read' },
@@ -116,6 +119,7 @@ function InternalConsole() {
         {tab === 'dashboard' && permissions.includes('kpi:read') && <DashboardPanel go={setTab} />}
         {tab === 'monitoring' && permissions.includes('kpi:read') && <MonitoringPanel />}
         {tab === 'leads' && <LeadsPanel leads={leads.data || []} loading={leads.isLoading} canWrite={canWriteLeads} writeLocked={!liveData} onSaved={() => refresh(getListInternalLeadsQueryKey())} />}
+        {tab === 'calls' && session.data.role === 'owner' && <CallRequestsPanel />}
         {tab === 'cms' && <CmsPanel pages={pages.data || []} loading={pages.isLoading} canWrite={canWriteCms} writeLocked={!liveData} onSaved={() => refresh(getListCmsPagesQueryKey())} setNotice={setNotice} />}
         {(tab === 'articles' || tab === 'languages') && <EditorialPanel key={tab} mode={tab} role={session.data.role} />}
         {tab === 'notifications' && <NotificationsPanel items={notifications.data || []} loading={notifications.isLoading} onSaved={() => refresh(getListInternalNotificationsQueryKey())} />}

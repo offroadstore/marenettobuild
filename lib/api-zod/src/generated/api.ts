@@ -8,6 +8,286 @@
 import * as zod from 'zod';
 
 
+export const GetCallRequestConfigResponse = zod.object({
+  "isSynthetic": zod.boolean(),
+  "privacyVersion": zod.enum(['call-2026-11-23'])
+})
+
+
+export const createCallRequestBodyIdempotencyKeyMin = 16;
+export const createCallRequestBodyIdempotencyKeyMax = 80;
+
+
+export const createCallRequestBodyIdempotencyKeyRegExp = new RegExp('^[A-Za-z0-9_-]+$');
+export const createCallRequestBodyFirstNameMax = 100;
+
+export const createCallRequestBodyLastNameMax = 100;
+
+export const createCallRequestBodyEmailMax = 254;
+
+export const createCallRequestBodyMobileRegExp = new RegExp('^\\+[1-9][0-9]{7,14}$');
+export const createCallRequestBodyWhatsappDefault = false;
+export const createCallRequestBodyLocationMax = 180;
+
+export const createCallRequestBodyBudgetMax = 100;
+
+export const createCallRequestBodyStartWhenMax = 100;
+
+export const createCallRequestBodyMessageMax = 3000;
+
+export const createCallRequestBodyMarketingAcceptedDefault = false;
+export const createCallRequestBodySourcePathMax = 300;
+
+export const createCallRequestBodyUtmUtmSourceMax = 60;
+
+export const createCallRequestBodyUtmUtmMediumMax = 60;
+
+export const createCallRequestBodyUtmUtmCampaignMax = 60;
+
+export const createCallRequestBodyCompanyWebsiteMax = 200;
+
+
+
+export const CreateCallRequestBody = zod.object({
+  "idempotencyKey": zod.string().min(createCallRequestBodyIdempotencyKeyMin).max(createCallRequestBodyIdempotencyKeyMax).regex(createCallRequestBodyIdempotencyKeyRegExp),
+  "firstName": zod.string().min(1).max(createCallRequestBodyFirstNameMax),
+  "lastName": zod.string().min(1).max(createCallRequestBodyLastNameMax),
+  "email": zod.string().email().max(createCallRequestBodyEmailMax),
+  "mobile": zod.string().regex(createCallRequestBodyMobileRegExp),
+  "whatsapp": zod.boolean().default(createCallRequestBodyWhatsappDefault),
+  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other']).optional(),
+  "location": zod.string().max(createCallRequestBodyLocationMax).optional(),
+  "budget": zod.string().max(createCallRequestBodyBudgetMax).optional(),
+  "startWhen": zod.string().max(createCallRequestBodyStartWhenMax).optional(),
+  "timeSlot": zod.enum(['morning', 'afternoon']).optional(),
+  "preferredLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']).optional(),
+  "message": zod.string().max(createCallRequestBodyMessageMax).optional(),
+  "privacyAccepted": zod.literal(true),
+  "marketingAccepted": zod.boolean().default(createCallRequestBodyMarketingAcceptedDefault),
+  "privacyVersion": zod.enum(['call-2026-11-23']),
+  "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']),
+  "sourcePath": zod.string().max(createCallRequestBodySourcePathMax).optional(),
+  "utm": zod.object({
+  "utm_source": zod.string().max(createCallRequestBodyUtmUtmSourceMax).optional(),
+  "utm_medium": zod.string().max(createCallRequestBodyUtmUtmMediumMax).optional(),
+  "utm_campaign": zod.string().max(createCallRequestBodyUtmUtmCampaignMax).optional()
+}).optional(),
+  "companyWebsite": zod.string().max(createCallRequestBodyCompanyWebsiteMax).optional(),
+  "formOpenedAt": zod.number().optional()
+})
+
+export const CreateCallRequestResponse = zod.object({
+  "code": zod.string(),
+  "createdAt": zod.coerce.date(),
+  "isSynthetic": zod.boolean(),
+  "ownerDelivery": zod.enum(['pending_provider', 'sending', 'sent', 'failed', 'uncertain', 'simulated']),
+  "customerDelivery": zod.enum(['pending_provider', 'sending', 'sent', 'failed', 'uncertain', 'simulated'])
+})
+
+
+export const ListCallRequestsQueryParams = zod.object({
+  "start": zod.date().optional(),
+  "end": zod.date().optional(),
+  "language": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']).optional(),
+  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other']).optional(),
+  "status": zod.enum(['new', 'contacted', 'survey', 'quote', 'closed']).optional()
+})
+
+export const listCallRequestsResponseDataIdempotencyKeyMin = 16;
+export const listCallRequestsResponseDataIdempotencyKeyMax = 80;
+
+
+export const listCallRequestsResponseDataIdempotencyKeyRegExp = new RegExp('^[A-Za-z0-9_-]+$');
+export const listCallRequestsResponseDataFirstNameMax = 100;
+
+export const listCallRequestsResponseDataLastNameMax = 100;
+
+export const listCallRequestsResponseDataEmailMax = 254;
+
+export const listCallRequestsResponseDataMobileRegExp = new RegExp('^\\+[1-9][0-9]{7,14}$');
+export const listCallRequestsResponseDataWhatsappDefault = false;
+export const listCallRequestsResponseDataLocationMax = 180;
+
+export const listCallRequestsResponseDataBudgetMax = 100;
+
+export const listCallRequestsResponseDataStartWhenMax = 100;
+
+export const listCallRequestsResponseDataMessageMax = 3000;
+
+export const listCallRequestsResponseDataMarketingAcceptedDefault = false;
+export const listCallRequestsResponseDataSourcePathMax = 300;
+
+export const listCallRequestsResponseDataUtmUtmSourceMax = 60;
+
+export const listCallRequestsResponseDataUtmUtmMediumMax = 60;
+
+export const listCallRequestsResponseDataUtmUtmCampaignMax = 60;
+
+export const listCallRequestsResponseDataCompanyWebsiteMax = 200;
+
+
+
+export const ListCallRequestsResponseItem = zod.object({
+  "id": zod.number().int(),
+  "code": zod.string(),
+  "data": zod.object({
+  "idempotencyKey": zod.string().min(listCallRequestsResponseDataIdempotencyKeyMin).max(listCallRequestsResponseDataIdempotencyKeyMax).regex(listCallRequestsResponseDataIdempotencyKeyRegExp),
+  "firstName": zod.string().min(1).max(listCallRequestsResponseDataFirstNameMax),
+  "lastName": zod.string().min(1).max(listCallRequestsResponseDataLastNameMax),
+  "email": zod.string().email().max(listCallRequestsResponseDataEmailMax),
+  "mobile": zod.string().regex(listCallRequestsResponseDataMobileRegExp),
+  "whatsapp": zod.boolean().default(listCallRequestsResponseDataWhatsappDefault),
+  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other']).optional(),
+  "location": zod.string().max(listCallRequestsResponseDataLocationMax).optional(),
+  "budget": zod.string().max(listCallRequestsResponseDataBudgetMax).optional(),
+  "startWhen": zod.string().max(listCallRequestsResponseDataStartWhenMax).optional(),
+  "timeSlot": zod.enum(['morning', 'afternoon']).optional(),
+  "preferredLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']).optional(),
+  "message": zod.string().max(listCallRequestsResponseDataMessageMax).optional(),
+  "privacyAccepted": zod.literal(true),
+  "marketingAccepted": zod.boolean().default(listCallRequestsResponseDataMarketingAcceptedDefault),
+  "privacyVersion": zod.enum(['call-2026-11-23']),
+  "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']),
+  "sourcePath": zod.string().max(listCallRequestsResponseDataSourcePathMax).optional(),
+  "utm": zod.object({
+  "utm_source": zod.string().max(listCallRequestsResponseDataUtmUtmSourceMax).optional(),
+  "utm_medium": zod.string().max(listCallRequestsResponseDataUtmUtmMediumMax).optional(),
+  "utm_campaign": zod.string().max(listCallRequestsResponseDataUtmUtmCampaignMax).optional()
+}).optional(),
+  "companyWebsite": zod.string().max(listCallRequestsResponseDataCompanyWebsiteMax).optional(),
+  "formOpenedAt": zod.number().optional()
+}),
+  "createdAt": zod.coerce.date(),
+  "updatedAt": zod.coerce.date(),
+  "consentAt": zod.coerce.date(),
+  "privacyVersion": zod.string(),
+  "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']),
+  "status": zod.enum(['new', 'contacted', 'survey', 'quote', 'closed']),
+  "notes": zod.string(),
+  "acquiredCustomer": zod.boolean(),
+  "isSynthetic": zod.boolean(),
+  "ownerDelivery": zod.enum(['pending_provider', 'sending', 'sent', 'failed', 'uncertain', 'simulated']),
+  "customerDelivery": zod.enum(['pending_provider', 'sending', 'sent', 'failed', 'uncertain', 'simulated'])
+})
+export const ListCallRequestsResponse = zod.array(ListCallRequestsResponseItem)
+
+
+export const ExportCallRequestsQueryParams = zod.object({
+  "start": zod.date().optional(),
+  "end": zod.date().optional(),
+  "language": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']).optional(),
+  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other']).optional(),
+  "status": zod.enum(['new', 'contacted', 'survey', 'quote', 'closed']).optional()
+})
+
+export const ExportCallRequestsResponse = zod.unknown()
+
+
+
+
+
+export const UpdateCallRequestParams = zod.object({
+  "id": zod.coerce.number().int().min(1)
+})
+
+export const updateCallRequestBodyNotesMax = 5000;
+
+
+
+export const UpdateCallRequestBody = zod.object({
+  "status": zod.enum(['new', 'contacted', 'survey', 'quote', 'closed']).optional(),
+  "notes": zod.string().max(updateCallRequestBodyNotesMax).optional(),
+  "acquiredCustomer": zod.boolean().optional()
+})
+
+export const updateCallRequestResponseDataIdempotencyKeyMin = 16;
+export const updateCallRequestResponseDataIdempotencyKeyMax = 80;
+
+
+export const updateCallRequestResponseDataIdempotencyKeyRegExp = new RegExp('^[A-Za-z0-9_-]+$');
+export const updateCallRequestResponseDataFirstNameMax = 100;
+
+export const updateCallRequestResponseDataLastNameMax = 100;
+
+export const updateCallRequestResponseDataEmailMax = 254;
+
+export const updateCallRequestResponseDataMobileRegExp = new RegExp('^\\+[1-9][0-9]{7,14}$');
+export const updateCallRequestResponseDataWhatsappDefault = false;
+export const updateCallRequestResponseDataLocationMax = 180;
+
+export const updateCallRequestResponseDataBudgetMax = 100;
+
+export const updateCallRequestResponseDataStartWhenMax = 100;
+
+export const updateCallRequestResponseDataMessageMax = 3000;
+
+export const updateCallRequestResponseDataMarketingAcceptedDefault = false;
+export const updateCallRequestResponseDataSourcePathMax = 300;
+
+export const updateCallRequestResponseDataUtmUtmSourceMax = 60;
+
+export const updateCallRequestResponseDataUtmUtmMediumMax = 60;
+
+export const updateCallRequestResponseDataUtmUtmCampaignMax = 60;
+
+export const updateCallRequestResponseDataCompanyWebsiteMax = 200;
+
+
+
+export const UpdateCallRequestResponse = zod.object({
+  "id": zod.number().int(),
+  "code": zod.string(),
+  "data": zod.object({
+  "idempotencyKey": zod.string().min(updateCallRequestResponseDataIdempotencyKeyMin).max(updateCallRequestResponseDataIdempotencyKeyMax).regex(updateCallRequestResponseDataIdempotencyKeyRegExp),
+  "firstName": zod.string().min(1).max(updateCallRequestResponseDataFirstNameMax),
+  "lastName": zod.string().min(1).max(updateCallRequestResponseDataLastNameMax),
+  "email": zod.string().email().max(updateCallRequestResponseDataEmailMax),
+  "mobile": zod.string().regex(updateCallRequestResponseDataMobileRegExp),
+  "whatsapp": zod.boolean().default(updateCallRequestResponseDataWhatsappDefault),
+  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other']).optional(),
+  "location": zod.string().max(updateCallRequestResponseDataLocationMax).optional(),
+  "budget": zod.string().max(updateCallRequestResponseDataBudgetMax).optional(),
+  "startWhen": zod.string().max(updateCallRequestResponseDataStartWhenMax).optional(),
+  "timeSlot": zod.enum(['morning', 'afternoon']).optional(),
+  "preferredLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']).optional(),
+  "message": zod.string().max(updateCallRequestResponseDataMessageMax).optional(),
+  "privacyAccepted": zod.literal(true),
+  "marketingAccepted": zod.boolean().default(updateCallRequestResponseDataMarketingAcceptedDefault),
+  "privacyVersion": zod.enum(['call-2026-11-23']),
+  "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']),
+  "sourcePath": zod.string().max(updateCallRequestResponseDataSourcePathMax).optional(),
+  "utm": zod.object({
+  "utm_source": zod.string().max(updateCallRequestResponseDataUtmUtmSourceMax).optional(),
+  "utm_medium": zod.string().max(updateCallRequestResponseDataUtmUtmMediumMax).optional(),
+  "utm_campaign": zod.string().max(updateCallRequestResponseDataUtmUtmCampaignMax).optional()
+}).optional(),
+  "companyWebsite": zod.string().max(updateCallRequestResponseDataCompanyWebsiteMax).optional(),
+  "formOpenedAt": zod.number().optional()
+}),
+  "createdAt": zod.coerce.date(),
+  "updatedAt": zod.coerce.date(),
+  "consentAt": zod.coerce.date(),
+  "privacyVersion": zod.string(),
+  "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']),
+  "status": zod.enum(['new', 'contacted', 'survey', 'quote', 'closed']),
+  "notes": zod.string(),
+  "acquiredCustomer": zod.boolean(),
+  "isSynthetic": zod.boolean(),
+  "ownerDelivery": zod.enum(['pending_provider', 'sending', 'sent', 'failed', 'uncertain', 'simulated']),
+  "customerDelivery": zod.enum(['pending_provider', 'sending', 'sent', 'failed', 'uncertain', 'simulated'])
+})
+
+
+
+
+
+export const DeleteCallRequestParams = zod.object({
+  "id": zod.coerce.number().int().min(1)
+})
+
+export const DeleteCallRequestResponse = zod.void()
+
+
 /**
  * @summary Fresh server-only Places reviews, never stored or statically rendered
  */

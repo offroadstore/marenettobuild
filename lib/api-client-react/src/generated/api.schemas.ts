@@ -5,6 +5,170 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+export type CallConfigPrivacyVersion = typeof CallConfigPrivacyVersion[keyof typeof CallConfigPrivacyVersion];
+
+
+export const CallConfigPrivacyVersion = {
+  'call-2026-11-23': 'call-2026-11-23',
+} as const;
+
+export interface CallConfig {
+  isSynthetic: boolean;
+  privacyVersion: CallConfigPrivacyVersion;
+}
+
+export type CallLocale = typeof CallLocale[keyof typeof CallLocale];
+
+
+export const CallLocale = {
+  it: 'it',
+  en: 'en',
+  de: 'de',
+  fr: 'fr',
+  es: 'es',
+  nl: 'nl',
+  pt: 'pt',
+  pl: 'pl',
+  ru: 'ru',
+  sv: 'sv',
+  no: 'no',
+  da: 'da',
+} as const;
+
+export type CallProject = typeof CallProject[keyof typeof CallProject];
+
+
+export const CallProject = {
+  renovation: 'renovation',
+  construction: 'construction',
+  concrete_furniture: 'concrete_furniture',
+  other: 'other',
+} as const;
+
+export type CallStatus = typeof CallStatus[keyof typeof CallStatus];
+
+
+export const CallStatus = {
+  new: 'new',
+  contacted: 'contacted',
+  survey: 'survey',
+  quote: 'quote',
+  closed: 'closed',
+} as const;
+
+export type CallDelivery = typeof CallDelivery[keyof typeof CallDelivery];
+
+
+export const CallDelivery = {
+  pending_provider: 'pending_provider',
+  sending: 'sending',
+  sent: 'sent',
+  failed: 'failed',
+  uncertain: 'uncertain',
+  simulated: 'simulated',
+} as const;
+
+export type CallRequestInputTimeSlot = typeof CallRequestInputTimeSlot[keyof typeof CallRequestInputTimeSlot];
+
+
+export const CallRequestInputTimeSlot = {
+  morning: 'morning',
+  afternoon: 'afternoon',
+} as const;
+
+export type CallRequestInputPrivacyVersion = typeof CallRequestInputPrivacyVersion[keyof typeof CallRequestInputPrivacyVersion];
+
+
+export const CallRequestInputPrivacyVersion = {
+  'call-2026-11-23': 'call-2026-11-23',
+} as const;
+
+export type CallRequestInputUtm = {
+  /** @maxLength 60 */
+  utm_source?: string;
+  /** @maxLength 60 */
+  utm_medium?: string;
+  /** @maxLength 60 */
+  utm_campaign?: string;
+};
+
+export interface CallRequestInput {
+  /**
+     * @minLength 16
+     * @maxLength 80
+     * @pattern ^[A-Za-z0-9_-]+$
+     */
+  idempotencyKey: string;
+  /**
+     * @minLength 1
+     * @maxLength 100
+     */
+  firstName: string;
+  /**
+     * @minLength 1
+     * @maxLength 100
+     */
+  lastName: string;
+  /** @maxLength 254 */
+  email: string;
+  /** @pattern ^\+[1-9][0-9]{7,14}$ */
+  mobile: string;
+  whatsapp?: boolean;
+  project?: CallProject;
+  /** @maxLength 180 */
+  location?: string;
+  /** @maxLength 100 */
+  budget?: string;
+  /** @maxLength 100 */
+  startWhen?: string;
+  timeSlot?: CallRequestInputTimeSlot;
+  preferredLanguage?: CallLocale;
+  /** @maxLength 3000 */
+  message?: string;
+  privacyAccepted: true;
+  marketingAccepted?: boolean;
+  privacyVersion: CallRequestInputPrivacyVersion;
+  consentLanguage: CallLocale;
+  /** @maxLength 300 */
+  sourcePath?: string;
+  utm?: CallRequestInputUtm;
+  /** @maxLength 200 */
+  companyWebsite?: string;
+  formOpenedAt?: number;
+}
+
+export interface CallReceipt {
+  code: string;
+  createdAt: string;
+  isSynthetic: boolean;
+  ownerDelivery: CallDelivery;
+  customerDelivery: CallDelivery;
+}
+
+export interface CallRecord {
+  id: number;
+  code: string;
+  data: CallRequestInput;
+  createdAt: string;
+  updatedAt: string;
+  consentAt: string;
+  privacyVersion: string;
+  consentLanguage: CallLocale;
+  status: CallStatus;
+  notes: string;
+  acquiredCustomer: boolean;
+  isSynthetic: boolean;
+  ownerDelivery: CallDelivery;
+  customerDelivery: CallDelivery;
+}
+
+export interface CallUpdate {
+  status?: CallStatus;
+  /** @maxLength 5000 */
+  notes?: string;
+  acquiredCustomer?: boolean;
+}
+
 export interface GoogleReview {
   text: string;
   languageCode: string;
@@ -769,6 +933,22 @@ export interface PrivateAttachment {
   uploadedBy: string;
   createdAt: string;
 }
+
+export type ListCallRequestsParams = {
+start?: string;
+end?: string;
+language?: CallLocale;
+project?: CallProject;
+status?: CallStatus;
+};
+
+export type ExportCallRequestsParams = {
+start?: string;
+end?: string;
+language?: CallLocale;
+project?: CallProject;
+status?: CallStatus;
+};
 
 export type StartMonitoringGoogle200 = {
   url: string;

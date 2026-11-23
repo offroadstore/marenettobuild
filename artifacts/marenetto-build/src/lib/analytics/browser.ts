@@ -1,5 +1,6 @@
 import type { PublicMonitoring } from '@workspace/api-client-react';
 import { AnalyticsRuntime, type RuntimePort, type AnalyticsEvent } from './runtime';
+import { callAdvertisingConversions } from './call-conversions';
 
 export function clearAnalyticsCookies() {
   const names = document.cookie.split(';').map(c => c.trim().split('=')[0]).filter(n => /^_ga(?:_|$)|^_gid$|^_gat(?:_|$)/.test(n));
@@ -80,4 +81,7 @@ export function browserAnalytics() {
   if (typeof window === 'undefined') return null;
   return runtime ??= new AnalyticsRuntime(iframePort(), window.location.origin);
 }
-export const trackSavedRequest = (receipt: { code: string; isSynthetic: boolean }) => browserAnalytics()?.saved(receipt);
+export const trackSavedRequest = (receipt: { code: string; isSynthetic: boolean }) => {
+  browserAnalytics()?.saved(receipt);
+  callAdvertisingConversions.saved(receipt);
+};

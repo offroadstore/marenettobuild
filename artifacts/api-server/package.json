@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "test:call-requests": "node ./scripts/test-call-requests.mjs",
     "dev": "export NODE_ENV=development && pnpm run build && pnpm run start",
     "build": "node ../marenetto-build/scripts/export-editorial.mjs && node ./build.mjs",
     "start": "node --enable-source-maps ./dist/index.mjs",

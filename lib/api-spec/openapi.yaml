@@ -17,6 +17,102 @@ tags:
   - name: storage
     description: Private attachment upload and serving.
 paths:
+  /call-requests/config:
+    get:
+      operationId: getCallRequestConfig
+      tags: [requests]
+      responses:
+        "200":
+          description: Current data mode, never approval flags or credentials
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CallConfig" }
+  /call-requests:
+    post:
+      operationId: createCallRequest
+      tags: [requests]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CallRequestInput" }
+      responses:
+        "201":
+          description: Persisted receipt; delivery is reported separately
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CallReceipt" }
+        "200":
+          description: Original idempotent receipt
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CallReceipt" }
+        "400": { description: Invalid input }
+        "409": { description: Idempotency conflict }
+        "429": { description: Shared persistent rate limit }
+        "503": { description: Storage unavailable }
+  /internal/call-requests:
+    get:
+      operationId: listCallRequests
+      tags: [internal]
+      parameters:
+        - { name: start, in: query, schema: { type: string, format: date } }
+        - { name: end, in: query, schema: { type: string, format: date } }
+        - { name: language, in: query, schema: { $ref: "#/components/schemas/CallLocale" } }
+        - { name: project, in: query, schema: { $ref: "#/components/schemas/CallProject" } }
+        - { name: status, in: query, schema: { $ref: "#/components/schemas/CallStatus" } }
+      responses:
+        "200":
+          description: Owner only, never included in generic leads or KPIs
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/CallRecord" }
+        "401": { description: Authentication required }
+        "403": { description: Owner required }
+  /internal/call-requests/export:
+    get:
+      operationId: exportCallRequests
+      tags: [internal]
+      parameters:
+        - { name: start, in: query, schema: { type: string, format: date } }
+        - { name: end, in: query, schema: { type: string, format: date } }
+        - { name: language, in: query, schema: { $ref: "#/components/schemas/CallLocale" } }
+        - { name: project, in: query, schema: { $ref: "#/components/schemas/CallProject" } }
+        - { name: status, in: query, schema: { $ref: "#/components/schemas/CallStatus" } }
+      responses:
+        "200":
+          description: Formula-safe private CSV
+          content:
+            text/csv:
+              schema: { type: string }
+        "401": { description: Authentication required }
+        "403": { description: Owner required }
+  /internal/call-requests/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: integer, minimum: 1 } }
+    patch:
+      operationId: updateCallRequest
+      tags: [internal]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CallUpdate" }
+      responses:
+        "200":
+          description: Owner-only saved changes
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CallRecord" }
+        "403": { description: Owner required }
+    delete:
+      operationId: deleteCallRequest
+      tags: [internal]
+      responses:
+        "204": { description: Request and associated deliveries removed }
+        "403": { description: Owner required }
   /google-reviews:
     get:
       operationId: getGoogleReviews
@@ -736,6 +832,87 @@ paths:
           description: Attachment not found
 components:
   schemas:
+    CallConfig:
+      type: object
+      required: [isSynthetic, privacyVersion]
+      properties:
+        isSynthetic: { type: boolean }
+        privacyVersion: { type: string, enum: ["call-2026-11-23"] }
+    CallLocale:
+      type: string
+      enum: [it, en, de, fr, es, nl, pt, pl, ru, sv, "no", da]
+    CallProject:
+      type: string
+      enum: [renovation, construction, concrete_furniture, other]
+    CallStatus:
+      type: string
+      enum: [new, contacted, survey, quote, closed]
+    CallDelivery:
+      type: string
+      enum: [pending_provider, sending, sent, failed, uncertain, simulated]
+    CallRequestInput:
+      type: object
+      required: [idempotencyKey, firstName, lastName, email, mobile, privacyAccepted, privacyVersion, consentLanguage]
+      properties:
+        idempotencyKey: { type: string, minLength: 16, maxLength: 80, pattern: '^[A-Za-z0-9_-]+$' }
+        firstName: { type: string, minLength: 1, maxLength: 100 }
+        lastName: { type: string, minLength: 1, maxLength: 100 }
+        email: { type: string, format: email, maxLength: 254 }
+        mobile: { type: string, pattern: '^\+[1-9][0-9]{7,14}$' }
+        whatsapp: { type: boolean, default: false }
+        project: { $ref: "#/components/schemas/CallProject" }
+        location: { type: string, maxLength: 180 }
+        budget: { type: string, maxLength: 100 }
+        startWhen: { type: string, maxLength: 100 }
+        timeSlot: { type: string, enum: [morning, afternoon] }
+        preferredLanguage: { $ref: "#/components/schemas/CallLocale" }
+        message: { type: string, maxLength: 3000 }
+        privacyAccepted: { type: boolean, enum: [true] }
+        marketingAccepted: { type: boolean, default: false }
+        privacyVersion: { type: string, enum: ["call-2026-11-23"] }
+        consentLanguage: { $ref: "#/components/schemas/CallLocale" }
+        sourcePath: { type: string, maxLength: 300 }
+        utm:
+          type: object
+          properties:
+            utm_source: { type: string, maxLength: 60 }
+            utm_medium: { type: string, maxLength: 60 }
+            utm_campaign: { type: string, maxLength: 60 }
+        companyWebsite: { type: string, maxLength: 200 }
+        formOpenedAt: { type: number }
+    CallReceipt:
+      type: object
+      required: [code, createdAt, isSynthetic, ownerDelivery, customerDelivery]
+      properties:
+        code: { type: string }
+        createdAt: { type: string, format: date-time }
+        isSynthetic: { type: boolean }
+        ownerDelivery: { $ref: "#/components/schemas/CallDelivery" }
+        customerDelivery: { $ref: "#/components/schemas/CallDelivery" }
+    CallRecord:
+      type: object
+      required: [id, code, data, createdAt, updatedAt, consentAt, privacyVersion, consentLanguage, status, notes, acquiredCustomer, isSynthetic, ownerDelivery, customerDelivery]
+      properties:
+        id: { type: integer }
+        code: { type: string }
+        data: { $ref: "#/components/schemas/CallRequestInput" }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+        consentAt: { type: string, format: date-time }
+        privacyVersion: { type: string }
+        consentLanguage: { $ref: "#/components/schemas/CallLocale" }
+        status: { $ref: "#/components/schemas/CallStatus" }
+        notes: { type: string }
+        acquiredCustomer: { type: boolean }
+        isSynthetic: { type: boolean }
+        ownerDelivery: { $ref: "#/components/schemas/CallDelivery" }
+        customerDelivery: { $ref: "#/components/schemas/CallDelivery" }
+    CallUpdate:
+      type: object
+      properties:
+        status: { $ref: "#/components/schemas/CallStatus" }
+        notes: { type: string, maxLength: 5000 }
+        acquiredCustomer: { type: boolean }
     GoogleReview:
       type: object
       required: [text, languageCode, rating, authorName, authorUri, photoDataUri, googleMapsUri]
