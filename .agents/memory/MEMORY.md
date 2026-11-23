@@ -1,5 +1,6 @@
 - [Marenetto Build publishing rules](marenetto-publishing-rules.md) — Publish only verified claims, real work and reviewed translations; never use empty language routes.
 - [Marenetto visual direction](marenetto-visual-direction.md) — Preserve photographic impact; usability improvements must not turn the site into generic boxes and empty text bands.
+- [Brand mottos](brand-mottos.md) — Owner-approved corporate, Sicilian Fire and Atelier wording; natural localization and no redesign.
 - [RTL mobile viewport](rtl-mobile-viewport.md) — Owner requires RTL on the document as well as content; validate mobile geometry instead of restoring the old LTR-root workaround.
 - [Workspace lifecycle checks](workspace-lifecycle-checks.md) — Critical pnpm selectors must fail on no match; a healthy server can still lack authorization tables.
 - [Internal access testing](internal-access-testing.md) — Temporary development test gates are not release approvals; do not infer an SMTP dependency from an approval flag.
