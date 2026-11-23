@@ -15,23 +15,22 @@ export const privacyPage: LegalPageContent = {
   blocks: [
     { h: 'Titolare del trattamento', p: [`Il titolare del trattamento è ${titolare}.`, 'Per qualsiasi domanda sui tuoi dati o per esercitare i tuoi diritti puoi scrivere a info@marenetto.com.'] },
     { h: 'Quali dati trattiamo e perché', ul: [
-      'Modulo di richiesta: nome e cognome, email, telefono/WhatsApp, canale e lingua preferiti, dettagli del progetto o della proprietà, eventuale budget e periodo, eventuali esigenze di alloggio o accessibilità che scegli di segnalare. Li usiamo per rispondere alla tua richiesta e ricontattarti. Base giuridica: misure precontrattuali richieste da te e, per il contatto, il tuo consenso espresso spuntando la casella privacy (art. 6.1 lett. b e a GDPR).',
+      'Modulo di richiesta: nome e cognome, email, telefono/WhatsApp, canale e lingua preferiti, dettagli del progetto o della proprietà, eventuale budget e periodo, eventuali esigenze di alloggio o accessibilità che scegli di segnalare. Il modulo li invia per email al titolare e non li salva nel database del sito. Li usiamo solo per rispondere alla tua richiesta e ricontattarti. Base giuridica: misure precontrattuali richieste da te e, per il contatto, il tuo consenso espresso spuntando la casella privacy (art. 6.1 lett. b e a GDPR).',
       'Contatti diretti (email, telefono, WhatsApp): i dati che ci comunichi, usati solo per risponderti. Base giuridica: misure precontrattuali o legittimo interesse a rispondere (art. 6.1 lett. b e f).',
       'Dati tecnici di navigazione e sicurezza (indirizzo IP, data e ora, pagina richiesta, tipo di browser) registrati dai server per il funzionamento e la sicurezza del sito. Base giuridica: legittimo interesse alla sicurezza e al corretto funzionamento (art. 6.1 lett. f).',
       'Statistiche di visita: solo se acconsenti, con le modalità descritte nella pagina Cookie e analytics. Base giuridica: consenso (art. 6.1 lett. a), revocabile in qualsiasi momento.',
-      'Area riservata: per il personale autorizzato, i dati di accesso gestiti dal fornitore di autenticazione. Non è destinata ai visitatori.',
+      'Area riservata: per il personale autorizzato, i dati di accesso gestiti dal fornitore di autenticazione. Non è destinata ai visitatori e non contiene dati dei clienti raccolti dal sito.',
     ] },
     { h: 'Dati particolari', p: ['Non ti chiediamo categorie particolari di dati. Se indichi spontaneamente esigenze di accessibilità o mobilità, le usiamo solo per organizzare al meglio il contatto e l’eventuale intervento; evita di inserire informazioni sanitarie non necessarie.'] },
     { h: 'A chi comunichiamo i dati', p: ['Usiamo fornitori che trattano i dati per nostro conto come responsabili del trattamento:'], ul: [
-      'hosting e infrastruttura del sito e del database (Replit);',
-      'archiviazione di file (Google Cloud Storage);',
+      'hosting e infrastruttura cloud del sito;',
       'invio delle email di notifica (provider SMTP configurato dal titolare);',
       'autenticazione dell’area riservata (Clerk);',
       'strumenti statistici di Google (Google Analytics 4 e Search Console), solo come descritto nella pagina Cookie e analytics.',
     ] },
     { h: 'Trasferimenti fuori dallo Spazio Economico Europeo', p: ['Alcuni fornitori hanno sede o infrastrutture negli Stati Uniti. I trasferimenti avvengono sulla base della decisione di adeguatezza della Commissione europea per i soggetti aderenti al Data Privacy Framework UE-USA oppure delle clausole contrattuali standard.'] },
     { h: 'Per quanto tempo conserviamo i dati', ul: [
-      'Richieste e contatti: per il tempo necessario a gestirli e, se non seguono incarichi, fino a 24 mesi dall’ultimo contatto.',
+      'Richieste e contatti ricevuti per email, telefono o WhatsApp: restano nella casella di posta e nei contatti del titolare per il tempo necessario a rispondere e, se non seguono incarichi, vengono cancellati periodicamente. Il sito non ne tiene copia.',
       'Se si instaura un rapporto contrattuale: per la durata del rapporto e poi per i termini previsti da legge fiscale e civile (in genere 10 anni).',
       'Log tecnici: per periodi brevi, in linea con la sicurezza del servizio.',
       'Dati statistici: secondo le impostazioni di conservazione dello strumento, impostate al minimo disponibile.',
