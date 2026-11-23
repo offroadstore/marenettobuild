@@ -9,6 +9,21 @@ Il monitoraggio interno della visibilità IA deve considerare OpenAI con ricerca
 
 **How to apply:** Trattare la capacità tecnica dei tre provider e l'autorizzazione a spendere come cose diverse. Testare con provider simulati; non assumere che la presenza delle chiavi autorizzi richieste pagate. Verificare tariffe e costi massimi documentati prima di abilitare ciascuna chiamata.
 
+Il titolare ha successivamente richiesto di mantenere Gemini bloccato e usare
+OpenAI e Claude economici con ricerca web per dieci domande ciascuno, puntando
+a un controllo completo ben sotto 1 USD. L'avvio manuale deve operare dal server
+del sito senza dipendere da un worker esterno; la pianificazione settimanale
+può usare un deployment programmato, ma non un timer in-process come garanzia
+su un servizio Autoscale sospendibile.
+
+**Why:** I precedenti massimi prudenziali superavano il budget del titolare e
+l'obbligo di heartbeat esterno impediva anche gli avvii manuali.
+
+**How to apply:** Il limite mensile esistente non va azzerato durante gli
+aggiornamenti. Il target di costo non autorizza a sottostimare input e ricerca
+fatturati: verificare limiti applicabili, mantenere prenotazioni atomiche ed
+esiti incerti. Nessuna chiamata reale durante sviluppo o test.
+
 Il grounding Google Search non può essere assimilato a un normale output generativo liberamente analizzabile: i termini consultati il 23 novembre 2026 vietano analisi e raccolta automatizzata dei Grounded Results per costruire uno storico di monitoraggio. Un budget positivo non supera questo vincolo.
 
 **Why:** Il caso d'uso approvato richiede un database analitico, mentre le eccezioni Google riguardano display e cronologia chat, non misurazione della visibilità. La presenza dell'adapter non prova il diritto di eseguirlo.
