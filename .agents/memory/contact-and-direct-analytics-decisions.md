@@ -33,3 +33,17 @@ preview/release safeguards, and test no pre-consent requests, private-route
 exclusion and withdrawal using simulated providers before real collection.
 Do not modify Secrets or set approval flags for the dedicated runtime.
 The direct path does not need that runtime's dedicated-domain prerequisite.
+
+The consent interface must be a thin bottom bar with brief statistics-only
+copy and equally weighted Accept/Reject actions, not persistent analytics
+preferences/withdrawal controls. After either choice it disappears for six
+months; the sole persistent access is a small “Preferenze cookie” footer link
+that reopens the same bar. No overlay or overlap with mobile contact/WhatsApp.
+
+**Why:** The owner found the old four-button panel obscured the homepage motto
+and that the remaining fixed preferences/withdrawal strip could not be closed.
+
+**How to apply:** Keep GA4 strictly opt-in and Consent Mode v2 unchanged.
+Reopening alone does not change consent; Reject after acceptance withdraws it.
+Preserve valid stored choices across this visual-only change. Target one desktop
+row and two mobile rows at 375 px without sacrificing legibility or tap targets.
