@@ -108,7 +108,32 @@ interior designers; this is not evidence of completed projects or owned quarries
 on request, CAD/3D when available, one contact and project-specific written
 timing without fabricating downloadable resources or standard lead times.
 Use “condizioni dedicate agli studi professionali, comunicate su richiesta”
-and faithful translations; never percentages, commissions or compensation.
-Laboratory/quarry visits are by appointment, including video calls. Do not
-mention trade fairs in any form. Obtain owner permission before enabling
-professional enquiry attachments when storage is required.
+and faithful translations; never percentages or commissions. The owner also
+authorizes “Nessun compenso nascosto: i vantaggi sono in fattura allo studio,
+in linea con i codici professionali”; do not treat this statement as verified
+legal compatibility in every jurisdiction.
+Laboratory/quarry visits are by appointment, including video calls. The later
+owner-approved exception to the trade-fair ban is “Invece di uno stand, vi
+portiamo in cava: visite su appuntamento a Cefalù o selezione del blocco in
+video, ovunque voi siate.” Do not infer permission for other fair-related copy.
+Obtain owner permission before enabling professional enquiry attachments
+when storage is required.
+
+Professional content must lead with technical information, downloadable
+resources when real, a named contact and initial response within 24 working
+hours. The owner confirms trade pricing invoiced to the studio, loan samples
+with paid collection and credited studio projects with permission; clarify
+who pays collection before specifying it.
+
+**Why:** The owner refined the professional offering based on architect
+research, explicitly replacing conflicting earlier marketing restrictions.
+
+**How to apply:** Use the five-step studio process: drawings; block selection
+in quarry/video; execution drawings for approval; production/photo updates;
+packing/shipping/installation. Preserve the separate six-step Atelier process.
+The owner's usage rule is majolica only vertical or sheltered outdoors and
+glazed lava for exposed countertops; do not infer tested frost, stain,
+food-contact or structural performance. Missing technical values are “dati
+in verifica”; missing downloads/projects/contact names are explicit
+placeholders, never fabricated proof. Requested EN test references are
+documentation to obtain and assess, not evidence of passed tests.
