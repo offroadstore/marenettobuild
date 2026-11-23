@@ -19,3 +19,14 @@ requested a small text-only change independent of other phases.
 **How to apply:** Preserve supplied wording, adapt naturally into all other
 site languages including Arabic when active, and preserve the existing design.
 Do not turn mottos into technical guarantees or worldwide ordinary construction.
+
+The owner requests all three mottos in IT, EN, DE, FR, ES, NL, PT, PL, RU,
+SV, NO, DA and AR, but only on already-active language surfaces. If a line
+presentation does not yet exist, hand over its reusable copy and placement
+instructions instead of creating placeholder pages or rebranding generic kitchens.
+
+**Why:** Motto delivery is independent of the staged Atelier/Arabic work;
+preparing Arabic wording is not authorization to activate that language.
+
+**How to apply:** Integrate deferred wording when its dedicated presentation is
+available; do not claim that editing a local brief updates an active isolated task.

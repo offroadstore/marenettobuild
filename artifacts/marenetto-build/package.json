@@ -7,6 +7,7 @@
     "dev": "vite --config vite.config.ts --host 0.0.0.0",
     "build": "vite build --config vite.config.ts && node scripts/build-seo.mjs && node scripts/build-runtime.mjs && node scripts/production-assets.mjs",
     "test:i18n": "node --test scripts/localization.test.mjs",
+    "test:brand-mottos": "PORT=4197 BASE_PATH=/ node --test scripts/brand-mottos.test.mjs",
     "test:fonts": "node --test scripts/local-fonts.test.mjs",
     "test:legal": "node --test scripts/legal-pages.test.mjs",
     "test:phase2": "node --test scripts/phase2.test.mjs",

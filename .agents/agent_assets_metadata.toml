@@ -546,3 +546,17 @@ mtime_ms = 1795411087630
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/b79cdc3d-1ed2-4835-9cae-c6e3eb5dda8c/5832afb5-b970-4b53-9332-a8bf0fd92bfd"
 storage_version_token = "1795411095132212"
 content_type = "text/html"
+
+[[outputs]]
+id = "BS-511b24-VABHeWp9n5j"
+uri = "file://generated-artifacts/brand-mottos/consegna-motti.html"
+type = "html"
+title = "Motti Marenetto: 39 testi e prove"
+description = "Traduzioni nelle tredici lingue, collocazioni applicate e differite, verifiche e screenshot desktop/mobile."
+logical_id = "c735dd27-15df-4dff-93b3-57808c2f3e0c"
+content_hash = "sha256:0b8d7355bd27ea440184e61ab3912e9aec3c9811a5a1613f9df9b3cb75f6ed3b"
+size = 6243127
+mtime_ms = 1795427209188
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/c735dd27-15df-4dff-93b3-57808c2f3e0c/8f2dbca0-23e2-4a36-b917-14e97485ba81"
+storage_version_token = "1795427245688562"
+content_type = "text/html"

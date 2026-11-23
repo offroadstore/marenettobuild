@@ -47,6 +47,9 @@
 .mbh-hero__shade { position:absolute; inset:0; background:linear-gradient(0deg, rgba(36,70,86,.84) 0%, rgba(36,70,86,.62) 30%, rgba(36,70,86,.12) 52%, rgba(36,70,86,0) 64%); }
 .mbh-hero__inner { padding:0 0 28px; }
 .mbh-hero__copy { max-width:560px; }
+.brand-motto { font-family:var(--mb-font); font-size:clamp(17px, 2vw, 21px); line-height:1.45; font-weight:500; overflow-wrap:break-word; }
+.brand-motto--home { margin:12px 0 20px; color:inherit; text-shadow:0 1px 12px rgba(20,40,50,.25); }
+.brand-motto--footer { margin:16px 0 0; color:var(--mb-ink); font-size:17px; }
 .mbh-hero__lead { font-size:16px; line-height:1.5; color:#fff; margin:0 0 20px; max-width:44ch; }
 .mbh-hero .mbh-h1, .mbh-hero__lead { text-shadow:0 1px 12px rgba(20,40,50,.25); }
 @media (max-width:519px) { .mbh-hero .mbh-actions { gap:4px 20px; } }

@@ -1,6 +1,7 @@
 import { useEffect, type MouseEvent, type ReactNode } from 'react';
 import { historicalDocument, type HistoricalPage } from '@/content/historical';
 import { HeroPhoto } from '@/components/home/Media';
+import { BrandMotto } from '@/components/brand/BrandMotto';
 import { HistoricalHomeSections } from '@/components/home/HistoricalHomeSections';
 import { GoogleReviews } from '@/components/home/GoogleReviews';
 import { extractHistoricalHome } from '@/content/historical-home';
@@ -67,7 +68,9 @@ export function HistoricalContents({ page, actions }: { page: HistoricalPage; ac
   </div></section>;
   if (home) return <div className="mb-home mbh historical-home" data-historical-body="" lang={page.contentLanguage} onClick={preserveCampaign}>
     <section className="mbh-opening"><HeroPhoto><div className="mbh-hero__copy">
-      <h1 className="mbh-h1">{page.h1}</h1><div data-preserved-ui="">{actions}</div>
+      <h1 className="mbh-h1">{page.h1}</h1>
+      <BrandMotto locale={page.locale} placement="home" />
+      <div data-preserved-ui="">{actions}</div>
     </div></HeroPhoto></section>{' '}
     {homeData && <HistoricalHomeSections home={homeData} locale={page.locale} />}
   </div>;

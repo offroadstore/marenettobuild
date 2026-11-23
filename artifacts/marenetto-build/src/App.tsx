@@ -7,6 +7,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
 import { Logo } from '@/components/brand/Logo';
+import { BrandMotto } from '@/components/brand/BrandMotto';
 import { HeroPhoto, IllustrativeImage } from '@/components/home/Media';
 import { IllustrationNote } from '@/components/home/IllustrationNote';
 import { WhatsAppAccess, WhatsAppNavLink } from '@/components/WhatsAppAccess';
@@ -388,6 +389,7 @@ function Footer({ lang }: { lang: Lang }) {
   return localizeNode(lang, <>
   <div className="footer-logo-band"><div className="container">
     <Link href={withCampaignParams(routes[lang].home)} className="wordmark" aria-label={'Marenetto Build'} data-testid="link-footer-logo"><Logo variant="dark" /></Link>
+    <BrandMotto locale={lang} placement="footer" />
   </div></div>
   <footer className="footer">
     <div className="container">
@@ -474,6 +476,7 @@ function HomePage({ lang }: { lang: Lang }) {
       <div className="mbh-hero__copy">
         <h1 className="mbh-h1 animate-enter delay-1">{h.title}</h1>
         <p className="mbh-hero__lead animate-enter delay-2">{h.intro}</p>
+        <BrandMotto locale={lang} placement="home" />
         <div className="mbh-actions animate-enter delay-3">
           <PageLink lang={lang} page="request" className="mbh-btn mbh-btn--board" data-testid="hero-request">{h.primary}</PageLink>
           <PageLink lang={lang} page="process" className="mbh-hero__link" data-testid="hero-process">{h.secondary}</PageLink>
