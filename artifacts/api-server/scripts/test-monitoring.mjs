@@ -42,14 +42,18 @@ await build({
     });
   } }],
 });
+const excluded = new Set(['OPENAI_API_KEY', 'GEMINI_API_KEY', 'ANTHROPIC_API_KEY', 'BING_WEBMASTER_API_KEY', 'MONITORING_AI_TRIGGER_KEY', 'REPLIT_DEPLOYMENT']);
+// Enumerate names first; do not even copy the real provider credential values.
+const fixtureEnv = Object.fromEntries(Object.keys(process.env).filter(key => !excluded.has(key)).map(key => [key, process.env[key]]));
+fixtureEnv.MONITORING_TEST_SCHEMA = schema;
 const result = spawnSync(process.execPath, ['--test', out], {
-  cwd: root, stdio: 'inherit', env: { ...process.env, MONITORING_TEST_SCHEMA: schema },
+  cwd: root, stdio: 'inherit', env: fixtureEnv,
 });
 process.exitCode = result.status ?? 1;
 if (process.exitCode === 0) {
   const uiOut = path.join(root, 'generated-artifacts/monitoring/ui-tests.mjs');
   await build({
-    stdin: { contents: `import './artifacts/marenetto-build/tests/monitoring.fixture.tsx'; import './artifacts/marenetto-build/tests/analytics.fixture.tsx';`, resolveDir: root, loader: 'tsx' },
+    stdin: { contents: `import './artifacts/marenetto-build/tests/monitoring.fixture.tsx'; import './artifacts/marenetto-build/tests/monitoring-export.fixture.tsx'; import './artifacts/marenetto-build/tests/analytics.fixture.tsx';`, resolveDir: root, loader: 'tsx' },
     outfile: uiOut, bundle: true, platform: 'node', format: 'esm', jsx: 'automatic',
     loader: { '.css': 'empty' },
     banner: { js: "import { createRequire } from 'node:module'; const require=createRequire(import.meta.url);" },

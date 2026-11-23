@@ -6,8 +6,20 @@
  * OpenAPI spec version: 0.1.0
  */
 
+export * from './aiCampaign';
+export * from './aiObservation';
+export * from './aiObservationStatus';
+export * from './aiProvider';
+export * from './aiProviderStatus';
+export * from './aiQuestion';
+export * from './aiSettingsInput';
+export * from './aiSourceEvidence';
+export * from './aiSourceEvidenceBasis';
+export * from './aiSourceEvidenceKind';
+export * from './aiVisibility';
 export * from './attachmentFinalizeInput';
 export * from './attachmentUploadInput';
+export * from './bingSettings';
 export * from './callConfig';
 export * from './callConfigPrivacyVersion';
 export * from './callDelivery';
@@ -44,8 +56,11 @@ export * from './editorialSummary';
 export * from './editorialSummaryKind';
 export * from './editorialSummaryState';
 export * from './exportCallRequestsParams';
+export * from './getKpiDashboardCompare';
 export * from './getKpiDashboardDays';
+export * from './getKpiDashboardDevice';
 export * from './getKpiDashboardParams';
+export * from './getKpiDashboardSource';
 export * from './googlePlaceReviews';
 export * from './googleReportService';
 export * from './googleReview';
@@ -61,7 +76,9 @@ export * from './internalRole';
 export * from './internalSession';
 export * from './internalSessionDataMode';
 export * from './kpiDashboard';
+export * from './kpiDashboardCompatibility';
 export * from './kpiDashboardDataMode';
+export * from './kpiDashboardFilters';
 export * from './kpiMetric';
 export * from './kpiMetricUnit';
 export * from './kpiPeriod';

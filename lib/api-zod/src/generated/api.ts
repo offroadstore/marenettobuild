@@ -8,6 +8,152 @@
 import * as zod from 'zod';
 
 
+export const getAiVisibilityResponseQuestionsItemIdRegExp = new RegExp('^q(10|[1-9])$');
+
+export const getAiVisibilityResponseQuestionsItemTextMin = 10;
+export const getAiVisibilityResponseQuestionsItemTextMax = 240;
+
+export const getAiVisibilityResponseResultsItemQuestionIdRegExp = new RegExp('^q(10|[1-9])$');
+
+export const getAiVisibilityResponseResultsItemQuestionTextMin = 10;
+export const getAiVisibilityResponseResultsItemQuestionTextMax = 240;
+
+export const getAiVisibilityResponseResultsItemExcerptMax = 400;
+
+export const getAiVisibilityResponseResultsItemSourcesMax = 8;
+
+
+
+export const GetAiVisibilityResponse = zod.object({
+  "revision": zod.string(),
+  "budgetUsd": zod.number(),
+  "spentUsd": zod.number(),
+  "reservedUsd": zod.number(),
+  "remainingUsd": zod.number(),
+  "month": zod.string(),
+  "weeklyEnabled": zod.boolean(),
+  "workerReady": zod.boolean(),
+  "schedule": zod.string(),
+  "blockers": zod.array(zod.string()),
+  "providers": zod.array(zod.object({
+  "provider": zod.enum(['openai', 'gemini', 'anthropic']),
+  "configured": zod.boolean(),
+  "model": zod.string(),
+  "method": zod.string(),
+  "blockers": zod.array(zod.string()),
+  "maximumUsd": zod.number().nullable()
+})),
+  "questions": zod.array(zod.object({
+  "id": zod.string().regex(getAiVisibilityResponseQuestionsItemIdRegExp),
+  "version": zod.number().int().min(1),
+  "text": zod.string().min(getAiVisibilityResponseQuestionsItemTextMin).max(getAiVisibilityResponseQuestionsItemTextMax),
+  "enabled": zod.boolean()
+})),
+  "campaigns": zod.array(zod.object({
+  "id": zod.string(),
+  "at": zod.string(),
+  "state": zod.string(),
+  "completed": zod.number().int(),
+  "total": zod.number().int()
+})),
+  "results": zod.array(zod.object({
+  "id": zod.string(),
+  "question": zod.object({
+  "id": zod.string().regex(getAiVisibilityResponseResultsItemQuestionIdRegExp),
+  "version": zod.number().int().min(1),
+  "text": zod.string().min(getAiVisibilityResponseResultsItemQuestionTextMin).max(getAiVisibilityResponseResultsItemQuestionTextMax),
+  "enabled": zod.boolean()
+}),
+  "provider": zod.enum(['openai', 'gemini', 'anthropic']),
+  "model": zod.string(),
+  "method": zod.string(),
+  "at": zod.string(),
+  "status": zod.enum(['mention', 'citation', 'absent', 'ungrounded', 'error', 'blocked', 'uncertain']),
+  "mentioned": zod.boolean(),
+  "cited": zod.boolean(),
+  "grounded": zod.boolean(),
+  "excerpt": zod.string().max(getAiVisibilityResponseResultsItemExcerptMax),
+  "sources": zod.array(zod.object({
+  "basis": zod.enum(['corporate_title_and_building_domain']).optional(),
+  "url": zod.string(),
+  "host": zod.string(),
+  "kind": zod.enum(['brand', 'directory', 'unclassified', 'competitor'])
+})).max(getAiVisibilityResponseResultsItemSourcesMax)
+}))
+})
+
+
+export const saveAiVisibilityBodyBudgetUsdMin = 0;
+export const saveAiVisibilityBodyBudgetUsdMax = 10000;
+
+export const saveAiVisibilityBodyQuestionsItemIdRegExp = new RegExp('^q(10|[1-9])$');
+
+export const saveAiVisibilityBodyQuestionsItemTextMin = 10;
+export const saveAiVisibilityBodyQuestionsItemTextMax = 240;
+
+export const saveAiVisibilityBodyQuestionsMin = 10;
+export const saveAiVisibilityBodyQuestionsMax = 10;
+
+
+
+export const SaveAiVisibilityBody = zod.object({
+  "revision": zod.string(),
+  "budgetUsd": zod.number().min(saveAiVisibilityBodyBudgetUsdMin).max(saveAiVisibilityBodyBudgetUsdMax),
+  "weeklyEnabled": zod.boolean(),
+  "questions": zod.array(zod.object({
+  "id": zod.string().regex(saveAiVisibilityBodyQuestionsItemIdRegExp),
+  "version": zod.number().int().min(1),
+  "text": zod.string().min(saveAiVisibilityBodyQuestionsItemTextMin).max(saveAiVisibilityBodyQuestionsItemTextMax),
+  "enabled": zod.boolean()
+})).min(saveAiVisibilityBodyQuestionsMin).max(saveAiVisibilityBodyQuestionsMax)
+})
+
+export const SaveAiVisibilityResponse = zod.object({
+  "message": zod.string()
+})
+
+
+export const StartAiVisibilityResponse = zod.object({
+  "message": zod.string()
+})
+
+
+/**
+ * External signed worker heartbeat, never enabled by delivery. No user session authentication.
+ */
+export const TickAiVisibilityResponse = zod.object({
+  "message": zod.string()
+})
+
+
+export const GetBingSettingsResponse = zod.object({
+  "configured": zod.boolean(),
+  "property": zod.string().nullable(),
+  "instructions": zod.string()
+})
+
+
+export const saveBingSettingsBodyPropertyMax = 500;
+
+
+
+export const SaveBingSettingsBody = zod.object({
+  "property": zod.string().min(1).max(saveBingSettingsBodyPropertyMax)
+})
+
+export const SaveBingSettingsResponse = zod.object({
+  "message": zod.string()
+})
+
+
+export const ListBingSitesResponseItem = zod.object({
+  "id": zod.string(),
+  "label": zod.string(),
+  "timezone": zod.string()
+})
+export const ListBingSitesResponse = zod.array(ListBingSitesResponseItem)
+
+
 export const GetCallRequestConfigResponse = zod.object({
   "isSynthetic": zod.boolean(),
   "privacyVersion": zod.enum(['call-2026-11-23'])
@@ -464,16 +610,57 @@ export const SaveMonitoringTagsResponse = zod.object({
 })
 
 
+export const getKpiDashboardQueryCompareDefault = `true`;
+export const getKpiDashboardQuerySourceDefault = `all`;
+export const getKpiDashboardQueryCountryMax = 80;
+
+export const getKpiDashboardQueryCityMax = 80;
+
+export const getKpiDashboardQueryPageMax = 200;
+
+export const getKpiDashboardQueryChannelMax = 80;
+
+export const getKpiDashboardQueryTrafficSourceMax = 80;
+
+export const getKpiDashboardQueryQueryMax = 160;
+
+export const getKpiDashboardQueryQuestionMax = 20;
+
+export const getKpiDashboardQueryPageLanguageMax = 5;
+
 export const getKpiDashboardQueryDaysDefault = 28;
 export const getKpiDashboardQueryStartRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
 export const getKpiDashboardQueryEndRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
 
 
 export const GetKpiDashboardQueryParams = zod.object({
+  "compare": zod.enum(['true', 'false']).default(getKpiDashboardQueryCompareDefault),
+  "source": zod.enum(['all', 'ga4', 'searchConsole', 'bing', 'ai']).default(getKpiDashboardQuerySourceDefault),
+  "device": zod.enum(['desktop', 'mobile', 'tablet']).optional(),
+  "country": zod.coerce.string().max(getKpiDashboardQueryCountryMax).optional(),
+  "city": zod.coerce.string().max(getKpiDashboardQueryCityMax).optional(),
+  "page": zod.coerce.string().max(getKpiDashboardQueryPageMax).optional(),
+  "channel": zod.coerce.string().max(getKpiDashboardQueryChannelMax).optional(),
+  "trafficSource": zod.coerce.string().max(getKpiDashboardQueryTrafficSourceMax).optional(),
+  "query": zod.coerce.string().max(getKpiDashboardQueryQueryMax).optional(),
+  "provider": zod.enum(['openai', 'gemini', 'anthropic']).optional(),
+  "question": zod.coerce.string().max(getKpiDashboardQueryQuestionMax).optional(),
+  "pageLanguage": zod.coerce.string().max(getKpiDashboardQueryPageLanguageMax).optional(),
   "days": zod.union([zod.literal(7),zod.literal(28),zod.literal(90)]).default(getKpiDashboardQueryDaysDefault),
   "start": zod.coerce.string().regex(getKpiDashboardQueryStartRegExp).optional(),
   "end": zod.coerce.string().regex(getKpiDashboardQueryEndRegExp).optional()
 })
+
+export const getKpiDashboardResponseObservationsItemQuestionIdRegExp = new RegExp('^q(10|[1-9])$');
+
+export const getKpiDashboardResponseObservationsItemQuestionTextMin = 10;
+export const getKpiDashboardResponseObservationsItemQuestionTextMax = 240;
+
+export const getKpiDashboardResponseObservationsItemExcerptMax = 400;
+
+export const getKpiDashboardResponseObservationsItemSourcesMax = 8;
+
+
 
 export const GetKpiDashboardResponse = zod.object({
   "period": zod.object({
@@ -485,6 +672,8 @@ export const GetKpiDashboardResponse = zod.object({
 }),
   "dataMode": zod.enum(['synthetic', 'live']),
   "operational": zod.object({
+  "appliedFilters": zod.array(zod.string()).optional(),
+  "inapplicableFilters": zod.array(zod.string()).optional(),
   "source": zod.string(),
   "state": zod.enum(['not_configured', 'disconnected', 'property_required', 'unchecked', 'ready', 'empty', 'delayed', 'revoked', 'forbidden', 'quota', 'unavailable', 'stale']),
   "message": zod.string(),
@@ -513,6 +702,8 @@ export const GetKpiDashboardResponse = zod.object({
   "limitations": zod.array(zod.string())
 }),
   "ga4": zod.object({
+  "appliedFilters": zod.array(zod.string()).optional(),
+  "inapplicableFilters": zod.array(zod.string()).optional(),
   "source": zod.string(),
   "state": zod.enum(['not_configured', 'disconnected', 'property_required', 'unchecked', 'ready', 'empty', 'delayed', 'revoked', 'forbidden', 'quota', 'unavailable', 'stale']),
   "message": zod.string(),
@@ -541,6 +732,8 @@ export const GetKpiDashboardResponse = zod.object({
   "limitations": zod.array(zod.string())
 }),
   "searchConsole": zod.object({
+  "appliedFilters": zod.array(zod.string()).optional(),
+  "inapplicableFilters": zod.array(zod.string()).optional(),
   "source": zod.string(),
   "state": zod.enum(['not_configured', 'disconnected', 'property_required', 'unchecked', 'ready', 'empty', 'delayed', 'revoked', 'forbidden', 'quota', 'unavailable', 'stale']),
   "message": zod.string(),
@@ -567,7 +760,94 @@ export const GetKpiDashboardResponse = zod.object({
 }))
 })),
   "limitations": zod.array(zod.string())
-})
+}),
+  "bing": zod.object({
+  "appliedFilters": zod.array(zod.string()).optional(),
+  "inapplicableFilters": zod.array(zod.string()).optional(),
+  "source": zod.string(),
+  "state": zod.enum(['not_configured', 'disconnected', 'property_required', 'unchecked', 'ready', 'empty', 'delayed', 'revoked', 'forbidden', 'quota', 'unavailable', 'stale']),
+  "message": zod.string(),
+  "timezone": zod.string(),
+  "updatedAt": zod.string().nullable(),
+  "dataThrough": zod.string().nullable(),
+  "metrics": zod.array(zod.object({
+  "key": zod.string(),
+  "label": zod.string(),
+  "value": zod.number().nullable(),
+  "previous": zod.number().nullable(),
+  "change": zod.number().nullable(),
+  "unit": zod.enum(['count', 'percent', 'position'])
+})),
+  "series": zod.array(zod.object({
+  "label": zod.string(),
+  "values": zod.record(zod.string(), zod.number().nullable())
+})),
+  "tables": zod.array(zod.object({
+  "title": zod.string(),
+  "rows": zod.array(zod.object({
+  "label": zod.string(),
+  "values": zod.record(zod.string(), zod.number().nullable())
+}))
+})),
+  "limitations": zod.array(zod.string())
+}).optional(),
+  "ai": zod.object({
+  "appliedFilters": zod.array(zod.string()).optional(),
+  "inapplicableFilters": zod.array(zod.string()).optional(),
+  "source": zod.string(),
+  "state": zod.enum(['not_configured', 'disconnected', 'property_required', 'unchecked', 'ready', 'empty', 'delayed', 'revoked', 'forbidden', 'quota', 'unavailable', 'stale']),
+  "message": zod.string(),
+  "timezone": zod.string(),
+  "updatedAt": zod.string().nullable(),
+  "dataThrough": zod.string().nullable(),
+  "metrics": zod.array(zod.object({
+  "key": zod.string(),
+  "label": zod.string(),
+  "value": zod.number().nullable(),
+  "previous": zod.number().nullable(),
+  "change": zod.number().nullable(),
+  "unit": zod.enum(['count', 'percent', 'position'])
+})),
+  "series": zod.array(zod.object({
+  "label": zod.string(),
+  "values": zod.record(zod.string(), zod.number().nullable())
+})),
+  "tables": zod.array(zod.object({
+  "title": zod.string(),
+  "rows": zod.array(zod.object({
+  "label": zod.string(),
+  "values": zod.record(zod.string(), zod.number().nullable())
+}))
+})),
+  "limitations": zod.array(zod.string())
+}).optional(),
+  "observations": zod.array(zod.object({
+  "id": zod.string(),
+  "question": zod.object({
+  "id": zod.string().regex(getKpiDashboardResponseObservationsItemQuestionIdRegExp),
+  "version": zod.number().int().min(1),
+  "text": zod.string().min(getKpiDashboardResponseObservationsItemQuestionTextMin).max(getKpiDashboardResponseObservationsItemQuestionTextMax),
+  "enabled": zod.boolean()
+}),
+  "provider": zod.enum(['openai', 'gemini', 'anthropic']),
+  "model": zod.string(),
+  "method": zod.string(),
+  "at": zod.string(),
+  "status": zod.enum(['mention', 'citation', 'absent', 'ungrounded', 'error', 'blocked', 'uncertain']),
+  "mentioned": zod.boolean(),
+  "cited": zod.boolean(),
+  "grounded": zod.boolean(),
+  "excerpt": zod.string().max(getKpiDashboardResponseObservationsItemExcerptMax),
+  "sources": zod.array(zod.object({
+  "basis": zod.enum(['corporate_title_and_building_domain']).optional(),
+  "url": zod.string(),
+  "host": zod.string(),
+  "kind": zod.enum(['brand', 'directory', 'unclassified', 'competitor'])
+})).max(getKpiDashboardResponseObservationsItemSourcesMax)
+})).optional(),
+  "compare": zod.boolean().optional(),
+  "filters": zod.record(zod.string(), zod.string()).optional(),
+  "compatibility": zod.record(zod.string(), zod.array(zod.string())).optional()
 })
 
 

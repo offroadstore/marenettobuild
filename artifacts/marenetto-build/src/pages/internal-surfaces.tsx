@@ -79,11 +79,15 @@ function InternalConsole() {
   const canWriteCms = liveData && permissions.includes('cms:write');
   const canManageMembers = permissions.includes('members:manage');
   const canManageAttachments = permissions.includes('attachments:manage');
-  const leads = useListInternalLeads(undefined, { query: { enabled, queryKey: getListInternalLeadsQueryKey(), retry: false } });
-  const pages = useListCmsPages(undefined, { query: { enabled, queryKey: getListCmsPagesQueryKey(), retry: false } });
-  const notifications = useListInternalNotifications({ query: { enabled, queryKey: getListInternalNotificationsQueryKey(), retry: false } });
-  const members = useListInternalMembers({ query: { enabled: enabled && canManageMembers, queryKey: getListInternalMembersQueryKey(), retry: false } });
-  const attachments = useListInternalAttachments(undefined, { query: { enabled: enabled && canManageAttachments, queryKey: getListInternalAttachmentsQueryKey(), retry: false } });
+  // KPI/monitoring never load the legacy enquiries. Preserve their independent
+  // management surfaces without treating them as today's email-only form data.
+  const needsLeads = tab === 'overview' || tab === 'leads' || tab === 'files';
+  const operationalEnabled = enabled && tab !== 'dashboard' && tab !== 'monitoring';
+  const leads = useListInternalLeads(undefined, { query: { enabled: enabled && needsLeads && permissions.includes('leads:read'), queryKey: getListInternalLeadsQueryKey(), retry: false } });
+  const pages = useListCmsPages(undefined, { query: { enabled: operationalEnabled, queryKey: getListCmsPagesQueryKey(), retry: false } });
+  const notifications = useListInternalNotifications({ query: { enabled: operationalEnabled, queryKey: getListInternalNotificationsQueryKey(), retry: false } });
+  const members = useListInternalMembers({ query: { enabled: operationalEnabled && canManageMembers, queryKey: getListInternalMembersQueryKey(), retry: false } });
+  const attachments = useListInternalAttachments(undefined, { query: { enabled: operationalEnabled && canManageAttachments, queryKey: getListInternalAttachmentsQueryKey(), retry: false } });
   const sessionError = session.error as { status?: number; message?: string; response?: { status?: number } } | null;
   const forbidden = sessionError?.status === 403 || sessionError?.response?.status === 403 || /403|forbidden/i.test(sessionError?.message || '');
   const allTabs: { id: Tab; label: string; icon: ReactNode; permission?: string }[] = [
@@ -101,7 +105,7 @@ function InternalConsole() {
   ];
   const tabs = allTabs.filter((item) => !item.permission || permissions.includes(item.permission));
   const refresh = (key: readonly unknown[]) => queryClient.invalidateQueries({ queryKey: key });
-  const hasDataError = [leads, pages, notifications, ...(canManageMembers ? [members] : []), ...(canManageAttachments ? [attachments] : [])].some(q => q.isError);
+  const hasDataError = operationalEnabled && [leads, pages, notifications, ...(canManageMembers ? [members] : []), ...(canManageAttachments ? [attachments] : [])].some(q => q.isError);
   return <div className="internal-shell">
     <aside className="internal-sidebar">
       <Link href="/" className="int-brand" aria-label="Marenetto Build public site">M<span>·</span>B</Link>

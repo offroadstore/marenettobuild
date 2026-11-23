@@ -9,6 +9,8 @@ import {
 } from '@workspace/api-client-react';
 import { Link2, LockKeyhole, RefreshCw, ShieldCheck, Unlink } from 'lucide-react';
 import { DASHBOARD_KEY_PREFIX, Notice, StateBadge, errorText, fmtDate, serviceNames, stateHelp } from './shared';
+import { AiSettings } from './ai-settings';
+import { BingPanel, MetaUnavailable } from './bing-panel';
 import './monitoring.css';
 
 const callbackMessages: Record<string, { tone: 'ok' | 'warn' | 'error'; text: string }> = {
@@ -48,6 +50,9 @@ export function MonitoringPanel() {
       <div className="mon-two">{s.services.map(svc => <ServiceCard key={svc.service} svc={svc} s={s} onChanged={invalidateAll} setFlash={setFlash} />)}</div>
       <TagsForm s={s} onChanged={invalidateAll} setFlash={setFlash} />
       <Collection s={s} onChanged={invalidateAll} setFlash={setFlash} />
+      {s.canManage && <BingPanel setFlash={setFlash} />}
+      {s.canManage && <AiSettings setFlash={setFlash} />}
+      <MetaUnavailable />
       <Discovery s={s} />
     </>}
   </div>;

@@ -2,9 +2,10 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { getGetKpiDashboardQueryKey, type KpiDashboard, type KpiSource } from '@workspace/api-client-react';
+import { getGetKpiDashboardQueryKey, getGetInternalSessionQueryKey, type KpiDashboard, type KpiSource } from '@workspace/api-client-react';
 import { DashboardPanel } from '../src/pages/monitoring/dashboard';
 import { fmtChange, fmtValue } from '../src/pages/monitoring/shared';
+import { toParams, DEFAULT_DRAFT } from '../src/pages/monitoring/filters';
 
 test('provider fixtures render Italian metrics, comparisons, metadata and tables without network', () => {
   const source: KpiSource = {
@@ -28,12 +29,13 @@ test('provider fixtures render Italian metrics, comparisons, metadata and tables
     ga4: source, searchConsole: { ...source, source: 'Search Console · fixture', timezone: 'America/Los_Angeles', state: 'delayed' },
   };
   const render = () => {
-    queryClient.setQueryData(getGetKpiDashboardQueryKey({ days: 28 }), payload);
+    queryClient.setQueryData(getGetInternalSessionQueryKey(), { email: 'x', role: 'viewer', dataMode: 'synthetic', permissions: ['kpi:read'] });
+    queryClient.setQueryData(getGetKpiDashboardQueryKey(toParams(DEFAULT_DRAFT)), payload);
     return renderToStaticMarkup(<QueryClientProvider client={queryClient}><DashboardPanel go={() => {}} /></QueryClientProvider>);
   };
   try {
     let html = render();
-    for (const value of ['40%', '+20 p.p.', '20%', 'Organic Search', 'Europe/Rome', 'America/Los_Angeles', 'UTC', 'DATI SINTETICI DI PROVA', 'Dati in ritardo', 'Tabella dei valori giornalieri']) assert.ok(html.includes(value), value);
+    for (const value of ['40%', '+20 p.p.', '20%', 'Organic Search', 'Europe/Rome', 'America/Los_Angeles', 'UTC', 'Dati in ritardo', 'Tabella dei valori giornalieri', 'Fonte indisponibile', 'Esporta CSV', 'aria-sort']) assert.ok(html.includes(value), value);
     assert.ok(html.includes('&lt;script&gt;test&lt;/script&gt;'));
     assert.ok(!html.includes('<script>test</script>'));
     assert.equal(fmtValue(null, 'count'), 'non disponibile');

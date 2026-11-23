@@ -26,3 +26,4 @@ export * from "./notifications";
 export * from "./attachments";
 export * from "./editorial";
 export * from "./monitoring";
+export * from "./ai-visibility";

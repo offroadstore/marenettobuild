@@ -17,6 +17,87 @@ tags:
   - name: storage
     description: Private attachment upload and serving.
 paths:
+  /internal/monitoring/ai:
+    get:
+      operationId: getAiVisibility
+      tags: [internal]
+      responses:
+        "200":
+          description: monitoring manage only, minimized history and configuration
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/AiVisibility" }
+    put:
+      operationId: saveAiVisibility
+      tags: [internal]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/AiSettingsInput" }
+      responses:
+        "200":
+          description: Saved without executing a campaign
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MonitoringAction" }
+  /internal/monitoring/ai/run:
+    post:
+      operationId: startAiVisibility
+      tags: [internal]
+      responses:
+        "200":
+          description: Durable campaign or explicit blocking reason
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MonitoringAction" }
+  /monitoring/ai/tick:
+    post:
+      operationId: tickAiVisibility
+      description: External signed worker heartbeat, never enabled by delivery. No user session authentication.
+      responses:
+        "200":
+          description: Single durable checkpoint processed
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MonitoringAction" }
+        "403": { description: Invalid signature or preview environment }
+  /internal/monitoring/bing:
+    get:
+      operationId: getBingSettings
+      tags: [internal]
+      responses:
+        "200":
+          description: Owner only, runtime configuration status
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/BingSettings" }
+    put:
+      operationId: saveBingSettings
+      tags: [internal]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/MonitoringPropertyInput" }
+      responses:
+        "200":
+          description: Property validated against verified sites
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MonitoringAction" }
+  /internal/monitoring/bing/sites:
+    get:
+      operationId: listBingSites
+      tags: [internal]
+      responses:
+        "200":
+          description: Verified Bing sites, no credentials
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/MonitoringProperty" }
   /call-requests/config:
     get:
       operationId: getCallRequestConfig
@@ -278,6 +359,18 @@ paths:
       operationId: getKpiDashboard
       tags: [internal]
       parameters:
+        - { name: compare, in: query, schema: { type: string, enum: ["true", "false"], default: "true" } }
+        - { name: source, in: query, schema: { type: string, enum: [all, ga4, searchConsole, bing, ai], default: all } }
+        - { name: device, in: query, schema: { type: string, enum: [desktop, mobile, tablet] } }
+        - { name: country, in: query, schema: { type: string, maxLength: 80 } }
+        - { name: city, in: query, schema: { type: string, maxLength: 80 } }
+        - { name: page, in: query, schema: { type: string, maxLength: 200 } }
+        - { name: channel, in: query, schema: { type: string, maxLength: 80 } }
+        - { name: trafficSource, in: query, schema: { type: string, maxLength: 80 } }
+        - { name: query, in: query, schema: { type: string, maxLength: 160 } }
+        - { name: provider, in: query, schema: { $ref: "#/components/schemas/AiProvider" } }
+        - { name: question, in: query, schema: { type: string, maxLength: 20 } }
+        - { name: pageLanguage, in: query, schema: { type: string, maxLength: 5 } }
         - name: days
           in: query
           schema: { type: integer, enum: [7, 28, 90], default: 28 }
@@ -1094,6 +1187,8 @@ components:
       type: object
       required: [source, state, message, timezone, updatedAt, dataThrough, metrics, series, tables, limitations]
       properties:
+        appliedFilters: { type: array, items: { type: string } }
+        inapplicableFilters: { type: array, items: { type: string } }
         source: { type: string }
         state: { $ref: "#/components/schemas/MonitoringState" }
         message: { type: string }
@@ -1121,6 +1216,107 @@ components:
         operational: { $ref: "#/components/schemas/KpiSource" }
         ga4: { $ref: "#/components/schemas/KpiSource" }
         searchConsole: { $ref: "#/components/schemas/KpiSource" }
+        bing: { $ref: "#/components/schemas/KpiSource" }
+        ai: { $ref: "#/components/schemas/KpiSource" }
+        observations: { type: array, items: { $ref: "#/components/schemas/AiObservation" } }
+        compare: { type: boolean }
+        filters: { type: object, additionalProperties: { type: string } }
+        compatibility:
+          type: object
+          additionalProperties:
+            type: array
+            items: { type: string }
+    AiProvider:
+      type: string
+      enum: [openai, gemini, anthropic]
+    AiQuestion:
+      type: object
+      required: [id, version, text, enabled]
+      properties:
+        id: { type: string, pattern: '^q(10|[1-9])$' }
+        version: { type: integer, minimum: 1 }
+        text: { type: string, minLength: 10, maxLength: 240 }
+        enabled: { type: boolean }
+    AiSettingsInput:
+      type: object
+      required: [revision, budgetUsd, weeklyEnabled, questions]
+      properties:
+        revision: { type: string }
+        budgetUsd: { type: number, minimum: 0, maximum: 10000 }
+        weeklyEnabled: { type: boolean }
+        questions:
+          type: array
+          minItems: 10
+          maxItems: 10
+          items: { $ref: "#/components/schemas/AiQuestion" }
+    AiProviderStatus:
+      type: object
+      required: [provider, configured, model, method, blockers, maximumUsd]
+      properties:
+        provider: { $ref: "#/components/schemas/AiProvider" }
+        configured: { type: boolean }
+        model: { type: string }
+        method: { type: string }
+        blockers: { type: array, items: { type: string } }
+        maximumUsd: { type: [number, "null"] }
+    AiSourceEvidence:
+      type: object
+      required: [url, host, kind]
+      properties:
+        basis: { type: string, enum: [corporate_title_and_building_domain] }
+        url: { type: string }
+        host: { type: string }
+        kind: { type: string, enum: [brand, directory, unclassified, competitor] }
+    AiObservation:
+      type: object
+      required: [id, question, provider, model, method, at, status, mentioned, cited, grounded, excerpt, sources]
+      properties:
+        id: { type: string }
+        question: { $ref: "#/components/schemas/AiQuestion" }
+        provider: { $ref: "#/components/schemas/AiProvider" }
+        model: { type: string }
+        method: { type: string }
+        at: { type: string }
+        status: { type: string, enum: [mention, citation, absent, ungrounded, error, blocked, uncertain] }
+        mentioned: { type: boolean }
+        cited: { type: boolean }
+        grounded: { type: boolean }
+        excerpt: { type: string, maxLength: 400 }
+        sources: { type: array, maxItems: 8, items: { $ref: "#/components/schemas/AiSourceEvidence" } }
+    AiCampaign:
+      type: object
+      required: [id, at, state, completed, total]
+      properties:
+        id: { type: string }
+        at: { type: string }
+        state: { type: string }
+        completed: { type: integer }
+        total: { type: integer }
+    AiVisibility:
+      type: object
+      required: [revision, budgetUsd, spentUsd, reservedUsd, remainingUsd, month, weeklyEnabled, workerReady, schedule, blockers, providers, questions, campaigns, results]
+      properties:
+        revision: { type: string }
+        budgetUsd: { type: number }
+        spentUsd: { type: number }
+        reservedUsd: { type: number }
+        remainingUsd: { type: number }
+        month: { type: string }
+        weeklyEnabled: { type: boolean }
+        workerReady: { type: boolean }
+        schedule: { type: string }
+        blockers: { type: array, items: { type: string } }
+        providers: { type: array, items: { $ref: "#/components/schemas/AiProviderStatus" } }
+        questions: { type: array, items: { $ref: "#/components/schemas/AiQuestion" } }
+        campaigns: { type: array, items: { $ref: "#/components/schemas/AiCampaign" } }
+        results: { type: array, items: { $ref: "#/components/schemas/AiObservation" } }
+    BingSettings:
+      type: object
+      required: [configured, property, instructions]
+      properties:
+        configured: { type: boolean }
+        property: { type: [string, "null"] }
+        instructions: { type: string }
     EditorialContent:
       type: object
       required: [title, summary, body, category, tags, image, imageAlt, sources, seoTitle, seoDescription, contentLanguage]

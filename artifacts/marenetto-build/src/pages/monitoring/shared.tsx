@@ -45,7 +45,7 @@ export function fmtChange(m: KpiMetric) {
     return `${pp > 0 ? '+' : ''}${pp.toLocaleString('it-IT', { maximumFractionDigits: 1 })} p.p.`;
   }
   const pct = m.change * 100;
-  return `${pct > 0 ? '+' : ''}${pct.toLocaleString('it-IT', { maximumFractionDigits: 1 })}%`;
+  return `${pct > 0 ? '+' : ''}${pct.toLocaleString('it-IT', { maximumFractionDigits: 1 })}%${m.unit === 'position' ? m.change < 0 ? ' · migliora' : m.change > 0 ? ' · peggiora' : ' · invariata' : ''}`;
 }
 export function fmtDate(iso: string | null | undefined, time = false) {
   if (!iso) return 'mai';

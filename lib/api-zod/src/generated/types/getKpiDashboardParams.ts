@@ -5,9 +5,49 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+import type { AiProvider } from './aiProvider';
+import type { GetKpiDashboardCompare } from './getKpiDashboardCompare';
 import type { GetKpiDashboardDays } from './getKpiDashboardDays';
+import type { GetKpiDashboardDevice } from './getKpiDashboardDevice';
+import type { GetKpiDashboardSource } from './getKpiDashboardSource';
 
 export type GetKpiDashboardParams = {
+compare?: GetKpiDashboardCompare;
+source?: GetKpiDashboardSource;
+device?: GetKpiDashboardDevice;
+/**
+ * @maxLength 80
+ */
+country?: string;
+/**
+ * @maxLength 80
+ */
+city?: string;
+/**
+ * @maxLength 200
+ */
+page?: string;
+/**
+ * @maxLength 80
+ */
+channel?: string;
+/**
+ * @maxLength 80
+ */
+trafficSource?: string;
+/**
+ * @maxLength 160
+ */
+query?: string;
+provider?: AiProvider;
+/**
+ * @maxLength 20
+ */
+question?: string;
+/**
+ * @maxLength 5
+ */
+pageLanguage?: string;
 days?: GetKpiDashboardDays;
 /**
  * @pattern ^\d{4}-\d{2}-\d{2}$

@@ -390,6 +390,8 @@ export interface KpiTable {
 }
 
 export interface KpiSource {
+  appliedFilters?: string[];
+  inapplicableFilters?: string[];
   source: string;
   state: MonitoringState;
   message: string;
@@ -412,12 +414,155 @@ export const KpiDashboardDataMode = {
   live: 'live',
 } as const;
 
+export type KpiDashboardFilters = {[key: string]: string};
+
+export type KpiDashboardCompatibility = {[key: string]: string[]};
+
+export interface AiQuestion {
+  /** @pattern ^q(10|[1-9])$ */
+  id: string;
+  /** @minimum 1 */
+  version: number;
+  /**
+     * @minLength 10
+     * @maxLength 240
+     */
+  text: string;
+  enabled: boolean;
+}
+
+export type AiProvider = typeof AiProvider[keyof typeof AiProvider];
+
+
+export const AiProvider = {
+  openai: 'openai',
+  gemini: 'gemini',
+  anthropic: 'anthropic',
+} as const;
+
+export type AiObservationStatus = typeof AiObservationStatus[keyof typeof AiObservationStatus];
+
+
+export const AiObservationStatus = {
+  mention: 'mention',
+  citation: 'citation',
+  absent: 'absent',
+  ungrounded: 'ungrounded',
+  error: 'error',
+  blocked: 'blocked',
+  uncertain: 'uncertain',
+} as const;
+
+export type AiSourceEvidenceBasis = typeof AiSourceEvidenceBasis[keyof typeof AiSourceEvidenceBasis];
+
+
+export const AiSourceEvidenceBasis = {
+  corporate_title_and_building_domain: 'corporate_title_and_building_domain',
+} as const;
+
+export type AiSourceEvidenceKind = typeof AiSourceEvidenceKind[keyof typeof AiSourceEvidenceKind];
+
+
+export const AiSourceEvidenceKind = {
+  brand: 'brand',
+  directory: 'directory',
+  unclassified: 'unclassified',
+  competitor: 'competitor',
+} as const;
+
+export interface AiSourceEvidence {
+  basis?: AiSourceEvidenceBasis;
+  url: string;
+  host: string;
+  kind: AiSourceEvidenceKind;
+}
+
+export interface AiObservation {
+  id: string;
+  question: AiQuestion;
+  provider: AiProvider;
+  model: string;
+  method: string;
+  at: string;
+  status: AiObservationStatus;
+  mentioned: boolean;
+  cited: boolean;
+  grounded: boolean;
+  /** @maxLength 400 */
+  excerpt: string;
+  /** @maxItems 8 */
+  sources: AiSourceEvidence[];
+}
+
 export interface KpiDashboard {
   period: KpiPeriod;
   dataMode: KpiDashboardDataMode;
   operational: KpiSource;
   ga4: KpiSource;
   searchConsole: KpiSource;
+  bing?: KpiSource;
+  ai?: KpiSource;
+  observations?: AiObservation[];
+  compare?: boolean;
+  filters?: KpiDashboardFilters;
+  compatibility?: KpiDashboardCompatibility;
+}
+
+export interface AiSettingsInput {
+  revision: string;
+  /**
+     * @minimum 0
+     * @maximum 10000
+     */
+  budgetUsd: number;
+  weeklyEnabled: boolean;
+  /**
+     * @minItems 10
+     * @maxItems 10
+     */
+  questions: AiQuestion[];
+}
+
+export interface AiProviderStatus {
+  provider: AiProvider;
+  configured: boolean;
+  model: string;
+  method: string;
+  blockers: string[];
+  /** @nullable */
+  maximumUsd: number | null;
+}
+
+export interface AiCampaign {
+  id: string;
+  at: string;
+  state: string;
+  completed: number;
+  total: number;
+}
+
+export interface AiVisibility {
+  revision: string;
+  budgetUsd: number;
+  spentUsd: number;
+  reservedUsd: number;
+  remainingUsd: number;
+  month: string;
+  weeklyEnabled: boolean;
+  workerReady: boolean;
+  schedule: string;
+  blockers: string[];
+  providers: AiProviderStatus[];
+  questions: AiQuestion[];
+  campaigns: AiCampaign[];
+  results: AiObservation[];
+}
+
+export interface BingSettings {
+  configured: boolean;
+  /** @nullable */
+  property: string | null;
+  instructions: string;
 }
 
 export interface EditorialSource {
@@ -954,6 +1099,42 @@ export type StartMonitoringGoogle200 = {
 };
 
 export type GetKpiDashboardParams = {
+compare?: GetKpiDashboardCompare;
+source?: GetKpiDashboardSource;
+device?: GetKpiDashboardDevice;
+/**
+ * @maxLength 80
+ */
+country?: string;
+/**
+ * @maxLength 80
+ */
+city?: string;
+/**
+ * @maxLength 200
+ */
+page?: string;
+/**
+ * @maxLength 80
+ */
+channel?: string;
+/**
+ * @maxLength 80
+ */
+trafficSource?: string;
+/**
+ * @maxLength 160
+ */
+query?: string;
+provider?: AiProvider;
+/**
+ * @maxLength 20
+ */
+question?: string;
+/**
+ * @maxLength 5
+ */
+pageLanguage?: string;
 days?: GetKpiDashboardDays;
 /**
  * @pattern ^\d{4}-\d{2}-\d{2}$
@@ -964,6 +1145,34 @@ start?: string;
  */
 end?: string;
 };
+
+export type GetKpiDashboardCompare = typeof GetKpiDashboardCompare[keyof typeof GetKpiDashboardCompare];
+
+
+export const GetKpiDashboardCompare = {
+  true: 'true',
+  false: 'false',
+} as const;
+
+export type GetKpiDashboardSource = typeof GetKpiDashboardSource[keyof typeof GetKpiDashboardSource];
+
+
+export const GetKpiDashboardSource = {
+  all: 'all',
+  ga4: 'ga4',
+  searchConsole: 'searchConsole',
+  bing: 'bing',
+  ai: 'ai',
+} as const;
+
+export type GetKpiDashboardDevice = typeof GetKpiDashboardDevice[keyof typeof GetKpiDashboardDevice];
+
+
+export const GetKpiDashboardDevice = {
+  desktop: 'desktop',
+  mobile: 'mobile',
+  tablet: 'tablet',
+} as const;
 
 export type GetKpiDashboardDays = typeof GetKpiDashboardDays[keyof typeof GetKpiDashboardDays];
 

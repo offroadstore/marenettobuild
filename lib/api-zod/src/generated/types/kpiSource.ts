@@ -11,6 +11,8 @@ import type { KpiTable } from './kpiTable';
 import type { MonitoringState } from './monitoringState';
 
 export interface KpiSource {
+  appliedFilters?: string[];
+  inapplicableFilters?: string[];
   source: string;
   state: MonitoringState;
   message: string;

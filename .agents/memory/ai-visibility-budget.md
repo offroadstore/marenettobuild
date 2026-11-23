@@ -8,3 +8,9 @@ Il monitoraggio interno della visibilità IA deve considerare OpenAI con ricerca
 **Why:** Il titolare ha esplicitamente sostituito la precedente proposta che prevedeva solo Gemini operativo e un blocco delle chiamate live indipendente dal budget.
 
 **How to apply:** Trattare la capacità tecnica dei tre provider e l'autorizzazione a spendere come cose diverse. Testare con provider simulati; non assumere che la presenza delle chiavi autorizzi richieste pagate. Verificare tariffe e costi massimi documentati prima di abilitare ciascuna chiamata.
+
+Il grounding Google Search non può essere assimilato a un normale output generativo liberamente analizzabile: i termini consultati il 23 novembre 2026 vietano analisi e raccolta automatizzata dei Grounded Results per costruire uno storico di monitoraggio. Un budget positivo non supera questo vincolo.
+
+**Why:** Il caso d'uso approvato richiede un database analitico, mentre le eccezioni Google riguardano display e cronologia chat, non misurazione della visibilità. La presenza dell'adapter non prova il diritto di eseguirlo.
+
+**How to apply:** Prima di rendere Gemini operativo per il monitoraggio richiedere termini applicabili o autorizzazione Google scritta, oltre a una stima massima dimostrabile. Non sostituire questo controllo con un'accettazione UI del titolare.

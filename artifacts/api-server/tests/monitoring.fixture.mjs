@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { readFile } from 'node:fs/promises';
 import express from 'express';
 import pg from 'pg';
 import { and, eq } from 'drizzle-orm';
@@ -10,6 +11,7 @@ import { getSettings, accessToken, lockedSettings } from '../src/lib/monitoring/
 import { exchangeToken, googleJson, listProperties } from '../src/lib/monitoring/google.ts';
 import { gaReport, searchReport, ReportCache, reportCache } from '../src/lib/monitoring/reports.ts';
 import { collectionFingerprint, collectionStatus, verifyWebStream } from '../src/lib/monitoring/collection.ts';
+import { runVisibilityFixtures } from './visibility.fixture.mjs';
 
 test('calendar periods, equal comparisons and weighted-rate conventions', () => {
   const now = new Date('2026-11-12T12:00:00Z');
@@ -62,8 +64,15 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
     if(u.pathname.endsWith('/dataStreams'))return fixtureResponse({dataStreams:[{name:'properties/123/dataStreams/456',type:'WEB_DATA_STREAM',webStreamData:{measurementId:'G-ABCD1234',defaultUri:mode==='wrongOrigin'?'https://wrong.example.com':'https://www.marenettobuild.com/'}}]});
     if(u.hostname==='analyticsadmin.googleapis.com')return fixtureResponse({timeZone:'Europe/Rome'});
     if(u.hostname==='analyticsdata.googleapis.com'){
+      if(u.pathname.endsWith(':checkCompatibility')) {
+        const body=JSON.parse(init.body);
+        return fixtureResponse({dimensionCompatibilities:body.dimensions.map(d=>({dimensionMetadata:{apiName:d.name},compatibility:'COMPATIBLE'})),metricCompatibilities:body.metrics.map(m=>({metricMetadata:{apiName:m.name},compatibility:'COMPATIBLE'}))});
+      }
+      if(u.pathname.endsWith('/metadata')) return fixtureResponse({dimensions:[]});
+      if(u.pathname.endsWith(':runReport'))return fixtureResponse({rows:[gaRow([100,60,180,.4],'google')]});
       if(u.pathname.endsWith(':runRealtimeReport')) return fixtureResponse(mode==='empty'?{rowCount:0}:{rows:[{dimensionValues:[{value:'page_view'}],metricValues:[{value:'1'}]}]});
       const reports=JSON.parse(init.body).requests.map((r,i)=>{
+        if(r.metrics[0].name==='eventCount') return {rows:[{dimensionValues:[{value:'contact_click'}],metricValues:[{value:'3'}]}]};
         assert.deepEqual(r.metrics.map(m=>m.name),['activeUsers','sessions','screenPageViews','engagementRate']);
         if(mode==='empty')return {rows:[],metadata:{}};
         return {rows:[gaRow(mode==='zero'?[0,0,0,0]:i===1?[50,30,90,.2]:[100,60,180,.4],i===2?'20260110':i===3?'Organic Search':i===4?'/servizi':null)],metadata:{subjectToThresholding:true,dataLossFromOtherRow:true}};
@@ -92,6 +101,8 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
         ('2026-01-10T13:00:00Z',true,'approved','manutenzione','it'),
         ('2026-01-09T13:00:00Z',true,'new','ristrutturazione','en'),
         ('2026-01-10T13:00:00Z',false,'approved','produzione','nl');`);
+    await pool.query(await readFile('lib/db/scripts/ai-visibility.sql','utf8'));
+    await pool.query('DROP TABLE project_requests');
     process.env.NODE_ENV='development';
     for(const key of ['GOOGLE_ANALYTICS_CLIENT_ID','GOOGLE_ANALYTICS_CLIENT_SECRET','GOOGLE_ANALYTICS_REDIRECT_URI','MONITORING_TOKEN_KEY','MARENETTO_PRIVACY_APPROVED','MARENETTO_PROVIDERS_APPROVED','MARENETTO_TESTING_APPROVED'])delete process.env[key];
     const app=express();
@@ -124,13 +135,13 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
     assert.equal((await request('/internal/monitoring/tags','owner','PUT',{measurementId:'G-ABCD1234',containerId:'GTM-ABCD1234'})).status,200);
     assert.equal((await getSettings()).measurementId,'G-ABCD1234');
     let dashboard=(await request('/internal/dashboard?start=2026-01-10&end=2026-01-10','viewer')).data;
-    assert.equal(dashboard.operational.metrics[0].value,1);assert.equal(dashboard.dataMode,'synthetic');
-    assert.equal(dashboard.operational.tables[0].rows[0].label,'Approvata');
+    assert.deepEqual(dashboard.operational.metrics,[]);assert.equal(dashboard.dataMode,'live');
+    assert.ok(!('ai' in dashboard));assert.ok(!('observations' in dashboard));assert.ok(!('ai' in dashboard.compatibility));
     assert.equal(dashboard.ga4.state,'not_configured');
     assert.equal(calls.length,0,'no provider requests before OAuth setup');
     for(const key of ['MARENETTO_PRIVACY_APPROVED','MARENETTO_PROVIDERS_APPROVED','MARENETTO_TESTING_APPROVED'])process.env[key]='true';
     dashboard=(await request('/internal/dashboard?start=2026-01-10&end=2026-01-10')).data;
-    assert.equal(dashboard.dataMode,'live');assert.equal(dashboard.operational.tables[1].rows[0].label,'produzione');
+    assert.equal(dashboard.dataMode,'live');assert.deepEqual(dashboard.operational.tables,[]);
     for(const key of ['MARENETTO_PRIVACY_APPROVED','MARENETTO_PROVIDERS_APPROVED','MARENETTO_TESTING_APPROVED'])delete process.env[key];
     process.env.GOOGLE_ANALYTICS_CLIENT_ID='fixture-client';
     process.env.GOOGLE_ANALYTICS_CLIENT_SECRET='fixture-secret';
@@ -297,6 +308,7 @@ test('all routes, encrypted persistence, OAuth, provider fixtures, cache and ope
     dashboard=(await request('/internal/dashboard?start=2026-01-10&end=2026-01-10','viewer')).data;
     assert.equal(dashboard.ga4.state,'disconnected');
     assert.equal((await request('/internal/dashboard?start=2026-02-30&end=2026-03-01')).status,400);
+    await runVisibilityFixtures({request,pool});
     process.env.NODE_ENV='production';
     assert.equal((await getSettings()).encryptedTokens,null);
     assert.equal((await getSettings()).containerId,'','settings separated across environments');

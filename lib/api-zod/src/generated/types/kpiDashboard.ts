@@ -5,7 +5,10 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+import type { AiObservation } from './aiObservation';
+import type { KpiDashboardCompatibility } from './kpiDashboardCompatibility';
 import type { KpiDashboardDataMode } from './kpiDashboardDataMode';
+import type { KpiDashboardFilters } from './kpiDashboardFilters';
 import type { KpiPeriod } from './kpiPeriod';
 import type { KpiSource } from './kpiSource';
 
@@ -15,4 +18,10 @@ export interface KpiDashboard {
   operational: KpiSource;
   ga4: KpiSource;
   searchConsole: KpiSource;
+  bing?: KpiSource;
+  ai?: KpiSource;
+  observations?: AiObservation[];
+  compare?: boolean;
+  filters?: KpiDashboardFilters;
+  compatibility?: KpiDashboardCompatibility;
 }

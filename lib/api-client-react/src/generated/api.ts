@@ -20,8 +20,11 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  AiSettingsInput,
+  AiVisibility,
   AttachmentFinalizeInput,
   AttachmentUploadInput,
+  BingSettings,
   CallConfig,
   CallReceipt,
   CallRecord,
@@ -94,6 +97,522 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   }
   return result;
 };
+
+export const getGetAiVisibilityUrl = () => {
+
+
+
+
+  return `/api/internal/monitoring/ai`
+}
+
+export const getAiVisibility = async ( options?: Parameters<typeof customFetch>[1]): Promise<AiVisibility> => {
+
+  return customFetch<AiVisibility>(getGetAiVisibilityUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetAiVisibilityQueryKey = () => {
+    return [
+    `/api/internal/monitoring/ai`
+    ] as const;
+    }
+
+
+export const getGetAiVisibilityQueryOptions = <TData = Awaited<ReturnType<typeof getAiVisibility>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getAiVisibility>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetAiVisibilityQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAiVisibility>>> = ({ signal }) => getAiVisibility({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getAiVisibility>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetAiVisibilityQueryResult = NonNullable<Awaited<ReturnType<typeof getAiVisibility>>>
+export type GetAiVisibilityQueryError = ErrorType<unknown>
+
+
+
+export function useGetAiVisibility<TData = Awaited<ReturnType<typeof getAiVisibility>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getAiVisibility>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetAiVisibilityQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getSaveAiVisibilityUrl = () => {
+
+
+
+
+  return `/api/internal/monitoring/ai`
+}
+
+export const saveAiVisibility = async (aiSettingsInput: AiSettingsInput, options?: Parameters<typeof customFetch>[1]): Promise<MonitoringAction> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<MonitoringAction>(getSaveAiVisibilityUrl(),
+  {
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(aiSettingsInput)
+  }
+);}
+
+
+
+
+
+export const getSaveAiVisibilityMutationKey = () => ['saveAiVisibility'] as const;
+
+export const getSaveAiVisibilityMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof saveAiVisibility>>, TError,SaveAiVisibilityMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof saveAiVisibility>>, TError,SaveAiVisibilityMutationVariables, TContext> => {
+
+const mutationKey = getSaveAiVisibilityMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof saveAiVisibility>>, SaveAiVisibilityMutationVariables> = (props) => {
+          const {data} = props ?? {};
+
+          return  saveAiVisibility(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SaveAiVisibilityMutationResult = NonNullable<Awaited<ReturnType<typeof saveAiVisibility>>>
+    export type SaveAiVisibilityMutationBody = BodyType<AiSettingsInput>
+    export type SaveAiVisibilityMutationError = ErrorType<unknown>
+    export type SaveAiVisibilityMutationVariables = {data: BodyType<AiSettingsInput>}
+
+    export const useSaveAiVisibility = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof saveAiVisibility>>, TError,SaveAiVisibilityMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof saveAiVisibility>>,
+        TError,
+        SaveAiVisibilityMutationVariables,
+        TContext
+      > => {
+      return useMutation(getSaveAiVisibilityMutationOptions(options));
+    }
+
+export const getStartAiVisibilityUrl = () => {
+
+
+
+
+  return `/api/internal/monitoring/ai/run`
+}
+
+export const startAiVisibility = async ( options?: Parameters<typeof customFetch>[1]): Promise<MonitoringAction> => {
+
+  return customFetch<MonitoringAction>(getStartAiVisibilityUrl(),
+  {
+    ...options,
+    method: 'POST'
+
+
+  }
+);}
+
+
+
+
+
+export const getStartAiVisibilityMutationKey = () => ['startAiVisibility'] as const;
+
+export const getStartAiVisibilityMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof startAiVisibility>>, TError,void, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof startAiVisibility>>, TError,void, TContext> => {
+
+const mutationKey = getStartAiVisibilityMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof startAiVisibility>>, void> = () => {
+
+
+          return  startAiVisibility(requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type StartAiVisibilityMutationResult = NonNullable<Awaited<ReturnType<typeof startAiVisibility>>>
+
+    export type StartAiVisibilityMutationError = ErrorType<unknown>
+
+
+    export const useStartAiVisibility = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof startAiVisibility>>, TError,void, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof startAiVisibility>>,
+        TError,
+        void,
+        TContext
+      > => {
+      return useMutation(getStartAiVisibilityMutationOptions(options));
+    }
+
+export const getTickAiVisibilityUrl = () => {
+
+
+
+
+  return `/api/monitoring/ai/tick`
+}
+
+/**
+ * External signed worker heartbeat, never enabled by delivery. No user session authentication.
+ */
+export const tickAiVisibility = async ( options?: Parameters<typeof customFetch>[1]): Promise<MonitoringAction> => {
+
+  return customFetch<MonitoringAction>(getTickAiVisibilityUrl(),
+  {
+    ...options,
+    method: 'POST'
+
+
+  }
+);}
+
+
+
+
+
+export const getTickAiVisibilityMutationKey = () => ['tickAiVisibility'] as const;
+
+export const getTickAiVisibilityMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof tickAiVisibility>>, TError,void, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof tickAiVisibility>>, TError,void, TContext> => {
+
+const mutationKey = getTickAiVisibilityMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof tickAiVisibility>>, void> = () => {
+
+
+          return  tickAiVisibility(requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type TickAiVisibilityMutationResult = NonNullable<Awaited<ReturnType<typeof tickAiVisibility>>>
+
+    export type TickAiVisibilityMutationError = ErrorType<void>
+
+
+    export const useTickAiVisibility = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof tickAiVisibility>>, TError,void, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof tickAiVisibility>>,
+        TError,
+        void,
+        TContext
+      > => {
+      return useMutation(getTickAiVisibilityMutationOptions(options));
+    }
+
+export const getGetBingSettingsUrl = () => {
+
+
+
+
+  return `/api/internal/monitoring/bing`
+}
+
+export const getBingSettings = async ( options?: Parameters<typeof customFetch>[1]): Promise<BingSettings> => {
+
+  return customFetch<BingSettings>(getGetBingSettingsUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetBingSettingsQueryKey = () => {
+    return [
+    `/api/internal/monitoring/bing`
+    ] as const;
+    }
+
+
+export const getGetBingSettingsQueryOptions = <TData = Awaited<ReturnType<typeof getBingSettings>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getBingSettings>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetBingSettingsQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getBingSettings>>> = ({ signal }) => getBingSettings({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getBingSettings>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetBingSettingsQueryResult = NonNullable<Awaited<ReturnType<typeof getBingSettings>>>
+export type GetBingSettingsQueryError = ErrorType<unknown>
+
+
+
+export function useGetBingSettings<TData = Awaited<ReturnType<typeof getBingSettings>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getBingSettings>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetBingSettingsQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getSaveBingSettingsUrl = () => {
+
+
+
+
+  return `/api/internal/monitoring/bing`
+}
+
+export const saveBingSettings = async (monitoringPropertyInput: MonitoringPropertyInput, options?: Parameters<typeof customFetch>[1]): Promise<MonitoringAction> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<MonitoringAction>(getSaveBingSettingsUrl(),
+  {
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(monitoringPropertyInput)
+  }
+);}
+
+
+
+
+
+export const getSaveBingSettingsMutationKey = () => ['saveBingSettings'] as const;
+
+export const getSaveBingSettingsMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof saveBingSettings>>, TError,SaveBingSettingsMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof saveBingSettings>>, TError,SaveBingSettingsMutationVariables, TContext> => {
+
+const mutationKey = getSaveBingSettingsMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof saveBingSettings>>, SaveBingSettingsMutationVariables> = (props) => {
+          const {data} = props ?? {};
+
+          return  saveBingSettings(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SaveBingSettingsMutationResult = NonNullable<Awaited<ReturnType<typeof saveBingSettings>>>
+    export type SaveBingSettingsMutationBody = BodyType<MonitoringPropertyInput>
+    export type SaveBingSettingsMutationError = ErrorType<unknown>
+    export type SaveBingSettingsMutationVariables = {data: BodyType<MonitoringPropertyInput>}
+
+    export const useSaveBingSettings = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof saveBingSettings>>, TError,SaveBingSettingsMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof saveBingSettings>>,
+        TError,
+        SaveBingSettingsMutationVariables,
+        TContext
+      > => {
+      return useMutation(getSaveBingSettingsMutationOptions(options));
+    }
+
+export const getListBingSitesUrl = () => {
+
+
+
+
+  return `/api/internal/monitoring/bing/sites`
+}
+
+export const listBingSites = async ( options?: Parameters<typeof customFetch>[1]): Promise<MonitoringProperty[]> => {
+
+  return customFetch<MonitoringProperty[]>(getListBingSitesUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListBingSitesQueryKey = () => {
+    return [
+    `/api/internal/monitoring/bing/sites`
+    ] as const;
+    }
+
+
+export const getListBingSitesQueryOptions = <TData = Awaited<ReturnType<typeof listBingSites>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listBingSites>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListBingSitesQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listBingSites>>> = ({ signal }) => listBingSites({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listBingSites>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ListBingSitesQueryResult = NonNullable<Awaited<ReturnType<typeof listBingSites>>>
+export type ListBingSitesQueryError = ErrorType<unknown>
+
+
+
+export function useListBingSites<TData = Awaited<ReturnType<typeof listBingSites>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listBingSites>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getListBingSitesQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
 
 export const getGetCallRequestConfigUrl = () => {
 

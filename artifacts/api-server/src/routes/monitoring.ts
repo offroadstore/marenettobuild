@@ -1,6 +1,6 @@
 import { Router, type IRouter, type Request, type Response, type NextFunction } from "express";
 import { getAuth } from "@clerk/express";
-import { randomUUID } from "node:crypto";
+import { createHmac, randomUUID, timingSafeEqual } from "node:crypto";
 import { and, eq, gt, lt } from "drizzle-orm";
 import { db, monitoringSettingsTable as settings, monitoringOauthStatesTable as states } from "@workspace/db";
 import {
@@ -8,13 +8,18 @@ import {
   SelectMonitoringPropertyBody, ListMonitoringPropertiesParams,
   GetPublicMonitoringResponse, SaveMonitoringCollectionBody,
   type GoogleReportService, type MonitoringState, type KpiSource,
+  SaveAiVisibilityBody, SelectMonitoringPropertyBody as BingPropertyBody, GetBingSettingsResponse,
 } from "@workspace/api-zod";
 import { requireInternalAccess, requirePermission } from "../middlewares/internalAccess";
 import { addDays, decryptTokens, discovery, emptySource, environment, getPeriod, hash, liveDataApproved, MonitoringError, nonce, oauthConfig, scopes } from "../lib/monitoring/core";
 import { exchangeToken, gaPropertyTimezone, listProperties, revokeToken } from "../lib/monitoring/google";
 import { accessToken, getSettings, lockedSettings, recordCheck, savePatch, setConnection } from "../lib/monitoring/store";
 import { fetchReport, reportCache } from "../lib/monitoring/reports";
-import { operationalReport } from "../lib/monitoring/operational";
+import { hasPermission } from "../middlewares/internalPermissions";
+import { compatibility, filterStatus, normalizeFilters, type Filters } from "../lib/monitoring/filters";
+import { aiKpi, getAiSettings, getAiVisibility, saveAiSettings, startCampaign, workerCheckpoint } from "../lib/monitoring/ai-store";
+import { productionExecution } from "../lib/monitoring/ai-policy";
+import { bingConfigured, bingInstructions, bingReport, bingSites, saveBingSite } from "../lib/monitoring/bing";
 import { collectionEnvironment, collectionStatus, realtimeReceipt, verifyWebStream } from "../lib/monitoring/collection";
 import directPolicy from "../../../../lib/legal-policy/direct-analytics.json";
 import legalPolicy from "../../../../lib/legal-policy/analytics.json";
@@ -61,6 +66,42 @@ const serviceParam = (req: Request): GoogleReportService => {
   return parsed.data.service;
 };
 const propertyFor = (row: Awaited<ReturnType<typeof getSettings>>, service: GoogleReportService) => service === "ga4" ? row.ga4Property : row.searchConsoleProperty;
+
+router.get(`${prefix}/ai`, requirePermission("monitoring:manage"), asyncRoute(async (_req, res) => {
+  res.json(await getAiVisibility());
+}));
+router.put(`${prefix}/ai`, requirePermission("monitoring:manage"), asyncRoute(async (req, res) => {
+  const input = SaveAiVisibilityBody.safeParse(req.body);
+  if (!input.success) throw new MonitoringError("unavailable", "Budget, revisione o domande non validi.", 400);
+  await saveAiSettings(input.data);
+  res.json({ message: "Impostazioni salvate. Nessun controllo avviato." });
+}));
+router.post(`${prefix}/ai/run`, requirePermission("monitoring:manage"), asyncRoute(async (_req, res) => {
+  res.json({ message: await startCampaign() });
+}));
+router.post("/monitoring/ai/tick", asyncRoute(async (req, res) => {
+  res.set({ "Cache-Control": "no-store", "Referrer-Policy": "no-referrer" });
+  const minute = req.get("x-monitoring-minute") ?? "", signature = req.get("x-monitoring-signature") ?? "";
+  if (!productionExecution() || !/^\d{8,12}$/.test(minute) || Math.abs(Math.floor(Date.now() / 60000) - Number(minute)) > 1 || !/^[a-f0-9]{64}$/.test(signature)) throw new MonitoringError("forbidden", "Trigger non autorizzato.", 403);
+  const key = process.env.MONITORING_AI_TRIGGER_KEY;
+  if (!key || !/^[a-f0-9]{64}$/i.test(key)) throw new MonitoringError("forbidden", "Trigger non configurato.", 403);
+  const expected = createHmac("sha256", Buffer.from(key, "hex")).update(`POST\n/api/monitoring/ai/tick\n${minute}`).digest();
+  if (!timingSafeEqual(Buffer.from(signature, "hex"), expected)) throw new MonitoringError("forbidden", "Trigger non autorizzato.", 403);
+  await workerCheckpoint(new Date(Number(minute) * 60000));
+  // Enqueue only the current Monday window. No earlier week is recovered.
+  try { await startCampaign(true); } catch { /* Budget/config blockers are visible to the owner; no retry of a paid request. */ }
+  res.json({ message: "Checkpoint elaborato; nessun recupero di settimane arretrate." });
+}));
+router.get(`${prefix}/bing`, requirePermission("monitoring:manage"), asyncRoute(async (_req, res) => {
+  res.json(GetBingSettingsResponse.parse({ configured: bingConfigured(), property: (await getAiSettings()).bingProperty, instructions: bingInstructions }));
+}));
+router.get(`${prefix}/bing/sites`, requirePermission("monitoring:manage"), asyncRoute(async (_req, res) => { res.json(await bingSites()); }));
+router.put(`${prefix}/bing`, requirePermission("monitoring:manage"), asyncRoute(async (req, res) => {
+  const input = BingPropertyBody.safeParse(req.body);
+  if (!input.success) throw new MonitoringError("unavailable", "Sito Bing non valido.", 400);
+  await saveBingSite(input.data.property);
+  res.json({ message: "Sito verificato Bing selezionato." });
+}));
 
 router.get("/monitoring/public", async (req, res) => {
   res.set({ "Cache-Control": "no-store", "Referrer-Policy": "no-referrer", "Vary": "Host" });
@@ -250,7 +291,7 @@ router.put(`${prefix}/tags`, requirePermission("monitoring:manage"), asyncRoute(
   reportCache.clear();
   res.json({ message: "Identificativi salvati. Raccolta disattivata e verifiche flusso azzerate: riverificare prima di attivare. GTM non è installato." });
 }));
-async function googleSource(service: GoogleReportService, period: ReturnType<typeof getPeriod>): Promise<KpiSource> {
+async function googleSource(service: GoogleReportService, period: ReturnType<typeof getPeriod>, filters: Filters, scope: string): Promise<KpiSource> {
   const title = service === "ga4" ? "Google Analytics 4" : "Google Search Console";
   const timezone = service === "ga4" ? "Fuso della proprietà non disponibile" : "America/Los_Angeles";
   const row = await getSettings(), property = propertyFor(row, service);
@@ -258,10 +299,10 @@ async function googleSource(service: GoogleReportService, period: ReturnType<typ
   if (!row.encryptedTokens) return emptySource(title, "disconnected", "Nessun account Google collegato. Nessuna statistica è stata importata.", timezone);
   if (!property) return emptySource(title, "property_required", "Il proprietario deve scegliere una proprietà realmente accessibile.", timezone);
   try {
-    const key = JSON.stringify([row.environment, row.revision, service, property, period.start, period.end]);
+    const key = JSON.stringify([row.environment, scope, row.revision, service, property, period, filters]);
     const source = await reportCache.get(key, async () => {
       const token = await accessToken(row.revision);
-      const result = await fetchReport(service, property, token.access, period);
+      const result = await fetchReport(service, property, token.access, period, filters);
       if ((await getSettings()).revision !== row.revision) throw new MonitoringError("disconnected", "La configurazione è cambiata durante il recupero.", 409);
       await recordCheck(service, row.revision, result.state, null);
       return result;
@@ -275,12 +316,39 @@ async function googleSource(service: GoogleReportService, period: ReturnType<typ
     return emptySource(title, safe.state, safe.message, timezone);
   }
 }
+const dashboardRates = new Map<string, { at: number; count: number }>();
 router.get("/internal/dashboard", requirePermission("kpi:read"), asyncRoute(async (req, res) => {
+  const member = req.internalMember!, canManage = hasPermission(member.role, "monitoring:manage");
+  const rateKey = `${environment()}:${member.id}`;
+  const now = Date.now();
+  for (const [key, rate] of dashboardRates) if (now - rate.at > 60000) dashboardRates.delete(key);
+  const rate = dashboardRates.get(rateKey) ?? { at: now, count: 0 };
+  if (++rate.count > 30 || dashboardRates.size >= 1000 && !dashboardRates.has(rateKey)) throw new MonitoringError("quota", "Troppe richieste al cruscotto. Attendere un minuto.", 429);
+  dashboardRates.set(rateKey, rate);
   const period = getPeriod(req.query);
-  const [operational, ga4, searchConsole] = await Promise.all([
-    operationalReport(period).catch(() => emptySource("Database richieste", "unavailable", "Impossibile leggere le richieste archiviate. Non viene mostrato uno zero sostitutivo.", "UTC")),
-    googleSource("ga4", period), googleSource("searchConsole", period),
+  const filters = normalizeFilters(req.query, canManage), scope = canManage ? "kpi:read+monitoring:manage" : "kpi:read";
+  const getSource = async (id: string, run: () => Promise<KpiSource>) => {
+    const status = filterStatus(id, filters);
+    if (filters.source !== "all" && filters.source !== id) return { ...emptySource(id, "empty", "Fonte non selezionata.", "Non applicabile"), ...status };
+    if (status.inapplicableFilters.length) return { ...emptySource(id, "unavailable", "Filtro non applicabile: fonte esclusa dal riepilogo filtrato.", "Non applicabile"), ...status };
+    const source = await run().catch(error => emptySource(id, error instanceof MonitoringError ? error.state : "unavailable", error instanceof MonitoringError ? error.message : "Impossibile aggiornare questa fonte; nessuno zero sostitutivo.", "Non disponibile"));
+    return { ...source, ...status, metrics: source.metrics.map(m => filters.compare === "false" ? { ...m, previous: null, change: null } : m) };
+  };
+  const [ga4, searchConsole, bing] = await Promise.all([
+    getSource("ga4", () => googleSource("ga4", period, filters, scope)),
+    getSource("searchConsole", () => googleSource("searchConsole", period, filters, scope)),
+    getSource("bing", () => bingReport(period, filters.compare !== "false", JSON.stringify(filters), scope)),
   ]);
-  res.json(GetKpiDashboardResponse.parse({ period, dataMode: liveDataApproved() ? "live" : "synthetic", operational, ga4, searchConsole }));
+  let observations;
+  const ai = canManage ? await getSource("ai", async () => {
+    const result = await aiKpi(period, filters.compare !== "false", filters.provider, filters.question);
+    observations = result.observations;
+    return result.source;
+  }) : undefined;
+  const operational = emptySource("Misura anonima non disponibile", "not_configured", "Il modulo invia solo email. I vecchi lead non sono una fonte KPI. Nessun contatore SMTP sufficientemente affidabile con copertura verificabile è disponibile.", "Non disponibile");
+  res.json(GetKpiDashboardResponse.parse({ period, dataMode: "live", operational, ga4, searchConsole, bing,
+    ...(canManage ? { ai, observations: observations ?? [] } : {}),
+    compare: filters.compare !== "false", filters, compatibility: Object.fromEntries(Object.entries(compatibility).filter(([key]) => canManage || key !== "ai")),
+  }));
 }));
 export default router;
