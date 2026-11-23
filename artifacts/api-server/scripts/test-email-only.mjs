@@ -24,5 +24,5 @@ await build({
   } }],
 });
 const env = { ...process.env }; delete env.NODE_TEST_CONTEXT;
-const result = spawnSync(process.execPath, ['--test', outfile], { env, stdio: 'inherit' });
+const result = spawnSync(process.execPath, ['--test', outfile], { env, cwd: root, stdio: 'inherit' });
 process.exitCode = result.status ?? 1;

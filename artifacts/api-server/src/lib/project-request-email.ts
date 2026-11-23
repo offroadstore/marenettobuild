@@ -1,6 +1,47 @@
 import { createTransport } from "nodemailer";
 import type { ProjectRequestInput } from "@workspace/api-zod";
 
+// Owner-facing presentation only: never translate or change the submitted payload.
+const labels = {
+  requestType: {
+    project: "Progetto / lavori", maintenance: "Manutenzione", purchase: "Acquisto",
+  } satisfies Record<ProjectRequestInput["requestType"], string>,
+  propertyType: {
+    apartment: "Appartamento", house: "Casa indipendente",
+    commercial: "Immobile commerciale", other: "Altro",
+  },
+  service: {
+    renovation: "Ristrutturazione / lavori", maintenance: "Manutenzione",
+    property_care: "Cura della proprietà", purchase: "Acquisto / orientamento", other: "Altro",
+  },
+  projectStage: {
+    planning: "Sto raccogliendo informazioni", defined: "Ho un’idea abbastanza definita",
+    ready: "Vorrei valutare i prossimi passi", ongoing: "C’è un’esigenza in corso",
+  },
+  preferredChannel: {
+    email: "Email", phone: "Telefono", whatsapp: "WhatsApp",
+  } satisfies Record<ProjectRequestInput["preferredChannel"], string>,
+  preferredLanguage: {
+    it: "Italiano", en: "Inglese", fr: "Francese", de: "Tedesco", nl: "Olandese",
+    es: "Spagnolo", pt: "Portoghese", ru: "Russo", pl: "Polacco", ro: "Rumeno",
+    uk: "Ucraino", cs: "Ceco", sk: "Slovacco", sl: "Sloveno", hr: "Croato",
+    sr: "Serbo", bg: "Bulgaro", bs: "Bosniaco", mk: "Macedone", be: "Bielorusso",
+    ar: "Arabo", he: "Ebraico", sv: "Svedese", no: "Norvegese", da: "Danese",
+    fi: "Finlandese", hu: "Ungherese", el: "Greco", tr: "Turco",
+  },
+};
+
+function choice(field: keyof typeof labels, value: string | null | undefined): string {
+  if (!value) return "—";
+  const options: Readonly<Record<string, string>> = labels[field];
+  // Unknown codes stay verbatim, including names inherited from Object.prototype.
+  return Object.hasOwn(options, value) ? options[value]! : value;
+}
+
+function yesNo(value: boolean | null | undefined): string {
+  return value === true ? "Sì" : value === false ? "No" : "—";
+}
+
 /** In-memory SMTP delivery. No outbox, lead, notification record or file writes. */
 export async function sendProjectRequestEmail(input: Omit<ProjectRequestInput, "formOpenedAt" | "companyWebsite">): Promise<void> {
   const user = process.env.ARUBA_SMTP_USER?.trim();
@@ -17,13 +58,16 @@ export async function sendProjectRequestEmail(input: Omit<ProjectRequestInput, "
   });
   const lines = [
     ["Nome", input.name], ["Email", input.email], ["Telefono / WhatsApp", input.phone],
-    ["Canale preferito", input.preferredChannel], ["Lingua", input.preferredLanguage],
-    ["Tipo richiesta", input.requestType], ["Proprietà", input.propertyType],
-    ["Servizio", input.service], ["Località", input.location], ["Fase", input.projectStage],
+    ["Canale preferito", choice("preferredChannel", input.preferredChannel)],
+    ["Lingua", choice("preferredLanguage", input.preferredLanguage)],
+    ["Tipo richiesta", choice("requestType", input.requestType)],
+    ["Proprietà", choice("propertyType", input.propertyType)],
+    ["Servizio", choice("service", input.service)], ["Località", input.location],
+    ["Fase", choice("projectStage", input.projectStage)],
     ["Budget", input.budget], ["Periodo", input.desiredPeriod],
-    ["Alloggio", input.needsAccommodation ? "Sì" : "No"],
-    ["Accessibilità / mobilità", input.needsMobility ? "Sì" : "No"],
-    ["Privacy accettata", "Sì"], ["Messaggio", input.message],
+    ["Alloggio", yesNo(input.needsAccommodation)],
+    ["Accessibilità / mobilità", yesNo(input.needsMobility)],
+    ["Privacy accettata", yesNo(input.privacyAccepted)], ["Messaggio", input.message],
   ].map(([label, value]) => `${label}: ${value || "—"}`);
   try {
     const result = await transport.sendMail({

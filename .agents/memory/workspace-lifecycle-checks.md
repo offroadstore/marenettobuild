@@ -27,3 +27,13 @@ failures without modifying site behavior.
 **How to apply:** Use the shared readiness-aware navigation helper for
 interactive assertions. Do not hide the race with arbitrary delays, repeated
 clicks, or weaker assertions.
+
+Run configured route regressions and task-completion validation serially.
+
+**Why:** Completion validation starts its own regression server; a concurrent
+regression workflow can occupy the same port and reject validation before
+any assertions run.
+
+**How to apply:** If validation reports an occupied test-server port, stop the
+duplicate regression workflow before retrying completion. Do not weaken tests
+or stop the application-serving workflows to work around this collision.
