@@ -1,3 +1,4 @@
+import { SERVED_PLACES } from '@/content/phase3/places';
 /** Single source of truth for the company contact number. */
 export const COMPANY_PHONE = {
   e164: '+393339363007',
@@ -13,7 +14,7 @@ export const COMPANY_CONTACT = {
   email: 'info@marenetto.com',
   streetAddress: 'SS 113 Settentrionale Sicula, 73b',
   localityLine: '90015 Cefalù, Palermo, Italia',
-  areaServed: 'Cefalù e dintorni',
+  areaServed: 'Cefalù e dintorni come area ordinaria; Sicilia, Italia e trasferte internazionali su richiesta',
   verification: {
     phone: 'existing-approved-company-number',
     email: 'owner-confirmed-2026-11-10',
@@ -28,6 +29,20 @@ export function normalizePublicContact(value: string): string {
 
 export const emailHref = (subject: string) => `mailto:${COMPANY_CONTACT.email}?subject=${encodeURIComponent(subject)}`;
 
+/** Ordinary locations are not an exclusive coverage boundary.
+ * Wider areas describe an offer subject to project-specific feasibility,
+ * not existing branches, completed projects or overseas authorisations. */
+export function companyServiceAreas() {
+  return [
+    ...SERVED_PLACES.map(place => place.schemaType === 'Place'
+      ? { '@type': 'Place', name: place.name, containedInPlace: { '@type': 'City', name: 'Tusa' } }
+      : { '@type': 'City', name: place.name }),
+    { '@type': 'AdministrativeArea', name: 'Sicilia' },
+    { '@type': 'Country', name: 'Italia' },
+    { '@type': 'Place', name: 'Worldwide (on request)' },
+  ];
+}
+
 export function companyStructuredData(origin: string) {
   return {
     '@type': 'GeneralContractor', '@id': `${origin}/#organization`,
@@ -38,7 +53,8 @@ export function companyStructuredData(origin: string) {
       '@type': 'PostalAddress', streetAddress: COMPANY_CONTACT.streetAddress,
       addressLocality: 'Cefalù', addressRegion: 'PA', postalCode: '90015', addressCountry: 'IT',
     },
-    areaServed: { '@type': 'Place', name: COMPANY_CONTACT.areaServed },
+    additionalType: 'https://schema.org/LocalBusiness',
+    areaServed: companyServiceAreas(),
   };
 }
 

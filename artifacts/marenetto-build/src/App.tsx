@@ -48,6 +48,8 @@ import { AnalyticsPreferences } from '@/components/AnalyticsPreferences';
 import { CookiePreferencesLink } from '@/components/CookiePreferencesLink';
 import { AI_NOTICE, legalPages } from '@/content/legal';
 import { LegalContents } from '@/pages/legal';
+import { Phase3Content, Phase3FooterLinks, TravelCoverageBlock, TravelIndexBlock } from '@/pages/phase3';
+import { phase3PageByPath } from '@/content/phase3';
 import { translationCandidates, supplementalCandidates, translationCandidate, translationApproved, translationSourceChanged, translationNotices } from '@/localization/phase2';
 
 const queryClient = new QueryClient();
@@ -410,8 +412,9 @@ function Footer({ lang }: { lang: Lang }) {
           <PageLink lang={lang} page="contact">{it ? 'Contatti' : 'Contact'}</PageLink>
           <a href={emailHref(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))} data-testid="link-footer-email" dir="ltr">{COMPANY_CONTACT.email}</a>
           <span className="footer-phone-row"><a href={telHref} data-testid="link-footer-phone">Tel {COMPANY_PHONE.display}</a><span aria-hidden="true">·</span><a href={whatsappHref(message)} target="_blank" rel="noopener noreferrer" aria-label={`WhatsApp ${COMPANY_PHONE.display}`} data-testid="link-footer-whatsapp">WhatsApp</a></span>
-          <span lang="it">Cefalù · Sicilia<br /><small>Sede esatta in attesa di conferma aziendale.</small></span>
+          <span lang="it" dir="ltr">SS 113 Settentrionale Sicula, 73b<br />90015 Cefalù (PA)</span>
         </div></div>
+        <div><Phase3FooterLinks lang={lang} /></div>
       </div>
       <IllustrationNote lang={lang} />
       <CallPrivacyFooter lang={lang} />
@@ -507,6 +510,8 @@ function HomePage({ lang }: { lang: Lang }) {
       </div>
     </section>)}
 
+    <TravelIndexBlock locale={lang} />
+
     {localizeNode(lang, <section className="mbh-strip" data-testid="section-contact-strip" aria-labelledby="mbh-strip-title">
       <div className="mbh-wrap mbh-strip__inner">
         {/* IT: approved copy. Other locales reuse the existing contact-page title and nav label (no new translations). */}
@@ -588,7 +593,7 @@ function ServicesPage({ lang }: { lang: Lang }) {
     requestAnimationFrame(() => { target.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' }); target.focus({ preventScroll: true }); });
   }, []);
   const data = copy[lang].services;
-  return localizeNode(lang, <>
+  return <>{localizeNode(lang, <>
     <PageHero lang={lang} page="services" />
     <section className="section">
       <div className="container">
@@ -597,7 +602,7 @@ function ServicesPage({ lang }: { lang: Lang }) {
       </div>
     </section>
     <section className="section tight" id="contatti" data-testid="anchor-contatti"><div className="container"><CtaPanel lang={lang} title={it ? 'Hai in mente un intervento?' : 'Have a project in mind?'} text={it ? 'Raccontaci la tua idea: capiremo insieme se e come possiamo aiutarti.' : 'Tell us what you have in mind and we can see together whether and how we can help.'} /></div></section>
-  </>);
+  </>)}<TravelCoverageBlock locale={lang} /></>;
 }
 
 function ProcessPage({ lang }: { lang: Lang }) {
@@ -642,7 +647,7 @@ function ContactPage({ lang }: { lang: Lang }) {
           <div className="contact-method"><MessageCircle size={17} /><div><small>WhatsApp</small><a href={whatsappHref(localizeChoice(lang, 'Buongiorno, vorrei parlare della mia proprietà a Cefalù.', 'Hello, I would like to discuss my property in Cefalù.'))} target="_blank" rel="noopener noreferrer" data-testid="link-whatsapp">{it ? 'Scrivici' : 'Get in touch'}<ArrowRight size={13} /></a></div></div>
           <div className="contact-method"><Phone size={17} /><div><small>{it ? 'Telefono' : 'Phone'}</small><a href={telHref} data-testid="link-phone">{COMPANY_PHONE.display}</a></div></div>
           <div className="contact-method"><Mail size={17} /><div><small>Email</small><a href={emailHref(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))} data-testid="link-email" dir="ltr">{COMPANY_CONTACT.email}</a></div></div>
-          <div className="contact-method"><MapPin size={17} /><div><small>{it ? 'Indirizzo' : 'Address'}</small><span lang="it">Cefalù · Sicilia<br />Sede esatta in attesa di conferma aziendale.</span></div></div>
+          <div className="contact-method"><MapPin size={17} /><div><small>{it ? 'Indirizzo' : 'Address'}</small><span lang="it" dir="ltr">SS 113 Settentrionale Sicula, 73b<br />90015 Cefalù (PA)</span></div></div>
           <div className="contact-note">{localizeChoice(lang, 'Il modulo invia la richiesta via email, senza salvarne una copia nel sito.', 'The form sends your enquiry by email without keeping a copy on the site.')}</div>
         </aside>
         <div className="contact-content"><SectionLabel>{it ? 'Richiesta' : 'Enquiry'}</SectionLabel><h2 className="display-title">{it ? 'Che cosa ti serve?' : 'What do you need?'}</h2>
@@ -976,6 +981,8 @@ function Router() {
   if (legal) return <div className="site-shell" lang="it" dir="ltr"><Header lang="it" page="contact" editionId={legal.path.slice(1)} /><LegalContents content={legal} /><Footer lang="it" /></div>;
   const live = active.find(edition => [edition.path,...(edition.aliases ?? [])].some(candidate => editorialPathKey(candidate) === editorialPathKey(path)));
   if (live) return live.revisionId === 'withdrawn' ? <NotFound lang={live.locale} /> : <LocaleGate lang={live.locale}><ActiveEditorialPage edition={live} /></LocaleGate>;
+  const phase3 = phase3PageByPath(path);
+  if (phase3) return <LocaleGate lang={phase3.locale as Lang}><div className="site-shell" lang={phase3.locale} dir={getLocaleDirection(phase3.locale)}><Header lang={phase3.locale as Lang} page="home" editionId={phase3.id} /><Phase3Content page={phase3} /><Footer lang={phase3.locale as Lang} /></div></LocaleGate>;
   const candidate = translationCandidate(path);
   if (candidate && translationSourceChanged(candidate, active)) return <div className="site-shell" lang={lang}><main className="container section">
     <h1>{translationNotices[lang].review}</h1><p role="alert">{translationNotices[lang].changed}</p>

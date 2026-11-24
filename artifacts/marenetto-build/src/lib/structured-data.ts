@@ -1,5 +1,6 @@
-import { companyStructuredData } from '@/config/contact';
+import { companyServiceAreas, companyStructuredData } from '@/config/contact';
 import { articleBySlug } from '@/content/articles';
+import { PHASE3_COPY, TRAVEL_COPY, phase3PageByPath } from '@/content/phase3';
 import { canonicalEdition, type Edition } from '@/localization/edition-inventory';
 
 export function editionStructuredData(edition: Edition, origin: string) {
@@ -15,6 +16,22 @@ export function editionStructuredData(edition: Edition, origin: string) {
     publisher: { '@id': `${origin}/#organization` }, image: new URL(article.image, origin).href,
     ...(article.publishedOn ? { datePublished: article.publishedOn } : {}),
   });
+  const p3 = edition.source.startsWith('phase3') ? phase3PageByPath(edition.path) : undefined;
+  if (p3?.kind === 'furniture') {
+    const f = PHASE3_COPY[p3.locale]!.furniture;
+    graph.push({ '@type': 'Service', name: f.metaTitle, description: f.metaDescription, inLanguage: p3.locale, url: canonical,
+      provider: { '@id': `${origin}/#organization` }, areaServed: { '@type': 'Place', name: 'Worldwide' }, serviceType: f.metaTitle });
+    graph.push({ '@type': 'FAQPage', inLanguage: p3.locale, mainEntity: f.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) });
+  }
+  if (p3?.kind === 'travel') {
+    const t = TRAVEL_COPY[p3.locale]!;
+    graph.push({ '@type': 'Service', name: t.metaTitle, description: t.metaDescription, inLanguage: p3.locale, url: canonical,
+      provider: { '@id': `${origin}/#organization` }, areaServed: companyServiceAreas(), serviceType: t.metaTitle });
+    graph.push({ '@type': 'FAQPage', inLanguage: p3.locale, mainEntity: t.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) });
+  }
+  if (p3?.kind === 'place') graph.push({ '@type': 'Service', name: p3.title.split(' | ')[0], description: p3.description, inLanguage: p3.locale, url: canonical,
+    provider: { '@id': `${origin}/#organization` },
+    areaServed: p3.place.schemaType === 'Place' ? { '@type': 'Place', name: p3.place.name, containedInPlace: { '@type': 'City', name: 'Tusa' } } : { '@type': 'City', name: p3.place.name } });
   return graph;
 }
 

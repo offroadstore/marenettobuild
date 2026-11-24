@@ -11,6 +11,7 @@
     "test:fonts": "node --test scripts/local-fonts.test.mjs",
     "test:legal": "node --test scripts/legal-pages.test.mjs",
     "test:phase2": "node --test scripts/phase2.test.mjs",
+    "test:phase34": "node --test scripts/phase34.test.mjs scripts/travel-coverage.test.mjs scripts/consent-gating.test.mjs",
     "test:whatsapp-placement": "node --experimental-strip-types --test scripts/whatsapp-placement.test.mjs",
     "audit:phase2": "node scripts/phase2-audit.mjs",
     "audit:release": "node scripts/release-audit.mjs",

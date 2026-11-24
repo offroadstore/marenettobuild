@@ -3,41 +3,72 @@ name: Service areas and premium furniture
 description: Owner-defined local construction scope, worldwide custom furniture and truthful presentation rules.
 ---
 
-Construction and renovation are offered only within 60 km of
-Cefalù. Premium custom furniture, including exclusive cement/microcement tables
-and design pieces, is offered worldwide with the team travelling.
+The ordinary area is approximately 60 km around Cefalù, for ordinary site visits
+and quotations. The 20 authorised local pages are the ordinary reference area,
+NOT a hard operational limit. Beyond it, including the rest of Sicily, Italy
+and abroad, the company offers travel with its own team for suitably sized
+projects, subject to feasibility and a dedicated quotation including travel
+and logistics. Premium custom furniture remains made to order internationally.
 
-**Why:** The owner explicitly distinguished these two commercial scopes.
-Worldwide furniture service must not imply worldwide building work.
+**Why:** The owner explicitly superseded the earlier exclusive 60 km building
+restriction: ordinary local coverage and conditional international mobilisation
+must now both be communicated.
 
-**How to apply:** Keep service-specific coverage consistent in visible copy,
-forms, structured data and all 12 public languages. Measure and document local
-coverage before naming municipalities; do not confuse road distance with a
-geographic radius or treat the owner's examples as verified distances.
+**How to apply:** Align zones, services, Atelier, llms.txt and schema.
+Use “preventivo dedicato”, not “prezzi più alti”. Examples of possible destinations
+(Palermo, Taormina, Messina, Siracusa, Europe, UAE/Dubai, Gulf and US) are not
+proof of projects already delivered, unrestricted eligibility, offices or local
+licences. Include the 20 places, Sicily, Italy and “Worldwide (on request)” in
+coverage data. Do not present unmeasured distances as verified road kilometres.
 
-Do not create near-identical city landing pages. Publish only substantive
-service pages, factual FAQ answers and documented real projects. If gallery
+Do not create near-identical city landing pages. The owner now expressly
+authorizes separate, genuinely useful pages for these 20 served places:
+Cefalù, Lascari, Campofelice di Roccella, Collesano, Gratteri, Isnello,
+Castelbuono, Pollina, San Mauro Castelverde, Castel di Tusa, Termini Imerese,
+Caccamo, Polizzi Generosa, Petralia Sottana, Petralia Soprana, Gangi,
+Geraci Siculo, Cerda, Sciara and Trabia. Castel di Tusa is a locality rather
+than an independent municipality. This authorization is not evidence of
+measured distances or of a local office in any listed place.
+
+Publish only substantive service pages, factual FAQ answers and documented real projects. If gallery
 assets, specifications or prices are missing, provide the owner a collection
 checklist instead of inventing completed work or commercial guarantees.
 
-**Why:** The owner expressly prohibited city duplicates and fabricated content
-while authorizing a premium furniture section and worldwide positioning.
+**Why:** The owner initially prohibited city duplicates, then explicitly
+requested 20 distinct local pages while retaining the ban on duplicated
+content and fabricated work, prices, clients or delivery times.
 
 **How to apply:** Preserve the distinction between an offered service and
 evidence of completed work; use Product data only for real defined products.
 
-Do not mention real-estate agencies on the public site. The owner now authorizes
-a categories-only professional network: general contractors, technical practices
-and specialist firms, with no named partners or logos implying agreements.
+Do not mention real-estate agencies or claim brokerage. Professional network
+categories are authorised without invented individuals, qualifications or
+agreements. The owner additionally authorises one named partner,
+CefaluApartments.it, for specialist short-term rental management.
 
-**Why:** On 2026-11-22 the owner requested a professional-network section,
-superseding the earlier blanket restriction only for category-level collaboration
-descriptions. This does not establish named agreements or individual credentials.
+**Why:** The owner first authorised categories only, then confirmed
+CefaluApartments.it as a same-ownership specialist partner active since 2008.
+This exception does not authorise other named partners.
 
 **How to apply:** Describe coordination positively, never client exchanges or
-criticism of other providers. Preserve the agency ban in copy, translations,
-metadata, images, schema and AI-oriented summaries. Do not invent specific
-partners, years, qualifications, contracts or worldwide building coverage.
+criticism of others. Present CefaluApartments as a partner with a single
+contact, not a Marenetto division. Owner-confirmed services: CIN procedures,
+purchase assistance coordinating owner/notary/relevant professionals (no
+brokerage), revenue management/pricing, payments, tourist tax, seasonal planning,
+own cleaning team, market studies, channel manager connected to Booking/Airbnb/
+Expedia to prevent overbooking, automated check-in/payments. Link
+https://www.cefaluapartments.it only after checking its response. Do not mention
+Rentero Stay before its publication.
+
+The network positioning is “Dalla ristrutturazione alla rendita”: comprehensive
+property support, with renovation, tourist-accommodation income and management
+as the core, while also delivering family homes. Marenetto must remain
+recognisable as the specialist building company; do not merge partner identities.
+
+**Why:** The owner expressly defined this positioning and the division of roles.
+
+**How to apply:** Explain architect, engineer, carpenter, plumber, electrician,
+gardener and furniture-supplier roles without inventing people or licences.
 
 Radiant floors, radiant walls, finishes and bespoke special details are
 owner-confirmed direct services, not partner categories. Distinguish them from
@@ -65,13 +96,15 @@ which are performed in-house and which by the network.
 **How to apply:** Include the confirmed offering without labeling all of it
 as direct work. Preserve the previously confirmed direct radiant/finishing
 scope; obtain category-level execution details before making stronger claims.
-These additions do not expand local building coverage or imply worldwide kitchens.
+The later ordinary-area/conditional-travel rule applies; do not imply automatic
+international feasibility for every trade or kitchen.
 
 The owner separately authorizes the international “Atelier Marenetto” service:
 on-site masonry outdoor kitchens, wood-fired ovens, tables and furnishings with
 hand-painted Sicilian majolica, lava stone and cement, for villas, palaces,
 resorts and yachts. This specific offering extends the earlier worldwide
-furniture scope; it does not globalize ordinary construction or every kitchen.
+furniture scope; the later owner-approved travel offer separately permits
+conditional mobilisation for suitably sized building projects.
 
 **Why:** The owner expressly defined a distinct international service, rather
 than a general expansion of the local building business.
@@ -82,6 +115,23 @@ Marenetto team building/assembling on site. Use discreet luxury positioning and
 projects on request, without public prices, invented delivery times, guaranteed
 country access, maritime compliance or fabricated completed work. Service schema
 may describe worldwide scope while specific destinations remain project-dependent.
+
+Atelier also addresses architects, interior designers, developers and foreign
+clients with a specific professional enquiry. Use natural local equivalents
+of Italian craftsmen, turnkey, fit-out contractor, on-site installation team,
+bespoke microcement and concrete furniture, made to order, works internationally,
+project mobilisation and from concept to installation; no keyword stuffing.
+Explain site visit or remote project review, a dedicated quotation stating
+team size and site days for that project, logistics and the Italian on-site team.
+Where local law requires (including UAE/US examples), execution needs an
+authorised local contractor or specialist-subcontractor arrangement. Do not
+claim such agreements, authorisations, numbers of people or days already exist.
+
+**Why:** The owner explicitly added international procurement language and the
+local-authorisation caveat without authorising fabricated overseas references.
+
+**How to apply:** Preserve the six-step Atelier process and complement it with
+mobilisation detail; apply the travel rule consistently to the professional offer.
 
 Arabic is requested as a thirteenth public language, alongside—not instead
 of—the existing twelve, with communication adapted for UAE, Saudi Arabia,

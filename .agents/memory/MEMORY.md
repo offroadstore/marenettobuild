@@ -13,7 +13,7 @@
 - [Monitoring consent boundary](monitoring-consent-boundary.md) — Owner authorized configuring monitoring; report access and visitor tracking consent remain separate.
 - [Isolated pnpm test bundles](isolated-pnpm-test-bundles.md) — Resolve virtual test-module imports from their owning package, not a symlink path.
 - [Same-revision readiness](same-revision-readiness.md) — Startup editorial checks must reach this deployment, not its public domain or an assumed proxy mapping.
-- [Service areas and furniture](service-areas-and-furniture.md) — Building work stays within about 60 km of Cefalù; premium custom furniture is worldwide, with no invented projects or city duplicates.
+- [Service areas and furniture](service-areas-and-furniture.md) — Ordinary area around Cefalù, conditional team travel worldwide, named rental partner and truthful international positioning.
 - [Privacy and AI transparency](privacy-and-ai-transparency.md) — Conditional cookie consent, factual notices and per-image AI labels; footer-only disclosure no longer meets the owner's rule.
 - [Browser locale and geometry](browser-locale-geometry.md) — Equal viewports can differ because language banners change layout; screenshot visibility does not prove regression-browser visibility.
 - [Multilingual SEO metadata](seo-metadata-policy.md) — Historical fidelity does not require generic titles; localize search metadata and verify initial HTML as well as client navigation.

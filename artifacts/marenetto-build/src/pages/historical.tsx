@@ -11,7 +11,10 @@ import { editionByPath } from '@/localization/edition-inventory';
 import { updateStructuredData } from '@/lib/structured-data';
 import pendingMessages from '@/content/pending-content.json';
 import { withCampaignParams } from '@/lib/campaign';
+import { TravelCoverageBlock, TravelIndexBlock } from '@/pages/phase3/TravelPages';
 import { translationCandidate, translationApproved, translationNotices } from '@/localization/phase2';
+// Historical service families outside the six categories (category pages get the block separately).
+const SERVICE_FAMILIES = new Set(['/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto', '/general-contractor']);
 const PUBLIC_SITE_ORIGIN = new URL(import.meta.env.VITE_PUBLIC_SITE_URL || 'https://preview.invalid').origin;
 
 // Keep the recovered document untouched on the server. Carry only permitted
@@ -73,6 +76,7 @@ export function HistoricalContents({ page, actions }: { page: HistoricalPage; ac
       <div data-preserved-ui="">{actions}</div>
     </div></HeroPhoto></section>{' '}
     {homeData && <HistoricalHomeSections home={homeData} locale={page.locale} />}
+    <TravelIndexBlock locale={page.locale} />
   </div>;
   if (page.family === '/recensioni') return <section className="mbx mbx-section" lang={page.locale}>
     <div className="container"><GoogleReviews locale={page.locale} heading="h1" /></div>
@@ -81,11 +85,12 @@ export function HistoricalContents({ page, actions }: { page: HistoricalPage; ac
   if (categoryData) return <div data-historical-body="" data-historical-category={page.family} data-editorial-state={page.state === 'awaiting-confirmation' ? 'review-pending' : undefined} data-correction-state={page.editorialCorrection ? page.locale === 'it' ? 'owner-authorized-preview' : 'translation-draft' : undefined} lang={page.contentLanguage} onClick={preserveCampaign}>
     {page.locale !== 'it' && page.contentLanguage === 'it' && <div className="mb-cat-note container"><p lang={page.locale} data-source-language="it">{sourceLanguageLabels[page.locale] ?? 'Testo in italiano'}</p></div>}
     <HistoricalCategoryView data={categoryData} h1={page.h1} currentKey={page.key} />
+    <TravelCoverageBlock locale={page.locale} />
   </div>;
   return <section className="section"><div className="container">
     {translation && !translationApproved(translation) && <p lang={page.locale} role="note">{translationNotices[page.locale].review}</p>}
     {page.kind === 'article' && <><h1 className="display-title">{page.h1}</h1>{document.dateLabel ? <span>{document.dateLabel}</span> : document.publishedOn && <time dateTime={document.publishedOn}>{document.publishedOn.slice(0, 10)}</time>}{document.image && <figure><img className="historical-cover" src={document.image} alt={document.imageAlt} loading="eager" />{document.imageCaption && <figcaption>{document.imageCaption}</figcaption>}</figure>}</>}
     {page.locale !== 'it' && page.contentLanguage === 'it' && <p lang={page.locale} data-source-language="it">{sourceLanguageLabels[page.locale] ?? 'Testo in italiano'}</p>}
     <article className={`historical-content${page.kind === 'article' ? ' article-body' : ''}`} data-historical-body="" data-editorial-state={page.state === 'awaiting-confirmation' ? 'review-pending' : undefined} data-correction-state={page.editorialCorrection ? page.locale === 'it' ? 'owner-authorized-preview' : 'translation-draft' : undefined} lang={page.contentLanguage} onClick={preserveCampaign} dangerouslySetInnerHTML={{ __html: document.html }} />
-  </div></section>;
+  </div>{page.kind !== 'article' && SERVICE_FAMILIES.has(page.family) && <TravelCoverageBlock locale={page.locale} />}</section>;
 }

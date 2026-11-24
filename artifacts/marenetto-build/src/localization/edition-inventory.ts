@@ -9,6 +9,7 @@ import { historicalInventory } from '@/content/historical';
 import { editionStatusLabel } from './edition-status';
 import { allTranslationCandidates, translationApproved, translationCandidate } from './phase2';
 import { legalPages } from '@/content/legal';
+import { PHASE3_PAGES } from '@/content/phase3';
 
 export type EditionState = 'draft' | 'translated' | 'reviewed' | 'published';
 export type Edition = {
@@ -115,6 +116,14 @@ editions.push(...legalPages.map(content => ({
   source: 'offroadstore/marenettobuild legal-pages; content/legal.ts',
   sitemap: true,
 })));
+// Phase3/4 native editions (service areas, custom furniture, AI use). Registered after the approval ledger.
+for (const page of PHASE3_PAGES) {
+  if (editions.some(e => e.path === page.path)) throw new Error(`Phase3 path collision: ${page.path}`);
+  editions.push({ id: page.id, locale: page.locale, path: page.path, kind: 'core' as const,
+    title: page.title, description: page.description, contentLanguage: page.locale,
+    state: 'published' as const, approval: 'Owner authorization for publication review (Phase3/4); native-speaker review not performed',
+    source: `phase3:content/phase3/${page.kind}`, sitemap: true } as Edition);
+}
 export const editionByPath = new Map(editions.map(edition => [edition.path, edition]));
 export function editionDisplayStatus(edition: Edition) {
   if (edition.translationRevision) return edition.approval ? '' : 'Traduzione confrontata · da approvare';
@@ -128,6 +137,7 @@ export function getEdition(locale: string, id: string) {
 }
 export function reviewPathForEdition(edition: Edition) {
   if (translationCandidate(edition.path)) return edition.path;
+  if (edition.source.startsWith('phase3')) return edition.path;
   if (edition.source.startsWith('historical snapshot ')) return edition.path;
   const segment = edition.kind === 'article' ? `articles/${edition.id}` : edition.id;
   return `/__localization-review/${edition.locale}/${segment}`;
