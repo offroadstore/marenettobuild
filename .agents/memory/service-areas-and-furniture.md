@@ -72,7 +72,9 @@ gardener and furniture-supplier roles without inventing people or licences.
 
 The owner additionally authorises a dedicated third-party property-management
 service with Cefalù Apartments for Italian and foreign owners of apartments
-and villas around Cefalù. Confirmed professional categories also include
+and villas in Cefalù and neighbouring towns, primarily Cefalù. This
+property-management coverage is distinct from the building team's travel offer.
+Confirmed professional categories also include
 geologists, notaries and lawyers. The owner's experience renting, renovating
 and managing apartments dates from 2008; this is not a new assertion of
 Marenetto Build's incorporation date.
@@ -84,8 +86,8 @@ verification from the partner's homepage.
 Booking and other OTAs, channel manager and the partner's own management
 software; owner access shows bookings, receipts/revenue, tourist tax and
 receipts/documents. Include cleaning, check-in/out and everyday issue management.
-The owner-authorised statement “currently manages dozens of properties in
-Cefalù” is time-sensitive: do not invent an exact number and recheck when
+The owner requires the wording “decine di immobili”, never an exact count.
+This statement is time-sensitive: recheck when
 updating the claim. Confirmed spoken languages are Italian, English, French,
 Dutch and Spanish; translated pages do not prove staff speak other languages.
 Reuse the existing enquiry and WhatsApp, collect no extra personal data, and
