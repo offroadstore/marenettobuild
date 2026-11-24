@@ -70,6 +70,27 @@ recognisable as the specialist building company; do not merge partner identities
 **How to apply:** Explain architect, engineer, carpenter, plumber, electrician,
 gardener and furniture-supplier roles without inventing people or licences.
 
+The owner additionally authorises a dedicated third-party property-management
+service with Cefalù Apartments for Italian and foreign owners of apartments
+and villas around Cefalù. Confirmed professional categories also include
+geologists, notaries and lawyers. The owner's experience renting, renovating
+and managing apartments dates from 2008; this is not a new assertion of
+Marenetto Build's incorporation date.
+
+**Why:** These are explicit owner-provided business facts, not independent
+verification from the partner's homepage.
+
+**How to apply:** Describe short-let procedures/authorisations including CIN,
+Booking and other OTAs, channel manager and the partner's own management
+software; owner access shows bookings, receipts/revenue, tourist tax and
+receipts/documents. Include cleaning, check-in/out and everyday issue management.
+The owner-authorised statement “currently manages dozens of properties in
+Cefalù” is time-sensitive: do not invent an exact number and recheck when
+updating the claim. Confirmed spoken languages are Italian, English, French,
+Dutch and Spanish; translated pages do not prove staff speak other languages.
+Reuse the existing enquiry and WhatsApp, collect no extra personal data, and
+do not build a second owner portal or imply guaranteed returns.
+
 Radiant floors, radiant walls, finishes and bespoke special details are
 owner-confirmed direct services, not partner categories. Distinguish them from
 the professional network; they do not inherit worldwide furniture coverage.
