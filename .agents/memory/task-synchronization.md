@@ -15,3 +15,11 @@ was already integrated and the candidate had passed its checks.
 last validated candidate as well as incoming Main. Preserve both intended
 sets of changes in ordinary commits. Base additional verification on the
 actual resulting differences, not merely on a successful conflict resolution.
+
+Marker-free automatic resolutions still need a syntax/type check and targeted
+behavior checks. Inspect surrounding scopes for duplicated or displaced blocks.
+
+**Why:** Automatic statement reconciliation has duplicated complete loops and
+left statements in the wrong scope without emitting further conflict markers.
+Successful synchronization alone is not evidence that the resulting source
+still represents either validated version.

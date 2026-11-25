@@ -7,6 +7,7 @@ export function llmsDocument(organization, entries, origin) {
   });
   const services = entries.filter(e => ['services', 'service-premium', 'service-local', 'contact'].includes(e.id));
   const additional = entries.filter(e => e.id !== 'home' && !services.includes(e));
+  const network = entries.filter(e => e.id.startsWith('network-'));
   return `# ${organization.name}
 
 > Building and renovation based in Cefalù, Sicily; premium bespoke furniture worldwide.
@@ -31,6 +32,13 @@ ${services.map(e => `- [${e.title}](${origin}${e.path})`).join('\n')}
 
 ## Other verified public pages
 ${additional.map(e => `- [${e.title}](${origin}${e.path})`).join('\n')}
+${network.length ? `
+## Professional network
+- Marenetto Build coordinates appointed professionals and specialist businesses; they are not all internal staff.
+- Radiant floors and walls, finishes and bespoke special details are confirmed direct services. Design qualifications and certification responsibilities are project-specific.
+- Building work normally focuses on about 60 km around Cefalù; work beyond is considered on request, distinct from worldwide bespoke concrete furniture.
+${network.map(e => `- [${e.title}](${origin}${e.path}) — ${e.description}`).join('\n')}
+` : ''}
 
 Only reviewed public links eligible for this release are listed. This file is an aid to reading, not a promise of indexing, rankings or AI citation.
 `;

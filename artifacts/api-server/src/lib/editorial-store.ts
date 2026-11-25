@@ -5,10 +5,17 @@ import catalogJSON from 'marenetto-editorial-catalog';
 import { cleanBody, event, fingerprint, revision, type EditorialData, EditorialError } from './editorial-content';
 import type { EditorialContent } from '@workspace/api-zod';
 
-type SeedRecord = { identity: string; locale: string; path: string; kind: string; historical: boolean; correction: boolean; content: EditorialContent; aliases?: string[]; originalBody?: string; originalMetadata?: Record<string, unknown>; rework?: EditorialContent };
+type SeedRecord = { identity: string; locale: string; path: string; kind: string; historical: boolean; correction: boolean; content: EditorialContent; aliases?: string[]; originalBody?: string; originalMetadata?: Record<string, unknown>; rework?: EditorialContent; releaseReady?: boolean };
 const catalog = catalogJSON as unknown as { locales: string[]; records: SeedRecord[]; reservedPaths?: string[] };
 export const editorialLocales = catalog.locales;
 export const isCatalogPath = (path: string) => (catalog.reservedPaths ?? []).some(reserved => normalizedPath(reserved) === normalizedPath(path));
+export function assertNetworkActivation(row: Row, content: EditorialContent) {
+  if (!row.identity.startsWith('network-')) return;
+  const seed = catalog.records.find(record => record.identity === row.identity && record.locale === row.locale && normalizedPath(record.path) === normalizedPath(row.path));
+  if (!seed?.releaseReady || fingerprint({ ...seed.content, body: cleanBody(seed.content.body) }) !== fingerprint(content)) {
+    throw new EditorialError(409, 'Rete di professionisti: questa revisione richiede ancora le verifiche linguistiche, tecniche, SEO e immagini. L’approvazione resta conservata; nessuna attivazione automatica.');
+  }
+}
 export type Row = { id: string; identity: string; locale: string; path: string; kind: 'article' | 'page'; version: number; data: EditorialData };
 export const normalizedPath = (path: string) => path.replace(/\/+$/, '') || '/';
 let imported: Promise<void> | undefined;
@@ -66,9 +73,19 @@ export async function allRows(client: Pick<PoolClient,'query'> = pool): Promise<
 export async function publicRows(): Promise<Row[]> {
   // Do not transfer the private catalog/history for inactive editions on every
   // public request. No positive cache can hide an activation or a withdrawal.
-  return (await pool.query<Row>(`SELECT * FROM editorial_editions
+  const rows = (await pool.query<Row>(`SELECT * FROM editorial_editions
     WHERE data->>'activeRevisionId' IS NOT NULL OR data->>'withdrawn'='true'
     ORDER BY identity,locale`)).rows;
+  return rows.filter(row => {
+    if (!row.identity.startsWith('network-') || row.data.withdrawn || !row.data.activeRevisionId) return true;
+    const active = row.data.revisions.find(rev => rev.id === row.data.activeRevisionId);
+    if (!active) return false;
+    try { assertNetworkActivation(row, active.content); return true; }
+    catch (error) {
+      if (error instanceof EditorialError && error.status === 409) return false;
+      throw error;
+    }
+  });
 }
 export function sourceFor(row: Row, rows: Row[]) {
   return rows.find(source => source.identity === row.identity && source.locale === 'it')?.data.revisions.at(-1) ?? null;

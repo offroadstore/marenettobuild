@@ -3,6 +3,8 @@ import { historicalInventory, loadHistorical, historicalDocument } from './histo
 import { editions, redirects, excludedRoutes } from '../localization/edition-inventory';
 import { LOCALES } from '../localization/locales';
 import { render } from '../entry-server';
+import { NETWORK_PAGES } from './network';
+import { networkCMSRecord } from './network/cms';
 
 // Build-time import only. The API bundles this snapshot, never reads or writes
 // frontend source files at request time.
@@ -44,5 +46,13 @@ export async function exportEditorialCatalog() {
       else records.push({ identity: id, locale: edition.locale, path: edition.path, kind: 'page', historical: false, correction: false, content: composition });
     }
   }
-  return { locales: LOCALES.map(locale => locale.code), records, reservedPaths: [...editions.map(e => e.path), ...Object.keys(redirects), ...excludedRoutes.map(route => route.path)] };
+  // Seed drafts with per-language immutable revisions, never activeRevisionId.
+  // Normal deployments import them for the existing private CMS only.
+  for (const page of NETWORK_PAGES) {
+    const record = networkCMSRecord(page);
+    const existing: number = records.findIndex(r => r.identity === record.identity && r.locale === record.locale);
+    if (existing >= 0) records[existing] = record;
+    else records.push(record);
+  }
+  return { locales: LOCALES.map(locale => locale.code), records, reservedPaths: [...editions.map(e => e.path), ...NETWORK_PAGES.map(page => page.path), ...Object.keys(redirects), ...excludedRoutes.map(route => route.path)] };
 }

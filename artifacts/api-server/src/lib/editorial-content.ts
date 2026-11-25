@@ -13,7 +13,7 @@ export const fingerprint = (value: unknown) => createHash('sha256').update(JSON.
 export function safeUrl(value: string, image = false): boolean {
   if (!value) return true;
   if (/[\u0000-\u0020\\]/.test(value)) return false;
-  if (value.startsWith('/')) return /^\/(?:media|brand|api\/historical-media)\//.test(value) && !value.includes('..') && !value.includes('?');
+  if (value.startsWith('/')) return /^\/(?:media|brand|api\/historical-media|api\/network-media)\//.test(value) && !value.includes('..') && !value.includes('?');
   try {
     const url = new URL(value);
     return url.protocol === 'https:' && !url.username && !url.password && !/\/(?:internal|private|attachments)(?:\/|$)/i.test(url.pathname) && !/[?&](?:x-goog-|x-amz-|token=|signature=)/i.test(url.search) && (!image || !/\.(?:svg|html?)(?:$|\?)/i.test(url.pathname));
@@ -22,7 +22,7 @@ export function safeUrl(value: string, image = false): boolean {
 export function cleanBody(body: string): string {
   return sanitizeHtml(body, {
     allowedTags: ['p','br','h1','h2','h3','h4','strong','b','em','i','u','ul','ol','li','blockquote','a','img','figure','figcaption','div','span','section','article','time'],
-    allowedAttributes: { a: ['href','title'], img: ['src','alt','loading'], '*': ['lang','dir','id'] },
+    allowedAttributes: { a: ['href','title'], img: ['src','alt','loading','width','height'], '*': ['lang','dir','id'] },
     allowedSchemes: ['https','mailto','tel'], allowProtocolRelative: false,
     transformTags: { a: (_tag, attrs) => ({ tagName: 'a', attribs: safeUrl(attrs.href ?? '') || (/^\/(?!\/)[^\\\s]*$/.test(attrs.href ?? '') && !/^\/(?:api\/internal|internal|private|__)/.test(attrs.href ?? '')) || /^#[a-zA-Z0-9_-]+$/.test(attrs.href ?? '') || /^(?:mailto:[a-zA-Z0-9.!+_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|tel:\+?[0-9()-]{3,30})$/.test(attrs.href ?? '') ? attrs : {} }),
       img: (_tag, attrs) => ({ tagName: 'img', attribs: safeUrl(attrs.src ?? '', true) ? attrs : { alt: attrs.alt ?? '' } }) },

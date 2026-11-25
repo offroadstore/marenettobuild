@@ -1,0 +1,775 @@
+{
+  "state": "ready-for-owner-republish",
+  "at": "2026-11-25T17:29:20.270Z",
+  "activation": "not-active",
+  "professionalSignOff": false,
+  "nativeSpeakerCertification": false,
+  "regionalReference": {
+    "validAt": "2025-02-28",
+    "laterChanges": "Visible case-specific caveat; accepted by owner, not blocking delivery",
+    "officialServingURL": "https://www.regione.sicilia.it/system/files/2025-04/lr%2016_2016%20agg%2028%20feb%202025.pdf",
+    "requestedSitesAlias": "HTTP404 observed, not represented as a successful source retrieval"
+  },
+  "checks": {
+    "seo": {
+      "reviewer": "AI-assisted editorial and automated checks, not professional sign-off",
+      "at": "2026-11-25T17:29:20.270Z",
+      "evidence": "Actual network SSR/metadata/schema/anchor tests and staged candidate audit; no promise of search ranking or rich results."
+    },
+    "linguistic": {
+      "reviewer": "AI-assisted editorial and automated checks, not professional sign-off",
+      "at": "2026-11-25T17:29:20.270Z",
+      "evidence": "144 complete editions and shared service copy compared with IT; suggestions adjudicated, localized dated regulatory notices and final alt corrections checked. Not native-speaker certification."
+    },
+    "technical": {
+      "reviewer": "AI-assisted editorial and automated checks, not professional sign-off",
+      "at": "2026-11-25T17:29:20.270Z",
+      "evidence": "AI documentary consistency check against consulted sources. Official 23-page L.R.16/2016 consolidation incorporates L.R.27/2024, valid 2025-02-28. Owner accepts later unverified changes as a visible case-specific caveat, not a delivery blocker. Not a qualified legal/technical opinion."
+    },
+    "ai": {
+      "reviewer": "AI-assisted editorial and automated checks, not professional sign-off",
+      "at": "2026-11-25T17:29:20.270Z",
+      "evidence": "Actual review of 34 illustrative scenes, all six comfort/glazing finished interiors, localized visible AI disclosure, alt descriptions and responsive asset inventory. Not photographs of company work."
+    }
+  },
+  "audit": {
+    "editorialPages": 144,
+    "servicePages": 42,
+    "snapshotSHA256": "14e30dce5c2f404f4795095af53eec344ee88ce486dfc448d861cc4da47625a0"
+  },
+  "editions": [
+    {
+      "id": "network",
+      "locale": "it",
+      "sha256": "ae543074925d4260c131db9628ead7b6123a2f46ec6cf0d9860f86c4799ad418"
+    },
+    {
+      "id": "design",
+      "locale": "it",
+      "sha256": "af0bde3e7a8f884662b03d2759a0878997e6d7ff7a32713d90123588201b93f3"
+    },
+    {
+      "id": "systems",
+      "locale": "it",
+      "sha256": "e17c2ef4195b48fab1f05ab04d62aff2be8f287d2ebf35e7ebd3ff5682790e56"
+    },
+    {
+      "id": "comfort",
+      "locale": "it",
+      "sha256": "fedb46a26f4dfd9bdef4098f9eb01129c69eab339d52044ae912d5dfe8f52d1d"
+    },
+    {
+      "id": "roofs",
+      "locale": "it",
+      "sha256": "857cc6184f9794d0f9b0f8015dfaf364176b69dfe4a070e5f4ae93f838084411"
+    },
+    {
+      "id": "ground",
+      "locale": "it",
+      "sha256": "e784e24810d3e42e0e5303dc875920525134d86c0638f7c6ba28f043c578112b"
+    },
+    {
+      "id": "outdoors",
+      "locale": "it",
+      "sha256": "c5bea298a5bf9a3bd82f20637e6a9d0b0bc9c991e14923410f97e8704f565268"
+    },
+    {
+      "id": "glazing",
+      "locale": "it",
+      "sha256": "e356bd2aa9b6620ac7792448ab3eadf7df4310b2207a86f56c0569fef9b6089c"
+    },
+    {
+      "id": "craft",
+      "locale": "it",
+      "sha256": "f3f67dd4bf2e22f01ab676d7004a414665faf0948e254ceb6e7fb6219a48fa90"
+    },
+    {
+      "id": "stone",
+      "locale": "it",
+      "sha256": "bdb9d705fe3fcaf5f893f69162b446f85592bd82bcbdb1f2d3c75e4b12fe01a2"
+    },
+    {
+      "id": "bespoke",
+      "locale": "it",
+      "sha256": "153e70616c842128d4346650d891be1cf5a1ca294c809c21d69e242c2f3d6ae1"
+    },
+    {
+      "id": "buying",
+      "locale": "it",
+      "sha256": "a6e7c9fc5951a82b8f5f054384b90b1aeb7b6b34659846137fcf2fe45bec276b"
+    },
+    {
+      "id": "network",
+      "locale": "en",
+      "sha256": "5c096a6e06cc6a58270dc396b8d4bcf11754e18030522b46d1f672bb1f20b1ed"
+    },
+    {
+      "id": "design",
+      "locale": "en",
+      "sha256": "f54ba24878638ba1c58a523c791d63cb8adfc985d68d78c80ade595843f89490"
+    },
+    {
+      "id": "systems",
+      "locale": "en",
+      "sha256": "54edbeb598eafbdcaa3c9ffc6c0452a0ae7c13a97ef9edac1040249c8a4407c1"
+    },
+    {
+      "id": "comfort",
+      "locale": "en",
+      "sha256": "c178cde888a50fc6381da8447d76e9102e302b44aef619861d2f0ba925734b2e"
+    },
+    {
+      "id": "roofs",
+      "locale": "en",
+      "sha256": "289c742469d705fe3cdea47d12160d278850a0426f94dadd51980365d41bf0fc"
+    },
+    {
+      "id": "ground",
+      "locale": "en",
+      "sha256": "e4c7573f2059ef9a4af124b8ddc3cb47fd613325dca15a8a681d39b364631995"
+    },
+    {
+      "id": "outdoors",
+      "locale": "en",
+      "sha256": "14ed85962d43f5f1f85a0506c592083800742c1f52a4fb3a417dd43bfefe1fe6"
+    },
+    {
+      "id": "glazing",
+      "locale": "en",
+      "sha256": "ad44be45808b73c24d4de4418376741f7dc2a8a6181c5f2bc2ea78f0b7664bb3"
+    },
+    {
+      "id": "craft",
+      "locale": "en",
+      "sha256": "0e56b77cc30cb08784bb2c229775b4cb255a54c846b445dbc179480972eb690d"
+    },
+    {
+      "id": "stone",
+      "locale": "en",
+      "sha256": "485038a13bddad76584ca770c5c567041024b571e75f68bf40409c7171fdd51d"
+    },
+    {
+      "id": "bespoke",
+      "locale": "en",
+      "sha256": "7e4f624000dec78e122a808715c72e6bdc70bb7c4663be8cce446bbae0dc15bb"
+    },
+    {
+      "id": "buying",
+      "locale": "en",
+      "sha256": "af45e9098379cd50c6a1e26df61a0bc5706f44b0ff3d20b4075f6c41020ca53e"
+    },
+    {
+      "id": "network",
+      "locale": "de",
+      "sha256": "795c98af9ea64b57e7fb1e614362858a0c1aed5f68a6c23940435dddb59cee58"
+    },
+    {
+      "id": "design",
+      "locale": "de",
+      "sha256": "31c89aac7664bd60a8dca40552455573570285b29d6f0cae8cfea86f55e844d0"
+    },
+    {
+      "id": "systems",
+      "locale": "de",
+      "sha256": "ed3d79abc41a6d10a92d01258058c0b7ef12daaa6f1f9dc4bbecc3a475943a5d"
+    },
+    {
+      "id": "comfort",
+      "locale": "de",
+      "sha256": "70c5444109b88f1306bde801d04ad1f24127d5319e90da8cb1a80db495489dfe"
+    },
+    {
+      "id": "roofs",
+      "locale": "de",
+      "sha256": "9e7f0db88941c02cdd23c2f90e61ff20ff1f4428154d3c3b6a61e891ecbd1507"
+    },
+    {
+      "id": "ground",
+      "locale": "de",
+      "sha256": "be5816f957d86d6cd6db8af99cb2bc8c815c49c37115ee79a5cb15054adc2a09"
+    },
+    {
+      "id": "outdoors",
+      "locale": "de",
+      "sha256": "30a175a477fe978ce38ff196675b51557709dcc6ce650350dff3a04bd756f72b"
+    },
+    {
+      "id": "glazing",
+      "locale": "de",
+      "sha256": "26c07bfd32021c7b1229a6a815514420f00591d80c230049e21e0a3c2a0bb87d"
+    },
+    {
+      "id": "craft",
+      "locale": "de",
+      "sha256": "377e11f9f21f34e3d1b67f60bbd079e4f5f2c292e436a988974f1533b3631053"
+    },
+    {
+      "id": "stone",
+      "locale": "de",
+      "sha256": "c95e8b1fa2220a011f22547f9c7beeb28b85955b80b9d26654537b774b8a73fe"
+    },
+    {
+      "id": "bespoke",
+      "locale": "de",
+      "sha256": "fd6aa66b7cd49fd8b69eb4cb6cc5490f8de38e1b15e4cb1c1260a239edfc9b41"
+    },
+    {
+      "id": "buying",
+      "locale": "de",
+      "sha256": "b36b41fd3aa55ec62f0ab27502f46168a1a6fd8898ff3de1832f92d46e33b821"
+    },
+    {
+      "id": "network",
+      "locale": "nl",
+      "sha256": "66815da4230a93134728f068d63107b687d98634fa67ba8b0fbda4d502ed1204"
+    },
+    {
+      "id": "design",
+      "locale": "nl",
+      "sha256": "c53d8602ce0b9bcb62689a2b4e74b597a9f9addf31412b51a92a5c111290bcc3"
+    },
+    {
+      "id": "systems",
+      "locale": "nl",
+      "sha256": "2b3374310accc7bee4b30c6eb3393932168ffb05fcc02ba6e91a301fe4898d79"
+    },
+    {
+      "id": "comfort",
+      "locale": "nl",
+      "sha256": "0d67a4dbc7eba984b1219ca61d0eb8c585d396c5dbb0b6401304f7940be7c001"
+    },
+    {
+      "id": "roofs",
+      "locale": "nl",
+      "sha256": "1757255b62a7509e5ef4b134a96fbf5d15b17278cc99ea6f467f1adb5ee51ea9"
+    },
+    {
+      "id": "ground",
+      "locale": "nl",
+      "sha256": "6de3f7dcc284c94b5bd0d515318f1b1cee7672f8c1cf1bed226c230159c6ca83"
+    },
+    {
+      "id": "outdoors",
+      "locale": "nl",
+      "sha256": "26792631416317c468c4797813ca661ccd19630048b37815b82d37789eb44d02"
+    },
+    {
+      "id": "glazing",
+      "locale": "nl",
+      "sha256": "165d33bd7367aa9a75fd05ed4fe612e0b31ca8ce192cfbe65a4ea98c9eb65314"
+    },
+    {
+      "id": "craft",
+      "locale": "nl",
+      "sha256": "f29432542ce78d860714ca2da94ef1372833a8a30d4b4ba725e0ef7f955c7372"
+    },
+    {
+      "id": "stone",
+      "locale": "nl",
+      "sha256": "88667b38a1296397846e4d236fccadc0f20524ac70e8b37e05697674ae6963ea"
+    },
+    {
+      "id": "bespoke",
+      "locale": "nl",
+      "sha256": "f6f46de234a7643888823ce61018526cf38bb6b5c1463a012a89ca9e8a51c60d"
+    },
+    {
+      "id": "buying",
+      "locale": "nl",
+      "sha256": "622504eb13382f884ec88acc09d6c90f734888fba7624acbe1f9781b9f343cd9"
+    },
+    {
+      "id": "network",
+      "locale": "fr",
+      "sha256": "7031c752d5ae881ad91eb7b160cf09296b9ea185b07056a5c83e9c2084dfd54f"
+    },
+    {
+      "id": "design",
+      "locale": "fr",
+      "sha256": "3b1cae94a20421fce815cbd957f5c70e83111b701338777ebf52e08fc137632d"
+    },
+    {
+      "id": "systems",
+      "locale": "fr",
+      "sha256": "a6786b0ce96180da1e24f5af3f585aab352b078c6c97de7b740be0bf9737f21b"
+    },
+    {
+      "id": "comfort",
+      "locale": "fr",
+      "sha256": "d9140bcf7fe1a6e93c9fef11211e9cf07031e51fe162632a57f1b8ae0f683316"
+    },
+    {
+      "id": "roofs",
+      "locale": "fr",
+      "sha256": "b10531f9ee943bf428a09a8d0f9b76ad80f1edf069ed3d833c37ab3586ed6e5c"
+    },
+    {
+      "id": "ground",
+      "locale": "fr",
+      "sha256": "da08b54fa76af4158c32253b8d05b79dd376bbec86952ba86e7490f199a28e07"
+    },
+    {
+      "id": "outdoors",
+      "locale": "fr",
+      "sha256": "d47fc588d5802fec5d0cbb4512ae85fe8743c84f701492eb0f1885cf4a81d82b"
+    },
+    {
+      "id": "glazing",
+      "locale": "fr",
+      "sha256": "eba16555df65290f29fef438309c2649401471253d30b6282867dfba308117e9"
+    },
+    {
+      "id": "craft",
+      "locale": "fr",
+      "sha256": "87746df3e3b3dccea18f9d757cdb2d853de346884961abc1dca63ab55bb7c491"
+    },
+    {
+      "id": "stone",
+      "locale": "fr",
+      "sha256": "95d171ba465ef4c27fb1f3db542f543835e9b8e232613461bdb40f42a77d1daa"
+    },
+    {
+      "id": "bespoke",
+      "locale": "fr",
+      "sha256": "4432b5987b193ad08a382418dcb9f36f3b80c7a41373f4a9948b00d69c009899"
+    },
+    {
+      "id": "buying",
+      "locale": "fr",
+      "sha256": "6e8be21a0fe93f379339ba8be0b2dcecce3da32ac62c870c07057d216db123e1"
+    },
+    {
+      "id": "network",
+      "locale": "es",
+      "sha256": "a62483a00abc2e41f536147b16e9ab35e5009e33e9a0fdd256b6e3d22a294d18"
+    },
+    {
+      "id": "design",
+      "locale": "es",
+      "sha256": "0e8cec6ba0a6d6a882a5d3d764ddbf70d7086601adfc2ebef561d34042b637d1"
+    },
+    {
+      "id": "systems",
+      "locale": "es",
+      "sha256": "210f5b03e1ee5014b3e15cd8f6bf5dac1071ea4449a70f81627342233434bb1c"
+    },
+    {
+      "id": "comfort",
+      "locale": "es",
+      "sha256": "a7088434ff437de2a01d0ca5d2a132fe03d9c1be43111d4d3b002171363ee3c6"
+    },
+    {
+      "id": "roofs",
+      "locale": "es",
+      "sha256": "ace80635980b82c26f9f328ba58415fde572c59182343161410be4238112710c"
+    },
+    {
+      "id": "ground",
+      "locale": "es",
+      "sha256": "3093da52ad341b32a13db8f2bd158b36dc548353041e434f5eaa4dc98d6dd06b"
+    },
+    {
+      "id": "outdoors",
+      "locale": "es",
+      "sha256": "84160a6d4405f02220694db8621375c327f667174456df472d677df05248bc94"
+    },
+    {
+      "id": "glazing",
+      "locale": "es",
+      "sha256": "cafbb808ad760d2b847bcb43b4fd1fa7c7ff935030a18e49bef3e3a8cb956746"
+    },
+    {
+      "id": "craft",
+      "locale": "es",
+      "sha256": "c9be792b88fd6d6bba85467015199419fd5d91bc0a834b624089ede7e17a161b"
+    },
+    {
+      "id": "stone",
+      "locale": "es",
+      "sha256": "04f529ebfd4c7c44426b265869cde1f0845710d60510d6170b866a694479746e"
+    },
+    {
+      "id": "bespoke",
+      "locale": "es",
+      "sha256": "1e627995899ca2d1d1f7fe4112a2c91e4527c033bcc47f0290aad90256bc6a24"
+    },
+    {
+      "id": "buying",
+      "locale": "es",
+      "sha256": "ea766e9ee9480ed90fcbbd77277fea6c96e87ff4f06b0fd130c6c0816a70fce4"
+    },
+    {
+      "id": "network",
+      "locale": "pt",
+      "sha256": "de8cc459bd04d5291136ca36a9e94019fb56b395aeb775864e01e8dd168bb7ec"
+    },
+    {
+      "id": "design",
+      "locale": "pt",
+      "sha256": "230d08b3d184d9ddbacde8dbb79b4ac101da3dacbc81892a5e92e42cda2951cb"
+    },
+    {
+      "id": "systems",
+      "locale": "pt",
+      "sha256": "ae65cb38e5015538b58ae77694276269082dda6af5bee91f069a41f72913a39f"
+    },
+    {
+      "id": "comfort",
+      "locale": "pt",
+      "sha256": "1f3806e56c1f990301d6ca7db1b463a5eb2920160cc1e4660553a0f3db743c4f"
+    },
+    {
+      "id": "roofs",
+      "locale": "pt",
+      "sha256": "6e32b96b000d4710538c9bd37334eef937e2098311036dec35c4b0d8ab205e3e"
+    },
+    {
+      "id": "ground",
+      "locale": "pt",
+      "sha256": "516261d9ddfdf79a6b508cd19ef41f1f0d932dde79d8b603f5b23c8681fa5bdf"
+    },
+    {
+      "id": "outdoors",
+      "locale": "pt",
+      "sha256": "bff24bdcc170fd155282192b3d389db38b586b5ad84ccd9022726104d3a9aadd"
+    },
+    {
+      "id": "glazing",
+      "locale": "pt",
+      "sha256": "51b12024b046af2a5e1885b9e06ff10d2be22334651f48bccb51787d89f1eef2"
+    },
+    {
+      "id": "craft",
+      "locale": "pt",
+      "sha256": "d817c378a14f02955b9f2d4c44652d0ef6fef538f1b738bfae7b0a4139da53c1"
+    },
+    {
+      "id": "stone",
+      "locale": "pt",
+      "sha256": "3608f41f3b1ec0a982e946ba77d1aab2efabafef4ecc6561842287897944a240"
+    },
+    {
+      "id": "bespoke",
+      "locale": "pt",
+      "sha256": "4ae8e26177e63d1e1898c9ecdeed7c957226d8a2f105497e49788f0578f70625"
+    },
+    {
+      "id": "buying",
+      "locale": "pt",
+      "sha256": "ed5950956d41e8451bdbb06f358efdb01eb935936e51d62ca7e42a74c8a26160"
+    },
+    {
+      "id": "network",
+      "locale": "pl",
+      "sha256": "51833910af0a556081ff2831bc417a6fd2d29481000b43c5c1ad0670b05b9f0a"
+    },
+    {
+      "id": "design",
+      "locale": "pl",
+      "sha256": "5224a2d4ca65bc679b3702977a42d9fda51eb7d5a7d6b418d77895672ffedb82"
+    },
+    {
+      "id": "systems",
+      "locale": "pl",
+      "sha256": "3e38a214ddbf9ef48d38eeb2146c59b67da44debb161eeebdffb3b40ba7fac13"
+    },
+    {
+      "id": "comfort",
+      "locale": "pl",
+      "sha256": "15e821f0bd6b01c4a676aebc26368634cbcbbeec6fe38c4e810ca9c37a520c24"
+    },
+    {
+      "id": "roofs",
+      "locale": "pl",
+      "sha256": "0a6b50eced4c6f3f8e4197ee8685fe3d95108866c03a2ea63fd48b4c6e61de56"
+    },
+    {
+      "id": "ground",
+      "locale": "pl",
+      "sha256": "8a151cab128cd89ed9e182fa1be77d23948eba65b21c4524c2dd4371f8c4ace3"
+    },
+    {
+      "id": "outdoors",
+      "locale": "pl",
+      "sha256": "98dde277ac59ee5ed5d15cd182d2c8e933762c211367ff5d8f1b6b3895d62ba0"
+    },
+    {
+      "id": "glazing",
+      "locale": "pl",
+      "sha256": "63b2f814d4e11d9543fe4cd2338cb8a6fb1a332c6ea66b4470cf5800e1803f4c"
+    },
+    {
+      "id": "craft",
+      "locale": "pl",
+      "sha256": "10464bb4b2ecfc29614d81a5260f38197e1b6a3415a15a1d2d0ee826371d48a6"
+    },
+    {
+      "id": "stone",
+      "locale": "pl",
+      "sha256": "6fbb9b92de6f2dafc669e9a586e19686c675d449f8a99f9004f98719adfb5dbe"
+    },
+    {
+      "id": "bespoke",
+      "locale": "pl",
+      "sha256": "e175833ded320260ea8e2eeab341d3d4df33fcd89904a34b93bea8e24ebbd151"
+    },
+    {
+      "id": "buying",
+      "locale": "pl",
+      "sha256": "61da705c4617e0da3880f8342a05f8d5633d08e76e42face2ecb8b78371ade9c"
+    },
+    {
+      "id": "network",
+      "locale": "ru",
+      "sha256": "21131a24f8c0d20267bf7ca31bba63596da7f3aa4962b0ae4e56e55beb83b362"
+    },
+    {
+      "id": "design",
+      "locale": "ru",
+      "sha256": "cac374dadb45469fd9a5263f669af04935ea1fcb37a5aaa7e72433c99767b61e"
+    },
+    {
+      "id": "systems",
+      "locale": "ru",
+      "sha256": "b7ede8ff7d7264ada02e095f5bbf62e07e14326e9eaacb1190db9b448c8dd918"
+    },
+    {
+      "id": "comfort",
+      "locale": "ru",
+      "sha256": "6e0136914fe88223a821c49fd9f8c0ac9886dd8fa3a9d0a6094e7fb2055088f0"
+    },
+    {
+      "id": "roofs",
+      "locale": "ru",
+      "sha256": "4ace7f163b0eb4f20a4565638439959370fd89f6f78d7db1b1057f3aa65985a4"
+    },
+    {
+      "id": "ground",
+      "locale": "ru",
+      "sha256": "e30a6113bf6642246369d1485e22ea90cd4cede78a516cc478a324196c5b21b6"
+    },
+    {
+      "id": "outdoors",
+      "locale": "ru",
+      "sha256": "8fe4df0cce6216b33fa975f4877e3d9f14be3b8a2ad3a4795fec62d9af0ea25e"
+    },
+    {
+      "id": "glazing",
+      "locale": "ru",
+      "sha256": "93cb28934c90be7d82e1a9b8d669ff30f0602c6b516f0f000f2b47908454b388"
+    },
+    {
+      "id": "craft",
+      "locale": "ru",
+      "sha256": "ac930024475123e18cfecd91f89cc1382d58ccef5161f3618167870baf16caa9"
+    },
+    {
+      "id": "stone",
+      "locale": "ru",
+      "sha256": "f4e223822488414979d3a9b9e0c0fb3160053e5fd28a995e6ae76c55e746dfd8"
+    },
+    {
+      "id": "bespoke",
+      "locale": "ru",
+      "sha256": "cfbcd82e3f85ab02c11ff231aa709f5c0672f9fc22d012072f2662da10281086"
+    },
+    {
+      "id": "buying",
+      "locale": "ru",
+      "sha256": "e0651d798671c8477665aa9cb6c65c86ef0b750d88fdca412f6a3b4bca07a582"
+    },
+    {
+      "id": "network",
+      "locale": "sv",
+      "sha256": "669b5af85d699f71996c593d13f732fb5e3c965da967bd54f3a2c76dbe54d9af"
+    },
+    {
+      "id": "design",
+      "locale": "sv",
+      "sha256": "73a59cd9412070c1ced4d4e7db36deb4770f32cb5f7c027fd6ed7b840206aa0a"
+    },
+    {
+      "id": "systems",
+      "locale": "sv",
+      "sha256": "fdff48fb87263aae7828c6e418e200bd87c28fd520b0e849de188bc8e0c14440"
+    },
+    {
+      "id": "comfort",
+      "locale": "sv",
+      "sha256": "f6ef300efc813e75e615011cd129cdf7906c9254e01e0f42183e5cea1ba037ed"
+    },
+    {
+      "id": "roofs",
+      "locale": "sv",
+      "sha256": "21163b711ea800f79396f71e303d5e20993df64e613fc87ed8a88f8cef995758"
+    },
+    {
+      "id": "ground",
+      "locale": "sv",
+      "sha256": "5756cb3f90a3b83f68251a079cfdbb45a97a91831b589df4a98d1872ef426f67"
+    },
+    {
+      "id": "outdoors",
+      "locale": "sv",
+      "sha256": "1fd4f957b74a504b9fdfb6f81574f71d1b76e8d3b61373ca52ffbdd2aa0ed393"
+    },
+    {
+      "id": "glazing",
+      "locale": "sv",
+      "sha256": "b4a135f698a604ed2bcb8a5444d51df01d2d892c9f7a8da16d18b7ee4355c0dc"
+    },
+    {
+      "id": "craft",
+      "locale": "sv",
+      "sha256": "00b12e6c854b0096ca376fedc528814c9b5a48f0076e055e3fcbe2d86081f5d6"
+    },
+    {
+      "id": "stone",
+      "locale": "sv",
+      "sha256": "85af2c81984fa25e688e2a9dfd754ff0ff8fa559227a20483de5fb1c2ad24fe6"
+    },
+    {
+      "id": "bespoke",
+      "locale": "sv",
+      "sha256": "25daaa7d755b6f242213bb30b911212d7a607f99652dbbd5e5803e4bee8fa52c"
+    },
+    {
+      "id": "buying",
+      "locale": "sv",
+      "sha256": "4a19396573fe3e1fcd2b31267d3169fd3097655153e656188275850a10839764"
+    },
+    {
+      "id": "network",
+      "locale": "no",
+      "sha256": "1fd669c39101ac4ffb6d16b5d3673fcfaeb0b685a27af4648947953ec5ef815c"
+    },
+    {
+      "id": "design",
+      "locale": "no",
+      "sha256": "841532f31270e40d609ebff15bff1914ab51daae9e4f0b332ee26af7fa6a5a00"
+    },
+    {
+      "id": "systems",
+      "locale": "no",
+      "sha256": "d20669083eb4bf6a5aa5b207214d7d9d3c32fc80ef589644865e44f5365cd8be"
+    },
+    {
+      "id": "comfort",
+      "locale": "no",
+      "sha256": "7befadb60d2895743ec495c3e3601df9a4ce98bc1f776dfeb5e3f161feb53f43"
+    },
+    {
+      "id": "roofs",
+      "locale": "no",
+      "sha256": "bc780f61630fb6b55467e98137a5c9ced10c73d371657eb9a7d770eb2696e9e8"
+    },
+    {
+      "id": "ground",
+      "locale": "no",
+      "sha256": "da8ba72428a3702eea17809495ceb7100299d48b1f69621404430c577aa8a9e5"
+    },
+    {
+      "id": "outdoors",
+      "locale": "no",
+      "sha256": "1ad9fb561c6ea13c40665485e78a474a8e05cb18b44838e0cf947010ad9fbc91"
+    },
+    {
+      "id": "glazing",
+      "locale": "no",
+      "sha256": "e2b289cfba0baaad11c3febee9763f58797a92fb198b4179ae94a65e053bb418"
+    },
+    {
+      "id": "craft",
+      "locale": "no",
+      "sha256": "2d91e320b130116677c22a3a9b8024968ebf5deebe46fd135b209b64fcaa2f58"
+    },
+    {
+      "id": "stone",
+      "locale": "no",
+      "sha256": "6cde1f7e0fdc335d2d519f35dcae8228352a1358cfdcc80ec051e3425095e90e"
+    },
+    {
+      "id": "bespoke",
+      "locale": "no",
+      "sha256": "12ed99283e8a44ac997d789c1aca667bb87beb76e0674a0eee6c73821718a11e"
+    },
+    {
+      "id": "buying",
+      "locale": "no",
+      "sha256": "b52a2ca3b0601763607f56ec0f3add3ce4b69e4b16427df300046b247e146643"
+    },
+    {
+      "id": "network",
+      "locale": "da",
+      "sha256": "2f69b4b624c19ac860bb43b29a9c407c20ed21627d36c3fd1e649b5b980cd5a7"
+    },
+    {
+      "id": "design",
+      "locale": "da",
+      "sha256": "4b4c36bbf14f5672364c508d2a2975d56ee9a4f1101faa85909b50fa6445fb42"
+    },
+    {
+      "id": "systems",
+      "locale": "da",
+      "sha256": "415557b70a38d1ee80f9a8e81dd5f6f94e1397d04a14d6238aec38b80a2dd71b"
+    },
+    {
+      "id": "comfort",
+      "locale": "da",
+      "sha256": "7db2dfd3ddf1f7b823ca281c63465930cc40d280daca25f1d73fe6c2b621d4d6"
+    },
+    {
+      "id": "roofs",
+      "locale": "da",
+      "sha256": "912f1c5bc13add0c3bb01155838ceeedda04d6f89385e6f0816f82cb64382e34"
+    },
+    {
+      "id": "ground",
+      "locale": "da",
+      "sha256": "4ace07b89874ff0aac53a8801666934e14ad5c6134765b389c1daa99c1ace762"
+    },
+    {
+      "id": "outdoors",
+      "locale": "da",
+      "sha256": "8d592bcbd60dfc06de0e9efbcaa591cef02a7fe210b744ab02fc55a90ab70a3f"
+    },
+    {
+      "id": "glazing",
+      "locale": "da",
+      "sha256": "b5e57c909f4e69f1c549a3709b2e09d05e5196cb43e8dda9a6699c7f64fb8cf0"
+    },
+    {
+      "id": "craft",
+      "locale": "da",
+      "sha256": "8ea00d2eff1a90e2dc661502e7bbfee59f6d95251dfe155597079f0b81f5dd2d"
+    },
+    {
+      "id": "stone",
+      "locale": "da",
+      "sha256": "cfb27eae651338aed16444c9d519d8beeb77757f7b0a150e7ac0f190bed5fe43"
+    },
+    {
+      "id": "bespoke",
+      "locale": "da",
+      "sha256": "b5eb406a50fa5ca91d5712011aa5ac3a7cd5d06f964b505dd484c71aacf0b825"
+    },
+    {
+      "id": "buying",
+      "locale": "da",
+      "sha256": "643335844fe5e3b9c210905ccd2528fb9d13f24d235c5d1f68974541b5b12056"
+    }
+  ],
+  "finalChecks": {
+    "at": "2026-11-25T17:37:47.256Z",
+    "httpDocuments": 186,
+    "httpPassed": 186,
+    "lighthouseURLs": 28,
+    "seoScores": [
+      0.69
+    ],
+    "accessibilityScores": [
+      0.96
+    ],
+    "environment": "Local-only staged SSR HTML/CSS, deliberate noindex; no new interaction tester"
+  }
+}

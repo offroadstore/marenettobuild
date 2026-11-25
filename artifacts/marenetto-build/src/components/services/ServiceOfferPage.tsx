@@ -5,6 +5,7 @@ import { SERVED_PLACES } from '@/content/phase3/places';
 import { withCampaignParams } from '@/lib/campaign';
 import './service-offer.css';
 import { PropertyManagementLink } from '@/pages/property-management';
+import { NetworkServicesBlock } from '@/pages/network';
 
 function copyFor(lang: string) {
   const copy = serviceCopy[lang];
@@ -36,10 +37,10 @@ export function ServiceScopeLinks({ lang }: { lang: string }) {
   );
 }
 
-export function ServiceOfferPage({ lang }: { lang: string }) {
+export function ServiceOfferPage({ lang, previewNetwork = false }: { lang: string; previewNetwork?: boolean }) {
   const [pathname] = useLocation();
   const c = copyFor(lang);
-  const isLocal = pathname.replace(/\/+$/, '') === offerPath(lang, 'local');
+  const isLocal = previewNetwork || pathname.replace(/\/+$/, '') === offerPath(lang, 'local');
   const title = isLocal ? c.localTitle : c.premiumTitle;
   const cta = `${requestPath(lang)}?service=${isLocal ? 'local-building' : 'bespoke-furniture'}`;
   const chapters: [string, string][] = [['01', c.materials], ['02', c.process], ['03', c.travel]];
@@ -70,6 +71,7 @@ export function ServiceOfferPage({ lang }: { lang: string }) {
           <li key={row.slug}>{row.name}</li>
         )}</ul>
       </div></section>}
+      {isLocal && <NetworkServicesBlock locale={lang} preview={previewNetwork} />}
 
       {!isLocal && (
         <>

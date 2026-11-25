@@ -13,6 +13,8 @@ import { legalPath, noticeCopy } from '@/content/legal-notices';
 import { legalPages } from '@/content/legal';
 import { PHASE3_PAGES } from '@/content/phase3';
 import { PROPERTY_PAGES } from '@/content/property-management';
+import { NETWORK_PUBLIC_PAGES, networkCopy } from '@/content/network';
+import { NETWORK_SERVICE_IDS } from '@/content/network/types';
 
 export type EditionState = 'draft' | 'translated' | 'reviewed' | 'published';
 export type Edition = {
@@ -161,6 +163,21 @@ for (const edition of editions) {
     if (edition.translationRevision) edition.translationApprovalRevision = edition.translationRevision;
   }
 }
+// Append AFTER legacy owner-wide authorization: unreviewed network revisions
+// must never inherit the approval of older public pages.
+for (const page of NETWORK_PUBLIC_PAGES) editions.push({
+  id: `network-${page.id}`, locale: page.locale, path: page.path, kind: 'article',
+  state: 'published', approval: 'Revision-specific network evidence in content/network/reviews.json',
+  source: 'network:revision-reviewed', title: page.title, description: page.description,
+  contentLanguage: page.locale, sitemap: true,
+});
+for (const edition of editions) {
+  if ((NETWORK_SERVICE_IDS as readonly string[]).includes(edition.id) && NETWORK_PUBLIC_PAGES.some(page => page.locale === edition.locale)) {
+    const c = networkCopy(edition.locale);
+    edition.description = `${edition.title.split(' | ')[0]}. ${c.articles.comfort.description}`;
+    if (edition.coreMetadata) edition.coreMetadata = { ...edition.coreMetadata, description: edition.description };
+  }
+}
 for (const page of PROPERTY_PAGES) {
   if (editions.some(edition => edition.path.replace(/\/+$/, '') === page.path.replace(/\/+$/, ''))) {
     throw new Error(`Property service route collision: ${page.path}`);
@@ -182,6 +199,7 @@ export function getEdition(locale: string, id: string) {
 }
 export function reviewPathForEdition(edition: Edition) {
   if (edition.id === 'property-management') return edition.path;
+  if (edition.source.startsWith('network:')) return edition.path;
   if (edition.source.startsWith('phase3:') || edition.source.startsWith('phase4:')) return edition.path;
   if (translationCandidate(edition.path)) return edition.path;
   if (edition.source.startsWith('phase3')) return edition.path;

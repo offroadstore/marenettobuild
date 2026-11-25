@@ -1,0 +1,1282 @@
+{
+  "mode": "ai-assisted-documentary-linguistic",
+  "at": "2026-11-25T17:28:54.150Z",
+  "reviewer": "Replit Agent — AI-assisted editorial check",
+  "professionalSignOff": false,
+  "nativeSpeakerCertification": false,
+  "publicationApproval": false,
+  "visualCoverage": "All 34 originals inspected in nine larger four-scene panels; AI visual observation, not verification of materials, construction or invisible systems.",
+  "decisions": [
+    "Removed Swedish, Norwegian and Danish comparisons with real-estate sales occupations; retained the distinction between Italian notaio and domestic notarial/legal roles. The two additional cases were found by the literal regression scan, not by the linguistic model.",
+    "Clarified French dimensions and EV charging terminology, and Russian direzione lavori without asserting equivalence to a domestic statutory role.",
+    "Corrected 24 localized alt texts: depict a timber pergola and metal terrace railing, not a close-up joint or a visually unverifiable stainless alloy.",
+    "Kept authorized explanations of geometra, notaio, CIN and direzione lavori. Rejected suggestions to remove them merely because Italian readers do not need the same gloss.",
+    "Rejected proposed Italian text inside Dutch content, geometra described as a real-estate expert, unnecessary statutory guarantees, and stylistic rewrites without a concrete defect.",
+    "Replaced the Agrigento water reference with Palermo forms updated 4 November 2026; added the official 4 March 2026 installer guide and the Notariato checks page.",
+    "Documentary model output used an inexact regional URL and loose English wording about internal design. Those are not accepted as source citations or substantive findings.",
+    "Owner accepts the official L.R.16/2016 consolidation valid2025-02-28, with later unverified amendments left in a localized case-specific notice without blocking handoff. PDF confirmed: HTTP200 application/pdf, 23pages. Requested /sites/ aliases returned404; working official /system/ copy retained.",
+    "Final AI check added all twelve localized regulatory notices and reviewed 34 originals in nine larger panels. Corrected 24 further roof alt texts: no assertion of visible drains, slopes or a skylight absent from the image."
+  ],
+  "remainingLimits": [
+    "No qualified technical/legal opinion or native-speaker certification has been obtained.",
+    "Regional legal consolidation is valid2025-02-28; later unverified changes remain a visible professional case-specific check, explicitly accepted by the owner as non-blocking.",
+    "The ARS page supplies the original 2016 act, not a current consolidation. A 2026 GURS supplement could not be retrieved: reader error, then direct HTTP timeout after 35 seconds. No claim is made about its unseen contents.",
+    "NTC approval notice and UNI public summary are not the full technical annex or paid standard.",
+    "Design, permissions, qualifications, condensation, waterproofing, anchors, glass safety, heritage constraints, wells and purchase checks require competent assessment on the actual case.",
+    "Images have AI visual acceptance, not owner certification or proof of actual works. The public release ledger remains unchanged; staged readiness does not itself activate the section."
+  ],
+  "sourceReceipts": [
+    {
+      "id": "heritage-restoration",
+      "url": "https://sabapmolise.cultura.gov.it/procedimenti/autorizzazione-interventi-sui-beni-culturali/restauro",
+      "consultedAt": "2026-11-25T16:39:53.889Z",
+      "receiptSHA256": "e3d28c02f8f6438f5ac835eef3e38b249a5bf605ee0178cd88dd99765796175b",
+      "truncated": false,
+      "usableAsEvidence": true
+    },
+    {
+      "id": "notary-checks",
+      "url": "https://www.notariato.it/it/casa/i-controlli-classici",
+      "consultedAt": "2026-11-25T16:43:17.781Z",
+      "receiptSHA256": "d0a4890a219f004e86d6f368611524e78d0e42205d348e63c9238a2c927e5565",
+      "truncated": false,
+      "usableAsEvidence": true
+    },
+    {
+      "id": "notary",
+      "url": "https://www.notariato.it/it/casa/",
+      "consultedAt": "2026-11-25T16:39:53.889Z",
+      "receiptSHA256": "3606836eb8c66dc32ef21bb0470ce4f1c9e9927fc6d4b88ed26912becdffb691",
+      "truncated": false,
+      "usableAsEvidence": false
+    },
+    {
+      "id": "regional-2026-gurs",
+      "url": "https://www.gursonline.regione.sicilia.it/wp-content/uploads/2026/06/firm-SO_01_GURS_25_2026.pdf",
+      "consultedAt": "2026-11-25T16:52:14.820Z",
+      "receiptSHA256": "8176173f76f6b8ec51b5c505bcababe828b0830d0a5e5773a21c56d36979e706",
+      "truncated": false,
+      "failure": "Document not retrieved. Web reader: 500 Internal Server Error. Direct HTTP: timeout after 35 seconds, HTTP000, 0bytes. No substantive claim made from unseen document.",
+      "usableAsEvidence": false
+    },
+    {
+      "id": "regional-ars",
+      "url": "https://w3.ars.sicilia.it/lex/L_2016_016.htm",
+      "consultedAt": "2026-11-25T16:48:07.453Z",
+      "receiptSHA256": "5f8d3ef0e6d66c2bc08a817a807e62d1f5644221c2af6f466fbb7b954eefd1f1",
+      "truncated": false,
+      "usableAsEvidence": false
+    },
+    {
+      "id": "regional-consolidated-owner",
+      "url": "https://regione.sicilia.it/sites/default/files/2025-04/lr%2016_2016%20agg%2028%20feb%202025.pdf",
+      "consultedAt": "2026-11-25T17:13:33.381Z",
+      "receiptSHA256": "cfffcfef3c2c190bc7adc40d61d87f7c6c083a304fa9e3dc2b88c0c21b556c3c",
+      "truncated": false,
+      "failure": "HTTP404 confirmed; page-not-found HTML, not a PDF or substantive reference.",
+      "usableAsEvidence": false
+    },
+    {
+      "id": "regional-permission-owner",
+      "url": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-territorio-ambiente/dipartimento-urbanistica/normativa-permesso-costruire",
+      "consultedAt": "2026-11-25T17:13:33.381Z",
+      "receiptSHA256": "70ee1b936350f4a9e86186de3d7cfb2c14cf86e6eab1cd1cfe2120ea48970a91",
+      "truncated": false,
+      "usableAsEvidence": true
+    },
+    {
+      "id": "regional-register",
+      "url": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-territorio-ambiente/dipartimento-urbanistica/norme-governo-territorio",
+      "consultedAt": "2026-11-25T16:39:53.889Z",
+      "receiptSHA256": "3874c057db562520769f9aa7f7bbb234d2eb8079b23aecef6fff29b4928e3d0a",
+      "truncated": false,
+      "usableAsEvidence": true
+    },
+    {
+      "id": "regional-verified-pdf",
+      "url": "https://www.regione.sicilia.it/system/files/2025-04/lr%2016_2016%20agg%2028%20feb%202025.pdf",
+      "consultedAt": "2026-11-25T17:21:33.013Z",
+      "receiptSHA256": "0342008f73cf962e9dc724607ff0a17dd59193612771978dab57f2c058657b5c",
+      "truncated": false,
+      "usableAsEvidence": true
+    },
+    {
+      "id": "structural-rules",
+      "url": "https://www.gazzettaufficiale.it/eli/id/2018/2/20/18A00716/sg",
+      "consultedAt": "2026-11-25T16:39:53.889Z",
+      "receiptSHA256": "5048bbe727ad06c12008f39f9489a62de59d889ba2506a5d7ff02e6f7e88b93f",
+      "truncated": false,
+      "usableAsEvidence": true
+    },
+    {
+      "id": "systems-2026",
+      "url": "https://www.ge.camcom.gov.it/it/avvia/attivita-con-requisiti/copy_of_imprese-di-impiantistica/guida-impiantistica-rev-4-3-2026.pdf",
+      "consultedAt": "2026-11-25T16:39:53.889Z",
+      "receiptSHA256": "755d9d7f31c5c6ea6e38d17ec5a32eb3e05b9567dc577439882518a30609173f",
+      "truncated": false,
+      "usableAsEvidence": true
+    },
+    {
+      "id": "water-palermo",
+      "url": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/genio-civile-palermo/modulistica-acque-pubbliche",
+      "consultedAt": "2026-11-25T16:39:53.889Z",
+      "receiptSHA256": "e8ba0777610ccac2359f53d5658434de937e6fa776a63dafaddf561961a66d4d",
+      "truncated": false,
+      "usableAsEvidence": true
+    }
+  ],
+  "editions": [
+    {
+      "id": "network",
+      "locale": "it",
+      "inputSHA256": "6393bbddbd695c3e625be110b3cca0ba2bbb264a7ca3be4f65b27c12b7506b94",
+      "contentSHA256": "ae543074925d4260c131db9628ead7b6123a2f46ec6cf0d9860f86c4799ad418",
+      "linguisticResultSHA256": "5afc711e9c7c54a4352b7148f751b6b99800e200a88f902c94ef5c0b75db0c1d",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "design",
+      "locale": "it",
+      "inputSHA256": "e9778bf70e1cd7dc5427a4649e27a7d0a242d38d37ef6e554e51313fb99af538",
+      "contentSHA256": "af0bde3e7a8f884662b03d2759a0878997e6d7ff7a32713d90123588201b93f3",
+      "linguisticResultSHA256": "5afc711e9c7c54a4352b7148f751b6b99800e200a88f902c94ef5c0b75db0c1d",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "systems",
+      "locale": "it",
+      "inputSHA256": "172e28ed419a0f0620d295022f9bd543240daf5e929086fdff0012721a3e139e",
+      "contentSHA256": "e17c2ef4195b48fab1f05ab04d62aff2be8f287d2ebf35e7ebd3ff5682790e56",
+      "linguisticResultSHA256": "5afc711e9c7c54a4352b7148f751b6b99800e200a88f902c94ef5c0b75db0c1d",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "comfort",
+      "locale": "it",
+      "inputSHA256": "0dd37cccbe4e57485fc92fda4aa88ca15be96c53eb51af639551ba95a8068781",
+      "contentSHA256": "fedb46a26f4dfd9bdef4098f9eb01129c69eab339d52044ae912d5dfe8f52d1d",
+      "linguisticResultSHA256": "5afc711e9c7c54a4352b7148f751b6b99800e200a88f902c94ef5c0b75db0c1d",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "roofs",
+      "locale": "it",
+      "inputSHA256": "c80a025c663cee34c4fe57ec5e79162ffe5a0eb496170b857ea7715e1236e51d",
+      "contentSHA256": "857cc6184f9794d0f9b0f8015dfaf364176b69dfe4a070e5f4ae93f838084411",
+      "linguisticResultSHA256": "5afc711e9c7c54a4352b7148f751b6b99800e200a88f902c94ef5c0b75db0c1d",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "ground",
+      "locale": "it",
+      "inputSHA256": "18e6cfade9d651ec7bd773d73f95b36cb8069b7fd70327a6549dc37fa59d9813",
+      "contentSHA256": "e784e24810d3e42e0e5303dc875920525134d86c0638f7c6ba28f043c578112b",
+      "linguisticResultSHA256": "5afc711e9c7c54a4352b7148f751b6b99800e200a88f902c94ef5c0b75db0c1d",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "outdoors",
+      "locale": "it",
+      "inputSHA256": "55bf8e2523c33e635fe4f71bdc1606ae7c4ba8f65be6d1bbf8bb16dc00ad20d8",
+      "contentSHA256": "c5bea298a5bf9a3bd82f20637e6a9d0b0bc9c991e14923410f97e8704f565268",
+      "linguisticResultSHA256": "5afc711e9c7c54a4352b7148f751b6b99800e200a88f902c94ef5c0b75db0c1d",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "glazing",
+      "locale": "it",
+      "inputSHA256": "dbcb1e33aabca2de3ee02f3e5a61bf044e485badf314fab4d8d435370899e168",
+      "contentSHA256": "e356bd2aa9b6620ac7792448ab3eadf7df4310b2207a86f56c0569fef9b6089c",
+      "linguisticResultSHA256": "5afc711e9c7c54a4352b7148f751b6b99800e200a88f902c94ef5c0b75db0c1d",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "craft",
+      "locale": "it",
+      "inputSHA256": "e68bebc876fbd1b2988879a09729ccd63849c36c331c4ec4ec934e2a784f6c2c",
+      "contentSHA256": "f3f67dd4bf2e22f01ab676d7004a414665faf0948e254ceb6e7fb6219a48fa90",
+      "linguisticResultSHA256": "5afc711e9c7c54a4352b7148f751b6b99800e200a88f902c94ef5c0b75db0c1d",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "stone",
+      "locale": "it",
+      "inputSHA256": "d671af3b7ffec3ff50c1fa46cebf756eaa96c34d06925ca1b70f05de531d4056",
+      "contentSHA256": "bdb9d705fe3fcaf5f893f69162b446f85592bd82bcbdb1f2d3c75e4b12fe01a2",
+      "linguisticResultSHA256": "5afc711e9c7c54a4352b7148f751b6b99800e200a88f902c94ef5c0b75db0c1d",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "bespoke",
+      "locale": "it",
+      "inputSHA256": "a1cadc61a30bd6e17b6e55b352953a5f5aee1f59177efe43439bb7d21bd9cb70",
+      "contentSHA256": "153e70616c842128d4346650d891be1cf5a1ca294c809c21d69e242c2f3d6ae1",
+      "linguisticResultSHA256": "5afc711e9c7c54a4352b7148f751b6b99800e200a88f902c94ef5c0b75db0c1d",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "buying",
+      "locale": "it",
+      "inputSHA256": "d407df3650c71a844774f3441c714f5ef4fe16378c0ddb8d4628f2a8eab4e533",
+      "contentSHA256": "a6e7c9fc5951a82b8f5f054384b90b1aeb7b6b34659846137fcf2fe45bec276b",
+      "linguisticResultSHA256": "5afc711e9c7c54a4352b7148f751b6b99800e200a88f902c94ef5c0b75db0c1d",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "network",
+      "locale": "en",
+      "inputSHA256": "ca1a8f471b02e811f78bdd0eb03ae21bfb7f64ce617863fbe09d620f31528e5d",
+      "contentSHA256": "5c096a6e06cc6a58270dc396b8d4bcf11754e18030522b46d1f672bb1f20b1ed",
+      "linguisticResultSHA256": "98265b3201ebf75be61a3d1a77eae9a57d96d8467546ac5938b307912e41deff",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "design",
+      "locale": "en",
+      "inputSHA256": "5f1c05ec58076e338a13047b67f9825ebcce3549a200faddfb133eb1f73975ab",
+      "contentSHA256": "f54ba24878638ba1c58a523c791d63cb8adfc985d68d78c80ade595843f89490",
+      "linguisticResultSHA256": "98265b3201ebf75be61a3d1a77eae9a57d96d8467546ac5938b307912e41deff",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "systems",
+      "locale": "en",
+      "inputSHA256": "7a92fb0ecc52efa5e3cd97822c610c879c976e0ad325166070835e9313f726a8",
+      "contentSHA256": "54edbeb598eafbdcaa3c9ffc6c0452a0ae7c13a97ef9edac1040249c8a4407c1",
+      "linguisticResultSHA256": "98265b3201ebf75be61a3d1a77eae9a57d96d8467546ac5938b307912e41deff",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "comfort",
+      "locale": "en",
+      "inputSHA256": "44931cbf66ce8859dd363a4802f4106cc5441c3c628e94082f3690e1ad387e69",
+      "contentSHA256": "c178cde888a50fc6381da8447d76e9102e302b44aef619861d2f0ba925734b2e",
+      "linguisticResultSHA256": "98265b3201ebf75be61a3d1a77eae9a57d96d8467546ac5938b307912e41deff",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "roofs",
+      "locale": "en",
+      "inputSHA256": "1d07ae5a048cb2b55eb121ef28165f74311ba85d86a15dc2c9af974c9e72ad66",
+      "contentSHA256": "289c742469d705fe3cdea47d12160d278850a0426f94dadd51980365d41bf0fc",
+      "linguisticResultSHA256": "98265b3201ebf75be61a3d1a77eae9a57d96d8467546ac5938b307912e41deff",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "ground",
+      "locale": "en",
+      "inputSHA256": "4ffa0cd9f99e24c04c80b1a15ba56219d7b0807b01f09b34fafd3e9d4bf15578",
+      "contentSHA256": "e4c7573f2059ef9a4af124b8ddc3cb47fd613325dca15a8a681d39b364631995",
+      "linguisticResultSHA256": "98265b3201ebf75be61a3d1a77eae9a57d96d8467546ac5938b307912e41deff",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "outdoors",
+      "locale": "en",
+      "inputSHA256": "38fb5beadba00dbc8af335957c75e7ab8ba25542ecfbb486a025b74197f3784b",
+      "contentSHA256": "14ed85962d43f5f1f85a0506c592083800742c1f52a4fb3a417dd43bfefe1fe6",
+      "linguisticResultSHA256": "98265b3201ebf75be61a3d1a77eae9a57d96d8467546ac5938b307912e41deff",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "glazing",
+      "locale": "en",
+      "inputSHA256": "503776b4e2d8050bbc15de42e64e4614c5f00f451073fa2bc87e20d614a0b392",
+      "contentSHA256": "ad44be45808b73c24d4de4418376741f7dc2a8a6181c5f2bc2ea78f0b7664bb3",
+      "linguisticResultSHA256": "98265b3201ebf75be61a3d1a77eae9a57d96d8467546ac5938b307912e41deff",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "craft",
+      "locale": "en",
+      "inputSHA256": "ea02780616c159406503d47ccd7756807f03a963565ba47f967c916878d6276c",
+      "contentSHA256": "0e56b77cc30cb08784bb2c229775b4cb255a54c846b445dbc179480972eb690d",
+      "linguisticResultSHA256": "98265b3201ebf75be61a3d1a77eae9a57d96d8467546ac5938b307912e41deff",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "stone",
+      "locale": "en",
+      "inputSHA256": "d77f6a3f6d24b5e6ba6a633f977cca92e95e552aeb0a87e4a339724d28056603",
+      "contentSHA256": "485038a13bddad76584ca770c5c567041024b571e75f68bf40409c7171fdd51d",
+      "linguisticResultSHA256": "98265b3201ebf75be61a3d1a77eae9a57d96d8467546ac5938b307912e41deff",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "bespoke",
+      "locale": "en",
+      "inputSHA256": "e3fb0d73d16e4f0b41076c533f5d3c4577d3ea0ae0eaf6fc508f459c18c4ebb1",
+      "contentSHA256": "7e4f624000dec78e122a808715c72e6bdc70bb7c4663be8cce446bbae0dc15bb",
+      "linguisticResultSHA256": "98265b3201ebf75be61a3d1a77eae9a57d96d8467546ac5938b307912e41deff",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "buying",
+      "locale": "en",
+      "inputSHA256": "fbd632f1eda8d1e0a8ebd71a1a793545403d3c0967ac65a90e2a00eaddc32dfc",
+      "contentSHA256": "af45e9098379cd50c6a1e26df61a0bc5706f44b0ff3d20b4075f6c41020ca53e",
+      "linguisticResultSHA256": "98265b3201ebf75be61a3d1a77eae9a57d96d8467546ac5938b307912e41deff",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "network",
+      "locale": "de",
+      "inputSHA256": "e81c6d18aabe0ace3eeeef09f808f5a68213c9da0c04f90d81ec94733660b00f",
+      "contentSHA256": "795c98af9ea64b57e7fb1e614362858a0c1aed5f68a6c23940435dddb59cee58",
+      "linguisticResultSHA256": "c81ed5221bbfcc7f116f54dd1078a1df5ff67e105e5f62e9141f132590189d32",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "design",
+      "locale": "de",
+      "inputSHA256": "f3ea615a6f0f95b4b1174000279b5771d4a6126254cbe19a6b0546325d3b1dd4",
+      "contentSHA256": "31c89aac7664bd60a8dca40552455573570285b29d6f0cae8cfea86f55e844d0",
+      "linguisticResultSHA256": "c81ed5221bbfcc7f116f54dd1078a1df5ff67e105e5f62e9141f132590189d32",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "systems",
+      "locale": "de",
+      "inputSHA256": "0f04d1631df712e34584c17748beab4163e6ff43a4892a1811ae580124a8a3cb",
+      "contentSHA256": "ed3d79abc41a6d10a92d01258058c0b7ef12daaa6f1f9dc4bbecc3a475943a5d",
+      "linguisticResultSHA256": "c81ed5221bbfcc7f116f54dd1078a1df5ff67e105e5f62e9141f132590189d32",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "comfort",
+      "locale": "de",
+      "inputSHA256": "b62f55db909f37bad84028a20750174edcfb53953d98d611a7734d5501f27002",
+      "contentSHA256": "70c5444109b88f1306bde801d04ad1f24127d5319e90da8cb1a80db495489dfe",
+      "linguisticResultSHA256": "c81ed5221bbfcc7f116f54dd1078a1df5ff67e105e5f62e9141f132590189d32",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "roofs",
+      "locale": "de",
+      "inputSHA256": "ffd214526dcc5b9c7a03aa6f0a8e723ae701fe9db759c94190749a6a55a7d88c",
+      "contentSHA256": "9e7f0db88941c02cdd23c2f90e61ff20ff1f4428154d3c3b6a61e891ecbd1507",
+      "linguisticResultSHA256": "c81ed5221bbfcc7f116f54dd1078a1df5ff67e105e5f62e9141f132590189d32",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "ground",
+      "locale": "de",
+      "inputSHA256": "dc1d1b694826a6b2c467c107456136b8c8348ec79d86f75b0fd41a56dd4846bb",
+      "contentSHA256": "be5816f957d86d6cd6db8af99cb2bc8c815c49c37115ee79a5cb15054adc2a09",
+      "linguisticResultSHA256": "c81ed5221bbfcc7f116f54dd1078a1df5ff67e105e5f62e9141f132590189d32",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "outdoors",
+      "locale": "de",
+      "inputSHA256": "e12b437700f32b7906cb3c6345d7a96fd7a2de999e9ebefaa59036a1fa890f50",
+      "contentSHA256": "30a175a477fe978ce38ff196675b51557709dcc6ce650350dff3a04bd756f72b",
+      "linguisticResultSHA256": "c81ed5221bbfcc7f116f54dd1078a1df5ff67e105e5f62e9141f132590189d32",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "glazing",
+      "locale": "de",
+      "inputSHA256": "ca70d5bae8cf06e8e6f142b54f666c24fda65b4004e75d1ab5be7763287d7624",
+      "contentSHA256": "26c07bfd32021c7b1229a6a815514420f00591d80c230049e21e0a3c2a0bb87d",
+      "linguisticResultSHA256": "c81ed5221bbfcc7f116f54dd1078a1df5ff67e105e5f62e9141f132590189d32",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "craft",
+      "locale": "de",
+      "inputSHA256": "53a48cfa0d0b80fec9efd6e07530c389dfb76c8c4c92ee7149ec2622ad1ed58b",
+      "contentSHA256": "377e11f9f21f34e3d1b67f60bbd079e4f5f2c292e436a988974f1533b3631053",
+      "linguisticResultSHA256": "c81ed5221bbfcc7f116f54dd1078a1df5ff67e105e5f62e9141f132590189d32",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "stone",
+      "locale": "de",
+      "inputSHA256": "e851d7aa97a19756b36bdbb787a4279e7ebe43a30bd6fc55fede37ba568903a4",
+      "contentSHA256": "c95e8b1fa2220a011f22547f9c7beeb28b85955b80b9d26654537b774b8a73fe",
+      "linguisticResultSHA256": "c81ed5221bbfcc7f116f54dd1078a1df5ff67e105e5f62e9141f132590189d32",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "bespoke",
+      "locale": "de",
+      "inputSHA256": "a77663ce932218d08ad6395a485afcf8fe713808cd980c9f38b62e7618cc35d4",
+      "contentSHA256": "fd6aa66b7cd49fd8b69eb4cb6cc5490f8de38e1b15e4cb1c1260a239edfc9b41",
+      "linguisticResultSHA256": "c81ed5221bbfcc7f116f54dd1078a1df5ff67e105e5f62e9141f132590189d32",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "buying",
+      "locale": "de",
+      "inputSHA256": "47bd243ac16719cf1d360a6642eda701390330128ca69e19e6649f75d74d54e7",
+      "contentSHA256": "b36b41fd3aa55ec62f0ab27502f46168a1a6fd8898ff3de1832f92d46e33b821",
+      "linguisticResultSHA256": "c81ed5221bbfcc7f116f54dd1078a1df5ff67e105e5f62e9141f132590189d32",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "network",
+      "locale": "nl",
+      "inputSHA256": "dec8db28daa847f613adaa6445225af813c2b6c8de84b3f9107bf75d9e710e44",
+      "contentSHA256": "66815da4230a93134728f068d63107b687d98634fa67ba8b0fbda4d502ed1204",
+      "linguisticResultSHA256": "04760137052ae207eee355ae3e482c759d9d1dd45b733faadbaef60eb14fb452",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "design",
+      "locale": "nl",
+      "inputSHA256": "3bc06d7dc351affc044f3115d70e39dc5bb4fe98a7eb76698bc36ed19239c496",
+      "contentSHA256": "c53d8602ce0b9bcb62689a2b4e74b597a9f9addf31412b51a92a5c111290bcc3",
+      "linguisticResultSHA256": "04760137052ae207eee355ae3e482c759d9d1dd45b733faadbaef60eb14fb452",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "systems",
+      "locale": "nl",
+      "inputSHA256": "32a3e2fe08d6168b1aa08b57ef8c7990ebeb6314accfbbaef586a4ae959b52f9",
+      "contentSHA256": "2b3374310accc7bee4b30c6eb3393932168ffb05fcc02ba6e91a301fe4898d79",
+      "linguisticResultSHA256": "04760137052ae207eee355ae3e482c759d9d1dd45b733faadbaef60eb14fb452",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "comfort",
+      "locale": "nl",
+      "inputSHA256": "707779ff11a597127c716da3f34306b2048da56ece93c957f99c720c3bbeb550",
+      "contentSHA256": "0d67a4dbc7eba984b1219ca61d0eb8c585d396c5dbb0b6401304f7940be7c001",
+      "linguisticResultSHA256": "04760137052ae207eee355ae3e482c759d9d1dd45b733faadbaef60eb14fb452",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "roofs",
+      "locale": "nl",
+      "inputSHA256": "a3866b6d66814ec633eda1593d8e809569e6e3b8c457793071a78140fc3b1b80",
+      "contentSHA256": "1757255b62a7509e5ef4b134a96fbf5d15b17278cc99ea6f467f1adb5ee51ea9",
+      "linguisticResultSHA256": "04760137052ae207eee355ae3e482c759d9d1dd45b733faadbaef60eb14fb452",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "ground",
+      "locale": "nl",
+      "inputSHA256": "a55bd3cfafe52d45f0d15b170b6721874ef5752747e7da666b1e432ed2265053",
+      "contentSHA256": "6de3f7dcc284c94b5bd0d515318f1b1cee7672f8c1cf1bed226c230159c6ca83",
+      "linguisticResultSHA256": "04760137052ae207eee355ae3e482c759d9d1dd45b733faadbaef60eb14fb452",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "outdoors",
+      "locale": "nl",
+      "inputSHA256": "9356350cb2bacd0bdbf8ae904c21b640c071e72a6ecb009c0f389466c3feca1d",
+      "contentSHA256": "26792631416317c468c4797813ca661ccd19630048b37815b82d37789eb44d02",
+      "linguisticResultSHA256": "04760137052ae207eee355ae3e482c759d9d1dd45b733faadbaef60eb14fb452",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "glazing",
+      "locale": "nl",
+      "inputSHA256": "134c6fe1b6d13bfe2b3e523c8e59136762e37c33d677b5cbff7906120acad456",
+      "contentSHA256": "165d33bd7367aa9a75fd05ed4fe612e0b31ca8ce192cfbe65a4ea98c9eb65314",
+      "linguisticResultSHA256": "04760137052ae207eee355ae3e482c759d9d1dd45b733faadbaef60eb14fb452",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "craft",
+      "locale": "nl",
+      "inputSHA256": "57b4e7fe59068ab47df81388c85a35d573e4a44f82e9d5b71de322b8046cfb5b",
+      "contentSHA256": "f29432542ce78d860714ca2da94ef1372833a8a30d4b4ba725e0ef7f955c7372",
+      "linguisticResultSHA256": "04760137052ae207eee355ae3e482c759d9d1dd45b733faadbaef60eb14fb452",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "stone",
+      "locale": "nl",
+      "inputSHA256": "1a109e551f22f31e7ec6c46f3bfdfeed90baeef4ceb39fcf622bb66df631db6f",
+      "contentSHA256": "88667b38a1296397846e4d236fccadc0f20524ac70e8b37e05697674ae6963ea",
+      "linguisticResultSHA256": "04760137052ae207eee355ae3e482c759d9d1dd45b733faadbaef60eb14fb452",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "bespoke",
+      "locale": "nl",
+      "inputSHA256": "c1cb11831a9734efbdd137c9202fb307aab01c0b55173e0ad145c26586a0af69",
+      "contentSHA256": "f6f46de234a7643888823ce61018526cf38bb6b5c1463a012a89ca9e8a51c60d",
+      "linguisticResultSHA256": "04760137052ae207eee355ae3e482c759d9d1dd45b733faadbaef60eb14fb452",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "buying",
+      "locale": "nl",
+      "inputSHA256": "cfe54b315cdc32979da29f788d8ab501f4ed5c3c908356a283f575ac2036fa65",
+      "contentSHA256": "622504eb13382f884ec88acc09d6c90f734888fba7624acbe1f9781b9f343cd9",
+      "linguisticResultSHA256": "04760137052ae207eee355ae3e482c759d9d1dd45b733faadbaef60eb14fb452",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "network",
+      "locale": "fr",
+      "inputSHA256": "3cacf3fcb280a6b453c537a5c9cab79c09302c185dcf1827ff3c4f27fa3b137f",
+      "contentSHA256": "7031c752d5ae881ad91eb7b160cf09296b9ea185b07056a5c83e9c2084dfd54f",
+      "linguisticResultSHA256": "e8a1931752d13173c72540d8ebcde2be04aaab80b9b2af68acd2bafda6652ccc",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "design",
+      "locale": "fr",
+      "inputSHA256": "55e962ceadc61545bc93731fbdfe3a32f228feed11acff02cee39582a7bfe4be",
+      "contentSHA256": "3b1cae94a20421fce815cbd957f5c70e83111b701338777ebf52e08fc137632d",
+      "linguisticResultSHA256": "e8a1931752d13173c72540d8ebcde2be04aaab80b9b2af68acd2bafda6652ccc",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "systems",
+      "locale": "fr",
+      "inputSHA256": "5c09e9c71b4617d0cd73bb1807e7e570f5c15538f2ba80625e1d1612758fa8a6",
+      "contentSHA256": "a6786b0ce96180da1e24f5af3f585aab352b078c6c97de7b740be0bf9737f21b",
+      "linguisticResultSHA256": "e8a1931752d13173c72540d8ebcde2be04aaab80b9b2af68acd2bafda6652ccc",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "comfort",
+      "locale": "fr",
+      "inputSHA256": "b40f5ff9966a22164571f4fc9ce4211fcbe5dd1148725419cd9ab32ecdf10563",
+      "contentSHA256": "d9140bcf7fe1a6e93c9fef11211e9cf07031e51fe162632a57f1b8ae0f683316",
+      "linguisticResultSHA256": "e8a1931752d13173c72540d8ebcde2be04aaab80b9b2af68acd2bafda6652ccc",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "roofs",
+      "locale": "fr",
+      "inputSHA256": "11fda97e332f8d53926981850643eec1e01736491719b37a044ebb6979cdf68d",
+      "contentSHA256": "b10531f9ee943bf428a09a8d0f9b76ad80f1edf069ed3d833c37ab3586ed6e5c",
+      "linguisticResultSHA256": "e8a1931752d13173c72540d8ebcde2be04aaab80b9b2af68acd2bafda6652ccc",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "ground",
+      "locale": "fr",
+      "inputSHA256": "f29948b8a1581ca1e8220814cabf8c56c1012118d4cebc27f7ebfb363464d8a6",
+      "contentSHA256": "da08b54fa76af4158c32253b8d05b79dd376bbec86952ba86e7490f199a28e07",
+      "linguisticResultSHA256": "e8a1931752d13173c72540d8ebcde2be04aaab80b9b2af68acd2bafda6652ccc",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "outdoors",
+      "locale": "fr",
+      "inputSHA256": "42339595da7de6301a3b77a0266e97949bb72bf99e07e40231c0dce494afea5b",
+      "contentSHA256": "d47fc588d5802fec5d0cbb4512ae85fe8743c84f701492eb0f1885cf4a81d82b",
+      "linguisticResultSHA256": "e8a1931752d13173c72540d8ebcde2be04aaab80b9b2af68acd2bafda6652ccc",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "glazing",
+      "locale": "fr",
+      "inputSHA256": "0e8608203867d6bd8710ac402f96524434e4ac0165e8d5d2cd01c8a68cdea20b",
+      "contentSHA256": "eba16555df65290f29fef438309c2649401471253d30b6282867dfba308117e9",
+      "linguisticResultSHA256": "e8a1931752d13173c72540d8ebcde2be04aaab80b9b2af68acd2bafda6652ccc",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "craft",
+      "locale": "fr",
+      "inputSHA256": "f61f213aa4821a8f5416dc1543919546b91364fd1a4cb6522e82cd3ff46ace89",
+      "contentSHA256": "87746df3e3b3dccea18f9d757cdb2d853de346884961abc1dca63ab55bb7c491",
+      "linguisticResultSHA256": "e8a1931752d13173c72540d8ebcde2be04aaab80b9b2af68acd2bafda6652ccc",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "stone",
+      "locale": "fr",
+      "inputSHA256": "e431a9849a8edd9d89b178b1a50fa0602ca965aa0975650156f76aa9eb789bb6",
+      "contentSHA256": "95d171ba465ef4c27fb1f3db542f543835e9b8e232613461bdb40f42a77d1daa",
+      "linguisticResultSHA256": "e8a1931752d13173c72540d8ebcde2be04aaab80b9b2af68acd2bafda6652ccc",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "bespoke",
+      "locale": "fr",
+      "inputSHA256": "eb0b85181f52c92668dd95ceaa1a41b7ad06e1abb102d1d594c3b6ed435d4c1a",
+      "contentSHA256": "4432b5987b193ad08a382418dcb9f36f3b80c7a41373f4a9948b00d69c009899",
+      "linguisticResultSHA256": "e8a1931752d13173c72540d8ebcde2be04aaab80b9b2af68acd2bafda6652ccc",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "buying",
+      "locale": "fr",
+      "inputSHA256": "f8218ef569d5b4fd488eb7fe3a14d67d1412555d55111e75c1d67fca11aec4d5",
+      "contentSHA256": "6e8be21a0fe93f379339ba8be0b2dcecce3da32ac62c870c07057d216db123e1",
+      "linguisticResultSHA256": "e8a1931752d13173c72540d8ebcde2be04aaab80b9b2af68acd2bafda6652ccc",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "network",
+      "locale": "es",
+      "inputSHA256": "7ac522a4f92fdffcba57e4f161e77a4def00209e692fc7930199e2e0ff23b9e8",
+      "contentSHA256": "a62483a00abc2e41f536147b16e9ab35e5009e33e9a0fdd256b6e3d22a294d18",
+      "linguisticResultSHA256": "899e2fdcfe09845b03ebe49094e0c7c1c5cd199322a45d9b1a98f18163781d27",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "design",
+      "locale": "es",
+      "inputSHA256": "7052b5e6ca19c8f69a1f77b66ed2203a11ed191eeab587f9c545c4fd673cf75f",
+      "contentSHA256": "0e8cec6ba0a6d6a882a5d3d764ddbf70d7086601adfc2ebef561d34042b637d1",
+      "linguisticResultSHA256": "899e2fdcfe09845b03ebe49094e0c7c1c5cd199322a45d9b1a98f18163781d27",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "systems",
+      "locale": "es",
+      "inputSHA256": "c3f2c9ba1d39250bdd4723dd8c37c783ce1efd32f1688997073ee202b2f71919",
+      "contentSHA256": "210f5b03e1ee5014b3e15cd8f6bf5dac1071ea4449a70f81627342233434bb1c",
+      "linguisticResultSHA256": "899e2fdcfe09845b03ebe49094e0c7c1c5cd199322a45d9b1a98f18163781d27",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "comfort",
+      "locale": "es",
+      "inputSHA256": "595de37f5f5fe341a99eedc818a275e50eddba2f03073cf321c7b613f4c46f7d",
+      "contentSHA256": "a7088434ff437de2a01d0ca5d2a132fe03d9c1be43111d4d3b002171363ee3c6",
+      "linguisticResultSHA256": "899e2fdcfe09845b03ebe49094e0c7c1c5cd199322a45d9b1a98f18163781d27",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "roofs",
+      "locale": "es",
+      "inputSHA256": "3f9ed159030d9966068e69bc71c0a6cc060a18f2a9645aaa3effd5679e6dd361",
+      "contentSHA256": "ace80635980b82c26f9f328ba58415fde572c59182343161410be4238112710c",
+      "linguisticResultSHA256": "899e2fdcfe09845b03ebe49094e0c7c1c5cd199322a45d9b1a98f18163781d27",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "ground",
+      "locale": "es",
+      "inputSHA256": "3899da7ff11604186b37bf13644ef039cef43e9ef2cb1c9d7f1a7e68a8ad4025",
+      "contentSHA256": "3093da52ad341b32a13db8f2bd158b36dc548353041e434f5eaa4dc98d6dd06b",
+      "linguisticResultSHA256": "899e2fdcfe09845b03ebe49094e0c7c1c5cd199322a45d9b1a98f18163781d27",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "outdoors",
+      "locale": "es",
+      "inputSHA256": "80872acccd500efa3e0403d4daaef6e97580dcd12d44f6a050e3fd9c31c3f258",
+      "contentSHA256": "84160a6d4405f02220694db8621375c327f667174456df472d677df05248bc94",
+      "linguisticResultSHA256": "899e2fdcfe09845b03ebe49094e0c7c1c5cd199322a45d9b1a98f18163781d27",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "glazing",
+      "locale": "es",
+      "inputSHA256": "dddac7287b9d7b1c84037d0d86c2013e610aad51a725a0fab0ca482ab840ef11",
+      "contentSHA256": "cafbb808ad760d2b847bcb43b4fd1fa7c7ff935030a18e49bef3e3a8cb956746",
+      "linguisticResultSHA256": "899e2fdcfe09845b03ebe49094e0c7c1c5cd199322a45d9b1a98f18163781d27",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "craft",
+      "locale": "es",
+      "inputSHA256": "22419255d16cc5a67045b682cd6330a49944168a71bc622c827e9994b3484f1a",
+      "contentSHA256": "c9be792b88fd6d6bba85467015199419fd5d91bc0a834b624089ede7e17a161b",
+      "linguisticResultSHA256": "899e2fdcfe09845b03ebe49094e0c7c1c5cd199322a45d9b1a98f18163781d27",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "stone",
+      "locale": "es",
+      "inputSHA256": "1e14ba9e6f2ca47cf1c1d495e709fde9c187fdab4070cc9d4e54ba62a619f623",
+      "contentSHA256": "04f529ebfd4c7c44426b265869cde1f0845710d60510d6170b866a694479746e",
+      "linguisticResultSHA256": "899e2fdcfe09845b03ebe49094e0c7c1c5cd199322a45d9b1a98f18163781d27",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "bespoke",
+      "locale": "es",
+      "inputSHA256": "e82565b34f62b18226c02d67fe56019f9c89564965221c223800e14c48024947",
+      "contentSHA256": "1e627995899ca2d1d1f7fe4112a2c91e4527c033bcc47f0290aad90256bc6a24",
+      "linguisticResultSHA256": "899e2fdcfe09845b03ebe49094e0c7c1c5cd199322a45d9b1a98f18163781d27",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "buying",
+      "locale": "es",
+      "inputSHA256": "df024ad3444691b3eaf1d16169c47c216ce04b70079a0959f07cc87857fab422",
+      "contentSHA256": "ea766e9ee9480ed90fcbbd77277fea6c96e87ff4f06b0fd130c6c0816a70fce4",
+      "linguisticResultSHA256": "899e2fdcfe09845b03ebe49094e0c7c1c5cd199322a45d9b1a98f18163781d27",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "network",
+      "locale": "pt",
+      "inputSHA256": "5484415e5ad26079b3948565e4a34bdf6f7da26abf4919d5077a208733ee0c13",
+      "contentSHA256": "de8cc459bd04d5291136ca36a9e94019fb56b395aeb775864e01e8dd168bb7ec",
+      "linguisticResultSHA256": "c2047ab0d3dc470b929851cadefd32639cf2ef68df04071fad48c415058489f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "design",
+      "locale": "pt",
+      "inputSHA256": "eecb3a867b25e401e44aa21fe773c43920496ef894de10dd857d9e5d5615816e",
+      "contentSHA256": "230d08b3d184d9ddbacde8dbb79b4ac101da3dacbc81892a5e92e42cda2951cb",
+      "linguisticResultSHA256": "c2047ab0d3dc470b929851cadefd32639cf2ef68df04071fad48c415058489f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "systems",
+      "locale": "pt",
+      "inputSHA256": "c3bc25a76db1e7a44d46ff3647c4016dc703a4e2c0701a82516b6a6958509f2e",
+      "contentSHA256": "ae65cb38e5015538b58ae77694276269082dda6af5bee91f069a41f72913a39f",
+      "linguisticResultSHA256": "c2047ab0d3dc470b929851cadefd32639cf2ef68df04071fad48c415058489f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "comfort",
+      "locale": "pt",
+      "inputSHA256": "a0c48709d50e60c9f8cb3c3f820afa7b8db71bd4eeb4d2ba093cf585f8496cf5",
+      "contentSHA256": "1f3806e56c1f990301d6ca7db1b463a5eb2920160cc1e4660553a0f3db743c4f",
+      "linguisticResultSHA256": "c2047ab0d3dc470b929851cadefd32639cf2ef68df04071fad48c415058489f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "roofs",
+      "locale": "pt",
+      "inputSHA256": "4f340bd337399745a8698ac40882d3679dcc72f36468b368145f5cd1e4dfe360",
+      "contentSHA256": "6e32b96b000d4710538c9bd37334eef937e2098311036dec35c4b0d8ab205e3e",
+      "linguisticResultSHA256": "c2047ab0d3dc470b929851cadefd32639cf2ef68df04071fad48c415058489f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "ground",
+      "locale": "pt",
+      "inputSHA256": "e1e48d6312869eb3112f6fdbee797c8fe29376ae457395aed1523d7e59075fd4",
+      "contentSHA256": "516261d9ddfdf79a6b508cd19ef41f1f0d932dde79d8b603f5b23c8681fa5bdf",
+      "linguisticResultSHA256": "c2047ab0d3dc470b929851cadefd32639cf2ef68df04071fad48c415058489f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "outdoors",
+      "locale": "pt",
+      "inputSHA256": "073c6096bdb30a3f265f232fbf5dc1ec54d00c1ef29e033bc2257dcf7eaa1874",
+      "contentSHA256": "bff24bdcc170fd155282192b3d389db38b586b5ad84ccd9022726104d3a9aadd",
+      "linguisticResultSHA256": "c2047ab0d3dc470b929851cadefd32639cf2ef68df04071fad48c415058489f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "glazing",
+      "locale": "pt",
+      "inputSHA256": "3fd7349d8554ea1ecd8b4a035b0b578aa231d141f561475f9dd157c647f4b115",
+      "contentSHA256": "51b12024b046af2a5e1885b9e06ff10d2be22334651f48bccb51787d89f1eef2",
+      "linguisticResultSHA256": "c2047ab0d3dc470b929851cadefd32639cf2ef68df04071fad48c415058489f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "craft",
+      "locale": "pt",
+      "inputSHA256": "72557f897be08b0d517a1039d12f85c39e1a0d26c03207d040e1a1b609727b4a",
+      "contentSHA256": "d817c378a14f02955b9f2d4c44652d0ef6fef538f1b738bfae7b0a4139da53c1",
+      "linguisticResultSHA256": "c2047ab0d3dc470b929851cadefd32639cf2ef68df04071fad48c415058489f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "stone",
+      "locale": "pt",
+      "inputSHA256": "d1ddbcdf9486a571a0ac4f06c318ade1b416e9ddceb78af0319ccc8be3b531a6",
+      "contentSHA256": "3608f41f3b1ec0a982e946ba77d1aab2efabafef4ecc6561842287897944a240",
+      "linguisticResultSHA256": "c2047ab0d3dc470b929851cadefd32639cf2ef68df04071fad48c415058489f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "bespoke",
+      "locale": "pt",
+      "inputSHA256": "34a4ee66dd48ae4aead6b7b7eb29c40b837ff192f678ff8f4014ae89b200cb7b",
+      "contentSHA256": "4ae8e26177e63d1e1898c9ecdeed7c957226d8a2f105497e49788f0578f70625",
+      "linguisticResultSHA256": "c2047ab0d3dc470b929851cadefd32639cf2ef68df04071fad48c415058489f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "buying",
+      "locale": "pt",
+      "inputSHA256": "568414c6c3fa400e7f8007208b7e93bb56773d5378ed19f6cf2e72124309c881",
+      "contentSHA256": "ed5950956d41e8451bdbb06f358efdb01eb935936e51d62ca7e42a74c8a26160",
+      "linguisticResultSHA256": "c2047ab0d3dc470b929851cadefd32639cf2ef68df04071fad48c415058489f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "network",
+      "locale": "pl",
+      "inputSHA256": "c0fb555f2fb882203d127b5f20d0c500ead90e7ad7dc82699299b8b2cabccbab",
+      "contentSHA256": "51833910af0a556081ff2831bc417a6fd2d29481000b43c5c1ad0670b05b9f0a",
+      "linguisticResultSHA256": "158f197e3090fc74dc91cbf508737c6d8caed4d0f1393a34dc463eb3f1fa9d1e",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "design",
+      "locale": "pl",
+      "inputSHA256": "1b247cdd01738cddf8f71ee2618b17411fcb546bee7337f0492d82a5364f12a2",
+      "contentSHA256": "5224a2d4ca65bc679b3702977a42d9fda51eb7d5a7d6b418d77895672ffedb82",
+      "linguisticResultSHA256": "158f197e3090fc74dc91cbf508737c6d8caed4d0f1393a34dc463eb3f1fa9d1e",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "systems",
+      "locale": "pl",
+      "inputSHA256": "6c5ed31bf329f5e7c795e50b4e1eeb69bdd2bf1b728aadcc592d2ef975848d06",
+      "contentSHA256": "3e38a214ddbf9ef48d38eeb2146c59b67da44debb161eeebdffb3b40ba7fac13",
+      "linguisticResultSHA256": "158f197e3090fc74dc91cbf508737c6d8caed4d0f1393a34dc463eb3f1fa9d1e",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "comfort",
+      "locale": "pl",
+      "inputSHA256": "5c5129e0fd2bef7886acaa2025ba78eae75ffb15aa7e179e268bd626e3eda864",
+      "contentSHA256": "15e821f0bd6b01c4a676aebc26368634cbcbbeec6fe38c4e810ca9c37a520c24",
+      "linguisticResultSHA256": "158f197e3090fc74dc91cbf508737c6d8caed4d0f1393a34dc463eb3f1fa9d1e",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "roofs",
+      "locale": "pl",
+      "inputSHA256": "620e2fe30b9e3f66a8bb6ba8cb39b237acf309785a27a1180a434fb554b58efc",
+      "contentSHA256": "0a6b50eced4c6f3f8e4197ee8685fe3d95108866c03a2ea63fd48b4c6e61de56",
+      "linguisticResultSHA256": "158f197e3090fc74dc91cbf508737c6d8caed4d0f1393a34dc463eb3f1fa9d1e",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "ground",
+      "locale": "pl",
+      "inputSHA256": "905d6abd0f2d257c946793559140dfd61f36657cab8367a82bb1aee60d3f9322",
+      "contentSHA256": "8a151cab128cd89ed9e182fa1be77d23948eba65b21c4524c2dd4371f8c4ace3",
+      "linguisticResultSHA256": "158f197e3090fc74dc91cbf508737c6d8caed4d0f1393a34dc463eb3f1fa9d1e",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "outdoors",
+      "locale": "pl",
+      "inputSHA256": "44769708cf262209cdcd0ccd9f92c0fbd0cf3babe54c3b46916c19ec0bed76d5",
+      "contentSHA256": "98dde277ac59ee5ed5d15cd182d2c8e933762c211367ff5d8f1b6b3895d62ba0",
+      "linguisticResultSHA256": "158f197e3090fc74dc91cbf508737c6d8caed4d0f1393a34dc463eb3f1fa9d1e",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "glazing",
+      "locale": "pl",
+      "inputSHA256": "016490548c648f46fa3eb4cd3bf9bec72dfe3967c7bb74c09965f7b1b1cdf4e1",
+      "contentSHA256": "63b2f814d4e11d9543fe4cd2338cb8a6fb1a332c6ea66b4470cf5800e1803f4c",
+      "linguisticResultSHA256": "158f197e3090fc74dc91cbf508737c6d8caed4d0f1393a34dc463eb3f1fa9d1e",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "craft",
+      "locale": "pl",
+      "inputSHA256": "400c3ee6446408541b6871184f3911d3cdb7c1da7cb088902c298b6bfaa912f4",
+      "contentSHA256": "10464bb4b2ecfc29614d81a5260f38197e1b6a3415a15a1d2d0ee826371d48a6",
+      "linguisticResultSHA256": "158f197e3090fc74dc91cbf508737c6d8caed4d0f1393a34dc463eb3f1fa9d1e",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "stone",
+      "locale": "pl",
+      "inputSHA256": "88c8f8dff2ad1f32ed1145704eb3aaf4f5ab27d5bb13c8f7d8859a706951ecd5",
+      "contentSHA256": "6fbb9b92de6f2dafc669e9a586e19686c675d449f8a99f9004f98719adfb5dbe",
+      "linguisticResultSHA256": "158f197e3090fc74dc91cbf508737c6d8caed4d0f1393a34dc463eb3f1fa9d1e",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "bespoke",
+      "locale": "pl",
+      "inputSHA256": "4622753fc7aa140b5b7275bbce431012b831922e290a19c9f4bf7e6d312a3d7a",
+      "contentSHA256": "e175833ded320260ea8e2eeab341d3d4df33fcd89904a34b93bea8e24ebbd151",
+      "linguisticResultSHA256": "158f197e3090fc74dc91cbf508737c6d8caed4d0f1393a34dc463eb3f1fa9d1e",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "buying",
+      "locale": "pl",
+      "inputSHA256": "fb8a3aed27b71201b04862b0175813490d8ef8d57a45e5165badb486e8a856b3",
+      "contentSHA256": "61da705c4617e0da3880f8342a05f8d5633d08e76e42face2ecb8b78371ade9c",
+      "linguisticResultSHA256": "158f197e3090fc74dc91cbf508737c6d8caed4d0f1393a34dc463eb3f1fa9d1e",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "network",
+      "locale": "ru",
+      "inputSHA256": "f0163fafd905fab6d0c858492d7af8e3ac97dc931e36831a3a563ff155c8c605",
+      "contentSHA256": "21131a24f8c0d20267bf7ca31bba63596da7f3aa4962b0ae4e56e55beb83b362",
+      "linguisticResultSHA256": "9e69c6b2b86bcdb4bb2cb756c3db1fcc3014626cac015ff1fec92f5696c51267",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "design",
+      "locale": "ru",
+      "inputSHA256": "459fd9fda0f61f6d0bf82538d6c057e5bcd9d48ac8f700fd1aa7e663bc770ddb",
+      "contentSHA256": "cac374dadb45469fd9a5263f669af04935ea1fcb37a5aaa7e72433c99767b61e",
+      "linguisticResultSHA256": "9e69c6b2b86bcdb4bb2cb756c3db1fcc3014626cac015ff1fec92f5696c51267",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "systems",
+      "locale": "ru",
+      "inputSHA256": "046629774393be031ee929279934a55a8b385effc57e858d8ae9a324a4f3dae2",
+      "contentSHA256": "b7ede8ff7d7264ada02e095f5bbf62e07e14326e9eaacb1190db9b448c8dd918",
+      "linguisticResultSHA256": "9e69c6b2b86bcdb4bb2cb756c3db1fcc3014626cac015ff1fec92f5696c51267",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "comfort",
+      "locale": "ru",
+      "inputSHA256": "f37f70314c3ddda686c697e4711601a98ec780835b2c300bac4da6ce8084a16f",
+      "contentSHA256": "6e0136914fe88223a821c49fd9f8c0ac9886dd8fa3a9d0a6094e7fb2055088f0",
+      "linguisticResultSHA256": "9e69c6b2b86bcdb4bb2cb756c3db1fcc3014626cac015ff1fec92f5696c51267",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "roofs",
+      "locale": "ru",
+      "inputSHA256": "b35ee990196d4cb60d9472faa8617de79f0d11f6ed54cf9978f4f811160d180a",
+      "contentSHA256": "4ace7f163b0eb4f20a4565638439959370fd89f6f78d7db1b1057f3aa65985a4",
+      "linguisticResultSHA256": "9e69c6b2b86bcdb4bb2cb756c3db1fcc3014626cac015ff1fec92f5696c51267",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "ground",
+      "locale": "ru",
+      "inputSHA256": "1bcf0acc2c1622f5f719d7cbb50cf598fc3ba375a8cd0d96b2a1243cb2b48c99",
+      "contentSHA256": "e30a6113bf6642246369d1485e22ea90cd4cede78a516cc478a324196c5b21b6",
+      "linguisticResultSHA256": "9e69c6b2b86bcdb4bb2cb756c3db1fcc3014626cac015ff1fec92f5696c51267",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "outdoors",
+      "locale": "ru",
+      "inputSHA256": "4e70822833d7fe347161ab3bae0857e3dc57b49abf7cd60542914a1616c15b6f",
+      "contentSHA256": "8fe4df0cce6216b33fa975f4877e3d9f14be3b8a2ad3a4795fec62d9af0ea25e",
+      "linguisticResultSHA256": "9e69c6b2b86bcdb4bb2cb756c3db1fcc3014626cac015ff1fec92f5696c51267",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "glazing",
+      "locale": "ru",
+      "inputSHA256": "cc8d60c6fd9f8d99dd34a796614589b6cfd598af295e2cbf421739393ff3355b",
+      "contentSHA256": "93cb28934c90be7d82e1a9b8d669ff30f0602c6b516f0f000f2b47908454b388",
+      "linguisticResultSHA256": "9e69c6b2b86bcdb4bb2cb756c3db1fcc3014626cac015ff1fec92f5696c51267",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "craft",
+      "locale": "ru",
+      "inputSHA256": "0a388473b109f5f0ce695855c4e4d102925c36d9747e92ede8bb98ce22bc2ded",
+      "contentSHA256": "ac930024475123e18cfecd91f89cc1382d58ccef5161f3618167870baf16caa9",
+      "linguisticResultSHA256": "9e69c6b2b86bcdb4bb2cb756c3db1fcc3014626cac015ff1fec92f5696c51267",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "stone",
+      "locale": "ru",
+      "inputSHA256": "204ecf5f510e43f2250a7bc3e826c86ed8a5262f4d18fffc95d54de482be6951",
+      "contentSHA256": "f4e223822488414979d3a9b9e0c0fb3160053e5fd28a995e6ae76c55e746dfd8",
+      "linguisticResultSHA256": "9e69c6b2b86bcdb4bb2cb756c3db1fcc3014626cac015ff1fec92f5696c51267",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "bespoke",
+      "locale": "ru",
+      "inputSHA256": "57db88b4f7778d71875e6c12061590884b11c04499c4c30685dec14246d2eab6",
+      "contentSHA256": "cfbcd82e3f85ab02c11ff231aa709f5c0672f9fc22d012072f2662da10281086",
+      "linguisticResultSHA256": "9e69c6b2b86bcdb4bb2cb756c3db1fcc3014626cac015ff1fec92f5696c51267",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "buying",
+      "locale": "ru",
+      "inputSHA256": "2ae521aa084e275935209000c55adc55753d255254053ae9a34490584536981b",
+      "contentSHA256": "e0651d798671c8477665aa9cb6c65c86ef0b750d88fdca412f6a3b4bca07a582",
+      "linguisticResultSHA256": "9e69c6b2b86bcdb4bb2cb756c3db1fcc3014626cac015ff1fec92f5696c51267",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "network",
+      "locale": "sv",
+      "inputSHA256": "eff3ff3bd3eedfc5326cd603a68f476ebc4b0b2bad2d848f868deea16f2ded4a",
+      "contentSHA256": "669b5af85d699f71996c593d13f732fb5e3c965da967bd54f3a2c76dbe54d9af",
+      "linguisticResultSHA256": "4da9f8baaada0d18e6748b1856b72c2bbe4f4bb1d69d77e0f8d760e4162594f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "design",
+      "locale": "sv",
+      "inputSHA256": "f0fa0f8f0d6ea5df64873f6ec7d8e4b22ae55702c41a3533eb9b575a70571c21",
+      "contentSHA256": "73a59cd9412070c1ced4d4e7db36deb4770f32cb5f7c027fd6ed7b840206aa0a",
+      "linguisticResultSHA256": "4da9f8baaada0d18e6748b1856b72c2bbe4f4bb1d69d77e0f8d760e4162594f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "systems",
+      "locale": "sv",
+      "inputSHA256": "e27897e51f9491fd4e7dc8b9bd9150fbb986f2b565da3c66b52cdd250bf8090b",
+      "contentSHA256": "fdff48fb87263aae7828c6e418e200bd87c28fd520b0e849de188bc8e0c14440",
+      "linguisticResultSHA256": "4da9f8baaada0d18e6748b1856b72c2bbe4f4bb1d69d77e0f8d760e4162594f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "comfort",
+      "locale": "sv",
+      "inputSHA256": "d0d09916d3b1f264df1d9a0061372d7a2bd65704948e15ab07addb124e4f9e08",
+      "contentSHA256": "f6ef300efc813e75e615011cd129cdf7906c9254e01e0f42183e5cea1ba037ed",
+      "linguisticResultSHA256": "4da9f8baaada0d18e6748b1856b72c2bbe4f4bb1d69d77e0f8d760e4162594f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "roofs",
+      "locale": "sv",
+      "inputSHA256": "02d01f829085b415d3b873a75ae44a204dd0dd7ca3e5f1f62780732743428924",
+      "contentSHA256": "21163b711ea800f79396f71e303d5e20993df64e613fc87ed8a88f8cef995758",
+      "linguisticResultSHA256": "4da9f8baaada0d18e6748b1856b72c2bbe4f4bb1d69d77e0f8d760e4162594f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "ground",
+      "locale": "sv",
+      "inputSHA256": "355de0cde8976fabcc44c1ba81edcc51bb832588f81c10f6fd7c2019065f61dc",
+      "contentSHA256": "5756cb3f90a3b83f68251a079cfdbb45a97a91831b589df4a98d1872ef426f67",
+      "linguisticResultSHA256": "4da9f8baaada0d18e6748b1856b72c2bbe4f4bb1d69d77e0f8d760e4162594f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "outdoors",
+      "locale": "sv",
+      "inputSHA256": "ac3cff9aef0e162fb696d55fe65760541db26419c9ad2567003e4b85ef040e39",
+      "contentSHA256": "1fd4f957b74a504b9fdfb6f81574f71d1b76e8d3b61373ca52ffbdd2aa0ed393",
+      "linguisticResultSHA256": "4da9f8baaada0d18e6748b1856b72c2bbe4f4bb1d69d77e0f8d760e4162594f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "glazing",
+      "locale": "sv",
+      "inputSHA256": "ce7898eabf4806351fc5b8534c743b375e5934a4e6d122393fb2e3e92a207c10",
+      "contentSHA256": "b4a135f698a604ed2bcb8a5444d51df01d2d892c9f7a8da16d18b7ee4355c0dc",
+      "linguisticResultSHA256": "4da9f8baaada0d18e6748b1856b72c2bbe4f4bb1d69d77e0f8d760e4162594f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "craft",
+      "locale": "sv",
+      "inputSHA256": "81c0e6557b98283e204ed8e3d1abcb95a4866ba414f93847c31b9e8194bd06cc",
+      "contentSHA256": "00b12e6c854b0096ca376fedc528814c9b5a48f0076e055e3fcbe2d86081f5d6",
+      "linguisticResultSHA256": "4da9f8baaada0d18e6748b1856b72c2bbe4f4bb1d69d77e0f8d760e4162594f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "stone",
+      "locale": "sv",
+      "inputSHA256": "fe4c95d2876f3da7ebfd43f72daaa1d888e1aacd7017eb742db563848dcbcdd2",
+      "contentSHA256": "85af2c81984fa25e688e2a9dfd754ff0ff8fa559227a20483de5fb1c2ad24fe6",
+      "linguisticResultSHA256": "4da9f8baaada0d18e6748b1856b72c2bbe4f4bb1d69d77e0f8d760e4162594f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "bespoke",
+      "locale": "sv",
+      "inputSHA256": "00bd2a2714b52c950c589129187c63a4316c9d585992fee8443ceb1fa6c308b0",
+      "contentSHA256": "25daaa7d755b6f242213bb30b911212d7a607f99652dbbd5e5803e4bee8fa52c",
+      "linguisticResultSHA256": "4da9f8baaada0d18e6748b1856b72c2bbe4f4bb1d69d77e0f8d760e4162594f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "buying",
+      "locale": "sv",
+      "inputSHA256": "13e1d5d5a4901aa9ffc2c1e8c80a78b6df78a52e42771b646816d64d4b7c2e79",
+      "contentSHA256": "4a19396573fe3e1fcd2b31267d3169fd3097655153e656188275850a10839764",
+      "linguisticResultSHA256": "4da9f8baaada0d18e6748b1856b72c2bbe4f4bb1d69d77e0f8d760e4162594f2",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "network",
+      "locale": "no",
+      "inputSHA256": "ba3d655bdfb9de4e02b6e57faf4a70455356aebf015b56dc0004c404b9e19a99",
+      "contentSHA256": "1fd669c39101ac4ffb6d16b5d3673fcfaeb0b685a27af4648947953ec5ef815c",
+      "linguisticResultSHA256": "bde5227b139250e8b985bbb5f1de6295b6e62eeb4df9681c93169b590bcb346f",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "design",
+      "locale": "no",
+      "inputSHA256": "eb1e5c1a96cbda7980bc88b7b4bf110c574de0b716616a2329d3b974c5dd6424",
+      "contentSHA256": "841532f31270e40d609ebff15bff1914ab51daae9e4f0b332ee26af7fa6a5a00",
+      "linguisticResultSHA256": "bde5227b139250e8b985bbb5f1de6295b6e62eeb4df9681c93169b590bcb346f",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "systems",
+      "locale": "no",
+      "inputSHA256": "e8ceca8ac20c2b7c5f033d91229c13ce224945f52e2b5169b452ca1d35730517",
+      "contentSHA256": "d20669083eb4bf6a5aa5b207214d7d9d3c32fc80ef589644865e44f5365cd8be",
+      "linguisticResultSHA256": "bde5227b139250e8b985bbb5f1de6295b6e62eeb4df9681c93169b590bcb346f",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "comfort",
+      "locale": "no",
+      "inputSHA256": "c4b01579146232296eab507c7e685aab4e4d88d2da828cbea82a3cd54720218b",
+      "contentSHA256": "7befadb60d2895743ec495c3e3601df9a4ce98bc1f776dfeb5e3f161feb53f43",
+      "linguisticResultSHA256": "bde5227b139250e8b985bbb5f1de6295b6e62eeb4df9681c93169b590bcb346f",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "roofs",
+      "locale": "no",
+      "inputSHA256": "6842e3ad3c195dd8d2a4a120c9ca2f726880ec1fc98e69d76d912bd7e4d0bbc2",
+      "contentSHA256": "bc780f61630fb6b55467e98137a5c9ced10c73d371657eb9a7d770eb2696e9e8",
+      "linguisticResultSHA256": "bde5227b139250e8b985bbb5f1de6295b6e62eeb4df9681c93169b590bcb346f",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "ground",
+      "locale": "no",
+      "inputSHA256": "a33490b3d01da261cc20b6c8469ba4dfe1c4f13220336d1a6ae71e8277cf57fd",
+      "contentSHA256": "da8ba72428a3702eea17809495ceb7100299d48b1f69621404430c577aa8a9e5",
+      "linguisticResultSHA256": "bde5227b139250e8b985bbb5f1de6295b6e62eeb4df9681c93169b590bcb346f",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "outdoors",
+      "locale": "no",
+      "inputSHA256": "fc108c6240230a0268f8c135bfb29368fb23b8d2ab1b0cda16ebc9bc1be3d488",
+      "contentSHA256": "1ad9fb561c6ea13c40665485e78a474a8e05cb18b44838e0cf947010ad9fbc91",
+      "linguisticResultSHA256": "bde5227b139250e8b985bbb5f1de6295b6e62eeb4df9681c93169b590bcb346f",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "glazing",
+      "locale": "no",
+      "inputSHA256": "a3c6a647a9e3830f3a5c930190e45817c07e4f7461d25008e39154b76c40e460",
+      "contentSHA256": "e2b289cfba0baaad11c3febee9763f58797a92fb198b4179ae94a65e053bb418",
+      "linguisticResultSHA256": "bde5227b139250e8b985bbb5f1de6295b6e62eeb4df9681c93169b590bcb346f",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "craft",
+      "locale": "no",
+      "inputSHA256": "da9f1f0f2334276205f74c63a778d215b7e640884140552cd52b18ec09c79895",
+      "contentSHA256": "2d91e320b130116677c22a3a9b8024968ebf5deebe46fd135b209b64fcaa2f58",
+      "linguisticResultSHA256": "bde5227b139250e8b985bbb5f1de6295b6e62eeb4df9681c93169b590bcb346f",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "stone",
+      "locale": "no",
+      "inputSHA256": "fb8a463a015aedcc32474030b799f10f5182e510d07b73de87182dae0ac42a02",
+      "contentSHA256": "6cde1f7e0fdc335d2d519f35dcae8228352a1358cfdcc80ec051e3425095e90e",
+      "linguisticResultSHA256": "bde5227b139250e8b985bbb5f1de6295b6e62eeb4df9681c93169b590bcb346f",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "bespoke",
+      "locale": "no",
+      "inputSHA256": "febe441e92bf572bc117aa2921c85fe850ecb3881e8d42ea9a69a1806fbe1b14",
+      "contentSHA256": "12ed99283e8a44ac997d789c1aca667bb87beb76e0674a0eee6c73821718a11e",
+      "linguisticResultSHA256": "bde5227b139250e8b985bbb5f1de6295b6e62eeb4df9681c93169b590bcb346f",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "buying",
+      "locale": "no",
+      "inputSHA256": "51db444b59f7b96bdceffdcba0d11807ca299869553e76ff1fe937232a599ce3",
+      "contentSHA256": "b52a2ca3b0601763607f56ec0f3add3ce4b69e4b16427df300046b247e146643",
+      "linguisticResultSHA256": "bde5227b139250e8b985bbb5f1de6295b6e62eeb4df9681c93169b590bcb346f",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "network",
+      "locale": "da",
+      "inputSHA256": "f23acfd62071f81da8d59659a17286c593813bd87ab49b07443ea0a82f81c930",
+      "contentSHA256": "2f69b4b624c19ac860bb43b29a9c407c20ed21627d36c3fd1e649b5b980cd5a7",
+      "linguisticResultSHA256": "da33f32554446afe0500a162c659324747bec005c8ab69c7e3ae524c9b62ee92",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "design",
+      "locale": "da",
+      "inputSHA256": "72d50c1c303587609fc70af2050693e0e2c90aaa4f445adcc26b2dbab180279a",
+      "contentSHA256": "4b4c36bbf14f5672364c508d2a2975d56ee9a4f1101faa85909b50fa6445fb42",
+      "linguisticResultSHA256": "da33f32554446afe0500a162c659324747bec005c8ab69c7e3ae524c9b62ee92",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "systems",
+      "locale": "da",
+      "inputSHA256": "0ad188038b5cd3c41df39b884ea8584823e97c43ffe506bcd76653818bb4bf9e",
+      "contentSHA256": "415557b70a38d1ee80f9a8e81dd5f6f94e1397d04a14d6238aec38b80a2dd71b",
+      "linguisticResultSHA256": "da33f32554446afe0500a162c659324747bec005c8ab69c7e3ae524c9b62ee92",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "comfort",
+      "locale": "da",
+      "inputSHA256": "7f0631d4b01132c52af0da90af5075d0b96af89cf5f0b40488803a91cb0c0e1f",
+      "contentSHA256": "7db2dfd3ddf1f7b823ca281c63465930cc40d280daca25f1d73fe6c2b621d4d6",
+      "linguisticResultSHA256": "da33f32554446afe0500a162c659324747bec005c8ab69c7e3ae524c9b62ee92",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "roofs",
+      "locale": "da",
+      "inputSHA256": "7c5dcffd9199cd233495b91b5c4257c4417c343b9f92f1ec15021f444a76a766",
+      "contentSHA256": "912f1c5bc13add0c3bb01155838ceeedda04d6f89385e6f0816f82cb64382e34",
+      "linguisticResultSHA256": "da33f32554446afe0500a162c659324747bec005c8ab69c7e3ae524c9b62ee92",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "ground",
+      "locale": "da",
+      "inputSHA256": "a09fd8ffe0e1071b6a06987c41afe50906c71d616e4f5d77aff13657537d1dab",
+      "contentSHA256": "4ace07b89874ff0aac53a8801666934e14ad5c6134765b389c1daa99c1ace762",
+      "linguisticResultSHA256": "da33f32554446afe0500a162c659324747bec005c8ab69c7e3ae524c9b62ee92",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "outdoors",
+      "locale": "da",
+      "inputSHA256": "fe66863f587f28bb922e40e2b1915e1510e8f1afc5ee4109d3213780c07dfc41",
+      "contentSHA256": "8d592bcbd60dfc06de0e9efbcaa591cef02a7fe210b744ab02fc55a90ab70a3f",
+      "linguisticResultSHA256": "da33f32554446afe0500a162c659324747bec005c8ab69c7e3ae524c9b62ee92",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "glazing",
+      "locale": "da",
+      "inputSHA256": "0c7296ebc76690e1468778293e87faf36d4c1fcc425cf982ba11d4b0b25633b4",
+      "contentSHA256": "b5e57c909f4e69f1c549a3709b2e09d05e5196cb43e8dda9a6699c7f64fb8cf0",
+      "linguisticResultSHA256": "da33f32554446afe0500a162c659324747bec005c8ab69c7e3ae524c9b62ee92",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "craft",
+      "locale": "da",
+      "inputSHA256": "294bb6a409dec3323eb84c2f406f7032d852396de5a34479be24c88458b57d72",
+      "contentSHA256": "8ea00d2eff1a90e2dc661502e7bbfee59f6d95251dfe155597079f0b81f5dd2d",
+      "linguisticResultSHA256": "da33f32554446afe0500a162c659324747bec005c8ab69c7e3ae524c9b62ee92",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "stone",
+      "locale": "da",
+      "inputSHA256": "ee20018bacf30f59803d89d2cb1311cab8bcf92448e9e1f0401967177bcf645a",
+      "contentSHA256": "cfb27eae651338aed16444c9d519d8beeb77757f7b0a150e7ac0f190bed5fe43",
+      "linguisticResultSHA256": "da33f32554446afe0500a162c659324747bec005c8ab69c7e3ae524c9b62ee92",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "bespoke",
+      "locale": "da",
+      "inputSHA256": "fb6670ebca5d32823459c078da3b4de81116f52d9bed2474f919e756c257940c",
+      "contentSHA256": "b5eb406a50fa5ca91d5712011aa5ac3a7cd5d06f964b505dd484c71aacf0b825",
+      "linguisticResultSHA256": "da33f32554446afe0500a162c659324747bec005c8ab69c7e3ae524c9b62ee92",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    },
+    {
+      "id": "buying",
+      "locale": "da",
+      "inputSHA256": "12736db9981c9dbd1224c8a91440b7d4e674b5e3fdad079de5f53d752e4ef5f3",
+      "contentSHA256": "643335844fe5e3b9c210905ccd2528fb9d13f24d235c5d1f68974541b5b12056",
+      "linguisticResultSHA256": "da33f32554446afe0500a162c659324747bec005c8ab69c7e3ae524c9b62ee92",
+      "status": "ai-reviewed-with-adjudicated-corrections"
+    }
+  ]
+}

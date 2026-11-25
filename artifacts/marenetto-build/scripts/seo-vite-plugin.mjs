@@ -73,6 +73,18 @@ export function seoPreviewPlugin() {
           const isReview = /^\/__localization-review\/[a-z]{2}\//.test(pathname);
           const reviewMatch = pathname.match(/^\/__localization-review\/([a-z]{2})\/(.+)$/);
           let route = resolveRoute(pathname, module.editions, module.redirects);
+          // Development-only, noindex editorial previews. These are never
+          // emitted by build-seo or recognized by the production handler.
+          const networkPreview = !server.config.isProduction && module.networkPreviewPage(pathname);
+          if (networkPreview) route = { status: 200, edition: {
+            ...networkPreview, path: pathname, state: 'draft', sitemap: false, approval: null,
+            contentLanguage: networkPreview.locale,
+          } };
+          const networkServicesLocale = !server.config.isProduction && pathname.match(/^\/__network-services-review\/([a-z]{2})\/?$/)?.[1];
+          if (networkServicesLocale && module.NETWORK_PAGES.some(page => page.locale === networkServicesLocale)) {
+            const source = module.editions.find(e => e.locale === networkServicesLocale && e.id === 'service-local');
+            route = { status: 200, edition: { ...source, path: pathname, state: 'draft', sitemap: false, approval: null } };
+          }
           if (pathname === module.reviewHubEdition.path) route = { status: 200, edition: module.reviewHubEdition };
           if (isReview && reviewMatch) {
             const source = module.editions.find(e => module.reviewPathForEdition(e) === pathname);
@@ -86,8 +98,9 @@ export function seoPreviewPlugin() {
           const html = renderDocument(template, {
             edition: route.edition ? { ...route.edition, ...rendered.metadata } : undefined, body: rendered.body, status: route.status,
             alternates: route.edition ? module.equivalentEditions(route.edition.id) : [],
-            canonicalPath: route.edition ? module.canonicalEdition(route.edition).path : undefined,
-            structuredData: route.edition && (route.edition.kind === 'article' || original?.state !== 'awaiting-confirmation' || route.edition.approval) ? module.editionStructuredData(route.edition, SEO_ORIGIN) : [],
+            canonicalPath: networkPreview?.path ?? (route.edition ? module.canonicalEdition(route.edition).path : undefined),
+            structuredData: networkPreview ? module.networkStructuredData(networkPreview, SEO_ORIGIN) :
+              route.edition && (route.edition.kind === 'article' || original?.state !== 'awaiting-confirmation' || route.edition.approval) ? module.editionStructuredData(route.edition, SEO_ORIGIN) : [],
           });
           res.writeHead(route.status, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-cache' });
           return res.end(req.method === 'HEAD' ? undefined : withEditorialSnapshot(html, active));

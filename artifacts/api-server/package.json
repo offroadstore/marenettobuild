@@ -9,7 +9,7 @@
     "dev": "export NODE_ENV=development && pnpm run build && pnpm run start",
     "build": "node ../marenetto-build/scripts/export-editorial.mjs && node ./build.mjs",
     "start": "node --enable-source-maps ./dist/index.mjs",
-    "test:permissions": "node --experimental-strip-types --test ./tests/*.test.mjs && node ./scripts/test-monitoring.mjs",
+    "test:permissions": "node --experimental-strip-types --test ./tests/internal-permissions.test.mjs && pnpm run test:editorial && node ./scripts/test-monitoring.mjs",
     "test:editorial": "node ../marenetto-build/scripts/export-editorial.mjs && node ./scripts/test-editorial.mjs",
     "test:phase5": "node ./scripts/test-phase5.mjs",
     "test:google-reviews": "node ./scripts/test-google-reviews.mjs",

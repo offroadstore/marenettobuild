@@ -6,6 +6,9 @@ import { serviceCopy } from '@/content/service-offers';
 import { localBuildingArea } from '@/config/service-area';
 import { propertyCopy } from '@/content/property-management';
 import { historicalInventory, historicalDocument, historicalLoaded } from '@/content/historical';
+import { networkPageByPath } from '@/content/network';
+import { networkStructuredData, networkServiceCatalog } from '@/content/network/schema';
+import { NETWORK_SERVICE_IDS } from '@/content/network/types';
 
 export function editionStructuredData(edition: Edition, origin: string) {
   const canonical = new URL(canonicalEdition(edition).path, origin).href;
@@ -30,6 +33,13 @@ export function editionStructuredData(edition: Edition, origin: string) {
     graph.push({ '@type': 'FAQPage', '@id': `${canonical}#faq`, inLanguage: edition.locale,
       mainEntity: text.faq.map(([name, answer]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text: answer } })) });
   }
+  const network = networkPageByPath(edition.path);
+  if (network) {
+    const genericBreadcrumb = graph.findIndex(item => item['@type'] === 'BreadcrumbList');
+    if (genericBreadcrumb >= 0) graph.splice(genericBreadcrumb, 1);
+    graph.push(...networkStructuredData(network, origin));
+    return graph;
+  }
   if (edition.id === 'service-premium' || edition.id === 'service-local') {
     const text = serviceCopy[edition.locale];
     const premium = edition.id === 'service-premium';
@@ -39,12 +49,22 @@ export function editionStructuredData(edition: Edition, origin: string) {
       description: premium ? text.premiumIntro : text.scope,
       provider: { '@id': `${origin}/#organization` },
       areaServed: premium ? { '@type': 'Place', name: 'Worldwide' } : localBuildingArea,
+      ...(!premium && networkServiceCatalog(edition.locale, origin).itemListElement.length
+        ? { hasOfferCatalog: networkServiceCatalog(edition.locale, origin) } : {}),
     });
     if (premium) graph.push({
       '@type': 'FAQPage', inLanguage: edition.locale,
       mainEntity: text.faq.map(([name, answer]) => ({
         '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text: answer },
       })),
+    });
+  }
+  if (edition.id !== 'service-local' && (NETWORK_SERVICE_IDS as readonly string[]).includes(edition.id)) {
+    const catalog = networkServiceCatalog(edition.locale, origin);
+    if (catalog.itemListElement.length) graph.push({
+      '@type': 'Service', '@id': `${canonical}#service`, url: canonical, inLanguage: edition.locale,
+      name: edition.title.split(' | ')[0], description: edition.description,
+      provider: { '@id': `${origin}/#organization` }, areaServed: localBuildingArea, hasOfferCatalog: catalog,
     });
   }
   if (edition.kind === 'article') {

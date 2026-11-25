@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { randomUUID } from 'node:crypto';
 import { cleanBody, safeUrl, revision, transition } from '../src/lib/editorial-content.ts';
+import { assertNetworkActivation } from '../src/lib/editorial-store.ts';
+import catalog from 'marenetto-editorial-catalog';
 const content = { title: 'Prova', summary: '', body: '<p>Testo</p>', category: '', tags: [], image: '', imageAlt: '', sources: [], seoTitle: '', seoDescription: '', contentLanguage: 'it' };
 test('HTML and URLs reject executable/private payloads while preserving text', () => {
   const html = cleanBody('<p onclick="alert(1)">OK<script>alert(2)</script><a href="javascript:alert(1)">link</a><img src="/api/internal/files/secret" onerror="alert(3)"></p>');
@@ -9,6 +11,21 @@ test('HTML and URLs reject executable/private payloads while preserving text', (
   assert.doesNotMatch(html, /onclick|onerror|javascript:|<script|secret/);
   for (const url of ['javascript:alert(1)', '//evil.test/x', '/api/internal/x', 'https://x.test/private/x', 'https://x.test/x?X-Goog-Signature=abc', 'https://user:pass@x.test/x']) assert.equal(safeUrl(url,true),false,url);
   assert.equal(safeUrl('/media/articles/test.jpg',true),true);
+});
+test('network assets remain illustrative allowlisted media, not arbitrary private object access', () => {
+  const src = '/api/network-media/comfort-0-0123456789abcdef-800.webp';
+  assert.equal(safeUrl(src, true), true);
+  assert.match(cleanBody(`<figure><img src="${src}" alt="Illustrazione" width="800" height="450" loading="lazy"><figcaption>Generata con IA</figcaption></figure>`), /width="800" height="450"/);
+  assert.equal(safeUrl('/api/internal/files/original.jpg', true), false);
+});
+test('all 144 native network seeds require exact additional checks before activation', () => {
+  const seeds = catalog.records.filter(seed => seed.identity.startsWith('network-'));
+  assert.equal(seeds.length, 144);
+  for (const seed of seeds) {
+    assert.equal(seed.releaseReady, false);
+    assert.throws(() => assertNetworkActivation({ identity: seed.identity, locale: seed.locale, path: seed.path }, seed.content), error => error.status === 409);
+  }
+  assert.doesNotThrow(() => assertNetworkActivation({ identity: 'unrelated-cms-entry' }, content));
 });
 test('exact-revision owner approval, source changes and draft/active isolation', () => {
   const rev = revision(content, 'source-one', 'test-owner');

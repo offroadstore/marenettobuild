@@ -7,6 +7,33 @@ Marenetto Build must not publish invented projects, certifications, guarantees, 
 
 All requested language versions must cover the complete public site before being called complete. Empty routes, homepage-only translations and automatic publication of unreviewed technical, insurance or contractual text are not acceptable. A translated interface does not imply that staff speak every published language.
 
+The owner authorizes documentary and linguistic checks assisted by AI when
+external review documents are unavailable. Record actual findings, corrections
+and limits, not a professional opinion or native-speaker certification.
+
+**Why:** The owner explicitly chose to continue AI-assisted checks rather than
+wait for external reviews, while keeping professional-only questions open.
+
+**How to apply:** Keep AI review evidence separate from publication approval
+and technical/legal sign-off; do not demand external attachments before doing
+the documentary checks that can genuinely be completed.
+Review suggestions must not erase useful explanations of Italian institutions
+for foreign readers or replace native text with Italian. Automated editorial
+review can recommend both mistakes; retain the localization requirements
+when adjudicating its findings.
+
+The owner accepts the regional L.R. 16/2016 consolidation incorporating
+L.R. 27/2024, in force on 28 February 2025, as the dated documentary basis.
+Unverified later amendments must remain in the localized “check with the
+appointed professional” notice and report, not block readiness.
+
+**Why:** The owner explicitly instructed delivery to proceed with this dated
+source rather than waiting for an exhaustive later consolidation.
+
+**How to apply:** Cite the actual validity date, verify which official URL
+serves the PDF, and never describe the dated text as a November 2026 legal
+certification. Record inaccessible aliases without pretending they worked.
+
 Verified pages may be prepared as indexable without a further owner approval
 round once SEO, AI transparency and actual language content have passed review.
 The owner, not the agent, performs the publication.

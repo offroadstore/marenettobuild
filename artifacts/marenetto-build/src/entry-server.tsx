@@ -12,6 +12,8 @@ export { companyStructuredData } from './config/contact';
 export { editionStructuredData } from './lib/structured-data';
 export { historicalInventory } from './content/historical';
 export { blockedPublicLocale } from './localization/locales';
+export { networkPreviewPage, NETWORK_PAGES, networkPublic } from './content/network';
+export { networkStructuredData } from './content/network/schema';
 
 // Translation state is scoped to a document. Serialize server renders so concurrent
 // review/public requests cannot share the transient review selection or findings.

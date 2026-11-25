@@ -61,6 +61,8 @@ import { propertyCopy, propertyPageByPath, propertyPath } from '@/content/proper
 import { PropertyManagementPage, PropertyManagementLink } from '@/pages/property-management';
 import '@/styles/property-navigation.css';
 import { requestServiceSelection } from '@/lib/request-service';
+import { NetworkPage, NetworkServicesBlock } from '@/pages/network';
+import { NETWORK_PUBLIC_PAGES, networkCopy, networkPageByPath, networkPreviewPage, networkPublic } from '@/content/network';
 
 const queryClient = new QueryClient();
 // Restored historical pages have state "reviewed", not a new publication
@@ -205,7 +207,7 @@ const copy = new Proxy(copyBase, {
 }) as typeof copySource & Record<Lang, typeof copySource.en>;
 
 function getLang(path: string): Lang {
-  const reviewLocale = path.match(/^\/__localization-review\/([a-z]{2})\//)?.[1];
+  const reviewLocale = path.match(/^\/__(?:localization-review|network-review|network-services-review)\/([a-z]{2})(?:\/|$)/)?.[1];
   if (reviewLocale && getLocale(reviewLocale)) return reviewLocale;
   const pathLocale = path.match(/^\/([a-z]{2})(?:\/|$)/)?.[1];
   return pathLocale && getLocale(pathLocale) ? pathLocale : 'it';
@@ -346,7 +348,7 @@ function Header({ lang, page, articleSlug, editionId }: { lang: Lang; page: Page
   // 'projects' stays routable (/progetti) but is hidden from navigation until approved real work exists.
   return localizeNode(lang, <header className="topbar">
     <div className="container nav-wrap">
-      <Link href={withCampaignParams(routes[lang].home)} className="wordmark" aria-label={'Marenetto Build'} data-testid="link-logo">
+      <Link href={withCampaignParams(routes[lang].home)} className="wordmark" aria-label="Marenetto Build.com" data-testid="link-logo">
         <Logo />
       </Link>
       <nav className="nav-links" aria-label={lang === 'it' ? 'Navigazione principale' : 'Main navigation'}>
@@ -359,7 +361,7 @@ function Header({ lang, page, articleSlug, editionId }: { lang: Lang; page: Page
       </nav>
       <div className="nav-actions">
         <div className="language-picker">
-          <button ref={langButtonRef} type="button" className="lang-switch" aria-label={getLocale(lang)?.nativeName ?? lang} aria-expanded={languageMenuOpen} aria-haspopup="menu" onClick={() => { setMenuOpen(false); setLanguageMenuOpen(open => !open); }} data-testid="link-language"><span className="language-flag" aria-hidden="true">{languageFlag(lang)}</span>{lang.toUpperCase()} <ChevronDown size={12} /></button>
+          <button ref={langButtonRef} type="button" className="lang-switch" aria-label={`${lang.toUpperCase()} — ${getLocale(lang)?.nativeName ?? lang}`} aria-expanded={languageMenuOpen} aria-haspopup="menu" onClick={() => { setMenuOpen(false); setLanguageMenuOpen(open => !open); }} data-testid="link-language"><span className="language-flag" aria-hidden="true">{languageFlag(lang)}</span>{lang.toUpperCase()} <ChevronDown size={12} /></button>
           {languageMenuOpen && <div ref={languageMenuRef} className="language-menu" role="menu" onKeyDown={event => {
             const keys = ['ArrowDown', 'ArrowUp', 'Home', 'End'];
             if (!keys.includes(event.key)) return;
@@ -406,7 +408,7 @@ function Footer({ lang }: { lang: Lang }) {
   const message = localizeChoice(lang, 'Buongiorno, vorrei parlare della mia proprietà a Cefalù.', 'Hello, I would like to discuss my property in Cefalù.');
   return localizeNode(lang, <>
   <div className="footer-logo-band"><div className="container">
-    <Link href={withCampaignParams(routes[lang].home)} className="wordmark" aria-label={'Marenetto Build'} data-testid="link-footer-logo"><Logo variant="dark" /></Link>
+    <Link href={withCampaignParams(routes[lang].home)} className="wordmark" aria-label="Marenetto Build.com" data-testid="link-footer-logo"><Logo variant="dark" /></Link>
     <BrandMotto locale={lang} placement="footer" />
   </div></div>
   <footer className="footer">
@@ -430,7 +432,7 @@ function Footer({ lang }: { lang: Lang }) {
           <span className="footer-phone-row"><a href={telHref} data-testid="link-footer-phone">Tel {COMPANY_PHONE.display}</a><span aria-hidden="true">·</span><a href={whatsappHref(message)} target="_blank" rel="noopener noreferrer" aria-label={`WhatsApp ${COMPANY_PHONE.display}`} data-testid="link-footer-whatsapp">WhatsApp</a></span>
           <span lang="it" dir="ltr">{COMPANY_CONTACT.streetAddress}<br />{COMPANY_CONTACT.localityLine}</span>
         </div></div>
-        <div><Phase3FooterLinks lang={lang} /></div>
+        <div><Phase3FooterLinks lang={lang} />{NETWORK_PUBLIC_PAGES.some(p => p.locale === lang && p.id === 'network') && <div className="footer-links" lang={lang}><Link href={NETWORK_PUBLIC_PAGES.find(p => p.locale === lang && p.id === 'network')!.path}>{networkCopy(lang).nav}</Link></div>}</div>
       </div>
       {serviceCopy[lang] && <p className="footer-image-note" data-testid="footer-service-scope">{serviceCopy[lang].scope}</p>}
       <IllustrationNote lang={lang} />
@@ -629,7 +631,7 @@ function ServicesPage({ lang }: { lang: Lang }) {
       </div>
     </section>
     <section className="section tight" id="contatti" data-testid="anchor-contatti"><div className="container"><CtaPanel lang={lang} title={it ? 'Hai in mente un intervento?' : 'Have a project in mind?'} text={it ? 'Raccontaci la tua idea: capiremo insieme se e come possiamo aiutarti.' : 'Tell us what you have in mind and we can see together whether and how we can help.'} /></div></section>
-  </>)}<PropertyManagementLink locale={lang} /><TravelCoverageBlock locale={lang} /></>;
+  </>)}<NetworkServicesBlock locale={lang} /><PropertyManagementLink locale={lang} /><TravelCoverageBlock locale={lang} /></>;
 }
 
 function ProcessPage({ lang }: { lang: Lang }) {
@@ -1017,6 +1019,15 @@ function Router() {
     {editorialStatus === 'unavailable' && <button className="int-primary" onClick={() => window.location.reload()}>Riprova</button>}
   </main></div>;
   const live = active.find(edition => [edition.path,...(edition.aliases ?? [])].some(candidate => editorialPathKey(candidate) === editorialPathKey(path)));
+  const networkPreview = import.meta.env.DEV ? networkPreviewPage(path) : undefined;
+  if (networkPreview) return <LocaleGate lang={networkPreview.locale}><div className="site-shell" lang={networkPreview.locale}><Header lang={networkPreview.locale} page="articles" editionId={`network-${networkPreview.id}`} /><NetworkPage page={networkPreview} /><Footer lang={networkPreview.locale} /></div></LocaleGate>;
+  const networkServicesLocale = import.meta.env.DEV && path.match(/^\/__network-services-review\/([a-z]{2})\/?$/)?.[1];
+  if (networkServicesLocale && SERVICE_LOCALES.includes(networkServicesLocale as typeof SERVICE_LOCALES[number])) return <LocaleGate lang={networkServicesLocale}><div className="site-shell" lang={networkServicesLocale}><Header lang={networkServicesLocale} page="services" editionId="service-local" /><ServiceOfferPage lang={networkServicesLocale} previewNetwork /><Footer lang={networkServicesLocale} /></div></LocaleGate>;
+  const network = networkPageByPath(path);
+  if (network) {
+    if (!networkPublic(network) || live?.revisionId === 'withdrawn') return <NotFound lang={network.locale} />;
+    return <LocaleGate lang={network.locale}><div className="site-shell" lang={network.locale}><Header lang={network.locale} page="services" editionId={`network-${network.id}`} /><NetworkPage page={network} /><Footer lang={network.locale} /></div></LocaleGate>;
+  }
   if (live) return live.revisionId === 'withdrawn' ? <NotFound lang={live.locale} /> : <LocaleGate lang={live.locale}><ActiveEditorialPage edition={live} /></LocaleGate>;
   const noticeLocale = SERVICE_LOCALES.find(code => ['privacy', 'cookies', 'ai'].some(kind => legalPath(code, kind as LegalKind) === path.replace(/\/+$/, '')));
   if (noticeLocale) {

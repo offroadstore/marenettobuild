@@ -4,6 +4,7 @@ import { CreateEditorialBody, SaveEditorialBody, ActEditorialBody, ListEditorial
 import { requireInternalAccess, requirePermission } from '../middlewares/internalAccess';
 import { EditorialError, revision, transition, validateContent, event } from '../lib/editorial-content';
 import { ensureEditorial, editorialLocales, allRows, publicRows, detail, getRow, normalizedPath, reservedPath, isCatalogPath, sourceFor, summary, withEditorialLock, type Row } from '../lib/editorial-store';
+import { assertNetworkActivation } from '../lib/editorial-store';
 
 const router: IRouter = Router();
 const handler = (fn: (req: Request, res: Response) => Promise<void>) => async (req: Request, res: Response, _next: NextFunction): Promise<void> => {
@@ -89,6 +90,7 @@ router.post('/internal/editorial/:editionId/action', requirePermission('cms:writ
     if (parsed.data.action === 'activate' && /^\/(?:[a-z]{2}\/)?translation-ok$/.test(row.path)) throw new EditorialError(409, 'Questo percorso storico è un test ritirato, non una pagina pubblicabile.');
     if (row.version !== parsed.data.version) throw new EditorialError(409, 'L’edizione è cambiata. Ricaricare prima di procedere.');
     const rev = row.data.revisions.find(rev => rev.id === parsed.data.revisionId);
+    if (parsed.data.action === 'activate' && rev) assertNetworkActivation(row, rev.content);
     const sourceHash = row.locale === 'it' ? (parsed.data.action === 'restore' ? rev?.hash ?? '' : row.data.revisions.at(-1)!.hash) : sourceFor(row, rows)?.hash ?? '';
     transition(row.data, parsed.data.action, parsed.data.revisionId, sourceHash, row.locale, req.internalMember!.email, req.internalMember!.role === 'owner');
     row.version++;
