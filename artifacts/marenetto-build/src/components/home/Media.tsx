@@ -28,8 +28,7 @@ export function IllustrativeImage({ name, widths, sizes, alt, width, height, eag
  * Cathedral-left placement approved by the owner. Derivatives are never upscaled. The mobile crop
  * retains the stone building and Cefalù; high-DPR / wide screens need a larger original.
  */
-export function HeroPhoto({ children }: { children: ReactNode }) {
-  const locale = useContext(LibraryLocale);
+export function HeroPhoto({ children, altLocale }: { children: ReactNode; altLocale: string }) {
   const base = `${import.meta.env.BASE_URL}media/home/cefalu-hero-left`;
   const labelId = useId();
   return <><section className="mbh-hero" data-testid="section-hero" aria-describedby={labelId}>
@@ -39,7 +38,7 @@ export function HeroPhoto({ children }: { children: ReactNode }) {
         <source media="(max-width: 699px)" type="image/webp" srcSet={`${base}-mobile-450.webp 450w, ${base}-mobile-900.webp 900w`} sizes="100vw" width={900} height={941} />
         <source type="image/avif" srcSet={`${base}-768.avif 768w, ${base}-1280.avif 1280w, ${base}-1672.avif 1672w`} sizes="100vw" />
         <source type="image/webp" srcSet={`${base}-768.webp 768w, ${base}-1280.webp 1280w, ${base}-1672.webp 1672w`} sizes="100vw" />
-        <img src={`${base}-1672.jpg`} sizes="100vw" alt={heroDescription(locale) ?? ''} aria-hidden={heroDescription(locale) ? undefined : true} width={1672} height={941} loading="eager" decoding="sync" fetchPriority="high" />
+        <img src={`${base}-1672.jpg`} sizes="100vw" alt={heroDescription(altLocale) ?? ''} aria-hidden={heroDescription(altLocale) ? undefined : true} width={1672} height={941} loading="eager" decoding="sync" fetchPriority="high" />
       </picture>
       <span className="mbh-hero__shade" aria-hidden="true" />
     </div>

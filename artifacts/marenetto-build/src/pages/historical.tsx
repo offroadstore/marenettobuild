@@ -76,7 +76,7 @@ export function HistoricalContents({ page, actions }: { page: HistoricalPage; ac
     <p lang={page.locale} role="status">{pendingMessage}</p>
   </div></section>;
   if (home) return <div className="mb-home mbh historical-home" data-historical-body="" lang={page.contentLanguage} onClick={preserveCampaign}>
-    <section className="mbh-opening"><HeroPhoto><div className="mbh-hero__copy">
+    <section className="mbh-opening"><HeroPhoto altLocale={page.locale}><div className="mbh-hero__copy">
       <h1 className="mbh-h1">{page.h1}</h1>
       <BrandMotto locale={page.locale} placement="home" />
       <div data-preserved-ui="">{actions}</div>

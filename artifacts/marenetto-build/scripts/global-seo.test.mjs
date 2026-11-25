@@ -55,6 +55,21 @@ test('public historical representation preserves words while repairing headings 
   assert.equal(imageDescription('/media/articles/garden-design-esclusivo.jpg','ar','Existing label'),'Existing label');
 });
 
+test('every home renders the existing hero description in its own locale in initial HTML', async () => {
+  const homes = entries.filter(entry => entry.id === 'home');
+  assert.equal(homes.length, 12);
+  assert.equal(heroDescription('it'), 'Illustrazione di Cefalù con case, mare e La Rocca');
+  for (const home of homes) {
+    const html = await readFile(new URL(manifest.pages[home.path], root), 'utf8');
+    const images = inspect(html, home).images.filter(image => image.src.endsWith('/cefalu-hero-left-1672.jpg'));
+    assert.equal(images.length, 1, home.path);
+    const expected = heroDescription(home.locale);
+    assert.ok(expected, home.locale + ' must have its own catalog entry');
+    if (home.locale !== 'it') assert.notEqual(expected, heroDescription('it'), home.locale);
+    assert.equal(images[0].alt, expected, home.path);
+  }
+});
+
 test('JSON-LD cannot escape its inert script block and active SEO is never mechanically cut',()=>{
   const text='Question </script><script>alert(1)</script> & answer';
   const html=renderDocument('<html><head></head><body><div id="root"></div></body></html>',{

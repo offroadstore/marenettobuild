@@ -784,3 +784,31 @@ mtime_ms = 1795628209066
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/61d29a69-83ee-4a07-a2a9-1d461dfc520a/cc439557-84d4-4284-88f6-55ccde6cf3b4"
 storage_version_token = "1795628371774924"
 content_type = "text/html"
+
+[[outputs]]
+id = "pfXaR84RSVopdQxsnwVox"
+uri = "file://generated-artifacts/home-hero-alt/rapporto.html"
+type = "html"
+title = "Alt della home: rapporto prima e dopo"
+description = "Rapporto italiano con dodici URL, alt precedenti e corretti, verifiche effettive e limiti."
+logical_id = "a465a5ae-c831-48cd-a3d3-4a7a148eafe1"
+content_hash = "sha256:33b4c6ea6852d557548528ce006f94925bf0153c00f358259fe88e9e44c66b9b"
+size = 6477
+mtime_ms = 1795631931575
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/a465a5ae-c831-48cd-a3d3-4a7a148eafe1/1e6666d7-97ec-4276-ba86-10ee2983267e"
+storage_version_token = "1795631962002395"
+content_type = "text/html"
+
+[[outputs]]
+id = "p6ZG3Fo-U6K-9mi5evsZf"
+uri = "file://generated-artifacts/home-hero-alt-evidenze.zip"
+type = "unspecified"
+title = "Evidenze della verifica nelle dodici lingue"
+description = "HTML grezzi di 699 URL prima e dopo, inventari SEO, risultati browser, CSV, log e fingerprint del candidato."
+logical_id = "976f9f5b-2605-442c-b2f5-e27503bd1a1a"
+content_hash = "sha256:e301ab84bf546efb2d9593250f4e5bdfe1f98ca8613c24dff7b84e5e0ad252ec"
+size = 14611018
+mtime_ms = 1795631949022
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/976f9f5b-2605-442c-b2f5-e27503bd1a1a/3ff508de-ce49-4aeb-a147-9ad9193bd81c"
+storage_version_token = "1795631962795747"
+content_type = "application/octet-stream"

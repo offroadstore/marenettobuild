@@ -505,7 +505,7 @@ function HomePage({ lang }: { lang: Lang }) {
   const svcIds = [SERVICE_GROUP_IDS[0], SERVICE_GROUP_IDS[4], SERVICE_GROUP_IDS[5]];
   return <div className="mb-home mbh">
     <section className="mbh-opening">
-    <HeroPhoto>
+    <HeroPhoto altLocale={lang}>
       <div className="mbh-hero__copy">
         <h1 className="mbh-h1 animate-enter delay-1">{h.title}</h1>
         <p className="mbh-hero__lead animate-enter delay-2">{h.intro}</p>
