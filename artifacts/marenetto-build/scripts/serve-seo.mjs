@@ -8,6 +8,7 @@ import { resolveRoute, redirectQuery } from './seo-document.mjs';
 import { readActiveEditorial, editorialDocument, editorialUnavailableHTML, withEditorialSnapshot, key } from './editorial-http.mjs';
 import { blockedPublicLocale, render, companyStructuredData } from '../dist/server/entry-server.mjs';
 import { llmsDocument } from './llms-document.mjs';
+import { siteIconResources } from './site-icons.mjs';
 
 const root = path.resolve(import.meta.dirname, '../dist/public');
 const manifest = JSON.parse(await readFile(path.join(root, 'route-manifest.json'), 'utf8'));
@@ -48,7 +49,7 @@ export const server = createServer(async (req, res) => {
       const suppliedHeaders = args.find(value => value && typeof value === 'object');
       const contentType = suppliedHeaders?.['Content-Type'] ?? res.getHeader('Content-Type');
       const publicResource = /^\/(?:media|brand)\//.test(pathname) ||
-        ['/robots.txt', '/sitemap.xml', '/favicon.svg', '/llms.txt'].includes(pathname);
+        (siteIconResources.has(pathname) || ['/robots.txt', '/sitemap.xml', '/llms.txt'].includes(pathname));
       if (released && status === 200 && (publicResource ||
         (String(contentType ?? '').startsWith('text/html') && releaseEntries?.some(e => e.path === pathname)))) {
         res.removeHeader('X-Robots-Tag');
@@ -69,6 +70,12 @@ export const server = createServer(async (req, res) => {
       }
       return end(content, ...args);
     };
+    const icon = siteIconResources.get(pathname);
+    if (icon) {
+      const bytes = await readFile(path.join(root, pathname.slice(1)));
+      res.writeHead(200, { 'Content-Type': icon.type, 'Content-Length': bytes.length, 'Cache-Control': icon.cache });
+      return res.end(req.method === 'HEAD' ? undefined : bytes);
+    }
     if (pathname === '/robots.txt') {
       res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-cache' });
       return res.end(req.method === 'HEAD' ? undefined : released ? PUBLIC_ROBOTS : 'User-agent: *\nDisallow: /\n');

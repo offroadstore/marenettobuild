@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { render, editions } from '../dist/server/entry-server.mjs';
+import { editorialTopology } from './test-support/editorial-topology.mjs';
 
 const content = (title, language, body = '<p>Testo attivo.</p>') => ({
   title, summary:'Sommario attivo', body, category:'Test', tags:[], image:'', imageAlt:'',
@@ -31,11 +32,19 @@ test('an edited archive page lists the Russian active article rather than the It
 });
 
 test('an active revision cannot publish a blocked-language URL', async () => {
-  const live=article('ro');
-  const result=await render(live.path,'ro',[live]);
+  // Arabic is now public. Exercise an actually blocked locale, not an old release list.
+  const live={...article('ru'),locale:'he',path:'/he/synthetic-runtime',content:content('Articolo sintetico bloccato','he')};
+  const result=await render(live.path,live.locale,[live]);
   assert.ok(!result.body.includes(live.content.title));
   assert.doesNotMatch(result.body,/data-active-revision=/);
-  assert.match(result.body,/404/);
+  // The HTTP boundary serves the generated 404; a blocked renderer can stay pending.
+  const topology=await editorialTopology({snapshot:[live]});
+  try {
+    const response=await fetch(topology.origin+live.path);
+    assert.equal(response.status,404);
+    assert.equal(response.headers.get('x-robots-tag'),'noindex, nofollow');
+    assert.doesNotMatch(await response.text(),/data-active-revision=/);
+  } finally {await topology.close();}
 });
 
 test('a withdrawn existing article never falls back to its static public body', async () => {

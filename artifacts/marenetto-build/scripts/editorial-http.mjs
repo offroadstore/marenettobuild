@@ -1,4 +1,5 @@
 import { renderDocument } from './seo-document.mjs';
+import { SITE_ICON_HEAD } from './site-icons.mjs';
 // Only server-side configuration. Browser requests still use the shared /api
 // route. Production must name this revision's API service (or internal proxy),
 // never a public domain which could still serve the previous deployment.
@@ -51,7 +52,7 @@ export async function readActiveEditorial() {
     throw unavailable(error.name === 'TimeoutError' || error.name === 'AbortError' ? 'timeout' : 'connection');
   }
 }
-export const editorialUnavailableHTML = '<!doctype html><html lang="it" dir="ltr"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><title>Contenuti temporaneamente non disponibili</title></head><body><main><h1>Contenuti temporaneamente non disponibili</h1><p>Non possiamo verificare quali revisioni sono attive. Riprova tra poco: nessuna copia precedente viene ripubblicata.</p></main></body></html>';
+export const editorialUnavailableHTML = `<!doctype html><html lang="it" dir="ltr"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><title>Contenuti temporaneamente non disponibili</title>${SITE_ICON_HEAD}</head><body><main><h1>Contenuti temporaneamente non disponibili</h1><p>Non possiamo verificare quali revisioni sono attive. Riprova tra poco: nessuna copia precedente viene ripubblicata.</p></main></body></html>`;
 export function withEditorialSnapshot(html, active) {
   return html.replace('</head>', `<script type="application/json" id="editorial-active">${JSON.stringify(active).replaceAll('<','\\u003c')}</script></head>`);
 }

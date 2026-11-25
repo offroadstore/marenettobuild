@@ -840,3 +840,17 @@ mtime_ms = 1795644408233
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/7246b202-bea5-4c11-8190-0f5302c647e8/0ce9c10d-3ded-499f-aff0-0b0174f97eeb"
 storage_version_token = "1795644409417580"
 content_type = "text/html"
+
+[[outputs]]
+id = "anjSHeWw0qMoYzBAuUGEc"
+uri = "file://generated-artifacts/marenetto-icons/rapporto-icone-marenetto.html"
+type = "html"
+title = "Rapporto finale icone Marenetto"
+description = "Versione aggiornata dopo sincronizzazione: 1.327 file confrontati, tredici lingue, HTTP, hash SVG, maschere, test e limiti fisici."
+logical_id = "90c7707a-9d83-4307-8fbe-64ed36e65e65"
+content_hash = "sha256:73b760578fcc4dbcda3fef81838f29edddf40f73b3bc8cec845923350889b4e5"
+size = 74923
+mtime_ms = 1795646045434
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/90c7707a-9d83-4307-8fbe-64ed36e65e65/71708545-5872-4e90-9d6d-c5e4e5ad373a"
+storage_version_token = "1795646057411467"
+content_type = "text/html"

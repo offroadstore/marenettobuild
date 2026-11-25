@@ -5,7 +5,7 @@ import { homeMetadata } from '../src/localization/home-seo.mjs';
 import { searchCopy } from '../src/localization/search-copy.mjs';
 import { releaseMetadata, mergeActiveMetadata } from '../src/localization/public-seo.mjs';
 import { renderDocument } from './seo-document.mjs';
-import { publicEditions } from './public-release.mjs';
+import { publicEditions, APPROVED_LOCALES } from './public-release.mjs';
 import { editorialTopology } from './test-support/editorial-topology.mjs';
 
 const root = new URL('../dist/public/', import.meta.url);
@@ -82,7 +82,7 @@ test('every served edition has complete initial HTML metadata; sitemap metadata 
         const row = { path: edition.path, locale: edition.locale, status: response.status };
         if (response.status === 200) {
           Object.assign(row, check(html, edition.path));
-          if (edition.id === 'home') assert.equal(row.title, searchCopy(edition)?.title ?? edition.title);
+          if (edition.id === 'home') assert.equal(row.title, (searchCopy(edition) ?? releaseMetadata(edition)).title);
         } else assert.ok([301, 302, 307, 308, 404, 410, 503].includes(response.status), `${edition.path}: HTTP ${response.status}`);
         rows.push(row);
       }));
@@ -101,7 +101,7 @@ test('every served edition has complete initial HTML metadata; sitemap metadata 
     await mkdir(new URL('.', report), { recursive: true });
     await writeFile(report, JSON.stringify({ source: 'Local actual production server; synthetic empty editorial snapshot; no browser JavaScript', indexed: indexed.size, duplicates, rows: rows.sort((a,b) => a.path.localeCompare(b.path)) }, null, 2));
     assert.deepEqual(duplicates, [], 'Duplicate metadata on indexable canonical pages');
-    assert.equal(new Set(rows.filter(r => r.status === 200).map(r => r.locale)).size, 13);
+    assert.deepEqual(new Set(rows.filter(r => r.status === 200).map(r => r.locale)), APPROVED_LOCALES);
   } finally { await topology.close(); }
 });
 

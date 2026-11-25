@@ -27,3 +27,4 @@
 - [AI visibility budget](ai-visibility-budget.md) — Three search-enabled providers, zero initial budget; keys alone do not authorize paid calls.
 - [Task synchronization](task-synchronization.md) — Completion can flatten merges; preserve functional changes outside merge-only resolutions.
 - [Development SSR comparisons](development-ssr-comparisons.md) — Preserve raw baselines; ignore only documented dev-module cache tokens, never content or SEO changes.
+- [Favicon browser transport](favicon-browser-transport.md) — Chromium favicon fetches can fail under Playwright routing before reaching the server; separate harness failures from HTTP failures.

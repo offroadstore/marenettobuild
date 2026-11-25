@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { withFontPreload } from './font-preloads.mjs';
+import { siteIconResources } from './site-icons.mjs';
 import { renderDocument, resolveRoute, redirectQuery, SEO_ORIGIN } from './seo-document.mjs';
 import { readActiveEditorial, editorialDocument, editorialUnavailableHTML, withEditorialSnapshot, key } from './editorial-http.mjs';
 
@@ -16,6 +17,12 @@ export function seoPreviewPlugin() {
       server.middlewares.use(async (req, res, next) => {
         const url = new URL(req.url, 'http://preview.invalid');
         const pathname = url.pathname;
+        const icon = siteIconResources.get(pathname);
+        if (icon && ['GET', 'HEAD'].includes(req.method)) {
+          const bytes = await readFile(`${server.config.root}/public${pathname}`);
+          res.writeHead(200, { 'Content-Type': icon.type, 'Content-Length': bytes.length, 'Cache-Control': icon.cache, 'X-Robots-Tag': 'noindex, nofollow' });
+          return res.end(req.method === 'HEAD' ? undefined : bytes);
+        }
         if (pathname === '/llms.txt') {
           res.setHeader('X-Robots-Tag', 'noindex, nofollow');
           return next();
