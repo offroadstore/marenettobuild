@@ -1,7 +1,7 @@
 import { Link } from 'wouter';
 import { COMPANY_CONTACT, COMPANY_PHONE } from '@/config/contact';
 import { legalPath, noticeCopy, projectPrivacyHeading, NOTICE_VERSION, type LegalKind } from '@/content/legal-notices';
-import { callCopy, type CallLang } from '@/content/call-request-copy';
+import { getCallCopy } from '@/content/call-request-copy';
 import { googleReviewsDetails } from '@/config/google-reviews-details';
 
 export function LegalNoticePage({lang, kind}: {lang: string; kind: LegalKind}) {
@@ -26,8 +26,8 @@ export function LegalNoticePage({lang, kind}: {lang: string; kind: LegalKind}) {
           {paragraphs.slice(1).map((paragraph,index)=><p key={index}>{paragraph}</p>)}
         </section>
         <section aria-labelledby="callback-privacy-heading" data-testid="legal-callback-processing">
-          <h2 id="callback-privacy-heading">{callCopy[lang as CallLang].privacyTitle}</h2>
-          {callCopy[lang as CallLang].privacy.map((paragraph,index)=><p key={index}>{paragraph}</p>)}
+          <h2 id="callback-privacy-heading">{getCallCopy(lang).privacyTitle}</h2>
+          {getCallCopy(lang).privacy.map((paragraph,index)=><p key={index}>{paragraph}</p>)}
         </section>
         <p data-testid="legal-google-review-transport">{googleReviewsDetails[lang].privacy}</p>
       </> : paragraphs.map((paragraph,index)=><p key={index}>{paragraph}</p>)}

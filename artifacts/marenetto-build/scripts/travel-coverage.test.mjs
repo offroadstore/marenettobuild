@@ -12,12 +12,12 @@ const mainOf = html => html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1] ?? htm
 test('one substantial travel page per active language, not a separate doorway per destination', async () => {
   assert.ok(italian);
   const family = editions.filter(edition => edition.id === italian.id);
-  assert.equal(family.length, 12);
+  assert.equal(family.length, 13);
   const expected = ['Palermo', 'Taormina', 'Messina', 'Siracusa'];
   for (const edition of family) {
     const html = await readPage(edition);
     const main = mainOf(html);
-    assert.match(main, /Madonie|Мадоние/, edition.path);
+    assert.match(main, /Madonie|Мадоние|مادونيه/u, edition.path);
     assert.equal((main.match(/<h1\b/g) ?? []).length, 1, edition.path);
     assert.ok(main.replace(/<[^>]*>/g, ' ').length > 1800, edition.path);
     if (edition.locale === 'it') for (const city of expected) {
@@ -44,10 +44,10 @@ test('ordinary zones, furniture and core services visibly explain conditional tr
     (edition.id === 'services' || edition.id === 'zones' || edition.id === 'custom-furniture' ||
       (edition.source.startsWith('phase3:') && edition.id.startsWith('place-'))) &&
     manifest.pages[edition.path]);
-  assert.equal(new Set(targets.map(edition => edition.locale)).size, 12);
+  assert.equal(new Set(targets.map(edition => edition.locale)).size, 13);
   for (const edition of targets) {
     const main = mainOf(await readPage(edition));
-    assert.match(main, /Madonie|Мадоние/, `No ordinary-area explanation: ${edition.path}`);
+    assert.match(main, /Madonie|Мадоние|مادونيه/u, `No ordinary-area explanation: ${edition.path}`);
     assert.ok(main.includes(`href="${travelPages.get(edition.locale)}`), `No native travel link: ${edition.path}`);
   }
 });

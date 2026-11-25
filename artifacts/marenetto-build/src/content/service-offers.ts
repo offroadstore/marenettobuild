@@ -1,8 +1,10 @@
 import pages from '@/localization/public-pages.json';
 import { ownerDecisions } from './owner-decisions';
+import { serviceCopyAr } from './service-offers-ar';
 
 /** New copy is a release candidate, not an inherited translation approval. */
-export const SERVICE_LOCALES = ['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da'] as const;
+/** Arabic is wired but its editions stay draft until ARABIC_PUBLIC_RELEASE (edition-inventory). */
+export const SERVICE_LOCALES = ['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da', 'ar'] as const;
 export type ServiceCopy = {
   premiumTitle: string; localTitle: string; scope: string; premiumIntro: string;
   materials: string; process: string; travel: string; gallery: string;
@@ -204,6 +206,7 @@ export const serviceCopy: Record<string, ServiceCopy> = {
   },
 };
 
+Object.assign(serviceCopy, serviceCopyAr);
 for (const [locale, decision] of Object.entries(ownerDecisions)) {
   const copy = serviceCopy[locale];
   copy.scope = decision.scope;

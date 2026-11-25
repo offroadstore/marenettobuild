@@ -25,7 +25,8 @@ createServer((req, res) => {
     return;
   }
   const publicImage = ['GET', 'HEAD'].includes(req.method)
-    && /^\/api\/historical-media\/[a-f0-9]{64}\.(?:png|jpe?g|webp|gif)$/.test(pathname);
+    && (/^\/api\/historical-media\/[a-f0-9]{64}\.(?:png|jpe?g|webp|gif)$/.test(pathname)
+      || /^\/api\/network-media\/[a-z]+-[0-2]-[a-f0-9]{16}-(?:480|800|1024|1280)\.webp$/.test(pathname));
   const publicEditorial = ['GET', 'HEAD'].includes(req.method) && pathname === '/api/editorial/active';
   const targetPort = publicImage || publicEditorial ? 80 : staticPort;
   const headers = { ...req.headers, host: `127.0.0.1:${targetPort}` };

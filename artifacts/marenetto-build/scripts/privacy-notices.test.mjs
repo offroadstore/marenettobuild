@@ -7,7 +7,7 @@ process.env.NODE_ENV='production';
 const vite=await createServer({configFile:new URL('../vite.config.ts',import.meta.url).pathname,optimizeDeps:{noDiscovery:true,entries:[]},server:{middlewareMode:true,hmr:false},appType:'custom'});
 after(()=>vite.close());
 const escaped=text=>text.replaceAll('&','&amp;').replaceAll("'",'&#x27;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;');
-test('all 36 owner-authorized notices render in their own language with accurate contact and retention',async()=>{
+test('all 39 owner-authorized notices render in their own language with accurate contact and retention',async()=>{
   const {noticeCopy,legalPath,HUMAN_REVIEW_APPROVED}=await vite.ssrLoadModule('/src/content/legal-notices.ts');
   const {COMPANY_CONTACT}=await vite.ssrLoadModule('/src/config/contact.ts');
   const {callCopy}=await vite.ssrLoadModule('/src/content/call-request-copy.ts');
@@ -31,12 +31,12 @@ test('all 36 owner-authorized notices render in their own language with accurate
     }
     assert.ok(!body.includes('info@marenettobuild.com'),path);
     const edition=editions.find(e=>e.path===path);
-    assert.match(edition.approval,/Owner authorization: index all public pages/);
+    assert.match(edition.approval,locale==='ar'?/Owner instruction to publish Arabic/:/Owner authorization: index all public pages/);
     assert.equal(edition.sitemap,true);
     if(kind==='privacy') assert.ok(c.privacyText.some(p=>p.includes('12')),locale);
   }
   const manifest={editions:Object.fromEntries(editions.map(e=>[e.path,e])),pages:Object.fromEntries(editions.map(e=>[e.path,'test.html']))};
-  assert.equal(publicEditions(manifest).filter(e=>e.source.startsWith('phase4:')).length,36,'owner-authorized notices are public');
+  assert.equal(publicEditions(manifest).filter(e=>e.source.startsWith('phase4:')).length,39,'owner-authorized notices are public');
 });
 test('hero is individually labelled, historic provenance remains uncertain, originals are not changed',async()=>{
   const {render}=await vite.ssrLoadModule('/src/entry-server.tsx');

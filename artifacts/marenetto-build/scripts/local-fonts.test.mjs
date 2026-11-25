@@ -95,7 +95,7 @@ test('production HTTP serves every WOFF2 with correct MIME and localized initial
       const html = await response.text();
       assert.doesNotMatch(html, remote);
       assert.equal((html.match(/data-site-font/g) ?? []).length, 1, pathname);
-      assert.ok(html.includes(fonts[locale.script === 'cyrillic' ? 'cyrillic' : 'latin']), pathname);
+      assert.ok(html.includes(fonts[locale.code === 'ar' ? 'ar' : locale.script === 'cyrillic' ? 'cyrillic' : 'latin']), pathname);
     }
     for (const [pathname, key] of [
       ['/internal', 'internal'], ['/sign-in', 'internal'], ['/owner-demo', 'latin'],

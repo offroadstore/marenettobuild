@@ -172,7 +172,7 @@ export const ListBingSitesResponse = zod.array(ListBingSitesResponseItem)
 
 export const GetCallRequestConfigResponse = zod.object({
   "isSynthetic": zod.boolean(),
-  "privacyVersion": zod.enum(['call-2026-11-25'])
+  "privacyVersion": zod.enum(['call-2026-11-25-atelier'])
 })
 
 
@@ -190,6 +190,9 @@ export const createCallRequestBodyEmailMax = 254;
 export const createCallRequestBodyMobileRegExp = new RegExp('^\\+[1-9][0-9]{7,14}$');
 export const createCallRequestBodyWhatsappDefault = false;
 export const createCallRequestBodyLocationMax = 180;
+
+export const createCallRequestBodyCountryMin = 2;
+export const createCallRequestBodyCountryMax = 100;
 
 export const createCallRequestBodyBudgetMax = 100;
 
@@ -217,17 +220,18 @@ export const CreateCallRequestBody = zod.object({
   "email": zod.string().email().max(createCallRequestBodyEmailMax),
   "mobile": zod.string().regex(createCallRequestBodyMobileRegExp),
   "whatsapp": zod.boolean().default(createCallRequestBodyWhatsappDefault),
-  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other']).optional(),
+  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other', 'atelier_international']).optional(),
   "location": zod.string().max(createCallRequestBodyLocationMax).optional(),
+  "country": zod.string().min(createCallRequestBodyCountryMin).max(createCallRequestBodyCountryMax).optional().describe('Destination country, distinct from property locality. Required for new international Atelier enquiries; absent on historical requests.'),
   "budget": zod.string().max(createCallRequestBodyBudgetMax).optional(),
   "startWhen": zod.string().max(createCallRequestBodyStartWhenMax).optional(),
   "timeSlot": zod.enum(['morning', 'afternoon']).optional(),
-  "preferredLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']).optional(),
+  "preferredLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da', 'ar']).optional(),
   "message": zod.string().max(createCallRequestBodyMessageMax).optional(),
   "privacyAccepted": zod.literal(true),
   "marketingAccepted": zod.boolean().default(createCallRequestBodyMarketingAcceptedDefault),
-  "privacyVersion": zod.enum(['call-2026-11-23', 'call-2026-11-25']),
-  "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']),
+  "privacyVersion": zod.enum(['call-2026-11-23', 'call-2026-11-25', 'call-2026-11-25-atelier']),
+  "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da', 'ar']),
   "sourcePath": zod.string().max(createCallRequestBodySourcePathMax).optional(),
   "utm": zod.object({
   "utm_source": zod.string().max(createCallRequestBodyUtmUtmSourceMax).optional(),
@@ -247,11 +251,17 @@ export const CreateCallRequestResponse = zod.object({
 })
 
 
+export const listCallRequestsQueryCountryMin = 2;
+export const listCallRequestsQueryCountryMax = 100;
+
+
+
 export const ListCallRequestsQueryParams = zod.object({
   "start": zod.date().optional(),
   "end": zod.date().optional(),
-  "language": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']).optional(),
-  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other']).optional(),
+  "language": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da', 'ar']).optional(),
+  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other', 'atelier_international']).optional(),
+  "country": zod.coerce.string().min(listCallRequestsQueryCountryMin).max(listCallRequestsQueryCountryMax).optional(),
   "status": zod.enum(['new', 'contacted', 'survey', 'quote', 'closed']).optional()
 })
 
@@ -269,6 +279,9 @@ export const listCallRequestsResponseDataEmailMax = 254;
 export const listCallRequestsResponseDataMobileRegExp = new RegExp('^\\+[1-9][0-9]{7,14}$');
 export const listCallRequestsResponseDataWhatsappDefault = false;
 export const listCallRequestsResponseDataLocationMax = 180;
+
+export const listCallRequestsResponseDataCountryMin = 2;
+export const listCallRequestsResponseDataCountryMax = 100;
 
 export const listCallRequestsResponseDataBudgetMax = 100;
 
@@ -299,17 +312,18 @@ export const ListCallRequestsResponseItem = zod.object({
   "email": zod.string().email().max(listCallRequestsResponseDataEmailMax),
   "mobile": zod.string().regex(listCallRequestsResponseDataMobileRegExp),
   "whatsapp": zod.boolean().default(listCallRequestsResponseDataWhatsappDefault),
-  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other']).optional(),
+  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other', 'atelier_international']).optional(),
   "location": zod.string().max(listCallRequestsResponseDataLocationMax).optional(),
+  "country": zod.string().min(listCallRequestsResponseDataCountryMin).max(listCallRequestsResponseDataCountryMax).optional().describe('Destination country, distinct from property locality. Required for new international Atelier enquiries; absent on historical requests.'),
   "budget": zod.string().max(listCallRequestsResponseDataBudgetMax).optional(),
   "startWhen": zod.string().max(listCallRequestsResponseDataStartWhenMax).optional(),
   "timeSlot": zod.enum(['morning', 'afternoon']).optional(),
-  "preferredLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']).optional(),
+  "preferredLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da', 'ar']).optional(),
   "message": zod.string().max(listCallRequestsResponseDataMessageMax).optional(),
   "privacyAccepted": zod.literal(true),
   "marketingAccepted": zod.boolean().default(listCallRequestsResponseDataMarketingAcceptedDefault),
-  "privacyVersion": zod.enum(['call-2026-11-23', 'call-2026-11-25']),
-  "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']),
+  "privacyVersion": zod.enum(['call-2026-11-23', 'call-2026-11-25', 'call-2026-11-25-atelier']),
+  "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da', 'ar']),
   "sourcePath": zod.string().max(listCallRequestsResponseDataSourcePathMax).optional(),
   "utm": zod.object({
   "utm_source": zod.string().max(listCallRequestsResponseDataUtmUtmSourceMax).optional(),
@@ -323,7 +337,7 @@ export const ListCallRequestsResponseItem = zod.object({
   "updatedAt": zod.coerce.date(),
   "consentAt": zod.coerce.date(),
   "privacyVersion": zod.string(),
-  "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']),
+  "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da', 'ar']),
   "status": zod.enum(['new', 'contacted', 'survey', 'quote', 'closed']),
   "notes": zod.string(),
   "acquiredCustomer": zod.boolean(),
@@ -334,11 +348,17 @@ export const ListCallRequestsResponseItem = zod.object({
 export const ListCallRequestsResponse = zod.array(ListCallRequestsResponseItem)
 
 
+export const exportCallRequestsQueryCountryMin = 2;
+export const exportCallRequestsQueryCountryMax = 100;
+
+
+
 export const ExportCallRequestsQueryParams = zod.object({
   "start": zod.date().optional(),
   "end": zod.date().optional(),
-  "language": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']).optional(),
-  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other']).optional(),
+  "language": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da', 'ar']).optional(),
+  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other', 'atelier_international']).optional(),
+  "country": zod.coerce.string().min(exportCallRequestsQueryCountryMin).max(exportCallRequestsQueryCountryMax).optional(),
   "status": zod.enum(['new', 'contacted', 'survey', 'quote', 'closed']).optional()
 })
 
@@ -377,6 +397,9 @@ export const updateCallRequestResponseDataMobileRegExp = new RegExp('^\\+[1-9][0
 export const updateCallRequestResponseDataWhatsappDefault = false;
 export const updateCallRequestResponseDataLocationMax = 180;
 
+export const updateCallRequestResponseDataCountryMin = 2;
+export const updateCallRequestResponseDataCountryMax = 100;
+
 export const updateCallRequestResponseDataBudgetMax = 100;
 
 export const updateCallRequestResponseDataStartWhenMax = 100;
@@ -406,17 +429,18 @@ export const UpdateCallRequestResponse = zod.object({
   "email": zod.string().email().max(updateCallRequestResponseDataEmailMax),
   "mobile": zod.string().regex(updateCallRequestResponseDataMobileRegExp),
   "whatsapp": zod.boolean().default(updateCallRequestResponseDataWhatsappDefault),
-  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other']).optional(),
+  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other', 'atelier_international']).optional(),
   "location": zod.string().max(updateCallRequestResponseDataLocationMax).optional(),
+  "country": zod.string().min(updateCallRequestResponseDataCountryMin).max(updateCallRequestResponseDataCountryMax).optional().describe('Destination country, distinct from property locality. Required for new international Atelier enquiries; absent on historical requests.'),
   "budget": zod.string().max(updateCallRequestResponseDataBudgetMax).optional(),
   "startWhen": zod.string().max(updateCallRequestResponseDataStartWhenMax).optional(),
   "timeSlot": zod.enum(['morning', 'afternoon']).optional(),
-  "preferredLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']).optional(),
+  "preferredLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da', 'ar']).optional(),
   "message": zod.string().max(updateCallRequestResponseDataMessageMax).optional(),
   "privacyAccepted": zod.literal(true),
   "marketingAccepted": zod.boolean().default(updateCallRequestResponseDataMarketingAcceptedDefault),
-  "privacyVersion": zod.enum(['call-2026-11-23', 'call-2026-11-25']),
-  "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']),
+  "privacyVersion": zod.enum(['call-2026-11-23', 'call-2026-11-25', 'call-2026-11-25-atelier']),
+  "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da', 'ar']),
   "sourcePath": zod.string().max(updateCallRequestResponseDataSourcePathMax).optional(),
   "utm": zod.object({
   "utm_source": zod.string().max(updateCallRequestResponseDataUtmUtmSourceMax).optional(),
@@ -430,7 +454,7 @@ export const UpdateCallRequestResponse = zod.object({
   "updatedAt": zod.coerce.date(),
   "consentAt": zod.coerce.date(),
   "privacyVersion": zod.string(),
-  "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']),
+  "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da', 'ar']),
   "status": zod.enum(['new', 'contacted', 'survey', 'quote', 'closed']),
   "notes": zod.string(),
   "acquiredCustomer": zod.boolean(),

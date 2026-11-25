@@ -24,7 +24,7 @@ test('thirteen complete motto sets retain every supplied exact formulation', () 
   assert.equal(mottos.en.sicilianFire, 'Fire, stone and passion. From Sicily, anywhere.');
   assert.equal(mottos.it.atelier, 'Se lo immagini, noi lo costruiamo.');
   assert.equal(mottos.en.atelier, 'If you can imagine it, we can build it.');
-  assert.equal(locales.find(locale => locale.code === 'ar').publication, 'blocked');
+  assert.equal(locales.find(locale => locale.code === 'ar').publication, 'published');
 });
 
 test('all active home editions render one localized presentation motto and one footer motto', async () => {
@@ -59,9 +59,9 @@ test('all active home editions render one localized presentation motto and one f
       assert.equal([...body.matchAll(paragraph('home'))].length, 0, service.path);
       assert.doesNotMatch(body, /data-brand-motto="(?:atelier|sicilianFire)"/);
     }
-    const blocked = await render('/ar/', 'ar');
-    assert.doesNotMatch(blocked.body, /data-brand-motto/);
-    console.log(`Verified ${homes.length} home routes and ${activeCodes.length} service footers; Arabic remains blocked.`);
+    const arabic = await render('/ar/', 'ar');
+    assert.match(arabic.body, /data-brand-motto/);
+    console.log(`Verified ${homes.length} home routes and ${activeCodes.length} service footers, including Arabic.`);
   } finally {
     await vite.close();
   }

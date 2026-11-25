@@ -7,6 +7,7 @@ import { historicalPage, historicalPending, loadHistorical } from './content/his
 import type { EditorialActive } from '@workspace/api-client-react';
 import { translationCandidate, translationSourceChanged } from './localization/phase2';
 import { mergeActiveMetadata, releaseMetadata } from './localization/public-seo.mjs';
+import { arabicEditorialByPath } from './content/arabic-editorial';
 export { editions, redirects, excludedRoutes, equivalentEditions, canonicalEdition, reviewPathForEdition, reviewHubEdition } from './localization/edition-inventory';
 export { companyStructuredData } from './config/contact';
 export { editionStructuredData } from './lib/structured-data';
@@ -38,7 +39,16 @@ export function render(path: string, locale: string, active: EditorialActive[] =
     let fullTextProof;
     const translation = translationCandidate(path);
     const sourceChanged = translation && translationSourceChanged(translation, active);
-    if (!sourceChanged && !active.some(edition => edition.path.replace(/\/+$/, '') === path.replace(/\/+$/, '')) && article?.approvedFullText && !historicalPage(path) && !historicalPending(path)) {
+    const arabicArticle = arabicEditorialByPath(path);
+    if (arabicArticle && !active.some(edition => edition.path.replace(/\/+$/, '') === path.replace(/\/+$/, ''))) {
+      const blocks = [arabicArticle.h1, arabicArticle.intro,
+        ...arabicArticle.sections.flatMap(section => [section.heading, ...section.paragraphs]),
+        ...(arabicArticle.faq ?? []).flat()];
+      const escaped = (value: string) => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#x27;');
+      const missingBlocks = blocks.filter(block => !body.includes(escaped(block)));
+      if (missingBlocks.length) throw new Error(`Arabic adaptation body incomplete at ${path}: ${missingBlocks.length} missing blocks`);
+      fullTextProof = { slug: arabicArticle.slug, contentLocale: 'ar', blocks: blocks.length, missingBlocks: 0, originalDate: null, automatedCheckOnly: true };
+    } else if (!sourceChanged && !active.some(edition => edition.path.replace(/\/+$/, '') === path.replace(/\/+$/, '')) && article?.approvedFullText && !historicalPage(path) && !historicalPending(path)) {
       const translated = showsTranslatedCopy(locale);
       const text = translated ? translateText(locale, article.approvedFullText) : article.approvedFullText;
       const blocks = text.trim().split(/\n\s*\n/).filter(Boolean).flatMap(block => block.startsWith('- ') ? block.split('\n').map(line => line.slice(2)) : [block.replace(/^## /, '')]);

@@ -1,3 +1,4 @@
+import { arabicSeo } from './arabic-seo.mjs';
 const copy = {
   it: [
     'Guide per ristrutturare casa a Cefalù',
@@ -79,3 +80,4 @@ export const libraryMetadata = Object.fromEntries(Object.entries(copy).map(([loc
     search: { title: `${searchTitle} | Marenetto Build`, description: searchDescription },
   },
 ]));
+libraryMetadata.ar = { guides: arabicSeo.guides, search: arabicSeo.search };

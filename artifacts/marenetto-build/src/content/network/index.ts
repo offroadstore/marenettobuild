@@ -10,7 +10,9 @@ import ru from './ru';
 import sv from './sv';
 import no from './no';
 import da from './da';
+import ar from './ar';
 import reviewsJSON from './reviews.json';
+import arabicReviewsJSON from './reviews-ar.json';
 import imagesJSON from './images.json';
 import { NETWORK_IDS, type NetworkCopy, type NetworkId } from './types';
 import { networkSourcesFor } from './sources';
@@ -18,7 +20,7 @@ import { regulatoryNotice } from './regulatory-notice';
 export { NETWORK_IDS } from './types';
 export type { NetworkCopy, NetworkId } from './types';
 
-export const NETWORK_COPY: Record<string, NetworkCopy> = { it, en, de, nl, fr, es, pt, pl, ru, sv, no, da };
+export const NETWORK_COPY: Record<string, NetworkCopy> = { it, en, de, nl, fr, es, pt, pl, ru, sv, no, da, ar };
 export const NETWORK_LOCALES = Object.keys(NETWORK_COPY);
 export const networkCopy = (locale: string) => {
   const copy = NETWORK_COPY[locale];
@@ -29,7 +31,7 @@ const roots: Record<string, string> = {
   it: 'rete-professionisti', en: 'professional-network', de: 'fachleute-netzwerk',
   nl: 'netwerk-vakmensen', fr: 'reseau-professionnels', es: 'red-profesionales',
   pt: 'rede-profissionais', pl: 'siec-specjalistow', ru: 'set-specialistov',
-  sv: 'natverk-yrkespersoner', no: 'nettverk-fagfolk', da: 'netvaerk-fagfolk',
+  sv: 'natverk-yrkespersoner', no: 'nettverk-fagfolk', da: 'netvaerk-fagfolk', ar: 'professional-network',
 };
 export const networkPath = (locale: string, id: NetworkId = 'network') => {
   const article = networkCopy(locale).articles[id];
@@ -72,7 +74,7 @@ type NetworkReview = {
   reviewedContent: string; createdAt: string; modifiedAt: string; publishedAt?: string;
   checks: { seo: Evidence; linguistic: Evidence; technical: Evidence; ai: Evidence };
 };
-export const networkReviews = reviewsJSON as Record<string, NetworkReview>;
+export const networkReviews = { ...reviewsJSON, ...arabicReviewsJSON } as Record<string, NetworkReview>;
 export function networkRevisionPayload(page: NetworkPageRecord) {
   const { articles, ...shared } = networkCopy(page.locale);
   return JSON.stringify({ page, shared, article: articles[page.id], notice: regulatoryNotice(page.locale), sources: networkSourcesFor(page.id), images: networkImages(page.id) });

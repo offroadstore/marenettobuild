@@ -62,6 +62,15 @@ import { PropertyManagementPage, PropertyManagementLink } from '@/pages/property
 import '@/styles/property-navigation.css';
 import { requestServiceSelection } from '@/lib/request-service';
 import { NetworkPage, NetworkServicesBlock } from '@/pages/network';
+import { AtelierPage, AtelierLink } from '@/pages/atelier';
+import { atelierCopy, atelierPageByPath, atelierPath } from '@/content/atelier';
+import { ARABIC_PREVIEW_PREFIX } from '@/localization/arabic-release';
+import { ARABIC_EDITORIAL_ARTICLES, arabicEditorialByPath, arabicEditorialPath } from '@/content/arabic-editorial';
+import { ARABIC_LIBRARY_PATH } from '@/content/arabic-editorial-library';
+import { ArabicLibraryPage } from '@/pages/arabic-library';
+import { ArabicEditorialPage } from '@/pages/arabic-editorial';
+import { arabicArchiveByPath } from '@/content/arabic-archives';
+import { ArabicArchivePage } from '@/pages/arabic-archive';
 import { NETWORK_PUBLIC_PAGES, networkCopy, networkPageByPath, networkPreviewPage, networkPublic } from '@/content/network';
 
 const queryClient = new QueryClient();
@@ -354,7 +363,7 @@ function Header({ lang, page, articleSlug, editionId }: { lang: Lang; page: Page
       <nav className="nav-links" aria-label={lang === 'it' ? 'Navigazione principale' : 'Main navigation'}>
         <WhatsAppNavLink lang={lang} />
         {desktopItems.slice(0, 2).map(([key, label]) => key === 'services' && propertyCopy[lang]
-          ? <div className="property-services-nav" key={key}><PageLink page={key} lang={lang} aria-current={page === key ? 'page' : undefined} data-testid={`nav-${key}`}>{label}</PageLink><details><summary aria-label={label}><ChevronDown size={14} aria-hidden="true" /></summary><div className="property-services-menu"><Link href={withCampaignParams(propertyPath(lang))} data-testid="nav-property-management">{propertyCopy[lang].nav}</Link></div></details></div>
+          ? <div className="property-services-nav" key={key}><PageLink page={key} lang={lang} aria-current={page === key ? 'page' : undefined} data-testid={`nav-${key}`}>{label}</PageLink><details><summary aria-label={label}><ChevronDown size={14} aria-hidden="true" /></summary><div className="property-services-menu"><Link href={withCampaignParams(propertyPath(lang))} data-testid="nav-property-management">{propertyCopy[lang].nav}</Link>{atelierCopy[lang] && <Link href={withCampaignParams(atelierPath(lang))} data-testid="nav-atelier">{atelierCopy[lang].nav}</Link>}</div></details></div>
           : <PageLink key={key} page={key} lang={lang} aria-current={page === key ? 'page' : undefined} data-testid={`nav-${key}`}>{label}</PageLink>)}
         {historicalArticleMenu(lang) && <ArticleNav lang={lang} variant="desktop" />}
         <PageLink page="contact" lang={lang} aria-current={page === 'contact' ? 'page' : undefined} data-testid="nav-contact">{c.contact}</PageLink>
@@ -387,6 +396,7 @@ function Header({ lang, page, articleSlug, editionId }: { lang: Lang; page: Page
         ? <ArticleNav key={key} lang={lang} variant="mobile" onNavigate={() => setMenuOpen(false)} />
         : <PageLink key={key} page={key} lang={lang} onClick={() => setMenuOpen(false)} data-testid={`mobile-nav-${key}`}>{label}</PageLink>)}
       {propertyCopy[lang] && <Link href={withCampaignParams(propertyPath(lang))} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-property-management">{propertyCopy[lang].nav}</Link>}
+      {propertyCopy[lang] && atelierCopy[lang] && <Link href={withCampaignParams(atelierPath(lang))} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-atelier">{atelierCopy[lang].nav}</Link>}
       <PageLink page="guides" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-guides">{lang === 'it' ? 'Guide pratiche' : 'Practical guides'}</PageLink>
       <PageLink page="search" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-search">{lang === 'it' ? 'Ricerca' : 'Search'}</PageLink>
       <a href={telHref} data-testid="mobile-nav-phone">{COMPANY_PHONE.display}</a>
@@ -416,6 +426,7 @@ function Footer({ lang }: { lang: Lang }) {
       <div className="footer-top">
         <div><h3>{it ? 'Esplora' : 'Explore'}</h3><div className="footer-links">
           {propertyCopy[lang] && <Link href={withCampaignParams(propertyPath(lang))}>{propertyCopy[lang].nav}</Link>}
+          {propertyCopy[lang] && atelierCopy[lang] && <Link href={withCampaignParams(atelierPath(lang))} data-testid="link-footer-atelier">{atelierCopy[lang].nav}</Link>}
           {serviceCopy[lang] && <><Link href={withCampaignParams(offerPath(lang, 'local'))}>{serviceCopy[lang].localTitle}</Link><Link href={withCampaignParams(offerPath(lang, 'premium'))}>{serviceCopy[lang].premiumTitle}</Link></>}
           <PageLink lang={lang} page="services">{it ? 'Servizi' : 'Services'}</PageLink>
           <PageLink lang={lang} page="process">{it ? 'Come lavoriamo' : 'How we work'}</PageLink>
@@ -450,7 +461,7 @@ function Footer({ lang }: { lang: Lang }) {
 function InformationShell({lang, children}: {lang:string;children:ReactNode}) {
   const [path] = useLocation();
   const identity = editionByPath.get(path.replace(/\/+$/,''))?.id;
-  return <LibraryLocale.Provider value={lang}><InformationMetadata lang={lang} /><div className="site-shell" lang={lang}><Header lang={lang} page="services" editionId={identity} />{children}<Footer lang={lang} /></div></LibraryLocale.Provider>;
+  return <LibraryLocale.Provider value={lang}><InformationMetadata lang={lang} /><div className="site-shell" lang={lang} dir={getLocaleDirection(lang)}><Header lang={lang} page="services" editionId={identity} />{children}<Footer lang={lang} /></div></LibraryLocale.Provider>;
 }
 function SectionLabel({ children }: { children: ReactNode }) { return <span className="eyebrow">{children}</span>; }
 function CtaPanel({ lang, title, text }: { lang: Lang; title: string; text: string }) {
@@ -592,7 +603,11 @@ function HomePage({ lang }: { lang: Lang }) {
       <div className="mbh-wrap">
         <div className="mb-news-head"><h2 className="mbh-h2">{copy[lang].nav.articles}</h2><span className="mb-news-rule" aria-hidden="true" /><PageLink lang={lang} page="articles" className="mbh-link" data-testid="link-home-articles">{copy[lang].nav.articles}<ArrowRight size={14} /></PageLink></div>
         <div className="mb-news-grid">
-          {[...articleList].sort((a, b) => (a.reviewStatus === 'documentary-review' ? 0 : 1) - (b.reviewStatus === 'documentary-review' ? 0 : 1)).slice(0, 3).map(a => <Link key={a.slug} href={withCampaignParams(articlePath(lang, a.slug))} className="mb-news-card" data-testid={`card-home-article-${a.slug}`}>
+          {lang === 'ar' ? ARABIC_EDITORIAL_ARTICLES.flatMap(ar => { const a = articleBySlug.get(ar.id); return a ? [{ ar, a }] : []; }).slice(0, 3).map(({ ar, a }) => <Link key={ar.slug} href={withCampaignParams(arabicEditorialPath(ar.slug))} className="mb-news-card" data-testid={`card-home-article-${ar.slug}`}>
+            <div className="mb-news-media"><img src={a.image} alt={ar.h1} width={1920} height={a.image.endsWith('.png') ? 1920 : 1047} loading="lazy" /></div>
+            <h3 className="mb-serif">{ar.h1}</h3>
+            <p>{ar.description}</p>
+          </Link>) : [...articleList].sort((a, b) => (a.reviewStatus === 'documentary-review' ? 0 : 1) - (b.reviewStatus === 'documentary-review' ? 0 : 1)).slice(0, 3).map(a => <Link key={a.slug} href={withCampaignParams(articlePath(lang, a.slug))} className="mb-news-card" data-testid={`card-home-article-${a.slug}`}>
             <div className="mb-news-media"><img src={a.image} alt={translateText(lang, a.imageAlt)} width={1920} height={a.image.endsWith('.png') ? 1920 : 1047} loading="lazy" /></div>
             <div className="mb-news-meta" lang="it"><span>{a.category}</span><time dateTime={a.publishedOn ?? undefined}>{a.publishedOn ?? '—'}</time></div>
             <h3 className="mb-serif" lang="it">{a.title}</h3>
@@ -631,7 +646,7 @@ function ServicesPage({ lang }: { lang: Lang }) {
       </div>
     </section>
     <section className="section tight" id="contatti" data-testid="anchor-contatti"><div className="container"><CtaPanel lang={lang} title={it ? 'Hai in mente un intervento?' : 'Have a project in mind?'} text={it ? 'Raccontaci la tua idea: capiremo insieme se e come possiamo aiutarti.' : 'Tell us what you have in mind and we can see together whether and how we can help.'} /></div></section>
-  </>)}<NetworkServicesBlock locale={lang} /><PropertyManagementLink locale={lang} /><TravelCoverageBlock locale={lang} /></>;
+  </>)}<NetworkServicesBlock locale={lang} /><PropertyManagementLink locale={lang} /><AtelierLink locale={lang} /><TravelCoverageBlock locale={lang} /></>;
 }
 
 function ProcessPage({ lang }: { lang: Lang }) {
@@ -1002,31 +1017,34 @@ function LocaleGate({ lang, children }: { lang: Lang; children: ReactNode }) {
   }
   return children;
 }
-function Router() {
-  const [path] = useLocation();
+function Router({ pathOverride }: { pathOverride?: string } = {}) {
+  const [rawPath] = useLocation();
+  const arabicPreview = rawPath.startsWith(`${ARABIC_PREVIEW_PREFIX}/`) || rawPath === ARABIC_PREVIEW_PREFIX ? `/ar${rawPath.slice(ARABIC_PREVIEW_PREFIX.length) || '/'}` : null;
+  const path = pathOverride ?? rawPath;
   const active = useActiveEditorial();
   const editorialStatus = useEditorialStatus();
-  setTranslationReviewMode(path.startsWith('/__localization-review/'));
+  setTranslationReviewMode(rawPath.startsWith('/__localization-review/'));
   useHashFragmentNavigation(path);
   const lang = getLang(path);
   const page = getPage(path);
   const blockedLocale = blockedPublicLocale(path);
-  if (blockedLocale) return <NotFound lang={blockedLocale} />;
+  if (arabicPreview && !pathOverride) return <LocaleGate lang="ar"><div lang="ar" dir="rtl"><p className="container translation-review-status" role="note">معاينة خاصة غير مفهرسة للنسخة العربية · Arabic review preview (noindex)</p><Router pathOverride={arabicPreview} /></div></LocaleGate>;
+  if (blockedLocale && !pathOverride) return <NotFound lang={blockedLocale} />;
   const privateShell = /^\/(?:internal|sign-in|sign-up)(?:\/|$)/.test(path) || /^\/owner-demo\/?$/.test(path);
-  if (!privateShell && editorialStatus !== 'verified') return <div className="site-shell" lang="it" dir="ltr"><main className="container" style={{ paddingBlock: '5rem' }} data-testid="editorial-state" role={editorialStatus === 'loading' ? 'status' : 'alert'} aria-busy={editorialStatus === 'loading'}>
-    <h1>{editorialStatus === 'loading' ? 'Verifica dei contenuti in corso' : 'Contenuti temporaneamente non disponibili'}</h1>
-    <p>Prima di mostrare un testo dobbiamo verificare quali revisioni sono attive. Nessuna copia precedente viene ripubblicata.</p>
-    {editorialStatus === 'unavailable' && <button className="int-primary" onClick={() => window.location.reload()}>Riprova</button>}
+  if (!privateShell && editorialStatus !== 'verified') return <div className="site-shell" lang={lang === 'ar' ? 'ar' : 'it'} dir={lang === 'ar' ? 'rtl' : 'ltr'}><main className="container" style={{ paddingBlock: '5rem' }} data-testid="editorial-state" role={editorialStatus === 'loading' ? 'status' : 'alert'} aria-busy={editorialStatus === 'loading'}>
+    <h1>{lang === 'ar' ? editorialStatus === 'loading' ? 'جارٍ التحقق من حالة المحتوى' : 'المحتوى غير متاح مؤقتاً' : editorialStatus === 'loading' ? 'Verifica dei contenuti in corso' : 'Contenuti temporaneamente non disponibili'}</h1>
+    <p>{lang === 'ar' ? 'يجب التحقق من النسخ النشطة قبل عرض النص. لا نعيد نشر نسخة سابقة إذا تعذر التحقق من حالتها.' : 'Prima di mostrare un testo dobbiamo verificare quali revisioni sono attive. Nessuna copia precedente viene ripubblicata.'}</p>
+    {editorialStatus === 'unavailable' && <button className="int-primary" onClick={() => window.location.reload()}>{lang === 'ar' ? 'إعادة المحاولة' : 'Riprova'}</button>}
   </main></div>;
   const live = active.find(edition => [edition.path,...(edition.aliases ?? [])].some(candidate => editorialPathKey(candidate) === editorialPathKey(path)));
   const networkPreview = import.meta.env.DEV ? networkPreviewPage(path) : undefined;
-  if (networkPreview) return <LocaleGate lang={networkPreview.locale}><div className="site-shell" lang={networkPreview.locale}><Header lang={networkPreview.locale} page="articles" editionId={`network-${networkPreview.id}`} /><NetworkPage page={networkPreview} /><Footer lang={networkPreview.locale} /></div></LocaleGate>;
+  if (networkPreview) return <LocaleGate lang={networkPreview.locale}><div className="site-shell" lang={networkPreview.locale} dir={getLocaleDirection(networkPreview.locale)}><Header lang={networkPreview.locale} page="articles" editionId={`network-${networkPreview.id}`} /><NetworkPage page={networkPreview} /><Footer lang={networkPreview.locale} /></div></LocaleGate>;
   const networkServicesLocale = import.meta.env.DEV && path.match(/^\/__network-services-review\/([a-z]{2})\/?$/)?.[1];
-  if (networkServicesLocale && SERVICE_LOCALES.includes(networkServicesLocale as typeof SERVICE_LOCALES[number])) return <LocaleGate lang={networkServicesLocale}><div className="site-shell" lang={networkServicesLocale}><Header lang={networkServicesLocale} page="services" editionId="service-local" /><ServiceOfferPage lang={networkServicesLocale} previewNetwork /><Footer lang={networkServicesLocale} /></div></LocaleGate>;
+  if (networkServicesLocale && SERVICE_LOCALES.includes(networkServicesLocale as typeof SERVICE_LOCALES[number])) return <LocaleGate lang={networkServicesLocale}><div className="site-shell" lang={networkServicesLocale} dir={getLocaleDirection(networkServicesLocale)}><Header lang={networkServicesLocale} page="services" editionId="service-local" /><ServiceOfferPage lang={networkServicesLocale} previewNetwork /><Footer lang={networkServicesLocale} /></div></LocaleGate>;
   const network = networkPageByPath(path);
   if (network) {
     if (!networkPublic(network) || live?.revisionId === 'withdrawn') return <NotFound lang={network.locale} />;
-    return <LocaleGate lang={network.locale}><div className="site-shell" lang={network.locale}><Header lang={network.locale} page="services" editionId={`network-${network.id}`} /><NetworkPage page={network} /><Footer lang={network.locale} /></div></LocaleGate>;
+    return <LocaleGate lang={network.locale}><div className="site-shell" lang={network.locale} dir={getLocaleDirection(network.locale)}><Header lang={network.locale} page="services" editionId={`network-${network.id}`} /><NetworkPage page={network} /><AtelierLink locale={network.locale} /><Footer lang={network.locale} /></div></LocaleGate>;
   }
   if (live) return live.revisionId === 'withdrawn' ? <NotFound lang={live.locale} /> : <LocaleGate lang={live.locale}><ActiveEditorialPage edition={live} /></LocaleGate>;
   const noticeLocale = SERVICE_LOCALES.find(code => ['privacy', 'cookies', 'ai'].some(kind => legalPath(code, kind as LegalKind) === path.replace(/\/+$/, '')));
@@ -1039,16 +1057,26 @@ function Router() {
   if (legal) return <div className="site-shell" lang="it" dir="ltr"><Header lang="it" page="contact" editionId={legal.path.slice(1)} /><LegalContents content={legal} /><Footer lang="it" /></div>;
   const phase3 = phase3PageByPath(path);
   const property = propertyPageByPath(path);
+  const atelier = atelierPageByPath(path);
+  if (atelier) return <LocaleGate lang={atelier.locale}><div className="site-shell" lang={atelier.locale} dir={getLocaleDirection(atelier.locale)}><InformationMetadata lang={atelier.locale} /><Header lang={atelier.locale} page="services" editionId={atelier.id} /><WhatsAppAccess lang={atelier.locale} /><AtelierPage locale={atelier.locale} /><CallRequestAccess lang={atelier.locale} page="services" /><Footer lang={atelier.locale} /></div></LocaleGate>;
   if (property) return <LocaleGate lang={property.locale}><div className="site-shell" lang={property.locale} dir={getLocaleDirection(property.locale)}><InformationMetadata lang={property.locale} /><Header lang={property.locale} page="services" editionId={property.id} /><PropertyManagementPage locale={property.locale} /><Footer lang={property.locale} /></div></LocaleGate>;
   if (phase3) return <LocaleGate lang={phase3.locale as Lang}><div className="site-shell" lang={phase3.locale} dir={getLocaleDirection(phase3.locale)}><Header lang={phase3.locale as Lang} page="home" editionId={phase3.id} /><Phase3Content page={phase3} /><Footer lang={phase3.locale as Lang} /></div></LocaleGate>;
   const candidate = translationCandidate(path);
   if (candidate && translationSourceChanged(candidate, active)) return <div className="site-shell" lang={lang}><main className="container section">
     <h1>{translationNotices[lang].review}</h1><p role="alert">{translationNotices[lang].changed}</p>
   </main></div>;
+  const arabicArticle = arabicEditorialByPath(path);
+  const arabicArchive = arabicArchiveByPath(path);
+  if (arabicArchive) return <LocaleGate lang="ar"><InformationShell lang="ar"><ArabicArchivePage archive={arabicArchive} /><CallRequestAccess lang="ar" page="articles" /></InformationShell></LocaleGate>;
+  if (arabicArticle) return <LocaleGate lang="ar"><InformationShell lang="ar"><ArabicEditorialPage article={arabicArticle} /><CallRequestAccess lang="ar" page="articles" /></InformationShell></LocaleGate>;
+  if ([ARABIC_LIBRARY_PATH, '/ar/guides', '/ar/search'].includes(path.replace(/\/+$/, ''))) {
+    const mode = path.replace(/\/+$/, '').endsWith('/guides') ? 'guides' : path.replace(/\/+$/, '').endsWith('/search') ? 'search' : 'articles';
+    return <LocaleGate lang="ar"><InformationShell lang="ar"><ArabicLibraryPage mode={mode} /><CallRequestAccess lang="ar" page={mode} /></InformationShell></LocaleGate>;
+  }
   const libraryEdition = editions.find(edition => editorialPathKey(edition.path) === editorialPathKey(path) && ['articles','guides','search'].includes(edition.id));
   if (libraryEdition && active.some(e => e.kind === 'article' && e.locale === libraryEdition.locale)) return <LocaleGate lang={libraryEdition.locale}><LocalizedLibraryPage lang={libraryEdition.locale} page={libraryEdition.id as 'articles' | 'guides' | 'search'} /></LocaleGate>;
   const offerLocale = SERVICE_LOCALES.find(code => ['premium', 'local'].some(kind => offerPath(code, kind as 'premium' | 'local') === path.replace(/\/+$/, '')));
-  if (offerLocale) return <LocaleGate lang={offerLocale}><InformationShell lang={offerLocale}><ServiceOfferPage lang={offerLocale} /></InformationShell></LocaleGate>;
+  if (offerLocale) return <LocaleGate lang={offerLocale}><InformationShell lang={offerLocale}><ServiceOfferPage lang={offerLocale} /><AtelierLink locale={offerLocale} /></InformationShell></LocaleGate>;
   const recovered = historicalPage(path) ?? historicalArticleForPreview(path) ?? historicalPending(path);
   if (recovered && !path.startsWith('/__localization-review/')) {
     const temporaryHold = recovered.state === 'awaiting-confirmation' && recovered.kind !== 'article' && !recovered.editorialCorrection;
@@ -1091,7 +1119,7 @@ function Router() {
   const normalizedPath = path.length > 1 ? path.replace(/\/+$/, '') : path;
   const locale = LOCALES.find(record => normalizedPath === `/${record.code}` || normalizedPath.startsWith(`/${record.code}/`))?.code
     ?? (normalizedPath === '/' ? 'it' : undefined);
-  if (locale && getLocale(locale)?.publication === 'published') {
+  if (locale && (getLocale(locale)?.publication === 'published' || (locale === 'ar' && pathOverride?.startsWith('/ar')))) {
     const localizedPage = PAGE_KEYS.find(key => {
       const route = routes[locale][key];
       return (route.length > 1 ? route.replace(/\/+$/, '') : route) === normalizedPath;

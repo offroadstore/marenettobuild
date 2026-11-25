@@ -28,7 +28,9 @@ export function inspect(html, edition) {
       graph.push(...(data['@graph'] ?? [data]));
     } catch { issues.push('syntax'); }
   }
-  const allowed = new Set(['GeneralContractor','Organization','WebSite','BreadcrumbList','Service','FAQPage','Article','WebPage','Place','City','Country','AdministrativeArea','PostalAddress','ListItem','Question','Answer']);
+  // The existing network models actual direct work/coordination in a Service catalog.
+  // These valid types do not imply a Product, price or an Atelier commercial offer.
+  const allowed = new Set(['GeneralContractor','Organization','WebSite','BreadcrumbList','Service','FAQPage','Article','WebPage','Place','City','Country','AdministrativeArea','PostalAddress','ListItem','Question','Answer','OfferCatalog','Offer']);
   const ids = new Set(graph.map(n => n['@id']).filter(Boolean));
   function walk(node) {
     if (!node || typeof node !== 'object') return;

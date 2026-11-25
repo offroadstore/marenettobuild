@@ -1,12 +1,18 @@
 import { editions, canonicalEdition } from '@/localization/edition-inventory';
 import { isNativeEdition, hasTranslationApproval, releaseMetadata, mergeActiveMetadata } from '@/localization/public-seo.mjs';
 import { updateStructuredData } from './structured-data';
+import { historicalInventory } from '@/content/historical';
 
 export const PUBLIC_SITE_ORIGIN = 'https://www.marenettobuild.com';
 import type { EditorialActive } from '@workspace/api-client-react';
 type Active = EditorialActive;
 const normalized = (path: string) => path.replace(/\/+$/, '') || '/';
-const approved = new Set(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']);
+const approved = new Set(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da', 'ar']);
+// Build-time historical holds take precedence over the broad legacy indexing authorization.
+// Only new Arabic reciprocal links use this additional completeness test.
+const heldArabicCounterparts = new Set(historicalInventory
+  .filter(page => page.state === 'awaiting-confirmation' && !page.editorialCorrection)
+  .map(page => normalized(page.path)));
 
 export function applyPublicReleaseMetadata(pathname: string, active: Active[]) {
   if (typeof document === 'undefined') return false;
@@ -45,7 +51,15 @@ export function applyPublicReleaseMetadata(pathname: string, active: Active[]) {
   // Previewing search text never grants publication evidence. As before,
   // previews claim no public alternates, even for an approved edition.
   const alternateEntries = canIndex ? entries : [];
-  for (const e of alternateEntries.filter(e => edition && e.id === edition.id)) {
+  const arabicReady = (e: typeof entries[number]) => e.state === 'published' && e.sitemap !== false && !heldArabicCounterparts.has(normalized(e.path));
+  let peers = alternateEntries.filter(e => edition && e.id === edition.id &&
+    (edition.locale !== 'ar' && e.locale !== 'ar' || arabicReady(edition) && arabicReady(e)));
+  if (edition?.locale === 'ar') {
+    const byLocale = new Map<string, typeof entries[number]>();
+    for (const peer of peers) if (!byLocale.has(peer.locale) || peer.path === edition.path) byLocale.set(peer.locale, peer);
+    peers = [...byLocale.values()];
+  }
+  for (const e of peers) {
     for (const language of e.locale === 'it' ? ['it-IT', 'x-default'] : [e.locale]) {
       const link = document.createElement('link'); link.rel = 'alternate'; link.hreflang = language;
       link.href = PUBLIC_SITE_ORIGIN + e.path; document.head.appendChild(link);

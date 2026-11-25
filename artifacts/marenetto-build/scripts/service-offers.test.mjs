@@ -14,7 +14,7 @@ test('each named crawler repeats every private/demo/review exclusion',()=>{
     for(const path of ROBOT_EXCLUSIONS) assert.ok(group.includes(`Disallow: ${path}\n` )||group.endsWith(`Disallow: ${path}`),`${agent}: ${path}`);
   }
 });
-test('12 service editions SSR complete FAQ and match Service/FAQ schema without products',async()=>{
+test('13 service editions SSR complete FAQ and match Service/FAQ schema without products',async()=>{
   const {render, editions, editionStructuredData}=await vite.ssrLoadModule('/src/entry-server.tsx');
   const {SERVICE_LOCALES,serviceCopy,offerPath}=await vite.ssrLoadModule('/src/content/service-offers.ts');
   for(const locale of SERVICE_LOCALES) for(const kind of ['premium','local']) {
@@ -24,7 +24,7 @@ test('12 service editions SSR complete FAQ and match Service/FAQ schema without 
     assert.equal((body.match(/<h1\b/g)||[]).length,1,path);
     assert.ok(body.includes(`page-service-${kind}`),path);
     assert.ok(body.includes(serviceCopy[locale].scope.replaceAll('&','&amp;').replaceAll("'",'&#x27;').replaceAll('"','&quot;')),path);
-    assert.match(edition.approval,/Owner authorization: index all public pages/);
+    assert.match(edition.approval,locale==='ar'?/Owner instruction to publish Arabic/:/Owner authorization: index all public pages/);
     assert.equal(edition.sitemap,true);
     const graph=editionStructuredData(edition,'https://www.marenettobuild.com');
     const service=graph.find(g=>g['@type']==='Service');

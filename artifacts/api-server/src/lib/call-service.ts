@@ -7,7 +7,7 @@ import { isArubaSmtpConfigured, sendArubaCallbackMail } from "./aruba-mailer";
 import { callbackMail } from "./call-mail";
 import { isCatalogPath } from "./editorial-store";
 
-export const CALL_PRIVACY_VERSION = "call-2026-11-25";
+export const CALL_PRIVACY_VERSION = "call-2026-11-25-atelier";
 export const callLiveApproved = () => process.env.NODE_ENV === "production" && process.env.MARENETTO_PRIVACY_APPROVED === "true" &&
   process.env.MARENETTO_PROVIDERS_APPROVED === "true" && process.env.MARENETTO_TESTING_APPROVED === "true";
 export const callHash = (value: string) => createHmac("sha256", getProjectRequestIpKey()).update("callback-v1:" + value).digest("hex");
@@ -21,6 +21,7 @@ export function minimizeCallInput(input: CallRequestInput): CallRequestInput {
     !/\d{7}|email|phone|password|token|secret/i.test(v)));
   data.firstName = data.firstName.trim(); data.lastName = data.lastName.trim();
   data.email = data.email.trim().toLowerCase();
+  if (data.country !== undefined) data.country = data.country.trim();
   return data;
 }
 export function syntheticCall(input: CallRequestInput): CallRequestInput {
@@ -29,6 +30,7 @@ export function syntheticCall(input: CallRequestInput): CallRequestInput {
     email: "callback@example.invalid", mobile: "+390000000000", privacyAccepted: true,
     marketingAccepted: false, whatsapp: false, privacyVersion: CALL_PRIVACY_VERSION,
     consentLanguage: input.consentLanguage, preferredLanguage: input.consentLanguage,
+    ...(input.project === "atelier_international" ? { project: "atelier_international", country: "Synthetic destination" } : {}),
     message: "Synthetic preview. Submitted personal data were discarded.",
   });
 }

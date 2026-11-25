@@ -67,7 +67,7 @@ test('all exposed editions hydrate without changing their main heading', async (
   const manifest = JSON.parse(await readFile(path.join(root, 'dist/public/route-manifest.json'), 'utf8'));
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
-  page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
+  page.on('console', message => { if (message.type() === 'error') errors.push(`${message.text()} (${message.location().url})`); });
   const results = [];
   for (const pathname of Object.keys(manifest.pages)) {
     const response = await page.goto(pathname, { waitUntil: 'domcontentloaded' });

@@ -1,11 +1,11 @@
 /** Public information only; no drafts, private routes or deployment state. */
 export function llmsDocument(organization, entries, origin) {
-  const locales = ['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da'];
+  const locales = ['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da', 'ar'];
   const homes = locales.flatMap(locale => {
     const home = entries.find(e => e.locale === locale && e.id === 'home');
     return home ? [`- [${locale}: ${home.title}](${origin}${home.path})`] : [];
   });
-  const services = entries.filter(e => ['services', 'service-premium', 'service-local', 'contact'].includes(e.id));
+  const services = entries.filter(e => ['services', 'service-premium', 'service-local', 'atelier', 'contact'].includes(e.id));
   const additional = entries.filter(e => e.id !== 'home' && !services.includes(e));
   const network = entries.filter(e => e.id.startsWith('network-'));
   return `# ${organization.name}
@@ -15,6 +15,7 @@ export function llmsDocument(organization, entries, origin) {
 ## Distinct service areas
 - Construction and renovation: mainly within about 60 km of Cefalù, in the Madonie and along the coast. Projects beyond are considered on request with a dedicated quotation; 60 km is not a strict service boundary.
 - Premium bespoke furniture: custom concrete furniture, kitchens, exclusive cement/microcement tables and design pieces, shipped or installed worldwide. Materials, dimensions, logistics, timing and team travel are agreed individually.
+- Atelier Marenetto: made-to-order masonry outdoor kitchens, wood-fired ovens, tables and furniture with hand-painted Sicilian majolica, lava stone, cement and microcement. Materials are prepared in Sicily and the team builds or assembles on site, subject to project and destination feasibility. Ordinary quotations within about 60 km of Cefalù; suitable larger projects beyond use a dedicated quotation including team travel and logistics. Local authorized contractors or specialist subcontracting where required. No claim of past customers, completed international projects, universal authorization, yacht compliance or public prices.
 - Illustrations are not evidence of completed projects. No unverified products, prices, reviews or availability are claimed.
 
 ## Contact

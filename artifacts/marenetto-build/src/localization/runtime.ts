@@ -2,6 +2,7 @@ import { Children, cloneElement, isValidElement, type ReactNode } from 'react';
 import sourceData from './catalogs/sources.json';
 import { portugueseReviewTerms, serbianCyrillic } from './editorial-conventions';
 import localeRecords from './locales.json' with { type: 'json' };
+import { arabicInterface, isArabicNeutral } from './arabic-interface';
 
 type ApprovedCatalog = {
   locale: string;
@@ -52,6 +53,11 @@ export function translateText(locale: string, source: string): string {
   const id = sourceToId[normalized];
   const translated = id ? approvedCatalogs[locale]?.[id] : undefined;
   if (translated) return `${leading}${locale === 'sr' ? serbianCyrillic(translated) : translated}${trailing}`;
+  if (locale === 'ar') {
+    const arabic = arabicInterface[normalized];
+    if (arabic) return `${leading}${arabic}${trailing}`;
+    if (isArabicNeutral(normalized)) return source;
+  }
   if (!localizedValues[locale]?.has(normalized) && normalized.length > 2 && !/^(https?:|mailto:|tel:|[/#])/.test(normalized)) missing.add(normalized);
   return source;
 }

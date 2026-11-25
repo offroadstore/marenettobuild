@@ -36,6 +36,12 @@ export interface CallRequestInput {
   project?: CallProject;
   /** @maxLength 180 */
   location?: string;
+  /**
+     * Destination country, distinct from property locality. Required for new international Atelier enquiries; absent on historical requests.
+     * @minLength 2
+     * @maxLength 100
+     */
+  country?: string;
   /** @maxLength 100 */
   budget?: string;
   /** @maxLength 100 */

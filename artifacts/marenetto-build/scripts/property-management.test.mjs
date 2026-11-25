@@ -7,14 +7,14 @@ const root = new URL('../dist/public/', import.meta.url);
 const manifest = JSON.parse(await readFile(new URL('route-manifest.json', root), 'utf8'));
 const entries = Object.values(manifest.editions);
 const family = entries.filter(e => e.id === 'property-management');
-const locales = ['it', 'en', 'fr', 'de', 'nl', 'es', 'pt', 'ru', 'pl', 'sv', 'no', 'da'];
+const locales = ['it', 'en', 'fr', 'de', 'nl', 'es', 'pt', 'ru', 'pl', 'sv', 'no', 'da', 'ar'];
 const pageHtml = entry => readFile(new URL(manifest.pages[entry.path], root), 'utf8');
 const plain = html => html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
 const sitemap = await readFile(new URL('sitemap.xml', root), 'utf8');
 
 test('one canonical property-management family covers all active languages without collisions', () => {
   assert.deepEqual(family.map(e => e.locale).sort(), [...locales].sort());
-  assert.equal(new Set(family.map(e => e.path)).size, 12);
+  assert.equal(new Set(family.map(e => e.path)).size, 13);
   assert.equal(family.find(e => e.locale === 'it').path, '/gestione-affitti-brevi-cefalu');
   for (const entry of family) {
     assert.equal(entries.filter(e => e.path.replace(/\/+$/, '') === entry.path).length, 1);

@@ -1,3 +1,4 @@
+import { ownerDecisionsAr } from './owner-decisions-ar';
 /** Owner's 25 November 2026 instructions. These are not a legal certification. */
 export const OWNER_DECISION_DATE = '2026-11-25';
 type Decision = { scope: string; storage: string; providers: string; retention: string; cookies: string; illustrative: string };
@@ -98,4 +99,5 @@ export const ownerDecisions: Record<string, Decision> = {
     cookies: 'Google Analytics-statistik og Meta-marketing er uafhængige, valgfrie kategorier, som starter slukket. Accepter og Afvis er lige synlige; Tilpas giver separate valg. Ingen indsamling før samtykke. Valget varer 180 dage og ændres i sidefoden; tilbagetrækning stopper indsamling og fjerner kontrollerbare cookies. Forhåndsvisninger aktiverer ingen leverandører. Lokale skrifter; kort og WhatsApp er almindelige links.',
     illustrative: 'Billederne er illustrative, ikke bevis for udførte arbejder. Dokumenterede AI-billeder får individuelle mærker; anden oprindelse opfindes ikke. Logo og dokumenterede originalfotos holdes adskilt. Udokumenteret menneskelig gennemgang påstås ikke.',
   },
+  ...ownerDecisionsAr,
 };

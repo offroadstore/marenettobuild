@@ -15,6 +15,12 @@ import { PHASE3_PAGES } from '@/content/phase3';
 import { PROPERTY_PAGES } from '@/content/property-management';
 import { NETWORK_PUBLIC_PAGES, networkCopy } from '@/content/network';
 import { NETWORK_SERVICE_IDS } from '@/content/network/types';
+import { ATELIER_PAGES } from '@/content/atelier';
+import { ARABIC_PUBLIC_RELEASE, ARABIC_REVIEW_EVIDENCE } from './arabic-release';
+import { ARABIC_EDITORIAL_ARTICLES, arabicEditorialPath } from '@/content/arabic-editorial';
+import { ARABIC_LIBRARY_PATH, arabicLibraryCopy } from '@/content/arabic-editorial-library';
+import { arabicSeo, arabicPlaceSeo } from './arabic-seo.mjs';
+import { ARABIC_ARCHIVES, arabicArchivePath } from '@/content/arabic-archives';
 
 export type EditionState = 'draft' | 'translated' | 'reviewed' | 'published';
 export type Edition = {
@@ -186,6 +192,67 @@ for (const page of PROPERTY_PAGES) {
     approval: 'Owner-authorized property-management service prepared for republish; no independent business or native-speaker certification',
     source: 'property-management:owner-declarations', sitemap: true });
 }
+// Atelier: thirteen editions; the Arabic one follows the Arabic release gate below.
+for (const page of ATELIER_PAGES) {
+  if (editions.some(edition => edition.path.replace(/\/+$/, '') === page.path)) throw new Error(`Atelier route collision: ${page.path}`);
+  editions.push({ ...page, kind: 'core', contentLanguage: page.locale, state: 'published',
+    approval: 'Owner-supplied Atelier facts (task #100); no independent native-speaker or factual certification',
+    source: 'atelier:owner-declarations', sitemap: true });
+}
+// Arabic editorial adaptations (new compositions by the parent, not recovered originals).
+// The id joins the Italian historical family so hreflang pairs the editions once published.
+// Remove unreviewed Italian-source placeholder articles before adding real compositions.
+for (let i = editions.length - 1; i >= 0; i--) {
+  if (editions[i].locale === 'ar' && editions[i].kind === 'article' && editions[i].contentLanguage !== 'ar') editions.splice(i, 1);
+}
+for (const article of ARABIC_EDITORIAL_ARTICLES) {
+  const path = arabicEditorialPath(article.slug);
+  if (editions.some(edition => edition.path.replace(/\/+$/, '') === path)) throw new Error(`Arabic article route collision: ${path}`);
+  const source = editions.find(e => e.locale === 'it' && e.path.replace(/\/+$/, '') === article.sourcePath.replace(/\/+$/, ''));
+  if (!source) throw new Error(`Arabic adaptation source is not inventoried: ${article.sourcePath}`);
+  editions.push({ id: source.id, locale: 'ar', path, kind: 'article', contentLanguage: 'ar',
+    title: article.title, description: article.description, state: 'reviewed', approval: null, sitemap: false,
+    source: `arabic-editorial:${article.sourcePath} (new MSA adaptation, not a recovered original)` });
+}
+for (const edition of editions.filter(e => e.locale === 'ar')) {
+  const metadata = edition.id.startsWith('place-') ? arabicPlaceSeo[edition.id.slice(6)] : arabicSeo[edition.id];
+  if (metadata) {
+    Object.assign(edition, metadata);
+    if (edition.coreMetadata) edition.coreMetadata = metadata;
+  }
+}
+{
+  const library = editions.find(edition => edition.locale === 'ar' && edition.id === 'articles');
+  const fields = { path: ARABIC_LIBRARY_PATH, ...arabicSeo.articles,
+    contentLanguage: 'ar', state: 'reviewed' as const, source: 'arabic-editorial:library' };
+  if (library) Object.assign(library, fields);
+  else editions.push({ id: 'articles', locale: 'ar', kind: 'archive', approval: null, sitemap: false, ...fields });
+}
+for (const edition of editions.filter(e => e.locale === 'ar' && (e.id === 'guides' || e.id === 'search'))) {
+  edition.contentLanguage = 'ar';
+  edition.state = 'reviewed';
+}
+// Arabic release gate: applied last so no earlier owner-wide authorization can promote
+// Arabic. Until release, Arabic editions are drafts (no sitemap, hreflang or llms entry).
+for (const archive of ARABIC_ARCHIVES) {
+  const source = editions.find(e => e.locale === 'it' && e.path.replace(/\/+$/, '') === archive.sourcePath.replace(/\/+$/, ''));
+  if (!source) throw new Error(`Arabic archive source missing: ${archive.sourcePath}`);
+  editions.push({ id: source.id, locale: 'ar', path: arabicArchivePath(archive), kind: 'archive',
+    state: 'reviewed', approval: null, sitemap: false, contentLanguage: 'ar',
+    title: archive.title, description: archive.description, source: `arabic-archives:${archive.sourcePath}` });
+}
+for (const edition of editions) {
+  if (edition.locale !== 'ar' || edition.contentLanguage !== 'ar' || edition.kind === 'search') continue;
+  if (ARABIC_PUBLIC_RELEASE) {
+    edition.state = 'published';
+    edition.approval = `Owner instruction to publish Arabic (task #100); ${ARABIC_REVIEW_EVIDENCE}`;
+    edition.sitemap = true;
+  } else {
+    edition.state = 'draft';
+    edition.approval = null;
+    edition.sitemap = false;
+  }
+}
 export const editionByPath = new Map(editions.map(edition => [edition.path, edition]));
 export function editionDisplayStatus(edition: Edition) {
   if (edition.translationRevision) return edition.approval ? '' : 'Traduzione confrontata · da approvare';
@@ -198,7 +265,10 @@ export function getEdition(locale: string, id: string) {
   return editions.find(edition => edition.locale === locale && edition.id === id);
 }
 export function reviewPathForEdition(edition: Edition) {
-  if (edition.id === 'property-management') return edition.path;
+  // New archive compositions have real localized paths, not routable historical ids.
+  // Preserve the existing article/core previews; do not invent /historical:/... URLs.
+  if (edition.source.startsWith('arabic-archives:')) return edition.path;
+  if (edition.id === 'property-management' || edition.id === 'atelier') return edition.path;
   if (edition.source.startsWith('network:')) return edition.path;
   if (edition.source.startsWith('phase3:') || edition.source.startsWith('phase4:')) return edition.path;
   if (translationCandidate(edition.path)) return edition.path;

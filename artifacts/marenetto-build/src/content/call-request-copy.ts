@@ -2,8 +2,10 @@
 // Translations are working copy: their publication does not imply approval.
 import type { CallDelivery } from '@workspace/api-client-react';
 import { ownerDecisions } from './owner-decisions';
+import { arabicCallCopy } from './call-request-ar';
+import { callAtelierCopy } from './call-atelier-copy';
 
-export const CALL_LOCALES = ['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da'] as const;
+export const CALL_LOCALES = ['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da', 'ar'] as const;
 export type CallLang = typeof CALL_LOCALES[number];
 export const toCallLang = (lang: string): CallLang => (CALL_LOCALES as readonly string[]).includes(lang) ? lang as CallLang : 'en';
 
@@ -359,10 +361,15 @@ const da: CallCopy = {
   footerLink: 'Privatliv for opkaldsforespørgsler', footerTitle: 'Opkaldsforespørgsler', translationNote: 'Denne oversættelse er ikke formelt godkendt.',
 };
 
-export const callCopy: Record<CallLang, CallCopy> = { it, en, de, fr, es, nl, pt, pl, ru, sv, no, da };
+export const callCopy: Record<CallLang, CallCopy> = { it, en, de, fr, es, nl, pt, pl, ru, sv, no, da, ar: arabicCallCopy };
 for (const locale of CALL_LOCALES) {
   // Authoritative current retention rule replaces the previous acquired-client
   // wording: only contractual relationships qualify for the exception.
-  callCopy[locale].privacy[4] = ownerDecisions[locale].retention;
+  if (ownerDecisions[locale]) callCopy[locale].privacy[4] = ownerDecisions[locale].retention;
 }
-export const getCallCopy = (lang: string) => callCopy[toCallLang(lang)];
+export const getCallCopy = (lang: string) => {
+  const locale = toCallLang(lang);
+  const base = callCopy[locale], atelier = callAtelierCopy[locale];
+  return { ...base, country: atelier.country, confidential: atelier.confidential, atelierIntro: atelier.intro,
+    projects: { ...base.projects, atelier_international: atelier.project }, privacy: [...base.privacy, atelier.privacy] };
+};

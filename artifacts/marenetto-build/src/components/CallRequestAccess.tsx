@@ -6,12 +6,14 @@ import { trackSavedRequest } from '@/lib/analytics/browser';
 import { CALL_LOCALES, getCallCopy, toCallLang, type CallCopy } from '@/content/call-request-copy';
 import { COMPANY_CONTACT } from '@/config/contact';
 import { legalPath, noticeCopy } from '@/content/legal-notices';
+import { getLocaleDirection } from '@/localization/locales';
 import '@/styles/call-request.css';
 
 const OPEN_EVENT = 'marenetto:open-callback';
-export const openCallRequest = () => window.dispatchEvent(new Event(OPEN_EVENT));
+export const openCallRequest = (project?: CallProject) =>
+  window.dispatchEvent(new CustomEvent(OPEN_EVENT, { detail: { project } }));
 
-const PROJECTS: CallProject[] = ['renovation', 'construction', 'concrete_furniture', 'other'];
+const PROJECTS: CallProject[] = ['renovation', 'construction', 'concrete_furniture', 'atelier_international', 'other'];
 const E164 = /^\+[1-9][0-9]{7,14}$/;
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -33,14 +35,19 @@ function deriveSource() {
 }
 
 
-type Form = { firstName: string; lastName: string; email: string; mobile: string; whatsapp: boolean; project: '' | CallProject; location: string; budget: string; startWhen: string; timeSlot: '' | 'morning' | 'afternoon'; preferredLanguage: string; message: string; privacy: boolean; marketing: boolean; companyWebsite: string };
-const blank = (_lang: string): Form => ({ firstName: '', lastName: '', email: '', mobile: '', whatsapp: false, project: '', location: '', budget: '', startWhen: '', timeSlot: '', preferredLanguage: '', message: '', privacy: false, marketing: false, companyWebsite: '' });
+type Form = { firstName: string; lastName: string; email: string; mobile: string; whatsapp: boolean; project: '' | CallProject; country: string; location: string; budget: string; startWhen: string; timeSlot: '' | 'morning' | 'afternoon'; preferredLanguage: string; message: string; privacy: boolean; marketing: boolean; companyWebsite: string };
+const blank = (lang: string, project?: CallProject): Form => ({ firstName: '', lastName: '', email: '', mobile: '', whatsapp: false, project: project ?? '', country: '', location: '', budget: '', startWhen: '', timeSlot: '', preferredLanguage: lang === 'ar' ? 'ar' : '', message: '', privacy: false, marketing: false, companyWebsite: '' });
+
+function isolateContacts(text: string) {
+  return text.split(/((?:https?:\/\/|www\.)[^\s،؛]+|[\w.+-]+@[\w.-]+\.[a-z]{2,}|\+[0-9][0-9 ()-]{7,})/gi)
+    .map((part, index) => /^(?:https?:|www\.|\+)|@/.test(part) ? <bdi dir="ltr" key={index}>{part}</bdi> : part);
+}
 
 export function CallPrivacyNotice({ c, id, lang }: { c: CallCopy; id?: string; lang:string }) {
   return <section className="cr-notice" id={id} aria-labelledby={id ? `${id}-title` : undefined} data-testid="section-call-privacy">
     <h3 id={id ? `${id}-title` : undefined}><ShieldCheck size={15} aria-hidden="true" /> {c.privacyTitle}</h3>
     <p lang="it">{COMPANY_CONTACT.legalName} · P.IVA {COMPANY_CONTACT.vatId} · {COMPANY_CONTACT.streetAddress}, {COMPANY_CONTACT.localityLine}</p>
-    <ul>{c.privacy.map((p, i) => <li key={i}>{p}</li>)}</ul>
+    <ul>{c.privacy.map((p, i) => <li key={i}>{isolateContacts(p)}</li>)}</ul>
     {noticeCopy[lang] && <p><a href={legalPath(lang,'privacy')} target="_blank" rel="noopener noreferrer">{noticeCopy[lang].privacy}</a></p>}
     {c.translationNote && <p className="cr-note">{c.translationNote}</p>}
   </section>;
@@ -50,10 +57,10 @@ function DeliveryLine({ label, status, c, testid }: { label: string; status: Cal
   return <div className={`cr-delivery is-${status}`} data-testid={testid}><small>{label}</small><span>{c.delivery[status] ?? status}</span></div>;
 }
 
-function CallForm({ lang, onClose }: { lang: string; onClose: () => void }) {
+function CallForm({ lang, onClose, initialProject }: { lang: string; onClose: () => void; initialProject?: CallProject }) {
   const c = getCallCopy(lang);
   const uid = useId();
-  const [form, setForm] = useState<Form>(() => blank(lang));
+  const [form, setForm] = useState<Form>(() => blank(lang, initialProject));
   const [errors, setErrors] = useState<Partial<Record<keyof Form, string>>>({});
   const [receipt, setReceipt] = useState<CallReceipt | null>(null);
   const keyRef = useRef(newKey());
@@ -79,13 +86,15 @@ function CallForm({ lang, onClose }: { lang: string; onClose: () => void }) {
     const mobile = normMobile(form.mobile);
     if (!mobile) next.mobile = c.errRequired; else if (!E164.test(mobile)) next.mobile = c.errMobile;
     if (!form.privacy) next.privacy = c.errPrivacy;
+    if (form.project === 'atelier_international' && form.country.trim().length < 2) next.country = c.errRequired;
+    if (form.country.trim() && form.country.trim().length < 2) next.country = c.errRequired;
     setErrors(next);
     if (Object.keys(next).length) { requestAnimationFrame(() => summaryRef.current?.focus()); return; }
     const opt = (v: string) => v.trim() || undefined;
     const data: CallRequestInput = {
       idempotencyKey: keyRef.current,
       firstName: form.firstName.trim(), lastName: form.lastName.trim(), email: form.email.trim(), mobile,
-      whatsapp: form.whatsapp, project: form.project || undefined, location: opt(form.location), budget: opt(form.budget), startWhen: opt(form.startWhen),
+      whatsapp: form.whatsapp, project: form.project || undefined, country: opt(form.country), location: opt(form.location), budget: form.project === 'atelier_international' ? undefined : opt(form.budget), startWhen: opt(form.startWhen),
       timeSlot: form.timeSlot || undefined, preferredLanguage: form.preferredLanguage ? toCallLang(form.preferredLanguage) : undefined, message: opt(form.message),
       privacyAccepted: true, marketingAccepted: form.marketing, privacyVersion: config.data.privacyVersion, consentLanguage: toCallLang(lang),
       sourcePath: source.current.sourcePath, utm: source.current.utm, companyWebsite: form.companyWebsite || undefined, formOpenedAt: openedAt.current,
@@ -93,12 +102,12 @@ function CallForm({ lang, onClose }: { lang: string; onClose: () => void }) {
     create.mutate({ data }, { onSuccess: r => { trackSavedRequest(r); setReceipt(r); } });
   };
 
-  const restart = () => { keyRef.current = newKey(); openedAt.current = Date.now(); source.current = deriveSource(); setForm(blank(lang)); setReceipt(null); create.reset(); };
+  const restart = () => { keyRef.current = newKey(); openedAt.current = Date.now(); source.current = deriveSource(); setForm(blank(lang, initialProject)); setReceipt(null); create.reset(); };
 
   if (receipt) return <div className="cr-receipt" role="status" data-testid="status-call-receipt">
     <span className="eyebrow">{c.receiptTitle}</span>
     <small className="cr-receipt-label">{c.receiptCode}</small>
-    <strong className="cr-code" data-testid="text-call-code">{receipt.code}</strong>
+    <strong className="cr-code" data-testid="text-call-code"><bdi dir="ltr">{receipt.code}</bdi></strong>
     <time dateTime={receipt.createdAt}>{new Date(receipt.createdAt).toLocaleString(toCallLang(lang))}</time>
     {receipt.isSynthetic && <p className="cr-synthetic" data-testid="text-call-synthetic">{c.synthetic}</p>}
     <DeliveryLine label={c.ownerLabel} status={receipt.ownerDelivery} c={c} testid="status-owner-delivery" />
@@ -106,7 +115,7 @@ function CallForm({ lang, onClose }: { lang: string; onClose: () => void }) {
     <div className="cr-actions"><button type="button" className="button outline" onClick={restart} data-testid="button-call-new">{c.newRequest}</button><button type="button" className="button" onClick={onClose} data-testid="button-call-done">{c.close}</button></div>
   </div>;
 
-  const field = (k: 'firstName' | 'lastName' | 'email' | 'mobile' | 'location' | 'budget' | 'startWhen', label: string, opts: { type?: string; required?: boolean; auto?: string; max: number; hint?: string; full?: boolean }) => {
+  const field = (k: 'firstName' | 'lastName' | 'email' | 'mobile' | 'country' | 'location' | 'budget' | 'startWhen', label: string, opts: { type?: string; required?: boolean; auto?: string; max: number; hint?: string; full?: boolean }) => {
     const id = `${uid}-${k}`; const err = errors[k];
     return <div className={`field${opts.full ? ' full' : ''}`}>
       <label htmlFor={id}>{label}{opts.required ? ' *' : <span className="cr-opt"> ({c.optional})</span>}</label>
@@ -114,7 +123,7 @@ function CallForm({ lang, onClose }: { lang: string; onClose: () => void }) {
         aria-invalid={!!err || undefined} aria-describedby={[opts.hint ? `${id}-hint` : '', err ? `${id}-err` : ''].filter(Boolean).join(' ') || undefined}
         dir={k === 'mobile' || k === 'email' ? 'ltr' : undefined} inputMode={k === 'mobile' ? 'tel' : undefined}
         onChange={e => set(k, e.target.value)} data-testid={`input-call-${k}`} />
-      {opts.hint && <small id={`${id}-hint`} className="cr-hint">{opts.hint}</small>}
+       {opts.hint && <small id={`${id}-hint`} className="cr-hint">{isolateContacts(opts.hint)}</small>}
       {err && <small id={`${id}-err`} className="cr-err">{err}</small>}
     </div>;
   };
@@ -133,7 +142,8 @@ function CallForm({ lang, onClose }: { lang: string; onClose: () => void }) {
       <div className="field"><label htmlFor={`${uid}-project`}>{c.project}<span className="cr-opt"> ({c.optional})</span></label>
         <select id={`${uid}-project`} value={form.project} onChange={e => set('project', e.target.value as Form['project'])} data-testid="select-call-project"><option value="">—</option>{PROJECTS.map(p => <option key={p} value={p}>{c.projects[p]}</option>)}</select></div>
       {field('location', c.location, { auto: 'address-level2', max: 180 })}
-      {field('budget', c.budget, { max: 100 })}
+      {field('country', c.country, { auto: 'country-name', max: 100, required: form.project === 'atelier_international' })}
+      {form.project !== 'atelier_international' && field('budget', c.budget, { max: 100 })}
       {field('startWhen', c.startWhen, { max: 100 })}
       <fieldset className="field cr-fieldset"><legend className="field-label">{c.timeSlot}<span className="cr-opt"> ({c.optional})</span></legend>
         <div className="radio-row">{([['', c.noPref], ['morning', c.morning], ['afternoon', c.afternoon]] as const).map(([v, l]) => <label key={v || 'none'} className="radio-choice"><input type="radio" name={`${uid}-slot`} value={v} checked={form.timeSlot === v} onChange={() => set('timeSlot', v)} data-testid={`radio-call-slot-${v || 'none'}`} /><span>{l}</span></label>)}</div></fieldset>
@@ -155,7 +165,7 @@ function CallForm({ lang, onClose }: { lang: string; onClose: () => void }) {
   </form>;
 }
 
-function CallDialog({ lang, onClose }: { lang: string; onClose: () => void }) {
+function CallDialog({ lang, onClose, initialProject }: { lang: string; onClose: () => void; initialProject?: CallProject }) {
   const c = getCallCopy(lang);
   const ref = useRef<HTMLDivElement>(null);
   const titleId = useId();
@@ -177,12 +187,12 @@ function CallDialog({ lang, onClose }: { lang: string; onClose: () => void }) {
     document.body.style.overflow = 'hidden';
     return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = overflow; prev?.focus?.(); };
   }, [onClose]);
-  const dir = document.querySelector('.site-shell')?.getAttribute('dir') ?? 'ltr';
+  const dir = getLocaleDirection(lang);
   return createPortal(<div className="cr-backdrop" onMouseDown={e => { if (e.target === e.currentTarget) onClose(); }}>
     <div ref={ref} className="cr-dialog" role="dialog" aria-modal="true" aria-labelledby={titleId} lang={toCallLang(lang)} dir={dir} data-testid="dialog-call-request">
-      <header className="cr-head"><div><span className="eyebrow">Marenetto Build · Cefalù</span><h2 id={titleId} className="display-title">{c.title}</h2><p>{c.intro}</p></div>
+      <header className="cr-head"><div><span className="eyebrow"><bdi dir="ltr">Marenetto Build · Cefalù</bdi></span><h2 id={titleId} className="display-title">{initialProject === 'atelier_international' ? c.confidential : c.title}</h2><p>{initialProject === 'atelier_international' ? c.atelierIntro : c.intro}</p></div>
         <button type="button" className="cr-close" onClick={onClose} aria-label={c.close} data-testid="button-call-close"><X size={18} /></button></header>
-      <CallForm lang={lang} onClose={onClose} />
+      <CallForm lang={lang} onClose={onClose} initialProject={initialProject} />
     </div>
   </div>, document.body);
 }
@@ -194,12 +204,18 @@ const CTX: string[] = ['home', 'services', 'articles'];
 export function CallRequestAccess({ lang, page }: { lang: string; page: string }) {
   const c = getCallCopy(lang);
   const [open, setOpen] = useState(false);
+  const [initialProject, setInitialProject] = useState<CallProject | undefined>();
+  const openGeneric = () => { setInitialProject(undefined); setOpen(true); };
   const fixedRef = useRef<HTMLButtonElement>(null);
   const inflowRef = useRef<HTMLElement>(null);
   const close = useRef(() => setOpen(false)).current;
 
   useEffect(() => {
-    const onOpen = () => setOpen(true);
+    const onOpen = (event: Event) => {
+      const project = (event as CustomEvent<{ project?: CallProject }>).detail?.project;
+      setInitialProject(project && PROJECTS.includes(project) ? project : undefined);
+      setOpen(true);
+    };
     window.addEventListener(OPEN_EVENT, onOpen);
     return () => window.removeEventListener(OPEN_EVENT, onOpen);
   }, []);
@@ -239,10 +255,10 @@ export function CallRequestAccess({ lang, page }: { lang: string; page: string }
     {ctx && <aside ref={inflowRef} className="cr-inflow container" aria-label={c.title} data-testid={`entry-call-${page}`}>
       <span className="cr-inflow-icon" aria-hidden="true"><Phone size={18} /></span>
       <div><strong>{ctx[0]}</strong><p>{ctx[1]}</p></div>
-      <button type="button" className="button outline" onClick={() => setOpen(true)} data-testid={`button-call-open-${page}`}>{c.open} <ArrowRight size={14} /></button>
+      <button type="button" className="button outline" onClick={openGeneric} data-testid={`button-call-open-${page}`}>{c.open} <ArrowRight size={14} /></button>
     </aside>}
-    <button ref={fixedRef} type="button" className="cr-fixed" onClick={() => setOpen(true)} aria-haspopup="dialog" data-testid="button-call-fixed"><Phone size={16} aria-hidden="true" /><span>{c.fixed}</span></button>
-    {open && <CallDialog lang={lang} onClose={close} />}
+    <button ref={fixedRef} type="button" className="cr-fixed" onClick={openGeneric} aria-haspopup="dialog" data-testid="button-call-fixed"><Phone size={16} aria-hidden="true" /><span>{c.fixed}</span></button>
+    {open && <CallDialog lang={lang} onClose={close} initialProject={initialProject} />}
   </>;
 }
 
@@ -252,6 +268,6 @@ export function CallPrivacyFooter({ lang }: { lang: string }) {
   return <details className="cr-footer" id="callback-privacy" data-testid="footer-call-privacy">
     <summary data-testid="link-footer-call-privacy">{c.footerLink}</summary>
     <div className="cr-footer-body"><CallPrivacyNotice c={c} lang={lang} />
-      <button type="button" className="text-link" onClick={openCallRequest} data-testid="button-footer-call-open">{c.open} <ArrowRight size={13} /></button></div>
+      <button type="button" className="text-link" onClick={() => openCallRequest()} data-testid="button-footer-call-open">{c.open} <ArrowRight size={13} /></button></div>
   </details>;
 }

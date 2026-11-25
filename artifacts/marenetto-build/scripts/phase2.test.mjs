@@ -64,11 +64,11 @@ test('exact approved revisions remain reciprocal when new public service and leg
   });
   const eligible = publicEditions(approvedFixture);
   for (const record of allRecords) assert.ok(eligible.some(e => e.path === record.path), record.path);
-  assert.equal(new Set(eligible.map(e => e.locale)).size, 12);
+  assert.equal(new Set(eligible.map(e => e.locale)).size, 13);
   for (const e of eligible) {
     const links = alternateLinks(e, eligible);
     assert.equal(new Set(links.map(l => l.lang)).size, links.length, e.path);
-    assert.ok(links.some(l => l.lang === 'x-default'), e.path);
+    assert.equal(links.some(l => l.lang === 'x-default'), links.some(l => l.lang === 'it-IT'), e.path);
     for (const link of links) {
       const equivalent = eligible.find(other => other.path === link.path);
       assert.ok(equivalent);

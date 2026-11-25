@@ -21,8 +21,6 @@ Use “preventivo dedicato”, not “prezzi più alti”. Examples of possible 
 proof of projects already delivered, unrestricted eligibility, offices or local
 licences. Include the 20 places, Sicily, Italy and “Worldwide (on request)” in
 coverage data. Do not present unmeasured distances as verified road kilometres.
-
-Do not create near-identical city landing pages. The owner now expressly
 authorizes separate, genuinely useful pages for these 20 served places:
 Cefalù, Lascari, Campofelice di Roccella, Collesano, Gratteri, Isnello,
 Castelbuono, Pollina, San Mauro Castelverde, Castel di Tusa, Termini Imerese,
@@ -30,6 +28,8 @@ Caccamo, Polizzi Generosa, Petralia Sottana, Petralia Soprana, Gangi,
 Geraci Siculo, Cerda, Sciara and Trabia. Castel di Tusa is a locality rather
 than an independent municipality. This authorization is not evidence of
 measured distances or of a local office in any listed place.
+
+Do not create near-identical city landing pages. The owner now expressly
 
 Publish only substantive service pages, factual FAQ answers and documented real projects. If gallery
 assets, specifications or prices are missing, provide the owner a collection
@@ -50,9 +50,6 @@ CefaluApartments.it, for specialist short-term rental management.
 **Why:** The owner first authorised categories only, then confirmed
 CefaluApartments.it as a same-ownership specialist partner. The later clarification
 attaches 2008 to the owner's personal experience, not the partner's founding date.
-This exception does not authorise other named partners.
-
-**How to apply:** Describe coordination positively, never client exchanges or
 criticism of others. Present CefaluApartments as a partner with a single
 contact, not a Marenetto division. Owner-confirmed services: CIN procedures,
 purchase assistance coordinating owner/notary/relevant professionals (no
@@ -95,6 +92,9 @@ Dutch and Spanish for both the Marenetto team and Cefalù Apartments; translated
 pages do not prove staff speak other languages or every contact speaks all five.
 Reuse the existing enquiry and WhatsApp, collect no extra personal data, and
 do not build a second owner portal or imply guaranteed returns.
+This exception does not authorise other named partners.
+
+**How to apply:** Describe coordination positively, never client exchanges or
 
 Radiant floors, radiant walls, finishes and bespoke special details are
 owner-confirmed direct services, not partner categories. Distinguish them from
@@ -231,3 +231,21 @@ OTA, cleaning and check-in under a distinct arrangement, without yield promises.
 Link the actually published management service, not a historical maintenance
 article. Team/partner spoken languages remain IT, EN, FR, NL and ES; do not
 infer that each individual speaks all five or all twelve website languages.
+
+For Atelier, the owner specifies ordinary quotations within approximately
+60 km of Cefalù. Beyond that distance (Sicily, Italy, Europe, Dubai/Gulf and
+United States), the team travels for suitably sized projects, with a dedicated
+quotation including travel and logistics. Where local regulations require it,
+work with an authorized local contractor or as specialist subcontractors.
+
+**Why:** The owner confirmed this commercial and operating model, not a history
+of projects in those destinations or existing local contractor agreements.
+
+**How to apply:** Preserve destination-specific feasibility and regulatory
+checks. Do not invent minimum project sizes, costs, timelines, licenses,
+partners, clients or countries already served; do not extend the ordinary
+local building services worldwide. Use the owner's architect-facing vocabulary
+naturally: Italian craftsmen, turnkey, fit-out, on-site installation team,
+bespoke microcement and concrete furniture, made to order, works internationally.
+Define turnkey/fit-out scope per project rather than implying universal
+permitting, regulated design credentials or full construction responsibility.

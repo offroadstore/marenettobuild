@@ -26,4 +26,5 @@ export const translationNotices: Record<string, { review: string; changed: strin
   sv: { review: 'Översättningen väntar på ägarens godkännande.', changed: 'Den italienska källtexten har ändrats. Översättningen behöver jämföras på nytt.' },
   no: { review: 'Oversettelsen venter på eierens godkjenning.', changed: 'Den italienske kildeteksten er endret. Oversettelsen må sammenlignes på nytt.' },
   da: { review: 'Oversættelsen afventer ejerens godkendelse.', changed: 'Den italienske kildetekst er ændret. Oversættelsen skal sammenlignes på ny.' },
+  ar: { review: 'الترجمة بانتظار موافقة المالك.', changed: 'تغيّر النص المصدر الإيطالي. تحتاج هذه الترجمة إلى مقارنة جديدة.' },
 };

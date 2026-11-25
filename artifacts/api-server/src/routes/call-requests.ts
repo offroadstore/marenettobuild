@@ -22,6 +22,8 @@ router.post("/call-requests", async (req, res): Promise<void> => {
   const parsed = CreateCallRequestBody.safeParse(req.body);
   if (!parsed.success || !parsed.data.firstName.trim() || !parsed.data.lastName.trim() ||
     !/^\+[1-9][0-9]{7,14}$/.test(parsed.data.mobile) || parsed.data.privacyAccepted !== true ||
+    (parsed.data.project === "atelier_international" && (!parsed.data.country || parsed.data.country.trim().length < 2)) ||
+    (parsed.data.country !== undefined && parsed.data.country.trim().length < 2) ||
     parsed.data.privacyVersion !== CALL_PRIVACY_VERSION) {
     res.status(400).json({ error: "invalid_input" }); return;
   }
@@ -62,6 +64,7 @@ function callFilter(query: unknown) {
     q.end ? lt(calls.createdAt, new Date(new Date(q.end).getTime() + 86400000)) : undefined,
     q.language ? sql`(${calls.data}->>'preferredLanguage' = ${q.language} OR (${calls.data}->>'preferredLanguage' IS NULL AND ${calls.consentLanguage} = ${q.language}))` : undefined,
     q.project ? sql`${calls.data}->>'project' = ${q.project}` : undefined,
+    q.country ? sql`lower(trim(${calls.data}->>'country')) = lower(trim(${q.country}))` : undefined,
     q.status ? eq(calls.status, q.status) : undefined);
 }
 router.get(["/internal/call-requests", "/internal/call-requests/export"], async (req, res): Promise<void> => {
@@ -70,7 +73,7 @@ router.get(["/internal/call-requests", "/internal/call-requests/export"], async 
   const rows = await db.select().from(calls).where(filter).orderBy(desc(calls.createdAt));
   if (req.path.endsWith("/export")) {
     const keys = ["code", "createdAt", "consentAt", "privacyVersion", "consentLanguage", "status", "notes", "acquiredCustomer", "ownerDelivery", "customerDelivery"] as const;
-    const fields = ["firstName", "lastName", "email", "mobile", "whatsapp", "project", "location", "budget", "startWhen", "timeSlot", "preferredLanguage", "message", "marketingAccepted", "sourcePath", "utm"];
+    const fields = ["firstName", "lastName", "email", "mobile", "whatsapp", "project", "country", "location", "budget", "startWhen", "timeSlot", "preferredLanguage", "message", "marketingAccepted", "sourcePath", "utm"];
     res.setHeader("Content-Disposition", 'attachment; filename="call-requests.csv"');
     res.type("text/csv").send("\uFEFF" + [ [...keys, ...fields].map(csvCell).join(","),
       ...rows.map(row => [...keys.map(k => row[k] instanceof Date ? (row[k] as Date).toISOString() : row[k]), ...fields.map(k => row.data[k])].map(csvCell).join(",")),

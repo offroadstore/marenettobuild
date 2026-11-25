@@ -16,7 +16,7 @@ for (const locale of CALL_LOCALES) test(`${locale}: callback entry points and se
   }
   const notice = renderToStaticMarkup(<CallPrivacyFooter lang={locale} />);
   assert.ok(notice.includes('footer-call-privacy')); assert.ok(notice.includes('info@marenetto.com'));
-  assert.ok(notice.includes('24')); assert.ok(notice.includes('utm_source'));
+  assert.ok(notice.includes('12')); assert.ok(notice.includes('utm_source'));
   // National citation formats differ: e.g. "6 Abs. 1", "6.º, n.º 1", "6 nr. 1".
   assert.match(c.privacy[0], /6[^\d]{0,20}1[^b]{0,20}b/);
   assert.match(c.privacy[0], /6[^\d]{0,20}1[^a]{0,20}a/);
@@ -27,4 +27,7 @@ for (const locale of CALL_LOCALES) test(`${locale}: callback entry points and se
     assert.notEqual(c.errGeneric, getCallCopy('en').errGeneric);
     assert.notDeepEqual(c.privacy, getCallCopy('en').privacy);
   }
+  assert.ok(c.country.length > 2);
+  assert.notEqual(c.projects.atelier_international, c.projects.other);
+  assert.ok(c.privacy.at(-1)?.length! > 80);
 });

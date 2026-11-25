@@ -23,8 +23,8 @@ test('the editorial matrix has 29 unique requested languages', () => {
 
 test('legacy locale records retain their recorded metadata and approvals, not approval of current pages', () => {
   const published = locales.filter(locale => locale.publication === 'published');
-  // Owner decision 18 Nov 2026: 12 public languages; the other 17 stay as hidden drafts.
-  assert.deepEqual(published.map(locale => locale.code).sort(), ['da', 'de', 'en', 'es', 'fr', 'it', 'nl', 'no', 'pl', 'pt', 'ru', 'sv']);
+  // Arabic joins only after whole-site coverage; the remaining 16 stay private.
+  assert.deepEqual(published.map(locale => locale.code).sort(), ['ar', 'da', 'de', 'en', 'es', 'fr', 'it', 'nl', 'no', 'pl', 'pt', 'ru', 'sv']);
   const routePaths = [];
   for (const locale of published) {
     assert.equal(locale.copyStatus, 'complete');
@@ -38,7 +38,7 @@ test('legacy locale records retain their recorded metadata and approvals, not ap
       routePaths.push(pages[locale.code][page].path);
     }
   }
-  assert.equal(new Set(routePaths).size, 72);
+  assert.equal(new Set(routePaths).size, 78);
 });
 
 test('legacy reviewed catalogs cover stored keys and SEO fields, not human review of current rendered editions', async () => {

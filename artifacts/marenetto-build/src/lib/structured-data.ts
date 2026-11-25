@@ -5,18 +5,22 @@ import { canonicalEdition, type Edition } from '@/localization/edition-inventory
 import { serviceCopy } from '@/content/service-offers';
 import { localBuildingArea } from '@/config/service-area';
 import { propertyCopy } from '@/content/property-management';
+import { atelierCopy } from '@/content/atelier';
 import { historicalInventory, historicalDocument, historicalLoaded } from '@/content/historical';
 import { networkPageByPath } from '@/content/network';
 import { networkStructuredData, networkServiceCatalog } from '@/content/network/schema';
 import { NETWORK_SERVICE_IDS } from '@/content/network/types';
+import { arabicEditorialSchema } from '@/content/arabic-editorial/schema';
 
 export function editionStructuredData(edition: Edition, origin: string) {
   const canonical = new URL(canonicalEdition(edition).path, origin).href;
   const graph: Record<string, unknown>[] = [
     companyStructuredData(origin),
     { '@type': 'WebSite', '@id': `${origin}/#website`, name: 'Marenetto Build', url: `${origin}/`, publisher: { '@id': `${origin}/#organization` } },
-    { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Marenetto Build', item: `${origin}/` }, ...(edition.path === '/' ? [] : [{ '@type': 'ListItem', position: 2, name: edition.title.split(' | ')[0], item: canonical }])] },
+    { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: edition.locale === 'ar' ? 'الرئيسية' : 'Marenetto Build', item: `${origin}${edition.locale === 'ar' ? '/ar/' : '/'}` }, ...(edition.path === '/' || edition.path === '/ar/' ? [] : [{ '@type': 'ListItem', position: 2, name: edition.title.split(' | ')[0], item: canonical }])] },
   ];
+  const arabicArticleGraph = edition.locale === 'ar' ? arabicEditorialSchema(edition.path, origin) : [];
+  if (arabicArticleGraph.length) return [...graph.filter(item => item['@type'] !== 'BreadcrumbList'), ...arabicArticleGraph];
   const article = articleBySlug.get(edition.id);
   if (edition.id === 'property-management') {
     const text = propertyCopy[edition.locale];
@@ -26,12 +30,28 @@ export function editionStructuredData(edition: Edition, origin: string) {
       '@type': 'Service', '@id': `${canonical}#service`, url: canonical, inLanguage: edition.locale,
       name: text.h1, description: text.intro,
       provider: { '@id': `${origin}/#organization` },
-      areaServed: { '@type': 'Place', name: 'Cefalù e paesi limitrofi' },
+      areaServed: { '@type': 'Place', name: edition.locale === 'ar' ? 'تشفالو والبلدات المجاورة' : 'Cefalù e paesi limitrofi' },
       subjectOf: { '@type': 'WebPage', '@id': canonical, url: canonical, about: { '@id': partner },
         description: `${text.splitBuild.join(': ')} ${text.splitPartner.join(': ')}` },
     });
     graph.push({ '@type': 'FAQPage', '@id': `${canonical}#faq`, inLanguage: edition.locale,
       mainEntity: text.faq.map(([name, answer]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text: answer } })) });
+  }
+  if (edition.id === 'atelier') {
+    const text = atelierCopy[edition.locale];
+    const crumbs = graph.findIndex(item => item['@type'] === 'BreadcrumbList');
+    if (crumbs >= 0) graph.splice(crumbs, 1);
+    graph.push({ '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: text.breadcrumbHome, item: `${origin}${edition.locale === 'it' ? '/' : `/${edition.locale}/`}` },
+      { '@type': 'ListItem', position: 2, name: text.nav, item: canonical },
+    ] });
+    // Worldwide applies to the Atelier only; local building services keep their own area.
+    graph.push({ '@type': 'Service', '@id': `${canonical}#service`, url: canonical, inLanguage: edition.locale,
+      name: text.h1, description: text.lead, serviceType: text.offer.map(([name]) => name).join(', '),
+      provider: { '@id': `${origin}/#organization` }, areaServed: { '@type': 'Place', name: 'Worldwide' } });
+    graph.push({ '@type': 'FAQPage', '@id': `${canonical}#faq`, inLanguage: edition.locale,
+      mainEntity: text.faq.map(([name, answer]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text: answer } })) });
+    return graph;
   }
   const network = networkPageByPath(edition.path);
   if (network) {

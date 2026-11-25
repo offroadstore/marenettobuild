@@ -17,7 +17,7 @@ const result=await build({stdin:{contents:`export * from './src/content/historic
 const { historicalPresentation,imageDescription,heroDescription }=await import('data:text/javascript;base64,'+Buffer.from(result.outputFiles[0].text).toString('base64'));
 
 test('every sitemap document has complete native metadata, semantics and structured data',async()=>{
-  assert.equal(new Set(entries.map(e=>e.locale)).size,12);
+  assert.equal(new Set(entries.map(e=>e.locale)).size,13);
   assert.ok(entries.some(e=>e.id==='property-management'));
   const titles=new Set(),descriptions=new Set();
   for(const entry of entries) {
@@ -52,12 +52,12 @@ test('public historical representation preserves words while repairing headings 
     assert.ok(heroDescription(locale));
   }
   assert.equal(imageDescription('/unknown.jpg','en','Existing label'),'Existing label');
-  assert.equal(imageDescription('/media/articles/garden-design-esclusivo.jpg','ar','Existing label'),'Existing label');
+  assert.match(imageDescription('/media/articles/garden-design-esclusivo.jpg','ar','Existing label'),/\p{Script=Arabic}/u);
 });
 
 test('every home renders the existing hero description in its own locale in initial HTML', async () => {
   const homes = entries.filter(entry => entry.id === 'home');
-  assert.equal(homes.length, 12);
+  assert.equal(homes.length, 13);
   assert.equal(heroDescription('it'), 'Illustrazione di Cefalù con case, mare e La Rocca');
   for (const home of homes) {
     const html = await readFile(new URL(manifest.pages[home.path], root), 'utf8');

@@ -38,7 +38,7 @@ export function usePageMeta({ title, description, path, type = 'website', lang =
     const metadata = releaseMetadata(selected ?? { id: '', locale: lang, path, contentLanguage: lang, title, description },
       document.querySelector('main')?.outerHTML ?? '', entries);
     document.title = metadata.title;
-    const routeLocale = location.match(/^\/(?:__localization-review\/)?([a-z]{2})(?:\/|$)/)?.[1] ?? 'it';
+    const routeLocale = location.match(/^\/(?:__localization-review\/)?([a-z]{2})(?:-site)?(?:\/|$)/)?.[1] ?? 'it';
     document.documentElement.lang = routeLocale;
     document.documentElement.dir = getLocaleDirection(routeLocale);
     setMeta('name', 'robots', 'noindex, nofollow');

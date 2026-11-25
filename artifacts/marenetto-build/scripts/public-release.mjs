@@ -2,7 +2,7 @@ import { escapeHtml, redirectQuery, resolveRoute } from './seo-document.mjs';
 import { isNativeEdition, hasTranslationApproval, releaseMetadata, mergeActiveMetadata } from '../src/localization/public-seo.mjs';
 
 export const PUBLIC_ORIGIN = 'https://www.marenettobuild.com';
-export const APPROVED_LOCALES = new Set(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']);
+export const APPROVED_LOCALES = new Set(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da', 'ar']);
 export const ROBOT_AGENTS = ['*', 'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'PerplexityBot', 'Google-Extended', 'Bingbot', 'Applebot'];
 export const ROBOT_EXCLUSIONS = ['/internal', '/api', '/api/', '/owner-demo', '/sign-in', '/sign-up', '/__localization-review', '/__network-review', '/__network-services-review', '/content', '/__mockup'];
 export const PUBLIC_ROBOTS = ROBOT_AGENTS.map(agent =>
@@ -46,7 +46,11 @@ export function publicEditions(manifest, active = []) {
 }
 export function alternateEditions(edition, entries) {
   const byLocale = new Map();
-  for (const entry of entries.filter(e => e.id === edition.id)) {
+  // Keep the twelve legacy editions unchanged. A new Arabic reciprocal link,
+  // however, must never promote a held/withdrawn/non-indexable counterpart.
+  const arabicReady = e => e.state === 'published' && e.sitemap !== false;
+  for (const entry of entries.filter(e => e.id === edition.id &&
+    (edition.locale !== 'ar' && e.locale !== 'ar' || arabicReady(edition) && arabicReady(e)))) {
     if (!byLocale.has(entry.locale) || entry.path === edition.path) byLocale.set(entry.locale, entry);
   }
   return [...byLocale.values()];

@@ -9,7 +9,7 @@ export type CallConfigPrivacyVersion = typeof CallConfigPrivacyVersion[keyof typ
 
 
 export const CallConfigPrivacyVersion = {
-  'call-2026-11-25': 'call-2026-11-25',
+  'call-2026-11-25-atelier': 'call-2026-11-25-atelier',
 } as const;
 
 export interface CallConfig {
@@ -33,6 +33,7 @@ export const CallLocale = {
   sv: 'sv',
   no: 'no',
   da: 'da',
+  ar: 'ar',
 } as const;
 
 export type CallProject = typeof CallProject[keyof typeof CallProject];
@@ -43,6 +44,7 @@ export const CallProject = {
   construction: 'construction',
   concrete_furniture: 'concrete_furniture',
   other: 'other',
+  atelier_international: 'atelier_international',
 } as const;
 
 export type CallStatus = typeof CallStatus[keyof typeof CallStatus];
@@ -82,6 +84,7 @@ export type CallRequestInputPrivacyVersion = typeof CallRequestInputPrivacyVersi
 export const CallRequestInputPrivacyVersion = {
   'call-2026-11-23': 'call-2026-11-23',
   'call-2026-11-25': 'call-2026-11-25',
+  'call-2026-11-25-atelier': 'call-2026-11-25-atelier',
 } as const;
 
 export type CallRequestInputUtm = {
@@ -118,6 +121,12 @@ export interface CallRequestInput {
   project?: CallProject;
   /** @maxLength 180 */
   location?: string;
+  /**
+     * Destination country, distinct from property locality. Required for new international Atelier enquiries; absent on historical requests.
+     * @minLength 2
+     * @maxLength 100
+     */
+  country?: string;
   /** @maxLength 100 */
   budget?: string;
   /** @maxLength 100 */
@@ -1130,6 +1139,11 @@ start?: string;
 end?: string;
 language?: CallLocale;
 project?: CallProject;
+/**
+ * @minLength 2
+ * @maxLength 100
+ */
+country?: string;
 status?: CallStatus;
 };
 
@@ -1138,6 +1152,11 @@ start?: string;
 end?: string;
 language?: CallLocale;
 project?: CallProject;
+/**
+ * @minLength 2
+ * @maxLength 100
+ */
+country?: string;
 status?: CallStatus;
 };
 

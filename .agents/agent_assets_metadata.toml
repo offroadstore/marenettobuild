@@ -812,3 +812,17 @@ mtime_ms = 1795631949022
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/976f9f5b-2605-442c-b2f5-e27503bd1a1a/3ff508de-ce49-4aeb-a147-9ad9193bd81c"
 storage_version_token = "1795631962795747"
 content_type = "application/octet-stream"
+
+[[outputs]]
+id = "x8DLrjPOPzFHXl5UDLVKV"
+uri = "file://generated-artifacts/atelier/consegna-atelier-arabo.html"
+type = "html"
+title = "Atelier e arabo — inventario e verifiche"
+description = "Copertura delle 87 superfici arabe, fonti, immagini, prove e limiti della verifica. Nessuna pubblicazione eseguita."
+logical_id = "f4ad8df7-8724-432e-bcd2-573de30e9635"
+content_hash = "sha256:0c2c18e24ca8f660b32508c8a191af835b279d85e6b04cb2b4ec8d909d2232b2"
+size = 291444
+mtime_ms = 1795637462840
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/f4ad8df7-8724-432e-bcd2-573de30e9635/3c1c7c51-be27-43bd-828f-c94aec000e18"
+storage_version_token = "1795637463601820"
+content_type = "text/html"

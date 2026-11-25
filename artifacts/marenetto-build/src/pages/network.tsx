@@ -12,6 +12,7 @@ import { useActiveEditorial } from '@/lib/editorial-runtime';
 import { networkGuideLinks } from '@/content/network/guide-links';
 import { getEdition } from '@/localization/edition-inventory';
 import '@/styles/network.css';
+import { AtelierLink } from './atelier';
 
 export type { NetworkPageRecord };
 const previewPath = networkPreviewPath;
@@ -30,6 +31,7 @@ const UI: Record<string, Ui> = {
   sv: { draft: 'Redaktionellt utkast · intern förhandsvisning', sourceWarning: 'Källorna är allmänna hänvisningar och ska kontrolleras i gällande lydelse av den anlitade fackpersonen; de är ingen bedömning av ditt fall.', next: 'Nästa steg', coverage: 'Arbetsområde', pillar: 'Nätverket', imagesPending: 'Illustrationer förbereds.', breadcrumb: 'Brödsmulor', scopeCol: 'Kontrollerad' },
   no: { draft: 'Redaksjonelt utkast · intern forhåndsvisning', sourceWarning: 'Kildene er generelle henvisninger og må kontrolleres i gjeldende versjon av den engasjerte fagpersonen; de er ingen vurdering av din sak.', next: 'Neste steg', coverage: 'Arbeidsområde', pillar: 'Nettverket', imagesPending: 'Illustrasjoner under arbeid.', breadcrumb: 'Brødsmulesti', scopeCol: 'Kontrollert' },
   da: { draft: 'Redaktionelt udkast · intern forhåndsvisning', sourceWarning: 'Kilderne er generelle henvisninger og skal kontrolleres i den gældende udgave af den engagerede fagperson; de er ikke en vurdering af din sag.', next: 'Næste skridt', coverage: 'Arbejdsområde', pillar: 'Netværket', imagesPending: 'Illustrationer under udarbejdelse.', breadcrumb: 'Brødkrummesti', scopeCol: 'Kontrolleret' },
+  ar: { draft: 'مسودة تحريرية · معاينة داخلية', sourceWarning: 'المصادر مراجع عامة ويجب أن يتحقق منها المهني المكلف في نسختها السارية؛ وهي ليست فحصًا لحالتكم.', next: 'الخطوة التالية', coverage: 'نطاق العمل', pillar: 'الشبكة', imagesPending: 'الصور التوضيحية قيد الإعداد.', breadcrumb: 'مسار التنقل', scopeCol: 'تم التحقق' },
 };
 const ui = (locale: string) => UI[locale] ?? UI.en!;
 const homePath = (locale: string) => getEdition(locale, 'home')?.path ?? (locale === 'it' ? '/' : `/${locale}/`);
@@ -157,6 +159,7 @@ export function NetworkPage({ page }: { page: NetworkPageRecord }) {
               <Link href={withCampaignParams(requestPath(page.locale))} className="mbh-btn mbh-btn--primary" data-testid="link-network-request">{c.contact} <ArrowRight size={18} aria-hidden="true" /></Link>
               {(page.id === 'bespoke' || isPillar) && <Link href={furniturePath(page.locale)} className="mbh-link" data-testid="link-network-furniture">{c.furniture} <ArrowRight size={16} aria-hidden="true" /></Link>}
             </div>
+            {(isPillar || page.id === 'bespoke') && <AtelierLink locale={page.locale} />}
           </section>
         </article>
       </div>

@@ -36,7 +36,7 @@ test('an editorial withdrawal overrides a new static service page rather than re
 });
 
 test('ordinary places, index, furniture, AI and travel have complete active-language families', () => {
-  assert.equal(active.length, 12);
+  assert.equal(active.length, 13);
   assert.equal(italian.length, 24);
   assert.equal(fresh.length, 24 * active.length);
   for (const slug of places) assert.ok(italian.some(entry => entry.path === `/zone-servite/${slug}`), slug);

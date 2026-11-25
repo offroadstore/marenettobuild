@@ -6,7 +6,7 @@ import { once } from "node:events";
 import { db, pool, callRequestsTable as calls } from "@workspace/db";
 import { eq, sql } from "drizzle-orm";
 import router from "../src/routes/call-requests";
-import { callLiveApproved, csvCell, deliverCall, minimizeCallInput, purgeExpiredCalls, recoverCallDeliveries, storeCall } from "../src/lib/call-service";
+import { CALL_PRIVACY_VERSION, callLiveApproved, csvCell, deliverCall, minimizeCallInput, purgeExpiredCalls, recoverCallDeliveries, storeCall } from "../src/lib/call-service";
 import { callbackMail } from "../src/lib/call-mail";
 import { reserveProjectRequest } from "../src/lib/project-request-rate";
 import { CreateCallRequestBody } from "@workspace/api-zod";
@@ -15,7 +15,7 @@ const valid = (overrides: Record<string, unknown> = {}) => ({
   idempotencyKey: randomUUID(), firstName: "Synthetic", lastName: "Callback",
   email: "callback@example.invalid", mobile: "+393330000001", whatsapp: false,
   privacyAccepted: true, marketingAccepted: false, consentLanguage: "it",
-  privacyVersion: "call-2026-11-25", companyWebsite: "", formOpenedAt: Date.now() - 6000,
+  privacyVersion: CALL_PRIVACY_VERSION, companyWebsite: "", formOpenedAt: Date.now() - 6000,
   ...overrides,
 });
 const input = (overrides = {}) => CreateCallRequestBody.parse(valid(overrides));
@@ -112,8 +112,8 @@ test("allowed provenance only, no sensitive query parameters or raw external URL
   assert.equal(data.sourcePath, "/servizi"); assert.deepEqual(data.utm, { utm_source: "newsletter" });
   for (const path of ["/internal", "/unknown-person-name", "https://external.invalid/person"]) assert.equal(minimizeCallInput(input({ sourcePath: path })).sourcePath, undefined);
 });
-test("both transactional emails are simulated once across concurrent delivery/retries in 12 languages", async () => {
-  for (const lang of ["it", "en", "de", "fr", "es", "nl", "pt", "pl", "ru", "sv", "no", "da"]) {
+test("both transactional emails are simulated once across concurrent delivery/retries in 13 languages", async () => {
+  for (const lang of ["it", "en", "de", "fr", "es", "nl", "pt", "pl", "ru", "sv", "no", "da", "ar"]) {
     const saved = await storeCall(input({ consentLanguage: lang }), false); assert.ok(saved);
     const messages: { to: string; subject: string; text: string }[] = [];
     const transport = async (m: typeof messages[number]) => { messages.push(m); };
@@ -174,4 +174,53 @@ test("live persistence keeps optional fields, independent consents and preferred
   const mail = callbackMail(saved.row, "owner");
   for (const k of ["sourcePath", "utm_source", "marketingAccepted", "whatsapp", "budget", "timeSlot"]) assert.ok(mail.text.includes(k));
   assert.equal(mail.to, "info@marenetto.com");
+});
+
+test("Atelier country, Arabic acknowledgement and consent survive storage, private filters, CSV and simulated transport", async () => {
+  // All content is synthetic and the complete run uses a disposable schema.
+  const data = input({ firstName: "Contatto", lastName: "Sintetico",
+    project: "atelier_international", country: " Paese sintetico ", location: "Località sintetica",
+    preferredLanguage: "ar", consentLanguage: "ar", whatsapp: false, marketingAccepted: false });
+  const saved = await storeCall(data, false); assert.ok(saved);
+  assert.equal(saved.row.data.project, "atelier_international");
+  assert.equal(saved.row.data.country, "Synthetic destination", "preview discards submitted destination");
+  assert.equal(saved.row.consentLanguage, "ar");
+  assert.equal(saved.row.privacyVersion, CALL_PRIVACY_VERSION);
+  // Test live persistence with exclusively synthetic fields without SMTP.
+  const live = await storeCall(input({ ...data, idempotencyKey: randomUUID() }), true); assert.ok(live);
+  assert.equal(live.row.data.country, "Paese sintetico");
+  assert.equal(live.row.data.location, "Località sintetica");
+  assert.equal(live.row.data.budget, undefined);
+  assert.equal(live.row.data.whatsapp, false);
+  assert.equal(live.row.data.marketingAccepted, false);
+  assert.ok(live.row.consentAt instanceof Date);
+  const mail = callbackMail(live.row, "customer");
+  assert.match(mail.subject, /[\u0600-\u06ff]/);
+  assert.match(mail.text, /[\u0600-\u06ff]/);
+  assert.doesNotMatch(mail.text, /We have recorded/);
+  const owner = callbackMail(live.row, "owner");
+  assert.match(owner.text, /Atelier internazionale/);
+  assert.match(owner.text, /Paese di destinazione: Paese sintetico/);
+  assert.match(owner.text, /WhatsApp NON autorizzato/);
+  const query = "?project=atelier_international&language=ar&country=synthetic%20destination";
+  const filtered = await request("/internal/call-requests" + query, "GET", undefined, "owner");
+  assert.equal(filtered.status, 200);
+  assert.ok((await filtered.json()).some((r: { id: number }) => r.id === saved.row.id));
+  for (const role of [undefined, "editor", "viewer"]) {
+    assert.equal((await request("/internal/call-requests/export" + query, "GET", undefined, role)).status, role ? 403 : 401);
+  }
+  const csv = await request("/internal/call-requests/export" + query, "GET", undefined, "owner");
+  assert.equal(csv.status, 200); const text = await csv.text();
+  for (const value of ['"country"', '"atelier_international"', '"Synthetic destination"', '"ar"', saved.row.code]) assert.ok(text.includes(value), value);
+  const none = await request("/internal/call-requests" + query.replace("synthetic%20destination", "other"), "GET", undefined, "owner");
+  assert.deepEqual(await none.json(), []);
+  const sent: { to: string; subject: string; text: string }[] = [];
+  await deliverCall(saved.row.id, async message => { sent.push(message); });
+  await deliverCall(saved.row.id, async message => { sent.push(message); });
+  assert.equal(sent.length, 2); assert.match(sent[1].subject, /[\u0600-\u06ff]/);
+  assert.equal(CreateCallRequestBody.safeParse({ ...data, country: "x".repeat(101) }).success, false);
+  for (const country of [undefined, "", " "]) {
+    assert.equal((await post(valid({ project: "atelier_international", country }))).status, 400);
+  }
+  assert.ok(CreateCallRequestBody.safeParse(valid({ privacyVersion: "call-2026-11-23" })).success, "historical records remain readable");
 });

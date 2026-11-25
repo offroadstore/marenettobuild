@@ -10,7 +10,7 @@ import { callRequestExport } from '@/lib/call-request-export';
 
 const STATUSES: CallStatus[] = ['new', 'contacted', 'survey', 'quote', 'closed'];
 const STATUS_LABEL: Record<CallStatus, string> = { new: 'New', contacted: 'Contacted', survey: 'Site survey', quote: 'Quote', closed: 'Closed' };
-const PROJECTS: CallProject[] = ['renovation', 'construction', 'concrete_furniture', 'other'];
+const PROJECTS: CallProject[] = ['renovation', 'construction', 'concrete_furniture', 'atelier_international', 'other'];
 const DELIVERY_LABEL: Record<string, string> = { pending_provider: 'Pending provider config', sending: 'Sending', sent: 'Sent', failed: 'Failed', uncertain: 'Uncertain', simulated: 'Simulated (preview)' };
 const fmt = (s?: string) => (s ? new Date(s).toLocaleString() : '—');
 
@@ -39,7 +39,7 @@ function Row({ r }: { r: CallRecord }) {
   const d = r.data;
   const dirty = notes !== r.notes;
   const pairs: [string, string][] = [
-    ['Email', d.email], ['Mobile', d.mobile], ['WhatsApp OK', d.whatsapp ? 'Yes' : 'No'], ['Project', d.project ?? '—'], ['Location', d.location ?? '—'],
+    ['Email', d.email], ['Mobile', d.mobile], ['WhatsApp OK', d.whatsapp ? 'Yes' : 'No'], ['Project', d.project ?? '—'], ['Country', d.country ?? '—'], ['Location', d.location ?? '—'],
     ['Budget', d.budget ?? '—'], ['Start', d.startWhen ?? '—'], ['Time slot', d.timeSlot ?? '—'], ['Preferred language', d.preferredLanguage ?? '—'],
     ['Marketing consent', d.marketingAccepted ? 'Yes' : 'No'], ['Privacy notice read', d.privacyAccepted ? 'Yes' : 'No'],
     ['Consent at', fmt(r.consentAt)], ['Privacy version', r.privacyVersion], ['Consent language', r.consentLanguage],
@@ -49,7 +49,7 @@ function Row({ r }: { r: CallRecord }) {
   ];
   return <article className={`int-lead-row ${open ? 'expanded' : ''}`} data-testid={`row-call-${r.id}`}>
     <div className="int-lead-person"><span className="int-row-mark">{d.firstName.slice(0, 1)}</span><div><strong>{d.firstName} {d.lastName}{r.isSynthetic && <em className="int-muted"> · synthetic</em>}</strong><small>{r.code} · {d.mobile}</small></div></div>
-    <div><strong>{d.project ?? 'Unspecified'}</strong><small>{d.location || '—'} · {r.consentLanguage.toUpperCase()}</small></div>
+    <div><strong>{d.project === 'atelier_international' ? 'International Atelier' : d.project ?? 'Unspecified'}</strong><small><bdi>{d.country || '—'}</bdi> · <bdi>{d.location || '—'}</bdi> · {r.consentLanguage.toUpperCase()}</small></div>
     <div className="int-date">{new Date(r.createdAt).toLocaleDateString()}</div>
     <div><select aria-label={`Status for ${r.code}`} value={r.status} disabled={update.isPending} onChange={e => patch({ status: e.target.value as CallStatus }, 'Status saved')} data-testid={`select-call-status-${r.id}`}>{STATUSES.map(s => <option key={s} value={s}>{STATUS_LABEL[s]}</option>)}</select></div>
     <button className="int-row-open" onClick={() => setOpen(!open)} aria-expanded={open} data-testid={`button-open-call-${r.id}`}>{open ? 'Close' : 'Open'} <ChevronDown size={14} /></button>
@@ -75,13 +75,15 @@ function Row({ r }: { r: CallRecord }) {
 export function CallRequestsPanel() {
   const [start, setStart] = useState(''); const [end, setEnd] = useState('');
   const [language, setLanguage] = useState(''); const [project, setProject] = useState(''); const [status, setStatus] = useState('');
+  const [country, setCountry] = useState('');
   const [exporting, setExporting] = useState(false); const [exportError, setExportError] = useState('');
   const params = useMemo<ListCallRequestsParams>(() => {
     const p: ListCallRequestsParams = {};
     if (start) p.start = start; if (end) p.end = end;
     if (language) p.language = language as CallLocale; if (project) p.project = project as CallProject; if (status) p.status = status as CallStatus;
+    if (country.trim().length >= 2) p.country = country.trim();
     return p;
-  }, [start, end, language, project, status]);
+  }, [start, end, language, project, status, country]);
   const list = useListCallRequests(params, { query: { queryKey: getListCallRequestsQueryKey(params), retry: false, staleTime: 0, gcTime: 0 } });
   const doExport = async () => {
     setExporting(true); setExportError('');
@@ -102,6 +104,7 @@ export function CallRequestsPanel() {
     <div className="int-inline-actions int-call-filters">
       <label>From<input type="date" value={start} onChange={e => setStart(e.target.value)} data-testid="input-call-filter-start" /></label>
       <label>To<input type="date" value={end} onChange={e => setEnd(e.target.value)} data-testid="input-call-filter-end" /></label>
+      <label>Country<input type="text" value={country} maxLength={100} onChange={e => setCountry(e.target.value)} data-testid="input-call-filter-country" /></label>
       <select aria-label="Language" value={language} onChange={e => setLanguage(e.target.value)} data-testid="select-call-filter-language"><option value="">All languages</option>{CALL_LOCALES.map(l => <option key={l} value={l}>{l.toUpperCase()}</option>)}</select>
       <select aria-label="Project" value={project} onChange={e => setProject(e.target.value)} data-testid="select-call-filter-project"><option value="">All projects</option>{PROJECTS.map(p => <option key={p} value={p}>{p.replace('_', ' ')}</option>)}</select>
       <select aria-label="Status" value={status} onChange={e => setStatus(e.target.value)} data-testid="select-call-filter-status"><option value="">All statuses</option>{STATUSES.map(s => <option key={s} value={s}>{STATUS_LABEL[s]}</option>)}</select>

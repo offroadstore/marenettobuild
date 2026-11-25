@@ -161,6 +161,7 @@ paths:
         - { name: end, in: query, schema: { type: string, format: date } }
         - { name: language, in: query, schema: { $ref: "#/components/schemas/CallLocale" } }
         - { name: project, in: query, schema: { $ref: "#/components/schemas/CallProject" } }
+        - { name: country, in: query, schema: { type: string, minLength: 2, maxLength: 100 } }
         - { name: status, in: query, schema: { $ref: "#/components/schemas/CallStatus" } }
       responses:
         "200":
@@ -181,6 +182,7 @@ paths:
         - { name: end, in: query, schema: { type: string, format: date } }
         - { name: language, in: query, schema: { $ref: "#/components/schemas/CallLocale" } }
         - { name: project, in: query, schema: { $ref: "#/components/schemas/CallProject" } }
+        - { name: country, in: query, schema: { type: string, minLength: 2, maxLength: 100 } }
         - { name: status, in: query, schema: { $ref: "#/components/schemas/CallStatus" } }
       responses:
         "200":
@@ -950,13 +952,13 @@ components:
       required: [isSynthetic, privacyVersion]
       properties:
         isSynthetic: { type: boolean }
-        privacyVersion: { type: string, enum: ["call-2026-11-25"] }
+        privacyVersion: { type: string, enum: ["call-2026-11-25-atelier"] }
     CallLocale:
       type: string
-      enum: [it, en, de, fr, es, nl, pt, pl, ru, sv, "no", da]
+      enum: [it, en, de, fr, es, nl, pt, pl, ru, sv, "no", da, ar]
     CallProject:
       type: string
-      enum: [renovation, construction, concrete_furniture, other]
+      enum: [renovation, construction, concrete_furniture, other, atelier_international]
     CallStatus:
       type: string
       enum: [new, contacted, survey, quote, closed]
@@ -975,6 +977,7 @@ components:
         whatsapp: { type: boolean, default: false }
         project: { $ref: "#/components/schemas/CallProject" }
         location: { type: string, maxLength: 180 }
+        country: { type: string, minLength: 2, maxLength: 100, description: "Destination country, distinct from property locality. Required for new international Atelier enquiries; absent on historical requests." }
         budget: { type: string, maxLength: 100 }
         startWhen: { type: string, maxLength: 100 }
         timeSlot: { type: string, enum: [morning, afternoon] }
@@ -982,7 +985,7 @@ components:
         message: { type: string, maxLength: 3000 }
         privacyAccepted: { type: boolean, enum: [true] }
         marketingAccepted: { type: boolean, default: false }
-        privacyVersion: { type: string, enum: ["call-2026-11-23", "call-2026-11-25"] }
+        privacyVersion: { type: string, enum: ["call-2026-11-23", "call-2026-11-25", "call-2026-11-25-atelier"] }
         consentLanguage: { $ref: "#/components/schemas/CallLocale" }
         sourcePath: { type: string, maxLength: 300 }
         utm:

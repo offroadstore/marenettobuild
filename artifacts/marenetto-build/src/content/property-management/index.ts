@@ -5,10 +5,11 @@ import { copyB } from './copy-b';
 import { copyC } from './copy-c';
 import { copyD } from './copy-d';
 import { prepareSection, extraFaq } from './extra';
+import { copyAr, prepareSectionAr, extraFaqAr } from './copy-ar';
 
 export type { PropertyCopy, PropertySection } from './types';
 
-export const PROPERTY_LOCALES = ['it', 'en', 'fr', 'de', 'nl', 'es', 'pt', 'ru', 'pl', 'sv', 'no', 'da'] as const;
+export const PROPERTY_LOCALES = ['it', 'en', 'fr', 'de', 'nl', 'es', 'pt', 'ru', 'pl', 'sv', 'no', 'da', 'ar'] as const;
 export type PropertyLocale = typeof PROPERTY_LOCALES[number];
 export const PARTNER_URL = 'https://www.cefaluapartments.it';
 export const PROPERTY_SERVICE_VALUE = 'property_care';
@@ -25,11 +26,14 @@ const PROPERTY_SLUGS: Record<PropertyLocale, string> = {
   sv: 'forvaltning-korttidsuthyrning-cefalu',
   no: 'forvaltning-korttidsutleie-cefalu',
   da: 'administration-korttidsudlejning-cefalu',
+  ar: 'short-let-property-management-cefalu',
 };
 
-const base: Record<string, PropertyCopy> = { ...copyA, ...copyB, ...copyC, ...copyD };
+const base: Record<string, PropertyCopy> = { ...copyA, ...copyB, ...copyC, ...copyD, ...copyAr };
+const sections = { ...prepareSection, ...prepareSectionAr };
+const faqs = { ...extraFaq, ...extraFaqAr };
 export const propertyCopy: Record<string, PropertyCopy> = Object.fromEntries(
-  Object.entries(base).map(([locale, c]) => [locale, { ...c, sections: [...c.sections, prepareSection[locale]], faq: [...c.faq.slice(0, 4), ...extraFaq[locale], ...c.faq.slice(4)] }]),
+  Object.entries(base).map(([locale, c]) => [locale, { ...c, sections: [...c.sections, sections[locale]], faq: [...c.faq.slice(0, 4), ...faqs[locale], ...c.faq.slice(4)] }]),
 );
 
 type PageMap = Record<string, Record<string, { path: string }>>;

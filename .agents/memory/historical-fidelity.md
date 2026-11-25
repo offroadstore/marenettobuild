@@ -116,3 +116,16 @@ contengono nomi segnaposto, non fotografie effettivamente disponibili.
 **How to apply:** Considerare gli attributi differiti nelle acquisizioni;
 verificare i riferimenti nel documento servito oltre ai byte degli asset.
 Non colmare segnaposto originali con foto inventate o non documentate.
+
+Quando una nuova lingua non ha un originale storico, trattare i suoi testi come
+nuove composizioni/adattamenti con provenienza esplicita, non come originali
+recuperati. La revisione bilingue assistita da IA non diventa una certificazione
+di madrelingua o una nuova verifica delle fonti normative.
+
+**Why:** L'apertura dell'arabo richiede corpi completi senza falsificare la
+provenienza storica né estendere alle traduzioni l'approvazione delle dodici
+edizioni già esistenti.
+
+**How to apply:** Conservare separati gli originali e le nuove composizioni,
+legare le verifiche alla revisione effettiva e distinguere sempre controllo
+linguistico, approvazione professionale e semplice data di consultazione.

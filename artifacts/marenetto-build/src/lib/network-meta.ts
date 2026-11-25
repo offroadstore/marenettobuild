@@ -1,3 +1,4 @@
+import { getLocaleDirection } from '@/localization/locale-direction.mjs';
 import { useEffect } from 'react';
 import { NETWORK_PUBLIC_PAGES, networkCopy, networkImages, networkPublic, type NetworkPageRecord } from '@/content/network';
 import { networkStructuredData } from '@/content/network/schema';
@@ -12,7 +13,7 @@ export function useNetworkMeta(page: NetworkPageRecord) {
     const eligible = networkPublic(page);
     const canonical = PUBLIC_SITE_ORIGIN + page.path;
     document.documentElement.lang = page.locale;
-    document.documentElement.dir = 'ltr';
+    document.documentElement.dir = getLocaleDirection(page.locale);
     document.title = article.seoTitle;
     const meta = (attribute: string, name: string, content: string) => {
       let element = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${name}"]`);

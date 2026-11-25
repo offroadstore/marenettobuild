@@ -18,12 +18,16 @@ test('network assets remain illustrative allowlisted media, not arbitrary privat
   assert.match(cleanBody(`<figure><img src="${src}" alt="Illustrazione" width="800" height="450" loading="lazy"><figcaption>Generata con IA</figcaption></figure>`), /width="800" height="450"/);
   assert.equal(safeUrl('/api/internal/files/original.jpg', true), false);
 });
-test('all 144 native network seeds require exact additional checks before activation', () => {
+test('all 156 native network seeds preserve holds and require the exact reviewed revision', () => {
   const seeds = catalog.records.filter(seed => seed.identity.startsWith('network-'));
-  assert.equal(seeds.length, 144);
+  assert.equal(seeds.length, 156);
   for (const seed of seeds) {
-    assert.equal(seed.releaseReady, false);
-    assert.throws(() => assertNetworkActivation({ identity: seed.identity, locale: seed.locale, path: seed.path }, seed.content), error => error.status === 409);
+    const row = { identity: seed.identity, locale: seed.locale, path: seed.path };
+    const sanitized = { ...seed.content, body: cleanBody(seed.content.body) };
+    assert.equal(seed.releaseReady, seed.locale === 'ar');
+    if (seed.locale === 'ar') assert.doesNotThrow(() => assertNetworkActivation(row, sanitized));
+    else assert.throws(() => assertNetworkActivation(row, sanitized), error => error.status === 409);
+    assert.throws(() => assertNetworkActivation(row, { ...sanitized, summary: sanitized.summary + ' changed' }), error => error.status === 409);
   }
   assert.doesNotThrow(() => assertNetworkActivation({ identity: 'unrelated-cms-entry' }, content));
 });

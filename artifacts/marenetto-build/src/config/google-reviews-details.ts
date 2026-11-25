@@ -88,4 +88,11 @@ export const googleReviewsDetails: Record<string, ReviewCopy> = {
     privacy: 'Anmeldelser og billeder indlæses via vores server. Links åbner først Google, når du klikker.',
     terms: 'Vilkår for Google Maps', policy: 'Googles privatlivspolitik',
   },
+  ar: {
+    all: 'اقرأ جميع التقييمات على Google', write: 'اكتب تقييمًا', count: '{count} تقييمات',
+    rating: 'متوسط التقييم', source: 'اعرض هذا التقييم على خرائط Google',
+    order: 'حتى خمسة تقييمات، بترتيب الصلة الذي تُرجعه Google، من دون انتقاء بحسب الدرجة. النصوص أصلية وغير مترجمة.',
+    privacy: 'تُحمَّل التقييمات والصور عبر خادمنا. ولا تفتح الروابط Google إلا عند النقر عليها.',
+    terms: 'شروط خرائط Google', policy: 'سياسة الخصوصية لدى Google',
+  },
 };

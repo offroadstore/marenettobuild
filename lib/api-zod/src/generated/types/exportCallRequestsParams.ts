@@ -14,5 +14,10 @@ start?: Date;
 end?: Date;
 language?: CallLocale;
 project?: CallProject;
+/**
+ * @minLength 2
+ * @maxLength 100
+ */
+country?: string;
 status?: CallStatus;
 };

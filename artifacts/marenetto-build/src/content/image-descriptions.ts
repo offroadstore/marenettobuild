@@ -29,6 +29,7 @@ const descriptions: Record<string, string> = {
   sv: 'Två personer framför ett hus med stenfasad|Byggnad under uppförande bland kullar och växtlighet|Arbetare med mätinstrument vid en fuktig vägg|Byggnad och grafisk sköld på temat garanti|Illustrerad jämförelse av två fasadarbeten|Jämförelse av två utomhusytor vid ett hus|Arbetare som lägger en beläggning på ett golv|Person med surfplatta vid ett hus och en pool|Arbetare som lägger plattor på en trädgårdsgång|Arbetare vid en stenmur|Två arbetare lägger beläggning på ett utomhusgolv|Arbetare vid en trädgårdsdamm och en pool|Arbetare vid en uteköksbänk intill en ugn|Arbetare med utrustning vid en yttervägg',
   no: 'To personer foran et hus med steinfasade|Bygning under oppføring blant åser og vegetasjon|Arbeider med måleinstrument ved en fuktig vegg|Bygning og grafisk skjold om temaet garanti|Illustrert sammenligning av to fasadearbeider|Sammenligning av to utendørsflater ved et hus|Arbeider som legger et belegg på et gulv|Person med nettbrett ved et hus og et basseng|Arbeider som legger heller på en hagesti|Arbeider ved en steinmur|To arbeidere legger belegg på et utendørsgulv|Arbeider ved en hagedam og et basseng|Arbeider ved en utekjøkkenbenk inntil en ovn|Arbeidere med utstyr ved en yttervegg',
   da: 'To personer foran et hus med stenfacade|Bygning under opførelse mellem bakker og beplantning|Medarbejder med måleinstrument ved en fugtig væg|Bygning og grafisk skjold om emnet garanti|Illustreret sammenligning af to facadearbejder|Sammenligning af to udendørs overflader ved et hus|Medarbejder lægger en belægning på et gulv|Person med tablet ved et hus og en pool|Medarbejder lægger fliser på en havesti|Medarbejder ved en stenmur|To medarbejdere lægger belægning på et udendørs gulv|Medarbejder ved en havedam og en pool|Medarbejder ved en udekøkkenbordplade ved en ovn|Medarbejdere med udstyr ved en ydervæg',
+  ar: 'شخصان أمام منزل بواجهة حجرية|مبنى قيد الإنشاء بين التلال والنباتات|عامل يحمل جهاز قياس بجوار جدار رطب|مبنى ودرع رسومي حول موضوع الضمان|مقارنة مصورة بين معالجتين لواجهة|مقارنة بين سطحين خارجيين بجوار منزل|عامل يفرد طبقة تكسية على أرضية|شخص يحمل جهازًا لوحيًا بجوار منزل ومسبح|عامل يرصّ بلاطات على ممر في حديقة|عامل يعمل على جدار حجري منخفض|عاملان يطبقان طبقة تكسية على أرضية خارجية|عامل بجوار بركة حديقة ومسبح|عامل عند سطح مطبخ خارجي بجوار فرن|عمال بمعدات بجوار جدار خارجي',
 };
 export function imageDescription(src: string, locale: string, existing = '') {
   const alias = /\/media\/home\/construction-/.test(src) ? 1 : /\/media\/home\/property-/.test(src) ? 7 : /\/media\/home\/garden-/.test(src) ? 8 : -1;
@@ -48,5 +49,6 @@ const hero: Record<string,string> = {
   sv:'Illustration av Cefalù med hus, hav och La Rocca',
   no:'Illustrasjon av Cefalù med hus, hav og La Rocca',
   da:'Illustration af Cefalù med huse, hav og La Rocca',
+  ar:'رسم توضيحي لتشيفالو بمنازلها وبحرها وصخرة لا روكّا',
 };
 export const heroDescription = (locale: string) => hero[locale];

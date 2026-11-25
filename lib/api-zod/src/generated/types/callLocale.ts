@@ -22,4 +22,5 @@ export const CallLocale = {
   sv: 'sv',
   no: 'no',
   da: 'da',
+  ar: 'ar',
 } as const;

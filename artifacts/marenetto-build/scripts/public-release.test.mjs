@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import { test } from 'node:test';
-import { APPROVED_LOCALES, PUBLIC_ORIGIN, canonicalRedirect, indexingEnabled, publicEditions } from './public-release.mjs';
+import { APPROVED_LOCALES, PUBLIC_ORIGIN, alternateEditions, canonicalRedirect, indexingEnabled, publicEditions } from './public-release.mjs';
 import { editorialTopology } from './test-support/editorial-topology.mjs';
 import { isNativeEdition, releaseMetadata, mergeActiveMetadata } from '../src/localization/public-seo.mjs';
 import { build } from 'esbuild';
@@ -130,8 +130,10 @@ test('actual release handler: canonical, robots, XML sitemap, reciprocal alterna
         assert.ok(target, alternate.href);
         assert.ok(target.links.some(a => a.href === record.loc), `Reciprocal alternate ${record.loc}`);
       }
-      assert.ok(record.links.some(a => a.lang === 'it-IT'));
-      assert.ok(record.links.some(a => a.lang === 'x-default'));
+      const current = entries.find(e => PUBLIC_ORIGIN + e.path === record.loc);
+      const hasItalian = alternateEditions(current, entries).some(e => e.locale === 'it');
+      assert.equal(record.links.some(a => a.lang === 'it-IT'), hasItalian);
+      assert.equal(record.links.some(a => a.lang === 'x-default'), hasItalian);
     }
     for (const lang of APPROVED_LOCALES) {
       const home = entries.find(e => e.locale === lang && e.id === 'home');
@@ -153,11 +155,11 @@ test('actual release handler: canonical, robots, XML sitemap, reciprocal alterna
     }
     const previewRobots = await (await get('/robots.txt', { headers: { ...headers, 'x-forwarded-host': 'preview.replit.app' } })).text();
     assert.match(previewRobots, /^Disallow: \/$/m);
-    for (const path of ['/internal', '/owner-demo', '/__localization-review', '/ar/', '/he/', '/fi/', '/hu/', '/random-nonexistent']) {
+    for (const path of ['/internal', '/owner-demo', '/__localization-review', '/__localization-review/ar/home', '/he/', '/fi/', '/hu/', '/random-nonexistent']) {
       const r = await get(path);
       assert.equal(r.headers.get('x-robots-tag'), 'noindex, nofollow', path);
     }
-    for (const lang of ['ro', 'uk', 'cs', 'sk', 'sl', 'hr', 'sr', 'bg', 'bs', 'mk', 'be', 'ar', 'he', 'fi', 'hu', 'el', 'tr']) {
+    for (const lang of ['ro', 'uk', 'cs', 'sk', 'sl', 'hr', 'sr', 'bg', 'bs', 'mk', 'be', 'he', 'fi', 'hu', 'el', 'tr']) {
       assert.equal((await get(`/${lang}/`)).status, 404, lang);
     }
     assert.equal((await get('/')).headers.get('strict-transport-security'), null, 'production edge owns HSTS');

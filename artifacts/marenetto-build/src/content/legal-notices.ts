@@ -1,5 +1,6 @@
 import { ownerDecisions } from './owner-decisions';
 import { aiUsePath } from './phase3';
+import { noticeCopyAr, projectPrivacyHeadingAr, preferenceActionsAr } from './legal-notices-ar';
 /**
  * Dated candidate notices. Publication approval is deliberately not inferred from
  * implementation or from approval of older translations.
@@ -365,6 +366,8 @@ export function legalPath(lang: string, kind: LegalKind) {
   const segment = kind === 'privacy' ? 'privacy' : kind === 'cookies' ? 'cookie-policy' : lang === 'it' ? 'uso-intelligenza-artificiale' : 'ai-transparency';
   return `${lang === 'it' ? '' : `/${lang}`}/${segment}`;
 }
+Object.assign(noticeCopy, noticeCopyAr);
+Object.assign(projectPrivacyHeading, projectPrivacyHeadingAr);
 // Replace superseded draft facts rather than appending contradictory notices.
 for (const [locale, decision] of Object.entries(ownerDecisions)) {
   const copy = noticeCopy[locale];
@@ -390,3 +393,4 @@ export const preferenceActions: Record<string, {customize:string;save:string;ana
   no:{customize:'Tilpass',save:'Lagre innstillinger',analytics:'Valgfri statistikk'},
   da:{customize:'Tilpas',save:'Gem indstillinger',analytics:'Valgfri statistik'},
 };
+Object.assign(preferenceActions, preferenceActionsAr);

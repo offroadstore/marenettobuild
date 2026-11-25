@@ -14,6 +14,8 @@ import pl from './locales/pl';
 import sv from './locales/sv';
 import no from './locales/no';
 import da from './locales/da';
+import ar from './locales/ar';
+import { briefsAr } from './briefs-ar';
 import { TRAVEL_COPY, travelPath } from './travel-copy';
 
 export { TRAVEL_COPY, travelPath, travelCopy } from './travel-copy';
@@ -21,27 +23,27 @@ export { TRAVEL_COPY, travelPath, travelCopy } from './travel-copy';
 export { SERVED_PLACES, TOPIC_SERVICES } from './places';
 export type { ServedPlace } from './places';
 
-export const PHASE3_COPY: Record<string, Phase3Copy> = { it, en, fr, de, nl, es, pt, ru, pl, sv, no, da };
+export const PHASE3_COPY: Record<string, Phase3Copy> = { it, en, fr, de, nl, es, pt, ru, pl, sv, no, da, ar };
 export const PHASE3_LOCALES = Object.keys(PHASE3_COPY);
-const briefs: Record<string, Record<string, string>> = { ...briefsA, ...briefsB };
+const briefs: Record<string, Record<string, string>> = { ...briefsA, ...briefsB, ...briefsAr };
 export const placeBrief = (locale: string, slug: string) => briefs[locale]![slug]!;
 
 const prefix = (locale: string) => (locale === 'it' ? '' : `/${locale}`);
 const ZONES: Record<string, string> = {
   it: 'zone-servite', en: 'areas-served', fr: 'zones-desservies', de: 'einsatzgebiete', nl: 'werkgebied', es: 'zonas-atendidas',
-  pt: 'zonas-atendidas', ru: 'rayony-raboty', pl: 'obszar-dzialania', sv: 'omraden', no: 'omrader', da: 'omraader',
+  pt: 'zonas-atendidas', ru: 'rayony-raboty', pl: 'obszar-dzialania', sv: 'omraden', no: 'omrader', da: 'omraader', ar: 'areas-served',
 };
 const FURNITURE: Record<string, string> = {
   it: 'arredi-su-misura-cemento-microcemento', en: 'custom-concrete-microcement-furniture', fr: 'mobilier-sur-mesure-beton-microciment',
   de: 'moebel-nach-mass-beton-mikrozement', nl: 'meubels-op-maat-beton-microcement', es: 'muebles-a-medida-hormigon-microcemento',
   pt: 'moveis-sob-medida-betao-microcimento', ru: 'mebel-na-zakaz-beton-mikrocement', pl: 'meble-na-wymiar-beton-mikrocement',
-  sv: 'mobler-pa-matt-betong-mikrocement', no: 'mobler-pa-mal-betong-mikrosement', da: 'moebler-efter-maal-beton-mikrocement',
+  sv: 'mobler-pa-matt-betong-mikrocement', no: 'mobler-pa-mal-betong-mikrosement', da: 'moebler-efter-maal-beton-mikrocement', ar: 'custom-concrete-microcement-furniture',
 };
 const AI: Record<string, string> = {
   it: 'uso-intelligenza-artificiale', en: 'use-of-artificial-intelligence', fr: 'utilisation-intelligence-artificielle',
   de: 'einsatz-kuenstlicher-intelligenz', nl: 'gebruik-kunstmatige-intelligentie', es: 'uso-inteligencia-artificial',
   pt: 'uso-inteligencia-artificial', ru: 'ispolzovanie-iskusstvennogo-intellekta', pl: 'wykorzystanie-sztucznej-inteligencji',
-  sv: 'anvandning-av-artificiell-intelligens', no: 'bruk-av-kunstig-intelligens', da: 'brug-af-kunstig-intelligens',
+  sv: 'anvandning-av-artificiell-intelligens', no: 'bruk-av-kunstig-intelligens', da: 'brug-af-kunstig-intelligens', ar: 'use-of-artificial-intelligence',
 };
 export const zonesPath = (locale: string) => `${prefix(locale)}/${ZONES[locale]}`;
 export const placePath = (locale: string, slug: string) => `${zonesPath(locale)}/${slug}`;

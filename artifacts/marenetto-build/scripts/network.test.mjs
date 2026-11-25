@@ -20,10 +20,10 @@ const { render } = await vite.ssrLoadModule('/src/entry-server.tsx');
 const { regulatoryNotice } = await vite.ssrLoadModule('/src/content/network/regulatory-notice.ts');
 const origin = 'https://www.marenettobuild.com';
 
-test('twelve complete native catalogs, twelve distinct articles and unique routes/metadata per locale', () => {
-  assert.equal(network.NETWORK_LOCALES.length, 12);
-  assert.equal(network.NETWORK_PAGES.length, 144);
-  assert.equal(new Set(network.NETWORK_PAGES.map(p => p.path)).size, 144);
+test('thirteen complete native catalogs, twelve distinct articles and unique routes/metadata per locale', () => {
+  assert.equal(network.NETWORK_LOCALES.length, 13);
+  assert.equal(network.NETWORK_PAGES.length, 156);
+  assert.equal(new Set(network.NETWORK_PAGES.map(p => p.path)).size, 156);
   for (const locale of network.NETWORK_LOCALES) {
     const copy = network.networkCopy(locale);
     const pages = network.NETWORK_PAGES.filter(p => p.locale === locale);
@@ -62,7 +62,7 @@ test('AI checks are revision-specific evidence, never professional certification
   assert.equal(evidence.editions.length, 144);
   const banned = /fastighetsmäkl|eiendomsmeg|ejendomsmægl|estate\s+(?:agent|agenc)|immobilienmakl|makelaar|agenc(?:e|es)\s+immobili|agenz(?:ia|ie)\s+immobili|agenc(?:ia|ias)\s+inmobili|agênc(?:ia|ias)\s+imobili|ри[еэ]лт|agencj[aei]\s+nieruchomo|pośredni(?:k|ctw)/iu;
   assert.equal(JSON.stringify(network.NETWORK_COPY).match(banned)?.[0], undefined, 'Excluded occupation/agency reference in candidate text');
-  for (const page of network.NETWORK_PAGES) {
+  for (const page of network.NETWORK_PAGES.filter(p => p.locale !== 'ar')) {
     const record = evidence.editions.find(e => e.id === page.id && e.locale === page.locale);
     assert.equal(record?.contentSHA256, createHash('sha256').update(network.networkRevisionPayload(page)).digest('hex'), page.path);
     assert.equal(network.networkPublic(page), false);
@@ -79,20 +79,20 @@ test('existing service locales outside the twelve network editions keep renderin
   assert.doesNotMatch(body, /Something went wrong|hasOfferCatalog/);
 });
 
-test('all 144 CMS records are native drafts with FAQ, sources, captions and exact revision fingerprints', () => {
+test('CMS records preserve existing draft gates and release only the reviewed Arabic cluster', () => {
   for (const page of network.NETWORK_PAGES) {
     const record = networkCMSRecord(page);
     assert.equal(record.content.contentLanguage, page.locale);
-    assert.equal(record.releaseReady, false, page.path);
+    assert.equal(record.releaseReady, page.locale === 'ar', page.path);
     assert.ok(record.content.sources.length, page.path);
     assert.doesNotMatch(record.content.body, /<h1\b/, page.path);
     assert.match(record.content.body, /<figcaption>/, page.path);
     assert.equal(createHash('sha256').update(record.reviewPayload).digest('hex').length, 64);
-    assert.equal(network.networkPublic(page), false);
+    assert.equal(network.networkPublic(page), page.locale === 'ar');
   }
 });
 
-test('all 144 initial HTML bodies have one H1, complete text, working anchors and existing native service destinations', async () => {
+test('all 156 initial HTML bodies have one H1, complete text, working anchors and existing native service destinations', async () => {
   const knownPaths = new Set(editions.map(e => e.path.replace(/\/+$/, '') || '/'));
   const previews = new Set(network.NETWORK_PAGES.map(p => network.networkPreviewPath(p.locale, p.id)));
   const decode = value => value.replaceAll('&amp;', '&').replaceAll('&#x27;', "'").replaceAll('&#39;', "'").replaceAll('&quot;', '"');
@@ -102,7 +102,7 @@ test('all 144 initial HTML bodies have one H1, complete text, working anchors an
     assert.match(regulatoryNotice(page.locale).body, /2025/);
     assert.equal((body.match(/<h1\b/g) ?? []).length, 1, page.path);
     assert.match(body, new RegExp(`lang="${page.locale}"`), page.path);
-    assert.match(body, /data-testid="status-network-draft"/, page.path);
+    if (page.locale !== 'ar') assert.match(body, /data-testid="status-network-draft"/, page.path);
     assert.equal((body.match(/<figcaption\b/g) ?? []).length, page.id === 'network' ? 1 : 3, page.path);
     const articleHtml = body.match(/<main\b(?=[^>]*\bclass="mbn")[^>]*>([\s\S]*?)<\/main>/)?.[1];
     assert.ok(articleHtml, page.path);
@@ -123,13 +123,21 @@ test('all 144 initial HTML bodies have one H1, complete text, working anchors an
 });
 
 test('drafts never join public inventory, equivalents, sitemap or AI links', () => {
-  assert.equal(network.NETWORK_PUBLIC_PAGES.length, 0);
-  assert.ok(!editions.some(e => e.source.startsWith('network:')));
-  for (const page of network.NETWORK_PAGES) assert.deepEqual(equivalentEditions(`network-${page.id}`), []);
+  assert.equal(network.NETWORK_PUBLIC_PAGES.length, 12);
+  assert.ok(editions.filter(e => e.source.startsWith('network:')).every(e => e.locale === 'ar'));
+  for (const page of network.NETWORK_PAGES) {
+    const family = equivalentEditions(`network-${page.id}`);
+    assert.equal(family.length, 1);
+    assert.equal(family[0].locale, 'ar');
+  }
   const sitemap = releaseSitemap(editions.filter(e => e.state === 'published' && e.sitemap));
   const llms = llmsDocument({ name: 'Marenetto Build', address: {} }, editions, origin);
-  assert.doesNotMatch(sitemap, /__network-review|professional-network|rete-professionisti/);
-  assert.doesNotMatch(llms, /__network-review|## Professional network/);
+  assert.doesNotMatch(sitemap, /__network-review/);
+  assert.doesNotMatch(llms, /__network-review/);
+  for (const page of network.NETWORK_PAGES) {
+    assert.equal(sitemap.includes(`<loc>${origin}${page.path}</loc>`), page.locale === 'ar', page.path);
+    assert.equal(llms.includes(`${origin}${page.path})`), page.locale === 'ar', page.path);
+  }
 });
 
 test('schema matches actual local FAQ and breadcrumbs, no invented dates, reviews or aggregate ratings', () => {
@@ -209,5 +217,5 @@ test('synthetic in-memory approvals only release a complete locale; any changed 
       Object.assign(image, imagesBefore[index]);
     });
   }
-  assert.equal(network.NETWORK_PUBLIC_PAGES.length, 0);
+  assert.equal(network.NETWORK_PUBLIC_PAGES.length, 12);
 });

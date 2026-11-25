@@ -9,7 +9,7 @@ import { loadHistorical } from './content/historical';
 
 const root = document.getElementById('root')!;
 setTranslationReviewMode(window.location.pathname.startsWith('/__localization-review/'));
-const locale = document.documentElement.dataset.editionLocale ?? window.location.pathname.match(/^\/(?:__localization-review\/)?([a-z]{2})(?:\/|$)/)?.[1] ?? 'it';
+const locale = document.documentElement.dataset.editionLocale ?? window.location.pathname.match(/^\/(?:__localization-review\/)?([a-z]{2})(?:-site)?(?:\/|$)/)?.[1] ?? 'it';
 // The first client render must use the exact same catalog as the server.
 await Promise.all([loadLocaleCatalog(locale), loadHistorical(locale)]);
 const options = {

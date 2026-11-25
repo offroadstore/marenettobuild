@@ -3,6 +3,7 @@ import type { CallRequestInput } from "@workspace/api-zod";
 
 // Transactional acknowledgements only, never marketing; no claim staff speak every language.
 const confirmations: Record<string, [string, string]> = {
+  ar: ["تم استلام طلب التواصل", "سجّلنا طلبك وسنتواصل معك لمناقشة المشروع. اللغة المختارة تفضيل وليست ضماناً لتوفّر متحدث بها. تُحدّد إمكانية التنفيذ وموعد التواصل ونطاق العمل بعد دراسة الطلب. لتصحيح بياناتك أو حذفها، راسل info@marenetto.com."],
   it: ["Richiesta di chiamata ricevuta", "Abbiamo registrato la tua richiesta. La lingua indicata è una preferenza; disponibilità e tempi saranno concordati. Per rettifica o cancellazione scrivi a info@marenetto.com."],
   en: ["Callback request received", "We have recorded your request. Your selected language is a preference; availability and timing will be agreed. For correction or deletion, write to info@marenetto.com."],
   de: ["Rückrufanfrage erhalten", "Wir haben Ihre Anfrage erfasst. Die gewählte Sprache ist ein Wunsch; Verfügbarkeit und Zeitpunkt werden vereinbart. Für Berichtigung oder Löschung schreiben Sie an info@marenetto.com."],
@@ -22,6 +23,7 @@ export function callbackMail(row: CallRequest, recipient: "owner" | "customer") 
     to: "info@marenetto.com", subject: `Nuova richiesta chiamata ${row.code}`,
     text: [
       `Richiesta ${row.code}`, `Ricevuta: ${row.createdAt.toISOString()}`,
+      ...(data.project === "atelier_international" ? ["Tipo progetto: Atelier internazionale", `Paese di destinazione: ${data.country ?? "Non indicato"}`] : []),
       ...Object.entries(data).filter(([k]) => k !== "idempotencyKey").map(([k, v]) => `${k}: ${typeof v === "object" ? JSON.stringify(v) : v}`),
       `Consenso server: ${row.consentAt.toISOString()}`, `Versione: ${row.privacyVersion}`,
       `Lingua consenso: ${row.consentLanguage}`,

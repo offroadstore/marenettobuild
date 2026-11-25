@@ -1,0 +1,119 @@
+{
+  "reviewedAt": "2026-11-25T19:41:22.051Z",
+  "nativeSpeakerCertification": false,
+  "professionalSignOff": false,
+  "receipts": [
+    {
+      "id": "tecniche-avanzate-gestione-deformazioni-strutture-edili",
+      "sourcePath": "/tecniche-avanzate-gestione-deformazioni-strutture-edili/",
+      "sourceDocumentSHA256": "742b3b40b41a894d1da762fc23fefa1e73bcc5d686e846ee5d179c7861ce2a6e",
+      "translationSHA256": "24df85db77e94a8446e8f49c8db75baacb0d1e6a2b88d7c1ae25f41e782b9af4",
+      "mode": "new-arabic-adaptation-with-ai-assisted-bilingual-review",
+      "qualifications": "Absolute historical claims qualified, not repeated as guarantees; no invented native-speaker or professional sign-off."
+    },
+    {
+      "id": "impresa-edile-a-cefalu",
+      "sourcePath": "/impresa-edile-a-cefalu/",
+      "sourceDocumentSHA256": "e1cbce7ced48fd891057f9d3f82228224983fcab5a2e56cd094544ff12d301c5",
+      "translationSHA256": "c6589a3295e3e44fb32ac9380a993630d88cb40f1d4beb69fc8a5770870b9c55",
+      "mode": "new-arabic-adaptation-with-ai-assisted-bilingual-review",
+      "qualifications": "Absolute historical claims qualified, not repeated as guarantees; no invented native-speaker or professional sign-off."
+    },
+    {
+      "id": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "sourcePath": "/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali/",
+      "sourceDocumentSHA256": "ce7dabcf3aaa89c72c31dc035f9f52fc982348f094cfbdc3f4890a268f5c0da9",
+      "translationSHA256": "a095fc1aaddf7df6d31dd9a0da71b8dba9e232a394049ca83cbf43a4585caf43",
+      "mode": "new-arabic-adaptation-with-ai-assisted-bilingual-review",
+      "qualifications": "Absolute historical claims qualified, not repeated as guarantees; no invented native-speaker or professional sign-off."
+    },
+    {
+      "id": "garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto",
+      "sourcePath": "/garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto/",
+      "sourceDocumentSHA256": "25d06cb4157bdc7b4060074f71d7502438d75d3faddb4a0f80e0116419726078",
+      "translationSHA256": "e96a20ddd49fbebba31bfeb5ff1ee94ae6fdde4f7576a49980ede7464e4376e9",
+      "mode": "new-arabic-adaptation-with-ai-assisted-bilingual-review",
+      "qualifications": "Absolute historical claims qualified, not repeated as guarantees; no invented native-speaker or professional sign-off."
+    },
+    {
+      "id": "ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni",
+      "sourcePath": "/ricerca-infiltrazioni-d-acqua-e-umidita-come-intervenire-senza-demolizioni/",
+      "sourceDocumentSHA256": "30d4ae9accd270a09f8c19c000c7be620f31daf69035844639d09b911365291b",
+      "translationSHA256": "719359e749b07b18325ad0c51e48f1b231483010d8aad73d3c49d59ad67cd6e8",
+      "mode": "new-arabic-adaptation-with-ai-assisted-bilingual-review",
+      "qualifications": "Absolute historical claims qualified, not repeated as guarantees; no invented native-speaker or professional sign-off."
+    },
+    {
+      "id": "ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam",
+      "sourcePath": "/ristrutturare-senza-demolire-la-guida-completa-al-microcemento-microverlay-isoplam/",
+      "sourceDocumentSHA256": "0b63d363fb7e2e7b3703190ad69ef8805b6793c1dc798373845aa0b1cd83e7eb",
+      "translationSHA256": "922bcac421c1eda4851a1c98c1725a5ab7bba57aa7a45d32af099c76a790b68b",
+      "mode": "new-arabic-adaptation-with-ai-assisted-bilingual-review",
+      "qualifications": "Absolute historical claims qualified, not repeated as guarantees; no invented native-speaker or professional sign-off."
+    },
+    {
+      "id": "pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete",
+      "sourcePath": "/pavimenti-esterni-isoplam-guida-completa-a-cemento-stampato-e-skyconcrete/",
+      "sourceDocumentSHA256": "1d1c54777137a1165a23fcafd9f018d7f3075a4a9cf58e4e3396bb42cfbc1aa3",
+      "translationSHA256": "e4d7d43ad796eb088adf4f020e3f5dc1a8accb0a03e0b08963f0108fed018b22",
+      "mode": "new-arabic-adaptation-with-ai-assisted-bilingual-review",
+      "qualifications": "Absolute historical claims qualified, not repeated as guarantees; no invented native-speaker or professional sign-off."
+    },
+    {
+      "id": "pavimenti-stampati-in-resina",
+      "sourcePath": "/pavimenti-stampati-in-resina/",
+      "sourceDocumentSHA256": "f4f091c0be237be9330491a51c57d74a15aa523579499857ed32e8e2fab5d935",
+      "translationSHA256": "e7079c074b551b36d8d16bf53e3550658c513a2db4f6935526b4b80c3b353b34",
+      "mode": "new-arabic-adaptation-with-ai-assisted-bilingual-review",
+      "qualifications": "Absolute historical claims qualified, not repeated as guarantees; no invented native-speaker or professional sign-off."
+    },
+    {
+      "id": "cappotto-termico-vs-intonaco-termico-cefalu",
+      "sourcePath": "/cappotto-termico-vs-intonaco-termico-cefalu/",
+      "sourceDocumentSHA256": "7b15dd0bac3059002e427f5d1ab614b621ed0d9ef253567e9401de334f0a0c91",
+      "translationSHA256": "ba42755235ce88e25abc4939483d99587ffb93afa1cab09c903c5e971bf361fc",
+      "mode": "new-arabic-adaptation-with-ai-assisted-bilingual-review",
+      "qualifications": "Absolute historical claims qualified, not repeated as guarantees; no invented native-speaker or professional sign-off."
+    },
+    {
+      "id": "cucine-in-muratura-luxury",
+      "sourcePath": "/cucine-in-muratura-luxury/",
+      "sourceDocumentSHA256": "4a486f97922736e7350b726ca4e125e01be58829cf5a344781a7a1315a68f02d",
+      "translationSHA256": "457610a320ec3082de6971fae7f87b1deee2ddaec15502b4ebc22463e86ffa6d",
+      "mode": "new-arabic-adaptation-with-ai-assisted-bilingual-review",
+      "qualifications": "Absolute historical claims qualified, not repeated as guarantees; no invented native-speaker or professional sign-off."
+    },
+    {
+      "id": "piscine-e-laghetti-zen",
+      "sourcePath": "/piscine-e-laghetti-zen/",
+      "sourceDocumentSHA256": "f674a8b023c6fae3c2e68a2562e88dab18edd239c020ac40df6e4cec8efce48c",
+      "translationSHA256": "51a7f7ffaa8b0f53827780c07f5644eb134e24d4a45b33f15dec21d301e89521",
+      "mode": "new-arabic-adaptation-with-ai-assisted-bilingual-review",
+      "qualifications": "Absolute historical claims qualified, not repeated as guarantees; no invented native-speaker or professional sign-off."
+    },
+    {
+      "id": "opere-in-pietra-e-prospetti",
+      "sourcePath": "/opere-in-pietra-e-prospetti/",
+      "sourceDocumentSHA256": "ad4f1381f48ed9340f68cbc872b949e997dcf5b025121c87fcdd085ebba4cbcc",
+      "translationSHA256": "894b8917dc5e0c73eb3097a25049304580768afae5d08340a6872f04a1d5f79f",
+      "mode": "new-arabic-adaptation-with-ai-assisted-bilingual-review",
+      "qualifications": "Absolute historical claims qualified, not repeated as guarantees; no invented native-speaker or professional sign-off."
+    },
+    {
+      "id": "garden-design-esclusivo",
+      "sourcePath": "/garden-design-esclusivo/",
+      "sourceDocumentSHA256": "d1459ab01c88a8c6b473763f54c113469dce21860480d4f45e91c832e033aff4",
+      "translationSHA256": "5b8813fa6213ac32b6fb8a0d96c89e211aa35356e6318cb43c9bc1c37afbc63a",
+      "mode": "new-arabic-adaptation-with-ai-assisted-bilingual-review",
+      "qualifications": "Absolute historical claims qualified, not repeated as guarantees; no invented native-speaker or professional sign-off."
+    },
+    {
+      "id": "gestione-manutenzione-immobile",
+      "sourcePath": "/gestione-manutenzione-immobile/",
+      "sourceDocumentSHA256": "3f0e369c44c2c3fc9f65bebda3dca48f22f307b677d84e81fcbbc5127906e673",
+      "translationSHA256": "a64d16a4d7e66cb94b77b05d65f1d2b14a07f25e8589c4e706d4ba35960f7293",
+      "mode": "new-arabic-adaptation-with-ai-assisted-bilingual-review",
+      "qualifications": "Absolute historical claims qualified, not repeated as guarantees; no invented native-speaker or professional sign-off."
+    }
+  ]
+}
