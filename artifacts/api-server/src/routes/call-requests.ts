@@ -21,7 +21,8 @@ router.post("/call-requests", async (req, res): Promise<void> => {
   res.setHeader("Cache-Control", "private, no-store");
   const parsed = CreateCallRequestBody.safeParse(req.body);
   if (!parsed.success || !parsed.data.firstName.trim() || !parsed.data.lastName.trim() ||
-    !/^\+[1-9][0-9]{7,14}$/.test(parsed.data.mobile) || parsed.data.privacyAccepted !== true) {
+    !/^\+[1-9][0-9]{7,14}$/.test(parsed.data.mobile) || parsed.data.privacyAccepted !== true ||
+    parsed.data.privacyVersion !== CALL_PRIVACY_VERSION) {
     res.status(400).json({ error: "invalid_input" }); return;
   }
   // Never give a fake saved receipt for a discarded spam submission.

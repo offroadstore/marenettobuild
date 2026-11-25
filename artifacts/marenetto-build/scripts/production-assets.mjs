@@ -26,9 +26,16 @@ export async function checkProductionAssets(directory) {
     const content = await readFile(path.join(directory, file), 'utf8');
     checked++;
     const clerkVendor = /(?:^|\/)assets\/clerk-vendor-[\w-]+\.js$/.test(file);
+    // A factual processor disclosure is not platform branding. Exempt only the
+    // exact provider-name contexts used in the 12 privacy notices, never URLs,
+    // tracker code, metadata or arbitrary references elsewhere.
+    const fingerprintContent = content.replace(
+      /(?:hosting|hébergement|alojamiento|alojamento|hostingu|хостинг) Replit\b|\bReplit(?: hosting|-Hosting|-hosting|-värdtjänst|-drift)\b/g,
+      'hosting provider',
+    );
     for (const [label, pattern] of forbidden) {
       if (clerkVendor && label === 'platform fingerprint') continue;
-      if (pattern.test(content)) problems.push(`${file}: ${label}`);
+      if (pattern.test(label === 'platform fingerprint' ? fingerprintContent : content)) problems.push(`${file}: ${label}`);
     }
     const server = /(?:^|\/)server\//.test(file);
     if (!server && !clerkVendor && /\b(?:VITE_|REPLIT_|MARENETTO_|CLERK_|PUBLIC_OBJECT_|PRIVATE_OBJECT_)[A-Z_]+/.test(content)) {

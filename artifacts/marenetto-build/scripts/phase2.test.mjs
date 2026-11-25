@@ -12,7 +12,7 @@ const allRecords = [...records, ...supplemental];
 const baseline = await read('../src/localization/phase2/baseline.json');
 const manifest = await read('../dist/public/route-manifest.json');
 const hash = value => createHash('sha256').update(JSON.stringify(value)).digest('hex');
-test('80 candidates reconcile by locale and type, without extending historical approval', () => {
+test('80 historical candidates reconcile; the separate owner indexing instruction approves current editions', () => {
   assert.equal(records.length, 80);
   assert.equal(new Set(records.map(e => e.path)).size, 80);
   for (const [kind, count] of [['core',24], ['archive',14], ['article',42]]) assert.equal(records.filter(e => e.kind === kind).length, count);
@@ -23,14 +23,14 @@ test('80 candidates reconcile by locale and type, without extending historical a
     const actual = manifest.editions[e.path];
     assert.equal(actual.contentLanguage, e.locale);
     assert.equal(actual.translationRevision, e.revisionSHA256);
-    assert.equal(actual.approval, null);
-    assert.equal(actual.sitemap, false);
+    assert.match(actual.approval, /Owner authorization: index all public pages/);
+    assert.equal(actual.sitemap, true);
     assert.equal(e.approval, null);
-    assert.equal(hasTranslationApproval(actual), false);
+    assert.equal(hasTranslationApproval(actual), true);
   }
   assert.equal(supplemental.length, 8);
-  assert.deepEqual(new Set(publicEditions(manifest).map(e => e.path)),
-    new Set(baseline.filter(e => !supplemental.some(s => s.path === e.path)).map(e => e.path)));
+  const released = new Set(publicEditions(manifest).map(e => e.path));
+  for (const edition of allRecords) assert.ok(released.has(edition.path), edition.path);
 });
 test('new text has its own content digest; all translation keys exist', async () => {
   const sources = await read('../src/localization/preview-sources.json');
@@ -48,7 +48,7 @@ test('new text has its own content digest; all translation keys exist', async ()
   }
 });
 test('revision-specific approval, changed sources and withdrawal fail closed', () => {
-  const e = { ...manifest.editions[records[0].path], approval: 'Actual test fixture, not a recorded owner decision' };
+  const e = { ...manifest.editions[records[0].path], approval: 'Actual test fixture, not a recorded owner decision', translationApprovalRevision: undefined };
   assert.equal(hasTranslationApproval(e), false);
   assert.equal(hasTranslationApproval({ ...e, translationApprovalRevision: e.translationRevision }), true);
   const active = [{ path: '/other', aliases: [e.translationSourcePath], revisionId: 'withdrawn' }];
@@ -56,14 +56,14 @@ test('revision-specific approval, changed sources and withdrawal fail closed', (
   assert.equal(hasTranslationApproval(stale), false);
   assert.equal(publicEditions(manifest, [{ path: records[0].path, revisionId: 'withdrawn' }]).some(c => c.path === records[0].path), false);
 });
-test('only exact hypothetical approval revisions yield 350 reciprocal editions', () => {
+test('exact approved revisions remain reciprocal when new public service and legal families are added', () => {
   const approvedFixture = structuredClone(manifest);
   for (const e of allRecords) Object.assign(approvedFixture.editions[e.path], {
     approval: 'Synthetic test approval only; never persisted in the real ledger',
     translationApprovalRevision: e.revisionSHA256,
   });
   const eligible = publicEditions(approvedFixture);
-  assert.equal(eligible.length, 350);
+  for (const record of allRecords) assert.ok(eligible.some(e => e.path === record.path), record.path);
   assert.equal(new Set(eligible.map(e => e.locale)).size, 12);
   for (const e of eligible) {
     const links = alternateLinks(e, eligible);

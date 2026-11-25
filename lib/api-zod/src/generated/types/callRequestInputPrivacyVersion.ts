@@ -11,4 +11,5 @@ export type CallRequestInputPrivacyVersion = typeof CallRequestInputPrivacyVersi
 
 export const CallRequestInputPrivacyVersion = {
   'call-2026-11-23': 'call-2026-11-23',
+  'call-2026-11-25': 'call-2026-11-25',
 } as const;

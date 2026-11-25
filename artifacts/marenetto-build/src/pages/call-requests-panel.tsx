@@ -6,6 +6,7 @@ import {
 } from '@workspace/api-client-react';
 import { ArrowDownToLine, ChevronDown, PhoneCall, Trash2 } from 'lucide-react';
 import { CALL_LOCALES } from '@/content/call-request-copy';
+import { callRequestExport } from '@/lib/call-request-export';
 
 const STATUSES: CallStatus[] = ['new', 'contacted', 'survey', 'quote', 'closed'];
 const STATUS_LABEL: Record<CallStatus, string> = { new: 'New', contacted: 'Contacted', survey: 'Site survey', quote: 'Quote', closed: 'Closed' };
@@ -26,12 +27,21 @@ function Row({ r }: { r: CallRecord }) {
   const refresh = () => qc.invalidateQueries({ queryKey: getListCallRequestsQueryKey() });
   const patch = (data: { status?: CallStatus; notes?: string; acquiredCustomer?: boolean }, msg: string) =>
     update.mutate({ id: r.id, data }, { onSuccess: () => { setSaved(msg); refresh(); } });
+  const exportOne = () => {
+    try {
+      const file = callRequestExport(r);
+      const url = URL.createObjectURL(new Blob([file.text], { type: 'application/json;charset=utf-8' }));
+      const a = document.createElement('a'); a.href = url; a.download = file.filename;
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+      setSaved('Single-request export downloaded. Review before sharing; no email was sent.');
+    } catch { setSaved('Export failed. Please retry.'); }
+  };
   const d = r.data;
   const dirty = notes !== r.notes;
   const pairs: [string, string][] = [
     ['Email', d.email], ['Mobile', d.mobile], ['WhatsApp OK', d.whatsapp ? 'Yes' : 'No'], ['Project', d.project ?? '—'], ['Location', d.location ?? '—'],
     ['Budget', d.budget ?? '—'], ['Start', d.startWhen ?? '—'], ['Time slot', d.timeSlot ?? '—'], ['Preferred language', d.preferredLanguage ?? '—'],
-    ['Marketing consent', d.marketingAccepted ? 'Yes' : 'No'], ['Privacy accepted', d.privacyAccepted ? 'Yes' : 'No'],
+    ['Marketing consent', d.marketingAccepted ? 'Yes' : 'No'], ['Privacy notice read', d.privacyAccepted ? 'Yes' : 'No'],
     ['Consent at', fmt(r.consentAt)], ['Privacy version', r.privacyVersion], ['Consent language', r.consentLanguage],
     ['Source path', d.sourcePath ?? '—'], ['utm_source', d.utm?.utm_source ?? '—'], ['utm_medium', d.utm?.utm_medium ?? '—'], ['utm_campaign', d.utm?.utm_campaign ?? '—'],
     ['Owner email', DELIVERY_LABEL[r.ownerDelivery] ?? r.ownerDelivery], ['Customer email', DELIVERY_LABEL[r.customerDelivery] ?? r.customerDelivery],
@@ -46,7 +56,8 @@ function Row({ r }: { r: CallRecord }) {
     {open && <div className="int-lead-detail">
       <div><span className="int-kicker">MESSAGE</span><p>{d.message || 'No message.'}</p>
         <dl className="int-call-grid">{pairs.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl></div>
-      <label className="int-call-toggle"><input type="checkbox" checked={r.acquiredCustomer} disabled={update.isPending} onChange={e => patch({ acquiredCustomer: e.target.checked }, e.target.checked ? 'Marked as acquired customer' : 'Acquired flag removed')} data-testid={`check-call-acquired-${r.id}`} /> Acquired customer (retention beyond 24 months; independent of status)</label>
+      <label className="int-call-toggle"><input type="checkbox" checked={r.acquiredCustomer} disabled={update.isPending} onChange={e => patch({ acquiredCustomer: e.target.checked }, e.target.checked ? 'Contractual relationship recorded' : 'Contractual exception removed')} data-testid={`check-call-acquired-${r.id}`} /> Rapporto contrattuale effettivo (escluso dalla cancellazione a 12 mesi; indipendente dallo stato)</label>
+      <button type="button" className="int-small-button" onClick={exportOne} data-testid={`button-call-export-${r.id}`}><ArrowDownToLine size={13} /> Export this request</button>
       <label>Internal notes<textarea value={notes} maxLength={5000} onChange={e => { setNotes(e.target.value); setSaved(''); }} data-testid={`textarea-call-notes-${r.id}`} /></label>
       <div className="int-inline-actions">
         <button className="int-primary" disabled={!dirty || update.isPending} onClick={() => patch({ notes }, 'Notes saved')} data-testid={`button-call-save-notes-${r.id}`}>{update.isPending ? 'Saving…' : 'Save notes'}</button>
@@ -86,7 +97,7 @@ export function CallRequestsPanel() {
   };
   const rows = list.data ?? [];
   return <div className="int-content">
-    <div className="int-section-intro"><div><span className="int-kicker">CALLBACKS / OWNER ONLY</span><h2>Callback requests.</h2><p>Every request, its consent record and email delivery state. Deleted automatically after 24 months unless marked as an acquired customer.</p></div>
+    <div className="int-section-intro"><div><span className="int-kicker">CALLBACKS / OWNER ONLY</span><h2>Callback requests.</h2><p>Every request, its consent record and email delivery state. Automatically deleted after 12 months unless an actual contractual relationship is recorded. Export or permanently delete an individual request from its details; email copies must be handled separately.</p></div>
       <button className="int-primary" onClick={doExport} disabled={exporting} data-testid="button-call-export"><ArrowDownToLine size={15} /> {exporting ? 'Exporting…' : 'Export filtered CSV'}</button></div>
     <div className="int-inline-actions int-call-filters">
       <label>From<input type="date" value={start} onChange={e => setStart(e.target.value)} data-testid="input-call-filter-start" /></label>

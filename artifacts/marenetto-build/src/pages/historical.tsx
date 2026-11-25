@@ -1,6 +1,7 @@
 import { useEffect, type MouseEvent, type ReactNode } from 'react';
 import { historicalDocument, type HistoricalPage } from '@/content/historical';
 import { HeroPhoto } from '@/components/home/Media';
+import { ImageDisclosure } from '@/components/ImageDisclosure';
 import { BrandMotto } from '@/components/brand/BrandMotto';
 import { HistoricalHomeSections } from '@/components/home/HistoricalHomeSections';
 import { GoogleReviews } from '@/components/home/GoogleReviews';
@@ -89,7 +90,7 @@ export function HistoricalContents({ page, actions }: { page: HistoricalPage; ac
   </div>;
   return <section className="section"><div className="container">
     {translation && !translationApproved(translation) && <p lang={page.locale} role="note">{translationNotices[page.locale].review}</p>}
-    {page.kind === 'article' && <><h1 className="display-title">{page.h1}</h1>{document.dateLabel ? <span>{document.dateLabel}</span> : document.publishedOn && <time dateTime={document.publishedOn}>{document.publishedOn.slice(0, 10)}</time>}{document.image && <figure><img className="historical-cover" src={document.image} alt={document.imageAlt} loading="eager" />{document.imageCaption && <figcaption>{document.imageCaption}</figcaption>}</figure>}</>}
+    {page.kind === 'article' && <><h1 className="display-title">{page.h1}</h1>{document.dateLabel ? <span>{document.dateLabel}</span> : document.publishedOn && <time dateTime={document.publishedOn}>{document.publishedOn.slice(0, 10)}</time>}{document.image && <figure><img className="historical-cover" src={document.image} alt={document.imageAlt} loading="eager" /><figcaption><ImageDisclosure src={document.image} lang={page.locale} />{document.imageCaption}</figcaption></figure>}</>}
     {page.locale !== 'it' && page.contentLanguage === 'it' && <p lang={page.locale} data-source-language="it">{sourceLanguageLabels[page.locale] ?? 'Testo in italiano'}</p>}
     <article className={`historical-content${page.kind === 'article' ? ' article-body' : ''}`} data-historical-body="" data-editorial-state={page.state === 'awaiting-confirmation' ? 'review-pending' : undefined} data-correction-state={page.editorialCorrection ? page.locale === 'it' ? 'owner-authorized-preview' : 'translation-draft' : undefined} lang={page.contentLanguage} onClick={preserveCampaign} dangerouslySetInnerHTML={{ __html: document.html }} />
   </div>{page.kind !== 'article' && SERVICE_FAMILIES.has(page.family) && <TravelCoverageBlock locale={page.locale} />}</section>;

@@ -3,16 +3,11 @@ import { isNativeEdition, hasTranslationApproval, releaseMetadata, mergeActiveMe
 
 export const PUBLIC_ORIGIN = 'https://www.marenettobuild.com';
 export const APPROVED_LOCALES = new Set(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']);
-export const PUBLIC_ROBOTS = `User-agent: *
-Allow: /
-Disallow: /internal
-Disallow: /api/
-Disallow: /owner-demo
-Disallow: /sign-in
-Disallow: /sign-up
-Disallow: /__localization-review
-Sitemap: ${PUBLIC_ORIGIN}/sitemap.xml
-`;
+export const ROBOT_AGENTS = ['*', 'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'PerplexityBot', 'Google-Extended', 'Bingbot', 'Applebot'];
+export const ROBOT_EXCLUSIONS = ['/internal', '/api', '/api/', '/owner-demo', '/sign-in', '/sign-up', '/__localization-review', '/content', '/__mockup'];
+export const PUBLIC_ROBOTS = ROBOT_AGENTS.map(agent =>
+  `User-agent: ${agent}\nAllow: /\n${ROBOT_EXCLUSIONS.map(path => `Disallow: ${path}`).join('\n')}\n`
+).join('\n') + `\nSitemap: ${PUBLIC_ORIGIN}/sitemap.xml\n`;
 
 export function publicHost(req) {
   const forwarded = req.headers['x-forwarded-host'];

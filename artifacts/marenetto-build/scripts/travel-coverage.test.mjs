@@ -17,7 +17,7 @@ test('one substantial travel page per active language, not a separate doorway pe
   for (const edition of family) {
     const html = await readPage(edition);
     const main = mainOf(html);
-    assert.ok(main.includes('60'), edition.path);
+    assert.match(main, /Madonie|Мадоние/, edition.path);
     assert.equal((main.match(/<h1\b/g) ?? []).length, 1, edition.path);
     assert.ok(main.replace(/<[^>]*>/g, ' ').length > 1800, edition.path);
     if (edition.locale === 'it') for (const city of expected) {
@@ -47,7 +47,7 @@ test('ordinary zones, furniture and core services visibly explain conditional tr
   assert.equal(new Set(targets.map(edition => edition.locale)).size, 12);
   for (const edition of targets) {
     const main = mainOf(await readPage(edition));
-    assert.ok(main.includes('60'), `No ordinary-area explanation: ${edition.path}`);
+    assert.match(main, /Madonie|Мадоние/, `No ordinary-area explanation: ${edition.path}`);
     assert.ok(main.includes(`href="${travelPages.get(edition.locale)}`), `No native travel link: ${edition.path}`);
   }
 });

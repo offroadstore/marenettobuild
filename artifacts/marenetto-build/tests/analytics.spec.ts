@@ -76,6 +76,53 @@ async function setup(page: Page, origin = 'https://analytics-test.example.com') 
   return { requests, events, probes, unavailable: () => { configAvailable = false; }, receipt: (mode: string) => { receiptMode = mode; } };
 }
 
+type CookieFixtureWindow = Window & { __cookieFixture: {
+  grant(): unknown;
+  read(): { statistics: boolean; marketing: boolean } | null;
+} };
+
+test('unmeasured static service and localized legal routes reopen preferences and persist rejection with an empty editorial snapshot', async ({ page }) => {
+  const f = await setup(page);
+  for (const path of ['/en/privacy', '/en/cookie-policy', '/arredi-su-misura', '/area-servizi-edili', '/zone-servite']) {
+    await page.goto(`https://analytics-test.example.com${path}`);
+    await expect(page.getByTestId('cookie-preferences-link')).toBeVisible();
+    expect(await page.evaluate(() => (window as CookieFixtureWindow).__cookieFixture.grant()))
+      .toMatchObject({ statistics: true, marketing: true });
+    await page.reload();
+    await expect(page.getByTestId('analytics-preferences')).toHaveCount(0);
+    await page.getByTestId('cookie-preferences-link').click();
+    await expect(page.getByTestId('consent-statistics')).toBeChecked();
+    await expect(page.getByTestId('consent-marketing')).toBeChecked();
+    await page.getByTestId('analytics-reject').click();
+    expect(await page.evaluate(() => (window as CookieFixtureWindow).__cookieFixture.read()))
+      .toMatchObject({ statistics: false, marketing: false });
+    await page.reload();
+    await expect(page.getByTestId('analytics-preferences')).toHaveCount(0);
+    await page.getByTestId('cookie-preferences-link').click();
+    await expect(page.getByTestId('consent-statistics')).not.toBeChecked();
+    await expect(page.getByTestId('consent-marketing')).not.toBeChecked();
+    await page.getByTestId('cookie-close').click();
+    await expect(page.locator('iframe')).toHaveCount(0);
+  }
+  expect(f.requests).toEqual([]);
+});
+
+test('preview static pages reopen the inactive preferences panel without enabling providers', async ({ page }) => {
+  const origin = 'https://candidate.preview.example.org';
+  const f = await setup(page, origin);
+  for (const path of ['/en/privacy', '/arredi-su-misura', '/zone-servite']) {
+    await page.goto(origin + path);
+    await page.getByTestId('cookie-preferences-link').click();
+    await expect(page.getByTestId('analytics-preferences')).toBeVisible();
+    await expect(page.getByTestId('analytics-accept')).toHaveCount(0);
+    await expect(page.getByTestId('consent-statistics')).toHaveCount(0);
+    await page.getByTestId('cookie-close').click();
+    await expect(page.getByTestId('analytics-preferences')).toHaveCount(0);
+    await expect(page.locator('iframe')).toHaveCount(0);
+  }
+  expect(f.requests).toEqual([]);
+});
+
 test('consent/refusal/reload, SPA deduplication, contact vs stored enquiry, exclusion and immediate revoke', async ({ page }) => {
   const f = await setup(page);
   await expect(page.getByTestId('analytics-reject')).toBeVisible();

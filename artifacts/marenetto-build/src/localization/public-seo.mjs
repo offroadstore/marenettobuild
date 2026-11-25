@@ -8,6 +8,7 @@ export function isNativeEdition(edition) {
 
 // Legacy release evidence is not extended to a newly translated revision.
 export function hasTranslationApproval(edition) {
+  if (/^phase[34]:/.test(edition.source ?? '') && (!edition.approval || edition.state !== 'published')) return false;
   return !edition.translationSourceStale && (!edition.translationRevision || Boolean(edition.approval &&
     edition.translationApprovalRevision === edition.translationRevision));
 }
@@ -56,7 +57,7 @@ export function releaseMetadata(edition, html = '', entries = []) {
   const genericHome = /^(?:Home|Startseite|Accueil|Inicio|Início|Start|Hjem|Forside|Strona główna|Главная)\s*(?:[|—–-].*)?$/i.test(edition.title);
   let title = (!edition.activeSeoTitle || genericHome) && core ? core.title : edition.title;
   const names = archiveNames[edition.locale];
-  const legacyArchiveTitle = /^(?:Articoli|Articles|Artikel|Artikelen|Artículos|Artigos|Recensioni)\s*\|/i.test(title);
+  const legacyArchiveTitle = /^(?:Articoli|Articles|Artikel|Artikelen|Artikler|Artículos|Artigos|Recensioni)\s*\|/i.test(title);
   if (names && legacyArchiveTitle && (edition.id === 'articles' || edition.id === 'historical:/recensioni')) {
     title = `${names[edition.id === 'articles' ? 0 : 1]} — Cefalù | Marenetto Build`;
   }

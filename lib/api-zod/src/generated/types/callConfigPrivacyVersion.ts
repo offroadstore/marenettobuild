@@ -10,5 +10,5 @@ export type CallConfigPrivacyVersion = typeof CallConfigPrivacyVersion[keyof typ
 
 
 export const CallConfigPrivacyVersion = {
-  'call-2026-11-23': 'call-2026-11-23',
+  'call-2026-11-25': 'call-2026-11-25',
 } as const;

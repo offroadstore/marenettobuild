@@ -1,5 +1,6 @@
 import type { HistoricalHome } from '@/content/historical-home';
 import { GoogleReviews } from './GoogleReviews';
+import { ImageDisclosure } from '../ImageDisclosure';
 
 function Arrow() {
   return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>;
@@ -29,6 +30,7 @@ export function HistoricalHomeSections({ home, locale }: { home: HistoricalHome;
           {articles.map((article, i) => <li key={article.href}>
             <a className="mbx-card" href={article.href} data-testid={`link-article-${i}`}>
               <span className="mbx-card__media">{article.image && <img src={article.image} alt="" loading="lazy" decoding="async" width={600} height={400} />}</span>
+              {article.image && <ImageDisclosure src={article.image} lang={locale} />}
               <span className="mbx-card__body">
                 {article.date && <span className="mbx-card__date">{article.date}</span>}
                 <span className="mbx-card__title">{article.title}</span>

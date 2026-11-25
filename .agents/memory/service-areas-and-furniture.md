@@ -3,16 +3,17 @@ name: Service areas and premium furniture
 description: Owner-defined local construction scope, worldwide custom furniture and truthful presentation rules.
 ---
 
-The ordinary area is approximately 60 km around Cefalù, for ordinary site visits
-and quotations. The 20 authorised local pages are the ordinary reference area,
-NOT a hard operational limit. Beyond it, including the rest of Sicily, Italy
-and abroad, the company offers travel with its own team for suitably sized
-projects, subject to feasibility and a dedicated quotation including travel
-and logistics. Premium custom furniture remains made to order internationally.
+The owner's final clarification (2026-11-25) distinguishes advertising from
+eligibility: 60 km is the advertising focus, not a strict service boundary.
+Public wording: construction and renovation mainly within about 60 km of
+Cefalù (Madonie and coast), with projects beyond considered on request.
+Custom concrete furniture, kitchens and tables are made and shipped or
+installed worldwide, with agreed logistics and team travel. The 20 authorized
+local pages are reference places, not an exhaustive boundary.
 
-**Why:** The owner explicitly superseded the earlier exclusive 60 km building
-restriction: ordinary local coverage and conditional international mobilisation
-must now both be communicated.
+**Why:** The owner explicitly clarified the meaning of 60 km after the earlier
+“all Madonie usual area” wording. Neither a hard exclusion nor unconditional
+construction coverage everywhere reflects the final direction.
 
 **How to apply:** Align zones, services, Atelier, llms.txt and schema.
 Use “preventivo dedicato”, not “prezzi più alti”. Examples of possible destinations

@@ -8,6 +8,8 @@ import approvalLedger from './edition-approvals.json';
 import { historicalInventory } from '@/content/historical';
 import { editionStatusLabel } from './edition-status';
 import { allTranslationCandidates, translationApproved, translationCandidate } from './phase2';
+import { SERVICE_LOCALES, serviceCopy, offerPath } from '@/content/service-offers';
+import { legalPath, noticeCopy } from '@/content/legal-notices';
 import { legalPages } from '@/content/legal';
 import { PHASE3_PAGES } from '@/content/phase3';
 
@@ -108,8 +110,29 @@ for (const translation of allTranslationCandidates) {
     source: `phase2:${translation.sourcePath}@${translation.sourceRevisionSHA256}`,
   });
 }
+// Explicit owner authorization for these public editions, not inherited from Phase 2.
+for (const locale of SERVICE_LOCALES) for (const id of ['premium', 'local'] as const) {
+  const text = serviceCopy[locale];
+  editions.push({
+    id: `service-${id}`, locale, path: offerPath(locale, id), kind: 'core',
+    state: 'published', approval: 'Owner instruction: index all public editions, 2026-11-25', sitemap: true, contentLanguage: locale,
+    title: `${id === 'premium' ? text.premiumTitle : text.localTitle} | Marenetto Build`,
+    description: id === 'premium' ? text.premiumIntro : text.scope,
+    source: 'phase3:service-offers; owner-authorized public release',
+  });
+}
+for (const locale of SERVICE_LOCALES) for (const kind of ['privacy', 'cookies', 'ai'] as const) {
+  const text = noticeCopy[locale];
+  editions.push({
+    id: `legal-${kind}`, locale, path: legalPath(locale, kind), kind: 'core',
+    state: 'published', approval: 'Owner instruction: index all public editions, 2026-11-25', sitemap: true, contentLanguage: locale,
+    title: `${text[kind]} | Marenetto Build`,
+    description: kind === 'privacy' ? text.privacyText[1] : kind === 'cookies' ? text.cookieText[1] : text.aiText[0],
+    source: 'phase4:legal-notices; owner-authorized public release, not legal certification',
+  });
+}
 // Owner-supplied legal editions are Italian only, independently of core-page approvals.
-editions.push(...legalPages.map(content => ({
+editions.push(...legalPages.filter(content => !editions.some(e => e.path === content.path)).map(content => ({
   id: content.path.slice(1), locale: 'it', path: content.path, kind: 'legal' as const,
   title: content.title, description: content.description, contentLanguage: 'it',
   state: 'published' as const, approval: 'Owner-supplied legal texts, 23 November 2026',
@@ -118,11 +141,24 @@ editions.push(...legalPages.map(content => ({
 })));
 // Phase3/4 native editions (service areas, custom furniture, AI use). Registered after the approval ledger.
 for (const page of PHASE3_PAGES) {
-  if (editions.some(e => e.path === page.path)) throw new Error(`Phase3 path collision: ${page.path}`);
+  if (editions.some(e => e.path === page.path)) continue;
   editions.push({ id: page.id, locale: page.locale, path: page.path, kind: 'core' as const,
     title: page.title, description: page.description, contentLanguage: page.locale,
     state: 'published' as const, approval: 'Owner authorization for publication review (Phase3/4); native-speaker review not performed',
     source: `phase3:content/phase3/${page.kind}`, sitemap: true } as Edition);
+}
+// The owner's new indexing decision covers every existing native public page
+// in the twelve active languages, not private previews, missing translations,
+// or runtime withdrawals (which still take precedence at release time).
+for (const edition of editions) {
+  if (SERVICE_LOCALES.includes(edition.locale as typeof SERVICE_LOCALES[number]) &&
+      edition.contentLanguage === edition.locale && edition.kind !== 'search' &&
+      edition.state !== 'draft') {
+    edition.state = 'published';
+    edition.approval = 'Owner authorization: index all public pages, 2026-11-25; no independent factual certification';
+    edition.sitemap = true;
+    if (edition.translationRevision) edition.translationApprovalRevision = edition.translationRevision;
+  }
 }
 export const editionByPath = new Map(editions.map(edition => [edition.path, edition]));
 export function editionDisplayStatus(edition: Edition) {
@@ -136,6 +172,7 @@ export function getEdition(locale: string, id: string) {
   return editions.find(edition => edition.locale === locale && edition.id === id);
 }
 export function reviewPathForEdition(edition: Edition) {
+  if (edition.source.startsWith('phase3:') || edition.source.startsWith('phase4:')) return edition.path;
   if (translationCandidate(edition.path)) return edition.path;
   if (edition.source.startsWith('phase3')) return edition.path;
   if (edition.source.startsWith('historical snapshot ')) return edition.path;

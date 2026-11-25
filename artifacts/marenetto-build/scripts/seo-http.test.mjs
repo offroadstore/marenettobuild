@@ -116,7 +116,9 @@ test('real HTTP delivery: every edition, redirects, errors, indexing and canonic
       assert.ok(!html.includes('<h1 class="display-title">in attesa'), pathname);
       assert.ok(file.endsWith('/index.html'), pathname);
     }
-    assert.equal(Object.keys(manifest.unreviewedArticles ?? {}).length, 45, 'all five held article families remain served in all nine historic source locales');
+    // Five already-reviewed English editions now have the owner's explicit
+    // public indexing authorization. Unreleased originals remain fail-closed.
+    assert.equal(Object.keys(manifest.unreviewedArticles ?? {}).length, 40, 'unreleased historical originals remain served only as noindex review documents');
     const robots = await (await fetch(`${origin}/robots.txt`)).text();
     assert.match(robots, /Disallow: \//);
     const malformed = await fetch(`${origin}/%ZZ`);

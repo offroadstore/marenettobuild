@@ -4,6 +4,8 @@ import { ArrowRight, Phone, ShieldCheck, X } from 'lucide-react';
 import { useCreateCallRequest, useGetCallRequestConfig, getGetCallRequestConfigQueryKey, type CallReceipt, type CallRequestInput, type CallProject, type CallDelivery } from '@workspace/api-client-react';
 import { trackSavedRequest } from '@/lib/analytics/browser';
 import { CALL_LOCALES, getCallCopy, toCallLang, type CallCopy } from '@/content/call-request-copy';
+import { COMPANY_CONTACT } from '@/config/contact';
+import { legalPath, noticeCopy } from '@/content/legal-notices';
 import '@/styles/call-request.css';
 
 const OPEN_EVENT = 'marenetto:open-callback';
@@ -34,10 +36,12 @@ function deriveSource() {
 type Form = { firstName: string; lastName: string; email: string; mobile: string; whatsapp: boolean; project: '' | CallProject; location: string; budget: string; startWhen: string; timeSlot: '' | 'morning' | 'afternoon'; preferredLanguage: string; message: string; privacy: boolean; marketing: boolean; companyWebsite: string };
 const blank = (_lang: string): Form => ({ firstName: '', lastName: '', email: '', mobile: '', whatsapp: false, project: '', location: '', budget: '', startWhen: '', timeSlot: '', preferredLanguage: '', message: '', privacy: false, marketing: false, companyWebsite: '' });
 
-export function CallPrivacyNotice({ c, id }: { c: CallCopy; id?: string }) {
+export function CallPrivacyNotice({ c, id, lang }: { c: CallCopy; id?: string; lang:string }) {
   return <section className="cr-notice" id={id} aria-labelledby={id ? `${id}-title` : undefined} data-testid="section-call-privacy">
     <h3 id={id ? `${id}-title` : undefined}><ShieldCheck size={15} aria-hidden="true" /> {c.privacyTitle}</h3>
+    <p lang="it">{COMPANY_CONTACT.legalName} · P.IVA {COMPANY_CONTACT.vatId} · {COMPANY_CONTACT.streetAddress}, {COMPANY_CONTACT.localityLine}</p>
     <ul>{c.privacy.map((p, i) => <li key={i}>{p}</li>)}</ul>
+    {noticeCopy[lang] && <p><a href={legalPath(lang,'privacy')} target="_blank" rel="noopener noreferrer">{noticeCopy[lang].privacy}</a></p>}
     {c.translationNote && <p className="cr-note">{c.translationNote}</p>}
   </section>;
 }
@@ -139,7 +143,7 @@ function CallForm({ lang, onClose }: { lang: string; onClose: () => void }) {
         <textarea id={`${uid}-msg`} value={form.message} maxLength={3000} onChange={e => set('message', e.target.value)} data-testid="textarea-call-message" /></div>
       <div className="cr-honeypot" aria-hidden="true"><label>Website<input tabIndex={-1} autoComplete="off" value={form.companyWebsite} onChange={e => set('companyWebsite', e.target.value)} /></label></div>
     </div>
-    <CallPrivacyNotice c={c} id={`${uid}-privacy`} />
+    <CallPrivacyNotice c={c} lang={lang} id={`${uid}-privacy`} />
     <div className="cr-consents">
       <label className="check-row"><input type="checkbox" checked={form.privacy} aria-required="true" aria-invalid={!!errors.privacy || undefined} aria-describedby={errors.privacy ? `${uid}-perr` : `${uid}-privacy`} onChange={e => set('privacy', e.target.checked)} data-testid="check-call-privacy" /><span>{c.privacyAck} *</span></label>
       {errors.privacy && <small id={`${uid}-perr`} className="cr-err">{errors.privacy}</small>}
@@ -247,7 +251,7 @@ export function CallPrivacyFooter({ lang }: { lang: string }) {
   const c = getCallCopy(lang);
   return <details className="cr-footer" id="callback-privacy" data-testid="footer-call-privacy">
     <summary data-testid="link-footer-call-privacy">{c.footerLink}</summary>
-    <div className="cr-footer-body"><CallPrivacyNotice c={c} />
+    <div className="cr-footer-body"><CallPrivacyNotice c={c} lang={lang} />
       <button type="button" className="text-link" onClick={openCallRequest} data-testid="button-footer-call-open">{c.open} <ArrowRight size={13} /></button></div>
   </details>;
 }

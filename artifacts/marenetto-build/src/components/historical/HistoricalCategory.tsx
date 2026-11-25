@@ -1,3 +1,4 @@
+import { ImageDisclosure } from '@/components/ImageDisclosure';
 import type { HistoricalCategory, CategoryGroup } from '@/content/historical-category';
 
 const keyOf = (href: string) => href.replace(/[?#].*$/, '').replace(/\/+$/, '') || '/';
@@ -59,6 +60,7 @@ export function HistoricalCategoryView({ data, h1, currentKey }: { data: Histori
               </a>
               : <div className="mb-cat-card__media mb-cat-card__media--plain" aria-hidden="true"><span>{String(i + 1).padStart(2, '0')}</span></div>}
             <div className="mb-cat-card__copy">
+              {article.image && <ImageDisclosure src={article.image} />}
               <h3 className="mb-cat-card__title"><a href={article.href} data-testid={`link-category-article-${i}`}>{article.title}</a></h3>
               {article.excerpt && <p className="mb-cat-card__excerpt">{article.excerpt}</p>}
               {article.readLabel && <a className="mb-cat-card__read" href={article.href} aria-hidden="true" tabIndex={-1}>{article.readLabel}<span aria-hidden="true" className="mb-cat-card__arrow" /></a>}

@@ -37,7 +37,10 @@ app.listen(port, (err) => {
   const maintainCallbacks = async () => {
     if (callbacksBusy) return;
     callbacksBusy = true;
-    try { await purgeExpiredCalls(); await recoverCallDeliveries(); }
+    try {
+      await purgeExpiredCalls({ execute: true, syntheticOnly: process.env.NODE_ENV !== "production" });
+      await recoverCallDeliveries();
+    }
     catch { logger.warn("Callback retention or delivery maintenance unavailable"); }
     finally { callbacksBusy = false; }
   };

@@ -1,4 +1,6 @@
-/** Preview disclosure, separate from approved legacy copy; never attached to authentic photos. */
+import { noticeCopy, legalPath } from '@/content/legal-notices';
+import { Link } from 'wouter';
+/** Localized fallback for unpublished historical review languages. */
 export const illustrationNotes: Record<string, string> = {
   it: 'Immagini illustrative generate con IA; non rappresentano lavori eseguiti.',
   en: 'Illustrative images generated with AI; they do not depict completed work.',
@@ -31,8 +33,10 @@ export const illustrationNotes: Record<string, string> = {
   tr: 'Yapay zekâ ile oluşturulmuş temsili görseller; tamamlanmış işleri göstermez.',
 };
 
-/** Single site-wide disclosure, placed in the footer; never overlaid on images. */
+/** General disclosure complements, never replaces, individual image labels. */
 export function IllustrationNote({ lang }: { lang: string }) {
+  const copy = noticeCopy[lang];
+  if (copy) return <p className="footer-image-note" lang={lang} data-testid="illustration-note">{copy.footer} <Link href={legalPath(lang, 'ai')}>{copy.ai}</Link></p>;
   const text = illustrationNotes[lang];
   if (!text) throw new Error(`Missing illustration disclosure for locale ${lang}`);
   return <p className="footer-image-note" lang={lang} data-testid="illustration-note">{text}</p>;

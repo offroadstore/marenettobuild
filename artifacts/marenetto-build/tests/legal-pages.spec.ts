@@ -1,8 +1,9 @@
 import { test, expect } from '@playwright/test';
-import { privacyPage, cookiePage, AI_NOTICE } from '../src/content/legal';
+import { noticeCopy, legalPath } from '../src/content/legal-notices';
 
 test.use({ locale: 'en-US' });
 test('legal links retain enquiry state, hydrate in Italian and remain available with analytics off', async ({ page, context }) => {
+  const copy = noticeCopy.it!;
   let submissions = 0;
   const tracking: string[] = [];
   context.on('request', request => {
@@ -25,7 +26,8 @@ test('legal links retain enquiry state, hydrate in Italian and remain available 
     await expect(popup).toHaveURL(/\/privacy$/);
     await expect(popup.locator('html')).toHaveAttribute('data-hydrated', 'true');
     await expect(popup.locator('html')).toHaveAttribute('lang', /^it/);
-    await expect(popup.locator('h1')).toHaveText(privacyPage.title);
+    await expect(popup.locator('h1')).toHaveText(copy.privacy);
+    for (const paragraph of copy.privacyText) await expect(popup.locator('main')).toContainText(paragraph);
     expect(await popup.evaluate(() => window.opener)).toBeNull();
     await popup.close();
     await expect(name).toHaveValue('Verifica sintetica');
@@ -34,15 +36,18 @@ test('legal links retain enquiry state, hydrate in Italian and remain available 
     await expect(page).toHaveURL(/\/richiesta$/);
   }
   expect(submissions).toBe(0);
-  await page.locator('.footer-bottom').getByRole('link', { name: 'Cookie e analytics', exact: true }).click();
-  await expect(page).toHaveURL(/\/cookie$/);
-  await expect(page.locator('h1')).toHaveText(cookiePage.title);
-  await expect(page.locator('.footer-ai-notice')).toHaveText(AI_NOTICE);
+  await page.getByTestId('footer-legal-links').locator(`a[href="${legalPath('it', 'cookies')}"]`).click();
+  await expect(page).toHaveURL(new RegExp(`${legalPath('it', 'cookies')}$`));
+  await expect(page.locator('h1')).toHaveText(copy.cookies);
+  for (const paragraph of copy.cookieText) await expect(page.locator('main')).toContainText(paragraph);
+  await expect(page.locator('footer')).toContainText(copy.footer);
+  await expect(page.getByTestId('illustration-note').locator(`a[href="${legalPath('it', 'ai')}"]`)).toHaveCount(1);
   await page.getByTestId('cookie-preferences-link').click();
   await expect(page.getByTestId('analytics-accept')).toHaveCount(0);
-  await expect(page.locator('#analytics-options a')).toHaveAttribute('href', '/cookie');
-  await page.locator('.footer-bottom').getByRole('link', { name: 'Privacy', exact: true }).click();
-  await expect(page.locator('h1')).toHaveText(privacyPage.title);
+  await expect(page.locator('#analytics-options a')).toHaveAttribute('href', legalPath('it', 'cookies'));
+  await page.getByTestId('cookie-close').click();
+  await page.getByTestId('footer-legal-links').locator(`a[href="${legalPath('it', 'privacy')}"]`).click();
+  await expect(page.locator('h1')).toHaveText(copy.privacy);
   await expect(page.locator('html')).toHaveAttribute('lang', /^it/);
   expect(tracking).toEqual([]);
 });

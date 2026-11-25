@@ -15,7 +15,7 @@ const valid = (overrides: Record<string, unknown> = {}) => ({
   idempotencyKey: randomUUID(), firstName: "Synthetic", lastName: "Callback",
   email: "callback@example.invalid", mobile: "+393330000001", whatsapp: false,
   privacyAccepted: true, marketingAccepted: false, consentLanguage: "it",
-  privacyVersion: "call-2026-11-23", companyWebsite: "", formOpenedAt: Date.now() - 6000,
+  privacyVersion: "call-2026-11-25", companyWebsite: "", formOpenedAt: Date.now() - 6000,
   ...overrides,
 });
 const input = (overrides = {}) => CreateCallRequestBody.parse(valid(overrides));
@@ -140,9 +140,16 @@ test("SMTP errors are visible and not retried; stale claims become uncertain wit
 test("calendar retention removes closed prospects but preserves explicitly acquired clients", async () => {
   const prospect = await storeCall(input(), false), acquired = await storeCall(input(), false);
   assert.ok(prospect && acquired);
-  await db.update(calls).set({ createdAt: new Date("2020-01-01"), status: "closed" }).where(eq(calls.id, prospect.row.id));
+  const recent = await storeCall(input(), false);
+  assert.ok(recent);
+  await db.update(calls).set({ createdAt: sql`now() - interval '13 months'`, status: "closed" }).where(eq(calls.id, prospect.row.id));
+  await db.update(calls).set({ createdAt: sql`now() - interval '11 months'` }).where(eq(calls.id, recent.row.id));
   await db.update(calls).set({ createdAt: new Date("2020-01-01"), acquiredCustomer: true }).where(eq(calls.id, acquired.row.id));
-  const removed = await purgeExpiredCalls();
+  const preview = await purgeExpiredCalls();
+  assert.ok(preview.some(r => r.id === prospect.row.id), "preview identifies expired synthetic prospect");
+  assert.ok(!preview.some(r => r.id === recent.row.id), "eleven-month enquiry is retained");
+  assert.ok((await db.select().from(calls).where(eq(calls.id, prospect.row.id))).length, "preview never deletes");
+  const removed = await purgeExpiredCalls({ execute: true });
   assert.ok(removed.some(row => row.id === prospect.row.id)); assert.ok(!removed.some(row => row.id === acquired.row.id));
 });
 test("owner deletion removes the request, notes, consent and delivery state", async () => {

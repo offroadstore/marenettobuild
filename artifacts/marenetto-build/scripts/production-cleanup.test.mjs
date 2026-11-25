@@ -88,11 +88,14 @@ test('analytics consent, revocation and event minimization still pass with an is
   assert.match(result.stdout, /# pass 2\b/);
 });
 
-test('llms.txt is a real static public response, not an HTML or locale fallback', async () => {
+test('llms.txt uses verified public state and fails closed rather than linking withdrawn editions', async () => {
   const topology = await editorialTopology({ publicIndexing: true });
   const headers = { 'x-forwarded-host': 'www.marenettobuild.com', 'x-forwarded-proto': 'https', 'accept-language': 'de-DE' };
   try {
     topology.setMode('http_status');
+    const unavailable = await fetch(topology.origin + '/llms.txt', { headers, redirect: 'manual' });
+    assert.equal(unavailable.status, 503, 'never serve stale editorial links on state-read failure');
+    topology.setMode('available');
     const response = await fetch(topology.origin + '/llms.txt', { headers, redirect: 'manual' });
     assert.equal(response.status, 200);
     assert.equal(response.headers.get('location'), null);
@@ -100,17 +103,28 @@ test('llms.txt is a real static public response, not an HTML or locale fallback'
     assert.equal(response.headers.get('x-robots-tag'), null);
     assert.equal(response.headers.get('server'), null);
     assert.equal(response.headers.get('x-powered-by'), null);
-    assert.equal(await response.text(), await readFile(new URL('../public/llms.txt', import.meta.url), 'utf8'));
+    const text = await response.text();
+    assert.match(text, /^# Marenetto Build/);
+    assert.match(text, /mainly within about 60 km/);
+    assert.match(text, /Projects beyond are considered on request/);
+    assert.match(text, /kitchens/);
+    assert.match(text, /shipped or installed worldwide/);
+    assert.match(text, /info@marenetto\.com/);
+    assert.ok(!text.includes('/__localization-review') && !text.includes('/internal'));
     const head = await fetch(topology.origin + '/llms.txt', { headers, method: 'HEAD' });
     assert.equal(head.status, 200);
     assert.equal(await head.text(), '');
-    assert.equal(topology.requests, 0, 'static resource does not require editorial availability');
+    assert.ok(topology.requests >= 1, 'links require a verified editorial snapshot');
     const preview = await fetch(topology.origin + '/llms.txt', { headers: { ...headers, 'x-forwarded-host': 'preview.replit.dev' } });
     assert.equal(preview.status, 200);
     assert.equal(preview.headers.get('x-robots-tag'), 'noindex, nofollow');
     topology.setMode('available');
     const sitemap = await (await fetch(topology.origin + '/sitemap.xml', { headers })).text();
     assert.ok(!sitemap.includes('/llms.txt'));
+    const linked = new Set([...text.matchAll(/\]\((https:\/\/[^)]+)\)/g)].map(m => new URL(m[1]).href));
+    for (const match of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)) {
+      assert.ok(linked.has(new URL(match[1]).href), `verified sitemap URL missing from llms: ${match[1]}`);
+    }
   } finally {
     await topology.close();
   }

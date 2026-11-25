@@ -1,4 +1,5 @@
-import type { ReactNode } from 'react';
+import { useId, type ReactNode } from 'react';
+import { ImageDisclosure } from '../ImageDisclosure';
 
 /** alt may be '' only when the image is decorative and the surrounding text already says everything. */
 type Props = {
@@ -15,6 +16,7 @@ export function IllustrativeImage({ name, widths, sizes, alt, width, height, eag
   return <figure className={`mb-media ${className ?? ''}`}>
     <img src={fallback} srcSet={srcSet} sizes={src ? undefined : sizes} alt={alt} width={width} height={height}
       loading={eager ? 'eager' : 'lazy'} decoding={eager ? 'sync' : 'async'} {...(eager ? { fetchPriority: 'high' as const } : {})} />
+    <figcaption><ImageDisclosure src={fallback} /></figcaption>
   </figure>;
 }
 
@@ -25,7 +27,8 @@ export function IllustrativeImage({ name, widths, sizes, alt, width, height, eag
  */
 export function HeroPhoto({ children }: { children: ReactNode }) {
   const base = `${import.meta.env.BASE_URL}media/home/cefalu-hero-left`;
-  return <section className="mbh-hero" data-testid="section-hero">
+  const labelId = useId();
+  return <><section className="mbh-hero" data-testid="section-hero" aria-describedby={labelId}>
     <div className="mbh-hero__stage">
       <picture>
         <source media="(max-width: 699px)" type="image/avif" srcSet={`${base}-mobile-450.avif 450w, ${base}-mobile-900.avif 900w`} sizes="100vw" width={900} height={941} />
@@ -37,5 +40,5 @@ export function HeroPhoto({ children }: { children: ReactNode }) {
       <span className="mbh-hero__shade" aria-hidden="true" />
     </div>
     <div className="mbh-wrap mbh-hero__inner">{children}</div>
-  </section>;
+  </section><div id={labelId} className="mbh-image-note"><ImageDisclosure src={`${base}-1672.jpg`} className="image-disclosure--hero" /></div></>;
 }

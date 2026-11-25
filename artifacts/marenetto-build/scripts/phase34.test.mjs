@@ -83,7 +83,8 @@ test('all new pages have complete initial HTML, coherent schema, unique metadata
       .flatMap(match => JSON.parse(match[1])['@graph'] ?? []);
     const organization = graphs.find(node => [node['@type']].flat().includes('GeneralContractor'));
     assert.ok(organization, entry.path);
-    assert.equal(organization.areaServed.length, 23, entry.path);
+    assert.equal(organization.areaServed.length, 24, entry.path);
+    assert.ok(organization.areaServed.some(place => place.name === 'Madonie'));
     assert.ok(organization.areaServed.some(place => place.name === 'Castel di Tusa' && place['@type'] === 'Place'));
     assert.ok(organization.areaServed.some(place => place.name === 'Sicilia' && place['@type'] === 'AdministrativeArea'));
     assert.ok(organization.areaServed.some(place => place.name === 'Italia' && place['@type'] === 'Country'));
@@ -114,7 +115,7 @@ test('privacy and AI link reciprocally; worldwide furniture has Service and no i
   const privacy = await pageHtml(entries.find(entry => entry.path === '/privacy'));
   assert.ok(privacy.includes('href="/uso-intelligenza-artificiale"'));
   for (const entry of fresh.filter(candidate => candidate.id === italian.find(page => page.path === '/uso-intelligenza-artificiale')?.id)) {
-    assert.ok((await pageHtml(entry)).includes('href="/privacy"'), entry.path);
+    assert.ok((await pageHtml(entry)).includes(`href="${entry.locale === 'it' ? '' : '/' + entry.locale}/privacy"`), entry.path);
   }
   const premium = italian.find(entry => entry.path === '/arredi-su-misura-cemento-microcemento');
   assert.ok(premium, 'Premium service page');

@@ -1,12 +1,12 @@
 ---
+name: Monitoring consent boundary
+description: Distinguish owner authorization to configure reporting from permission to track visitors.
+---
 
 The owner's newer direction supersedes the dedicated-domain requirement for
 the proposed direct GA4 path only. Retain the isolated runtime implementation.
 Read `contact-and-direct-analytics-decisions.md` before new analytics work;
 separate plan approval is required before implementing that change.
-name: Monitoring consent boundary
-description: Distinguish owner authorization to configure reporting from permission to track visitors.
----
 
 The owner explicitly authorized configuring and using monitoring. Do not keep requesting general permission to implement it. A supplied public GA4 measurement ID does not grant report access or approve visitor tracking.
 

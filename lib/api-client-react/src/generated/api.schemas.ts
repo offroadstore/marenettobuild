@@ -9,7 +9,7 @@ export type CallConfigPrivacyVersion = typeof CallConfigPrivacyVersion[keyof typ
 
 
 export const CallConfigPrivacyVersion = {
-  'call-2026-11-23': 'call-2026-11-23',
+  'call-2026-11-25': 'call-2026-11-25',
 } as const;
 
 export interface CallConfig {
@@ -81,6 +81,7 @@ export type CallRequestInputPrivacyVersion = typeof CallRequestInputPrivacyVersi
 
 export const CallRequestInputPrivacyVersion = {
   'call-2026-11-23': 'call-2026-11-23',
+  'call-2026-11-25': 'call-2026-11-25',
 } as const;
 
 export type CallRequestInputUtm = {

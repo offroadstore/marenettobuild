@@ -7,6 +7,7 @@ import { canonicalRedirect, publicHost, indexingEnabled, PUBLIC_ROBOTS, PUBLIC_O
 import { resolveRoute, redirectQuery } from './seo-document.mjs';
 import { readActiveEditorial, editorialDocument, editorialUnavailableHTML, withEditorialSnapshot, key } from './editorial-http.mjs';
 import { blockedPublicLocale, render, companyStructuredData } from '../dist/server/entry-server.mjs';
+import { llmsDocument } from './llms-document.mjs';
 
 const root = path.resolve(import.meta.dirname, '../dist/public');
 const manifest = JSON.parse(await readFile(path.join(root, 'route-manifest.json'), 'utf8'));
@@ -77,6 +78,12 @@ export const server = createServer(async (req, res) => {
       res.writeHead(200, { 'Content-Type': 'application/xml', 'Cache-Control': 'no-cache' });
       return res.end(req.method === 'HEAD' ? undefined : releaseSitemap(publicEditions(manifest, active)));
     }
+    if (pathname === '/llms.txt') {
+      const active = await readActiveEditorial();
+      const text = llmsDocument(companyStructuredData(PUBLIC_ORIGIN), publicEditions(manifest, active), PUBLIC_ORIGIN);
+      res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-cache' });
+      return res.end(req.method === 'HEAD' ? undefined : text);
+    }
     const blockedLocale = blockedPublicLocale(pathname);
     if (blockedLocale) {
       const content = await readFile(path.join(root, manifest.errors[blockedLocale] ?? '404.html'));
@@ -84,7 +91,7 @@ export const server = createServer(async (req, res) => {
       return res.end(req.method === 'HEAD' ? undefined : content);
     }
     let verifiedActive;
-    const asset = pathname === '/owner-demo' || /^\/(?:assets|media|brand|documents|internal|sign-in|sign-up|api)(?:\/|$)/.test(pathname) || /\.[a-z0-9]+$/i.test(pathname);
+    const asset = pathname === '/owner-demo' || /^\/(?:assets|media|brand|fonts|documents|internal|sign-in|sign-up|api)(?:\/|$)/.test(pathname) || /\.[a-z0-9]+$/i.test(pathname);
     if (!asset) {
       const active = await readActiveEditorial();
       verifiedActive = active;
@@ -127,7 +134,7 @@ export const server = createServer(async (req, res) => {
     let status = route.status;
     if (route.edition) file = manifest.pages[route.edition.path];
     else if (/^\/(internal|sign-in|sign-up)(\/|$)/.test(pathname) || pathname === '/owner-demo') { file = 'private-shell.html'; status = 200; }
-    else if (/^\/(?:assets|media|brand|documents)\//.test(pathname) || ['/favicon.svg', '/robots.txt', '/sitemap.xml', '/llms.txt'].includes(pathname)) {
+    else if (/^\/(?:assets|media|brand|fonts|documents)\//.test(pathname) || ['/favicon.svg', '/robots.txt', '/sitemap.xml', '/llms.txt'].includes(pathname)) {
       file = pathname.slice(1);
       status = 200;
     } else file = status === 410 ? '410.html' : manifest.errors[pathname.split('/')[1]] ?? '404.html';

@@ -506,6 +506,62 @@ storage_version_token = "1795390645616567"
 content_type = "text/html"
 
 [[outputs]]
+id = "ucH-6eUl-pzOTYD-G1YuV"
+uri = "file://generated-artifacts/deliveries/fase-3-servizi.html"
+type = "html"
+title = "Fase 3 — servizi e visibilità"
+description = "Consegna separata aggiornata: edilizia principalmente entro circa 60 km, progetti oltre su richiesta; arredi, cucine e tavoli spediti o installati ovunque. Sitemap e llms con tutti gli URL pubblici verificati."
+logical_id = "01c0b4c3-0c6b-492b-871c-ef29bd7d0431"
+content_hash = "sha256:92d9c88fd21936add8423d472dd3ce6d3c6898b015775c2d9ccdab34a6f1952c"
+size = 7795
+mtime_ms = 1795595543957
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/01c0b4c3-0c6b-492b-871c-ef29bd7d0431/8ada5544-2577-4e0f-8783-0dd014aa542c"
+storage_version_token = "1795595584710496"
+content_type = "text/html"
+
+[[outputs]]
+id = "dF0r4hzmJkyn01bqPcJny"
+uri = "file://generated-artifacts/services/area-matrix.csv"
+type = "table"
+title = "Località e distanze documentali"
+description = "33 località con fonte e data. Stime stradali storiche, non misurazioni o esclusioni: i 60 km sono un riferimento pubblicitario e una zona principale indicativa, non un limite ai clienti."
+logical_id = "779e0ac4-923d-4c70-a770-9bf4e38e225e"
+content_hash = "sha256:77213a9f10a2653ab3e47853491981154550c2ccde645f7b5866beaff461c4b2"
+size = 9557
+mtime_ms = 1795594794841
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/779e0ac4-923d-4c70-a770-9bf4e38e225e/9f8d8e1d-92d3-41c0-b596-90d884df31f6"
+storage_version_token = "1795595585954093"
+content_type = "text/csv"
+
+[[outputs]]
+id = "8cClXORfkkr2sqcQVF9EB"
+uri = "file://generated-artifacts/deliveries/fase-4-privacy-ia.html"
+type = "html"
+title = "Fase 4 — privacy, cookie e IA"
+description = "Consegna separata aggiornata: richiamate a 12 mesi, export individuale ed eliminazione su richiesta, fornitori per categorie e immagini soltanto illustrative, nelle 12 lingue."
+logical_id = "5ae27a9f-d53e-43cb-a765-f5f1144f7b0f"
+content_hash = "sha256:3e6b7f992c7ba833133e0168c6d027d64a41292a9d068eaca605e1395f69a90c"
+size = 11470
+mtime_ms = 1795595543961
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/5ae27a9f-d53e-43cb-a765-f5f1144f7b0f/9d17e2da-6377-4bf1-a15b-3268dcfad5c0"
+storage_version_token = "1795595585337110"
+content_type = "text/html"
+
+[[outputs]]
+id = "ZDyt8HLlXLykDaMF172JC"
+uri = "file://generated-artifacts/privacy/image-inventory.csv"
+type = "table"
+title = "Inventario immagini — 89 asset"
+description = "5.336 occorrenze: provenienza documentata o incerta, pagine, lingue, varianti e interventi. Nessuna recensione o fotografia cliente acquisita dai servizi Google."
+logical_id = "f256054c-9162-4c45-9a4f-cc2104e5327e"
+content_hash = "sha256:e4c3d9c0c8144930b0c5fff0825a6ba057e1398ef6ec95037a32a66500e2a07c"
+size = 625394
+mtime_ms = 1795589368614
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/f256054c-9162-4c45-9a4f-cc2104e5327e/a91e5766-1802-4ab0-aafd-bdfe8d3d3b57"
+storage_version_token = "1795589986572020"
+content_type = "text/csv"
+
+[[outputs]]
 id = "sDZ8KNczgG48dHQ8gX70i"
 uri = "file://generated-artifacts/google-reviews/simulated-390.png"
 type = "image"

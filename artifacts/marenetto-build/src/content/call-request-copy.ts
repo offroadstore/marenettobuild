@@ -1,6 +1,7 @@
 // Localized UI copy for the callback request form, receipt and privacy addendum.
 // Translations are working copy: their publication does not imply approval.
 import type { CallDelivery } from '@workspace/api-client-react';
+import { ownerDecisions } from './owner-decisions';
 
 export const CALL_LOCALES = ['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da'] as const;
 export type CallLang = typeof CALL_LOCALES[number];
@@ -34,7 +35,7 @@ const en: CallCopy = {
     'First name, last name, email and mobile are required so we can reach you. WhatsApp contact is optional and used only if you tick it. Marketing consent is separate, optional and can be withdrawn at any time by writing to info@marenetto.com.',
     'We cannot guarantee availability, a call in your preferred language, or translation.',
     'Only the owner can access callback requests. Hosting infrastructure and email delivery providers process data under the site’s existing privacy notices and approvals.',
-    'Requests are deleted after 24 months, except for explicitly acquired clients, whose data is kept as contract or law requires. Copies of emails already delivered to recipients must be deleted manually.',
+    'Requests are deleted after 12 months, except for actual contractual relationships subject to legal duties. Copies of emails already delivered to recipients must be deleted manually.',
     'We record the page you came from (sanitised) and only utm_source, utm_medium and utm_campaign. Analytics or advertising measurement runs only under a separate cookie consent and configuration; the checkboxes in this form do not enable it.',
     'To exercise your rights (access, correction, deletion, objection), write to info@marenetto.com.',
   ],
@@ -62,7 +63,7 @@ const it: CallCopy = {
     'Nome, cognome, email e cellulare sono necessari per ricontattarti. Il contatto WhatsApp è facoltativo e usato solo se lo selezioni. Il consenso marketing è separato, facoltativo e revocabile in qualsiasi momento scrivendo a info@marenetto.com.',
     'Non garantiamo disponibilità, una chiamata nella lingua preferita né traduzioni.',
     'Solo il titolare accede alle richieste. Infrastruttura di hosting e fornitori di invio email trattano i dati secondo le informative e approvazioni già in vigore sul sito.',
-    'Le richieste sono cancellate dopo 24 mesi, salvo i clienti esplicitamente acquisiti, per i quali i dati sono conservati secondo obblighi contrattuali o di legge. Le copie delle email già recapitate ai destinatari vanno cancellate manualmente.',
+    'Le richieste sono cancellate dopo 12 mesi, salvo rapporti contrattuali effettivi soggetti agli obblighi di legge. Le copie delle email già recapitate ai destinatari vanno cancellate manualmente.',
     'Registriamo la pagina di provenienza (ripulita) e solo utm_source, utm_medium e utm_campaign. Statistiche o misurazioni pubblicitarie funzionano solo con un consenso cookie e una configurazione separati; le caselle di questo modulo non le attivano.',
     'Per esercitare i tuoi diritti (accesso, rettifica, cancellazione, opposizione) scrivi a info@marenetto.com.',
   ],
@@ -359,4 +360,9 @@ const da: CallCopy = {
 };
 
 export const callCopy: Record<CallLang, CallCopy> = { it, en, de, fr, es, nl, pt, pl, ru, sv, no, da };
+for (const locale of CALL_LOCALES) {
+  // Authoritative current retention rule replaces the previous acquired-client
+  // wording: only contractual relationships qualify for the exception.
+  callCopy[locale].privacy[4] = ownerDecisions[locale].retention;
+}
 export const getCallCopy = (lang: string) => callCopy[toCallLang(lang)];

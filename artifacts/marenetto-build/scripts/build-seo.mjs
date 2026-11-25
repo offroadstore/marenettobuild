@@ -2,6 +2,8 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { createServer } from 'vite';
 import { renderDocument, escapeHtml, SEO_ORIGIN } from './seo-document.mjs';
+import { llmsDocument } from './llms-document.mjs';
+import { publicEditions as eligibleEditions } from './public-release.mjs';
 
 const root = path.resolve(import.meta.dirname, '..');
 const output = path.join(root, 'dist/public');
@@ -11,7 +13,7 @@ const template = await readFile(path.join(output, 'index.html'), 'utf8');
 process.env.NODE_ENV = 'production';
 const vite = await createServer({ configFile: path.join(root, 'vite.config.ts'), server: { middlewareMode: true }, appType: 'custom' });
 try {
-  const { render, editions, redirects: allRedirects, blockedPublicLocale, excludedRoutes, equivalentEditions, canonicalEdition, editionStructuredData, reviewPathForEdition, reviewHubEdition, historicalInventory: originalInventory } = await vite.ssrLoadModule('/src/entry-server.tsx');
+  const { render, editions, companyStructuredData, redirects: allRedirects, blockedPublicLocale, excludedRoutes, equivalentEditions, canonicalEdition, editionStructuredData, reviewPathForEdition, reviewHubEdition, historicalInventory: originalInventory } = await vite.ssrLoadModule('/src/entry-server.tsx');
   const redirects = Object.fromEntries(Object.entries(allRedirects).filter(([source, target]) => !blockedPublicLocale(source) && !blockedPublicLocale(target)));
   const publicEditions = editions.filter(edition => !blockedPublicLocale(edition.path));
   const matrix = [];
@@ -34,7 +36,7 @@ try {
     await mkdir(path.dirname(path.join(output, file)), { recursive: true });
     await writeFile(path.join(output, file), html);
     manifest.pages[edition.path] = file;
-    if (original?.state === 'awaiting-confirmation' && original.kind === 'article') manifest.unreviewedArticles[original.key] = file;
+    if (original?.state === 'awaiting-confirmation' && original.kind === 'article' && !edition.approval) manifest.unreviewedArticles[original.key] = file;
     if (original?.editorialCorrection) manifest.correctedPages[original.key] = original.editorialCorrection;
     matrix.push({ ...edition, editorialCorrection: original?.editorialCorrection ?? null, fullTextProof, status: 200, initialHTML: 'React server render: full body', renderedCheck: 'See separate rendered-results.json; builds do not certify browser results', h1: body.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)?.[1].replace(/<[^>]*>/g, ''), canonical, alternates: edition.state === 'published' ? alternates.map(a => a.path) : [], links: [...body.matchAll(/href="([^"]+)"/g)].map(match => match[1]), missingTranslations, checksMissing: ['native-speaker review', 'assistive technology', ...(edition.approval ? [] : ['owner approval'])] });
   }
@@ -88,6 +90,7 @@ try {
   await writeFile(path.join(output, '410.html'), renderDocument(template, { body: gone.body, status: 410 }));
   await writeFile(path.join(output, 'private-shell.html'), template);
   manifest.editions = Object.fromEntries(publicEditions.map(edition => [edition.path, edition]));
+  await writeFile(path.join(output, 'llms.txt'), llmsDocument(companyStructuredData(SEO_ORIGIN), eligibleEditions(manifest), SEO_ORIGIN));
   await writeFile(path.join(output, 'route-manifest.json'), JSON.stringify(manifest, null, 2));
   const published = publicEditions.filter(e => e.sitemap && e.state === 'published' && e.approval);
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${published.map(e => `  <url><loc>${escapeHtml(new URL(e.path, SEO_ORIGIN).href)}</loc>${equivalentEditions(e.id).map(a => `<xhtml:link rel="alternate" hreflang="${a.locale === 'it' ? 'it-IT' : a.locale}" href="${escapeHtml(new URL(a.path, SEO_ORIGIN).href)}" />`).join('')}</url>`).join('\n')}\n</urlset>\n`;

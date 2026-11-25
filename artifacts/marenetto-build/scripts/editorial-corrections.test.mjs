@@ -52,11 +52,20 @@ test('corrected historical pages are fully served in preview, not silently publi
     assert.ok(routes.pages[revision.path], revision.path);
     assert.equal(routes.heldPages[key], undefined, key);
     const edition = routes.editions[revision.path];
-    assert.equal(edition.approval, null, key);
-    assert.equal(edition.sitemap, false, key);
-    assert.notEqual(edition.state, 'published', key);
     const html = await readFile(path.join(root, 'dist/public', routes.pages[revision.path]), 'utf8');
     assert.match(html, /data-correction-state="(?:owner-authorized-preview|translation-draft)"/, key);
+    if (edition.approval) {
+      assert.match(edition.approval, /Owner authorization: index all public pages/);
+      assert.equal(edition.sitemap, true);
+      assert.equal(edition.state, 'published');
+      // Static candidate documents are always noindex. The public-host HTTP
+      // release tests verify indexability after the owner's new authorization.
+      assert.match(html, /name="robots" content="noindex, nofollow"/);
+      assert.ok(sitemap.includes(new URL(revision.path, routes.origin).href));
+      continue;
+    }
+    assert.equal(edition.sitemap, false, key);
+    assert.notEqual(edition.state, 'published', key);
     assert.match(html, /name="robots" content="noindex, nofollow"/, key);
     assert.doesNotMatch(html, /hreflang=/, key);
     assert.ok(!sitemap.includes(new URL(revision.path, routes.origin).href), key);

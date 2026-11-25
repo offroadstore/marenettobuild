@@ -5,6 +5,7 @@ import sourceUpdateData from './historical-source-updates.json';
 import { recoverArticleThumbnails } from './historical-thumbnails';
 import { normalizePublicContact } from '@/config/contact';
 import { translationCandidate } from '@/localization/phase2';
+import { discloseHTMLImages } from '@/config/image-provenance';
 
 type SourceUpdate = { oldLabel: string; newLabel: string; title: string; sourceSHA256: string; bodySHA256: string; acquiredAt: string; sourceBody: string };
 const sourceUpdates = sourceUpdateData as Record<string, SourceUpdate>;
@@ -16,7 +17,7 @@ const optimizedMedia: Record<string, string> = {
 };
 const localMedia = (value: string) => optimizedMedia[media[value] ?? value] ?? media[value] ?? value;
 const historicalLogos = new Set(Object.entries(media).filter(([source]) => source.includes('/img/logos/')).map(([, target]) => localMedia(target)));
-function localMediaHTML(html: string) {
+function localMediaHTML(html: string, locale: string) {
   html = normalizePublicContact(html);
   html = html.replace(/href="\/contatos\/?"/g, 'href="/pt/contatti/"');
   // The historical CTA references #contatti but its final contact section had
@@ -31,11 +32,12 @@ function localMediaHTML(html: string) {
   }
   for (const [source, destination] of Object.entries(optimizedMedia)) html = html.replaceAll(source, destination);
   // Local filenames are hashes: retain the logo's role after URL replacement.
-  return html.replace(/<img\b[^>]*>/gi, tag => {
+  const withLogos = html.replace(/<img\b[^>]*>/gi, tag => {
     if (/^<img\s*\/?>$/i.test(tag)) return '';
     const src = tag.match(/\bsrc="([^"]+)"/i)?.[1];
     return src && historicalLogos.has(src) ? tag.replace(/^<img\b/i, '<img data-historical-logo=""') : tag;
   });
+  return discloseHTMLImages(withLogos, locale);
 }
 
 type Correction = { sourceSHA256: string; contentLanguage: string; claims: number[]; authorization: string; linguisticReview: string; publicationApproved: boolean };
@@ -104,7 +106,7 @@ export function loadHistorical(locale: string): Promise<void> {
         description: normalizePublicContact(document.description),
         imageAlt: normalizePublicContact(document.imageAlt),
         imageCaption: document.imageCaption ? normalizePublicContact(document.imageCaption) : null,
-        html: localMediaHTML(recoverArticleThumbnails(update ? document.html.replaceAll(update.oldLabel, update.newLabel) : document.html, covers)),
+        html: localMediaHTML(recoverArticleThumbnails(update ? document.html.replaceAll(update.oldLabel, update.newLabel) : document.html, covers), locale),
         image: document.image ? localMedia(document.image) : null,
       }];
     })));

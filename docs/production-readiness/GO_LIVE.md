@@ -2,6 +2,39 @@
 
 **Contatto pubblico definitivo:** [decisione del titolare](PUBLIC_CONTACT_DECISION.md), valida anche per le Fasi 2, 3 e 4; supera le precedenti ipotesi di cambio della casella pubblica. Non modifica la configurazione SMTP.
 
+## Fasi 3 e 4 — consegna aggiornata del 25 novembre 2026
+
+**PRONTO PER REPUBLISH — candidato non pubblicato.**
+Le [decisioni aggiornate del titolare](DECISIONI_TITOLARE_2026-11-25.md)
+superano i blocchi del precedente rapporto: conservazione massima 12 mesi
+salvo obblighi contrattuali, destinatari per categorie, immagini illustrative,
+Cefalù/Madonie/costa come zona principale indicativa entro circa 60 km,
+senza esclusione dei progetti oltre su richiesta. I 60 km identificano
+l'investimento pubblicitario, non un confine di servizio. Arredi in cemento,
+cucine e tavoli spediti o installati ovunque.
+Autorizzata l'indicizzazione delle pagine pubbliche nelle 12 lingue, incluse
+le informative, mantenendo esclusi privati, login, anteprime tecniche e ritiri.
+
+Consegne autonome attuali:
+[Fase 3 — servizi e visibilità](FASE_3_SERVIZI_2026-11-25.md) e
+[Fase 4 — privacy e IA](FASE_4_PRIVACY_IA_2026-11-25.md).
+Nessuna pubblicazione, email di prova, attività IndexNow, modifica SMTP
+o forzatura di flag operativi è stata eseguita. Il via libera tecnico non
+attesta verifiche umane, diritti o adempimenti organizzativi non documentati.
+
+## Registro storico — candidato del 23 novembre 2026, superato sopra
+
+Due consegne autonome: [servizi e visibilità](FASE_3_SERVIZI.md), poi
+[privacy, cookie e IA](FASE_4_PRIVACY_IA.md). Le dichiarazioni storiche di
+prontezza riportate sotto **non approvano i nuovi testi o le nuove informative**.
+Le nuove edizioni restano noindex e non ereditano l’approvazione delle traduzioni.
+I dati del titolare sono stati [confermati dall’impresa](CONTROLLER_CONFIRMATION.md)
+il 23 novembre 2026; non è una verifica anagrafica indipendente.
+Per il via libera mancano conferme del titolare su fornitori,
+conservazione, diritti e revisione umana, come elencato nel secondo rapporto.
+Nessuna pubblicazione autonoma, email/sonda SMTP o attività IndexNow autorizzata
+per questo candidato. Non attivare flag privacy o fornitori per superare i blocchi.
+
 ## Fase 2 — candidato traduzioni
 
 **Candidato alla validazione finale per il republish.** Il blocco WhatsApp mobile

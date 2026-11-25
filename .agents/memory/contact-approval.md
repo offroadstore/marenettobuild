@@ -1,6 +1,6 @@
 ---
 name: Business contact approval
-description: Definitive owner decision on the public mailbox and limits of delivery evidence.
+description: Owner decisions on public mailbox and controller identity; limits of independent verification.
 ---
 
 The historical-domain mailbox in the central company contact is the definitive
@@ -28,3 +28,16 @@ SMTP delivery, legal identity or the company address.
 choice without a new owner instruction. Use the confirmed central contact
 consistently, including structured data. Never report a mailto link check as
 evidence of email delivery.
+
+The owner separately confirmed the controller's legal entity, VAT identity and
+business address on 2026-11-23. Do not keep asking for those same facts.
+The scoped record is `docs/production-readiness/CONTROLLER_CONFIRMATION.md`.
+
+**Why:** The owner explicitly accepted the prefilled controller details.
+The earlier absence of confirmation was resolved; this was not an independent
+company-register check.
+
+**How to apply:** Use the centrally confirmed details consistently. This
+confirmation does not approve suppliers, transfers, further retention periods,
+image rights, translations or human review, and does not change the public
+mailbox or authorize real email tests.

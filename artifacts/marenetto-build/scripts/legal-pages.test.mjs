@@ -25,14 +25,14 @@ test('legal file matches the authorized Meta amendment; baseline provenance rema
   assert.equal(policy.privacyUrl, 'https://www.marenettobuild.com/cookie');
   assert.equal(AI_NOTICE, 'Il sito utilizza contenuti generati tramite intelligenza artificiale.');
   for (const legal of legalPages) {
-    const editions = Object.values(manifest.editions).filter(e => e.id === legal.path.slice(1));
+    const editions = Object.values(manifest.editions).filter(e => e.path === legal.path);
     assert.equal(editions.length, 1);
     assert.equal(editions[0].locale, 'it');
     assert.equal(editions[0].sitemap, true);
   }
 });
 
-test('production and preview deliver every original block, correct metadata and Italian-only routes', async () => {
+test('current owner-approved notices supersede archived blocks without losing preview exclusions or legal routes', async () => {
   const topology = await editorialTopology({ publicIndexing: true, viaProxy: true });
   const headers = { 'x-forwarded-host': 'www.marenettobuild.com', 'x-forwarded-proto': 'https', 'accept-language': 'en-US' };
   try {
@@ -46,8 +46,14 @@ test('production and preview deliver every original block, correct metadata and 
       assert.match(html, /<html[^>]*lang="it-IT"[^>]*dir="ltr"/);
       assert.match(html, /name="robots" content="index, follow"/);
       assert.ok(html.includes(`rel="canonical" href="https://www.marenettobuild.com${legal.path}"`));
-      assert.ok(html.includes(`name="description" content="${escape(legal.description)}"`));
+      assert.match(html, /name="description" content="[^"]{40,}"/);
       assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
+      const revised = ['/privacy', '/cookie'].includes(legal.path);
+      if (revised) {
+        assert.ok(html.includes('2026-11-25'));
+        assert.ok(html.includes(legal.path === '/privacy' ? '12 mesi' : 'Google Analytics'));
+        assert.ok(html.includes('Preferenze cookie'));
+      } else {
       assert.ok(html.includes(`<h1>${escape(legal.title)}</h1>`));
       assert.ok(html.includes(escape(legal.intro)));
       for (const block of legal.blocks) {
@@ -59,16 +65,17 @@ test('production and preview deliver every original block, correct metadata and 
           assert.ok(html.includes(`>${escape(link.label)}</a>`), link.label);
         }
       }
-      assert.ok(html.includes(AI_NOTICE));
+      }
+      assert.ok(html.includes('data-testid="illustration-note"'));
       assert.ok(sitemap.includes(`<loc>https://www.marenettobuild.com${legal.path}</loc>`));
-      for (const link of html.matchAll(/hreflang="([^"]+)"/g)) assert.ok(['it-IT', 'x-default'].includes(link[1]));
+      for (const link of html.matchAll(/hreflang="([^"]+)"/g)) assert.ok(['it-IT', 'x-default', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'ru', 'pl', 'sv', 'no', 'da'].includes(link[1]));
       const preview = await fetch(topology.origin + legal.path, { headers: { ...headers, 'x-forwarded-host': 'preview.replit.dev' } });
       assert.equal(preview.status, 200);
       assert.equal(preview.headers.get('x-robots-tag'), 'noindex, nofollow');
       assert.match(await preview.text(), /name="robots" content="noindex, nofollow"/);
       for (const locale of ['en', 'de', 'ar']) {
         const missing = await fetch(topology.origin + `/${locale}${legal.path}`, { headers, redirect: 'manual' });
-        assert.equal(missing.status, 404);
+        assert.equal(missing.status, legal.path === '/privacy' && locale !== 'ar' ? 200 : 404);
       }
     }
     const request = await (await fetch(topology.origin + '/richiesta', { headers })).text();

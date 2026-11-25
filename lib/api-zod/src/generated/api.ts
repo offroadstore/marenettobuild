@@ -172,7 +172,7 @@ export const ListBingSitesResponse = zod.array(ListBingSitesResponseItem)
 
 export const GetCallRequestConfigResponse = zod.object({
   "isSynthetic": zod.boolean(),
-  "privacyVersion": zod.enum(['call-2026-11-23'])
+  "privacyVersion": zod.enum(['call-2026-11-25'])
 })
 
 
@@ -226,7 +226,7 @@ export const CreateCallRequestBody = zod.object({
   "message": zod.string().max(createCallRequestBodyMessageMax).optional(),
   "privacyAccepted": zod.literal(true),
   "marketingAccepted": zod.boolean().default(createCallRequestBodyMarketingAcceptedDefault),
-  "privacyVersion": zod.enum(['call-2026-11-23']),
+  "privacyVersion": zod.enum(['call-2026-11-23', 'call-2026-11-25']),
   "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']),
   "sourcePath": zod.string().max(createCallRequestBodySourcePathMax).optional(),
   "utm": zod.object({
@@ -308,7 +308,7 @@ export const ListCallRequestsResponseItem = zod.object({
   "message": zod.string().max(listCallRequestsResponseDataMessageMax).optional(),
   "privacyAccepted": zod.literal(true),
   "marketingAccepted": zod.boolean().default(listCallRequestsResponseDataMarketingAcceptedDefault),
-  "privacyVersion": zod.enum(['call-2026-11-23']),
+  "privacyVersion": zod.enum(['call-2026-11-23', 'call-2026-11-25']),
   "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']),
   "sourcePath": zod.string().max(listCallRequestsResponseDataSourcePathMax).optional(),
   "utm": zod.object({
@@ -415,7 +415,7 @@ export const UpdateCallRequestResponse = zod.object({
   "message": zod.string().max(updateCallRequestResponseDataMessageMax).optional(),
   "privacyAccepted": zod.literal(true),
   "marketingAccepted": zod.boolean().default(updateCallRequestResponseDataMarketingAcceptedDefault),
-  "privacyVersion": zod.enum(['call-2026-11-23']),
+  "privacyVersion": zod.enum(['call-2026-11-23', 'call-2026-11-25']),
   "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da']),
   "sourcePath": zod.string().max(updateCallRequestResponseDataSourcePathMax).optional(),
   "utm": zod.object({

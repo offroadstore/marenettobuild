@@ -18,3 +18,15 @@ per HTML statico, revisioni editoriali attive e navigazione client; preservare
 le scelte SEO editoriali specifiche e non cambiare gli stati di approvazione
 solo per correggere i metadati. Verificare le risposte HTTP senza JavaScript,
 anche con archivio editoriale attivo, prima di consegnare.
+
+Google's FAQ rich result documentation changed in 2026: the requested FAQPage
+documentation URL now leads to the Search updates notice stating that FAQ rich
+results are no longer shown (May 2026 deprecation, subsequent documentation
+removal). Visible, matching FAQPage semantics can remain useful, but do not
+describe the old government/health eligibility exception as a current promise.
+
+**Why:** The official source checked on 2026-11-25 contradicted the older
+task reference, which described eligibility as merely limited.
+
+**How to apply:** Recheck https://developers.google.com/search/updates before
+making Google-specific FAQ display claims. Never promise rich results.

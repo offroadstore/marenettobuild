@@ -15,6 +15,7 @@ const choices = {
     apartment: 'Appartamento', house: 'Casa indipendente', commercial: 'Immobile commerciale', other: 'Altro',
   }],
   service: ['Servizio', {
+    'bespoke-furniture': 'Arredi premium su misura',
     renovation: 'Ristrutturazione / lavori', maintenance: 'Manutenzione',
     property_care: 'Cura della proprietà', purchase: 'Acquisto / orientamento', other: 'Altro',
   }],
@@ -82,7 +83,7 @@ test('Italian email labels cover every contract enum, form choice and language',
       }
       assert.equal(fields.Alloggio, 'No');
       assert.equal(fields['Accessibilità / mobilità'], 'Sì');
-      assert.equal(fields['Privacy accettata'], 'Sì');
+      assert.equal(fields['Informativa privacy letta'], 'Sì');
       assert.equal(JSON.stringify(input), before);
     }
   }
@@ -97,7 +98,7 @@ test('missing values use a dash and unknown codes are never assigned another opt
     const fields = emailFields(globalThis.smtpMessages.at(-1));
     for (const [label] of Object.values(choices)) assert.equal(fields[label], value || '—');
     for (const label of ['Nome', 'Email', 'Telefono / WhatsApp', 'Località', 'Budget', 'Periodo',
-      'Alloggio', 'Accessibilità / mobilità', 'Privacy accettata', 'Messaggio']) {
+      'Alloggio', 'Accessibilità / mobilità', 'Informativa privacy letta', 'Messaggio']) {
       assert.equal(fields[label], '—');
     }
   }
@@ -105,7 +106,7 @@ test('missing values use a dash and unknown codes are never assigned another opt
   const fields = emailFields(globalThis.smtpMessages.at(-1));
   assert.equal(fields.Alloggio, 'Sì');
   assert.equal(fields['Accessibilità / mobilità'], 'No');
-  assert.equal(fields['Privacy accettata'], 'No');
+  assert.equal(fields['Informativa privacy letta'], 'No');
 });
 
 test('email-only route never imports storage, confirms only SMTP acceptance, and fails closed in preview', async () => {

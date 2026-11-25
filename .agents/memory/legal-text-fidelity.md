@@ -1,32 +1,33 @@
 ---
 name: Legal text fidelity
-description: Owner-supplied Italian-only legal texts and limits on production scanner exceptions.
+description: Historical Italian legal baseline, later multilingual authorization and production scanner fidelity.
 ---
 
-Import the owner's legal text as a complete file, not a branch merge. Preserve
-all bytes of the owner's latest explicitly designated revision. The owner now
-requires importing the updated remote file as-is, superseding the earlier
-local hosting-label replacement.
-Do not otherwise rewrite, certify or translate it. Preserve per-image AI labels and
-other notices alongside the supplied general AI disclosure.
+The owner's 2026-11-25 decision authorizes complete notices in all 12 public
+languages and updated retention, coverage and provider descriptions. It
+supersedes the earlier Italian-only live-page restriction. Do not reimport an
+older baseline over these authorized updates.
+
+Keep the designated remote Italian import as complete historical provenance.
+Do not rewrite its bytes or describe later localized/amended notices as an
+identical historical copy. Preserve per-image AI labels and truthful notices.
 
 The owner subsequently authorized targeted amendments for Meta Pixel and
 independent marketing consent, including removal of the no-marketing claim and
 an effective notice-version update. The imported revision remains the baseline;
 do not overwrite those authorized amendments by reimporting it blindly.
 
-**Why:** An explicit later authorization supersedes byte identity only within
-that narrow scope, not the general restriction on rewriting the Italian notices.
+**Why:** Later owner authorization supersedes the earlier live-notice scope,
+without authorizing invented legal facts or falsified source provenance.
 
 **How to apply:** Preserve baseline provenance separately from the amended
 notice's integrity evidence; keep the production scanner unchanged.
 
-**Why:** The owner explicitly limited this integration to the supplied Italian
-texts and superseded earlier multilingual legal-page and general AI wording
-requirements, while prohibiting unrelated motto changes.
+**Why:** The Italian-only import was an earlier, narrower instruction, now
+superseded for public notices. It never authorized unrelated motto changes.
 
-**How to apply:** Keep legal pages independently registered as Italian editions,
-verify the imported revision and hash, and keep analytics policy metadata aligned
+**How to apply:** Register the authorized multilingual notices independently,
+preserve the imported revision and hash, and keep analytics policy metadata aligned
 without sharing runtime source directly between artifacts. Changing notice
 metadata must not imply consent, approval or activation of analytics.
 

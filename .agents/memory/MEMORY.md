@@ -5,7 +5,8 @@
 - [Workspace lifecycle checks](workspace-lifecycle-checks.md) — Critical pnpm selectors must fail on no match; a healthy server can still lack authorization tables.
 - [Internal access testing](internal-access-testing.md) — Temporary development test gates are not release approvals; do not infer an SMTP dependency from an approval flag.
 - [Documentary asset recovery](documentary-asset-recovery.md) — A missing report file after a task merge does not prove it was never delivered; check registered outputs separately.
-- [Business contact approval](contact-approval.md) — Owner confirmed the visible business email; this is not proof of message delivery or legal/address verification.
+- [Business identity and contact](contact-approval.md) — Owner confirmed public email and controller details; these declarations are not independent delivery or registry checks.
+- [Public indexing authorization](public-indexing-authorization.md) — Owner permits all existing public pages in twelve languages; previews, private routes and runtime withdrawals stay excluded.
 - [SSR locale dates](ssr-locale-dates.md) — ICU support and browser fallback locales can differ; identical Intl options do not guarantee identical initial text.
 - [Historical fidelity](historical-fidelity.md) — Reworked text is not an original copy; require independent historical-to-served diffs and owner decisions on unverified claims.
 - [Editorial fallback safety](editorial-fallback-safety.md) — Failed state reads must not republish withdrawn static content, including after a cold web restart.
@@ -16,6 +17,7 @@
 - [Service areas and furniture](service-areas-and-furniture.md) — Ordinary area around Cefalù, conditional team travel worldwide, named rental partner and truthful international positioning.
 - [Privacy and AI transparency](privacy-and-ai-transparency.md) — Conditional cookie consent, factual notices and per-image AI labels; footer-only disclosure no longer meets the owner's rule.
 - [Browser locale and geometry](browser-locale-geometry.md) — Equal viewports can differ because language banners change layout; screenshot visibility does not prove regression-browser visibility.
+- [New-tab form links](new-tab-form-links.md) — Use native anchors for notices opened beside an unfinished form; Wouter may intercept plain clicks despite target=_blank.
 - [Multilingual SEO metadata](seo-metadata-policy.md) — Historical fidelity does not require generic titles; localize search metadata and verify initial HTML as well as client navigation.
 - [Google review data policy](google-reviews-data-policy.md) — Short TTLs do not authorize review caching; keep avatar delivery server-only and distinguish throttles from spending caps.
 - [HTTP date validation](http-date-validation.md) — Generated date validators may require Date objects even when clients send strings; test valid filters as well as invalid dates.
@@ -23,3 +25,4 @@
 - [Legal text fidelity](legal-text-fidelity.md) — Import the designated remote Italian legal file as-is; keep the original build scanner without legal exceptions.
 - [Contact and direct analytics decisions](contact-and-direct-analytics-decisions.md) — Owner chose email-only enquiries and direct consent-gated GA4; separate plans must precede implementation.
 - [AI visibility budget](ai-visibility-budget.md) — Three search-enabled providers, zero initial budget; keys alone do not authorize paid calls.
+- [Task synchronization](task-synchronization.md) — Completion can flatten merges; preserve functional changes outside merge-only resolutions.

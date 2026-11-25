@@ -7,13 +7,23 @@ import { CookiePreferencesLink } from '../src/components/CookiePreferencesLink';
 import { EditorialRuntime } from '../src/lib/editorial-runtime';
 import { trackSavedRequest } from '../src/lib/analytics/browser';
 import publicHosts from '../src/config/public-hosts.json';
+import { PREFERENCES_KEY, readPreferences, savePreferences } from '../src/lib/analytics/preferences';
 
 // Only this test entrypoint admits these synthetic origins.
 Object.assign(publicHosts, { siteHosts: ['analytics-test.example.com'], analyticsRuntimeHosts: ['metrics-runtime.example.net'] });
 
 const publicEditions = [{ path: '/', locale: 'it' }, { path: '/servizi', locale: 'it' }];
+const preferenceEditions = [...publicEditions,
+  ...['/en/privacy', '/en/cookie-policy', '/arredi-su-misura', '/area-servizi-edili', '/zone-servite']
+    .map(path => ({ path, locale: path.startsWith('/en/') ? 'en' : 'it' })),
+];
+// Synthetic storage setup only; never shipped or registered by the application.
+Object.assign(window, { __cookieFixture: {
+  grant: () => savePreferences(true, true),
+  read: () => readPreferences(localStorage.getItem(PREFERENCES_KEY)),
+} });
 function Harness() {
-  return <EditorialRuntime initial={[]}><Router><AnalyticsPreferences publicEditions={publicEditions} />
+  return <EditorialRuntime initial={[]}><Router><AnalyticsPreferences publicEditions={publicEditions} preferenceEditions={preferenceEditions} />
     <main><h1>Isolated analytics browser fixture</h1>
       <Link href="/">Home</Link>
       <Link href="/servizi?email=private@example.com#secret">Servizi</Link>

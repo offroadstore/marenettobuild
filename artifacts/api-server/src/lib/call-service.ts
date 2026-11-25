@@ -7,7 +7,7 @@ import { isArubaSmtpConfigured, sendArubaCallbackMail } from "./aruba-mailer";
 import { callbackMail } from "./call-mail";
 import { isCatalogPath } from "./editorial-store";
 
-export const CALL_PRIVACY_VERSION = "call-2026-11-23";
+export const CALL_PRIVACY_VERSION = "call-2026-11-25";
 export const callLiveApproved = () => process.env.NODE_ENV === "production" && process.env.MARENETTO_PRIVACY_APPROVED === "true" &&
   process.env.MARENETTO_PROVIDERS_APPROVED === "true" && process.env.MARENETTO_TESTING_APPROVED === "true";
 export const callHash = (value: string) => createHmac("sha256", getProjectRequestIpKey()).update("callback-v1:" + value).digest("hex");
@@ -76,10 +76,14 @@ export function callReceipt(row: CallRequest) {
   return { code: row.code, createdAt: row.createdAt, isSynthetic: row.isSynthetic,
     ownerDelivery: row.ownerDelivery, customerDelivery: row.customerDelivery };
 }
-export async function purgeExpiredCalls() {
-  // PostgreSQL calendar months, not an approximation in days. Acquired is explicit.
-  return db.delete(calls).where(and(eq(calls.acquiredCustomer, false),
-    lt(calls.createdAt, sql`now() - interval '24 months'`))).returning({ id: calls.id });
+export async function purgeExpiredCalls({ execute = false, syntheticOnly = true } = {}) {
+  // Preview first; a normal invocation never deletes anything. Calendar months,
+  // not approximate days. The explicit customer flag denotes a contractual client.
+  const expired = and(eq(calls.acquiredCustomer, false),
+    syntheticOnly ? eq(calls.isSynthetic, true) : undefined,
+    lt(calls.createdAt, sql`now() - interval '12 months'`));
+  if (!execute) return db.select({ id: calls.id }).from(calls).where(expired);
+  return db.delete(calls).where(expired).returning({ id: calls.id });
 }
 export async function recoverCallDeliveries() {
   for (const field of ["ownerDelivery", "customerDelivery"] as const) {

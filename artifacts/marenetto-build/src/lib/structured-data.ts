@@ -2,6 +2,8 @@ import { companyServiceAreas, companyStructuredData } from '@/config/contact';
 import { articleBySlug } from '@/content/articles';
 import { PHASE3_COPY, TRAVEL_COPY, phase3PageByPath } from '@/content/phase3';
 import { canonicalEdition, type Edition } from '@/localization/edition-inventory';
+import { serviceCopy } from '@/content/service-offers';
+import { localBuildingArea } from '@/config/service-area';
 
 export function editionStructuredData(edition: Edition, origin: string) {
   const canonical = new URL(canonicalEdition(edition).path, origin).href;
@@ -11,6 +13,23 @@ export function editionStructuredData(edition: Edition, origin: string) {
     { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Marenetto Build', item: `${origin}/` }, ...(edition.path === '/' ? [] : [{ '@type': 'ListItem', position: 2, name: edition.title.split(' | ')[0], item: canonical }])] },
   ];
   const article = articleBySlug.get(edition.id);
+  if (edition.id === 'service-premium' || edition.id === 'service-local') {
+    const text = serviceCopy[edition.locale];
+    const premium = edition.id === 'service-premium';
+    graph.push({
+      '@type': 'Service', '@id': `${canonical}#service`, url: canonical, inLanguage: edition.locale,
+      name: premium ? text.premiumTitle : text.localTitle,
+      description: premium ? text.premiumIntro : text.scope,
+      provider: { '@id': `${origin}/#organization` },
+      areaServed: premium ? { '@type': 'Place', name: 'Worldwide' } : localBuildingArea,
+    });
+    if (premium) graph.push({
+      '@type': 'FAQPage', inLanguage: edition.locale,
+      mainEntity: text.faq.map(([name, answer]) => ({
+        '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text: answer },
+      })),
+    });
+  }
   if (article && edition.locale === 'it' && edition.state === 'published') graph.push({
     '@type': 'Article', headline: article.title, inLanguage: 'it', mainEntityOfPage: canonical,
     publisher: { '@id': `${origin}/#organization` }, image: new URL(article.image, origin).href,

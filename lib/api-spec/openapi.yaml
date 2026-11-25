@@ -950,7 +950,7 @@ components:
       required: [isSynthetic, privacyVersion]
       properties:
         isSynthetic: { type: boolean }
-        privacyVersion: { type: string, enum: ["call-2026-11-23"] }
+        privacyVersion: { type: string, enum: ["call-2026-11-25"] }
     CallLocale:
       type: string
       enum: [it, en, de, fr, es, nl, pt, pl, ru, sv, "no", da]
@@ -982,7 +982,7 @@ components:
         message: { type: string, maxLength: 3000 }
         privacyAccepted: { type: boolean, enum: [true] }
         marketingAccepted: { type: boolean, default: false }
-        privacyVersion: { type: string, enum: ["call-2026-11-23"] }
+        privacyVersion: { type: string, enum: ["call-2026-11-23", "call-2026-11-25"] }
         consentLanguage: { $ref: "#/components/schemas/CallLocale" }
         sourcePath: { type: string, maxLength: 300 }
         utm:

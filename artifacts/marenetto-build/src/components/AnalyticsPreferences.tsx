@@ -12,9 +12,15 @@ import { categoryCopy } from '@/lib/analytics/category-copy';
 import { legalPages } from '@/content/legal';
 import { useFixedAccessSpace } from '@/lib/analytics/fixed-access';
 import { COOKIE_PREFERENCES_EVENT } from './CookiePreferencesLink';
+import { legalPath } from '@/content/legal-notices';
+import { getCallCopy } from '@/content/call-request-copy';
 import './analytics-preferences.css';
 
-export function AnalyticsPreferences({ publicEditions }: { publicEditions: readonly { path: string; locale: string }[] }) {
+type PublicEdition = { path: string; locale: string };
+export function AnalyticsPreferences({ publicEditions, preferenceEditions = publicEditions }: {
+  publicEditions: readonly PublicEdition[];
+  preferenceEditions?: readonly PublicEdition[];
+}) {
   const [path] = useLocation();
   const active = useActiveEditorial(), editorialStatus = useEditorialStatus();
   const [config, setConfig] = useState<PublicMonitoring | null>(null);
@@ -33,13 +39,18 @@ export function AnalyticsPreferences({ publicEditions }: { publicEditions: reado
     for (const edition of active) for (const candidate of [edition.path, ...(edition.aliases ?? [])]) records.set(candidate, edition.revisionId !== 'withdrawn');
     return new Set([...records].filter(([, allowed]) => allowed).flatMap(([candidate]) => [candidate, encodeURI(candidate)]));
   }, [active, publicEditions]);
+  // Preference management must remain available even on unmeasured public
+  // pages, and must not depend on a non-empty editorial override snapshot.
+  const preferencePaths = useMemo(() => new Set(
+    [...preferenceEditions, ...legalPages].flatMap(e => [e.path, encodeURI(e.path)]),
+  ), [preferenceEditions]);
   const allowed = editorialStatus === 'verified' ? safePath(path, paths) : null;
-  const locale = active.find(e => [e.path, encodeURI(e.path)].includes(path))?.locale ?? publicEditions.find(e => [e.path, encodeURI(e.path)].includes(path))?.locale ?? 'it';
+  const locale = active.find(e => [e.path, encodeURI(e.path)].includes(path))?.locale ?? preferenceEditions.find(e => [e.path, encodeURI(e.path)].includes(path))?.locale ?? path.match(/^\/([a-z]{2})\//)?.[1] ?? 'it';
   const text = analyticsCopy[locale];
   const categories = categoryCopy[locale];
   const enabled = Boolean(config && typeof window !== 'undefined' && validConfig(config, window.location.origin));
-  const visible = Boolean(text && !excludedPath(path) && (allowed || legalPages.some(page => page.path === path)));
-  // Legal pages share the footer controls, but never extend the measured inventory.
+  const visible = Boolean(text && !excludedPath(path) && (allowed || safePath(path, preferencePaths)));
+  // Public preference controls never extend the separate measured inventory.
   const available = Boolean(visible && typeof window !== 'undefined' && !isPreviewOrigin(window.location.origin));
   const show = visible && (open || (available && restored && !choice));
 
@@ -65,7 +76,7 @@ export function AnalyticsPreferences({ publicEditions }: { publicEditions: reado
   }, []);
 
   useEffect(() => {
-    if (!visible || !text || isPreviewOrigin(window.location.origin)) { browserAnalytics()?.navigate(null); setConfig(null); return; }
+    if (!allowed || !text || isPreviewOrigin(window.location.origin)) { browserAnalytics()?.navigate(null); setConfig(null); return; }
     let alive = true, generation = 0;
     let expiry: ReturnType<typeof setTimeout>;
     const refresh = async () => {
@@ -189,7 +200,10 @@ export function AnalyticsPreferences({ publicEditions }: { publicEditions: reado
         }
       }}>
       <div className="analytics-preferences__inner">
-        <p>{available ? categories.message : text.inactive} <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/cookie`}>{text.info}</a></p>
+        <p>{available ? categories.message : text.inactive} <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}${legalPath(locale, 'cookies')}`}>{text.info}</a></p>
+        {open && <button type="button" className="cookie-customize" data-testid="cookie-close" onClick={() => {
+          setOpen(false); opener.current?.focus({ preventScroll: true }); opener.current = null;
+        }}>{getCallCopy(locale).close}</button>}
         {available && <>
           <div className="analytics-actions">
             <button type="button" onClick={() => choose(true, true)} data-testid="analytics-accept">{text.accept}</button>

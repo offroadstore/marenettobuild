@@ -5,6 +5,14 @@
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
 
+/* Labels belong to the page, never the immutable image master. */
+.image-disclosure { display:block; padding:.4rem .65rem; background:#f8f9f8; color:#25343b; font:500 13px/1.45 Barlow,Arial,sans-serif; text-align:start; overflow-wrap:anywhere; }
+.mbh-hero { position:relative; }
+.mbh-image-note { padding:.25rem var(--mb-gutter,1rem); background:#f8f9f8; border-bottom:1px solid #e3e8ea; }
+.image-disclosure--hero { max-width:1260px; margin-inline:auto; padding-inline:0; }
+.mb-media figcaption { position:absolute; inset-inline:0; bottom:0; z-index:2; }
+.footer-links button { text-align:start; text-decoration:underline; cursor:pointer; }
+
 /* Advisory only: URL and explicit language choice always remain authoritative. */
 .language-suggestion { position: relative; z-index: 60; display: flex; flex-wrap:wrap; justify-content: center; gap: .5rem 1.5rem; padding: .65rem 1rem; background: #f8f6f0; color: #25302a; font-size: .85rem; }
 .language-suggestion a, .language-suggestion button { text-decoration: underline; }

@@ -19,7 +19,7 @@ export function ContactBlock({ locale, heading, text, subject, message, id }: { 
         <li><Phone size={17} aria-hidden="true" /><span><small>{c.call}</small><a href={telHref} dir="ltr" data-testid="link-p3-phone">{COMPANY_PHONE.display}</a></span></li>
         <li><Mail size={17} aria-hidden="true" /><span><small>{c.write}</small><a href={emailHref(subject)} dir="ltr" data-testid="link-p3-email">{COMPANY_CONTACT.email}</a></span></li>
         <li><MessageCircle size={17} aria-hidden="true" /><span><small>{c.whatsapp}</small><a href={whatsappHref(message)} target="_blank" rel="noopener noreferrer" dir="ltr" data-testid="link-p3-whatsapp">{COMPANY_PHONE.display}</a></span></li>
-        <li><MapPin size={17} aria-hidden="true" /><span><small>{c.addressLabel}</small><span lang="it" dir="ltr">SS 113 Settentrionale Sicula, 73b<br />90015 Cefalù (PA)</span></span></li>
+        <li><MapPin size={17} aria-hidden="true" /><span><small>{c.addressLabel}</small><span lang="it" dir="ltr">{COMPANY_CONTACT.streetAddress}<br />{COMPANY_CONTACT.localityLine}</span></span></li>
       </ul>
     </div>
   </section>;

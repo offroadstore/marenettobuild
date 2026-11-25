@@ -6,7 +6,8 @@ export const COMPANY_PHONE = {
   display: '+39 333 936 3007',
 } as const;
 
-/** Historical visible data retained pending owner confirmation; not verification evidence. */
+/** Owner confirmed controller identity, VAT and address on 2026-11-23.
+ * This is a company declaration, not an independent registry verification. */
 export const COMPANY_CONTACT = {
   name: 'Marenetto Build',
   legalName: 'Marenetto s.r.l. unipersonale',
@@ -14,12 +15,13 @@ export const COMPANY_CONTACT = {
   email: 'info@marenetto.com',
   streetAddress: 'SS 113 Settentrionale Sicula, 73b',
   localityLine: '90015 Cefalù, Palermo, Italia',
-  areaServed: 'Cefalù e dintorni come area ordinaria; Sicilia, Italia e trasferte internazionali su richiesta',
+  areaServed: 'Ristrutturazioni e costruzioni principalmente entro circa 60 km da Cefalù, Madonie e costa; progetti oltre su richiesta e preventivo dedicato',
   verification: {
     phone: 'existing-approved-company-number',
     email: 'owner-confirmed-2026-11-10',
-    legalIdentity: 'historical-visible-data-awaiting-confirmation',
-    address: 'historical-visible-data-awaiting-confirmation',
+    legalIdentity: 'owner-confirmed-2026-11-23',
+    vatId: 'owner-confirmed-2026-11-23',
+    address: 'owner-confirmed-2026-11-23',
   },
 } as const;
 /** Apply the owner's official contact to legacy public copy, not source archives. */
@@ -34,6 +36,7 @@ export const emailHref = (subject: string) => `mailto:${COMPANY_CONTACT.email}?s
  * not existing branches, completed projects or overseas authorisations. */
 export function companyServiceAreas() {
   return [
+    { '@type': 'Place', name: 'Madonie' },
     ...SERVED_PLACES.map(place => place.schemaType === 'Place'
       ? { '@type': 'Place', name: place.name, containedInPlace: { '@type': 'City', name: 'Tusa' } }
       : { '@type': 'City', name: place.name }),
@@ -47,6 +50,7 @@ export function companyStructuredData(origin: string) {
   return {
     '@type': 'GeneralContractor', '@id': `${origin}/#organization`,
     name: COMPANY_CONTACT.name, url: `${origin}/`, logo: `${origin}/favicon.svg`,
+    legalName: COMPANY_CONTACT.legalName, taxID: COMPANY_CONTACT.vatId,
     email: COMPANY_CONTACT.email, telephone: COMPANY_PHONE.e164,
     image: `${origin}/media/home/cefalu-hero-left-1672.jpg`,
     address: {

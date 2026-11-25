@@ -11,6 +11,7 @@ const labels = {
     commercial: "Immobile commerciale", other: "Altro",
   },
   service: {
+    "bespoke-furniture": "Arredi premium su misura",
     renovation: "Ristrutturazione / lavori", maintenance: "Manutenzione",
     property_care: "Cura della proprietà", purchase: "Acquisto / orientamento", other: "Altro",
   },
@@ -67,7 +68,7 @@ export async function sendProjectRequestEmail(input: Omit<ProjectRequestInput, "
     ["Budget", input.budget], ["Periodo", input.desiredPeriod],
     ["Alloggio", yesNo(input.needsAccommodation)],
     ["Accessibilità / mobilità", yesNo(input.needsMobility)],
-    ["Privacy accettata", yesNo(input.privacyAccepted)], ["Messaggio", input.message],
+    ["Informativa privacy letta", yesNo(input.privacyAccepted)], ["Messaggio", input.message],
   ].map(([label, value]) => `${label}: ${value || "—"}`);
   try {
     const result = await transport.sendMail({

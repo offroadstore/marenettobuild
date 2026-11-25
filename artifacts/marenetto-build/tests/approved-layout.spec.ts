@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { openPage, sourceHome } from './source-fixtures';
+import { noticeCopy } from '../src/content/legal-notices';
 
 const evidence = resolve(import.meta.dirname, '../../../generated-artifacts/layout-approved/after');
 
@@ -30,7 +31,10 @@ for (const width of [390, 580, 699, 700, 768, 1000, 1100, 1440, 1920]) {
     await expect(page.locator('.mbh-h1')).toHaveCSS('font-family', /sans/i);
     await expect(page.locator('main [data-historical-body]')).toHaveAttribute('lang', 'it');
     await expect(page.locator('[data-testid="illustration-note"]')).toHaveCount(1);
-    await expect(page.locator('footer [data-testid="illustration-note"]')).toHaveText('Immagini illustrative generate con IA; non rappresentano lavori eseguiti.');
+    // Phase 4 replaces the former footer-only statement: distinguish known AI
+    // illustrations from uncertain historical sources, without inventing review.
+    await expect(page.locator('footer [data-testid="illustration-note"]')).toHaveText(`${noticeCopy.it.footer} ${noticeCopy.it.ai}`);
+    await expect(page.locator('.mbh-image-note [data-image-disclosure="ai-edited"]')).toHaveText(noticeCopy.it.aiLabel);
     await expect(page.locator('footer [data-testid="illustration-note"]')).toHaveCSS('font-size', '13px');
     await expect(page.locator('main h1')).toHaveCount(1);
     const hero = page.locator('.mbh-hero img');
