@@ -26,6 +26,9 @@
     "test:analytics-runtime": "node --test analytics-runtime/runtime.test.mjs",
     "serve": "node scripts/serve-seo.mjs",
     "test:seo": "node --test scripts/local-fonts.test.mjs scripts/seo-http.test.mjs scripts/editorial-corrections.test.mjs scripts/editorial-runtime.test.mjs scripts/editorial-outage.test.mjs scripts/public-release.test.mjs scripts/production-cleanup.test.mjs scripts/seo-metadata.test.mjs",
+    "test:seo-global": "node --test scripts/global-seo.test.mjs",
+    "audit:seo-global": "node scripts/global-seo-audit.mjs",
+    "audit:seo-client": "node scripts/global-seo-browser.mjs",
     "test:routes": "PORT=4188 BASE_PATH=/ pnpm run build && playwright test --config=playwright.config.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },

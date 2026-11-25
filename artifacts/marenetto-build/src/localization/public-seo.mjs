@@ -1,5 +1,6 @@
 import { homeMetadata } from './home-seo.mjs';
 import { libraryMetadata } from './library-seo.mjs';
+import { searchCopy } from './search-copy.mjs';
 
 // Language wrappers around Italian copy are not independent translations.
 export function isNativeEdition(edition) {
@@ -48,6 +49,8 @@ const text = value => String(value ?? '').replace(/<[^>]+>/g, ' ').replace(/&nbs
   .replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/\s+/g, ' ').trim();
 
 export function releaseMetadata(edition, html = '', entries = []) {
+  const search = searchCopy(edition);
+  if (search && !edition.activeSeoTitle && !edition.activeSeoDescription) return search;
   if (edition.kind === 'legal') return {
     title: edition.title.endsWith(' | Marenetto Build') ? edition.title : `${edition.title} | Marenetto Build`,
     description: edition.description,
@@ -78,6 +81,8 @@ export function releaseMetadata(edition, html = '', entries = []) {
     other.path !== edition.path && other.description === sourceDescription);
   const topic = title.split('|')[0].trim();
   if (duplicate && !description.toLowerCase().startsWith(topic.toLowerCase())) description = `${topic}. ${description}`;
-  if (description.length > 170) description = description.slice(0, 167).replace(/\s+\S*$/, '') + '…';
-  return { title, description };
+  // Explicit active editorial SEO stays explicit, including length exceptions.
+  // Never cut a sentence merely to fit a search-display recommendation.
+  return { title: search && (!edition.activeSeoTitle || genericHome) ? search.title : title,
+    description: search && !edition.activeSeoDescription ? search.description : description };
 }

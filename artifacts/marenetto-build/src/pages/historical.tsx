@@ -15,6 +15,8 @@ import { withCampaignParams } from '@/lib/campaign';
 import { TravelCoverageBlock, TravelIndexBlock } from '@/pages/phase3/TravelPages';
 import { translationCandidate, translationApproved, translationNotices } from '@/localization/phase2';
 import { PropertyManagementLink } from '@/pages/property-management';
+import { historicalPresentation } from '@/content/historical-presentation';
+import { imageDescription } from '@/content/image-descriptions';
 // Historical service families outside the six categories (category pages get the block separately).
 const SERVICE_FAMILIES = new Set(['/ristrutturazioni-chiavi-in-mano-cefalu-e-palermo-marenetto', '/general-contractor']);
 const PUBLIC_SITE_ORIGIN = new URL(import.meta.env.VITE_PUBLIC_SITE_URL || 'https://preview.invalid').origin;
@@ -63,7 +65,8 @@ export function HistoricalContents({ page, actions }: { page: HistoricalPage; ac
     canonical.href = new URL(page.path, PUBLIC_SITE_ORIGIN).href;
     window.document.head.querySelectorAll('link[rel="alternate"][hreflang]').forEach(link => link.remove());
     window.document.documentElement.lang = page.locale === 'it' ? 'it-IT' : page.locale;
-    const edition = page.state === 'awaiting-confirmation' ? undefined : editionByPath.get(page.path);
+    const candidate = editionByPath.get(page.path);
+    const edition = page.state === 'awaiting-confirmation' && page.kind !== 'article' && !candidate?.approval ? undefined : candidate;
     if (edition) updateStructuredData(edition, PUBLIC_SITE_ORIGIN);
     else window.document.head.querySelectorAll('script[type="application/ld+json"]').forEach(node => node.remove());
   }, [page, pendingMessage, held]);
@@ -93,8 +96,8 @@ export function HistoricalContents({ page, actions }: { page: HistoricalPage; ac
   </div>;
   return <section className="section"><div className="container">
     {translation && !translationApproved(translation) && <p lang={page.locale} role="note">{translationNotices[page.locale].review}</p>}
-    {page.kind === 'article' && <><h1 className="display-title">{page.h1}</h1>{document.dateLabel ? <span>{document.dateLabel}</span> : document.publishedOn && <time dateTime={document.publishedOn}>{document.publishedOn.slice(0, 10)}</time>}{document.image && <figure><img className="historical-cover" src={document.image} alt={document.imageAlt} loading="eager" /><figcaption><ImageDisclosure src={document.image} lang={page.locale} />{document.imageCaption}</figcaption></figure>}</>}
+    {page.kind === 'article' && <><h1 className="display-title">{page.h1}</h1>{document.dateLabel ? <span>{document.dateLabel}</span> : document.publishedOn && <time dateTime={document.publishedOn}>{document.publishedOn.slice(0, 10)}</time>}{document.image && <figure><img className="historical-cover" src={document.image} alt={imageDescription(document.image, page.locale, document.imageAlt)} loading="eager" /><figcaption><ImageDisclosure src={document.image} lang={page.locale} />{document.imageCaption}</figcaption></figure>}</>}
     {page.locale !== 'it' && page.contentLanguage === 'it' && <p lang={page.locale} data-source-language="it">{sourceLanguageLabels[page.locale] ?? 'Testo in italiano'}</p>}
-    <article className={`historical-content${page.kind === 'article' ? ' article-body' : ''}`} data-historical-body="" data-editorial-state={page.state === 'awaiting-confirmation' ? 'review-pending' : undefined} data-correction-state={page.editorialCorrection ? page.locale === 'it' ? 'owner-authorized-preview' : 'translation-draft' : undefined} lang={page.contentLanguage} onClick={preserveCampaign} dangerouslySetInnerHTML={{ __html: document.html }} />
+    <article className={`historical-content${page.kind === 'article' ? ' article-body' : ''}`} data-historical-body="" data-editorial-state={page.state === 'awaiting-confirmation' ? 'review-pending' : undefined} data-correction-state={page.editorialCorrection ? page.locale === 'it' ? 'owner-authorized-preview' : 'translation-draft' : undefined} lang={page.contentLanguage} onClick={preserveCampaign} dangerouslySetInnerHTML={{ __html: historicalPresentation(document.html, page.locale) }} />
   </div>{page.kind !== 'article' && SERVICE_FAMILIES.has(page.family) && <><PropertyManagementLink locale={page.locale} /><TravelCoverageBlock locale={page.locale} /></>}</section>;
 }

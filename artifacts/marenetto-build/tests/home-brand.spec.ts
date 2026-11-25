@@ -45,8 +45,9 @@ for (const locale of ['it', 'en']) {
       const images = page.locator('main .mbx-card img');
       await expect(images).toHaveCount(expectedCards.filter(card => card.src).length);
       for (const image of await images.all()) {
-        // Decorative thumbnail; its card title supplies the accessible link name.
-        await expect(image).toHaveAttribute('alt', '');
+        // Content images now require native descriptions; the linked heading
+        // still names the destination.
+        await expect(image).toHaveAttribute('alt', /\S.{10,}/);
         await expect(image).toHaveAttribute('width', '600');
         await expect(image).toHaveAttribute('height', '400');
       }

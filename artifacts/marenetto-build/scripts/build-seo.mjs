@@ -23,14 +23,16 @@ try {
   const pendingMessages = JSON.parse(await readFile(path.join(root, 'src/content/pending-content.json'), 'utf8'));
   const manifest = { origin: SEO_ORIGIN, indexing: false, pages: {}, errors: {}, redirects, excludedRoutes, heldPages: {}, unreviewedArticles: {}, correctedPages: {}, feeds: JSON.parse(await readFile(path.join(root, 'src/content/historical/feeds.json'), 'utf8')), heldFeeds: JSON.parse(await readFile(path.join(root, 'src/content/historical/held-feeds.json'), 'utf8')) };
   for (const edition of publicEditions) {
-    if (heldOriginals.some(original => original.key === (edition.path.replace(/\/+$/, '') || '/'))) continue;
+    if (heldOriginals.some(original => original.key === (edition.path.replace(/\/+$/, '') || '/')) && !edition.approval) continue;
     const { body, fullTextProof, missingTranslations } = await render(edition.path, edition.locale);
     if (!body.includes('<h1') || body.includes('aria-busy="true"')) throw new Error(`Incomplete server render: ${edition.path}`);
     const canonicalPath = canonicalEdition(edition).path;
     const alternates = equivalentEditions(edition.id);
     const canonical = new URL(canonicalPath, SEO_ORIGIN).href;
     const original = originalInventory.find(page => page.path === edition.path);
-    const graph = original?.state === 'awaiting-confirmation' ? undefined : editionStructuredData(edition, SEO_ORIGIN);
+    // Article describes a visible article, not an approval or insurance claim.
+    // Holding documents are handled separately and never inherit this graph.
+    const graph = editionStructuredData(edition, SEO_ORIGIN);
     const html = renderDocument(template, { edition, body, alternates, canonicalPath, structuredData: graph });
     const file = path.join(edition.path.replace(/^\/|\/$/g, ''), 'index.html');
     await mkdir(path.dirname(path.join(output, file)), { recursive: true });
@@ -41,13 +43,15 @@ try {
     matrix.push({ ...edition, editorialCorrection: original?.editorialCorrection ?? null, fullTextProof, status: 200, initialHTML: 'React server render: full body', renderedCheck: 'See separate rendered-results.json; builds do not certify browser results', h1: body.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)?.[1].replace(/<[^>]*>/g, ''), canonical, alternates: edition.state === 'published' ? alternates.map(a => a.path) : [], links: [...body.matchAll(/href="([^"]+)"/g)].map(match => match[1]), missingTranslations, checksMissing: ['native-speaker review', 'assistive technology', ...(edition.approval ? [] : ['owner approval'])] });
   }
   for (const original of heldArticles) {
+    if (publicEditions.some(edition => edition.path === original.path && edition.approval)) continue;
     const { body } = await render(original.path, original.locale);
     const edition = { ...original, state: 'draft', approval: null, sitemap: false };
     const canonicalPath = original.path;
     const canonical = new URL(canonicalPath, SEO_ORIGIN).href;
     const file = path.join(original.path.replace(/^\/|\/$/g, ''), 'index.html');
     await mkdir(path.dirname(path.join(output, file)), { recursive: true });
-    await writeFile(path.join(output, file), renderDocument(template, { edition, body, canonicalPath }));
+    await writeFile(path.join(output, file), renderDocument(template, { edition, body, canonicalPath,
+      structuredData: editionStructuredData(edition, SEO_ORIGIN) }));
     manifest.pages[original.path] = file;
     manifest.unreviewedArticles[original.key] = file;
     matrix.push({ ...edition, status: 200, canonical, alternates: [], indexable: false, editorialReview: 'Exact historical copy; owner confirmation still pending', initialHTML: 'Full original body restored at historical URL; preview noindex; excluded from sitemap and hreflang' });

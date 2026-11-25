@@ -64,7 +64,9 @@ test('public SEO excludes language wrappers and preserves active editorial metad
   const [merged] = mergeActiveMetadata([original], active);
   assert.deepEqual(releaseMetadata(merged), { title: active[0].content.seoTitle + ' | Marenetto Build', description: active[0].content.seoDescription });
   const snippet = '<main><p>Un testo pertinente alla pagina con informazioni sufficientemente dettagliate per la descrizione nei risultati di ricerca.</p></main>';
-  assert.ok(releaseMetadata(original, snippet).description.includes('testo pertinente'));
+  // Curated native search copy takes precedence for known public families.
+  // Body-paragraph recovery remains available for uncatalogued editorial pages.
+  assert.ok(releaseMetadata({ ...original, id:'uncatalogued', title:'Argomento specifico' }, snippet).description.includes('testo pertinente'));
   const first = { ...original, id: 'first', path: '/first', title: 'Prima pagina', description: 'Una descrizione ripetuta.' };
   const second = { ...first, id: 'second', path: '/second', title: 'Seconda pagina' };
   assert.notEqual(releaseMetadata(first, '', [first, second]).description, releaseMetadata(second, '', [first, second]).description);

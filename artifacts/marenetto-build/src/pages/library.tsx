@@ -36,7 +36,7 @@ export function ArticleCard({ a, kind = 'archive', index }: { a: Article; kind?:
     <div className="lib-card-media">{a.image && <img src={a.image} alt={a.imageAlt} loading="lazy" />}<span className="lib-card-index">{String(index + 1).padStart(2, '0')}</span></div>
     <div className="lib-card-body">
       <div className="lib-card-meta"><span>{a.category}</span><span>{formatDate(a.publishedOn)}</span></div>
-      <h3>{original?.h1 ?? a.title}</h3>
+      <h2>{original?.h1 ?? a.title}</h2>
       <p>{original?.description ?? a.summary}</p>
       <div className="lib-card-foot"><div>{!original && !live && <><StatusPill a={a} /><span className="review-date">Revisione: {a.review.reviewedAt ? formatDate(a.review.reviewedAt) : 'non registrata'}</span></>}{live && <span className="status-pill">Edizione attiva</span>}</div><span className="text-link">{live || original || a.reviewStatus === 'documentary-review' ? 'Leggi l’articolo' : 'Leggi la sintesi'}<ArrowRight size={13} /></span></div>
     </div>
@@ -103,10 +103,10 @@ export function GuidesPage() {
         <div className="guide-list">{guides.map((a, i) => <Link key={a.slug} href={withCampaignParams(articleHref(a.slug))} className="guide-row" data-testid={`card-guide-${a.slug}`}>
           <span className="guide-n">{String(i + 1).padStart(2, '0')}</span>
           <img src={a.image} alt={a.imageAlt} loading="lazy" />
-          <div><span className="guide-cat">{a.category}</span><h3>{a.title}</h3><p>{a.summary}</p></div>
+          <div><span className="guide-cat">{a.category}</span><h2>{a.title}</h2><p>{a.summary}</p></div>
           <div className="guide-side"><StatusPill a={a} /><ArrowRight size={18} /></div>
         </Link>)}</div>
-        <div className="portfolio-note" style={{ marginTop: 56 }}><div><h3>Cerchi un argomento diverso?</h3><p>L’archivio completo raccoglie tutti i 14 articoli storici, ciascuno con il proprio stato di revisione.</p></div><Link href={withCampaignParams(libraryHref('articles'))} className="text-link" data-testid="link-guides-archive">Tutti gli articoli<ArrowRight size={14} /></Link></div>
+        <div className="portfolio-note" style={{ marginTop: 56 }}><div><h2>Cerchi un argomento diverso?</h2><p>L’archivio completo raccoglie tutti i 14 articoli storici, ciascuno con il proprio stato di revisione.</p></div><Link href={withCampaignParams(libraryHref('articles'))} className="text-link" data-testid="link-guides-archive">Tutti gli articoli<ArrowRight size={14} /></Link></div>
       </div>
     </section>
   </>);

@@ -87,7 +87,7 @@ export function seoPreviewPlugin() {
             edition: route.edition ? { ...route.edition, ...rendered.metadata } : undefined, body: rendered.body, status: route.status,
             alternates: route.edition ? module.equivalentEditions(route.edition.id) : [],
             canonicalPath: route.edition ? module.canonicalEdition(route.edition).path : undefined,
-            structuredData: route.edition && original?.state !== 'awaiting-confirmation' ? module.editionStructuredData(route.edition, SEO_ORIGIN) : [],
+            structuredData: route.edition && (route.edition.kind === 'article' || original?.state !== 'awaiting-confirmation' || route.edition.approval) ? module.editionStructuredData(route.edition, SEO_ORIGIN) : [],
           });
           res.writeHead(route.status, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-cache' });
           return res.end(req.method === 'HEAD' ? undefined : withEditorialSnapshot(html, active));

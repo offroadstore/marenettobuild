@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import { homeMetadata } from '../src/localization/home-seo.mjs';
+import { searchCopy } from '../src/localization/search-copy.mjs';
 import { releaseMetadata, mergeActiveMetadata } from '../src/localization/public-seo.mjs';
 import { renderDocument } from './seo-document.mjs';
 import { publicEditions } from './public-release.mjs';
@@ -32,8 +33,9 @@ function check(html, label) {
 test('all twelve home editions have native search copy before JavaScript', () => {
   assert.equal(Object.keys(homeMetadata).length, 12);
   const titles = new Set(), descriptions = new Set();
-  for (const [locale, expected] of Object.entries(homeMetadata)) {
+  for (const locale of Object.keys(homeMetadata)) {
     const edition = { id: 'home', locale, path: locale === 'it' ? '/' : `/${locale}/`, title: 'Home | marenettobuild.com', description: 'Old generic description' };
+    const expected = searchCopy(edition);
     const html = renderDocument('<html><head><title>Old</title></head><body><div id="root"></div></body></html>', { edition, body: '<main><h1>Content</h1></main>' });
     const actual = check(html, locale);
     assert.equal(actual.title, expected.title);
@@ -41,18 +43,18 @@ test('all twelve home editions have native search copy before JavaScript', () =>
     titles.add(actual.title); descriptions.add(actual.description);
   }
   assert.equal(titles.size, 12); assert.equal(descriptions.size, 12);
-  assert.equal(homeMetadata.en.title, 'Renovation & Construction Company in Cefalù, Sicily | Marenetto Build');
-  assert.equal(homeMetadata.de.title, 'Bauunternehmen & Hausrenovierung in Cefalù, Sizilien | Marenetto Build');
+  assert.match(searchCopy({id:'home',locale:'en'}).title, /Construction and renovation/);
+  assert.match(searchCopy({id:'home',locale:'de'}).title, /Bauen und Hausrenovierung/);
 });
 
 test('shared metadata keeps specific live SEO and replaces generic historical core labels', () => {
   const entry = { id: 'home', locale: 'en', path: '/en/', title: 'Home | marenettobuild.com', description: '' };
   const [generic] = mergeActiveMetadata([entry], [{ path: entry.path, revisionId: 'test', content: { seoTitle: entry.title } }]);
-  assert.equal(releaseMetadata(generic).title, homeMetadata.en.title);
+  assert.equal(releaseMetadata(generic).title, searchCopy(entry).title);
   const [specific] = mergeActiveMetadata([entry], [{ path: entry.path, revisionId: 'test', content: { seoTitle: 'Renovating your house in Cefalù', seoDescription: 'Specific description approved by the owner.' } }]);
   assert.deepEqual(releaseMetadata(specific), { title: 'Renovating your house in Cefalù | Marenetto Build', description: 'Specific description approved by the owner.' });
   const core = { ...entry, id: 'process', title: 'About us | marenettobuild.com', coreMetadata: { title: 'How we work in Cefalù | Marenetto Build', description: 'Construction project planning and communication in Cefalù.' } };
-  assert.equal(releaseMetadata(core).title, core.coreMetadata.title);
+  assert.equal(releaseMetadata(core).title, searchCopy(core).title);
 });
 
 test('guides and search have localized metadata rather than Italian fallbacks', () => {
@@ -80,7 +82,7 @@ test('every served edition has complete initial HTML metadata; sitemap metadata 
         const row = { path: edition.path, locale: edition.locale, status: response.status };
         if (response.status === 200) {
           Object.assign(row, check(html, edition.path));
-          if (edition.id === 'home') assert.equal(row.title, homeMetadata[edition.locale].title);
+          if (edition.id === 'home') assert.equal(row.title, searchCopy(edition).title);
         } else assert.ok([301, 302, 307, 308, 404, 410, 503].includes(response.status), `${edition.path}: HTTP ${response.status}`);
         rows.push(row);
       }));

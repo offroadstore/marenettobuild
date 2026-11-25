@@ -700,3 +700,59 @@ mtime_ms = 1795622722415
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/e67cf674-7c0b-4ea1-b686-fd0b065dfa07/dbb6b8ef-20ca-41f0-b111-52c97cf91dbb"
 storage_version_token = "1795622757769270"
 content_type = "text/html"
+
+[[outputs]]
+id = "alNRMwd5o3rcx03FPZANT"
+uri = "file://generated-artifacts/global-seo/consegna/rapporto-seo.html"
+type = "html"
+title = "Rapporto SEO nelle dodici lingue"
+description = "699 URL, confronto prima/dopo, eccezioni editoriali e verifiche esterne residue."
+logical_id = "5f84794a-cf4b-4f71-bf4e-193138f2e183"
+content_hash = "sha256:718fdb6856bb5e58201a48df7adc437ffb62439bd4a0599a04690ece670f98ac"
+size = 520640
+mtime_ms = 1795626148011
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/5f84794a-cf4b-4f71-bf4e-193138f2e183/14b27c2e-5a88-4ca9-8d7a-3f743cea77e7"
+storage_version_token = "1795626229666348"
+content_type = "text/html"
+
+[[outputs]]
+id = "5Jh51TNpCPVLGw8PGqzpA"
+uri = "file://generated-artifacts/global-seo/consegna/prima.csv"
+type = "table"
+title = "Inventario SEO prima delle correzioni"
+description = "Metadati, immagini, struttura, link e CSP per ogni URL e lingua."
+logical_id = "18e9cc1e-9600-472b-941f-450121007f5b"
+content_hash = "sha256:d9279775a110dc6b4965dc0b88ea9996988a0f443e85fa5555c3c970118c0473"
+size = 2978901
+mtime_ms = 1795626147963
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/18e9cc1e-9600-472b-941f-450121007f5b/2f2b6a6a-ea71-4ac6-b2ef-884bdb635905"
+storage_version_token = "1795626230299828"
+content_type = "text/csv"
+
+[[outputs]]
+id = "YhEcTKylGIpfn2eisSHFv"
+uri = "file://generated-artifacts/global-seo/consegna/dopo.csv"
+type = "table"
+title = "Inventario SEO dopo le correzioni"
+description = "Risultati del candidato e motivazioni delle eccezioni editoriali."
+logical_id = "250b4a37-dfcc-4e3d-a086-cbaedf9c4417"
+content_hash = "sha256:af3e26b1a850aee7322ca08dce56844e7e5b860130c8ed130c2d923f039b23af"
+size = 2903052
+mtime_ms = 1795626147999
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/250b4a37-dfcc-4e3d-a086-cbaedf9c4417/459b4786-db33-48fb-83e6-112d1598d242"
+storage_version_token = "1795626230982291"
+content_type = "text/csv"
+
+[[outputs]]
+id = "M97vcYhlOYWNj8_s3a0ZA"
+uri = "file://generated-artifacts/global-seo/evidenze-seo.zip"
+type = "unspecified"
+title = "Archivio delle prove SEO"
+description = "Snapshot HTML prima/dopo, sitemap, inventari, prove client e CSV delle eccezioni."
+logical_id = "fc4f5efe-7db2-45a5-8e64-0c871ebaaf28"
+content_hash = "sha256:c578f0f31a2e351be6b29fc727a9dbf98dc9334dfaccf810017ad449f5dfaa99"
+size = 15139915
+mtime_ms = 1795626217522
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/fc4f5efe-7db2-45a5-8e64-0c871ebaaf28/e4c694f5-e994-4202-ba2b-4105cada704f"
+storage_version_token = "1795626231794160"
+content_type = "application/octet-stream"

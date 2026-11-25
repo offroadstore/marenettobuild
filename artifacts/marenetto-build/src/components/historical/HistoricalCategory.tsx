@@ -1,5 +1,8 @@
 import { ImageDisclosure } from '@/components/ImageDisclosure';
 import type { HistoricalCategory, CategoryGroup } from '@/content/historical-category';
+import { useContext } from 'react';
+import { LibraryLocale } from '@/localization/library-context';
+import { imageDescription } from '@/content/image-descriptions';
 
 const keyOf = (href: string) => href.replace(/[?#].*$/, '').replace(/\/+$/, '') || '/';
 const slug = (href: string) => keyOf(href).split('/').filter(Boolean).pop() ?? 'home';
@@ -18,6 +21,7 @@ function Secondary({ group, kind }: { group: CategoryGroup | null; kind: 'latest
 }
 
 export function HistoricalCategoryView({ data, h1, currentKey }: { data: HistoricalCategory; h1: string; currentKey: string }) {
+  const locale = useContext(LibraryLocale);
   const { breadcrumb, articles, emptyMessage, categories, latest, tags } = data;
   const single = articles.length === 1;
   const layout = articles.length === 0 ? 'empty' : single ? 'single' : 'grid';
@@ -56,7 +60,7 @@ export function HistoricalCategoryView({ data, h1, currentKey }: { data: Histori
           {articles.map((article, i) => <li key={article.href} className="mb-cat-card" data-testid={`card-category-article-${i}`}>
             {article.image
               ? <a className="mb-cat-card__media" href={article.href} tabIndex={-1} aria-hidden="true">
-                <img src={article.image} alt="" loading={i < 2 ? 'eager' : 'lazy'} decoding="async" />
+                <img src={article.image} alt={imageDescription(article.image, locale)} loading={i < 2 ? 'eager' : 'lazy'} decoding="async" />
               </a>
               : <div className="mb-cat-card__media mb-cat-card__media--plain" aria-hidden="true"><span>{String(i + 1).padStart(2, '0')}</span></div>}
             <div className="mb-cat-card__copy">

@@ -235,7 +235,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .process-step h3 { font-size:17px; font-weight:600; margin:24px 0 8px; letter-spacing:-.03em; }
 .process-step p { font-size:12px; line-height:1.75; color:#676d66; max-width:230px; margin:0; }
 .portfolio-note { display:grid; grid-template-columns:1fr auto; align-items:center; gap:24px; padding:28px 0; border-block:1px solid var(--line); }
-.portfolio-note h3 { margin:0 0 7px; font-size:17px; font-weight:600; }
+.portfolio-note h3, .portfolio-note h2 { margin:0 0 7px; font-size:17px; font-weight:600; }
 .portfolio-note p { margin:0; color:#6a7069; font-size:13px; }
 .portfolio-mark { color:var(--copper); font-family:var(--app-font-serif); font-size:38px; }
 .cta-panel { background:#e8dfd1; padding:52px; display:flex; align-items:center; justify-content:space-between; gap:30px; }
@@ -497,7 +497,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .lib-card-body { display:flex; flex-direction:column; flex:1; padding-top:18px; }
 .lib-card-meta { display:flex; flex-wrap:wrap; gap:6px 14px; justify-content:space-between; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#747970; }
 .lib-card-meta span:first-child { color:var(--copper); font-weight:700; }
-.lib-card h3 { font-size:20px; line-height:1.25; letter-spacing:-.04em; font-weight:600; margin:12px 0 10px; }
+.lib-card h3, .lib-card h2 { font-size:20px; line-height:1.25; letter-spacing:-.04em; font-weight:600; margin:12px 0 10px; }
 .lib-card p { color:#656b64; font-size:13px; line-height:1.7; margin:0 0 20px; }
 .lib-card-foot { margin-top:auto; display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; }
 .guide-list { border-top:1px solid var(--ink); }
@@ -506,7 +506,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .guide-row img { width:180px; aspect-ratio:3/2; object-fit:cover; filter:saturate(.85); }
 .guide-n { font-family:'Newsreader',serif; color:var(--copper); font-size:26px; padding-left:8px; }
 .guide-cat { font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--copper); font-weight:700; }
-.guide-row h3 { font-size:22px; letter-spacing:-.04em; font-weight:600; margin:8px 0; }
+.guide-row h3, .guide-row h2 { font-size:22px; letter-spacing:-.04em; font-weight:600; margin:8px 0; }
 .guide-row p { margin:0; color:#656b64; font-size:13px; line-height:1.7; max-width:560px; }
 .guide-side { display:flex; flex-direction:column; align-items:flex-end; gap:16px; color:var(--copper); padding-right:8px; }
 .search-hero h1 { margin-bottom:34px; }

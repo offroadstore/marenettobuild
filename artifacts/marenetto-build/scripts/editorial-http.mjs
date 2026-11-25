@@ -56,9 +56,17 @@ export function withEditorialSnapshot(html, active) {
   return html.replace('</head>', `<script type="application/json" id="editorial-active">${JSON.stringify(active).replaceAll('<','\\u003c')}</script></head>`);
 }
 export function editorialDocument(template, rendered, edition, active, status = 200) {
-  const selected = edition && { ...edition, title: edition.content.seoTitle || edition.content.title, description: edition.content.seoDescription || edition.content.summary, ...rendered.metadata, state: 'reviewed' };
+  const selected = edition && { ...edition, title: edition.content.seoTitle || edition.content.title, description: edition.content.seoDescription || edition.content.summary, ...rendered.metadata,
+    activeSeoTitle: Boolean(edition.content.seoTitle?.trim()),
+    activeSeoDescription: Boolean(edition.content.seoDescription?.trim()), state: 'reviewed' };
+  const canonical = edition && new URL(edition.path, 'https://www.marenettobuild.com').href;
+  const structuredData = status === 200 && edition?.kind === 'article' ? [{
+    '@type':'Article', '@id':`${canonical}#article`, url:canonical, mainEntityOfPage:canonical,
+    headline:edition.content.title, inLanguage:edition.content.contentLanguage || edition.locale,
+    ...(edition.content.image ? { image:new URL(edition.content.image, canonical).href } : {}),
+  }] : [];
   // Remain noindex. Editorial approval is deliberately not release approval;
   // dynamic editions are not automatically added to hreflang or sitemap.
-  return withEditorialSnapshot(renderDocument(template, { edition: status === 200 ? selected : undefined, body: rendered.body, status }), active);
+  return withEditorialSnapshot(renderDocument(template, { edition: status === 200 ? selected : undefined, body: rendered.body, status, structuredData }), active);
 }
 export const key = path => { try { return decodeURIComponent(path).replace(/\/+$/, '') || '/'; } catch { return path; } };

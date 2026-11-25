@@ -5,6 +5,7 @@ import { canonicalEdition, type Edition } from '@/localization/edition-inventory
 import { serviceCopy } from '@/content/service-offers';
 import { localBuildingArea } from '@/config/service-area';
 import { propertyCopy } from '@/content/property-management';
+import { historicalInventory, historicalDocument, historicalLoaded } from '@/content/historical';
 
 export function editionStructuredData(edition: Edition, origin: string) {
   const canonical = new URL(canonicalEdition(edition).path, origin).href;
@@ -46,11 +47,20 @@ export function editionStructuredData(edition: Edition, origin: string) {
       })),
     });
   }
-  if (article && edition.locale === 'it' && edition.state === 'published') graph.push({
-    '@type': 'Article', headline: article.title, inLanguage: 'it', mainEntityOfPage: canonical,
-    publisher: { '@id': `${origin}/#organization` }, image: new URL(article.image, origin).href,
-    ...(article.publishedOn ? { datePublished: article.publishedOn } : {}),
-  });
+  if (edition.kind === 'article') {
+    const historical = historicalInventory.find(page => page.path === edition.path);
+    const document = historical && historicalLoaded(historical.locale) ? historicalDocument(historical) : undefined;
+    const image = document?.image ?? article?.image;
+    const date = document?.publishedOn ?? article?.publishedOn;
+    graph.push({
+      '@type': 'Article', '@id': `${canonical}#article`,
+      headline: historical?.h1 ?? article?.title ?? edition.title.split(' | ')[0],
+      inLanguage: edition.contentLanguage, mainEntityOfPage: canonical, url: canonical,
+      publisher: { '@id': `${origin}/#organization` },
+      ...(image ? { image: new URL(image, origin).href } : {}),
+      ...(date && /^\d{4}-\d{2}-\d{2}(?:T.*)?$/.test(date) ? { datePublished: date } : {}),
+    });
+  }
   const p3 = edition.source.startsWith('phase3') ? phase3PageByPath(edition.path) : undefined;
   if (p3?.kind === 'furniture') {
     const f = PHASE3_COPY[p3.locale]!.furniture;
