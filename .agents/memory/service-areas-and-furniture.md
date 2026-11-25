@@ -48,7 +48,8 @@ agreements. The owner additionally authorises one named partner,
 CefaluApartments.it, for specialist short-term rental management.
 
 **Why:** The owner first authorised categories only, then confirmed
-CefaluApartments.it as a same-ownership specialist partner active since 2008.
+CefaluApartments.it as a same-ownership specialist partner. The later clarification
+attaches 2008 to the owner's personal experience, not the partner's founding date.
 This exception does not authorise other named partners.
 
 **How to apply:** Describe coordination positively, never client exchanges or

@@ -686,3 +686,17 @@ mtime_ms = 1795505497648
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/37a8e7ca-3b91-4da0-bcbd-e47c68738b19/23f091f0-0499-431f-a6c6-abf796b02159"
 storage_version_token = "1795505590739888"
 content_type = "text/csv"
+
+[[outputs]]
+id = "fd5UQUE3P6-s76nX28d0g"
+uri = "file://docs/property-management-delivery.html"
+type = "html"
+title = "Gestione immobili — Registro fonti, URL e verifiche"
+description = "Riepilogo in italiano con fatti autorizzati, dodici URL, punti di ingresso, controlli superati e limiti della verifica."
+logical_id = "e67cf674-7c0b-4ea1-b686-fd0b065dfa07"
+content_hash = "sha256:f9af8ba75e80914e7b707ef61c524c32eb44c13040eea37eda83ed15d58aca83"
+size = 11002
+mtime_ms = 1795622722415
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/e67cf674-7c0b-4ea1-b686-fd0b065dfa07/dbb6b8ef-20ca-41f0-b111-52c97cf91dbb"
+storage_version_token = "1795622757769270"
+content_type = "text/html"

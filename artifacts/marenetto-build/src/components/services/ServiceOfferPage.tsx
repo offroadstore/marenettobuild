@@ -4,6 +4,7 @@ import { offerPath, requestPath, serviceCopy, localAreaNotes } from '@/content/s
 import { SERVED_PLACES } from '@/content/phase3/places';
 import { withCampaignParams } from '@/lib/campaign';
 import './service-offer.css';
+import { PropertyManagementLink } from '@/pages/property-management';
 
 function copyFor(lang: string) {
   const copy = serviceCopy[lang];
@@ -112,6 +113,7 @@ export function ServiceOfferPage({ lang }: { lang: string }) {
         </>
       )}
 
+      {isLocal && <PropertyManagementLink locale={lang} />}
       <section className="mbh-strip">
         <div className="mbh-wrap mbh-strip__inner">
           <p className="mbh-strip__title">{title}</p>

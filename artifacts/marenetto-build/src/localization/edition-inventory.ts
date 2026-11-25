@@ -12,6 +12,7 @@ import { SERVICE_LOCALES, serviceCopy, offerPath } from '@/content/service-offer
 import { legalPath, noticeCopy } from '@/content/legal-notices';
 import { legalPages } from '@/content/legal';
 import { PHASE3_PAGES } from '@/content/phase3';
+import { PROPERTY_PAGES } from '@/content/property-management';
 
 export type EditionState = 'draft' | 'translated' | 'reviewed' | 'published';
 export type Edition = {
@@ -160,6 +161,14 @@ for (const edition of editions) {
     if (edition.translationRevision) edition.translationApprovalRevision = edition.translationRevision;
   }
 }
+for (const page of PROPERTY_PAGES) {
+  if (editions.some(edition => edition.path.replace(/\/+$/, '') === page.path.replace(/\/+$/, ''))) {
+    throw new Error(`Property service route collision: ${page.path}`);
+  }
+  editions.push({ ...page, kind: 'core', contentLanguage: page.locale, state: 'published',
+    approval: 'Owner-authorized property-management service prepared for republish; no independent business or native-speaker certification',
+    source: 'property-management:owner-declarations', sitemap: true });
+}
 export const editionByPath = new Map(editions.map(edition => [edition.path, edition]));
 export function editionDisplayStatus(edition: Edition) {
   if (edition.translationRevision) return edition.approval ? '' : 'Traduzione confrontata · da approvare';
@@ -172,6 +181,7 @@ export function getEdition(locale: string, id: string) {
   return editions.find(edition => edition.locale === locale && edition.id === id);
 }
 export function reviewPathForEdition(edition: Edition) {
+  if (edition.id === 'property-management') return edition.path;
   if (edition.source.startsWith('phase3:') || edition.source.startsWith('phase4:')) return edition.path;
   if (translationCandidate(edition.path)) return edition.path;
   if (edition.source.startsWith('phase3')) return edition.path;

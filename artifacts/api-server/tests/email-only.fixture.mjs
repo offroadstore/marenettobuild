@@ -118,7 +118,9 @@ test('email-only route never imports storage, confirms only SMTP acceptance, and
   app.use(router);
   const server = app.listen(0, '127.0.0.1'); await once(server, 'listening');
   const origin = `http://127.0.0.1:${server.address().port}`;
-  const input = { requestType: 'project', propertyType: 'house', service: 'renovation',
+  // The property-management page reuses this existing broad service code.
+  // Exercise that preselection through the actual route with SMTP replaced.
+  const input = { requestType: 'project', propertyType: 'house', service: 'property_care',
     location: 'Test', projectStage: 'planning', name: 'Synthetic Test', email: 'synthetic@example.invalid',
     preferredChannel: 'email', message: 'Synthetic email-only verification message.',
     preferredLanguage: 'ar', needsAccommodation: false, needsMobility: true, privacyAccepted: true,

@@ -57,6 +57,10 @@ import { LegalNoticePage } from '@/pages/legal-notice';
 import { noticeCopy, legalPath, type LegalKind } from '@/content/legal-notices';
 import { discloseHTMLImages } from '@/config/image-provenance';
 import { InformationMetadata } from '@/components/InformationMetadata';
+import { propertyCopy, propertyPageByPath, propertyPath } from '@/content/property-management';
+import { PropertyManagementPage, PropertyManagementLink } from '@/pages/property-management';
+import '@/styles/property-navigation.css';
+import { requestServiceSelection } from '@/lib/request-service';
 
 const queryClient = new QueryClient();
 // Restored historical pages have state "reviewed", not a new publication
@@ -347,7 +351,9 @@ function Header({ lang, page, articleSlug, editionId }: { lang: Lang; page: Page
       </Link>
       <nav className="nav-links" aria-label={lang === 'it' ? 'Navigazione principale' : 'Main navigation'}>
         <WhatsAppNavLink lang={lang} />
-        {desktopItems.slice(0, 2).map(([key, label]) => <PageLink key={key} page={key} lang={lang} aria-current={page === key ? 'page' : undefined} data-testid={`nav-${key}`}>{label}</PageLink>)}
+        {desktopItems.slice(0, 2).map(([key, label]) => key === 'services' && propertyCopy[lang]
+          ? <div className="property-services-nav" key={key}><PageLink page={key} lang={lang} aria-current={page === key ? 'page' : undefined} data-testid={`nav-${key}`}>{label}</PageLink><details><summary aria-label={label}><ChevronDown size={14} aria-hidden="true" /></summary><div className="property-services-menu"><Link href={withCampaignParams(propertyPath(lang))} data-testid="nav-property-management">{propertyCopy[lang].nav}</Link></div></details></div>
+          : <PageLink key={key} page={key} lang={lang} aria-current={page === key ? 'page' : undefined} data-testid={`nav-${key}`}>{label}</PageLink>)}
         {historicalArticleMenu(lang) && <ArticleNav lang={lang} variant="desktop" />}
         <PageLink page="contact" lang={lang} aria-current={page === 'contact' ? 'page' : undefined} data-testid="nav-contact">{c.contact}</PageLink>
       </nav>
@@ -378,6 +384,7 @@ function Header({ lang, page, articleSlug, editionId }: { lang: Lang; page: Page
       {items.map(([key, label]) => key === 'articles'
         ? <ArticleNav key={key} lang={lang} variant="mobile" onNavigate={() => setMenuOpen(false)} />
         : <PageLink key={key} page={key} lang={lang} onClick={() => setMenuOpen(false)} data-testid={`mobile-nav-${key}`}>{label}</PageLink>)}
+      {propertyCopy[lang] && <Link href={withCampaignParams(propertyPath(lang))} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-property-management">{propertyCopy[lang].nav}</Link>}
       <PageLink page="guides" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-guides">{lang === 'it' ? 'Guide pratiche' : 'Practical guides'}</PageLink>
       <PageLink page="search" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-search">{lang === 'it' ? 'Ricerca' : 'Search'}</PageLink>
       <a href={telHref} data-testid="mobile-nav-phone">{COMPANY_PHONE.display}</a>
@@ -406,6 +413,7 @@ function Footer({ lang }: { lang: Lang }) {
     <div className="container">
       <div className="footer-top">
         <div><h3>{it ? 'Esplora' : 'Explore'}</h3><div className="footer-links">
+          {propertyCopy[lang] && <Link href={withCampaignParams(propertyPath(lang))}>{propertyCopy[lang].nav}</Link>}
           {serviceCopy[lang] && <><Link href={withCampaignParams(offerPath(lang, 'local'))}>{serviceCopy[lang].localTitle}</Link><Link href={withCampaignParams(offerPath(lang, 'premium'))}>{serviceCopy[lang].premiumTitle}</Link></>}
           <PageLink lang={lang} page="services">{it ? 'Servizi' : 'Services'}</PageLink>
           <PageLink lang={lang} page="process">{it ? 'Come lavoriamo' : 'How we work'}</PageLink>
@@ -528,6 +536,7 @@ function HomePage({ lang }: { lang: Lang }) {
     </section>)}
 
     <TravelIndexBlock locale={lang} />
+    <PropertyManagementLink locale={lang} />
 
     {localizeNode(lang, <section className="mbh-strip" data-testid="section-contact-strip" aria-labelledby="mbh-strip-title">
       <div className="mbh-wrap mbh-strip__inner">
@@ -620,7 +629,7 @@ function ServicesPage({ lang }: { lang: Lang }) {
       </div>
     </section>
     <section className="section tight" id="contatti" data-testid="anchor-contatti"><div className="container"><CtaPanel lang={lang} title={it ? 'Hai in mente un intervento?' : 'Have a project in mind?'} text={it ? 'Raccontaci la tua idea: capiremo insieme se e come possiamo aiutarti.' : 'Tell us what you have in mind and we can see together whether and how we can help.'} /></div></section>
-  </>)}<TravelCoverageBlock locale={lang} /></>;
+  </>)}<PropertyManagementLink locale={lang} /><TravelCoverageBlock locale={lang} /></>;
 }
 
 function ProcessPage({ lang }: { lang: Lang }) {
@@ -644,6 +653,7 @@ function AbroadPage({ lang }: { lang: Lang }) {
   const it = lang === 'it';
   return localizeNode(lang, <>
     <PageHero lang={lang} page="abroad" />
+    <PropertyManagementLink locale={lang} />
     <section className="section">
       <div className="container editorial-grid">
         <aside className="editorial-aside"><SectionLabel>{it ? 'La tua casa, anche da lontano' : 'Your home, from a distance'}</SectionLabel><h2 className="section-heading display-title">{data.heading}</h2><p className="section-intro">{data.intro}</p></aside>
@@ -686,6 +696,7 @@ const initialForm = (lang: Lang): RequestFormState => ({ requestType: 'project',
 function RequestPage({ lang, editorial = false }: { lang: Lang; editorial?: boolean }) {
   const text = (italian: string, english: string) => localizeChoice(lang, italian, english);
   const [form, setForm] = useState<RequestFormState>(() => initialForm(lang));
+  const [propertyIntent, setPropertyIntent] = useState(false);
   const [review, setReview] = useState(false);
   const [receipt, setReceipt] = useState<boolean>(false);
   const create = useCreateProjectRequest({ mutation: { gcTime: 0, retry: false } });
@@ -695,10 +706,9 @@ function RequestPage({ lang, editorial = false }: { lang: Lang; editorial?: bool
   const companyWebsite = useRef<HTMLInputElement>(null);
   useEffect(() => {
     openedAt.current = Date.now();
-    const offer = new URLSearchParams(window.location.search).get('service');
-    if (offer === 'bespoke-furniture' || offer === 'local-building') {
-      setForm(old => ({ ...old, service: offer === 'bespoke-furniture' ? 'bespoke-furniture' : 'renovation' }));
-    }
+    const service = requestServiceSelection(window.location.search);
+    setPropertyIntent(service === 'property_care');
+    if (service) setForm(old => ({ ...old, service }));
   }, [lang]);
   const update = (key: keyof RequestFormState, value: string | boolean) => { keyRef.current = crypto.randomUUID(); setForm(old => ({ ...old, [key]: value } as RequestFormState)); };
   const field = (key: keyof RequestFormState, label: string, opts: { required?: boolean; placeholder?: string; type?: string; full?: boolean; minLength?: number; maxLength?: number } = {}) => <div className={`field${opts.full ? ' full' : ''}`}>
@@ -743,6 +753,7 @@ function RequestPage({ lang, editorial = false }: { lang: Lang; editorial?: bool
       <div className="container request-layout">
         <aside className="request-aside"><SectionLabel>{text('Un buon punto di partenza', 'A useful place to start')}</SectionLabel><h2 className="display-title">{text('Con calma, con i dettagli che hai.', 'No rush. Share what you know.')}</h2><p>{text('La richiesta viene inviata via email a info@marenetto.com. Il sito non salva i dati del modulo nel database. In anteprima l’invio email è disabilitato: non inserire dati personali reali.', 'Your enquiry is emailed to info@marenetto.com. The site does not save form data in its database. Email sending is disabled in preview: do not enter real personal details.')}</p><p>{text('Puoi anche scrivere a info@marenetto.com, chiamare o inviare un messaggio WhatsApp al numero aziendale.', 'You can also email info@marenetto.com, call or send a WhatsApp message to the company number.')}</p><div className="language-note">{text('Puoi indicare una lingua preferita fra quelle richieste; la risposta automatica non è ancora attiva.', 'You can select any requested language; automated replies are not active yet.')}</div></aside>
         <div>
+          {propertyIntent && form.service === 'property_care' && propertyCopy[lang] && <p role="status" lang={lang} data-testid="property-service-selection">{propertyCopy[lang].selectedService}</p>}
           <form className="form-card" ref={formRef} onSubmit={submitRequest} noValidate={false}
             onInputCapture={event => {
               const field = event.target;
@@ -1016,6 +1027,8 @@ function Router() {
   if (legal?.path === '/cookie') return <InformationShell lang="it"><LegalNoticePage lang="it" kind="cookies" /></InformationShell>;
   if (legal) return <div className="site-shell" lang="it" dir="ltr"><Header lang="it" page="contact" editionId={legal.path.slice(1)} /><LegalContents content={legal} /><Footer lang="it" /></div>;
   const phase3 = phase3PageByPath(path);
+  const property = propertyPageByPath(path);
+  if (property) return <LocaleGate lang={property.locale}><div className="site-shell" lang={property.locale} dir={getLocaleDirection(property.locale)}><InformationMetadata lang={property.locale} /><Header lang={property.locale} page="services" editionId={property.id} /><PropertyManagementPage locale={property.locale} /><Footer lang={property.locale} /></div></LocaleGate>;
   if (phase3) return <LocaleGate lang={phase3.locale as Lang}><div className="site-shell" lang={phase3.locale} dir={getLocaleDirection(phase3.locale)}><Header lang={phase3.locale as Lang} page="home" editionId={phase3.id} /><Phase3Content page={phase3} /><Footer lang={phase3.locale as Lang} /></div></LocaleGate>;
   const candidate = translationCandidate(path);
   if (candidate && translationSourceChanged(candidate, active)) return <div className="site-shell" lang={lang}><main className="container section">

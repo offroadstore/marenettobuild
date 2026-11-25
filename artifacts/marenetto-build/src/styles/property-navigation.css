@@ -1,0 +1,6 @@
+.property-services-nav { display:flex; align-items:center; gap:.25rem; position:relative; }
+.property-services-nav summary { cursor:pointer; list-style:none; display:flex; padding:.6rem .3rem; }
+.property-services-nav summary::-webkit-details-marker { display:none; }
+.property-services-nav summary:focus-visible { outline:2px solid currentColor; outline-offset:3px; }
+.property-services-menu { position:absolute; top:100%; left:0; width:19rem; max-width:85vw; padding:1rem; background:var(--background,#fff); color:var(--foreground,#172c39); border:1px solid #d8d3cd; box-shadow:0 .5rem 1rem #0001; z-index:30; }
+.property-services-menu a { display:block; white-space:normal; }

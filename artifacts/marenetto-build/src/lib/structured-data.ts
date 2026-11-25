@@ -4,6 +4,7 @@ import { PHASE3_COPY, TRAVEL_COPY, phase3PageByPath } from '@/content/phase3';
 import { canonicalEdition, type Edition } from '@/localization/edition-inventory';
 import { serviceCopy } from '@/content/service-offers';
 import { localBuildingArea } from '@/config/service-area';
+import { propertyCopy } from '@/content/property-management';
 
 export function editionStructuredData(edition: Edition, origin: string) {
   const canonical = new URL(canonicalEdition(edition).path, origin).href;
@@ -13,6 +14,21 @@ export function editionStructuredData(edition: Edition, origin: string) {
     { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Marenetto Build', item: `${origin}/` }, ...(edition.path === '/' ? [] : [{ '@type': 'ListItem', position: 2, name: edition.title.split(' | ')[0], item: canonical }])] },
   ];
   const article = articleBySlug.get(edition.id);
+  if (edition.id === 'property-management') {
+    const text = propertyCopy[edition.locale];
+    const partner = 'https://www.cefaluapartments.it/#organization';
+    graph.push({ '@type': 'Organization', '@id': partner, name: 'Cefalù Apartments', url: 'https://www.cefaluapartments.it/' });
+    graph.push({
+      '@type': 'Service', '@id': `${canonical}#service`, url: canonical, inLanguage: edition.locale,
+      name: text.h1, description: text.intro,
+      provider: { '@id': `${origin}/#organization` },
+      areaServed: { '@type': 'Place', name: 'Cefalù e paesi limitrofi' },
+      subjectOf: { '@type': 'WebPage', '@id': canonical, url: canonical, about: { '@id': partner },
+        description: `${text.splitBuild.join(': ')} ${text.splitPartner.join(': ')}` },
+    });
+    graph.push({ '@type': 'FAQPage', '@id': `${canonical}#faq`, inLanguage: edition.locale,
+      mainEntity: text.faq.map(([name, answer]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text: answer } })) });
+  }
   if (edition.id === 'service-premium' || edition.id === 'service-local') {
     const text = serviceCopy[edition.locale];
     const premium = edition.id === 'service-premium';
