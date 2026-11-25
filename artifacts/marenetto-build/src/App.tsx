@@ -63,6 +63,8 @@ import '@/styles/property-navigation.css';
 import { requestServiceSelection } from '@/lib/request-service';
 import { NetworkPage, NetworkServicesBlock } from '@/pages/network';
 import { AtelierPage, AtelierLink } from '@/pages/atelier';
+import { ProfessionalsPage, ProfessionalDownloadsPage } from '@/pages/professionals';
+import { professionalCopy, professionalPath, professionalPageByPath } from '@/content/professionals';
 import { atelierCopy, atelierPageByPath, atelierPath } from '@/content/atelier';
 import { ARABIC_PREVIEW_PREFIX } from '@/localization/arabic-release';
 import { ARABIC_EDITORIAL_ARTICLES, arabicEditorialByPath, arabicEditorialPath } from '@/content/arabic-editorial';
@@ -363,7 +365,7 @@ function Header({ lang, page, articleSlug, editionId }: { lang: Lang; page: Page
       <nav className="nav-links" aria-label={lang === 'it' ? 'Navigazione principale' : 'Main navigation'}>
         <WhatsAppNavLink lang={lang} />
         {desktopItems.slice(0, 2).map(([key, label]) => key === 'services' && propertyCopy[lang]
-          ? <div className="property-services-nav" key={key}><PageLink page={key} lang={lang} aria-current={page === key ? 'page' : undefined} data-testid={`nav-${key}`}>{label}</PageLink><details><summary aria-label={label}><ChevronDown size={14} aria-hidden="true" /></summary><div className="property-services-menu"><Link href={withCampaignParams(propertyPath(lang))} data-testid="nav-property-management">{propertyCopy[lang].nav}</Link>{atelierCopy[lang] && <Link href={withCampaignParams(atelierPath(lang))} data-testid="nav-atelier">{atelierCopy[lang].nav}</Link>}</div></details></div>
+          ? <div className="property-services-nav" key={key}><PageLink page={key} lang={lang} aria-current={page === key ? 'page' : undefined} data-testid={`nav-${key}`}>{label}</PageLink><details><summary aria-label={label}><ChevronDown size={14} aria-hidden="true" /></summary><div className="property-services-menu"><Link href={withCampaignParams(propertyPath(lang))} data-testid="nav-property-management">{propertyCopy[lang].nav}</Link>{atelierCopy[lang] && <Link href={withCampaignParams(atelierPath(lang))} data-testid="nav-atelier">{atelierCopy[lang].nav}</Link>}{professionalCopy[lang] && <Link href={withCampaignParams(professionalPath(lang))} data-testid="nav-professionals">{professionalCopy[lang].nav}</Link>}</div></details></div>
           : <PageLink key={key} page={key} lang={lang} aria-current={page === key ? 'page' : undefined} data-testid={`nav-${key}`}>{label}</PageLink>)}
         {historicalArticleMenu(lang) && <ArticleNav lang={lang} variant="desktop" />}
         <PageLink page="contact" lang={lang} aria-current={page === 'contact' ? 'page' : undefined} data-testid="nav-contact">{c.contact}</PageLink>
@@ -397,12 +399,13 @@ function Header({ lang, page, articleSlug, editionId }: { lang: Lang; page: Page
         : <PageLink key={key} page={key} lang={lang} onClick={() => setMenuOpen(false)} data-testid={`mobile-nav-${key}`}>{label}</PageLink>)}
       {propertyCopy[lang] && <Link href={withCampaignParams(propertyPath(lang))} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-property-management">{propertyCopy[lang].nav}</Link>}
       {propertyCopy[lang] && atelierCopy[lang] && <Link href={withCampaignParams(atelierPath(lang))} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-atelier">{atelierCopy[lang].nav}</Link>}
+      {professionalCopy[lang] && <Link href={withCampaignParams(professionalPath(lang))} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-professionals">{professionalCopy[lang].nav}</Link>}
       <PageLink page="guides" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-guides">{lang === 'it' ? 'Guide pratiche' : 'Practical guides'}</PageLink>
       <PageLink page="search" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-search">{lang === 'it' ? 'Ricerca' : 'Search'}</PageLink>
       <a href={telHref} data-testid="mobile-nav-phone">{COMPANY_PHONE.display}</a>
       <PageLink page="request" lang={lang} className="button" onClick={() => setMenuOpen(false)}>{requestLabel}<ArrowRight size={14} /></PageLink>
     </nav>}
-    <MobileContactBar hidden={menuOpen || languageMenuOpen} callLabel={localizeChoice(lang, 'Chiama', 'Phone')} writeLabel={localizeChoice(lang, 'Scrivici', 'Email')}
+    <MobileContactBar hidden={menuOpen || languageMenuOpen || editionId === 'professionals' || editionId === 'professional-downloads'} callLabel={localizeChoice(lang, 'Chiama', 'Phone')} writeLabel={localizeChoice(lang, 'Scrivici', 'Email')}
       emailHref={emailHref(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))} />
   </header>);
 }
@@ -427,6 +430,7 @@ function Footer({ lang }: { lang: Lang }) {
         <div><h3>{it ? 'Esplora' : 'Explore'}</h3><div className="footer-links">
           {propertyCopy[lang] && <Link href={withCampaignParams(propertyPath(lang))}>{propertyCopy[lang].nav}</Link>}
           {propertyCopy[lang] && atelierCopy[lang] && <Link href={withCampaignParams(atelierPath(lang))} data-testid="link-footer-atelier">{atelierCopy[lang].nav}</Link>}
+          {professionalCopy[lang] && <Link href={withCampaignParams(professionalPath(lang))} data-testid="link-footer-professionals">{professionalCopy[lang].nav}</Link>}
           {serviceCopy[lang] && <><Link href={withCampaignParams(offerPath(lang, 'local'))}>{serviceCopy[lang].localTitle}</Link><Link href={withCampaignParams(offerPath(lang, 'premium'))}>{serviceCopy[lang].premiumTitle}</Link></>}
           <PageLink lang={lang} page="services">{it ? 'Servizi' : 'Services'}</PageLink>
           <PageLink lang={lang} page="process">{it ? 'Come lavoriamo' : 'How we work'}</PageLink>
@@ -1058,6 +1062,8 @@ function Router({ pathOverride }: { pathOverride?: string } = {}) {
   const phase3 = phase3PageByPath(path);
   const property = propertyPageByPath(path);
   const atelier = atelierPageByPath(path);
+  const pro = professionalPageByPath(path);
+  if (pro) return <LocaleGate lang={pro.locale}><div className="site-shell" lang={pro.locale} dir={getLocaleDirection(pro.locale)}><InformationMetadata lang={pro.locale} /><Header lang={pro.locale} page="services" editionId={pro.id} /><WhatsAppAccess lang={pro.locale} />{pro.id === 'professionals' ? <ProfessionalsPage locale={pro.locale} /> : <ProfessionalDownloadsPage locale={pro.locale} />}<CallRequestAccess lang={pro.locale} page="services" /><Footer lang={pro.locale} /></div></LocaleGate>;
   if (atelier) return <LocaleGate lang={atelier.locale}><div className="site-shell" lang={atelier.locale} dir={getLocaleDirection(atelier.locale)}><InformationMetadata lang={atelier.locale} /><Header lang={atelier.locale} page="services" editionId={atelier.id} /><WhatsAppAccess lang={atelier.locale} /><AtelierPage locale={atelier.locale} /><CallRequestAccess lang={atelier.locale} page="services" /><Footer lang={atelier.locale} /></div></LocaleGate>;
   if (property) return <LocaleGate lang={property.locale}><div className="site-shell" lang={property.locale} dir={getLocaleDirection(property.locale)}><InformationMetadata lang={property.locale} /><Header lang={property.locale} page="services" editionId={property.id} /><PropertyManagementPage locale={property.locale} /><Footer lang={property.locale} /></div></LocaleGate>;
   if (phase3) return <LocaleGate lang={phase3.locale as Lang}><div className="site-shell" lang={phase3.locale} dir={getLocaleDirection(phase3.locale)}><Header lang={phase3.locale as Lang} page="home" editionId={phase3.id} /><Phase3Content page={phase3} /><Footer lang={phase3.locale as Lang} /></div></LocaleGate>;

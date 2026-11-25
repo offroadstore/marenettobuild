@@ -25,7 +25,8 @@ Fonte: `lib/api-spec/openapi.yaml`; rigenerare con
 - `GET /api/call-requests/config`: modalità sintetica e versione informativa;
   il modulo attende questa lettura prima di consentire l'invio.
 - `GET /api/internal/call-requests`: filtri start/end inclusivi (giorni UTC),
-  language (lingua preferita, altrimenti del modulo), project, status.
+  language (lingua preferita, altrimenti del modulo), project, country, status,
+  intent e professionalProjectType.
 - `GET /api/internal/call-requests/export`: stessi filtri, CSV privato
   con neutralizzazione formule, anche per valori con spazi/caratteri di controllo.
 - `PATCH /api/internal/call-requests/:id`: stato, note e indicatore esplicito
@@ -65,7 +66,7 @@ L'invio usa la configurazione Aruba esistente, senza modificare il comportamento
 delle vecchie richieste. Il destinatario della nuova notifica è fisso:
 **info@marenetto.com**. Contiene dati della scheda, consensi, data server e link
 WhatsApp; se WhatsApp non è autorizzato viene indicato di non usarlo. La conferma
-cliente è transazionale, nelle dodici lingue del modulo, non è un'iscrizione
+cliente è transazionale, nelle tredici lingue del modulo, non è un'iscrizione
 marketing e non promette risposta da personale che parli quella lingua.
 Usa la lingua preferita, se indicata, altrimenti la lingua del modulo; la lingua
 del consenso resta quella effettiva dell'informativa visualizzata.
@@ -96,7 +97,8 @@ I test sostituiscono il trasporto con una funzione locale: nessuna email reale
 ## Conservazione e cancellazione
 
 All'avvio del processo API e ogni minuto PostgreSQL elimina le richieste
-anteriori a `now() - interval '24 months'`, salvo `acquiredCustomer = true`.
+anteriori a `now() - interval '12 months'`, salvo `acquiredCustomer = true`
+che identifica esclusivamente un rapporto contrattuale effettivo.
 Non si usa una stima in giorni e lo stato commerciale non influenza la deroga.
 Lo stesso indicatore può essere corretto dal titolare; se viene tolto a una
 scheda già scaduta, la successiva manutenzione la elimina.
@@ -136,9 +138,9 @@ integrazione futura deve usare il runtime isolato e un'informativa/consenso
 adeguati, non iniettare script nel contesto autenticato principale.
 Non vengono accodate conversioni negate da recuperare dopo un consenso futuro.
 
-L'addendum chiamate è separato e versionato (`call-2026-11-23`), visibile prima
-dell'invio e richiamabile dal footer nelle dodici lingue IT/EN/DE/FR/ES/NL/PT/PL/
-RU/SV/NO/DA. Non sostituisce né approva le informative generali oggetto di altro
+L'addendum chiamate è separato e versionato (`call-2026-11-25-professional`), visibile prima
+dell'invio e richiamabile dal footer nelle tredici lingue IT/EN/DE/FR/ES/NL/PT/PL/
+RU/SV/NO/DA/AR. Non sostituisce né approva le informative generali oggetto di altro
 lavoro: nessuna dichiarazione inventata di identità legale, sede, hosting,
 fornitori approvati o localizzazione dei dati. La revisione linguistica e legale
 del titolare resta distinta dalla verifica funzionale e i blocchi esistenti
@@ -152,7 +154,7 @@ smonta schema e server alla fine. I test sostituiscono autenticazione, trasporto
 e inventario percorsi solo nel bundle di test; nessuna porta di test o bypass
 è presente nell'app distribuita. Copre validazioni/consensi, honeypot, salvataggio
 concorrente/idempotenza, limiti persistenti, 401/403, filtri, note/acquisizione,
-CSV, email simulate in dodici lingue, errori/interruzioni, conservazione e
+CSV, email simulate in tredici lingue, errori/interruzioni, conservazione e
 cancellazione. Comprende i test di preparazione conversioni e blocco senza
 consenso/configurazione.
 
@@ -186,3 +188,42 @@ a cura del proprietario dopo merge e controlli di rilascio.
 - Resi leggibili anche su mobile i selettori dei filtri interni.
 - Nessuna email reale inviata, nessun flag/secret modificato, nessuna
   pubblicazione eseguita.
+
+## Richieste di studi professionali
+
+La sezione per architetti e interior designer riutilizza queste stesse API,
+tabella, autorizzazioni e consegna email: non è un secondo archivio lead.
+Il progetto `professional_studio` richiede il paese già esistente e un oggetto
+`professional` con studio, tipo progetto (villa/hotel/resort/yacht/other), fase,
+prodotto, materiale, misure/disegni descritti in testo, scadenza e uno o entrambi
+gli intenti `samples` e `block_selection`. Il budget resta facoltativo. I testi
+preliminari possono dire «da definire». Non sono caricati file e nessun URL
+presente nelle descrizioni viene scaricato dal server.
+
+Il contratto generato controlla tipi, limiti e categorie. Il servizio controlla
+anche i campi vuoti dopo il trim, gli intenti ripetuti e l'assenza di un brief
+professionale nascosto nelle richieste di altra categoria. L'ordine delle due
+caselle non cambia l'identità del contenuto per un retry. La versione
+dell'informativa corrente è richiesta per ogni nuovo invio; le versioni
+precedenti restano leggibili nelle schede storiche.
+
+I dati strutturati restano nel JSON della medesima riga, senza nuovi schemi o
+migrazioni distruttive. Dettaglio privato, esportazione individuale, CSV e
+notifica al titolare includono il brief; i filtri categoria, paese, lingua,
+intento e tipo progetto sono combinabili. Il CSV ha colonne separate per tutti
+i campi professionali, sempre neutralizzate contro formule. Le richieste
+professionali seguono la stessa cancellazione a dodici mesi e la medesima
+deroga contrattuale esplicita; non è prevista conservazione separata del brief.
+
+In anteprima si conservano solo i valori testuali sintetici fissi; le categorie
+di progetto e gli intenti non personali permettono di verificare i filtri.
+Nome studio, paese, misure, scadenza, messaggio, budget e recapiti digitati
+vengono scartati come nel flusso preesistente. Non si fa passare un invio
+sintetico per una richiesta commerciale effettivamente ricevuta.
+
+La conferma automatica professionale è tradotta nelle tredici lingue e dichiara
+espressamente che non è il riscontro umano, un preventivo o un'approvazione
+degli esecutivi. L'impegno del proprietario è un **primo riscontro entro
+24 ore lavorative**: non definisce orari di apertura, fuso, presidio nei festivi
+o un termine di consegna dei prodotti. La notifica al titolare riporta
+lo stesso distinguo.

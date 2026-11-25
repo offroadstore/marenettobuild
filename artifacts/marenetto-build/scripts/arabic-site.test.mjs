@@ -22,7 +22,9 @@ const result = await build({ stdin: {
 const content = await import('data:text/javascript;base64,' + Buffer.from(result.outputFiles[0].text).toString('base64'));
 
 test('Arabic initial documents have Arabic bodies, metadata, RTL, one H1 and a local font preload', async () => {
-  assert.equal(arabic.length, 86); // 87 content surfaces minus the noindex search page.
+  assert.equal(arabic.filter(e => e.id !== 'professionals').length, 86); // Existing Arabic release.
+  assert.equal(arabic.filter(e => e.id === 'professionals').length, 1);
+  assert.ok(!arabic.some(e => e.id === 'professional-downloads'), 'Empty resources never inherit Arabic release approval');
   assert.equal(arabic.filter(e => e.source.startsWith('network:')).length, 12);
   const titles = new Set(), descriptions = new Set();
   for (const entry of arabic) {

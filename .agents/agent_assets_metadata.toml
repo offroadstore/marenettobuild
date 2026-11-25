@@ -826,3 +826,17 @@ mtime_ms = 1795637462840
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/f4ad8df7-8724-432e-bcd2-573de30e9635/3c1c7c51-be27-43bd-828f-c94aec000e18"
 storage_version_token = "1795637463601820"
 content_type = "text/html"
+
+[[outputs]]
+id = "oHucbNl1VPPEGK0KaJ6gc"
+uri = "file://generated-artifacts/professionisti-consegna.html"
+type = "html"
+title = "Consegna — Architetti e designer"
+description = "Le tredici pagine, fonti verificate, inventario immagini, controlli, limite del collaudo titolare e dati ancora da confermare."
+logical_id = "7246b202-bea5-4c11-8190-0f5302c647e8"
+content_hash = "sha256:7c66250c9b034d5c2c80ba7a0bb1bb6fc0ce5d128df765b871f31fd6519d3a99"
+size = 289891
+mtime_ms = 1795644408233
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/7246b202-bea5-4c11-8190-0f5302c647e8/0ce9c10d-3ded-499f-aff0-0b0174f97eeb"
+storage_version_token = "1795644409417580"
+content_type = "text/html"

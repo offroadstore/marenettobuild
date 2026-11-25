@@ -6,7 +6,9 @@ import { readFile } from 'node:fs/promises';
 process.env.PORT ||= '4188';
 process.env.BASE_PATH ||= '/';
 test('Arabic client navigation retains indexability, reciprocal verified peers and localized Service schema', async () => {
-  const vite = await createServer({ configFile: new URL('../vite.config.ts', import.meta.url).pathname, server: { middlewareMode: true, hmr: false }, appType: 'custom' });
+  const vite = await createServer({ configFile: new URL('../vite.config.ts', import.meta.url).pathname,
+    optimizeDeps: { noDiscovery: true, include: [] },
+    server: { middlewareMode: true, hmr: false }, appType: 'custom' });
   const savedDocument = globalThis.document, savedWindow = globalThis.window;
   try {
     const { applyPublicReleaseMetadata } = await vite.ssrLoadModule('/src/lib/public-release-meta.ts');
@@ -49,6 +51,18 @@ test('Arabic client navigation retains indexability, reciprocal verified peers a
     const expected = [...initial.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/g)].map(([, locale, href]) => `${locale}:${href}`).sort();
     assert.deepEqual(links.map(link => `${link.hreflang}:${link.href}`).sort(), expected, 'Client peers must match initial HTML, without held counterparts');
     assert.ok(!links.some(link => link.href === 'https://www.marenettobuild.com/chi-siamo/'));
+    // An indexable professional page must not carry its release status into
+    // the adjacent empty resources area, including on client navigation.
+    for (const professionalPath of ['/professionisti', '/ar/lil-muhandisin-al-miamariyin']) {
+      assert.equal(applyPublicReleaseMetadata(professionalPath, []), true);
+      assert.equal(head.querySelector('meta[name="robots"]').getAttribute('content'), 'index, follow');
+      assert.equal(head.querySelectorAll('link[rel="alternate"][hreflang]').length, 14);
+      const resource = professionalPath + (professionalPath.startsWith('/ar/') ? '/al-malaffat' : '/file-in-arrivo');
+      assert.equal(applyPublicReleaseMetadata(resource, []), true);
+      assert.equal(head.querySelector('meta[name="robots"]').getAttribute('content'), 'noindex, nofollow');
+      assert.equal(head.querySelectorAll('link[rel="alternate"][hreflang]').length, 0);
+      assert.equal(head.querySelector('link[rel="canonical"]').href, 'https://www.marenettobuild.com' + resource);
+    }
     window.location.hostname = 'preview.example.test';
     applyPublicReleaseMetadata(path, []);
     assert.equal(head.querySelector('meta[name="robots"]').getAttribute('content'), 'noindex, nofollow');

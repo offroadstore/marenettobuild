@@ -1,3 +1,4 @@
+import { professionalFormCopy } from './professionals';
 // Localized UI copy for the callback request form, receipt and privacy addendum.
 // Translations are working copy: their publication does not imply approval.
 import type { CallDelivery } from '@workspace/api-client-react';
@@ -371,5 +372,6 @@ export const getCallCopy = (lang: string) => {
   const locale = toCallLang(lang);
   const base = callCopy[locale], atelier = callAtelierCopy[locale];
   return { ...base, country: atelier.country, confidential: atelier.confidential, atelierIntro: atelier.intro,
-    projects: { ...base.projects, atelier_international: atelier.project }, privacy: [...base.privacy, atelier.privacy] };
+    projects: { ...base.projects, atelier_international: atelier.project, professional_studio: professionalFormCopy(locale).project },
+    privacy: [...base.privacy, atelier.privacy, professionalFormCopy(locale).privacy] };
 };

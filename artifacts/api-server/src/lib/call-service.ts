@@ -6,8 +6,9 @@ import { getProjectRequestIpKey } from "./project-request-rate";
 import { isArubaSmtpConfigured, sendArubaCallbackMail } from "./aruba-mailer";
 import { callbackMail } from "./call-mail";
 import { isCatalogPath } from "./editorial-store";
+import { normalizeProfessionalRequest, validProfessionalRequest } from "./professional-request";
 
-export const CALL_PRIVACY_VERSION = "call-2026-11-25-atelier";
+export const CALL_PRIVACY_VERSION = "call-2026-11-25-professional";
 export const callLiveApproved = () => process.env.NODE_ENV === "production" && process.env.MARENETTO_PRIVACY_APPROVED === "true" &&
   process.env.MARENETTO_PROVIDERS_APPROVED === "true" && process.env.MARENETTO_TESTING_APPROVED === "true";
 export const callHash = (value: string) => createHmac("sha256", getProjectRequestIpKey()).update("callback-v1:" + value).digest("hex");
@@ -22,6 +23,7 @@ export function minimizeCallInput(input: CallRequestInput): CallRequestInput {
   data.firstName = data.firstName.trim(); data.lastName = data.lastName.trim();
   data.email = data.email.trim().toLowerCase();
   if (data.country !== undefined) data.country = data.country.trim();
+  normalizeProfessionalRequest(data);
   return data;
 }
 export function syntheticCall(input: CallRequestInput): CallRequestInput {
@@ -31,6 +33,13 @@ export function syntheticCall(input: CallRequestInput): CallRequestInput {
     marketingAccepted: false, whatsapp: false, privacyVersion: CALL_PRIVACY_VERSION,
     consentLanguage: input.consentLanguage, preferredLanguage: input.consentLanguage,
     ...(input.project === "atelier_international" ? { project: "atelier_international", country: "Synthetic destination" } : {}),
+    ...(input.project === "professional_studio" ? {
+      project: "professional_studio", country: "Synthetic destination",
+      professional: { studio: "Synthetic studio", projectType: input.professional!.projectType,
+        phase: "Synthetic phase", product: "Synthetic product", material: "Synthetic material",
+        dimensions: "Synthetic dimensions", deadline: "Synthetic deadline",
+        intents: input.professional!.intents },
+    } : {}),
     message: "Synthetic preview. Submitted personal data were discarded.",
   });
 }
@@ -60,6 +69,7 @@ export async function deliverCall(id: number, testTransport?: CallbackTransport)
   }
 }
 export async function storeCall(input: CallRequestInput, live: boolean) {
+  if (!validProfessionalRequest(input)) throw new Error("Invalid professional brief");
   const canonical = minimizeCallInput(input);
   const keyHash = callHash(input.idempotencyKey);
   const inputHash = callHash(JSON.stringify(canonical));

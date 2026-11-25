@@ -1,3 +1,5 @@
+import { professionalCopy } from '@/content/professionals';
+import publicPagesForSd from '@/localization/public-pages.json';
 import { companyServiceAreas, companyStructuredData } from '@/config/contact';
 import { articleBySlug } from '@/content/articles';
 import { PHASE3_COPY, TRAVEL_COPY, phase3PageByPath } from '@/content/phase3';
@@ -36,6 +38,28 @@ export function editionStructuredData(edition: Edition, origin: string) {
     });
     graph.push({ '@type': 'FAQPage', '@id': `${canonical}#faq`, inLanguage: edition.locale,
       mainEntity: text.faq.map(([name, answer]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text: answer } })) });
+  }
+  if (edition.id === 'professionals') {
+    const text = professionalCopy[edition.locale];
+    const crumbs = graph.findIndex(item => item['@type'] === 'BreadcrumbList');
+    if (crumbs >= 0) graph.splice(crumbs, 1);
+    const services = (publicPagesForSd as Record<string, Record<string, { path: string }>>)[edition.locale]?.services?.path;
+    const home = `${origin}${edition.locale === 'it' ? '/' : `/${edition.locale}/`}`;
+    // Mirrors the visible breadcrumb exactly: Home > Services > page.
+    graph.push({ '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: text.breadcrumbHome, item: home },
+      ...(services ? [{ '@type': 'ListItem', position: 2, name: text.breadcrumbServices, item: `${origin}${services}` }] : []),
+      { '@type': 'ListItem', position: services ? 3 : 2, name: text.nav, item: canonical },
+    ] });
+    const page = graph.find(item => item['@type'] === 'WebPage');
+    if (!page) graph.push({ '@type': 'WebPage', '@id': `${canonical}#webpage`, url: canonical, name: text.title, description: text.description, inLanguage: edition.locale });
+    graph.push({ '@type': 'Service', '@id': `${canonical}#service`, url: canonical, inLanguage: edition.locale,
+      name: text.h1, description: `${text.lead} ${text.scopeNote}`, serviceType: text.materials.map(m => m.name).join(', '),
+      audience: { '@type': 'BusinessAudience', name: text.kicker },
+      provider: { '@id': `${origin}/#organization` }, areaServed: { '@type': 'Place', name: 'Worldwide' } });
+    graph.push({ '@type': 'FAQPage', '@id': `${canonical}#faq`, inLanguage: edition.locale,
+      mainEntity: text.faq.map(([name, answer]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text: answer } })) });
+    return graph;
   }
   if (edition.id === 'atelier') {
     const text = atelierCopy[edition.locale];

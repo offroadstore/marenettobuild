@@ -9,7 +9,7 @@ export type CallConfigPrivacyVersion = typeof CallConfigPrivacyVersion[keyof typ
 
 
 export const CallConfigPrivacyVersion = {
-  'call-2026-11-25-atelier': 'call-2026-11-25-atelier',
+  'call-2026-11-25-professional': 'call-2026-11-25-professional',
 } as const;
 
 export interface CallConfig {
@@ -45,7 +45,69 @@ export const CallProject = {
   concrete_furniture: 'concrete_furniture',
   other: 'other',
   atelier_international: 'atelier_international',
+  professional_studio: 'professional_studio',
 } as const;
+
+export type ProfessionalIntent = typeof ProfessionalIntent[keyof typeof ProfessionalIntent];
+
+
+export const ProfessionalIntent = {
+  samples: 'samples',
+  block_selection: 'block_selection',
+} as const;
+
+export type ProfessionalProjectType = typeof ProfessionalProjectType[keyof typeof ProfessionalProjectType];
+
+
+export const ProfessionalProjectType = {
+  villa: 'villa',
+  hotel: 'hotel',
+  resort: 'resort',
+  yacht: 'yacht',
+  other: 'other',
+} as const;
+
+/**
+ * Text-only professional brief. Required for professional_studio submissions; no file upload or remote URL fetching.
+ */
+export interface ProfessionalRequest {
+  /**
+     * @minLength 1
+     * @maxLength 180
+     */
+  studio: string;
+  projectType: ProfessionalProjectType;
+  /**
+     * @minLength 1
+     * @maxLength 180
+     */
+  phase: string;
+  /**
+     * @minLength 1
+     * @maxLength 180
+     */
+  product: string;
+  /**
+     * @minLength 1
+     * @maxLength 180
+     */
+  material: string;
+  /**
+     * @minLength 1
+     * @maxLength 3000
+     */
+  dimensions: string;
+  /**
+     * @minLength 1
+     * @maxLength 180
+     */
+  deadline: string;
+  /**
+     * @minItems 1
+     * @maxItems 2
+     */
+  intents: ProfessionalIntent[];
+}
 
 export type CallStatus = typeof CallStatus[keyof typeof CallStatus];
 
@@ -85,6 +147,7 @@ export const CallRequestInputPrivacyVersion = {
   'call-2026-11-23': 'call-2026-11-23',
   'call-2026-11-25': 'call-2026-11-25',
   'call-2026-11-25-atelier': 'call-2026-11-25-atelier',
+  'call-2026-11-25-professional': 'call-2026-11-25-professional',
 } as const;
 
 export type CallRequestInputUtm = {
@@ -119,10 +182,11 @@ export interface CallRequestInput {
   mobile: string;
   whatsapp?: boolean;
   project?: CallProject;
+  professional?: ProfessionalRequest;
   /** @maxLength 180 */
   location?: string;
   /**
-     * Destination country, distinct from property locality. Required for new international Atelier enquiries; absent on historical requests.
+     * Destination country, distinct from property locality. Required for new international Atelier and professional_studio enquiries; absent on historical requests.
      * @minLength 2
      * @maxLength 100
      */
@@ -1139,6 +1203,8 @@ start?: string;
 end?: string;
 language?: CallLocale;
 project?: CallProject;
+intent?: ProfessionalIntent;
+professionalProjectType?: ProfessionalProjectType;
 /**
  * @minLength 2
  * @maxLength 100
@@ -1152,6 +1218,8 @@ start?: string;
 end?: string;
 language?: CallLocale;
 project?: CallProject;
+intent?: ProfessionalIntent;
+professionalProjectType?: ProfessionalProjectType;
 /**
  * @minLength 2
  * @maxLength 100

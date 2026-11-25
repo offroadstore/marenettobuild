@@ -1,3 +1,4 @@
+import { PROFESSIONAL_PAGES, PROFESSIONAL_DOWNLOAD_PAGES } from '@/content/professionals';
 import { LOCALES, PAGE_KEYS } from './locales';
 import pages from './public-pages.json';
 import { articles } from '@/content/articles';
@@ -27,6 +28,8 @@ export type Edition = {
   id: string; locale: string; path: string; kind: 'core' | 'archive' | 'article' | 'search' | 'legal';
   state: EditionState; approval: string | null; source: string;
   title: string; description: string; contentLanguage: string; sitemap: boolean;
+  /** Explicit non-indexable surfaces cannot inherit legacy/public release approval. */
+  indexing?: 'never';
   coreMetadata?: { title: string; description: string };
   translationRevision?: string; translationApprovalRevision?: string; translationSourcePath?: string;
 };
@@ -199,6 +202,18 @@ for (const page of ATELIER_PAGES) {
     approval: 'Owner-supplied Atelier facts (task #100); no independent native-speaker or factual certification',
     source: 'atelier:owner-declarations', sitemap: true });
 }
+// Professionals: thirteen useful editions; downloads are draft/noindex "files coming" resources (no sitemap/hreflang).
+for (const page of PROFESSIONAL_PAGES) {
+  if (editions.some(edition => edition.path.replace(/\/+$/, '') === page.path)) throw new Error(`Professional route collision: ${page.path}`);
+  editions.push({ ...page, kind: 'core', contentLanguage: page.locale, state: 'published',
+    approval: 'Owner-supplied professional programme facts (task #101); no independent native-speaker, legal or technical certification',
+    source: 'professionals:owner-declarations', sitemap: true });
+}
+for (const page of PROFESSIONAL_DOWNLOAD_PAGES) {
+  if (editions.some(edition => edition.path.replace(/\/+$/, '') === page.path)) throw new Error(`Professional downloads route collision: ${page.path}`);
+  editions.push({ ...page, kind: 'core', contentLanguage: page.locale, state: 'draft', approval: null,
+    source: 'professionals:downloads-placeholder (files coming, noindex)', sitemap: false, indexing: 'never' });
+}
 // Arabic editorial adaptations (new compositions by the parent, not recovered originals).
 // The id joins the Italian historical family so hreflang pairs the editions once published.
 // Remove unreviewed Italian-source placeholder articles before adding real compositions.
@@ -242,7 +257,7 @@ for (const archive of ARABIC_ARCHIVES) {
     title: archive.title, description: archive.description, source: `arabic-archives:${archive.sourcePath}` });
 }
 for (const edition of editions) {
-  if (edition.locale !== 'ar' || edition.contentLanguage !== 'ar' || edition.kind === 'search') continue;
+  if (edition.locale !== 'ar' || edition.contentLanguage !== 'ar' || edition.kind === 'search' || edition.id === 'professional-downloads') continue;
   if (ARABIC_PUBLIC_RELEASE) {
     edition.state = 'published';
     edition.approval = `Owner instruction to publish Arabic (task #100); ${ARABIC_REVIEW_EVIDENCE}`;
@@ -268,7 +283,7 @@ export function reviewPathForEdition(edition: Edition) {
   // New archive compositions have real localized paths, not routable historical ids.
   // Preserve the existing article/core previews; do not invent /historical:/... URLs.
   if (edition.source.startsWith('arabic-archives:')) return edition.path;
-  if (edition.id === 'property-management' || edition.id === 'atelier') return edition.path;
+  if (edition.id === 'property-management' || edition.id === 'atelier' || edition.id === 'professionals' || edition.id === 'professional-downloads') return edition.path;
   if (edition.source.startsWith('network:')) return edition.path;
   if (edition.source.startsWith('phase3:') || edition.source.startsWith('phase4:')) return edition.path;
   if (translationCandidate(edition.path)) return edition.path;

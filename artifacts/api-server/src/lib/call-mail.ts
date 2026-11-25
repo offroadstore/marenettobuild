@@ -1,5 +1,6 @@
 import type { CallRequest } from "@workspace/db";
 import type { CallRequestInput } from "@workspace/api-zod";
+import { professionalMailCopy } from "./professional-mail-copy";
 
 // Transactional acknowledgements only, never marketing; no claim staff speak every language.
 const confirmations: Record<string, [string, string]> = {
@@ -24,6 +25,14 @@ export function callbackMail(row: CallRequest, recipient: "owner" | "customer") 
     text: [
       `Richiesta ${row.code}`, `Ricevuta: ${row.createdAt.toISOString()}`,
       ...(data.project === "atelier_international" ? ["Tipo progetto: Atelier internazionale", `Paese di destinazione: ${data.country ?? "Non indicato"}`] : []),
+      ...(data.professional ? [
+        "Richiesta professionale — primo riscontro entro 24 ore lavorative, distinto da conferma automatica, preventivo ed esecutivi.",
+        `Studio: ${data.professional.studio}`, `Tipo progetto professionale: ${data.professional.projectType}`,
+        `Paese: ${data.country}`, `Fase: ${data.professional.phase}`, `Prodotto: ${data.professional.product}`,
+        `Materiale: ${data.professional.material}`, `Misure/disegni (solo testo): ${data.professional.dimensions}`,
+        `Scadenza: ${data.professional.deadline}`,
+        `Richiesta: ${data.professional.intents.map(intent => intent === "samples" ? "campioni" : "selezione del blocco").join(" + ")}`,
+      ] : []),
       ...Object.entries(data).filter(([k]) => k !== "idempotencyKey").map(([k, v]) => `${k}: ${typeof v === "object" ? JSON.stringify(v) : v}`),
       `Consenso server: ${row.consentAt.toISOString()}`, `Versione: ${row.privacyVersion}`,
       `Lingua consenso: ${row.consentLanguage}`,
@@ -31,6 +40,7 @@ export function callbackMail(row: CallRequest, recipient: "owner" | "customer") 
       data.whatsapp ? "WhatsApp autorizzato per questa richiesta." : "WhatsApp NON autorizzato: non usare il collegamento per contattare il richiedente.",
     ].join("\n"),
   };
-  const [subject, text] = confirmations[data.preferredLanguage ?? data.consentLanguage] ?? confirmations.en;
+  const copy = data.project === "professional_studio" ? professionalMailCopy : confirmations;
+  const [subject, text] = copy[data.preferredLanguage ?? data.consentLanguage] ?? copy.en;
   return { to: data.email, subject, text: `${text}\n\n${row.code}\n${row.createdAt.toISOString()}\nMarenetto Build — info@marenetto.com` };
 }

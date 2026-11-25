@@ -1,19 +1,20 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { ArrowRight, Phone, ShieldCheck, X } from 'lucide-react';
-import { useCreateCallRequest, useGetCallRequestConfig, getGetCallRequestConfigQueryKey, type CallReceipt, type CallRequestInput, type CallProject, type CallDelivery } from '@workspace/api-client-react';
+import { useCreateCallRequest, useGetCallRequestConfig, getGetCallRequestConfigQueryKey, type CallReceipt, type CallRequestInput, type CallProject, type CallDelivery, type ProfessionalIntent, type ProfessionalProjectType } from '@workspace/api-client-react';
 import { trackSavedRequest } from '@/lib/analytics/browser';
 import { CALL_LOCALES, getCallCopy, toCallLang, type CallCopy } from '@/content/call-request-copy';
+import { professionalFormCopy } from '@/content/professionals';
 import { COMPANY_CONTACT } from '@/config/contact';
 import { legalPath, noticeCopy } from '@/content/legal-notices';
 import { getLocaleDirection } from '@/localization/locales';
 import '@/styles/call-request.css';
 
 const OPEN_EVENT = 'marenetto:open-callback';
-export const openCallRequest = (project?: CallProject) =>
-  window.dispatchEvent(new CustomEvent(OPEN_EVENT, { detail: { project } }));
+export const openCallRequest = (project?: CallProject, intents?: ProfessionalIntent[]) =>
+  window.dispatchEvent(new CustomEvent(OPEN_EVENT, { detail: { project, intents } }));
 
-const PROJECTS: CallProject[] = ['renovation', 'construction', 'concrete_furniture', 'atelier_international', 'other'];
+const PROJECTS: CallProject[] = ['renovation', 'construction', 'concrete_furniture', 'atelier_international', 'professional_studio', 'other'];
 const E164 = /^\+[1-9][0-9]{7,14}$/;
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -35,8 +36,12 @@ function deriveSource() {
 }
 
 
-type Form = { firstName: string; lastName: string; email: string; mobile: string; whatsapp: boolean; project: '' | CallProject; country: string; location: string; budget: string; startWhen: string; timeSlot: '' | 'morning' | 'afternoon'; preferredLanguage: string; message: string; privacy: boolean; marketing: boolean; companyWebsite: string };
-const blank = (lang: string, project?: CallProject): Form => ({ firstName: '', lastName: '', email: '', mobile: '', whatsapp: false, project: project ?? '', country: '', location: '', budget: '', startWhen: '', timeSlot: '', preferredLanguage: lang === 'ar' ? 'ar' : '', message: '', privacy: false, marketing: false, companyWebsite: '' });
+type Form = { firstName: string; lastName: string; email: string; mobile: string; whatsapp: boolean; project: '' | CallProject; country: string; location: string; budget: string; startWhen: string; timeSlot: '' | 'morning' | 'afternoon'; preferredLanguage: string; message: string; privacy: boolean; marketing: boolean; companyWebsite: string;
+  studio: string; projectType: '' | ProfessionalProjectType; phase: string; product: string; material: string; dimensions: string; deadline: string; intents: ProfessionalIntent[] };
+type ProKey = 'studio' | 'phase' | 'product' | 'material' | 'dimensions' | 'deadline';
+const PRO_KEYS: ProKey[] = ['studio', 'phase', 'product', 'material', 'dimensions', 'deadline'];
+const PRO_TYPES: ProfessionalProjectType[] = ['villa', 'hotel', 'resort', 'yacht', 'other'];
+const blank = (lang: string, project?: CallProject, intents?: ProfessionalIntent[]): Form => ({ studio: '', projectType: '', phase: '', product: '', material: '', dimensions: '', deadline: '', intents: intents ?? [], firstName: '', lastName: '', email: '', mobile: '', whatsapp: false, project: project ?? '', country: '', location: '', budget: '', startWhen: '', timeSlot: '', preferredLanguage: lang === 'ar' ? 'ar' : '', message: '', privacy: false, marketing: false, companyWebsite: '' });
 
 function isolateContacts(text: string) {
   return text.split(/((?:https?:\/\/|www\.)[^\s،؛]+|[\w.+-]+@[\w.-]+\.[a-z]{2,}|\+[0-9][0-9 ()-]{7,})/gi)
@@ -57,10 +62,11 @@ function DeliveryLine({ label, status, c, testid }: { label: string; status: Cal
   return <div className={`cr-delivery is-${status}`} data-testid={testid}><small>{label}</small><span>{c.delivery[status] ?? status}</span></div>;
 }
 
-function CallForm({ lang, onClose, initialProject }: { lang: string; onClose: () => void; initialProject?: CallProject }) {
+function CallForm({ lang, onClose, initialProject, initialIntents }: { lang: string; onClose: () => void; initialProject?: CallProject; initialIntents?: ProfessionalIntent[] }) {
   const c = getCallCopy(lang);
+  const pc = professionalFormCopy(lang);
   const uid = useId();
-  const [form, setForm] = useState<Form>(() => blank(lang, initialProject));
+  const [form, setForm] = useState<Form>(() => blank(lang, initialProject, initialIntents));
   const [errors, setErrors] = useState<Partial<Record<keyof Form, string>>>({});
   const [receipt, setReceipt] = useState<CallReceipt | null>(null);
   const keyRef = useRef(newKey());
@@ -86,6 +92,13 @@ function CallForm({ lang, onClose, initialProject }: { lang: string; onClose: ()
     const mobile = normMobile(form.mobile);
     if (!mobile) next.mobile = c.errRequired; else if (!E164.test(mobile)) next.mobile = c.errMobile;
     if (!form.privacy) next.privacy = c.errPrivacy;
+    const pro = form.project === 'professional_studio';
+    if (pro) {
+      for (const k of PRO_KEYS) if (!form[k].trim()) next[k] = c.errRequired;
+      if (!form.projectType) next.projectType = c.errRequired;
+      if (!form.intents.length) next.intents = pc.errIntent;
+      if (form.country.trim().length < 2) next.country = c.errRequired;
+    }
     if (form.project === 'atelier_international' && form.country.trim().length < 2) next.country = c.errRequired;
     if (form.country.trim() && form.country.trim().length < 2) next.country = c.errRequired;
     setErrors(next);
@@ -98,17 +111,19 @@ function CallForm({ lang, onClose, initialProject }: { lang: string; onClose: ()
       timeSlot: form.timeSlot || undefined, preferredLanguage: form.preferredLanguage ? toCallLang(form.preferredLanguage) : undefined, message: opt(form.message),
       privacyAccepted: true, marketingAccepted: form.marketing, privacyVersion: config.data.privacyVersion, consentLanguage: toCallLang(lang),
       sourcePath: source.current.sourcePath, utm: source.current.utm, companyWebsite: form.companyWebsite || undefined, formOpenedAt: openedAt.current,
+      professional: pro && form.projectType ? { studio: form.studio.trim(), projectType: form.projectType, phase: form.phase.trim(), product: form.product.trim(), material: form.material.trim(), dimensions: form.dimensions.trim(), deadline: form.deadline.trim(), intents: form.intents.slice(0, 2) } : undefined,
     };
     create.mutate({ data }, { onSuccess: r => { trackSavedRequest(r); setReceipt(r); } });
   };
 
-  const restart = () => { keyRef.current = newKey(); openedAt.current = Date.now(); source.current = deriveSource(); setForm(blank(lang, initialProject)); setReceipt(null); create.reset(); };
+  const restart = () => { keyRef.current = newKey(); openedAt.current = Date.now(); source.current = deriveSource(); setForm(blank(lang, initialProject, initialIntents)); setReceipt(null); create.reset(); };
 
   if (receipt) return <div className="cr-receipt" role="status" data-testid="status-call-receipt">
     <span className="eyebrow">{c.receiptTitle}</span>
     <small className="cr-receipt-label">{c.receiptCode}</small>
     <strong className="cr-code" data-testid="text-call-code"><bdi dir="ltr">{receipt.code}</bdi></strong>
     <time dateTime={receipt.createdAt}>{new Date(receipt.createdAt).toLocaleString(toCallLang(lang))}</time>
+    {form.project === 'professional_studio' && <p className="cr-pro-note" data-testid="text-call-pro-receipt">{pc.receiptNote}</p>}
     {receipt.isSynthetic && <p className="cr-synthetic" data-testid="text-call-synthetic">{c.synthetic}</p>}
     <DeliveryLine label={c.ownerLabel} status={receipt.ownerDelivery} c={c} testid="status-owner-delivery" />
     <DeliveryLine label={c.customerLabel} status={receipt.customerDelivery} c={c} testid="status-customer-delivery" />
@@ -128,6 +143,23 @@ function CallForm({ lang, onClose, initialProject }: { lang: string; onClose: ()
     </div>;
   };
 
+  const proField = (k: ProKey, label: string, max: number, full?: boolean, hint?: string) => {
+    const id = `${uid}-${k}`; const err = errors[k];
+    return <div className={`field${full ? ' full' : ''}`}>
+      <label htmlFor={id}>{label} *</label>
+      <div className="cr-tbd-row">
+        {(() => { const props = { id, value: form[k], maxLength: max, required: true, 'aria-required': true, 'aria-invalid': !!err || undefined,
+          'aria-describedby': [hint ? `${id}-hint` : '', err ? `${id}-err` : ''].filter(Boolean).join(' ') || undefined, 'data-testid': `input-call-pro-${k}` };
+          return k === 'dimensions' ? <textarea {...props} onChange={e => set(k, e.target.value)} /> : <input {...props} onChange={e => set(k, e.target.value)} />; })()}
+        <button type="button" className="cr-tbd" onClick={() => set(k, pc.tbd)} data-testid={`button-call-tbd-${k}`}>{pc.tbdAction}</button>
+      </div>
+      {hint && <small id={`${id}-hint`} className="cr-hint">{hint}</small>}
+      {err && <small id={`${id}-err`} className="cr-err">{err}</small>}
+    </div>;
+  };
+  const toggleIntent = (v: ProfessionalIntent) => set('intents', form.intents.includes(v) ? form.intents.filter(i => i !== v) : [...form.intents, v]);
+  const isPro = form.project === 'professional_studio';
+
   return <form onSubmit={submit} noValidate className="cr-form" data-testid="form-call-request">
     {Object.values(errors).some(Boolean) && <div ref={summaryRef} tabIndex={-1} className="error-box" role="alert">{c.errSummary}</div>}
     {config.isLoading && <p className="cr-preview" role="status" data-testid="text-call-config-loading">{c.loadingConfig}</p>}
@@ -141,8 +173,24 @@ function CallForm({ lang, onClose, initialProject }: { lang: string; onClose: ()
       <div className="field full"><label className="check-row"><input type="checkbox" checked={form.whatsapp} onChange={e => set('whatsapp', e.target.checked)} data-testid="check-call-whatsapp" /><span>{c.whatsapp}</span></label></div>
       <div className="field"><label htmlFor={`${uid}-project`}>{c.project}<span className="cr-opt"> ({c.optional})</span></label>
         <select id={`${uid}-project`} value={form.project} onChange={e => set('project', e.target.value as Form['project'])} data-testid="select-call-project"><option value="">—</option>{PROJECTS.map(p => <option key={p} value={p}>{c.projects[p]}</option>)}</select></div>
+      {isPro && <fieldset className="field full cr-fieldset cr-pro" data-testid="fieldset-call-professional"><legend className="field-label">{pc.legend}</legend>
+        <p className="cr-hint">{pc.tbdHint}</p>
+        <div className="form-grid">
+          {proField('studio', pc.studio, 180)}
+          <div className="field"><label htmlFor={`${uid}-ptype`}>{pc.projectType} *</label>
+            <select id={`${uid}-ptype`} value={form.projectType} required aria-required="true" aria-invalid={!!errors.projectType || undefined} aria-describedby={errors.projectType ? `${uid}-ptype-err` : undefined} onChange={e => set('projectType', e.target.value as Form['projectType'])} data-testid="select-call-pro-type"><option value="">—</option>{PRO_TYPES.map(t => <option key={t} value={t}>{pc.types[t]}</option>)}</select>
+            {errors.projectType && <small id={`${uid}-ptype-err`} className="cr-err">{errors.projectType}</small>}</div>
+          {proField('phase', pc.phase, 180)}
+          {proField('product', pc.product, 180)}
+          {proField('material', pc.material, 180)}
+          {proField('deadline', pc.deadline, 180)}
+          {proField('dimensions', pc.dimensions, 3000, true, pc.dimensionsHint)}
+          <fieldset className="field full cr-fieldset" aria-invalid={!!errors.intents || undefined} aria-describedby={errors.intents ? `${uid}-intents-err` : undefined}><legend className="field-label">{pc.intents} *</legend>
+            <div className="radio-row">{([['samples', pc.intentSamples], ['block_selection', pc.intentBlock]] as const).map(([v, l]) => <label key={v} className="radio-choice"><input type="checkbox" checked={form.intents.includes(v)} onChange={() => toggleIntent(v)} data-testid={`check-call-intent-${v}`} /><span>{l}</span></label>)}</div>
+            {errors.intents && <small id={`${uid}-intents-err`} className="cr-err">{errors.intents}</small>}</fieldset>
+        </div></fieldset>}
       {field('location', c.location, { auto: 'address-level2', max: 180 })}
-      {field('country', c.country, { auto: 'country-name', max: 100, required: form.project === 'atelier_international' })}
+      {field('country', c.country, { auto: 'country-name', max: 100, required: form.project === 'atelier_international' || isPro })}
       {form.project !== 'atelier_international' && field('budget', c.budget, { max: 100 })}
       {field('startWhen', c.startWhen, { max: 100 })}
       <fieldset className="field cr-fieldset"><legend className="field-label">{c.timeSlot}<span className="cr-opt"> ({c.optional})</span></legend>
@@ -165,8 +213,10 @@ function CallForm({ lang, onClose, initialProject }: { lang: string; onClose: ()
   </form>;
 }
 
-function CallDialog({ lang, onClose, initialProject }: { lang: string; onClose: () => void; initialProject?: CallProject }) {
+function CallDialog({ lang, onClose, initialProject, initialIntents }: { lang: string; onClose: () => void; initialProject?: CallProject; initialIntents?: ProfessionalIntent[] }) {
   const c = getCallCopy(lang);
+  const pc = professionalFormCopy(lang);
+  const pro = initialProject === 'professional_studio';
   const ref = useRef<HTMLDivElement>(null);
   const titleId = useId();
   useEffect(() => {
@@ -190,9 +240,9 @@ function CallDialog({ lang, onClose, initialProject }: { lang: string; onClose: 
   const dir = getLocaleDirection(lang);
   return createPortal(<div className="cr-backdrop" onMouseDown={e => { if (e.target === e.currentTarget) onClose(); }}>
     <div ref={ref} className="cr-dialog" role="dialog" aria-modal="true" aria-labelledby={titleId} lang={toCallLang(lang)} dir={dir} data-testid="dialog-call-request">
-      <header className="cr-head"><div><span className="eyebrow"><bdi dir="ltr">Marenetto Build · Cefalù</bdi></span><h2 id={titleId} className="display-title">{initialProject === 'atelier_international' ? c.confidential : c.title}</h2><p>{initialProject === 'atelier_international' ? c.atelierIntro : c.intro}</p></div>
+      <header className="cr-head"><div><span className="eyebrow"><bdi dir="ltr">Marenetto Build · Cefalù</bdi></span><h2 id={titleId} className="display-title">{pro ? pc.title : initialProject === 'atelier_international' ? c.confidential : c.title}</h2><p>{pro ? pc.intro : initialProject === 'atelier_international' ? c.atelierIntro : c.intro}</p></div>
         <button type="button" className="cr-close" onClick={onClose} aria-label={c.close} data-testid="button-call-close"><X size={18} /></button></header>
-      <CallForm lang={lang} onClose={onClose} initialProject={initialProject} />
+      <CallForm lang={lang} onClose={onClose} initialProject={initialProject} initialIntents={initialIntents} />
     </div>
   </div>, document.body);
 }
@@ -205,15 +255,18 @@ export function CallRequestAccess({ lang, page }: { lang: string; page: string }
   const c = getCallCopy(lang);
   const [open, setOpen] = useState(false);
   const [initialProject, setInitialProject] = useState<CallProject | undefined>();
-  const openGeneric = () => { setInitialProject(undefined); setOpen(true); };
+  const [initialIntents, setInitialIntents] = useState<ProfessionalIntent[] | undefined>();
+  const openGeneric = () => { setInitialProject(undefined); setInitialIntents(undefined); setOpen(true); };
   const fixedRef = useRef<HTMLButtonElement>(null);
   const inflowRef = useRef<HTMLElement>(null);
   const close = useRef(() => setOpen(false)).current;
 
   useEffect(() => {
     const onOpen = (event: Event) => {
-      const project = (event as CustomEvent<{ project?: CallProject }>).detail?.project;
+      const detail = (event as CustomEvent<{ project?: CallProject; intents?: ProfessionalIntent[] }>).detail;
+      const project = detail?.project;
       setInitialProject(project && PROJECTS.includes(project) ? project : undefined);
+      setInitialIntents(detail?.intents?.filter(i => i === 'samples' || i === 'block_selection'));
       setOpen(true);
     };
     window.addEventListener(OPEN_EVENT, onOpen);
@@ -235,7 +288,7 @@ export function CallRequestAccess({ lang, page }: { lang: string; page: string }
       const visible = (el: DOMRect | undefined) => !!el && el.top < window.innerHeight && el.bottom > 0;
       let blocked = visible(inflow) || (!!footer && footer.top < window.innerHeight);
       if (!blocked) {
-        const els = document.querySelectorAll<HTMLElement>('main a, main button, main input, main select, main textarea, main h1, main h2, main h3, main p, main li, main label, main img, [data-testid="whatsapp-float"], .mb-cbar:not([data-hidden]), .analytics-preferences, [role="dialog"]');
+        const els = document.querySelectorAll<HTMLElement>('main a, main button, main input, main select, main textarea, main h1, main h2, main h3, main h4, main h5, main h6, main p, main li, main dt, main dd, main figcaption, main summary, main label, main img, [data-testid="whatsapp-float"], .mb-cbar:not([data-hidden]), .analytics-preferences, [role="dialog"]');
         for (const el of els) { if (el === btn || btn.contains(el)) continue; const o = el.getBoundingClientRect(); if (o.width && o.height && hit(o)) { blocked = true; break; } }
       }
       btn.toggleAttribute('data-hidden', blocked);
@@ -258,7 +311,7 @@ export function CallRequestAccess({ lang, page }: { lang: string; page: string }
       <button type="button" className="button outline" onClick={openGeneric} data-testid={`button-call-open-${page}`}>{c.open} <ArrowRight size={14} /></button>
     </aside>}
     <button ref={fixedRef} type="button" className="cr-fixed" onClick={openGeneric} aria-haspopup="dialog" data-testid="button-call-fixed"><Phone size={16} aria-hidden="true" /><span>{c.fixed}</span></button>
-    {open && <CallDialog lang={lang} onClose={close} initialProject={initialProject} />}
+    {open && <CallDialog lang={lang} onClose={close} initialProject={initialProject} initialIntents={initialIntents} />}
   </>;
 }
 

@@ -67,7 +67,7 @@ function Inner({ lang }: { lang: string }) {
       if (drag.current) return;
       const rect = box.getBoundingClientRect();
       const obstacles = [...document.querySelectorAll<HTMLElement>(
-        'header, a, button, input, textarea, select, [role="dialog"], .analytics-preferences, .mb-cbar:not([data-hidden]), h1, h2, h3, h4, h5, h6, p, li, dt, dd, label, figcaption',
+        'header, a, button, input, textarea, select, [role="dialog"], .analytics-preferences, .mb-cbar:not([data-hidden]), .footer-bottom, h1, h2, h3, h4, h5, h6, p, li, dt, dd, label, figcaption',
       )].flatMap(element => {
         if (box.contains(element) || !element.getClientRects().length) return [];
         const style = getComputedStyle(element);

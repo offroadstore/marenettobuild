@@ -8,12 +8,16 @@
 import type { CallLocale } from './callLocale';
 import type { CallProject } from './callProject';
 import type { CallStatus } from './callStatus';
+import type { ProfessionalIntent } from './professionalIntent';
+import type { ProfessionalProjectType } from './professionalProjectType';
 
 export type ListCallRequestsParams = {
 start?: Date;
 end?: Date;
 language?: CallLocale;
 project?: CallProject;
+intent?: ProfessionalIntent;
+professionalProjectType?: ProfessionalProjectType;
 /**
  * @minLength 2
  * @maxLength 100

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import {
   useListCallRequests, useUpdateCallRequest, useDeleteCallRequest, exportCallRequests, getListCallRequestsQueryKey,
-  type CallRecord, type CallStatus, type CallProject, type CallLocale, type ListCallRequestsParams,
+  type CallRecord, type CallStatus, type CallProject, type CallLocale, type ListCallRequestsParams, type ProfessionalIntent, type ProfessionalProjectType,
 } from '@workspace/api-client-react';
 import { ArrowDownToLine, ChevronDown, PhoneCall, Trash2 } from 'lucide-react';
 import { CALL_LOCALES } from '@/content/call-request-copy';
@@ -10,7 +10,7 @@ import { callRequestExport } from '@/lib/call-request-export';
 
 const STATUSES: CallStatus[] = ['new', 'contacted', 'survey', 'quote', 'closed'];
 const STATUS_LABEL: Record<CallStatus, string> = { new: 'New', contacted: 'Contacted', survey: 'Site survey', quote: 'Quote', closed: 'Closed' };
-const PROJECTS: CallProject[] = ['renovation', 'construction', 'concrete_furniture', 'atelier_international', 'other'];
+const PROJECTS: CallProject[] = ['renovation', 'construction', 'concrete_furniture', 'atelier_international', 'professional_studio', 'other'];
 const DELIVERY_LABEL: Record<string, string> = { pending_provider: 'Pending provider config', sending: 'Sending', sent: 'Sent', failed: 'Failed', uncertain: 'Uncertain', simulated: 'Simulated (preview)' };
 const fmt = (s?: string) => (s ? new Date(s).toLocaleString() : '—');
 
@@ -45,11 +45,16 @@ function Row({ r }: { r: CallRecord }) {
     ['Consent at', fmt(r.consentAt)], ['Privacy version', r.privacyVersion], ['Consent language', r.consentLanguage],
     ['Source path', d.sourcePath ?? '—'], ['utm_source', d.utm?.utm_source ?? '—'], ['utm_medium', d.utm?.utm_medium ?? '—'], ['utm_campaign', d.utm?.utm_campaign ?? '—'],
     ['Owner email', DELIVERY_LABEL[r.ownerDelivery] ?? r.ownerDelivery], ['Customer email', DELIVERY_LABEL[r.customerDelivery] ?? r.customerDelivery],
+    ...(d.professional ? [
+      ['Studio', d.professional.studio], ['Project type', d.professional.projectType], ['Phase', d.professional.phase], ['Product', d.professional.product],
+      ['Material', d.professional.material], ['Dimensions / drawings', d.professional.dimensions], ['Deadline', d.professional.deadline],
+      ['Requested', d.professional.intents.map(i => i === 'samples' ? 'Samples' : 'Block selection').join(' + ')],
+    ] as [string, string][] : []),
     ['Created', fmt(r.createdAt)], ['Updated', fmt(r.updatedAt)], ['Form opened', d.formOpenedAt ? new Date(d.formOpenedAt).toLocaleString() : '—'], ['Idempotency key', d.idempotencyKey],
   ];
   return <article className={`int-lead-row ${open ? 'expanded' : ''}`} data-testid={`row-call-${r.id}`}>
     <div className="int-lead-person"><span className="int-row-mark">{d.firstName.slice(0, 1)}</span><div><strong>{d.firstName} {d.lastName}{r.isSynthetic && <em className="int-muted"> · synthetic</em>}</strong><small>{r.code} · {d.mobile}</small></div></div>
-    <div><strong>{d.project === 'atelier_international' ? 'International Atelier' : d.project ?? 'Unspecified'}</strong><small><bdi>{d.country || '—'}</bdi> · <bdi>{d.location || '—'}</bdi> · {r.consentLanguage.toUpperCase()}</small></div>
+    <div><strong>{d.project === 'atelier_international' ? 'International Atelier' : d.project === 'professional_studio' ? `Studio · ${d.professional?.studio ?? '—'}` : d.project ?? 'Unspecified'}</strong><small><bdi>{d.country || '—'}</bdi> · <bdi>{d.location || '—'}</bdi> · {r.consentLanguage.toUpperCase()}</small></div>
     <div className="int-date">{new Date(r.createdAt).toLocaleDateString()}</div>
     <div><select aria-label={`Status for ${r.code}`} value={r.status} disabled={update.isPending} onChange={e => patch({ status: e.target.value as CallStatus }, 'Status saved')} data-testid={`select-call-status-${r.id}`}>{STATUSES.map(s => <option key={s} value={s}>{STATUS_LABEL[s]}</option>)}</select></div>
     <button className="int-row-open" onClick={() => setOpen(!open)} aria-expanded={open} data-testid={`button-open-call-${r.id}`}>{open ? 'Close' : 'Open'} <ChevronDown size={14} /></button>
@@ -76,14 +81,16 @@ export function CallRequestsPanel() {
   const [start, setStart] = useState(''); const [end, setEnd] = useState('');
   const [language, setLanguage] = useState(''); const [project, setProject] = useState(''); const [status, setStatus] = useState('');
   const [country, setCountry] = useState('');
+  const [intent, setIntent] = useState(''); const [proType, setProType] = useState('');
   const [exporting, setExporting] = useState(false); const [exportError, setExportError] = useState('');
   const params = useMemo<ListCallRequestsParams>(() => {
     const p: ListCallRequestsParams = {};
     if (start) p.start = start; if (end) p.end = end;
     if (language) p.language = language as CallLocale; if (project) p.project = project as CallProject; if (status) p.status = status as CallStatus;
     if (country.trim().length >= 2) p.country = country.trim();
+    if (intent) p.intent = intent as ProfessionalIntent; if (proType) p.professionalProjectType = proType as ProfessionalProjectType;
     return p;
-  }, [start, end, language, project, status, country]);
+  }, [start, end, language, project, status, country, intent, proType]);
   const list = useListCallRequests(params, { query: { queryKey: getListCallRequestsQueryKey(params), retry: false, staleTime: 0, gcTime: 0 } });
   const doExport = async () => {
     setExporting(true); setExportError('');
@@ -108,6 +115,8 @@ export function CallRequestsPanel() {
       <select aria-label="Language" value={language} onChange={e => setLanguage(e.target.value)} data-testid="select-call-filter-language"><option value="">All languages</option>{CALL_LOCALES.map(l => <option key={l} value={l}>{l.toUpperCase()}</option>)}</select>
       <select aria-label="Project" value={project} onChange={e => setProject(e.target.value)} data-testid="select-call-filter-project"><option value="">All projects</option>{PROJECTS.map(p => <option key={p} value={p}>{p.replace('_', ' ')}</option>)}</select>
       <select aria-label="Status" value={status} onChange={e => setStatus(e.target.value)} data-testid="select-call-filter-status"><option value="">All statuses</option>{STATUSES.map(s => <option key={s} value={s}>{STATUS_LABEL[s]}</option>)}</select>
+      <select aria-label="Professional request" value={intent} onChange={e => setIntent(e.target.value)} data-testid="select-call-filter-intent"><option value="">All requests</option><option value="samples">Samples</option><option value="block_selection">Block selection</option></select>
+      <select aria-label="Professional project type" value={proType} onChange={e => setProType(e.target.value)} data-testid="select-call-filter-pro-type"><option value="">All studio project types</option>{['villa', 'hotel', 'resort', 'yacht', 'other'].map(t => <option key={t} value={t}>{t}</option>)}</select>
     </div>
     {exportError && <div className="int-inline-error" role="alert">{exportError}</div>}
     {list.isError && <div className="int-inline-error" role="alert">Callback requests could not be loaded. <button onClick={() => list.refetch()}>Retry</button></div>}

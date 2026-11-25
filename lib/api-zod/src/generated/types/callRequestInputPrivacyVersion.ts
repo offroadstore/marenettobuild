@@ -13,4 +13,5 @@ export const CallRequestInputPrivacyVersion = {
   'call-2026-11-23': 'call-2026-11-23',
   'call-2026-11-25': 'call-2026-11-25',
   'call-2026-11-25-atelier': 'call-2026-11-25-atelier',
+  'call-2026-11-25-professional': 'call-2026-11-25-professional',
 } as const;

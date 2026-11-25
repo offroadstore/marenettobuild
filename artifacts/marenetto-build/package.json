@@ -31,6 +31,7 @@
     "test:seo": "node --test scripts/local-fonts.test.mjs scripts/seo-http.test.mjs scripts/editorial-corrections.test.mjs scripts/editorial-runtime.test.mjs scripts/editorial-outage.test.mjs scripts/public-release.test.mjs scripts/production-cleanup.test.mjs scripts/seo-metadata.test.mjs",
     "test:seo-global": "node --test scripts/global-seo.test.mjs",
     "test:atelier": "node --experimental-strip-types --test scripts/atelier.test.mjs",
+    "test:professionals": "node --experimental-strip-types --test scripts/professionals.test.mjs scripts/professionals-http.test.mjs",
     "test:arabic": "node --experimental-strip-types --test scripts/arabic-site.test.mjs scripts/arabic-client-seo.test.mjs",
     "audit:arabic": "node scripts/arabic-coverage.mjs",
     "test:hero-alt": "node --test scripts/home-hero-alt.test.mjs",

@@ -224,3 +224,163 @@ test("Atelier country, Arabic acknowledgement and consent survive storage, priva
   }
   assert.ok(CreateCallRequestBody.safeParse(valid({ privacyVersion: "call-2026-11-23" })).success, "historical records remain readable");
 });
+
+const professional = (overrides: Record<string, unknown> = {}) => ({
+  studio: "Studio sintetico", projectType: "villa", phase: "Da definire",
+  product: "Piano sintetico", material: "Da definire",
+  dimensions: "Descrizione sintetica, nessun disegno allegato", deadline: "Da definire",
+  intents: ["samples", "block_selection"], ...overrides,
+});
+
+test("professional conditional validation rejects missing, blank, oversized or hidden briefs without storing data", async () => {
+  const before = await count();
+  for (const change of [
+    { professional: undefined }, { country: undefined }, { country: " " },
+    { professional: professional({ studio: " " }) }, { professional: professional({ phase: "" }) },
+    { professional: professional({ dimensions: " " }) }, { professional: professional({ deadline: " " }) },
+    { professional: professional({ material: " " }) }, { professional: professional({ product: " " }) },
+    { professional: professional({ studio: "x".repeat(181) }) },
+    { professional: professional({ dimensions: "x".repeat(3001) }) },
+    { professional: professional({ projectType: "fake-project" }) },
+    { professional: professional({ intents: [] }) },
+    { professional: professional({ intents: ["samples", "samples"] }) },
+    { professional: professional({ intents: ["upload"] }) },
+    { professional: professional({ intents: ["samples", "block_selection", "samples"] }) },
+    { project: "other", professional: professional() },
+    { privacyVersion: "call-2026-11-25-atelier" },
+  ]) {
+    const response = await post(valid({ project: "professional_studio", country: "Synthetic country", professional: professional(), ...change }));
+    assert.equal(response.status, 400, JSON.stringify(change));
+  }
+  assert.equal(await count(), before);
+});
+
+test("professional text, both intents and consents survive real storage path in disposable schema, never SMTP", async () => {
+  const body = input({ project: "professional_studio", country: " Synthetic country ",
+    professional: professional({ studio: " Studio sintetico ", dimensions: "=synthetic formula\n120 x 80, da definire" }),
+    budget: "Facoltativo", consentLanguage: "ar", preferredLanguage: "fr",
+    sourcePath: "/servizi", utm: { utm_source: "professional" }, whatsapp: false, marketingAccepted: false });
+  const saved = await storeCall(body, true); assert.ok(saved);
+  assert.equal(saved.row.isSynthetic, false);
+  const brief = saved.row.data.professional as ReturnType<typeof professional>;
+  assert.equal(saved.row.data.country, "Synthetic country");
+  assert.equal(brief.studio, "Studio sintetico");
+  assert.equal(brief.dimensions, body.professional!.dimensions);
+  assert.deepEqual(brief.intents, ["block_selection", "samples"]);
+  assert.equal(saved.row.data.budget, "Facoltativo");
+  assert.equal(saved.row.data.whatsapp, false); assert.equal(saved.row.data.marketingAccepted, false);
+  assert.equal(saved.row.privacyVersion, CALL_PRIVACY_VERSION);
+  assert.equal(saved.row.consentLanguage, "ar"); assert.ok(saved.row.consentAt instanceof Date);
+  const retry = await storeCall(body, true); assert.ok(retry);
+  assert.equal(retry.row.id, saved.row.id);
+  // Checkbox order is not a different enquiry.
+  const reordered = await storeCall({ ...body, professional: { ...body.professional!, intents: ["block_selection", "samples"] } }, true);
+  assert.equal(reordered?.row.id, saved.row.id);
+  const owner = callbackMail(saved.row, "owner");
+  for (const expected of ["Studio sintetico", "Synthetic country", "villa", "Da definire", "Piano sintetico",
+    "120 x 80", "Facoltativo", "campioni", "selezione del blocco", "24 ore lavorative", "WhatsApp NON autorizzato"]) {
+    assert.ok(owner.text.includes(expected), expected);
+  }
+  const customer = callbackMail(saved.row, "customer");
+  assert.equal(customer.subject, "Demande professionnelle reçue");
+  assert.match(customer.text, /automatique/); assert.match(customer.text, /24 heures ouvrées/);
+  // No submitted personal data or textual brief survives preview minimization.
+  const preview = await storeCall({ ...body, idempotencyKey: randomUUID() }, false); assert.ok(preview);
+  assert.equal((preview.row.data.professional as typeof brief).studio, "Synthetic studio");
+  assert.ok(!JSON.stringify(preview.row.data).includes("Studio sintetico"));
+  assert.deepEqual((preview.row.data.professional as typeof brief).intents, ["samples", "block_selection"]);
+  const sent: { to: string; subject: string; text: string }[] = [];
+  await deliverCall(preview.row.id, async message => { sent.push(message); });
+  await deliverCall(preview.row.id, async message => { sent.push(message); });
+  assert.equal(sent.length, 2);
+  assert.equal(sent[0].to, "info@marenetto.com"); assert.equal(sent[1].to, "callback@example.invalid");
+  assert.equal(sent[1].subject, "تم استلام طلبكم المهني", "preview uses consent locale, never submitted contact preferences");
+});
+
+test("professional API, private filters and flattened CSV preserve intent and project categories", async () => {
+  // This disposable fixture schema is independent of the development app.
+  await pool.query("DELETE FROM project_request_attempts");
+  const body = valid({ project: "professional_studio", country: "Discarded country", professional: professional() });
+  const created = await post(body); assert.equal(created.status, 201);
+  const receipt = await created.json(); assert.equal(receipt.isSynthetic, true);
+  assert.equal((await post(body)).status, 200);
+  assert.equal((await post({ ...body, professional: professional({ phase: "Changed" }) })).status, 409);
+  for (const intent of ["samples", "block_selection"]) {
+    const query = `?project=professional_studio&intent=${intent}&professionalProjectType=villa&country=synthetic%20destination`;
+    const list = await request("/internal/call-requests" + query, "GET", undefined, "owner");
+    assert.equal(list.status, 200);
+    const rows = await list.json();
+    assert.ok(rows.some((row: { code: string }) => row.code === receipt.code));
+    for (const role of [undefined, "editor", "viewer"]) {
+      assert.equal((await request("/internal/call-requests" + query, "GET", undefined, role)).status, role ? 403 : 401);
+      assert.equal((await request("/internal/call-requests/export" + query, "GET", undefined, role)).status, role ? 403 : 401);
+    }
+    const csv = await request("/internal/call-requests/export" + query, "GET", undefined, "owner");
+    assert.equal(csv.status, 200);
+    const text = await csv.text();
+    for (const field of ["studio", "professionalProjectType", "phase", "product", "material", "dimensions", "deadline", "intents"]) {
+      assert.ok(text.split("\r\n")[0].includes(`"${field}"`), field);
+    }
+    assert.ok(text.includes(receipt.code)); assert.ok(text.includes("Synthetic studio"));
+    assert.ok(text.includes("block_selection")); assert.ok(text.includes("samples"));
+  }
+  for (const q of ["intent=upload", "professionalProjectType=unknown"]) {
+    assert.equal((await request("/internal/call-requests?" + q, "GET", undefined, "owner")).status, 400);
+  }
+  const none = await request("/internal/call-requests?professionalProjectType=hotel", "GET", undefined, "owner");
+  assert.deepEqual(await none.json(), []);
+  const list = await request("/internal/call-requests?project=professional_studio", "GET", undefined, "owner");
+  const rows = await list.json(); const row = rows.find((r: { code: string }) => r.code === receipt.code);
+  assert.ok(row);
+  const note = await request(`/internal/call-requests/${row.id}`, "PATCH", { notes: "Synthetic professional note" }, "owner");
+  assert.equal(note.status, 200); assert.ok((await note.json()).data.professional.studio);
+  const removed = await request(`/internal/call-requests/${row.id}`, "DELETE", undefined, "owner");
+  assert.equal(removed.status, 204);
+  assert.deepEqual(await db.select().from(calls).where(eq(calls.id, row.id)), []);
+});
+
+test("professional acknowledgements are localized in every supported language with no fabricated quote or delivery", () => {
+  const subjects = new Set<string>();
+  for (const lang of ["it", "en", "de", "fr", "es", "nl", "pt", "pl", "ru", "sv", "no", "da", "ar"]) {
+    const mail = callbackMail({
+      code: "CALL-SYNTHETIC", createdAt: new Date(),
+      data: input({ project: "professional_studio", country: "Synthetic country", professional: professional(),
+        consentLanguage: lang, preferredLanguage: lang }),
+    } as never, "customer");
+    assert.ok(mail.subject.length > 10); assert.ok(mail.text.includes("24"));
+    assert.ok(mail.text.includes("info@marenetto.com"));
+    assert.ok(!subjects.has(mail.subject), lang); subjects.add(mail.subject);
+    if (lang !== "en") assert.ok(!mail.text.includes("automatic acknowledgement"), lang);
+  }
+});
+
+test("all professional project types and individual intents remain distinguishable, including other", async () => {
+  for (const projectType of ["villa", "hotel", "resort", "yacht", "other"]) {
+    for (const intent of ["samples", "block_selection"]) {
+      const data = input({ project: "professional_studio", country: "Synthetic country",
+        professional: professional({ projectType, intents: [intent] }) });
+      const saved = await storeCall(data, true); assert.ok(saved);
+      const brief = saved.row.data.professional as ReturnType<typeof professional>;
+      assert.equal(brief.projectType, projectType); assert.deepEqual(brief.intents, [intent]);
+      assert.equal(saved.row.data.budget, undefined);
+    }
+  }
+});
+
+test("professional CSV cells are formula-safe and expired briefs are removed with the same retention rule", async () => {
+  const saved = await storeCall(input({ project: "professional_studio", country: "Synthetic country",
+    professional: professional({ projectType: "yacht" }) }), false); assert.ok(saved);
+  // Deliberately mark this synthetic row with synthetic formula-shaped text.
+  const data = { ...saved.row.data, professional: professional({ studio: "=SYNTHETIC()", phase: "\t+SYNTHETIC",
+    product: "-SYNTHETIC", material: "@SYNTHETIC", dimensions: "\n=SYNTHETIC", deadline: "=SYNTHETIC" }) };
+  await db.update(calls).set({ data }).where(eq(calls.id, saved.row.id));
+  const csv = await request("/internal/call-requests/export?project=professional_studio", "GET", undefined, "owner");
+  const text = await csv.text(); assert.equal(csv.status, 200);
+  for (const expected of ["\"'=SYNTHETIC()", "\"'\t+SYNTHETIC", "\"'-SYNTHETIC", "\"'@SYNTHETIC", "\"'\n=SYNTHETIC"]) {
+    assert.ok(text.includes(expected), JSON.stringify(expected));
+  }
+  await db.update(calls).set({ createdAt: sql`now() - interval '13 months'` }).where(eq(calls.id, saved.row.id));
+  const removed = await purgeExpiredCalls({ execute: true });
+  assert.ok(removed.some(row => row.id === saved.row.id));
+  assert.deepEqual(await db.select().from(calls).where(eq(calls.id, saved.row.id)), []);
+});

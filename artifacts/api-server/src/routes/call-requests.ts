@@ -6,6 +6,7 @@ import { CreateCallRequestBody, CreateCallRequestResponse, GetCallRequestConfigR
 import { requireInternalAccess } from "../middlewares/internalAccess";
 import { isSpamSubmission, reserveProjectRequest } from "../lib/project-request-rate";
 import { CALL_PRIVACY_VERSION, callLiveApproved, callReceipt, csvCell, deliverCall, storeCall } from "../lib/call-service";
+import { PROFESSIONAL_CSV_FIELDS, professionalCsvValues, validProfessionalRequest } from "../lib/professional-request";
 
 const router: IRouter = Router();
 router.get("/call-requests/config", (_req, res) => {
@@ -24,6 +25,7 @@ router.post("/call-requests", async (req, res): Promise<void> => {
     !/^\+[1-9][0-9]{7,14}$/.test(parsed.data.mobile) || parsed.data.privacyAccepted !== true ||
     (parsed.data.project === "atelier_international" && (!parsed.data.country || parsed.data.country.trim().length < 2)) ||
     (parsed.data.country !== undefined && parsed.data.country.trim().length < 2) ||
+    !validProfessionalRequest(parsed.data) ||
     parsed.data.privacyVersion !== CALL_PRIVACY_VERSION) {
     res.status(400).json({ error: "invalid_input" }); return;
   }
@@ -65,6 +67,8 @@ function callFilter(query: unknown) {
     q.language ? sql`(${calls.data}->>'preferredLanguage' = ${q.language} OR (${calls.data}->>'preferredLanguage' IS NULL AND ${calls.consentLanguage} = ${q.language}))` : undefined,
     q.project ? sql`${calls.data}->>'project' = ${q.project}` : undefined,
     q.country ? sql`lower(trim(${calls.data}->>'country')) = lower(trim(${q.country}))` : undefined,
+    q.intent ? sql`(${calls.data}->'professional'->'intents') @> ${JSON.stringify([q.intent])}::jsonb` : undefined,
+    q.professionalProjectType ? sql`${calls.data}->'professional'->>'projectType' = ${q.professionalProjectType}` : undefined,
     q.status ? eq(calls.status, q.status) : undefined);
 }
 router.get(["/internal/call-requests", "/internal/call-requests/export"], async (req, res): Promise<void> => {
@@ -75,8 +79,8 @@ router.get(["/internal/call-requests", "/internal/call-requests/export"], async 
     const keys = ["code", "createdAt", "consentAt", "privacyVersion", "consentLanguage", "status", "notes", "acquiredCustomer", "ownerDelivery", "customerDelivery"] as const;
     const fields = ["firstName", "lastName", "email", "mobile", "whatsapp", "project", "country", "location", "budget", "startWhen", "timeSlot", "preferredLanguage", "message", "marketingAccepted", "sourcePath", "utm"];
     res.setHeader("Content-Disposition", 'attachment; filename="call-requests.csv"');
-    res.type("text/csv").send("\uFEFF" + [ [...keys, ...fields].map(csvCell).join(","),
-      ...rows.map(row => [...keys.map(k => row[k] instanceof Date ? (row[k] as Date).toISOString() : row[k]), ...fields.map(k => row.data[k])].map(csvCell).join(",")),
+    res.type("text/csv").send("\uFEFF" + [ [...keys, ...fields, ...PROFESSIONAL_CSV_FIELDS].map(csvCell).join(","),
+      ...rows.map(row => [...keys.map(k => row[k] instanceof Date ? (row[k] as Date).toISOString() : row[k]), ...fields.map(k => row.data[k]), ...professionalCsvValues(row.data)].map(csvCell).join(",")),
     ].join("\r\n")); return;
   }
   res.json(ListCallRequestsResponse.parse(rows));

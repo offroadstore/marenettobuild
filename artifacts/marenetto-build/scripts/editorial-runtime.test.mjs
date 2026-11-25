@@ -31,8 +31,8 @@ test('an edited archive page lists the Russian active article rather than the It
 });
 
 test('an active revision cannot publish a blocked-language URL', async () => {
-  const live=article('ar');
-  const result=await render(live.path,'ar',[live]);
+  const live=article('ro');
+  const result=await render(live.path,'ro',[live]);
   assert.ok(!result.body.includes(live.content.title));
   assert.doesNotMatch(result.body,/data-active-revision=/);
   assert.match(result.body,/404/);

@@ -15,4 +15,5 @@ export const CallProject = {
   concrete_furniture: 'concrete_furniture',
   other: 'other',
   atelier_international: 'atelier_international',
+  professional_studio: 'professional_studio',
 } as const;

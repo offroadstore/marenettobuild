@@ -10,6 +10,7 @@ import type { CallProject } from './callProject';
 import type { CallRequestInputPrivacyVersion } from './callRequestInputPrivacyVersion';
 import type { CallRequestInputTimeSlot } from './callRequestInputTimeSlot';
 import type { CallRequestInputUtm } from './callRequestInputUtm';
+import type { ProfessionalRequest } from './professionalRequest';
 
 export interface CallRequestInput {
   /**
@@ -34,10 +35,11 @@ export interface CallRequestInput {
   mobile: string;
   whatsapp?: boolean;
   project?: CallProject;
+  professional?: ProfessionalRequest;
   /** @maxLength 180 */
   location?: string;
   /**
-     * Destination country, distinct from property locality. Required for new international Atelier enquiries; absent on historical requests.
+     * Destination country, distinct from property locality. Required for new international Atelier and professional_studio enquiries; absent on historical requests.
      * @minLength 2
      * @maxLength 100
      */

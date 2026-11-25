@@ -30,7 +30,7 @@ export function inspect(html, edition) {
   }
   // The existing network models actual direct work/coordination in a Service catalog.
   // These valid types do not imply a Product, price or an Atelier commercial offer.
-  const allowed = new Set(['GeneralContractor','Organization','WebSite','BreadcrumbList','Service','FAQPage','Article','WebPage','Place','City','Country','AdministrativeArea','PostalAddress','ListItem','Question','Answer','OfferCatalog','Offer']);
+  const allowed = new Set(['GeneralContractor','Organization','WebSite','BreadcrumbList','Service','FAQPage','Article','WebPage','Place','City','Country','AdministrativeArea','PostalAddress','ListItem','Question','Answer','OfferCatalog','Offer','BusinessAudience']);
   const ids = new Set(graph.map(n => n['@id']).filter(Boolean));
   function walk(node) {
     if (!node || typeof node !== 'object') return;

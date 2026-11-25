@@ -172,7 +172,7 @@ export const ListBingSitesResponse = zod.array(ListBingSitesResponseItem)
 
 export const GetCallRequestConfigResponse = zod.object({
   "isSynthetic": zod.boolean(),
-  "privacyVersion": zod.enum(['call-2026-11-25-atelier'])
+  "privacyVersion": zod.enum(['call-2026-11-25-professional'])
 })
 
 
@@ -189,6 +189,20 @@ export const createCallRequestBodyEmailMax = 254;
 
 export const createCallRequestBodyMobileRegExp = new RegExp('^\\+[1-9][0-9]{7,14}$');
 export const createCallRequestBodyWhatsappDefault = false;
+export const createCallRequestBodyProfessionalStudioMax = 180;
+
+export const createCallRequestBodyProfessionalPhaseMax = 180;
+
+export const createCallRequestBodyProfessionalProductMax = 180;
+
+export const createCallRequestBodyProfessionalMaterialMax = 180;
+
+export const createCallRequestBodyProfessionalDimensionsMax = 3000;
+
+export const createCallRequestBodyProfessionalDeadlineMax = 180;
+
+export const createCallRequestBodyProfessionalIntentsMax = 2;
+
 export const createCallRequestBodyLocationMax = 180;
 
 export const createCallRequestBodyCountryMin = 2;
@@ -220,9 +234,19 @@ export const CreateCallRequestBody = zod.object({
   "email": zod.string().email().max(createCallRequestBodyEmailMax),
   "mobile": zod.string().regex(createCallRequestBodyMobileRegExp),
   "whatsapp": zod.boolean().default(createCallRequestBodyWhatsappDefault),
-  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other', 'atelier_international']).optional(),
+  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other', 'atelier_international', 'professional_studio']).optional(),
+  "professional": zod.object({
+  "studio": zod.string().min(1).max(createCallRequestBodyProfessionalStudioMax),
+  "projectType": zod.enum(['villa', 'hotel', 'resort', 'yacht', 'other']),
+  "phase": zod.string().min(1).max(createCallRequestBodyProfessionalPhaseMax),
+  "product": zod.string().min(1).max(createCallRequestBodyProfessionalProductMax),
+  "material": zod.string().min(1).max(createCallRequestBodyProfessionalMaterialMax),
+  "dimensions": zod.string().min(1).max(createCallRequestBodyProfessionalDimensionsMax),
+  "deadline": zod.string().min(1).max(createCallRequestBodyProfessionalDeadlineMax),
+  "intents": zod.array(zod.enum(['samples', 'block_selection'])).min(1).max(createCallRequestBodyProfessionalIntentsMax)
+}).optional().describe('Text-only professional brief. Required for professional_studio submissions; no file upload or remote URL fetching.'),
   "location": zod.string().max(createCallRequestBodyLocationMax).optional(),
-  "country": zod.string().min(createCallRequestBodyCountryMin).max(createCallRequestBodyCountryMax).optional().describe('Destination country, distinct from property locality. Required for new international Atelier enquiries; absent on historical requests.'),
+  "country": zod.string().min(createCallRequestBodyCountryMin).max(createCallRequestBodyCountryMax).optional().describe('Destination country, distinct from property locality. Required for new international Atelier and professional_studio enquiries; absent on historical requests.'),
   "budget": zod.string().max(createCallRequestBodyBudgetMax).optional(),
   "startWhen": zod.string().max(createCallRequestBodyStartWhenMax).optional(),
   "timeSlot": zod.enum(['morning', 'afternoon']).optional(),
@@ -230,7 +254,7 @@ export const CreateCallRequestBody = zod.object({
   "message": zod.string().max(createCallRequestBodyMessageMax).optional(),
   "privacyAccepted": zod.literal(true),
   "marketingAccepted": zod.boolean().default(createCallRequestBodyMarketingAcceptedDefault),
-  "privacyVersion": zod.enum(['call-2026-11-23', 'call-2026-11-25', 'call-2026-11-25-atelier']),
+  "privacyVersion": zod.enum(['call-2026-11-23', 'call-2026-11-25', 'call-2026-11-25-atelier', 'call-2026-11-25-professional']),
   "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da', 'ar']),
   "sourcePath": zod.string().max(createCallRequestBodySourcePathMax).optional(),
   "utm": zod.object({
@@ -260,7 +284,9 @@ export const ListCallRequestsQueryParams = zod.object({
   "start": zod.date().optional(),
   "end": zod.date().optional(),
   "language": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da', 'ar']).optional(),
-  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other', 'atelier_international']).optional(),
+  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other', 'atelier_international', 'professional_studio']).optional(),
+  "intent": zod.enum(['samples', 'block_selection']).optional(),
+  "professionalProjectType": zod.enum(['villa', 'hotel', 'resort', 'yacht', 'other']).optional(),
   "country": zod.coerce.string().min(listCallRequestsQueryCountryMin).max(listCallRequestsQueryCountryMax).optional(),
   "status": zod.enum(['new', 'contacted', 'survey', 'quote', 'closed']).optional()
 })
@@ -278,6 +304,20 @@ export const listCallRequestsResponseDataEmailMax = 254;
 
 export const listCallRequestsResponseDataMobileRegExp = new RegExp('^\\+[1-9][0-9]{7,14}$');
 export const listCallRequestsResponseDataWhatsappDefault = false;
+export const listCallRequestsResponseDataProfessionalStudioMax = 180;
+
+export const listCallRequestsResponseDataProfessionalPhaseMax = 180;
+
+export const listCallRequestsResponseDataProfessionalProductMax = 180;
+
+export const listCallRequestsResponseDataProfessionalMaterialMax = 180;
+
+export const listCallRequestsResponseDataProfessionalDimensionsMax = 3000;
+
+export const listCallRequestsResponseDataProfessionalDeadlineMax = 180;
+
+export const listCallRequestsResponseDataProfessionalIntentsMax = 2;
+
 export const listCallRequestsResponseDataLocationMax = 180;
 
 export const listCallRequestsResponseDataCountryMin = 2;
@@ -312,9 +352,19 @@ export const ListCallRequestsResponseItem = zod.object({
   "email": zod.string().email().max(listCallRequestsResponseDataEmailMax),
   "mobile": zod.string().regex(listCallRequestsResponseDataMobileRegExp),
   "whatsapp": zod.boolean().default(listCallRequestsResponseDataWhatsappDefault),
-  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other', 'atelier_international']).optional(),
+  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other', 'atelier_international', 'professional_studio']).optional(),
+  "professional": zod.object({
+  "studio": zod.string().min(1).max(listCallRequestsResponseDataProfessionalStudioMax),
+  "projectType": zod.enum(['villa', 'hotel', 'resort', 'yacht', 'other']),
+  "phase": zod.string().min(1).max(listCallRequestsResponseDataProfessionalPhaseMax),
+  "product": zod.string().min(1).max(listCallRequestsResponseDataProfessionalProductMax),
+  "material": zod.string().min(1).max(listCallRequestsResponseDataProfessionalMaterialMax),
+  "dimensions": zod.string().min(1).max(listCallRequestsResponseDataProfessionalDimensionsMax),
+  "deadline": zod.string().min(1).max(listCallRequestsResponseDataProfessionalDeadlineMax),
+  "intents": zod.array(zod.enum(['samples', 'block_selection'])).min(1).max(listCallRequestsResponseDataProfessionalIntentsMax)
+}).optional().describe('Text-only professional brief. Required for professional_studio submissions; no file upload or remote URL fetching.'),
   "location": zod.string().max(listCallRequestsResponseDataLocationMax).optional(),
-  "country": zod.string().min(listCallRequestsResponseDataCountryMin).max(listCallRequestsResponseDataCountryMax).optional().describe('Destination country, distinct from property locality. Required for new international Atelier enquiries; absent on historical requests.'),
+  "country": zod.string().min(listCallRequestsResponseDataCountryMin).max(listCallRequestsResponseDataCountryMax).optional().describe('Destination country, distinct from property locality. Required for new international Atelier and professional_studio enquiries; absent on historical requests.'),
   "budget": zod.string().max(listCallRequestsResponseDataBudgetMax).optional(),
   "startWhen": zod.string().max(listCallRequestsResponseDataStartWhenMax).optional(),
   "timeSlot": zod.enum(['morning', 'afternoon']).optional(),
@@ -322,7 +372,7 @@ export const ListCallRequestsResponseItem = zod.object({
   "message": zod.string().max(listCallRequestsResponseDataMessageMax).optional(),
   "privacyAccepted": zod.literal(true),
   "marketingAccepted": zod.boolean().default(listCallRequestsResponseDataMarketingAcceptedDefault),
-  "privacyVersion": zod.enum(['call-2026-11-23', 'call-2026-11-25', 'call-2026-11-25-atelier']),
+  "privacyVersion": zod.enum(['call-2026-11-23', 'call-2026-11-25', 'call-2026-11-25-atelier', 'call-2026-11-25-professional']),
   "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da', 'ar']),
   "sourcePath": zod.string().max(listCallRequestsResponseDataSourcePathMax).optional(),
   "utm": zod.object({
@@ -357,7 +407,9 @@ export const ExportCallRequestsQueryParams = zod.object({
   "start": zod.date().optional(),
   "end": zod.date().optional(),
   "language": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da', 'ar']).optional(),
-  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other', 'atelier_international']).optional(),
+  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other', 'atelier_international', 'professional_studio']).optional(),
+  "intent": zod.enum(['samples', 'block_selection']).optional(),
+  "professionalProjectType": zod.enum(['villa', 'hotel', 'resort', 'yacht', 'other']).optional(),
   "country": zod.coerce.string().min(exportCallRequestsQueryCountryMin).max(exportCallRequestsQueryCountryMax).optional(),
   "status": zod.enum(['new', 'contacted', 'survey', 'quote', 'closed']).optional()
 })
@@ -395,6 +447,20 @@ export const updateCallRequestResponseDataEmailMax = 254;
 
 export const updateCallRequestResponseDataMobileRegExp = new RegExp('^\\+[1-9][0-9]{7,14}$');
 export const updateCallRequestResponseDataWhatsappDefault = false;
+export const updateCallRequestResponseDataProfessionalStudioMax = 180;
+
+export const updateCallRequestResponseDataProfessionalPhaseMax = 180;
+
+export const updateCallRequestResponseDataProfessionalProductMax = 180;
+
+export const updateCallRequestResponseDataProfessionalMaterialMax = 180;
+
+export const updateCallRequestResponseDataProfessionalDimensionsMax = 3000;
+
+export const updateCallRequestResponseDataProfessionalDeadlineMax = 180;
+
+export const updateCallRequestResponseDataProfessionalIntentsMax = 2;
+
 export const updateCallRequestResponseDataLocationMax = 180;
 
 export const updateCallRequestResponseDataCountryMin = 2;
@@ -429,9 +495,19 @@ export const UpdateCallRequestResponse = zod.object({
   "email": zod.string().email().max(updateCallRequestResponseDataEmailMax),
   "mobile": zod.string().regex(updateCallRequestResponseDataMobileRegExp),
   "whatsapp": zod.boolean().default(updateCallRequestResponseDataWhatsappDefault),
-  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other', 'atelier_international']).optional(),
+  "project": zod.enum(['renovation', 'construction', 'concrete_furniture', 'other', 'atelier_international', 'professional_studio']).optional(),
+  "professional": zod.object({
+  "studio": zod.string().min(1).max(updateCallRequestResponseDataProfessionalStudioMax),
+  "projectType": zod.enum(['villa', 'hotel', 'resort', 'yacht', 'other']),
+  "phase": zod.string().min(1).max(updateCallRequestResponseDataProfessionalPhaseMax),
+  "product": zod.string().min(1).max(updateCallRequestResponseDataProfessionalProductMax),
+  "material": zod.string().min(1).max(updateCallRequestResponseDataProfessionalMaterialMax),
+  "dimensions": zod.string().min(1).max(updateCallRequestResponseDataProfessionalDimensionsMax),
+  "deadline": zod.string().min(1).max(updateCallRequestResponseDataProfessionalDeadlineMax),
+  "intents": zod.array(zod.enum(['samples', 'block_selection'])).min(1).max(updateCallRequestResponseDataProfessionalIntentsMax)
+}).optional().describe('Text-only professional brief. Required for professional_studio submissions; no file upload or remote URL fetching.'),
   "location": zod.string().max(updateCallRequestResponseDataLocationMax).optional(),
-  "country": zod.string().min(updateCallRequestResponseDataCountryMin).max(updateCallRequestResponseDataCountryMax).optional().describe('Destination country, distinct from property locality. Required for new international Atelier enquiries; absent on historical requests.'),
+  "country": zod.string().min(updateCallRequestResponseDataCountryMin).max(updateCallRequestResponseDataCountryMax).optional().describe('Destination country, distinct from property locality. Required for new international Atelier and professional_studio enquiries; absent on historical requests.'),
   "budget": zod.string().max(updateCallRequestResponseDataBudgetMax).optional(),
   "startWhen": zod.string().max(updateCallRequestResponseDataStartWhenMax).optional(),
   "timeSlot": zod.enum(['morning', 'afternoon']).optional(),
@@ -439,7 +515,7 @@ export const UpdateCallRequestResponse = zod.object({
   "message": zod.string().max(updateCallRequestResponseDataMessageMax).optional(),
   "privacyAccepted": zod.literal(true),
   "marketingAccepted": zod.boolean().default(updateCallRequestResponseDataMarketingAcceptedDefault),
-  "privacyVersion": zod.enum(['call-2026-11-23', 'call-2026-11-25', 'call-2026-11-25-atelier']),
+  "privacyVersion": zod.enum(['call-2026-11-23', 'call-2026-11-25', 'call-2026-11-25-atelier', 'call-2026-11-25-professional']),
   "consentLanguage": zod.enum(['it', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'pl', 'ru', 'sv', 'no', 'da', 'ar']),
   "sourcePath": zod.string().max(updateCallRequestResponseDataSourcePathMax).optional(),
   "utm": zod.object({
