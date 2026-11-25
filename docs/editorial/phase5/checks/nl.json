@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-11-25T17:24:14.750Z",
+  "method": "AI-assisted documentary and linguistic review, owner-authorized 2026-11-25; not professional opinion",
+  "status": "AI-assisted-reviewed-informative",
+  "manuscripts": [
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "candidateContentSHA256": "e1630e1f9b51e7504feb0056b11bde171975da137dae24a611e706a005a0e635",
+      "reviewedBeforeMarkupSHA256": "bbb2613260e538b573a4c9e1fe80c205e0924574d2c0ed274aa8c670fc6e266a"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "candidateContentSHA256": "9641def44aad52fd05e7af034b48e39048c8c459626cb1ac8a3f4ca6217d050f",
+      "reviewedBeforeMarkupSHA256": "88fda999031893fee0a736fc8425c5671b3aafa5b4cfb5e14219f59f584653c4"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "candidateContentSHA256": "a0c11b0bdeb44ba2bd54c79bd9ea276b97196c16ac58c4ce77a3ae76de7f55cd",
+      "reviewedBeforeMarkupSHA256": "84b424e3700e5f8d230ff97193b748d89f5ac4c5b60ef37616d04193fa86b7c1"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "candidateContentSHA256": "d2d7632ce75e16184046d0827da6d0b99d8baade9001b7108e97ed37cd96c74a",
+      "reviewedBeforeMarkupSHA256": "e15004685ecc3b9aa757b31e163d9b484e06c49ba174e0ea0cba753accacae86"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "candidateContentSHA256": "6b01cdbe26ce4043290b63950567e00c13c207cfa6965a119022c4fb907e3bd0",
+      "reviewedBeforeMarkupSHA256": "57347655d2e89035f81eaef9fb8082c9ab31e04bdda17c78760edc20e6f3d64c"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "candidateContentSHA256": "47dae7355c3320fadabcc11796c11be10a7e5e47dd783876416512de24c77c77",
+      "reviewedBeforeMarkupSHA256": "b98ad0e229ca1dcfd3d6ac18ce5d911b1f65cde0661ac18c1ed04ae2803da8ee"
+    }
+  ],
+  "findings": [],
+  "limitations": "This review is performed by an AI assistant at the owner's request. It is not professional legal advice, a technical certification, or a human-expert signoff. Regulatory compliance and project feasibility must be verified in each specific case by the qualified professionals (technicians, notaries, local offices) assigned to the project.",
+  "locale": "nl",
+  "markupOnlyVerification": {
+    "checkedAt": "2026-11-25T17:27:59.653Z",
+    "change": "Added a scoped id to the existing blockquote for box styling; identical text, URLs and metadata verified by exact previous-content SHA256 reconstruction. No new linguistic signoff claimed."
+  }
+}

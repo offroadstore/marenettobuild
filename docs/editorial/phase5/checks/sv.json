@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-11-25T17:24:14.750Z",
+  "method": "AI-assisted documentary and linguistic review, owner-authorized 2026-11-25; not professional opinion",
+  "status": "AI-assisted-reviewed-informative",
+  "manuscripts": [
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "candidateContentSHA256": "b1e60bfdf839cb4eda774d5741012e1c318e5f5b6568d6e470feaa168247629f",
+      "reviewedBeforeMarkupSHA256": "dc176e61a62c0877830e86be68d9cc69a3b9dcab69b829a3b67cc68e6a6acbdc"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "candidateContentSHA256": "b66c0101e45b523f562e420eb408074a78583f66d46718ec257d57b52527dfc4",
+      "reviewedBeforeMarkupSHA256": "6bcc392b429846c2cfb946b9aeb57c4cc1c207ddce2fdcce95efb03e7a294183"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "candidateContentSHA256": "2c86f6ff9f43a6fb7577d5aa907f48e9b5b7ad7c71271a1b78904d67b1371b48",
+      "reviewedBeforeMarkupSHA256": "493c7c585301ec18f8fdb13331db2d27289db67e171620d697f97399e1ff6b65"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "candidateContentSHA256": "ecba2c7fd6fb76ddcf128008709da17531827b484909ce9a3b5139fb78690286",
+      "reviewedBeforeMarkupSHA256": "458037596fcd308e4aef1bac22ca0686fbd4fe7c177b56f5997a3b361ea77516"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "candidateContentSHA256": "7e42334cac2f0580e2c5110407a43ec214107bb1668206c9729ff9da0d270985",
+      "reviewedBeforeMarkupSHA256": "c849e3bbb51bc9aab68f6425a869b2c5242d20c40dabc0e96da5af24cdade92c"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "candidateContentSHA256": "9b3df71a9037ae1fe78430411d11c32d79ee83901ab045c0f1bde1c364611175",
+      "reviewedBeforeMarkupSHA256": "4a59ae3791abbc4c3e368f51622d994c151e45e4f86434b06317f4af7025a900"
+    }
+  ],
+  "findings": [],
+  "limitations": "This review is AI-assisted and does not constitute legal advice, a professional certificate, or a human editorial sign-off. All statements regarding legal/technical requirements are informational and must be verified by qualified professionals (e.g., technicians, notaries) on a case-by-case basis. Original Italian institutions and source date limitations are preserved.",
+  "locale": "sv",
+  "markupOnlyVerification": {
+    "checkedAt": "2026-11-25T17:27:59.653Z",
+    "change": "Added a scoped id to the existing blockquote for box styling; identical text, URLs and metadata verified by exact previous-content SHA256 reconstruction. No new linguistic signoff claimed."
+  }
+}

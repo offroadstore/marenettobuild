@@ -79,3 +79,46 @@ authorization above instead of requiring another approval for every new edition.
 Open indexing only after the canonical WWW domain and permanent redirects have been verified in production.
 
 **Why:** The owner explicitly ordered the launch this way; a valid certificate alone does not prove the redirect chain is correct. Record edge-managed HTTP redirects separately from application redirects.
+
+The six-guide editorial series has a separate draft/review boundary even though
+general indexing of verified existing public pages is authorised. The owner
+approved its subject list, not publication, and requested missing business
+information as private placeholders. Review the Italian source before adapting
+EN/DE/NL, then FR/ES/PT/PL/RU/SV/NO/DA.
+
+**Why:** The owner explicitly asked to proceed with drafts in that order without
+publishing before review; “automatic application” does not waive that boundary.
+
+**How to apply:** Preserve the purchase-guide family and existing URLs. In the
+remote-renovation and holiday-home guides, link the third-party property-management
+page with Cefalù Apartments only once actually public, using its real canonical
+URL. Never publish placeholders or infer a construction-update process from the
+partner’s rental-management tools.
+
+The owner confirmed on 2026-11-25 that Google shows the Search Console property
+as verified. This is an owner account-status declaration, not an independent
+account inspection by the agent.
+
+**Why:** A successful HTTP check of the permanent verification file cannot prove
+the account's ownership status, but the owner has now supplied that confirmation.
+
+**How to apply:** Do not keep asking for the same confirmation or modify the
+permanent verification file. New draft publication still requires its own
+explicit revision/language approval.
+
+For the informational editorial guides and professional-network copy, the
+owner explicitly accepts AI-assisted documentary and linguistic review plus
+internal owner approval, recorded as such and not as a professional opinion.
+Do not keep blocking editorial preparation on external professional reviewers.
+Case-specific reserved technical/legal checks remain visibly open, with the
+localized “Da verificare con il tecnico incaricato” notice.
+
+**Why:** On 2026-11-25 the owner expressly replaced the previous mandatory
+professional editorial-review expectation with this method. Informational
+publication must not be represented as professional validation of an intervention.
+
+**How to apply:** Bind review evidence to the actual texts, preserve source
+currency limitations, and distinguish internal method/business-fact approval
+from publication actions. Prepare the private handoff up to “PRONTO PER REPUBLISH”;
+the owner publishes through Claude. Unknown actual furniture materials/products
+stay private placeholders, never invented brands or visible production notes.

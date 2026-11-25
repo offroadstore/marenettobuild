@@ -26,3 +26,4 @@
 - [Contact and direct analytics decisions](contact-and-direct-analytics-decisions.md) — Owner chose email-only enquiries and direct consent-gated GA4; separate plans must precede implementation.
 - [AI visibility budget](ai-visibility-budget.md) — Three search-enabled providers, zero initial budget; keys alone do not authorize paid calls.
 - [Task synchronization](task-synchronization.md) — Completion can flatten merges; preserve functional changes outside merge-only resolutions.
+- [Development SSR comparisons](development-ssr-comparisons.md) — Preserve raw baselines; ignore only documented dev-module cache tokens, never content or SEO changes.

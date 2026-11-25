@@ -26,3 +26,16 @@ consent failures.
 **How to apply:** Prefer explicit test dependency injection; when sharing a
 test configuration module, keep its import identity consistent and verify
 that production defaults remain unchanged.
+
+Native strip-types tests cannot assume the bundler resolves extensionless
+TypeScript imports in workspace packages. Keep bundler-dependent imports behind
+the bundled-test entry, including generated API exports. When a native test
+launches a bundled Node test runner, remove the inherited `NODE_TEST_CONTEXT`
+from the child's environment.
+
+**Why:** Node can report a recursive test invocation and skip collection while
+the wrapper still exits successfully, giving a false passing result.
+
+**How to apply:** Verify the child prints its actual named tests and counts,
+not merely a successful wrapper test. Do not change application dependency
+resolution to accommodate an isolated test harness.

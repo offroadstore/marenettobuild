@@ -90,8 +90,9 @@ software; owner access shows bookings, receipts/revenue, tourist tax and
 receipts/documents. Include cleaning, check-in/out and everyday issue management.
 The owner requires the wording “decine di immobili”, never an exact count.
 This statement is time-sensitive: recheck when
-updating the claim. Confirmed spoken languages are Italian, English, French,
-Dutch and Spanish; translated pages do not prove staff speak other languages.
+updating the claim. The owner explicitly confirms Italian, English, French,
+Dutch and Spanish for both the Marenetto team and Cefalù Apartments; translated
+pages do not prove staff speak other languages or every contact speaks all five.
 Reuse the existing enquiry and WhatsApp, collect no extra personal data, and
 do not build a second owner portal or imply guaranteed returns.
 
@@ -212,3 +213,21 @@ food-contact or structural performance. Missing technical values are “dati
 in verifica”; missing downloads/projects/contact names are explicit
 placeholders, never fabricated proof. Requested EN test references are
 documentation to obtain and assess, not evidence of passed tests.
+
+The owner confirms remote construction is organised by SAL: the designer
+prepares a phased computo metrico; each reached phase is documented with photos
+and a report from the geometra or architect acting as direttore dei lavori.
+Between SALs, updates use WhatsApp photos, videos and recordings, with one
+company contact. Variations and urgencies are agreed with client and direttore
+dei lavori, updating the computo. No fixed cadence, names or guaranteed timing
+was authorised, and SAL does not establish a payment schedule.
+
+**Why:** These operational facts were supplied explicitly by the owner on
+2026-11-25, not inferred from the property-management partner's offering.
+
+**How to apply:** Use this process in remote-site and holiday-home information.
+At completion, optional Cefalù Apartments management covers procedures, CIN,
+OTA, cleaning and check-in under a distinct arrangement, without yield promises.
+Link the actually published management service, not a historical maintenance
+article. Team/partner spoken languages remain IT, EN, FR, NL and ES; do not
+infer that each individual speaks all five or all twelve website languages.

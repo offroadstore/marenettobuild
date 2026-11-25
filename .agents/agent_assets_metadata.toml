@@ -756,3 +756,31 @@ mtime_ms = 1795626217522
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/fc4f5efe-7db2-45a5-8e64-0c871ebaaf28/e4c694f5-e994-4202-ba2b-4105cada704f"
 storage_version_token = "1795626231794160"
 content_type = "application/octet-stream"
+
+[[outputs]]
+id = "cOrvWjI9oxXZLwHFwxnhp"
+uri = "file://generated-artifacts/editorial/phase5/sei-guide-primary-revisione.html"
+type = "html"
+title = "Sei guide — IT, EN, DE e NL"
+description = "24 candidate private con testi, fonti, glossari, revisione IA registrata, questioni aperte e istruzioni per il titolare tramite Claude. Nessuna pubblicazione."
+logical_id = "e7e3ae3c-0e6d-43f4-a75a-26d4b84d3a33"
+content_hash = "sha256:77a2df93b504a12e81ce7144e54750156203e00bef006857ba4b55f19ff97c7e"
+size = 412127
+mtime_ms = 1795628208926
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/e7e3ae3c-0e6d-43f4-a75a-26d4b84d3a33/7bdae4f1-7fea-4335-a6c3-016e38ad4af1"
+storage_version_token = "1795628371024713"
+content_type = "text/html"
+
+[[outputs]]
+id = "IqUEQU7CoNTiKgmAOTllu"
+uri = "file://generated-artifacts/editorial/phase5/sei-guide-remaining-revisione.html"
+type = "html"
+title = "Sei guide — altre otto lingue"
+description = "48 candidate private in FR, ES, PT, PL, RU, SV, NO e DA; metadati, schemi proposti, avvertenze e segnaposto materiali solo nelle note riservate."
+logical_id = "61d29a69-83ee-4a07-a2a9-1d461dfc520a"
+content_hash = "sha256:b85d31c66a6d03b7c349b8428950a1a698d92f3f3a01e42cee5e3af03caa56c3"
+size = 841861
+mtime_ms = 1795628209066
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/61d29a69-83ee-4a07-a2a9-1d461dfc520a/cc439557-84d4-4284-88f6-55ccde6cf3b4"
+storage_version_token = "1795628371774924"
+content_type = "text/html"

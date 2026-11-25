@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-11-25T17:24:14.750Z",
+  "method": "AI-assisted documentary and linguistic review, owner-authorized 2026-11-25; not professional opinion",
+  "status": "AI-assisted-reviewed-informative",
+  "manuscripts": [
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "candidateContentSHA256": "095944f351ce18ca3293761335a9febb2428fedcb597437aace37b963c85dfd6",
+      "reviewedBeforeMarkupSHA256": "27364a259bcff7901f52f583dc989723f7b2d3d6684f45e3cbb2ea3c880fa6d7"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "candidateContentSHA256": "082d4a40399b14bb4cb36b6cfbc1f1199c5694994775ec72fe8343d4e192f82d",
+      "reviewedBeforeMarkupSHA256": "a6f6d3f56cb590c45eb49d8dff6520c4e339f266ddc27a348dbcf38004699beb"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "candidateContentSHA256": "a75a78da16fc6605a8f0a985991b911d6c5dc321c5eacbd8fb481ef11df75898",
+      "reviewedBeforeMarkupSHA256": "265b5f530bac932744958c1fb750bdad560027edb9afb65549b743b1ce81a72c"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "candidateContentSHA256": "5040a41cb7025f363afe251fa7d1ef9387aa10907f725b180bea0dfd285ce949",
+      "reviewedBeforeMarkupSHA256": "918f1a0bf892c7b3fd9769c1dfeb02b7ad849924e528b4efb572602834b22ad7"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "candidateContentSHA256": "befef48247dbed847ce3b4910637457e685a6660932eaefcd558841dabe0114b",
+      "reviewedBeforeMarkupSHA256": "23ee7fd9712d818a61d03f207e483cbb03c2fd79d75c88ceca3b902bd5e13099"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "candidateContentSHA256": "a4504fc3d298e69d5e09aecb7873e4e56847d1df1498337c6f904b659689ae03",
+      "reviewedBeforeMarkupSHA256": "fbf4ca40a6e0bec9cb5c1ef00d83513320f7175856c55f9da01bd0ae5e0303af"
+    }
+  ],
+  "findings": [],
+  "limitations": "This review is an AI-assisted documentary and linguistic check performed at the owner's request. It does not constitute legal advice, a professional technical assessment, a certificate of compliance, or a human-native signoff. All information is for general informational purposes; site-specific verification of documents, legal compliance, and technical feasibility must be conducted by qualified local professionals.",
+  "locale": "es",
+  "markupOnlyVerification": {
+    "checkedAt": "2026-11-25T17:27:59.653Z",
+    "change": "Added a scoped id to the existing blockquote for box styling; identical text, URLs and metadata verified by exact previous-content SHA256 reconstruction. No new linguistic signoff claimed."
+  }
+}

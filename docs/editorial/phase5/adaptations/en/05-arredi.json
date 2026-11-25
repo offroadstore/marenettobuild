@@ -1,0 +1,60 @@
+{
+  "locale": "en",
+  "slug": "bespoke-concrete-microcement-furniture",
+  "title": "Bespoke concrete and microcement tables and furniture",
+  "summary": "A concrete-look table can be constructed in various ways. Before comparing colours and shapes, clarify the material, substrate, intended use, and protective finish. These choices affect the necessary assessments, item care, and delivery; the term \"concrete\" alone does not describe a complete product.",
+  "markdown": "# Bespoke concrete and microcement tables and furniture\n\nA concrete-look table can be constructed in various ways. Before comparing colours and shapes, clarify the material, substrate, intended use, and protective finish. These choices affect the necessary assessments, item care, and delivery; the term \"concrete\" alone does not describe a complete product.\n\n## Summary\n\n- Item material and coating\n- Usage, samples, and details to approve\n- Maintenance: instructions for the actual system\n- Shipping and worldwide installation\n- Frequently asked questions\n\n## Distinguishing furniture core from coating\n\nIn common language, \"concrete\" furniture often refers to very different compositions. Concrete is a binder; in a project, you must specify the composite material or the specific system used and how the piece is made. A microcement coating is not automatically equivalent to an element made entirely of the same material.\n\nAs a documentary reference, Isoplam describes Microverlay as a cement-polymer coating system, also applicable to design objects according to the conditions indicated in the technical datasheet. This does not prove that every substrate is compatible or that Marenetto uses that system in every piece of furniture.\n\n[DA CONFERMARE — materials actually used by Marenetto for each type; manufacturer, system name, substrate, any reinforcements, and protective finish.]\n\n## Start with the intended use, then define the finish\n\nState whether the piece is for indoor or outdoor use, whether it will be sheltered or exposed, how it will be used, and which parts will be subject to water, heat, or cleaning agents. For a kitchen countertop, do not infer food-contact suitability from the appearance or description of the coating: documentation relevant to the complete system and the intended use is required.\n\nShape, supports, edges, accessory openings, and site access must be coordinated during the design phase. Verification of weight, substrate, and fixings cannot be replaced by the labels \"lightweight\" or \"durable\". Conditions can vary significantly for a table, a counter, or a kitchen.\n\nAsk for a definition of the appearance to be approved and how to evaluate variations resulting from manual craftsmanship. An image on a screen does not guarantee an exact match of colour and texture. Physical samples are not promised with methods or availability not yet confirmed for this supply.\n\n## Maintenance also depends on the protective finish\n\nThe consulted Microverlay datasheet distinguishes the choice of protective finish based on use and location, and recommends involving the manufacturer's technical department. In the cleaning and maintenance section, it warns that inappropriate detergents may damage the surface and refers users to its own instructions. Therefore, we do not translate a generic formula like \"any neutral detergent is fine\" into universal advice.\n\nThese indications concern that system, not all microcements or all Marenetto furniture. For the actual piece, request written instructions on cleaning, permitted products, protection, and restoration procedures. In the absence of the confirmed cycle, we do not prescribe doses, detergents, treatments, or maintenance intervals.\n\n[DA CONFERMARE — datasheet and revision of the chosen cycle, care instructions to be provided, and usage limits. No resistance to scratches, heat, or stains, certification, or food-safe properties are attested by this draft.]\n\n## Bespoke, with delivery or installation worldwide\n\nThe owner confirms the offer of bespoke concrete furniture, kitchens, and tables shipped or installed anywhere. However, every project must clarify packaging, access, transport, unloading, any lifting equipment, assembly, and liability. For foreign destinations, logistic conditions and any local requirements must also be defined.\n\nWorldwide coverage does not mean immediate availability in any country, the presence of a foreign office, or that all necessary permits have been obtained. Materials, delivery route, and schedule are to be evaluated based on the project and the dedicated quote.\n\nTo begin, prepare indicative measurements, photographs of the environment, intended use, and delivery location. Consult the [premium furniture page](/en/bespoke-furniture) and write to the [official contact](mailto:info@marenetto.com). No standard price or lead time is declared here.\n\n## Frequently asked questions\n\n### Are concrete and microcement the same thing?\n\nNo. It is necessary to distinguish the material from which the furniture core is made from the coating system. The project and the system datasheet clarify what is being proposed.\n\n### Is a microcement countertop always suitable for food and hot pans?\n\nIt is not possible to state this from the material name alone. Documentation and usage limits relevant to the complete cycle, the protective finish, and the actual piece are required.\n\n### Can you ship or install abroad?\n\nThe worldwide service is confirmed by the owner. Feasibility, transport, access, installation, and conditions are defined for the individual destination and order; this guide does not guarantee a delivery date.\n\n## Sources and limitations\n\nConsultation of 25 November 2026: Isoplam, Microverlay system page and technical datasheet, sections on description, application fields, resin coating, cleaning, and maintenance. The source documents that product, not a partnership, business qualification, or its use on a Marenetto piece. Confirmation of the actual system and technical review remain necessary.\n",
+  "seoTitle": "Bespoke Concrete and Microcement Furniture: Guides and Considerations",
+  "seoDescription": "Expert guide on bespoke concrete and microcement furniture. Understand materials, finishes, and logistics for your custom project. Consulted as of 25 Nov 2026.",
+  "category": "Finishes and surfaces",
+  "headings": {
+    "toc": "Summary",
+    "faq": "Frequently asked questions",
+    "sources": "Sources and limitations",
+    "consulted": "Consulted",
+    "limits": "Limitations",
+    "register": "Register"
+  },
+  "sourceTranslations": [
+    {
+      "id": "microverlay",
+      "limit": "Manufacturer source, not proof that Marenetto uses this system, is a partner, or holds certifications.",
+      "scope": "System identification and availability of the relevant technical datasheet."
+    },
+    {
+      "id": "microverlay-sheet",
+      "limit": "No explicit date/revision detected in the extracted text: do not invent one. Instructions relevant only to the actual cycle, still to be confirmed. Do not transfer floor/wall classes to finished furniture or declare food-safe properties.",
+      "scope": "Description, application fields on design objects, choice of protective finish, cleaning, and maintenance."
+    }
+  ],
+  "glossary": [
+    {
+      "italian": "CILA/SCIA/Permesso di costruire",
+      "localized": "Building permits/Notices of commencement",
+      "note": "Documenti legali italiani per opere edilizie; necessari per modifiche strutturali."
+    },
+    {
+      "italian": "Microcemento",
+      "localized": "Microcement",
+      "note": "Rivestimento cementizio polimerico ad alto spessore ridotto."
+    },
+    {
+      "italian": "Supporto",
+      "localized": "Substrate",
+      "note": "La superficie base (es. MDF, legno, metallo) su cui viene applicato il rivestimento."
+    }
+  ],
+  "privateNotes": [],
+  "identity": "tavoli-arredi-cemento-microcemento",
+  "sourceManuscriptSHA256": "ae6938f4f1d227a396c2b5f3451291c5d11e6d91303b710ef8a8582f6d92504f",
+  "preparedAt": "2026-11-25T16:41:41.488Z",
+  "assistance": "AI-assisted adaptation; human linguistic and technical review pending",
+  "review": {
+    "documentary": "AI-assisted-in-progress",
+    "linguistic": "AI-assisted-in-progress",
+    "professionalOpinion": false,
+    "ownerInternalDecision": "2026-11-25 method and business facts; not CMS publication approval",
+    "publicationApproval": null
+  },
+  "updatedAt": "2026-11-25T17:18:47.081Z"
+}

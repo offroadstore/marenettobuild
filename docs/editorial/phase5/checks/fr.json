@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-11-25T17:24:14.750Z",
+  "method": "AI-assisted documentary and linguistic review, owner-authorized 2026-11-25; not professional opinion",
+  "status": "AI-assisted-reviewed-informative",
+  "manuscripts": [
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "candidateContentSHA256": "9a4e8f3d22d58aee7b58c05f62179c98446749c87e9376eb5cb2f87373cc11b1",
+      "reviewedBeforeMarkupSHA256": "fd34fb4b8e44448501fc1b81d060f539002df05d91dd1ceb1c7f6279fa96c59a"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "candidateContentSHA256": "47bc7a82be7182647b85fe2397bb21ea7e5c8f9a3c6136be02d2ce06dc67eadd",
+      "reviewedBeforeMarkupSHA256": "f42264a3f09cbf92378095307cb39f51c080b21390a220fbcb9d6c013f956ae7"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "candidateContentSHA256": "72c876e3131ce03dd4f9d1bfc56fbe7b9d48c916d75e873b3d947c46341cd4dc",
+      "reviewedBeforeMarkupSHA256": "bdc860450fef2815508b875f5a27830db31949166c0972361701a6d889aec72f"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "candidateContentSHA256": "a0c38b2fc40070714f5dc2999db6a29c4c63e157f41ff1e0c8f4e051e26b391d",
+      "reviewedBeforeMarkupSHA256": "3f944d8f1ff1d3aad2308aecdd1d2677a198ecfe875a0cf63d35ccd1d6f607eb"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "candidateContentSHA256": "cd1cf9fc25a7f0b52014ae58a842d5aa9fe20f679cf424cdc17d5c2b7a8e0a88",
+      "reviewedBeforeMarkupSHA256": "d5d1e859ba5b9407d923451ea03bad7a683a80593172951c9b65ec21ded60c72"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "candidateContentSHA256": "ab692a57d73b4f60f628361f0c30e5b9b7b0ef69ffb364eb4bc01bd2c8bf7c0a",
+      "reviewedBeforeMarkupSHA256": "60618bfe79582c140eb67e64dc234c8491dfdf7a986b25d0e166881252c0358f"
+    }
+  ],
+  "findings": [],
+  "limitations": "This review is performed by an AI and does not constitute legal advice, a professional certificate, or a human editorial signoff. All general technical and legal statements must be verified against the specific real-world case by qualified professionals (technician, notary, public offices). Content limitations and source validity dates (e.g., as of 25 November 2026) are preserved from the source material.",
+  "locale": "fr",
+  "markupOnlyVerification": {
+    "checkedAt": "2026-11-25T17:27:59.653Z",
+    "change": "Added a scoped id to the existing blockquote for box styling; identical text, URLs and metadata verified by exact previous-content SHA256 reconstruction. No new linguistic signoff claimed."
+  }
+}

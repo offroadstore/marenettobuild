@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-11-25T17:24:14.750Z",
+  "method": "AI-assisted documentary and linguistic review, owner-authorized 2026-11-25; not professional opinion",
+  "status": "AI-assisted-reviewed-informative",
+  "manuscripts": [
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "candidateContentSHA256": "70d1d9259885abd838107f4ff13d195137dfbcd48fc23112c2ecc4b2886d9281",
+      "reviewedBeforeMarkupSHA256": "2ba918a5df4072ce9c6f3802a1f21ae675eec7d3bf08a5cd0e63c805a9f37a66"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "candidateContentSHA256": "a05090d77f291fdf8700c764aa2d9c9cad98e572e65a46e934a46717062e194e",
+      "reviewedBeforeMarkupSHA256": "23488f6da658acb15b9891fd42dc57b7c3a8ae6f855f381d7d51de40004c588a"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "candidateContentSHA256": "5d00ca964e956145c986abcc2305b9b3b20b4fb6157eb998aad07d07e19b025c",
+      "reviewedBeforeMarkupSHA256": "a216da56b9fa3670dba354dab295bc4be5bf9d6fea29cca726beb5b9f5ec6074"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "candidateContentSHA256": "dbe4de88d25784e0146967c1f0797f3870331cf866c17420fdc8b95c64ceb9f7",
+      "reviewedBeforeMarkupSHA256": "94957270118e67632b98e655c23d8f7126749db9d8b4375d4f43f5d976d1a9b4"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "candidateContentSHA256": "bedce45ddd596c2ef8d4083641a558bf9d484b6f2c5f4b45c935b2381e0965fc",
+      "reviewedBeforeMarkupSHA256": "0d0bf505db4822da3a6a93015cf14d029d2b6876eb092539fc7d84ee1d6638ed"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "candidateContentSHA256": "331aeced0651e0f8b594f84a57ecf9dfc381bb5e2e9d8c5ddec46372ca36b2c5",
+      "reviewedBeforeMarkupSHA256": "38498673348cbd7544981b47ef0b5d6f2212371bbc45bb0266439175ff80fe3e"
+    }
+  ],
+  "findings": [],
+  "limitations": "This review is an AI-assisted linguistic and documentary check based on provided owner-fact materials. It does not constitute legal advice, a professional certificate, or a human-expert signoff. All professional activities, architectural assessments, and administrative filings remain reserved for qualified professionals and relevant authorities in the respective jurisdictions. Source currency is limited to the date of review (November 25, 2026).",
+  "locale": "no",
+  "markupOnlyVerification": {
+    "checkedAt": "2026-11-25T17:27:59.653Z",
+    "change": "Added a scoped id to the existing blockquote for box styling; identical text, URLs and metadata verified by exact previous-content SHA256 reconstruction. No new linguistic signoff claimed."
+  }
+}

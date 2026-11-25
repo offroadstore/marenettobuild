@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-11-25T17:24:14.750Z",
+  "method": "AI-assisted documentary and linguistic review, owner-authorized 2026-11-25; not professional opinion",
+  "status": "AI-assisted-reviewed-informative",
+  "manuscripts": [
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "candidateContentSHA256": "64933e4c53b987ecb0e9df92d2fd7cf3a4dc7afee152b532bfbb3e1a62130e61",
+      "reviewedBeforeMarkupSHA256": "f696c0464632f6ea2fd530d7be38df4ef12d7f209a54a38b75e26dfb1f31b4a0"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "candidateContentSHA256": "d42d82490f3d5fd776fc96fac150ac6e4a6aaf4b0af6243ab62d96be3dcbc70e",
+      "reviewedBeforeMarkupSHA256": "67a426178b29aabcf985e793fe7a4a0781ebbda588f4cbe5d790a30127d117d7"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "candidateContentSHA256": "b5e1ce8735ccd6a2f438920281c5662abd22452589497dc0e1a0bdbe5ba0aa5d",
+      "reviewedBeforeMarkupSHA256": "08436e33aff1025c685086d78b363bdbc16599c305fd4c57b654dfaa4f462e45"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "candidateContentSHA256": "8dcd762ce008ea962f78c1f6ffda2c50a4280ea08ee8f04e36fdad3677aa8290",
+      "reviewedBeforeMarkupSHA256": "76ba5a0f6f5235c1a6a1831b867c6080c8c2e7cb5742ef173ef0155b655179ca"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "candidateContentSHA256": "9096a20d04d5059b35c2410ef9db72ea7bf2ef92c68276f6c10ee53540d4910d",
+      "reviewedBeforeMarkupSHA256": "0006d6b73302e4e1661664d3e85cc67995f3d58317eaa5c88a9132c96606ab08"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "candidateContentSHA256": "9c4797f570073b1c7c3a6243bb413a68509bca95158d5214baa41c198ad66344",
+      "reviewedBeforeMarkupSHA256": "a5191b027d4cd9060aba1868a5462410af408006cf2988c61fd2d8747b3011e9"
+    }
+  ],
+  "findings": [],
+  "limitations": "This review is an AI-assisted linguistic and documentary check against the provided Italian owner-facts and sources. It does not constitute legal advice, a professional certificate, or a human-expert signoff. Professional activities, local authority approvals, and project-specific technical verification remain open for engagement with the relevant qualified professionals.",
+  "locale": "da",
+  "markupOnlyVerification": {
+    "checkedAt": "2026-11-25T17:27:59.653Z",
+    "change": "Added a scoped id to the existing blockquote for box styling; identical text, URLs and metadata verified by exact previous-content SHA256 reconstruction. No new linguistic signoff claimed."
+  }
+}

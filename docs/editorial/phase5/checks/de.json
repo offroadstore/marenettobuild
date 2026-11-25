@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-11-25T17:24:14.750Z",
+  "method": "AI-assisted documentary and linguistic review, owner-authorized 2026-11-25; not professional opinion",
+  "status": "AI-assisted-reviewed-informative",
+  "manuscripts": [
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "candidateContentSHA256": "46a1852799ad652e5edf6d2f412ec7905d14688d1f47572ce234298ec92148da",
+      "reviewedBeforeMarkupSHA256": "213543bad77eb462f95dd64492f557d3876d463efc9e0a53e5b01fcd05ac4c2b"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "candidateContentSHA256": "56c4687a47209596721e1f566b8eb13712b4b7ffcc0984e7d8483aa27b3e509d",
+      "reviewedBeforeMarkupSHA256": "df4ca0f89b63e47d59795f351f947b75b29abc25cd3f5a5534486ab09243b775"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "candidateContentSHA256": "69dfb01ce1085648998b835dd76d9663ddea1333f5d353b89a1d4fa2735eb44c",
+      "reviewedBeforeMarkupSHA256": "aea91101105c7c6460eb0ac765e283edebd9f80d54a8242689265c98e62a2e0d"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "candidateContentSHA256": "7c2b4acd44b4082974624418431618da818d2d4542a7fa7feffbd883c67cddfb",
+      "reviewedBeforeMarkupSHA256": "aefdedd3c02cfde49c819631db5fca055f97c48a0389fc01c9d2d439d641eb29"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "candidateContentSHA256": "9fef07e0d65163a6e89aef86abfc44fdf9c750d9ba46ebcf6029e8692ac684fa",
+      "reviewedBeforeMarkupSHA256": "164b3bb5d9769213bfab8eefb82568a9bb5d03e9f7431f2e5079637015da54fe"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "candidateContentSHA256": "3e85dda97456d10497bdceff31a86fe499e25bf6f00aaf893b9d35d0de8b5178",
+      "reviewedBeforeMarkupSHA256": "217e5e10bc04ffdd019e7431abc22859c96d0502e9e658d783b281be5cb6773a"
+    }
+  ],
+  "findings": [],
+  "limitations": "This review was conducted by an AI and is not legal advice, a professional certificate, or a substitute for a human professional signoff. All technical, structural, and legal compliance matters remain the responsibility of qualified professionals (such as notaries, architects, or surveyors) tasked with the specific project case.",
+  "locale": "de",
+  "markupOnlyVerification": {
+    "checkedAt": "2026-11-25T17:27:59.653Z",
+    "change": "Added a scoped id to the existing blockquote for box styling; identical text, URLs and metadata verified by exact previous-content SHA256 reconstruction. No new linguistic signoff claimed."
+  }
+}

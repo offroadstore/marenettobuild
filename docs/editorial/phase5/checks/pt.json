@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-11-25T17:24:14.750Z",
+  "method": "AI-assisted documentary and linguistic review, owner-authorized 2026-11-25; not professional opinion",
+  "status": "AI-assisted-reviewed-informative",
+  "manuscripts": [
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "candidateContentSHA256": "291499ae0cea39e4929808eb25d1308a310cadc4a9ac7bc75e7dc9bc333af9d5",
+      "reviewedBeforeMarkupSHA256": "ddf9117e9d878506170c7a0b6583a4ed28fa566cbab1c02150b35212117660db"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "candidateContentSHA256": "1dc241fe44f1e6369127dc19de95a8f8c525ace9b6414ce49fe2a18ec58bd5fd",
+      "reviewedBeforeMarkupSHA256": "d1b283e24f114cf5a6790a274f3088ca48dcc76dc37378bd2befda06350779ba"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "candidateContentSHA256": "401b3731d5fc4cb0b1d12b490e8615e0ba062e70af0d081dbd81dd5c5a0134d1",
+      "reviewedBeforeMarkupSHA256": "f08006d7b97bb0998934970b470ab086eef75c6d33c0d286a17896cc98268f0b"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "candidateContentSHA256": "b0b68e9ccfec911d234001011d31a70fc85908bcc460ab909683a2b8309fa704",
+      "reviewedBeforeMarkupSHA256": "8fae80cce2deca032f237d4e65c3db671d4a10d143b87d13c5f4f094deb7c8d4"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "candidateContentSHA256": "41c1e8bc1325804df700792257891341952a95a0c69650695d2f920712f94242",
+      "reviewedBeforeMarkupSHA256": "dea8421e3d77a90ffaeeacad32bca9c6bbffe6b02f91367be244c707afc36a60"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "candidateContentSHA256": "eec4b3257539b62ad7f0fbc37b9d81f38c8f1e1b3494cfff6780ad968e500fba",
+      "reviewedBeforeMarkupSHA256": "94da77fd425d78b2886739951029665d474026fccfdfde555abd35c2fd1d75ea"
+    }
+  ],
+  "findings": [],
+  "limitations": "This review was conducted as an AI-assisted linguistic and documentary check based on the provided informational sources. It does not constitute legal advice, a professional certificate, or a human-native editorial signoff. All specific property compliance, technical requirements, and legal statuses must be verified by qualified professionals (such as technicians, architects, or notaries) on a case-by-case basis. The guides reflect source information as of November 25, 2026, and do not replace professional due diligence or municipal administrative procedures.",
+  "locale": "pt",
+  "markupOnlyVerification": {
+    "checkedAt": "2026-11-25T17:27:59.653Z",
+    "change": "Added a scoped id to the existing blockquote for box styling; identical text, URLs and metadata verified by exact previous-content SHA256 reconstruction. No new linguistic signoff claimed."
+  }
+}

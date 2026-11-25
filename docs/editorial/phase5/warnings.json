@@ -1,0 +1,50 @@
+{
+  "it": {
+    "title": "Da verificare con il tecnico incaricato",
+    "body": "Contenuto informativo, non parere professionale, attestazione di conformità o autorizzazione a iniziare lavori. Normativa applicabile, titoli edilizi, vincoli, strutture, impianti e idoneità dei materiali vanno verificati sul caso concreto dai professionisti qualificati incaricati e dagli uffici competenti. Le indicazioni generali non sostituiscono sopralluoghi, progetto, asseverazioni o schede del sistema effettivamente scelto."
+  },
+  "en": {
+    "body": "Informational content, not a professional opinion, attestation of compliance, or authorization to start work. Applicable regulations, building permits, constraints, structures, systems, and material suitability must be verified on a case-by-case basis by the assigned qualified professionals and competent offices. General indications do not replace site visits, project designs, certifications, or the datasheets of the system actually chosen.",
+    "title": "To be verified with the assigned technician"
+  },
+  "de": {
+    "body": "Informativer Inhalt, keine professionelle Beratung, Konformitätsbescheinigung oder Arbeitserlaubnis. Anwendbare Vorschriften, Baugenehmigungen, Auflagen, Strukturen, Anlagen und Materialeignung müssen im konkreten Einzelfall von beauftragten qualifizierten Fachleuten und zuständigen Ämtern geprüft werden. Allgemeine Angaben ersetzen keine Ortsbesichtigung, Projektplanung, Konformitätserklärungen oder Datenblätter des tatsächlich gewählten Systems.",
+    "title": "Mit dem beauftragten Techniker zu prüfen"
+  },
+  "nl": {
+    "body": "Informatieve inhoud, geen professioneel advies, conformiteitsverklaring of machtiging om met werkzaamheden te starten. Toepasselijke wetgeving, bouwvergunningen, beperkingen, structuren, installaties en geschiktheid van materialen moeten per specifiek geval worden geverifieerd door de gekwalificeerde aangestelde professionals en de bevoegde instanties. De algemene indicaties vervangen geen inspecties, ontwerp, asseveraties of technische fiches van het daadwerkelijk gekozen systeem.",
+    "title": "Da verificare con il tecnico incaricato"
+  },
+  "fr": {
+    "body": "Contenu informatif, sans avis professionnel, attestation de conformité ou autorisation à commencer les travaux. La réglementation applicable, les titres de construction, les contraintes, les structures, les installations et l'adéquation des matériaux doivent être vérifiés dans le cas concret par les professionnels qualifiés en charge et par les bureaux compétents. Les indications générales ne remplacent pas les visites de chantier, le projet, les attestations ou les fiches du système réellement choisi.",
+    "title": "À vérifier avec le technicien en charge"
+  },
+  "es": {
+    "body": "Contenido informativo, no constituye asesoramiento profesional, certificación de conformidad o autorización para iniciar obras. La normativa aplicable, títulos edilicios, restricciones, estructuras, instalaciones e idoneidad de los materiales deben ser verificados en el caso concreto por los profesionales cualificados encargados y las oficinas competentes. Las indicaciones generales no sustituyen inspecciones, proyectos, aseveraciones o fichas del sistema efectivamente elegido.",
+    "title": "Da verificare con il tecnico incaricato"
+  },
+  "pt": {
+    "body": "Conteúdo informativo, não parecer profissional, atestado de conformidade ou autorização para iniciar trabalhos. Normativa aplicável, títulos de construção, restrições, estruturas, instalações e idoneidade dos materiais devem ser verificados no caso concreto pelos profissionais qualificados encarregados e pelos serviços competentes. As indicações gerais não substituem visitas ao local, projeto, asseverações ou fichas do sistema efetivamente escolhido.",
+    "title": "A verificar com o técnico encarregado"
+  },
+  "pl": {
+    "body": "Treść o charakterze informacyjnym, a nie profesjonalna opinia, poświadczenie zgodności lub zezwolenie na rozpoczęcie prac. Obowiązujące przepisy, pozwolenia budowlane, ograniczenia, struktury, instalacje i przydatność materiałów muszą być zweryfikowane w konkretnym przypadku przez wyznaczonych wykwalifikowanych profesjonalistów i właściwe urzędy. Ogólne wskazówki nie zastępują wizji lokalnych, projektu, asseverazioni (oświadczeń technicznych) ani kart technicznych faktycznie wybranego systemu.",
+    "title": "Do weryfikacji z wyznaczonym technikiem"
+  },
+  "ru": {
+    "body": "Информационный контент, не является профессиональной консультацией, подтверждением соответствия или разрешением на начало работ. Применимые нормы, строительные титулы, ограничения, конструкции, коммуникации и пригодность материалов должны проверяться для конкретного случая назначенными квалифицированными специалистами и компетентными органами. Общие указания не заменяют осмотры, проект, заверения или документацию фактически выбранной системы.",
+    "title": "Проверяйте с назначенным техническим специалистом"
+  },
+  "sv": {
+    "body": "Informativt innehåll, ej professionellt utlåtande, intyg om efterlevnad eller auktorisation att påbörja arbeten. Tillämplig lagstiftning, bygglov, restriktioner, strukturer, installationer och materialens lämplighet ska verifieras i det konkreta fallet av kvalificerade yrkesutövare och behöriga myndigheter. Generella anvisningar ersätter inte platsbesök, projekt, intyg eller tekniska blad för det valda systemet.",
+    "title": "Att verifieras med ansvarig tekniker"
+  },
+  "no": {
+    "body": "Informativt innhold, ikke profesjonell vurdering, samsvarserklæring eller autorisasjon til å starte arbeider. Gjeldende regelverk, byggetillatelser, restriksjoner, strukturer, anlegg og egnethet til materialer må verifiseres for det konkrete tilfellet av oppnevnte kvalifiserte fagfolk og kompetente kontorer. Generelle retningslinjer erstatter ikke befaringer, prosjekt, attesteringer eller datablad for systemet som faktisk er valgt.",
+    "title": "Da verificare con il tecnico incaricato"
+  },
+  "da": {
+    "body": "Informativt indhold, ikke en professionel udtalelse, attestering af overensstemmelse eller tilladelse til at starte arbejde. Gældende regler, byggetilladelser, restriktioner, strukturer, anlæg og materialernes egnethed skal verificeres i det konkrete tilfælde af de ansvarlige kvalificerede professionelle og kompetente kontorer. Generelle anvisninger erstatter ikke besigtigelse, projekt, attesteringer eller datablade for det faktisk valgte system.",
+    "title": "Da verificare con il tecnico incaricato"
+  }
+}

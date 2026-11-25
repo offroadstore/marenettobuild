@@ -530,6 +530,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .article-figure figcaption { font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:#747970; padding:12px 0 18px; }
 .article-layout { display:grid; grid-template-columns:1fr 300px; gap:80px; align-items:start; }
 .article-body { max-width:680px; }
+.article-body > #phase5-technical-notice { margin:0 0 28px; padding:18px 22px; border-left:4px solid #ad7424; background:#fff6e5; }
+.article-body > #phase5-technical-notice p:last-child { margin-bottom:0; }
 .article-body h2 { font-size:24px; letter-spacing:-.04em; font-weight:600; margin:44px 0 14px; }
 .article-body p { color:#4f554f; font-size:16px; line-height:1.85; margin:0 0 18px; }
 .review-note { display:grid; grid-template-columns:auto 1fr; gap:16px; background:var(--ink); color:var(--paper); padding:24px; border-left:4px solid var(--copper); }

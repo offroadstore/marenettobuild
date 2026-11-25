@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-11-25T17:24:14.750Z",
+  "method": "AI-assisted documentary and linguistic review, owner-authorized 2026-11-25; not professional opinion",
+  "status": "AI-assisted-reviewed-informative",
+  "manuscripts": [
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "candidateContentSHA256": "d9127244f403b5d8428dd06c50a41c4f59a87d69d8cf7606992e8dec059c3e58",
+      "reviewedBeforeMarkupSHA256": "4013875636eed592388de4719935a8437e2858c1c327fba2fe75de0bea6839d6"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "candidateContentSHA256": "e59cb5192b48fcb5e707ebcda4204739a7e2aede1d5cb9228d3263df1bc1dad2",
+      "reviewedBeforeMarkupSHA256": "4b1dc857b1963da0ed0d588616e9b572bcbad2d88fb383f521422b3f807faece"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "candidateContentSHA256": "e4e95fec769968aea82a4e903642eb68ee43825e42baed535739546b42d7aeb1",
+      "reviewedBeforeMarkupSHA256": "1784dd6c45e1abfa803cfa4b88545aa41b3db77ebc35811a6722f8e0f6664c73"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "candidateContentSHA256": "77bd4044c1b31f3eea348c08627f71802f724ce4f3e286b7a0481d528883187d",
+      "reviewedBeforeMarkupSHA256": "a429f750c8e796110f0c15cc99f07797ba78eb9f54c8e88046749e73b689eded"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "candidateContentSHA256": "bff00843b5379bfb66bdc5b92d2af4072716e529ea6085f5574d42c384889d68",
+      "reviewedBeforeMarkupSHA256": "e40be3ab0712dbc5927e52c50ee5b02726bd171e94380c49d7edeb0b6038c6ac"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "candidateContentSHA256": "0bfc277709937803f8959b5a2f08bf5d82575b84d744775c173a9bc7e1aba1ef",
+      "reviewedBeforeMarkupSHA256": "95502a865ea8d471f6c700565bc3a6f86962ee70ad2e86b741b71a6d1c8f080f"
+    }
+  ],
+  "findings": [],
+  "limitations": "This check was performed by an AI. It does not constitute legal advice, a professional certificate, or a human-certified editorial sign-off. All regulatory statements, building procedures, and technical conditions remain subject to verification by qualified professionals and competent authorities as specified in the guides.",
+  "locale": "pl",
+  "markupOnlyVerification": {
+    "checkedAt": "2026-11-25T17:27:59.653Z",
+    "change": "Added a scoped id to the existing blockquote for box styling; identical text, URLs and metadata verified by exact previous-content SHA256 reconstruction. No new linguistic signoff claimed."
+  }
+}

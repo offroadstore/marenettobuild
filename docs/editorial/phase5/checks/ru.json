@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-11-25T17:24:14.750Z",
+  "method": "AI-assisted documentary and linguistic review, owner-authorized 2026-11-25; not professional opinion",
+  "status": "AI-assisted-reviewed-informative",
+  "manuscripts": [
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "candidateContentSHA256": "46fa3de0245c74587c1316f3ef64c74012680d7dd7ae6c76aec987cd5adf47ba",
+      "reviewedBeforeMarkupSHA256": "5a52f513cb81e58e57f114a40305ad40517f688f493ca48d00362a860ea23661"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "candidateContentSHA256": "31322706c803038a5b305594b06a89b72726e174664c491cbf9dc00dfdc874ff",
+      "reviewedBeforeMarkupSHA256": "f99b9cd3f66dff9aba577542585bcf5d9c14c140c3ffd2425f5ed334ef43ef44"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "candidateContentSHA256": "ad56ef10b686bbebb9994662dfdde80d9b5ac0c86a5c6c0fd464f24564af6ed3",
+      "reviewedBeforeMarkupSHA256": "3a2537ac80fef67ca68327b92ef962e1e7d3e469b9057548e33a3ae678a63fca"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "candidateContentSHA256": "b903960e5d841b963f35fa7cf212fcd7f2a1ba0df73a0e9d0b0685fcb2f295ea",
+      "reviewedBeforeMarkupSHA256": "d7c319e1bfc76dc20f1c9534efcacac66025c5e084bff4af3f1ab5a131dd547d"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "candidateContentSHA256": "63af027bde72457fa8a0c5c70963aaed32d2a5f74cd5413b31c90cb732de6c88",
+      "reviewedBeforeMarkupSHA256": "18d08cbee439bf0e4eb1c7d5acedd942f804de5115ffb8cb7689b329d8c9ced7"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "candidateContentSHA256": "103a1e51c6f4bdfab6424939fd368c9960a27ad31f5eef53586b99d8df6dacdc",
+      "reviewedBeforeMarkupSHA256": "4410600bcfdfca07fa68cfd72e801397c449163cdc6f52279db87db713b5636f"
+    }
+  ],
+  "findings": [],
+  "limitations": "This AI-assisted review is provided for informational purposes only. It is not legal advice, a professional certificate, or a substitute for a human professional sign-off. All technical, legal, and site-specific matters must be independently verified by qualified professionals (technicians, architects, notary) and relevant municipal authorities. The information does not imply any guarantees regarding construction outcomes, financial returns, or specific project feasibility.",
+  "locale": "ru",
+  "markupOnlyVerification": {
+    "checkedAt": "2026-11-25T17:27:59.653Z",
+    "change": "Added a scoped id to the existing blockquote for box styling; identical text, URLs and metadata verified by exact previous-content SHA256 reconstruction. No new linguistic signoff claimed."
+  }
+}

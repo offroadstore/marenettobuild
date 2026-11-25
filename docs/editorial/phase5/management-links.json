@@ -1,0 +1,103 @@
+{
+  "verifiedOn": "2026-11-25",
+  "links": {
+    "it": "https://www.marenettobuild.com/gestione-affitti-brevi-cefalu",
+    "en": "https://www.marenettobuild.com/en/short-let-property-management-cefalu",
+    "fr": "https://www.marenettobuild.com/fr/gestion-location-courte-duree-cefalu",
+    "de": "https://www.marenettobuild.com/de/ferienvermietung-verwaltung-cefalu",
+    "nl": "https://www.marenettobuild.com/nl/beheer-vakantieverhuur-cefalu",
+    "es": "https://www.marenettobuild.com/es/gestion-alquiler-vacacional-cefalu",
+    "pt": "https://www.marenettobuild.com/pt/gestao-arrendamento-turistico-cefalu",
+    "ru": "https://www.marenettobuild.com/ru/upravlenie-kratkosrochnoj-arendoj-chefalu",
+    "pl": "https://www.marenettobuild.com/pl/zarzadzanie-najmem-krotkoterminowym-cefalu",
+    "sv": "https://www.marenettobuild.com/sv/forvaltning-korttidsuthyrning-cefalu",
+    "no": "https://www.marenettobuild.com/no/forvaltning-korttidsutleie-cefalu",
+    "da": "https://www.marenettobuild.com/da/administration-korttidsudlejning-cefalu"
+  },
+  "checks": [
+    {
+      "canonical": "https://www.marenettobuild.com/gestione-affitti-brevi-cefalu",
+      "finalUrl": "https://www.marenettobuild.com/gestione-affitti-brevi-cefalu",
+      "locale": "it",
+      "status": 200,
+      "url": "https://www.marenettobuild.com/gestione-affitti-brevi-cefalu"
+    },
+    {
+      "canonical": "https://www.marenettobuild.com/en/short-let-property-management-cefalu",
+      "finalUrl": "https://www.marenettobuild.com/en/short-let-property-management-cefalu",
+      "locale": "en",
+      "status": 200,
+      "url": "https://www.marenettobuild.com/en/short-let-property-management-cefalu"
+    },
+    {
+      "canonical": "https://www.marenettobuild.com/fr/gestion-location-courte-duree-cefalu",
+      "finalUrl": "https://www.marenettobuild.com/fr/gestion-location-courte-duree-cefalu",
+      "locale": "fr",
+      "status": 200,
+      "url": "https://www.marenettobuild.com/fr/gestion-location-courte-duree-cefalu"
+    },
+    {
+      "canonical": "https://www.marenettobuild.com/de/ferienvermietung-verwaltung-cefalu",
+      "finalUrl": "https://www.marenettobuild.com/de/ferienvermietung-verwaltung-cefalu",
+      "locale": "de",
+      "status": 200,
+      "url": "https://www.marenettobuild.com/de/ferienvermietung-verwaltung-cefalu"
+    },
+    {
+      "canonical": "https://www.marenettobuild.com/nl/beheer-vakantieverhuur-cefalu",
+      "finalUrl": "https://www.marenettobuild.com/nl/beheer-vakantieverhuur-cefalu",
+      "locale": "nl",
+      "status": 200,
+      "url": "https://www.marenettobuild.com/nl/beheer-vakantieverhuur-cefalu"
+    },
+    {
+      "canonical": "https://www.marenettobuild.com/es/gestion-alquiler-vacacional-cefalu",
+      "finalUrl": "https://www.marenettobuild.com/es/gestion-alquiler-vacacional-cefalu",
+      "locale": "es",
+      "status": 200,
+      "url": "https://www.marenettobuild.com/es/gestion-alquiler-vacacional-cefalu"
+    },
+    {
+      "canonical": "https://www.marenettobuild.com/pt/gestao-arrendamento-turistico-cefalu",
+      "finalUrl": "https://www.marenettobuild.com/pt/gestao-arrendamento-turistico-cefalu",
+      "locale": "pt",
+      "status": 200,
+      "url": "https://www.marenettobuild.com/pt/gestao-arrendamento-turistico-cefalu"
+    },
+    {
+      "canonical": "https://www.marenettobuild.com/ru/upravlenie-kratkosrochnoj-arendoj-chefalu",
+      "finalUrl": "https://www.marenettobuild.com/ru/upravlenie-kratkosrochnoj-arendoj-chefalu",
+      "locale": "ru",
+      "status": 200,
+      "url": "https://www.marenettobuild.com/ru/upravlenie-kratkosrochnoj-arendoj-chefalu"
+    },
+    {
+      "canonical": "https://www.marenettobuild.com/pl/zarzadzanie-najmem-krotkoterminowym-cefalu",
+      "finalUrl": "https://www.marenettobuild.com/pl/zarzadzanie-najmem-krotkoterminowym-cefalu",
+      "locale": "pl",
+      "status": 200,
+      "url": "https://www.marenettobuild.com/pl/zarzadzanie-najmem-krotkoterminowym-cefalu"
+    },
+    {
+      "canonical": "https://www.marenettobuild.com/sv/forvaltning-korttidsuthyrning-cefalu",
+      "finalUrl": "https://www.marenettobuild.com/sv/forvaltning-korttidsuthyrning-cefalu",
+      "locale": "sv",
+      "status": 200,
+      "url": "https://www.marenettobuild.com/sv/forvaltning-korttidsuthyrning-cefalu"
+    },
+    {
+      "canonical": "https://www.marenettobuild.com/no/forvaltning-korttidsutleie-cefalu",
+      "finalUrl": "https://www.marenettobuild.com/no/forvaltning-korttidsutleie-cefalu",
+      "locale": "no",
+      "status": 200,
+      "url": "https://www.marenettobuild.com/no/forvaltning-korttidsutleie-cefalu"
+    },
+    {
+      "canonical": "https://www.marenettobuild.com/da/administration-korttidsudlejning-cefalu",
+      "finalUrl": "https://www.marenettobuild.com/da/administration-korttidsudlejning-cefalu",
+      "locale": "da",
+      "status": 200,
+      "url": "https://www.marenettobuild.com/da/administration-korttidsudlejning-cefalu"
+    }
+  ]
+}

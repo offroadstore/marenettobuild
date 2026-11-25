@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-11-25T17:24:14.750Z",
+  "method": "AI-assisted documentary and linguistic review, owner-authorized 2026-11-25; not professional opinion",
+  "status": "AI-assisted-reviewed-informative",
+  "manuscripts": [
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "candidateContentSHA256": "666cee37d46d4b9afd8686510aa1a6b36ff1ff2217ecc689be8c3c1bbc46da4c",
+      "reviewedBeforeMarkupSHA256": "8a71a8cb7806c53d7e69ebd1ea4861b2ac149fbbe53cdeb25109e003aa0b7059"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "candidateContentSHA256": "8639314eab1912479d62a14450b20f67fa683a0efb7db145013596a7a470c33c",
+      "reviewedBeforeMarkupSHA256": "0e32d13fcd1d95722b9c18de9b0f48a0952558e51c771ffac309673914cd01d5"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "candidateContentSHA256": "106952f596a65ef22e8cce901b4e510130575b81931ef6b76e242134b65b6a82",
+      "reviewedBeforeMarkupSHA256": "f8d015eb20deea3edf994e9f0dd67d00e87d73fef8ecae0c7804b8d04818601c"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "candidateContentSHA256": "186238ccc0c093e0ced46567a4eda587cadb51983bb5769372cdcbaf9093b826",
+      "reviewedBeforeMarkupSHA256": "518b003675f142880b97bc2a799d6284e83c9bbd671cb127ef17aa89ca772c23"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "candidateContentSHA256": "fc0549cd44064e3a9874476857b5cafc1497924d26b9962beba738311d363fa5",
+      "reviewedBeforeMarkupSHA256": "03a18c9e5ca4adb214527b334bdf8fbc12b8791456c3fbca141ac1ce9b7fef1d"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "candidateContentSHA256": "c90a2dd4465db2a274fcfb3f302edda905652ae0350c92ea2530c09531d3c090",
+      "reviewedBeforeMarkupSHA256": "675a22c58f6f9b2198c65ca6ec46a589c69f7dcb176f969f31c1854e6b400687"
+    }
+  ],
+  "findings": [],
+  "limitations": "This assessment is an AI-assisted linguistic and documentary check against owner-provided facts and sources. It is not legal advice, a professional certificate, or a substitute for a human professional review. Verifications of real-world compliance for specific properties and technical accuracy remain the responsibility of qualified professionals.",
+  "locale": "it",
+  "markupOnlyVerification": {
+    "checkedAt": "2026-11-25T17:27:59.653Z",
+    "change": "Added a scoped id to the existing blockquote for box styling; identical text, URLs and metadata verified by exact previous-content SHA256 reconstruction. No new linguistic signoff claimed."
+  }
+}
