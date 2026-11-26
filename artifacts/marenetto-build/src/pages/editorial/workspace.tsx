@@ -6,6 +6,7 @@ import {
 } from '@workspace/api-client-react';
 import { AlertTriangle, ArrowLeft, Archive, BadgeCheck, Eye, History, Plus, RotateCcw, Save, Send, ShieldCheck, Trash2, Undo2, X, Zap } from 'lucide-react';
 import { RichEditor } from './rich-editor';
+import { GuideFields } from './guide-fields';
 import {
   ACTION_LABELS, KIND_LABELS, ProvenanceTags, QUERY_FRESH, SafeFrame, Skeleton, StateBadge, apiErrorText, contentDocument,
   emptyContent, fmtDate, imageError, localeDir, localeName, rawDocument, setEditorialDirty, shortHash, urlError, type EditorialRole,
@@ -212,6 +213,7 @@ export function EditionWorkspace({ editionId, role, onBack, onNotice }: { editio
             <Field label="Titolo SEO" error={errors.seoTitle} count={`${form.seoTitle.length}/200`}><input value={form.seoTitle} maxLength={200} onChange={e => set('seoTitle', e.target.value)} data-testid="input-seo-title" /></Field>
             <Field label="Descrizione SEO" error={errors.seoDescription} count={`${form.seoDescription.length}/500`}><textarea rows={2} value={form.seoDescription} maxLength={500} onChange={e => set('seoDescription', e.target.value)} data-testid="input-seo-description" /></Field>
           </div>
+          {form.guide && <GuideFields guide={form.guide} onChange={guide => set('guide', guide)} />}
         </fieldset>
         {canEdit && <div className="ed-savebar">
           <span>{dirty ? 'Il salvataggio crea una nuova revisione immutabile.' : 'Nessuna modifica da salvare.'}</span>

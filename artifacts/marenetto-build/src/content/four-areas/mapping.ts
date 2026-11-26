@@ -7,6 +7,14 @@ import type { AreaId } from './types';
  * No regex or tag heuristics: an unmapped public identity is an error.
  */
 export const ARTICLE_AREA: Readonly<Record<string, AreaId>> = Object.freeze({
+  'costruire-cefalu-madonie/01': 'villas',
+  'costruire-cefalu-madonie/02': 'villas',
+  'costruire-cefalu-madonie/03': 'villas',
+  'costruire-cefalu-madonie/05': 'outdoors',
+  'costruire-cefalu-madonie/06': 'villas',
+  'costruire-cefalu-madonie/08': 'investment',
+  'costruire-cefalu-madonie/09': 'villas',
+  'costruire-cefalu-madonie/10': 'surfaces',
   'tecniche-avanzate-gestione-deformazioni-strutture-edili': 'villas',
   'cappotto-termico-vs-intonaco-termico-cefalu': 'villas',
   'garanzia-10-anni-sui-lavori-edili-la-polizza-decennale-marenetto': 'villas',
@@ -37,6 +45,8 @@ export const ARTICLE_AREA: Readonly<Record<string, AreaId>> = Object.freeze({
 
 /** Normalizes '/x/', 'historical:/x', 'x' to the family key 'x'. */
 export function normalizeArticleIdentity(identity: string) {
+  const series = identity.replace(/^historical:/, '').replace(/^\/+|\/+$/g, '');
+  if (/^costruire-cefalu-madonie\/\d{2}$/.test(series)) return series;
   return identity.replace(/^historical:/, '').split(/[?#]/)[0].replace(/^\/+|\/+$/g, '').split('/').at(-1) ?? '';
 }
 

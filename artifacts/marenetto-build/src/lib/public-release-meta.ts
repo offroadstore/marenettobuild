@@ -3,6 +3,7 @@ import { isNativeEdition, hasTranslationApproval, releaseMetadata, mergeActiveMe
 import { updateStructuredData } from './structured-data';
 import { historicalInventory } from '@/content/historical';
 import { indexExclusion } from '@/localization/index-exclusions.mjs';
+import { seriesStructuredData } from '@/content/series-public.mjs';
 
 export const PUBLIC_SITE_ORIGIN = 'https://www.marenettobuild.com';
 import type { EditorialActive } from '@workspace/api-client-react';
@@ -67,5 +68,13 @@ export function applyPublicReleaseMetadata(pathname: string, active: Active[]) {
     }
   }
   updateStructuredData(candidate, PUBLIC_SITE_ORIGIN);
+  const live = active.find(e => normalized(e.path) === normalized(pathname) && e.revisionId !== 'withdrawn');
+  if (live?.content.guide) {
+    document.head.querySelectorAll('script[type="application/ld+json"]').forEach(script => script.remove());
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': seriesStructuredData(live, PUBLIC_SITE_ORIGIN) });
+    document.head.append(script);
+  }
   return true;
 }

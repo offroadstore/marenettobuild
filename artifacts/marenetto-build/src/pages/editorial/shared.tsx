@@ -1,5 +1,6 @@
 import type { EditorialContent, EditorialSummary } from '@workspace/api-client-react';
 import { LOCALES, getLocaleDirection } from '@/localization/locales';
+import { seriesLabels, readyVideo } from '@/content/series-public.mjs';
 
 export type EditorialRole = 'owner' | 'editor' | 'viewer';
 export type EditorialState = EditorialSummary['state'];
@@ -71,7 +72,10 @@ const frameShell = (inner: string, lang = 'it', dir = 'ltr') => `<!doctype html>
 export function contentDocument(c: EditorialContent, locale: string) {
   const img = c.image && !imageError(c.image) ? `<p><img src="${escapeHtml(c.image)}" alt="${escapeHtml(c.imageAlt)}"></p>` : '';
   const sources = c.sources.length ? `<h2>Fonti</h2><ol>${c.sources.map(s => `<li>${escapeHtml(s.title)} <small>${escapeHtml(s.url)}</small></li>`).join('')}</ol>` : '';
-  return frameShell(`<div class="meta">${escapeHtml(c.category || 'senza categoria')} · ${escapeHtml(c.tags.join(', '))}</div><h1>${escapeHtml(c.title)}</h1>${c.summary ? `<p class="lead">${escapeHtml(c.summary)}</p>` : ''}${img}${c.body}${sources}`, c.contentLanguage || locale, localeDir(locale));
+  const text = seriesLabels[locale] ?? seriesLabels.it;
+  const guide = c.guide;
+  const extras = guide ? `<h2>${escapeHtml(text[0])} · ${guide.episode}/10</h2><h2>${escapeHtml(text[6])}</h2>${guide.faq.map(f => `<h3>${escapeHtml(f.question)}</h3><p>${escapeHtml(f.answer)}</p>`).join('')}<h2>Video</h2><p>${escapeHtml(readyVideo(guide.video) ? guide.video!.title : text[1])}</p>${readyVideo(guide.video) ? `<h3>${escapeHtml(text[5])} · ${escapeHtml(guide.video!.transcriptLanguage)}</h3><p>${escapeHtml(guide.video!.transcript)}</p>` : ''}<p>${escapeHtml(text[7])}</p>` : '';
+  return frameShell(`<div class="meta">${escapeHtml(c.category || 'senza categoria')} · ${escapeHtml(c.tags.join(', '))}</div><h1>${escapeHtml(c.title)}</h1>${c.summary ? `<p class="lead">${escapeHtml(c.summary)}</p>` : ''}${img}${c.body}${sources}${extras}`, c.contentLanguage || locale, localeDir(locale));
 }
 export const rawDocument = (body: string) => frameShell(body);
 

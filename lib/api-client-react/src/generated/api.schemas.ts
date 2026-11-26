@@ -692,6 +692,99 @@ export interface EditorialSource {
   url: string;
 }
 
+export type EditorialGuideReviewBasis = typeof EditorialGuideReviewBasis[keyof typeof EditorialGuideReviewBasis];
+
+
+export const EditorialGuideReviewBasis = {
+  professional: 'professional',
+  'ai-assisted-internal': 'ai-assisted-internal',
+} as const;
+
+export interface EditorialFAQ {
+  /**
+     * @minLength 1
+     * @maxLength 500
+     */
+  question: string;
+  /**
+     * @minLength 1
+     * @maxLength 4000
+     */
+  answer: string;
+}
+
+export interface EditorialVideo {
+  /** @pattern ^[A-Za-z0-9_-]{11}$ */
+  youtubeId: string;
+  /**
+     * @minLength 1
+     * @maxLength 200
+     */
+  title: string;
+  /**
+     * @minLength 1
+     * @maxLength 2000
+     */
+  description: string;
+  /**
+     * @minLength 1
+     * @maxLength 2000
+     */
+  thumbnail: string;
+  /** @pattern ^\d{4}-\d{2}-\d{2}$ */
+  uploadDate: string;
+  /** @pattern ^PT(?=\d)(?:\d+H)?(?:\d+M)?(?:\d+S)?$ */
+  duration?: string;
+  /** @pattern ^[a-z]{2}$ */
+  spokenLanguage: string;
+  /**
+     * @minLength 1
+     * @maxLength 300
+     */
+  author: string;
+  /**
+     * @minLength 1
+     * @maxLength 2000
+     */
+  rights: string;
+  /** @pattern ^[a-z]{2}$ */
+  transcriptLanguage: string;
+  /**
+     * @minLength 1
+     * @maxLength 100000
+     */
+  transcript: string;
+  transcriptReviewed: boolean;
+}
+
+export interface EditorialGuide {
+  /**
+     * @minimum 1
+     * @maximum 10
+     */
+  episode: number;
+  reviewBasis?: EditorialGuideReviewBasis;
+  /** @maxLength 2000 */
+  documentaryReview?: string;
+  /** @maxLength 300 */
+  technicalHeading?: string;
+  /** @maxLength 4000 */
+  technicalNotice?: string;
+  /** @maxLength 2000 */
+  reviewDisclosure?: string;
+  /** @maxLength 2000 */
+  technicalReview: string;
+  /** @maxLength 2000 */
+  editorialReview: string;
+  /** @maxLength 2000 */
+  languageReview: string;
+  sourcesCurrent: boolean;
+  searchConsoleVerified: boolean;
+  /** @maxItems 15 */
+  faq: EditorialFAQ[];
+  video?: EditorialVideo;
+}
+
 export interface EditorialContent {
   /** @maxLength 200 */
   title: string;
@@ -718,6 +811,7 @@ export interface EditorialContent {
   seoDescription: string;
   /** @pattern ^[a-z]{2}$ */
   contentLanguage: string;
+  guide?: EditorialGuide;
 }
 
 export type EditorialInputKind = typeof EditorialInputKind[keyof typeof EditorialInputKind];

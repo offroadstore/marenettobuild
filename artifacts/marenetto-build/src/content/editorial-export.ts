@@ -5,6 +5,27 @@ import { LOCALES } from '../localization/locales';
 import { render } from '../entry-server';
 import { NETWORK_PAGES } from './network';
 import { networkCMSRecord } from './network/cms';
+import { regulatoryNotice } from './network/regulatory-notice';
+import { networkCopy, networkImages } from './network';
+import { areaCopy, areaPath, type AreaId } from './four-areas';
+
+/** Reuse the approved area routes, translated notices and authorized image inventory. */
+export function exportSeriesContext() {
+  return Object.fromEntries(['it','en','de','nl','fr','es','pt','pl','ru','sv','no','da'].map(locale => {
+    const copy = networkCopy(locale);
+    return [locale, {
+      notice: regulatoryNotice(locale),
+      areas: Object.fromEntries((['villas','outdoors','surfaces','investment'] as AreaId[]).map(id => [id, {
+        path: areaPath(locale, id), title: areaCopy(locale).areas[id].nav,
+      }])),
+      images: Object.fromEntries(['design','outdoors','bespoke','buying'].map(id => {
+        const key = id as 'design' | 'outdoors' | 'bespoke' | 'buying';
+        const image = networkImages(key)[0];
+        return [id, {src: image.src, alt: copy.articles[key].imageAlts[0]}];
+      })),
+    }];
+  }));
+}
 
 // Build-time import only. The API bundles this snapshot, never reads or writes
 // frontend source files at request time.

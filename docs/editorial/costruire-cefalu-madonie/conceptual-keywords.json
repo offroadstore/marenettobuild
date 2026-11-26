@@ -1,0 +1,20 @@
+{
+  "provenance": "Localizzazioni concettuali redatte dall'assistente in base all'autorizzazione del titolare per C5 e C10. Non sono keyword letteralmente fornite, query osservate o ricerca di mercato.",
+  "humanLanguageReview": "non registrata",
+  "C5": {
+    "pt": ["licenciamento de obras em Itália"],
+    "pl": ["pozwolenia na remont we Włoszech"],
+    "ru": ["разрешения на ремонт в Италии"],
+    "sv": ["bygglov vid renovering i Italien"],
+    "no": ["byggetillatelse ved oppussing i Italia"],
+    "da": ["byggetilladelse ved renovering i Italien"]
+  },
+  "C10": {
+    "pt": ["profissionais para renovação na Sicília"],
+    "pl": ["specjaliści do remontu na Sycylii"],
+    "ru": ["специалисты по ремонту на Сицилии"],
+    "sv": ["fackpersoner för renovering på Sicilien"],
+    "no": ["fagpersoner for oppussing på Sicilia"],
+    "da": ["fagpersoner til renovering på Sicilien"]
+  }
+}

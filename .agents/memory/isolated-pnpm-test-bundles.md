@@ -15,6 +15,17 @@ Browser component fixtures bundled outside Vite should receive their route/conte
 
 **How to apply:** Keep the real application as the inventory owner; inject a minimal inventory into the same production component for isolated consent/browser tests. Do not add a runtime preview bypass to make tests collect analytics.
 
+Consent fixtures must use an origin that the real public-host policy accepts,
+even when every request is intercepted locally.
+
+**Why:** An arbitrary synthetic hostname exercises the intentionally disabled
+preview behavior, not the public consent flow; a missing first-visit banner
+on that host is not evidence of a production defect.
+
+**How to apply:** Inspect the current allowlist, intercept every request on the
+chosen origin and abort unknown destinations. Do not weaken the production
+host policy or allow a network fallback to the real site.
+
 Use consistent JSON import attributes between a fixture and the module it
 configures when bundling isolated tests.
 

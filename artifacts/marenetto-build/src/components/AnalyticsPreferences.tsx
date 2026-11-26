@@ -6,7 +6,8 @@ import { useActiveEditorial, useEditorialStatus } from '@/lib/editorial-runtime'
 import { browserAnalytics } from '@/lib/analytics/browser';
 import { analyticsCopy } from '@/lib/analytics/copy';
 import { CONSENT_MAX_AGE, excludedPath, isPreviewOrigin, safePath, validConfig } from '@/lib/analytics/runtime';
-import { PREFERENCES_KEY, readPreferences, savePreferences, type Preferences } from '@/lib/analytics/preferences';
+import { PREFERENCES_CHANGED, PREFERENCES_KEY, readPreferences, savePreferences, type Preferences } from '@/lib/analytics/preferences';
+import { readyVideo, seriesLabels } from '@/content/series-public.mjs';
 import { browserMarketing } from '@/lib/analytics/marketing';
 import { categoryCopy } from '@/lib/analytics/category-copy';
 import { legalPages } from '@/content/legal';
@@ -28,6 +29,8 @@ export function AnalyticsPreferences({ publicEditions, preferenceEditions = publ
   const [restored, setRestored] = useState(false);
   const [custom, setCustom] = useState(false);
   const [statistics, setStatistics] = useState(false), [marketing, setMarketing] = useState(false);
+  const [externalMedia, setExternalMedia] = useState(false);
+  const realVideo = active.some(e => e.revisionId !== 'withdrawn' && readyVideo(e.content.guide?.video));
   const [storageError, setStorageError] = useState(false);
   const storageBlocked = useRef(false);
   const [open, setOpen] = useState(false);
@@ -60,6 +63,7 @@ export function AnalyticsPreferences({ publicEditions, preferenceEditions = publ
       opener.current = (event as CustomEvent<HTMLElement>).detail;
       setOpen(true); setCustom(true);
       setStatistics(choice?.statistics ?? false); setMarketing(choice?.marketing ?? false);
+      setExternalMedia(choice?.externalMedia ?? false);
       requestAnimationFrame(() => bar.current?.focus({ preventScroll: true }));
     };
     window.addEventListener(COOKIE_PREFERENCES_EVENT, reopen);
@@ -167,12 +171,12 @@ export function AnalyticsPreferences({ publicEditions, preferenceEditions = publ
   }, [paths]);
   useEffect(() => () => { browserAnalytics()?.navigate(null); browserMarketing()?.navigate(null); }, []);
 
-  const choose = (stats: boolean, ads: boolean) => {
+  const choose = (stats: boolean, ads: boolean, media: boolean) => {
     if (!available) return;
     if (!stats && choice?.statistics && config?.mode === 'direct' && opener.current?.isConnected) {
       try { sessionStorage.setItem('marenetto.cookie-focus', 'footer'); } catch { /* storage may be denied */ }
     }
-    const saved = savePreferences(stats, ads);
+    const saved = savePreferences(stats, ads, media);
     // Persist before granting or triggering GA's controlled withdrawal reload.
     if (!saved) {
       storageBlocked.current = true;
@@ -186,6 +190,8 @@ export function AnalyticsPreferences({ publicEditions, preferenceEditions = publ
     }
     browserAnalytics()?.consent(saved?.statistics && enabled ? 'accepted' : 'rejected');
     browserMarketing()?.consent(Boolean(saved?.marketing));
+    // A same-document event unloads iframes without waiting for a cross-tab event.
+    window.dispatchEvent(new Event(PREFERENCES_CHANGED));
     setChoice(saved); setOpen(!saved); setStorageError(!saved); setCustom(false);
     if (opener.current?.isConnected) opener.current.focus({ preventScroll: true });
     opener.current = null;
@@ -206,11 +212,12 @@ export function AnalyticsPreferences({ publicEditions, preferenceEditions = publ
         }}>{getCallCopy(locale).close}</button>}
         {available && <>
           <div className="analytics-actions">
-            <button type="button" onClick={() => choose(true, true)} data-testid="analytics-accept">{text.accept}</button>
-            <button type="button" onClick={() => choose(false, false)} data-testid="analytics-reject">{text.reject}</button>
+            <button type="button" onClick={() => choose(true, true, choice?.externalMedia ?? false)} data-testid="analytics-accept">{text.accept}</button>
+            <button type="button" onClick={() => choose(false, false, false)} data-testid="analytics-reject">{text.reject}</button>
           </div>
           <button className="cookie-customize" type="button" aria-expanded={custom} aria-controls="cookie-categories" onClick={() => {
             setCustom(v => !v); setStatistics(choice?.statistics ?? false); setMarketing(choice?.marketing ?? false);
+            setExternalMedia(choice?.externalMedia ?? false);
           }} data-testid="cookie-customize">{categories.customize}</button>
         </>}
       </div>
@@ -218,7 +225,8 @@ export function AnalyticsPreferences({ publicEditions, preferenceEditions = publ
         <legend>{text.preferences}</legend>
         <label><input type="checkbox" checked={statistics} onChange={e => setStatistics(e.target.checked)} data-testid="consent-statistics" />{categories.statistics}</label>
         <label><input type="checkbox" checked={marketing} onChange={e => setMarketing(e.target.checked)} data-testid="consent-marketing" />{categories.marketing}</label>
-        <button type="button" onClick={() => choose(statistics, marketing)} data-testid="cookie-save">{categories.save}</button>
+        {(realVideo || choice?.externalMedia) && <label><input type="checkbox" checked={externalMedia} onChange={e => setExternalMedia(e.target.checked)} data-testid="consent-external-media" />{seriesLabels[locale]?.[2] ?? seriesLabels.it[2]} (YouTube)</label>}
+        <button type="button" onClick={() => choose(statistics, marketing, externalMedia)} data-testid="cookie-save">{categories.save}</button>
       </fieldset>}
       {storageError && <p role="alert">{categories.storageError}</p>}
     </aside>}

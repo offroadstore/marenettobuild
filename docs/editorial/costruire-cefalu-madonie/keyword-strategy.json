@@ -1,0 +1,208 @@
+{
+  "title": "MATRICE KEYWORD MARENETTO BUILD v1",
+  "provenance": "Testo fornito dal titolare nella risposta in chat del 2026-11-25, senza file allegato né link.",
+  "approval": "Il titolare la dichiara preparata per il titolare e approvata. Non è approvazione dei testi finali.",
+  "researchVolumes": null,
+  "measurementNote": "Nessun volume di ricerca dichiarato: verificare in Search Console dopo 6-8 settimane. Non è una previsione di risultati né una verifica già eseguita.",
+  "constraints": "Ristrutturazioni e costruzioni principalmente entro circa 60 km da Cefalù (Madonie e costa), oltre solo su richiesta; arredi in cemento su misura spediti/installati ovunque; nessuna menzione di agenzie immobiliari.",
+  "intentLegend": {"T": "transazionale", "C": "commerciale", "I": "informativo"},
+  "marketLegend": {"L": "locale Sicilia", "E": "stranieri proprietari/acquirenti", "W": "mondo"},
+  "usage": "Una keyword principale per pagina o puntata (title, H1, primo paragrafo, URL quando ha senso) e 2-3 secondarie naturali; niente ripetizioni forzate; varianti locali (Cefalù/Cefalu) entrambe accettate.",
+  "clusters": [
+    {
+      "id": "C1",
+      "title": "Impresa edile Cefalù",
+      "intent": ["T"],
+      "market": ["L", "E"],
+      "keywords": {
+        "it": ["impresa edile Cefalù", "ditta ristrutturazioni Cefalù"],
+        "en": ["building contractor Cefalu", "construction company Cefalu Sicily"],
+        "fr": ["entreprise de bâtiment Cefalù", "entrepreneur rénovation Sicile"],
+        "de": ["Bauunternehmen Cefalù", "Bauunternehmer Sizilien"],
+        "nl": ["aannemer Cefalù", "bouwbedrijf Sicilië"],
+        "es": ["empresa de construcción Cefalù", "constructora Sicilia"],
+        "pt": ["empresa de construção Cefalù", "empreiteiro Sicília"],
+        "ru": ["строительная компания Чефалу", "ремонт Сицилия"],
+        "pl": ["firma budowlana Cefalù", "firma remontowa Sycylia"],
+        "sv": ["byggföretag Cefalù", "byggfirma Sicilien"],
+        "no": ["byggefirma Cefalù", "entreprenør Sicilia"],
+        "da": ["byggefirma Cefalù", "entreprenør Sicilien"]
+      }
+    },
+    {
+      "id": "C2",
+      "title": "Ristrutturazione casa/appartamento chiavi in mano",
+      "intent": ["T"],
+      "market": ["L", "E"],
+      "keywords": {
+        "it": ["ristrutturazione casa Cefalù", "ristrutturazione chiavi in mano Sicilia", "ristrutturazione appartamento Cefalù"],
+        "en": ["renovate house in Sicily", "turnkey renovation Sicily", "apartment renovation Cefalu"],
+        "fr": ["rénovation maison Sicile", "rénovation clé en main Sicile"],
+        "de": ["Hausrenovierung Sizilien", "Haus renovieren Sizilien schlüsselfertig"],
+        "nl": ["huis renoveren Sicilië", "renovatie sleutelklaar Sicilië"],
+        "es": ["reformar casa en Sicilia", "reforma llave en mano Sicilia"],
+        "pt": ["renovar casa na Sicília", "remodelação chave na mão Sicília"],
+        "ru": ["ремонт дома на Сицилии под ключ"],
+        "pl": ["remont domu na Sycylii", "remont pod klucz Sycylia"],
+        "sv": ["renovera hus på Sicilien"],
+        "no": ["pusse opp hus på Sicilia"],
+        "da": ["renovere hus på Sicilien"]
+      }
+    },
+    {
+      "id": "C3",
+      "title": "Casale e casa in pietra Madonie",
+      "intent": ["T", "C"],
+      "market": ["E"],
+      "keywords": {
+        "it": ["ristrutturazione casale Madonie", "ristrutturare casa in pietra Sicilia"],
+        "en": ["restore farmhouse Sicily", "stone house renovation Madonie"],
+        "fr": ["rénovation ferme Sicile", "maison en pierre Sicile rénovation"],
+        "de": ["Bauernhaus Sizilien renovieren", "Natursteinhaus Sizilien sanieren"],
+        "nl": ["boerderij Sicilië renoveren", "stenen huis Sicilië renovatie"],
+        "es": ["restaurar casa de campo Sicilia", "casa de piedra Sicilia reforma"],
+        "pt": ["restaurar casa de campo Sicília"],
+        "ru": ["реставрация фермерского дома Сицилия"],
+        "pl": ["remont domu z kamienia Sycylia"],
+        "sv": ["renovera stenhus Sicilien"],
+        "no": ["restaurere steinhus Sicilia"],
+        "da": ["restaurere stenhus Sicilien"]
+      }
+    },
+    {
+      "id": "C4",
+      "title": "Comprare casa da ristrutturare",
+      "intent": ["I", "C"],
+      "market": ["E"],
+      "keywords": {
+        "it": ["comprare casa da ristrutturare Sicilia", "cosa controllare prima di comprare casa Cefalù"],
+        "en": ["buying a house to renovate in Sicily", "what to check before buying property in Sicily"],
+        "fr": ["acheter maison à rénover Sicile"],
+        "de": ["Haus kaufen Sizilien renovieren worauf achten"],
+        "nl": ["huis kopen Sicilië opknappen waar op letten"],
+        "es": ["comprar casa para reformar en Sicilia"],
+        "pt": ["comprar casa para renovar na Sicília"],
+        "ru": ["купить дом на Сицилии под ремонт"],
+        "pl": ["kupno domu do remontu Sycylia"],
+        "sv": ["köpa hus att renovera Sicilien"],
+        "no": ["kjøpe hus som må pusses opp Sicilia"],
+        "da": ["købe hus til renovering Sicilien"]
+      }
+    },
+    {
+      "id": "C5",
+      "title": "Permessi e pratiche",
+      "intent": ["I"],
+      "market": ["L"],
+      "marketNote": "IT soprattutto L",
+      "conceptualLocalizationAuthorized": ["pt", "pl", "ru", "sv", "no", "da"],
+      "conceptualInstruction": "altre lingue: traduzione concettuale del tema permessi in Italia",
+      "keywords": {
+        "it": ["CILA o SCIA ristrutturazione Sicilia", "permessi per ristrutturare casa Sicilia", "sanatoria e conformità urbanistica"],
+        "en": ["building permits renovation Italy CILA SCIA"],
+        "de": ["Baugenehmigung Renovierung Italien"],
+        "nl": ["bouwvergunning renovatie Italië"],
+        "fr": ["permis de construire rénovation Italie"],
+        "es": ["licencia de obras reforma Italia"]
+      }
+    },
+    {
+      "id": "C6",
+      "title": "Ristrutturare a distanza, proprietari all'estero",
+      "intent": ["C"],
+      "market": ["E"],
+      "keywords": {
+        "it": ["ristrutturare casa vivendo all'estero", "seguire il cantiere a distanza"],
+        "en": ["renovating a house in Italy from abroad", "remote renovation management Sicily"],
+        "fr": ["rénover une maison en Italie à distance"],
+        "de": ["Renovierung aus der Ferne Italien Bauleitung"],
+        "nl": ["op afstand verbouwen Italië"],
+        "es": ["reformar una casa en Italia a distancia"],
+        "pt": ["renovar casa em Itália à distância"],
+        "ru": ["ремонт в Италии дистанционно"],
+        "pl": ["remont w Włoszech na odległość"],
+        "sv": ["renovera i Italien på distans"],
+        "no": ["oppussing i Italia på avstand"],
+        "da": ["renovering i Italien på afstand"]
+      }
+    },
+    {
+      "id": "C7",
+      "title": "Arredi in cemento su misura",
+      "intent": ["T"],
+      "market": ["W"],
+      "keywords": {
+        "it": ["tavolo in cemento su misura", "cucina in cemento su misura", "arredi in microcemento"],
+        "en": ["bespoke concrete dining table", "custom concrete kitchen", "microcement furniture"],
+        "fr": ["table en béton sur mesure", "cuisine en béton sur mesure"],
+        "de": ["Betontisch nach Maß", "Betonküche nach Maß"],
+        "nl": ["betonnen tafel op maat", "betonnen keuken op maat"],
+        "es": ["mesa de hormigón a medida", "cocina de microcemento a medida"],
+        "pt": ["mesa de betão por medida", "cozinha em microcimento"],
+        "ru": ["бетонный стол на заказ"],
+        "pl": ["stół z betonu na wymiar"],
+        "sv": ["betongbord på beställning"],
+        "no": ["betongbord på bestilling"],
+        "da": ["betonbord efter mål"]
+      }
+    },
+    {
+      "id": "C8",
+      "title": "Manutenzione seconda casa e casa vacanze",
+      "intent": ["C"],
+      "market": ["E", "L"],
+      "keywords": {
+        "it": ["manutenzione seconda casa Cefalù", "lavori casa vacanze fuori stagione"],
+        "en": ["holiday home maintenance Sicily", "second home maintenance Cefalu"],
+        "fr": ["entretien résidence secondaire Sicile"],
+        "de": ["Ferienhaus Wartung Sizilien"],
+        "nl": ["onderhoud vakantiehuis Sicilië"],
+        "es": ["mantenimiento segunda residencia Sicilia"],
+        "pt": ["manutenção casa de férias Sicília"],
+        "ru": ["обслуживание дома в Италии"],
+        "pl": ["utrzymanie domu wakacyjnego Sycylia"],
+        "sv": ["underhåll fritidshus Sicilien"],
+        "no": ["vedlikehold feriehus Sicilia"],
+        "da": ["vedligeholdelse feriehus Sicilien"]
+      }
+    },
+    {
+      "id": "C9",
+      "title": "Gestione affitti brevi con Cefalù Apartments",
+      "intent": ["T", "C"],
+      "market": ["E", "L"],
+      "scope": "Conservato come parte della strategia fornita; non incluso nelle dieci puntate né implementato qui.",
+      "keywords": {
+        "it": ["gestione affitti brevi Cefalù", "gestione casa vacanze Cefalù", "CIN affitti brevi"],
+        "en": ["property management Cefalu", "holiday rental management Sicily"],
+        "fr": ["gestion location saisonnière Cefalù"],
+        "de": ["Ferienwohnung Verwaltung Sizilien"],
+        "nl": ["beheer vakantiewoning Sicilië"],
+        "es": ["gestión alquiler vacacional Cefalù"],
+        "pt": ["gestão alojamento local Sicília"],
+        "ru": ["управление арендой жилья Сицилия"],
+        "pl": ["zarządzanie wynajmem krótkoterminowym Sycylia"],
+        "sv": ["förvaltning semesterbostad Sicilien"],
+        "no": ["utleieforvaltning feriebolig Sicilia"],
+        "da": ["udlejning og administration feriebolig Sicilien"]
+      }
+    },
+    {
+      "id": "C10",
+      "title": "Rete di professionisti e architetti",
+      "intent": ["C"],
+      "market": ["L", "E"],
+      "marketNote": "B2B L/E",
+      "conceptualLocalizationAuthorized": ["pt", "pl", "ru", "sv", "no", "da"],
+      "conceptualInstruction": "altre lingue: traduzione concettuale",
+      "keywords": {
+        "it": ["geometra ingegnere geologo Cefalù per ristrutturazione", "impresa per architetti Sicilia"],
+        "en": ["contractor for architects Sicily", "local building team Sicily engineers surveyors"],
+        "fr": ["entreprise partenaire architectes Sicile"],
+        "de": ["Bauunternehmen für Architekten Sizilien"],
+        "nl": ["aannemer voor architecten Sicilië"],
+        "es": ["constructora para arquitectos Sicilia"]
+      }
+    }
+  ]
+}

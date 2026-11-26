@@ -35,17 +35,17 @@ export default defineConfig({
   ],
   webServer: [
     {
-      command: `PORT=${vitePort} BASE_PATH=/ pnpm run dev -- --host 127.0.0.1`,
-      url: viteUrl,
-      reuseExistingServer: !process.env.CI,
-      timeout: 30_000,
-    },
-    {
       command:
         `PORT=${productionPort} BASE_PATH=/ node tests/serve-preview.mjs`,
       url: productionUrl,
       reuseExistingServer: false,
       timeout: 120_000,
+    },
+    {
+      command: `PORT=${vitePort} BASE_PATH=/ EDITORIAL_API_ORIGIN=${productionUrl} pnpm run dev -- --host 127.0.0.1`,
+      url: viteUrl,
+      reuseExistingServer: false,
+      timeout: 30_000,
     },
   ],
 });

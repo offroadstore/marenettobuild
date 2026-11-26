@@ -29,3 +29,5 @@
 - [Development SSR comparisons](development-ssr-comparisons.md) — Preserve raw baselines; separate development instrumentation and reconstructed production metadata from real content changes.
 - [Favicon browser transport](favicon-browser-transport.md) — Chromium favicon fetches can fail under Playwright routing before reaching the server; separate harness failures from HTTP failures.
 - [Commercial positioning](commercial-scope.md) — Organic-only high-value acquisition; a photographic commercial home and a portfolio gated by real approved materials.
+- [Remote renovation process](remote-renovation-process.md) — Owner-confirmed SAL evidence, interim WhatsApp updates, one company contact and five assistance languages.
+- [Assisted editorial review](assisted-editorial-review.md) — Owner permits AI-assisted review plus internal approval for guides; show uncertainties and labeled illustrations, never professional sign-off.

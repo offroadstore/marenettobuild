@@ -5,6 +5,7 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+import type { EditorialGuide } from './editorialGuide';
 import type { EditorialSource } from './editorialSource';
 
 export interface EditorialContent {
@@ -33,4 +34,5 @@ export interface EditorialContent {
   seoDescription: string;
   /** @pattern ^[a-z]{2}$ */
   contentLanguage: string;
+  guide?: EditorialGuide;
 }

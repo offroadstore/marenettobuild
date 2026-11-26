@@ -41,6 +41,7 @@
     "audit:four-areas": "node scripts/four-areas-audit.mjs",
     "audit:seo-global": "node scripts/global-seo-audit.mjs",
     "audit:seo-client": "node scripts/global-seo-browser.mjs",
+    "test:series": "node --test scripts/series.test.mjs",
     "test:routes": "PORT=4188 BASE_PATH=/ pnpm run build && playwright test --config=playwright.config.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },

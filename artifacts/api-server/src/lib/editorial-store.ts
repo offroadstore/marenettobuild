@@ -2,11 +2,20 @@ import { pool } from '@workspace/db';
 import type { PoolClient } from 'pg';
 import { createHash } from 'node:crypto';
 import catalogJSON from 'marenetto-editorial-catalog';
-import { cleanBody, event, fingerprint, revision, type EditorialData, EditorialError } from './editorial-content';
+import { cleanBody, event, fingerprint, revision, transition, validateContent, type EditorialData, EditorialError } from './editorial-content';
 import type { EditorialContent } from '@workspace/api-zod';
 
 type SeedRecord = { identity: string; locale: string; path: string; kind: string; historical: boolean; correction: boolean; content: EditorialContent; aliases?: string[]; originalBody?: string; originalMetadata?: Record<string, unknown>; rework?: EditorialContent; releaseReady?: boolean };
-const catalog = catalogJSON as unknown as { locales: string[]; records: SeedRecord[]; reservedPaths?: string[] };
+const catalog = catalogJSON as unknown as { locales: string[]; records: SeedRecord[]; reservedPaths?: string[]; seriesDrafts?: SeedRecord[]; seriesRelease?: {id:string; decisionDate:string; contentDigest:string} };
+
+export function assertSeriesRelease() {
+  const seeds = catalog.seriesDrafts ?? [];
+  const digest = createHash('sha256').update(JSON.stringify(seeds)).digest('hex');
+  if (seeds.length !== 120 || catalog.seriesRelease?.contentDigest !== digest) {
+    throw new Error('Serie Cefalù-Madonie: i testi non corrispondono alla consegna approvata. Registrare una nuova approvazione interna prima dell’attivazione.');
+  }
+  return catalog.seriesRelease;
+}
 export const editorialLocales = catalog.locales;
 export const isCatalogPath = (path: string) => (catalog.reservedPaths ?? []).some(reserved => normalizedPath(reserved) === normalizedPath(path));
 export function assertNetworkActivation(row: Row, content: EditorialContent) {
@@ -18,6 +27,12 @@ export function assertNetworkActivation(row: Row, content: EditorialContent) {
 }
 export type Row = { id: string; identity: string; locale: string; path: string; kind: 'article' | 'page'; version: number; data: EditorialData };
 export const normalizedPath = (path: string) => path.replace(/\/+$/, '') || '/';
+// Storage keys are normalized; public canonical URLs keep the approved spelling.
+// A later deliberate URL edit must still win over the original seed.
+export function publicEditionPath(row: Pick<Row, 'identity' | 'locale' | 'path'>) {
+  const seed = catalog.seriesDrafts?.find(record => record.identity === row.identity && record.locale === row.locale && normalizedPath(record.path) === normalizedPath(row.path));
+  return seed?.path ?? row.path;
+}
 let imported: Promise<void> | undefined;
 export function ensureEditorial() {
   if (!imported) imported = importCatalog().catch(error => { imported = undefined; throw error; });
@@ -63,6 +78,55 @@ async function importCatalog() {
     await client.query(`UPDATE editorial_editions e SET data=jsonb_set(e.data,'{revisions,0,sourceHash}',to_jsonb(
       COALESCE((SELECT s.data->'revisions'->0->>'hash' FROM editorial_editions s WHERE s.identity=e.identity AND s.locale='it'),'')
     )) WHERE version=1 AND data->'events'->0->>'action'='import'`);
+    // Separate private draft channel. Never mark a series draft as a catalog
+    // import: that event has special historical-publication semantics.
+    // Italian is imported first so translations bind to its actual revision.
+    const rows = await allRows(client);
+    for (const seed of catalog.seriesDrafts ?? []) {
+      const existing = rows.find(row => row.identity === seed.identity && row.locale === seed.locale);
+      if (existing?.data.revisions.some(rev => rev.content.guide?.episode === seed.content.guide?.episode)) continue;
+      // Never take over an unrelated route or silently relocate an existing family.
+      if (!existing && rows.some(row => normalizedPath(row.path) === normalizedPath(seed.path))) throw new Error('Series draft path collision');
+      const source = rows.find(row => row.identity === seed.identity && row.locale === 'it')?.data.revisions.at(-1);
+      const draft = revision(validateContent(seed.content, catalog.locales), seed.locale === 'it' ? '' : source?.hash ?? '', 'Preparazione serie; revisioni umane non registrate');
+      if (seed.locale === 'it') draft.sourceHash = draft.hash;
+      if (existing) {
+        // Prior drafts, originals and activeRevisionId all remain intact.
+        existing.data.revisions.push(draft);
+        existing.data.state = 'draft';
+        event(existing.data, 'series-draft', draft, draft.actor);
+        await client.query('UPDATE editorial_editions SET data=$1,version=version+1 WHERE id=$2', [existing.data, existing.id]);
+      } else {
+        const data: EditorialData = { state: 'draft', historical: false, correction: false, activeRevisionId: null, revisions: [draft], events: [], originals: [] };
+        event(data, 'series-draft', draft, draft.actor);
+        const id = createHash('sha256').update(`${seed.identity}:${seed.locale}`).digest('hex').slice(0,32);
+        await client.query('INSERT INTO editorial_editions(id,identity,locale,path,kind,data) VALUES($1,$2,$3,$4,$5,$6)', [id,seed.identity,seed.locale,normalizedPath(seed.path),'article',data]);
+        rows.push({id,identity:seed.identity,locale:seed.locale,path:normalizedPath(seed.path),kind:'article',data,version:1});
+      }
+    }
+    // Dated, owner-authorized release. This is not an evergreen permission to
+    // activate future edits: the complete 120-edition payload is hash-bound.
+    const release = assertSeriesRelease();
+    const releaseEvent = `${release.id}:${release.contentDigest}`;
+    for (const seed of catalog.seriesDrafts ?? []) {
+      const row = rows.find(row => row.identity === seed.identity && row.locale === seed.locale)!;
+      if (row.data.events.some(e => e.action === releaseEvent) || row.data.withdrawn) continue;
+      const last = row.data.revisions.at(-1)!;
+      // Never replace work subsequently edited by a person in the CMS.
+      if (last.actor !== 'Preparazione serie; revisioni umane non registrate' &&
+          last.actor !== `Approvazione interna del titolare ${release.decisionDate}; controllo assistito da IA, non parere professionale`) continue;
+      const source = rows.find(source => source.identity === seed.identity && source.locale === 'it')?.data.revisions.at(-1);
+      const actor = `Approvazione interna del titolare ${release.decisionDate}; controllo assistito da IA, non parere professionale`;
+      const approved = revision(validateContent(seed.content, catalog.locales), seed.locale === 'it' ? '' : source?.hash ?? '', actor);
+      if (seed.locale === 'it') approved.sourceHash = approved.hash;
+      row.data.revisions.push(approved);
+      row.data.state = 'draft';
+      transition(row.data, 'submit', approved.id, approved.sourceHash, seed.locale, actor, true);
+      transition(row.data, 'approve', approved.id, approved.sourceHash, seed.locale, actor, true);
+      transition(row.data, 'activate', approved.id, approved.sourceHash, seed.locale, actor, true);
+      event(row.data, releaseEvent, approved, actor);
+      await client.query('UPDATE editorial_editions SET data=$1,version=version+1 WHERE id=$2', [row.data,row.id]);
+    }
     await client.query('COMMIT');
   } catch (error) { await client.query('ROLLBACK'); throw error; }
   finally { client.release(); }

@@ -1,5 +1,29 @@
 # Marenetto Build — verifica per la messa online
 
+## Serie “Costruire a Cefalù e nelle Madonie” — 26 novembre 2026
+
+**PRONTO PER REPUBLISH secondo l’approvazione interna del titolare.**
+Dieci puntate, 120 edizioni nelle 12 lingue richieste, nello stesso CMS,
+conservando le famiglie storiche di acquisto e piscine. La consegna prioritaria
+1/4/8/10 in IT/EN/DE/NL è separata nel fascicolo completo.
+
+Controllo documentale e linguistico assistito da IA, non parere professionale;
+limiti del riferimento regionale al 28/02/2025 e verifiche del caso concreto
+visibili in ogni lingua. Illustrazioni autorizzate e dichiarate, non progetti
+o clienti inventati. Le fotografie autentiche non bloccano questa consegna.
+
+Attivazione vincolata all’impronta approvata, senza annullare ritiri o
+revisioni umane successive. Nessun video ricevuto: solo segnaposto locali,
+senza consenso richiesto né VideoObject fittizi. Il controllo del consenso
+media esterni resta separato da statistiche/marketing e comprende la revoca.
+
+La proprietà Search Console **non è attestata**: il file Google resta
+permanente e le puntate restano noindex, fuori da nuove sitemap/hreflang
+e notifiche IndexNow finché non viene registrata quella verifica separata.
+Nessuna pubblicazione in produzione è stata eseguita dall’assistente.
+
+Vedi [consegna aggiornata, fonti e prove](../editorial/costruire-cefalu-madonie/DELIVERY.md).
+
 **Contatto pubblico definitivo:** [decisione del titolare](PUBLIC_CONTACT_DECISION.md), valida anche per le Fasi 2, 3 e 4; supera le precedenti ipotesi di cambio della casella pubblica. Non modifica la configurazione SMTP.
 
 ## Fasi 3 e 4 — consegna aggiornata del 25 novembre 2026

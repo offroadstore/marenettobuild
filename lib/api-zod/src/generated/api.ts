@@ -1027,6 +1027,45 @@ export const createEditorialBodyContentSeoTitleMax = 200;
 export const createEditorialBodyContentSeoDescriptionMax = 500;
 
 export const createEditorialBodyContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const createEditorialBodyContentGuideEpisodeMax = 10;
+
+export const createEditorialBodyContentGuideDocumentaryReviewMax = 2000;
+
+export const createEditorialBodyContentGuideTechnicalHeadingMax = 300;
+
+export const createEditorialBodyContentGuideTechnicalNoticeMax = 4000;
+
+export const createEditorialBodyContentGuideReviewDisclosureMax = 2000;
+
+export const createEditorialBodyContentGuideTechnicalReviewMax = 2000;
+
+export const createEditorialBodyContentGuideEditorialReviewMax = 2000;
+
+export const createEditorialBodyContentGuideLanguageReviewMax = 2000;
+
+export const createEditorialBodyContentGuideFaqItemQuestionMax = 500;
+
+export const createEditorialBodyContentGuideFaqItemAnswerMax = 4000;
+
+export const createEditorialBodyContentGuideFaqMax = 15;
+
+export const createEditorialBodyContentGuideVideoYoutubeIdRegExp = new RegExp('^[A-Za-z0-9_-]{11}$');
+export const createEditorialBodyContentGuideVideoTitleMax = 200;
+
+export const createEditorialBodyContentGuideVideoDescriptionMax = 2000;
+
+export const createEditorialBodyContentGuideVideoThumbnailMax = 2000;
+
+export const createEditorialBodyContentGuideVideoUploadDateRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
+export const createEditorialBodyContentGuideVideoDurationRegExp = new RegExp('^PT(?=\\d)(?:\\d+H)?(?:\\d+M)?(?:\\d+S)?$');
+export const createEditorialBodyContentGuideVideoSpokenLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const createEditorialBodyContentGuideVideoAuthorMax = 300;
+
+export const createEditorialBodyContentGuideVideoRightsMax = 2000;
+
+export const createEditorialBodyContentGuideVideoTranscriptLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const createEditorialBodyContentGuideVideoTranscriptMax = 100000;
+
 
 
 export const CreateEditorialBody = zod.object({
@@ -1048,7 +1087,38 @@ export const CreateEditorialBody = zod.object({
 })).max(createEditorialBodyContentSourcesMax),
   "seoTitle": zod.string().max(createEditorialBodyContentSeoTitleMax),
   "seoDescription": zod.string().max(createEditorialBodyContentSeoDescriptionMax),
-  "contentLanguage": zod.string().regex(createEditorialBodyContentContentLanguageRegExp)
+  "contentLanguage": zod.string().regex(createEditorialBodyContentContentLanguageRegExp),
+  "guide": zod.object({
+  "episode": zod.number().int().min(1).max(createEditorialBodyContentGuideEpisodeMax),
+  "reviewBasis": zod.enum(['professional', 'ai-assisted-internal']).optional(),
+  "documentaryReview": zod.string().max(createEditorialBodyContentGuideDocumentaryReviewMax).optional(),
+  "technicalHeading": zod.string().max(createEditorialBodyContentGuideTechnicalHeadingMax).optional(),
+  "technicalNotice": zod.string().max(createEditorialBodyContentGuideTechnicalNoticeMax).optional(),
+  "reviewDisclosure": zod.string().max(createEditorialBodyContentGuideReviewDisclosureMax).optional(),
+  "technicalReview": zod.string().max(createEditorialBodyContentGuideTechnicalReviewMax),
+  "editorialReview": zod.string().max(createEditorialBodyContentGuideEditorialReviewMax),
+  "languageReview": zod.string().max(createEditorialBodyContentGuideLanguageReviewMax),
+  "sourcesCurrent": zod.boolean(),
+  "searchConsoleVerified": zod.boolean(),
+  "faq": zod.array(zod.object({
+  "question": zod.string().min(1).max(createEditorialBodyContentGuideFaqItemQuestionMax),
+  "answer": zod.string().min(1).max(createEditorialBodyContentGuideFaqItemAnswerMax)
+})).max(createEditorialBodyContentGuideFaqMax),
+  "video": zod.object({
+  "youtubeId": zod.string().regex(createEditorialBodyContentGuideVideoYoutubeIdRegExp),
+  "title": zod.string().min(1).max(createEditorialBodyContentGuideVideoTitleMax),
+  "description": zod.string().min(1).max(createEditorialBodyContentGuideVideoDescriptionMax),
+  "thumbnail": zod.string().min(1).max(createEditorialBodyContentGuideVideoThumbnailMax),
+  "uploadDate": zod.string().regex(createEditorialBodyContentGuideVideoUploadDateRegExp),
+  "duration": zod.string().regex(createEditorialBodyContentGuideVideoDurationRegExp).optional(),
+  "spokenLanguage": zod.string().regex(createEditorialBodyContentGuideVideoSpokenLanguageRegExp),
+  "author": zod.string().min(1).max(createEditorialBodyContentGuideVideoAuthorMax),
+  "rights": zod.string().min(1).max(createEditorialBodyContentGuideVideoRightsMax),
+  "transcriptLanguage": zod.string().regex(createEditorialBodyContentGuideVideoTranscriptLanguageRegExp),
+  "transcript": zod.string().min(1).max(createEditorialBodyContentGuideVideoTranscriptMax),
+  "transcriptReviewed": zod.boolean()
+}).optional()
+}).optional()
 })
 })
 
@@ -1079,6 +1149,45 @@ export const createEditorialResponseTwoRevisionsItemContentSeoTitleMax = 200;
 export const createEditorialResponseTwoRevisionsItemContentSeoDescriptionMax = 500;
 
 export const createEditorialResponseTwoRevisionsItemContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const createEditorialResponseTwoRevisionsItemContentGuideEpisodeMax = 10;
+
+export const createEditorialResponseTwoRevisionsItemContentGuideDocumentaryReviewMax = 2000;
+
+export const createEditorialResponseTwoRevisionsItemContentGuideTechnicalHeadingMax = 300;
+
+export const createEditorialResponseTwoRevisionsItemContentGuideTechnicalNoticeMax = 4000;
+
+export const createEditorialResponseTwoRevisionsItemContentGuideReviewDisclosureMax = 2000;
+
+export const createEditorialResponseTwoRevisionsItemContentGuideTechnicalReviewMax = 2000;
+
+export const createEditorialResponseTwoRevisionsItemContentGuideEditorialReviewMax = 2000;
+
+export const createEditorialResponseTwoRevisionsItemContentGuideLanguageReviewMax = 2000;
+
+export const createEditorialResponseTwoRevisionsItemContentGuideFaqItemQuestionMax = 500;
+
+export const createEditorialResponseTwoRevisionsItemContentGuideFaqItemAnswerMax = 4000;
+
+export const createEditorialResponseTwoRevisionsItemContentGuideFaqMax = 15;
+
+export const createEditorialResponseTwoRevisionsItemContentGuideVideoYoutubeIdRegExp = new RegExp('^[A-Za-z0-9_-]{11}$');
+export const createEditorialResponseTwoRevisionsItemContentGuideVideoTitleMax = 200;
+
+export const createEditorialResponseTwoRevisionsItemContentGuideVideoDescriptionMax = 2000;
+
+export const createEditorialResponseTwoRevisionsItemContentGuideVideoThumbnailMax = 2000;
+
+export const createEditorialResponseTwoRevisionsItemContentGuideVideoUploadDateRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
+export const createEditorialResponseTwoRevisionsItemContentGuideVideoDurationRegExp = new RegExp('^PT(?=\\d)(?:\\d+H)?(?:\\d+M)?(?:\\d+S)?$');
+export const createEditorialResponseTwoRevisionsItemContentGuideVideoSpokenLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const createEditorialResponseTwoRevisionsItemContentGuideVideoAuthorMax = 300;
+
+export const createEditorialResponseTwoRevisionsItemContentGuideVideoRightsMax = 2000;
+
+export const createEditorialResponseTwoRevisionsItemContentGuideVideoTranscriptLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const createEditorialResponseTwoRevisionsItemContentGuideVideoTranscriptMax = 100000;
+
 export const createEditorialResponseTwoSourceContentTitleMax = 200;
 
 export const createEditorialResponseTwoSourceContentSummaryMax = 2000;
@@ -1106,6 +1215,45 @@ export const createEditorialResponseTwoSourceContentSeoTitleMax = 200;
 export const createEditorialResponseTwoSourceContentSeoDescriptionMax = 500;
 
 export const createEditorialResponseTwoSourceContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const createEditorialResponseTwoSourceContentGuideEpisodeMax = 10;
+
+export const createEditorialResponseTwoSourceContentGuideDocumentaryReviewMax = 2000;
+
+export const createEditorialResponseTwoSourceContentGuideTechnicalHeadingMax = 300;
+
+export const createEditorialResponseTwoSourceContentGuideTechnicalNoticeMax = 4000;
+
+export const createEditorialResponseTwoSourceContentGuideReviewDisclosureMax = 2000;
+
+export const createEditorialResponseTwoSourceContentGuideTechnicalReviewMax = 2000;
+
+export const createEditorialResponseTwoSourceContentGuideEditorialReviewMax = 2000;
+
+export const createEditorialResponseTwoSourceContentGuideLanguageReviewMax = 2000;
+
+export const createEditorialResponseTwoSourceContentGuideFaqItemQuestionMax = 500;
+
+export const createEditorialResponseTwoSourceContentGuideFaqItemAnswerMax = 4000;
+
+export const createEditorialResponseTwoSourceContentGuideFaqMax = 15;
+
+export const createEditorialResponseTwoSourceContentGuideVideoYoutubeIdRegExp = new RegExp('^[A-Za-z0-9_-]{11}$');
+export const createEditorialResponseTwoSourceContentGuideVideoTitleMax = 200;
+
+export const createEditorialResponseTwoSourceContentGuideVideoDescriptionMax = 2000;
+
+export const createEditorialResponseTwoSourceContentGuideVideoThumbnailMax = 2000;
+
+export const createEditorialResponseTwoSourceContentGuideVideoUploadDateRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
+export const createEditorialResponseTwoSourceContentGuideVideoDurationRegExp = new RegExp('^PT(?=\\d)(?:\\d+H)?(?:\\d+M)?(?:\\d+S)?$');
+export const createEditorialResponseTwoSourceContentGuideVideoSpokenLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const createEditorialResponseTwoSourceContentGuideVideoAuthorMax = 300;
+
+export const createEditorialResponseTwoSourceContentGuideVideoRightsMax = 2000;
+
+export const createEditorialResponseTwoSourceContentGuideVideoTranscriptLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const createEditorialResponseTwoSourceContentGuideVideoTranscriptMax = 100000;
+
 
 
 export const CreateEditorialResponse = zod.object({
@@ -1139,7 +1287,38 @@ export const CreateEditorialResponse = zod.object({
 })).max(createEditorialResponseTwoRevisionsItemContentSourcesMax),
   "seoTitle": zod.string().max(createEditorialResponseTwoRevisionsItemContentSeoTitleMax),
   "seoDescription": zod.string().max(createEditorialResponseTwoRevisionsItemContentSeoDescriptionMax),
-  "contentLanguage": zod.string().regex(createEditorialResponseTwoRevisionsItemContentContentLanguageRegExp)
+  "contentLanguage": zod.string().regex(createEditorialResponseTwoRevisionsItemContentContentLanguageRegExp),
+  "guide": zod.object({
+  "episode": zod.number().int().min(1).max(createEditorialResponseTwoRevisionsItemContentGuideEpisodeMax),
+  "reviewBasis": zod.enum(['professional', 'ai-assisted-internal']).optional(),
+  "documentaryReview": zod.string().max(createEditorialResponseTwoRevisionsItemContentGuideDocumentaryReviewMax).optional(),
+  "technicalHeading": zod.string().max(createEditorialResponseTwoRevisionsItemContentGuideTechnicalHeadingMax).optional(),
+  "technicalNotice": zod.string().max(createEditorialResponseTwoRevisionsItemContentGuideTechnicalNoticeMax).optional(),
+  "reviewDisclosure": zod.string().max(createEditorialResponseTwoRevisionsItemContentGuideReviewDisclosureMax).optional(),
+  "technicalReview": zod.string().max(createEditorialResponseTwoRevisionsItemContentGuideTechnicalReviewMax),
+  "editorialReview": zod.string().max(createEditorialResponseTwoRevisionsItemContentGuideEditorialReviewMax),
+  "languageReview": zod.string().max(createEditorialResponseTwoRevisionsItemContentGuideLanguageReviewMax),
+  "sourcesCurrent": zod.boolean(),
+  "searchConsoleVerified": zod.boolean(),
+  "faq": zod.array(zod.object({
+  "question": zod.string().min(1).max(createEditorialResponseTwoRevisionsItemContentGuideFaqItemQuestionMax),
+  "answer": zod.string().min(1).max(createEditorialResponseTwoRevisionsItemContentGuideFaqItemAnswerMax)
+})).max(createEditorialResponseTwoRevisionsItemContentGuideFaqMax),
+  "video": zod.object({
+  "youtubeId": zod.string().regex(createEditorialResponseTwoRevisionsItemContentGuideVideoYoutubeIdRegExp),
+  "title": zod.string().min(1).max(createEditorialResponseTwoRevisionsItemContentGuideVideoTitleMax),
+  "description": zod.string().min(1).max(createEditorialResponseTwoRevisionsItemContentGuideVideoDescriptionMax),
+  "thumbnail": zod.string().min(1).max(createEditorialResponseTwoRevisionsItemContentGuideVideoThumbnailMax),
+  "uploadDate": zod.string().regex(createEditorialResponseTwoRevisionsItemContentGuideVideoUploadDateRegExp),
+  "duration": zod.string().regex(createEditorialResponseTwoRevisionsItemContentGuideVideoDurationRegExp).optional(),
+  "spokenLanguage": zod.string().regex(createEditorialResponseTwoRevisionsItemContentGuideVideoSpokenLanguageRegExp),
+  "author": zod.string().min(1).max(createEditorialResponseTwoRevisionsItemContentGuideVideoAuthorMax),
+  "rights": zod.string().min(1).max(createEditorialResponseTwoRevisionsItemContentGuideVideoRightsMax),
+  "transcriptLanguage": zod.string().regex(createEditorialResponseTwoRevisionsItemContentGuideVideoTranscriptLanguageRegExp),
+  "transcript": zod.string().min(1).max(createEditorialResponseTwoRevisionsItemContentGuideVideoTranscriptMax),
+  "transcriptReviewed": zod.boolean()
+}).optional()
+}).optional()
 }),
   "hash": zod.string(),
   "sourceHash": zod.string(),
@@ -1177,7 +1356,38 @@ export const CreateEditorialResponse = zod.object({
 })).max(createEditorialResponseTwoSourceContentSourcesMax),
   "seoTitle": zod.string().max(createEditorialResponseTwoSourceContentSeoTitleMax),
   "seoDescription": zod.string().max(createEditorialResponseTwoSourceContentSeoDescriptionMax),
-  "contentLanguage": zod.string().regex(createEditorialResponseTwoSourceContentContentLanguageRegExp)
+  "contentLanguage": zod.string().regex(createEditorialResponseTwoSourceContentContentLanguageRegExp),
+  "guide": zod.object({
+  "episode": zod.number().int().min(1).max(createEditorialResponseTwoSourceContentGuideEpisodeMax),
+  "reviewBasis": zod.enum(['professional', 'ai-assisted-internal']).optional(),
+  "documentaryReview": zod.string().max(createEditorialResponseTwoSourceContentGuideDocumentaryReviewMax).optional(),
+  "technicalHeading": zod.string().max(createEditorialResponseTwoSourceContentGuideTechnicalHeadingMax).optional(),
+  "technicalNotice": zod.string().max(createEditorialResponseTwoSourceContentGuideTechnicalNoticeMax).optional(),
+  "reviewDisclosure": zod.string().max(createEditorialResponseTwoSourceContentGuideReviewDisclosureMax).optional(),
+  "technicalReview": zod.string().max(createEditorialResponseTwoSourceContentGuideTechnicalReviewMax),
+  "editorialReview": zod.string().max(createEditorialResponseTwoSourceContentGuideEditorialReviewMax),
+  "languageReview": zod.string().max(createEditorialResponseTwoSourceContentGuideLanguageReviewMax),
+  "sourcesCurrent": zod.boolean(),
+  "searchConsoleVerified": zod.boolean(),
+  "faq": zod.array(zod.object({
+  "question": zod.string().min(1).max(createEditorialResponseTwoSourceContentGuideFaqItemQuestionMax),
+  "answer": zod.string().min(1).max(createEditorialResponseTwoSourceContentGuideFaqItemAnswerMax)
+})).max(createEditorialResponseTwoSourceContentGuideFaqMax),
+  "video": zod.object({
+  "youtubeId": zod.string().regex(createEditorialResponseTwoSourceContentGuideVideoYoutubeIdRegExp),
+  "title": zod.string().min(1).max(createEditorialResponseTwoSourceContentGuideVideoTitleMax),
+  "description": zod.string().min(1).max(createEditorialResponseTwoSourceContentGuideVideoDescriptionMax),
+  "thumbnail": zod.string().min(1).max(createEditorialResponseTwoSourceContentGuideVideoThumbnailMax),
+  "uploadDate": zod.string().regex(createEditorialResponseTwoSourceContentGuideVideoUploadDateRegExp),
+  "duration": zod.string().regex(createEditorialResponseTwoSourceContentGuideVideoDurationRegExp).optional(),
+  "spokenLanguage": zod.string().regex(createEditorialResponseTwoSourceContentGuideVideoSpokenLanguageRegExp),
+  "author": zod.string().min(1).max(createEditorialResponseTwoSourceContentGuideVideoAuthorMax),
+  "rights": zod.string().min(1).max(createEditorialResponseTwoSourceContentGuideVideoRightsMax),
+  "transcriptLanguage": zod.string().regex(createEditorialResponseTwoSourceContentGuideVideoTranscriptLanguageRegExp),
+  "transcript": zod.string().min(1).max(createEditorialResponseTwoSourceContentGuideVideoTranscriptMax),
+  "transcriptReviewed": zod.boolean()
+}).optional()
+}).optional()
 }).optional()
 }).nullable()
 }))
@@ -1214,6 +1424,45 @@ export const getEditorialResponseTwoRevisionsItemContentSeoTitleMax = 200;
 export const getEditorialResponseTwoRevisionsItemContentSeoDescriptionMax = 500;
 
 export const getEditorialResponseTwoRevisionsItemContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const getEditorialResponseTwoRevisionsItemContentGuideEpisodeMax = 10;
+
+export const getEditorialResponseTwoRevisionsItemContentGuideDocumentaryReviewMax = 2000;
+
+export const getEditorialResponseTwoRevisionsItemContentGuideTechnicalHeadingMax = 300;
+
+export const getEditorialResponseTwoRevisionsItemContentGuideTechnicalNoticeMax = 4000;
+
+export const getEditorialResponseTwoRevisionsItemContentGuideReviewDisclosureMax = 2000;
+
+export const getEditorialResponseTwoRevisionsItemContentGuideTechnicalReviewMax = 2000;
+
+export const getEditorialResponseTwoRevisionsItemContentGuideEditorialReviewMax = 2000;
+
+export const getEditorialResponseTwoRevisionsItemContentGuideLanguageReviewMax = 2000;
+
+export const getEditorialResponseTwoRevisionsItemContentGuideFaqItemQuestionMax = 500;
+
+export const getEditorialResponseTwoRevisionsItemContentGuideFaqItemAnswerMax = 4000;
+
+export const getEditorialResponseTwoRevisionsItemContentGuideFaqMax = 15;
+
+export const getEditorialResponseTwoRevisionsItemContentGuideVideoYoutubeIdRegExp = new RegExp('^[A-Za-z0-9_-]{11}$');
+export const getEditorialResponseTwoRevisionsItemContentGuideVideoTitleMax = 200;
+
+export const getEditorialResponseTwoRevisionsItemContentGuideVideoDescriptionMax = 2000;
+
+export const getEditorialResponseTwoRevisionsItemContentGuideVideoThumbnailMax = 2000;
+
+export const getEditorialResponseTwoRevisionsItemContentGuideVideoUploadDateRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
+export const getEditorialResponseTwoRevisionsItemContentGuideVideoDurationRegExp = new RegExp('^PT(?=\\d)(?:\\d+H)?(?:\\d+M)?(?:\\d+S)?$');
+export const getEditorialResponseTwoRevisionsItemContentGuideVideoSpokenLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const getEditorialResponseTwoRevisionsItemContentGuideVideoAuthorMax = 300;
+
+export const getEditorialResponseTwoRevisionsItemContentGuideVideoRightsMax = 2000;
+
+export const getEditorialResponseTwoRevisionsItemContentGuideVideoTranscriptLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const getEditorialResponseTwoRevisionsItemContentGuideVideoTranscriptMax = 100000;
+
 export const getEditorialResponseTwoSourceContentTitleMax = 200;
 
 export const getEditorialResponseTwoSourceContentSummaryMax = 2000;
@@ -1241,6 +1490,45 @@ export const getEditorialResponseTwoSourceContentSeoTitleMax = 200;
 export const getEditorialResponseTwoSourceContentSeoDescriptionMax = 500;
 
 export const getEditorialResponseTwoSourceContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const getEditorialResponseTwoSourceContentGuideEpisodeMax = 10;
+
+export const getEditorialResponseTwoSourceContentGuideDocumentaryReviewMax = 2000;
+
+export const getEditorialResponseTwoSourceContentGuideTechnicalHeadingMax = 300;
+
+export const getEditorialResponseTwoSourceContentGuideTechnicalNoticeMax = 4000;
+
+export const getEditorialResponseTwoSourceContentGuideReviewDisclosureMax = 2000;
+
+export const getEditorialResponseTwoSourceContentGuideTechnicalReviewMax = 2000;
+
+export const getEditorialResponseTwoSourceContentGuideEditorialReviewMax = 2000;
+
+export const getEditorialResponseTwoSourceContentGuideLanguageReviewMax = 2000;
+
+export const getEditorialResponseTwoSourceContentGuideFaqItemQuestionMax = 500;
+
+export const getEditorialResponseTwoSourceContentGuideFaqItemAnswerMax = 4000;
+
+export const getEditorialResponseTwoSourceContentGuideFaqMax = 15;
+
+export const getEditorialResponseTwoSourceContentGuideVideoYoutubeIdRegExp = new RegExp('^[A-Za-z0-9_-]{11}$');
+export const getEditorialResponseTwoSourceContentGuideVideoTitleMax = 200;
+
+export const getEditorialResponseTwoSourceContentGuideVideoDescriptionMax = 2000;
+
+export const getEditorialResponseTwoSourceContentGuideVideoThumbnailMax = 2000;
+
+export const getEditorialResponseTwoSourceContentGuideVideoUploadDateRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
+export const getEditorialResponseTwoSourceContentGuideVideoDurationRegExp = new RegExp('^PT(?=\\d)(?:\\d+H)?(?:\\d+M)?(?:\\d+S)?$');
+export const getEditorialResponseTwoSourceContentGuideVideoSpokenLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const getEditorialResponseTwoSourceContentGuideVideoAuthorMax = 300;
+
+export const getEditorialResponseTwoSourceContentGuideVideoRightsMax = 2000;
+
+export const getEditorialResponseTwoSourceContentGuideVideoTranscriptLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const getEditorialResponseTwoSourceContentGuideVideoTranscriptMax = 100000;
+
 
 
 export const GetEditorialResponse = zod.object({
@@ -1274,7 +1562,38 @@ export const GetEditorialResponse = zod.object({
 })).max(getEditorialResponseTwoRevisionsItemContentSourcesMax),
   "seoTitle": zod.string().max(getEditorialResponseTwoRevisionsItemContentSeoTitleMax),
   "seoDescription": zod.string().max(getEditorialResponseTwoRevisionsItemContentSeoDescriptionMax),
-  "contentLanguage": zod.string().regex(getEditorialResponseTwoRevisionsItemContentContentLanguageRegExp)
+  "contentLanguage": zod.string().regex(getEditorialResponseTwoRevisionsItemContentContentLanguageRegExp),
+  "guide": zod.object({
+  "episode": zod.number().int().min(1).max(getEditorialResponseTwoRevisionsItemContentGuideEpisodeMax),
+  "reviewBasis": zod.enum(['professional', 'ai-assisted-internal']).optional(),
+  "documentaryReview": zod.string().max(getEditorialResponseTwoRevisionsItemContentGuideDocumentaryReviewMax).optional(),
+  "technicalHeading": zod.string().max(getEditorialResponseTwoRevisionsItemContentGuideTechnicalHeadingMax).optional(),
+  "technicalNotice": zod.string().max(getEditorialResponseTwoRevisionsItemContentGuideTechnicalNoticeMax).optional(),
+  "reviewDisclosure": zod.string().max(getEditorialResponseTwoRevisionsItemContentGuideReviewDisclosureMax).optional(),
+  "technicalReview": zod.string().max(getEditorialResponseTwoRevisionsItemContentGuideTechnicalReviewMax),
+  "editorialReview": zod.string().max(getEditorialResponseTwoRevisionsItemContentGuideEditorialReviewMax),
+  "languageReview": zod.string().max(getEditorialResponseTwoRevisionsItemContentGuideLanguageReviewMax),
+  "sourcesCurrent": zod.boolean(),
+  "searchConsoleVerified": zod.boolean(),
+  "faq": zod.array(zod.object({
+  "question": zod.string().min(1).max(getEditorialResponseTwoRevisionsItemContentGuideFaqItemQuestionMax),
+  "answer": zod.string().min(1).max(getEditorialResponseTwoRevisionsItemContentGuideFaqItemAnswerMax)
+})).max(getEditorialResponseTwoRevisionsItemContentGuideFaqMax),
+  "video": zod.object({
+  "youtubeId": zod.string().regex(getEditorialResponseTwoRevisionsItemContentGuideVideoYoutubeIdRegExp),
+  "title": zod.string().min(1).max(getEditorialResponseTwoRevisionsItemContentGuideVideoTitleMax),
+  "description": zod.string().min(1).max(getEditorialResponseTwoRevisionsItemContentGuideVideoDescriptionMax),
+  "thumbnail": zod.string().min(1).max(getEditorialResponseTwoRevisionsItemContentGuideVideoThumbnailMax),
+  "uploadDate": zod.string().regex(getEditorialResponseTwoRevisionsItemContentGuideVideoUploadDateRegExp),
+  "duration": zod.string().regex(getEditorialResponseTwoRevisionsItemContentGuideVideoDurationRegExp).optional(),
+  "spokenLanguage": zod.string().regex(getEditorialResponseTwoRevisionsItemContentGuideVideoSpokenLanguageRegExp),
+  "author": zod.string().min(1).max(getEditorialResponseTwoRevisionsItemContentGuideVideoAuthorMax),
+  "rights": zod.string().min(1).max(getEditorialResponseTwoRevisionsItemContentGuideVideoRightsMax),
+  "transcriptLanguage": zod.string().regex(getEditorialResponseTwoRevisionsItemContentGuideVideoTranscriptLanguageRegExp),
+  "transcript": zod.string().min(1).max(getEditorialResponseTwoRevisionsItemContentGuideVideoTranscriptMax),
+  "transcriptReviewed": zod.boolean()
+}).optional()
+}).optional()
 }),
   "hash": zod.string(),
   "sourceHash": zod.string(),
@@ -1312,7 +1631,38 @@ export const GetEditorialResponse = zod.object({
 })).max(getEditorialResponseTwoSourceContentSourcesMax),
   "seoTitle": zod.string().max(getEditorialResponseTwoSourceContentSeoTitleMax),
   "seoDescription": zod.string().max(getEditorialResponseTwoSourceContentSeoDescriptionMax),
-  "contentLanguage": zod.string().regex(getEditorialResponseTwoSourceContentContentLanguageRegExp)
+  "contentLanguage": zod.string().regex(getEditorialResponseTwoSourceContentContentLanguageRegExp),
+  "guide": zod.object({
+  "episode": zod.number().int().min(1).max(getEditorialResponseTwoSourceContentGuideEpisodeMax),
+  "reviewBasis": zod.enum(['professional', 'ai-assisted-internal']).optional(),
+  "documentaryReview": zod.string().max(getEditorialResponseTwoSourceContentGuideDocumentaryReviewMax).optional(),
+  "technicalHeading": zod.string().max(getEditorialResponseTwoSourceContentGuideTechnicalHeadingMax).optional(),
+  "technicalNotice": zod.string().max(getEditorialResponseTwoSourceContentGuideTechnicalNoticeMax).optional(),
+  "reviewDisclosure": zod.string().max(getEditorialResponseTwoSourceContentGuideReviewDisclosureMax).optional(),
+  "technicalReview": zod.string().max(getEditorialResponseTwoSourceContentGuideTechnicalReviewMax),
+  "editorialReview": zod.string().max(getEditorialResponseTwoSourceContentGuideEditorialReviewMax),
+  "languageReview": zod.string().max(getEditorialResponseTwoSourceContentGuideLanguageReviewMax),
+  "sourcesCurrent": zod.boolean(),
+  "searchConsoleVerified": zod.boolean(),
+  "faq": zod.array(zod.object({
+  "question": zod.string().min(1).max(getEditorialResponseTwoSourceContentGuideFaqItemQuestionMax),
+  "answer": zod.string().min(1).max(getEditorialResponseTwoSourceContentGuideFaqItemAnswerMax)
+})).max(getEditorialResponseTwoSourceContentGuideFaqMax),
+  "video": zod.object({
+  "youtubeId": zod.string().regex(getEditorialResponseTwoSourceContentGuideVideoYoutubeIdRegExp),
+  "title": zod.string().min(1).max(getEditorialResponseTwoSourceContentGuideVideoTitleMax),
+  "description": zod.string().min(1).max(getEditorialResponseTwoSourceContentGuideVideoDescriptionMax),
+  "thumbnail": zod.string().min(1).max(getEditorialResponseTwoSourceContentGuideVideoThumbnailMax),
+  "uploadDate": zod.string().regex(getEditorialResponseTwoSourceContentGuideVideoUploadDateRegExp),
+  "duration": zod.string().regex(getEditorialResponseTwoSourceContentGuideVideoDurationRegExp).optional(),
+  "spokenLanguage": zod.string().regex(getEditorialResponseTwoSourceContentGuideVideoSpokenLanguageRegExp),
+  "author": zod.string().min(1).max(getEditorialResponseTwoSourceContentGuideVideoAuthorMax),
+  "rights": zod.string().min(1).max(getEditorialResponseTwoSourceContentGuideVideoRightsMax),
+  "transcriptLanguage": zod.string().regex(getEditorialResponseTwoSourceContentGuideVideoTranscriptLanguageRegExp),
+  "transcript": zod.string().min(1).max(getEditorialResponseTwoSourceContentGuideVideoTranscriptMax),
+  "transcriptReviewed": zod.boolean()
+}).optional()
+}).optional()
 }).optional()
 }).nullable()
 }))
@@ -1350,6 +1700,45 @@ export const saveEditorialBodyContentSeoTitleMax = 200;
 export const saveEditorialBodyContentSeoDescriptionMax = 500;
 
 export const saveEditorialBodyContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const saveEditorialBodyContentGuideEpisodeMax = 10;
+
+export const saveEditorialBodyContentGuideDocumentaryReviewMax = 2000;
+
+export const saveEditorialBodyContentGuideTechnicalHeadingMax = 300;
+
+export const saveEditorialBodyContentGuideTechnicalNoticeMax = 4000;
+
+export const saveEditorialBodyContentGuideReviewDisclosureMax = 2000;
+
+export const saveEditorialBodyContentGuideTechnicalReviewMax = 2000;
+
+export const saveEditorialBodyContentGuideEditorialReviewMax = 2000;
+
+export const saveEditorialBodyContentGuideLanguageReviewMax = 2000;
+
+export const saveEditorialBodyContentGuideFaqItemQuestionMax = 500;
+
+export const saveEditorialBodyContentGuideFaqItemAnswerMax = 4000;
+
+export const saveEditorialBodyContentGuideFaqMax = 15;
+
+export const saveEditorialBodyContentGuideVideoYoutubeIdRegExp = new RegExp('^[A-Za-z0-9_-]{11}$');
+export const saveEditorialBodyContentGuideVideoTitleMax = 200;
+
+export const saveEditorialBodyContentGuideVideoDescriptionMax = 2000;
+
+export const saveEditorialBodyContentGuideVideoThumbnailMax = 2000;
+
+export const saveEditorialBodyContentGuideVideoUploadDateRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
+export const saveEditorialBodyContentGuideVideoDurationRegExp = new RegExp('^PT(?=\\d)(?:\\d+H)?(?:\\d+M)?(?:\\d+S)?$');
+export const saveEditorialBodyContentGuideVideoSpokenLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const saveEditorialBodyContentGuideVideoAuthorMax = 300;
+
+export const saveEditorialBodyContentGuideVideoRightsMax = 2000;
+
+export const saveEditorialBodyContentGuideVideoTranscriptLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const saveEditorialBodyContentGuideVideoTranscriptMax = 100000;
+
 
 
 export const SaveEditorialBody = zod.object({
@@ -1368,7 +1757,38 @@ export const SaveEditorialBody = zod.object({
 })).max(saveEditorialBodyContentSourcesMax),
   "seoTitle": zod.string().max(saveEditorialBodyContentSeoTitleMax),
   "seoDescription": zod.string().max(saveEditorialBodyContentSeoDescriptionMax),
-  "contentLanguage": zod.string().regex(saveEditorialBodyContentContentLanguageRegExp)
+  "contentLanguage": zod.string().regex(saveEditorialBodyContentContentLanguageRegExp),
+  "guide": zod.object({
+  "episode": zod.number().int().min(1).max(saveEditorialBodyContentGuideEpisodeMax),
+  "reviewBasis": zod.enum(['professional', 'ai-assisted-internal']).optional(),
+  "documentaryReview": zod.string().max(saveEditorialBodyContentGuideDocumentaryReviewMax).optional(),
+  "technicalHeading": zod.string().max(saveEditorialBodyContentGuideTechnicalHeadingMax).optional(),
+  "technicalNotice": zod.string().max(saveEditorialBodyContentGuideTechnicalNoticeMax).optional(),
+  "reviewDisclosure": zod.string().max(saveEditorialBodyContentGuideReviewDisclosureMax).optional(),
+  "technicalReview": zod.string().max(saveEditorialBodyContentGuideTechnicalReviewMax),
+  "editorialReview": zod.string().max(saveEditorialBodyContentGuideEditorialReviewMax),
+  "languageReview": zod.string().max(saveEditorialBodyContentGuideLanguageReviewMax),
+  "sourcesCurrent": zod.boolean(),
+  "searchConsoleVerified": zod.boolean(),
+  "faq": zod.array(zod.object({
+  "question": zod.string().min(1).max(saveEditorialBodyContentGuideFaqItemQuestionMax),
+  "answer": zod.string().min(1).max(saveEditorialBodyContentGuideFaqItemAnswerMax)
+})).max(saveEditorialBodyContentGuideFaqMax),
+  "video": zod.object({
+  "youtubeId": zod.string().regex(saveEditorialBodyContentGuideVideoYoutubeIdRegExp),
+  "title": zod.string().min(1).max(saveEditorialBodyContentGuideVideoTitleMax),
+  "description": zod.string().min(1).max(saveEditorialBodyContentGuideVideoDescriptionMax),
+  "thumbnail": zod.string().min(1).max(saveEditorialBodyContentGuideVideoThumbnailMax),
+  "uploadDate": zod.string().regex(saveEditorialBodyContentGuideVideoUploadDateRegExp),
+  "duration": zod.string().regex(saveEditorialBodyContentGuideVideoDurationRegExp).optional(),
+  "spokenLanguage": zod.string().regex(saveEditorialBodyContentGuideVideoSpokenLanguageRegExp),
+  "author": zod.string().min(1).max(saveEditorialBodyContentGuideVideoAuthorMax),
+  "rights": zod.string().min(1).max(saveEditorialBodyContentGuideVideoRightsMax),
+  "transcriptLanguage": zod.string().regex(saveEditorialBodyContentGuideVideoTranscriptLanguageRegExp),
+  "transcript": zod.string().min(1).max(saveEditorialBodyContentGuideVideoTranscriptMax),
+  "transcriptReviewed": zod.boolean()
+}).optional()
+}).optional()
 })
 })
 
@@ -1399,6 +1819,45 @@ export const saveEditorialResponseTwoRevisionsItemContentSeoTitleMax = 200;
 export const saveEditorialResponseTwoRevisionsItemContentSeoDescriptionMax = 500;
 
 export const saveEditorialResponseTwoRevisionsItemContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const saveEditorialResponseTwoRevisionsItemContentGuideEpisodeMax = 10;
+
+export const saveEditorialResponseTwoRevisionsItemContentGuideDocumentaryReviewMax = 2000;
+
+export const saveEditorialResponseTwoRevisionsItemContentGuideTechnicalHeadingMax = 300;
+
+export const saveEditorialResponseTwoRevisionsItemContentGuideTechnicalNoticeMax = 4000;
+
+export const saveEditorialResponseTwoRevisionsItemContentGuideReviewDisclosureMax = 2000;
+
+export const saveEditorialResponseTwoRevisionsItemContentGuideTechnicalReviewMax = 2000;
+
+export const saveEditorialResponseTwoRevisionsItemContentGuideEditorialReviewMax = 2000;
+
+export const saveEditorialResponseTwoRevisionsItemContentGuideLanguageReviewMax = 2000;
+
+export const saveEditorialResponseTwoRevisionsItemContentGuideFaqItemQuestionMax = 500;
+
+export const saveEditorialResponseTwoRevisionsItemContentGuideFaqItemAnswerMax = 4000;
+
+export const saveEditorialResponseTwoRevisionsItemContentGuideFaqMax = 15;
+
+export const saveEditorialResponseTwoRevisionsItemContentGuideVideoYoutubeIdRegExp = new RegExp('^[A-Za-z0-9_-]{11}$');
+export const saveEditorialResponseTwoRevisionsItemContentGuideVideoTitleMax = 200;
+
+export const saveEditorialResponseTwoRevisionsItemContentGuideVideoDescriptionMax = 2000;
+
+export const saveEditorialResponseTwoRevisionsItemContentGuideVideoThumbnailMax = 2000;
+
+export const saveEditorialResponseTwoRevisionsItemContentGuideVideoUploadDateRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
+export const saveEditorialResponseTwoRevisionsItemContentGuideVideoDurationRegExp = new RegExp('^PT(?=\\d)(?:\\d+H)?(?:\\d+M)?(?:\\d+S)?$');
+export const saveEditorialResponseTwoRevisionsItemContentGuideVideoSpokenLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const saveEditorialResponseTwoRevisionsItemContentGuideVideoAuthorMax = 300;
+
+export const saveEditorialResponseTwoRevisionsItemContentGuideVideoRightsMax = 2000;
+
+export const saveEditorialResponseTwoRevisionsItemContentGuideVideoTranscriptLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const saveEditorialResponseTwoRevisionsItemContentGuideVideoTranscriptMax = 100000;
+
 export const saveEditorialResponseTwoSourceContentTitleMax = 200;
 
 export const saveEditorialResponseTwoSourceContentSummaryMax = 2000;
@@ -1426,6 +1885,45 @@ export const saveEditorialResponseTwoSourceContentSeoTitleMax = 200;
 export const saveEditorialResponseTwoSourceContentSeoDescriptionMax = 500;
 
 export const saveEditorialResponseTwoSourceContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const saveEditorialResponseTwoSourceContentGuideEpisodeMax = 10;
+
+export const saveEditorialResponseTwoSourceContentGuideDocumentaryReviewMax = 2000;
+
+export const saveEditorialResponseTwoSourceContentGuideTechnicalHeadingMax = 300;
+
+export const saveEditorialResponseTwoSourceContentGuideTechnicalNoticeMax = 4000;
+
+export const saveEditorialResponseTwoSourceContentGuideReviewDisclosureMax = 2000;
+
+export const saveEditorialResponseTwoSourceContentGuideTechnicalReviewMax = 2000;
+
+export const saveEditorialResponseTwoSourceContentGuideEditorialReviewMax = 2000;
+
+export const saveEditorialResponseTwoSourceContentGuideLanguageReviewMax = 2000;
+
+export const saveEditorialResponseTwoSourceContentGuideFaqItemQuestionMax = 500;
+
+export const saveEditorialResponseTwoSourceContentGuideFaqItemAnswerMax = 4000;
+
+export const saveEditorialResponseTwoSourceContentGuideFaqMax = 15;
+
+export const saveEditorialResponseTwoSourceContentGuideVideoYoutubeIdRegExp = new RegExp('^[A-Za-z0-9_-]{11}$');
+export const saveEditorialResponseTwoSourceContentGuideVideoTitleMax = 200;
+
+export const saveEditorialResponseTwoSourceContentGuideVideoDescriptionMax = 2000;
+
+export const saveEditorialResponseTwoSourceContentGuideVideoThumbnailMax = 2000;
+
+export const saveEditorialResponseTwoSourceContentGuideVideoUploadDateRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
+export const saveEditorialResponseTwoSourceContentGuideVideoDurationRegExp = new RegExp('^PT(?=\\d)(?:\\d+H)?(?:\\d+M)?(?:\\d+S)?$');
+export const saveEditorialResponseTwoSourceContentGuideVideoSpokenLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const saveEditorialResponseTwoSourceContentGuideVideoAuthorMax = 300;
+
+export const saveEditorialResponseTwoSourceContentGuideVideoRightsMax = 2000;
+
+export const saveEditorialResponseTwoSourceContentGuideVideoTranscriptLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const saveEditorialResponseTwoSourceContentGuideVideoTranscriptMax = 100000;
+
 
 
 export const SaveEditorialResponse = zod.object({
@@ -1459,7 +1957,38 @@ export const SaveEditorialResponse = zod.object({
 })).max(saveEditorialResponseTwoRevisionsItemContentSourcesMax),
   "seoTitle": zod.string().max(saveEditorialResponseTwoRevisionsItemContentSeoTitleMax),
   "seoDescription": zod.string().max(saveEditorialResponseTwoRevisionsItemContentSeoDescriptionMax),
-  "contentLanguage": zod.string().regex(saveEditorialResponseTwoRevisionsItemContentContentLanguageRegExp)
+  "contentLanguage": zod.string().regex(saveEditorialResponseTwoRevisionsItemContentContentLanguageRegExp),
+  "guide": zod.object({
+  "episode": zod.number().int().min(1).max(saveEditorialResponseTwoRevisionsItemContentGuideEpisodeMax),
+  "reviewBasis": zod.enum(['professional', 'ai-assisted-internal']).optional(),
+  "documentaryReview": zod.string().max(saveEditorialResponseTwoRevisionsItemContentGuideDocumentaryReviewMax).optional(),
+  "technicalHeading": zod.string().max(saveEditorialResponseTwoRevisionsItemContentGuideTechnicalHeadingMax).optional(),
+  "technicalNotice": zod.string().max(saveEditorialResponseTwoRevisionsItemContentGuideTechnicalNoticeMax).optional(),
+  "reviewDisclosure": zod.string().max(saveEditorialResponseTwoRevisionsItemContentGuideReviewDisclosureMax).optional(),
+  "technicalReview": zod.string().max(saveEditorialResponseTwoRevisionsItemContentGuideTechnicalReviewMax),
+  "editorialReview": zod.string().max(saveEditorialResponseTwoRevisionsItemContentGuideEditorialReviewMax),
+  "languageReview": zod.string().max(saveEditorialResponseTwoRevisionsItemContentGuideLanguageReviewMax),
+  "sourcesCurrent": zod.boolean(),
+  "searchConsoleVerified": zod.boolean(),
+  "faq": zod.array(zod.object({
+  "question": zod.string().min(1).max(saveEditorialResponseTwoRevisionsItemContentGuideFaqItemQuestionMax),
+  "answer": zod.string().min(1).max(saveEditorialResponseTwoRevisionsItemContentGuideFaqItemAnswerMax)
+})).max(saveEditorialResponseTwoRevisionsItemContentGuideFaqMax),
+  "video": zod.object({
+  "youtubeId": zod.string().regex(saveEditorialResponseTwoRevisionsItemContentGuideVideoYoutubeIdRegExp),
+  "title": zod.string().min(1).max(saveEditorialResponseTwoRevisionsItemContentGuideVideoTitleMax),
+  "description": zod.string().min(1).max(saveEditorialResponseTwoRevisionsItemContentGuideVideoDescriptionMax),
+  "thumbnail": zod.string().min(1).max(saveEditorialResponseTwoRevisionsItemContentGuideVideoThumbnailMax),
+  "uploadDate": zod.string().regex(saveEditorialResponseTwoRevisionsItemContentGuideVideoUploadDateRegExp),
+  "duration": zod.string().regex(saveEditorialResponseTwoRevisionsItemContentGuideVideoDurationRegExp).optional(),
+  "spokenLanguage": zod.string().regex(saveEditorialResponseTwoRevisionsItemContentGuideVideoSpokenLanguageRegExp),
+  "author": zod.string().min(1).max(saveEditorialResponseTwoRevisionsItemContentGuideVideoAuthorMax),
+  "rights": zod.string().min(1).max(saveEditorialResponseTwoRevisionsItemContentGuideVideoRightsMax),
+  "transcriptLanguage": zod.string().regex(saveEditorialResponseTwoRevisionsItemContentGuideVideoTranscriptLanguageRegExp),
+  "transcript": zod.string().min(1).max(saveEditorialResponseTwoRevisionsItemContentGuideVideoTranscriptMax),
+  "transcriptReviewed": zod.boolean()
+}).optional()
+}).optional()
 }),
   "hash": zod.string(),
   "sourceHash": zod.string(),
@@ -1497,7 +2026,38 @@ export const SaveEditorialResponse = zod.object({
 })).max(saveEditorialResponseTwoSourceContentSourcesMax),
   "seoTitle": zod.string().max(saveEditorialResponseTwoSourceContentSeoTitleMax),
   "seoDescription": zod.string().max(saveEditorialResponseTwoSourceContentSeoDescriptionMax),
-  "contentLanguage": zod.string().regex(saveEditorialResponseTwoSourceContentContentLanguageRegExp)
+  "contentLanguage": zod.string().regex(saveEditorialResponseTwoSourceContentContentLanguageRegExp),
+  "guide": zod.object({
+  "episode": zod.number().int().min(1).max(saveEditorialResponseTwoSourceContentGuideEpisodeMax),
+  "reviewBasis": zod.enum(['professional', 'ai-assisted-internal']).optional(),
+  "documentaryReview": zod.string().max(saveEditorialResponseTwoSourceContentGuideDocumentaryReviewMax).optional(),
+  "technicalHeading": zod.string().max(saveEditorialResponseTwoSourceContentGuideTechnicalHeadingMax).optional(),
+  "technicalNotice": zod.string().max(saveEditorialResponseTwoSourceContentGuideTechnicalNoticeMax).optional(),
+  "reviewDisclosure": zod.string().max(saveEditorialResponseTwoSourceContentGuideReviewDisclosureMax).optional(),
+  "technicalReview": zod.string().max(saveEditorialResponseTwoSourceContentGuideTechnicalReviewMax),
+  "editorialReview": zod.string().max(saveEditorialResponseTwoSourceContentGuideEditorialReviewMax),
+  "languageReview": zod.string().max(saveEditorialResponseTwoSourceContentGuideLanguageReviewMax),
+  "sourcesCurrent": zod.boolean(),
+  "searchConsoleVerified": zod.boolean(),
+  "faq": zod.array(zod.object({
+  "question": zod.string().min(1).max(saveEditorialResponseTwoSourceContentGuideFaqItemQuestionMax),
+  "answer": zod.string().min(1).max(saveEditorialResponseTwoSourceContentGuideFaqItemAnswerMax)
+})).max(saveEditorialResponseTwoSourceContentGuideFaqMax),
+  "video": zod.object({
+  "youtubeId": zod.string().regex(saveEditorialResponseTwoSourceContentGuideVideoYoutubeIdRegExp),
+  "title": zod.string().min(1).max(saveEditorialResponseTwoSourceContentGuideVideoTitleMax),
+  "description": zod.string().min(1).max(saveEditorialResponseTwoSourceContentGuideVideoDescriptionMax),
+  "thumbnail": zod.string().min(1).max(saveEditorialResponseTwoSourceContentGuideVideoThumbnailMax),
+  "uploadDate": zod.string().regex(saveEditorialResponseTwoSourceContentGuideVideoUploadDateRegExp),
+  "duration": zod.string().regex(saveEditorialResponseTwoSourceContentGuideVideoDurationRegExp).optional(),
+  "spokenLanguage": zod.string().regex(saveEditorialResponseTwoSourceContentGuideVideoSpokenLanguageRegExp),
+  "author": zod.string().min(1).max(saveEditorialResponseTwoSourceContentGuideVideoAuthorMax),
+  "rights": zod.string().min(1).max(saveEditorialResponseTwoSourceContentGuideVideoRightsMax),
+  "transcriptLanguage": zod.string().regex(saveEditorialResponseTwoSourceContentGuideVideoTranscriptLanguageRegExp),
+  "transcript": zod.string().min(1).max(saveEditorialResponseTwoSourceContentGuideVideoTranscriptMax),
+  "transcriptReviewed": zod.boolean()
+}).optional()
+}).optional()
 }).optional()
 }).nullable()
 }))
@@ -1543,6 +2103,45 @@ export const actEditorialResponseTwoRevisionsItemContentSeoTitleMax = 200;
 export const actEditorialResponseTwoRevisionsItemContentSeoDescriptionMax = 500;
 
 export const actEditorialResponseTwoRevisionsItemContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const actEditorialResponseTwoRevisionsItemContentGuideEpisodeMax = 10;
+
+export const actEditorialResponseTwoRevisionsItemContentGuideDocumentaryReviewMax = 2000;
+
+export const actEditorialResponseTwoRevisionsItemContentGuideTechnicalHeadingMax = 300;
+
+export const actEditorialResponseTwoRevisionsItemContentGuideTechnicalNoticeMax = 4000;
+
+export const actEditorialResponseTwoRevisionsItemContentGuideReviewDisclosureMax = 2000;
+
+export const actEditorialResponseTwoRevisionsItemContentGuideTechnicalReviewMax = 2000;
+
+export const actEditorialResponseTwoRevisionsItemContentGuideEditorialReviewMax = 2000;
+
+export const actEditorialResponseTwoRevisionsItemContentGuideLanguageReviewMax = 2000;
+
+export const actEditorialResponseTwoRevisionsItemContentGuideFaqItemQuestionMax = 500;
+
+export const actEditorialResponseTwoRevisionsItemContentGuideFaqItemAnswerMax = 4000;
+
+export const actEditorialResponseTwoRevisionsItemContentGuideFaqMax = 15;
+
+export const actEditorialResponseTwoRevisionsItemContentGuideVideoYoutubeIdRegExp = new RegExp('^[A-Za-z0-9_-]{11}$');
+export const actEditorialResponseTwoRevisionsItemContentGuideVideoTitleMax = 200;
+
+export const actEditorialResponseTwoRevisionsItemContentGuideVideoDescriptionMax = 2000;
+
+export const actEditorialResponseTwoRevisionsItemContentGuideVideoThumbnailMax = 2000;
+
+export const actEditorialResponseTwoRevisionsItemContentGuideVideoUploadDateRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
+export const actEditorialResponseTwoRevisionsItemContentGuideVideoDurationRegExp = new RegExp('^PT(?=\\d)(?:\\d+H)?(?:\\d+M)?(?:\\d+S)?$');
+export const actEditorialResponseTwoRevisionsItemContentGuideVideoSpokenLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const actEditorialResponseTwoRevisionsItemContentGuideVideoAuthorMax = 300;
+
+export const actEditorialResponseTwoRevisionsItemContentGuideVideoRightsMax = 2000;
+
+export const actEditorialResponseTwoRevisionsItemContentGuideVideoTranscriptLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const actEditorialResponseTwoRevisionsItemContentGuideVideoTranscriptMax = 100000;
+
 export const actEditorialResponseTwoSourceContentTitleMax = 200;
 
 export const actEditorialResponseTwoSourceContentSummaryMax = 2000;
@@ -1570,6 +2169,45 @@ export const actEditorialResponseTwoSourceContentSeoTitleMax = 200;
 export const actEditorialResponseTwoSourceContentSeoDescriptionMax = 500;
 
 export const actEditorialResponseTwoSourceContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const actEditorialResponseTwoSourceContentGuideEpisodeMax = 10;
+
+export const actEditorialResponseTwoSourceContentGuideDocumentaryReviewMax = 2000;
+
+export const actEditorialResponseTwoSourceContentGuideTechnicalHeadingMax = 300;
+
+export const actEditorialResponseTwoSourceContentGuideTechnicalNoticeMax = 4000;
+
+export const actEditorialResponseTwoSourceContentGuideReviewDisclosureMax = 2000;
+
+export const actEditorialResponseTwoSourceContentGuideTechnicalReviewMax = 2000;
+
+export const actEditorialResponseTwoSourceContentGuideEditorialReviewMax = 2000;
+
+export const actEditorialResponseTwoSourceContentGuideLanguageReviewMax = 2000;
+
+export const actEditorialResponseTwoSourceContentGuideFaqItemQuestionMax = 500;
+
+export const actEditorialResponseTwoSourceContentGuideFaqItemAnswerMax = 4000;
+
+export const actEditorialResponseTwoSourceContentGuideFaqMax = 15;
+
+export const actEditorialResponseTwoSourceContentGuideVideoYoutubeIdRegExp = new RegExp('^[A-Za-z0-9_-]{11}$');
+export const actEditorialResponseTwoSourceContentGuideVideoTitleMax = 200;
+
+export const actEditorialResponseTwoSourceContentGuideVideoDescriptionMax = 2000;
+
+export const actEditorialResponseTwoSourceContentGuideVideoThumbnailMax = 2000;
+
+export const actEditorialResponseTwoSourceContentGuideVideoUploadDateRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
+export const actEditorialResponseTwoSourceContentGuideVideoDurationRegExp = new RegExp('^PT(?=\\d)(?:\\d+H)?(?:\\d+M)?(?:\\d+S)?$');
+export const actEditorialResponseTwoSourceContentGuideVideoSpokenLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const actEditorialResponseTwoSourceContentGuideVideoAuthorMax = 300;
+
+export const actEditorialResponseTwoSourceContentGuideVideoRightsMax = 2000;
+
+export const actEditorialResponseTwoSourceContentGuideVideoTranscriptLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const actEditorialResponseTwoSourceContentGuideVideoTranscriptMax = 100000;
+
 
 
 export const ActEditorialResponse = zod.object({
@@ -1603,7 +2241,38 @@ export const ActEditorialResponse = zod.object({
 })).max(actEditorialResponseTwoRevisionsItemContentSourcesMax),
   "seoTitle": zod.string().max(actEditorialResponseTwoRevisionsItemContentSeoTitleMax),
   "seoDescription": zod.string().max(actEditorialResponseTwoRevisionsItemContentSeoDescriptionMax),
-  "contentLanguage": zod.string().regex(actEditorialResponseTwoRevisionsItemContentContentLanguageRegExp)
+  "contentLanguage": zod.string().regex(actEditorialResponseTwoRevisionsItemContentContentLanguageRegExp),
+  "guide": zod.object({
+  "episode": zod.number().int().min(1).max(actEditorialResponseTwoRevisionsItemContentGuideEpisodeMax),
+  "reviewBasis": zod.enum(['professional', 'ai-assisted-internal']).optional(),
+  "documentaryReview": zod.string().max(actEditorialResponseTwoRevisionsItemContentGuideDocumentaryReviewMax).optional(),
+  "technicalHeading": zod.string().max(actEditorialResponseTwoRevisionsItemContentGuideTechnicalHeadingMax).optional(),
+  "technicalNotice": zod.string().max(actEditorialResponseTwoRevisionsItemContentGuideTechnicalNoticeMax).optional(),
+  "reviewDisclosure": zod.string().max(actEditorialResponseTwoRevisionsItemContentGuideReviewDisclosureMax).optional(),
+  "technicalReview": zod.string().max(actEditorialResponseTwoRevisionsItemContentGuideTechnicalReviewMax),
+  "editorialReview": zod.string().max(actEditorialResponseTwoRevisionsItemContentGuideEditorialReviewMax),
+  "languageReview": zod.string().max(actEditorialResponseTwoRevisionsItemContentGuideLanguageReviewMax),
+  "sourcesCurrent": zod.boolean(),
+  "searchConsoleVerified": zod.boolean(),
+  "faq": zod.array(zod.object({
+  "question": zod.string().min(1).max(actEditorialResponseTwoRevisionsItemContentGuideFaqItemQuestionMax),
+  "answer": zod.string().min(1).max(actEditorialResponseTwoRevisionsItemContentGuideFaqItemAnswerMax)
+})).max(actEditorialResponseTwoRevisionsItemContentGuideFaqMax),
+  "video": zod.object({
+  "youtubeId": zod.string().regex(actEditorialResponseTwoRevisionsItemContentGuideVideoYoutubeIdRegExp),
+  "title": zod.string().min(1).max(actEditorialResponseTwoRevisionsItemContentGuideVideoTitleMax),
+  "description": zod.string().min(1).max(actEditorialResponseTwoRevisionsItemContentGuideVideoDescriptionMax),
+  "thumbnail": zod.string().min(1).max(actEditorialResponseTwoRevisionsItemContentGuideVideoThumbnailMax),
+  "uploadDate": zod.string().regex(actEditorialResponseTwoRevisionsItemContentGuideVideoUploadDateRegExp),
+  "duration": zod.string().regex(actEditorialResponseTwoRevisionsItemContentGuideVideoDurationRegExp).optional(),
+  "spokenLanguage": zod.string().regex(actEditorialResponseTwoRevisionsItemContentGuideVideoSpokenLanguageRegExp),
+  "author": zod.string().min(1).max(actEditorialResponseTwoRevisionsItemContentGuideVideoAuthorMax),
+  "rights": zod.string().min(1).max(actEditorialResponseTwoRevisionsItemContentGuideVideoRightsMax),
+  "transcriptLanguage": zod.string().regex(actEditorialResponseTwoRevisionsItemContentGuideVideoTranscriptLanguageRegExp),
+  "transcript": zod.string().min(1).max(actEditorialResponseTwoRevisionsItemContentGuideVideoTranscriptMax),
+  "transcriptReviewed": zod.boolean()
+}).optional()
+}).optional()
 }),
   "hash": zod.string(),
   "sourceHash": zod.string(),
@@ -1641,7 +2310,38 @@ export const ActEditorialResponse = zod.object({
 })).max(actEditorialResponseTwoSourceContentSourcesMax),
   "seoTitle": zod.string().max(actEditorialResponseTwoSourceContentSeoTitleMax),
   "seoDescription": zod.string().max(actEditorialResponseTwoSourceContentSeoDescriptionMax),
-  "contentLanguage": zod.string().regex(actEditorialResponseTwoSourceContentContentLanguageRegExp)
+  "contentLanguage": zod.string().regex(actEditorialResponseTwoSourceContentContentLanguageRegExp),
+  "guide": zod.object({
+  "episode": zod.number().int().min(1).max(actEditorialResponseTwoSourceContentGuideEpisodeMax),
+  "reviewBasis": zod.enum(['professional', 'ai-assisted-internal']).optional(),
+  "documentaryReview": zod.string().max(actEditorialResponseTwoSourceContentGuideDocumentaryReviewMax).optional(),
+  "technicalHeading": zod.string().max(actEditorialResponseTwoSourceContentGuideTechnicalHeadingMax).optional(),
+  "technicalNotice": zod.string().max(actEditorialResponseTwoSourceContentGuideTechnicalNoticeMax).optional(),
+  "reviewDisclosure": zod.string().max(actEditorialResponseTwoSourceContentGuideReviewDisclosureMax).optional(),
+  "technicalReview": zod.string().max(actEditorialResponseTwoSourceContentGuideTechnicalReviewMax),
+  "editorialReview": zod.string().max(actEditorialResponseTwoSourceContentGuideEditorialReviewMax),
+  "languageReview": zod.string().max(actEditorialResponseTwoSourceContentGuideLanguageReviewMax),
+  "sourcesCurrent": zod.boolean(),
+  "searchConsoleVerified": zod.boolean(),
+  "faq": zod.array(zod.object({
+  "question": zod.string().min(1).max(actEditorialResponseTwoSourceContentGuideFaqItemQuestionMax),
+  "answer": zod.string().min(1).max(actEditorialResponseTwoSourceContentGuideFaqItemAnswerMax)
+})).max(actEditorialResponseTwoSourceContentGuideFaqMax),
+  "video": zod.object({
+  "youtubeId": zod.string().regex(actEditorialResponseTwoSourceContentGuideVideoYoutubeIdRegExp),
+  "title": zod.string().min(1).max(actEditorialResponseTwoSourceContentGuideVideoTitleMax),
+  "description": zod.string().min(1).max(actEditorialResponseTwoSourceContentGuideVideoDescriptionMax),
+  "thumbnail": zod.string().min(1).max(actEditorialResponseTwoSourceContentGuideVideoThumbnailMax),
+  "uploadDate": zod.string().regex(actEditorialResponseTwoSourceContentGuideVideoUploadDateRegExp),
+  "duration": zod.string().regex(actEditorialResponseTwoSourceContentGuideVideoDurationRegExp).optional(),
+  "spokenLanguage": zod.string().regex(actEditorialResponseTwoSourceContentGuideVideoSpokenLanguageRegExp),
+  "author": zod.string().min(1).max(actEditorialResponseTwoSourceContentGuideVideoAuthorMax),
+  "rights": zod.string().min(1).max(actEditorialResponseTwoSourceContentGuideVideoRightsMax),
+  "transcriptLanguage": zod.string().regex(actEditorialResponseTwoSourceContentGuideVideoTranscriptLanguageRegExp),
+  "transcript": zod.string().min(1).max(actEditorialResponseTwoSourceContentGuideVideoTranscriptMax),
+  "transcriptReviewed": zod.boolean()
+}).optional()
+}).optional()
 }).optional()
 }).nullable()
 }))
@@ -1674,6 +2374,45 @@ export const getActiveEditorialResponseContentSeoTitleMax = 200;
 export const getActiveEditorialResponseContentSeoDescriptionMax = 500;
 
 export const getActiveEditorialResponseContentContentLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const getActiveEditorialResponseContentGuideEpisodeMax = 10;
+
+export const getActiveEditorialResponseContentGuideDocumentaryReviewMax = 2000;
+
+export const getActiveEditorialResponseContentGuideTechnicalHeadingMax = 300;
+
+export const getActiveEditorialResponseContentGuideTechnicalNoticeMax = 4000;
+
+export const getActiveEditorialResponseContentGuideReviewDisclosureMax = 2000;
+
+export const getActiveEditorialResponseContentGuideTechnicalReviewMax = 2000;
+
+export const getActiveEditorialResponseContentGuideEditorialReviewMax = 2000;
+
+export const getActiveEditorialResponseContentGuideLanguageReviewMax = 2000;
+
+export const getActiveEditorialResponseContentGuideFaqItemQuestionMax = 500;
+
+export const getActiveEditorialResponseContentGuideFaqItemAnswerMax = 4000;
+
+export const getActiveEditorialResponseContentGuideFaqMax = 15;
+
+export const getActiveEditorialResponseContentGuideVideoYoutubeIdRegExp = new RegExp('^[A-Za-z0-9_-]{11}$');
+export const getActiveEditorialResponseContentGuideVideoTitleMax = 200;
+
+export const getActiveEditorialResponseContentGuideVideoDescriptionMax = 2000;
+
+export const getActiveEditorialResponseContentGuideVideoThumbnailMax = 2000;
+
+export const getActiveEditorialResponseContentGuideVideoUploadDateRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
+export const getActiveEditorialResponseContentGuideVideoDurationRegExp = new RegExp('^PT(?=\\d)(?:\\d+H)?(?:\\d+M)?(?:\\d+S)?$');
+export const getActiveEditorialResponseContentGuideVideoSpokenLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const getActiveEditorialResponseContentGuideVideoAuthorMax = 300;
+
+export const getActiveEditorialResponseContentGuideVideoRightsMax = 2000;
+
+export const getActiveEditorialResponseContentGuideVideoTranscriptLanguageRegExp = new RegExp('^[a-z]{2}$');
+export const getActiveEditorialResponseContentGuideVideoTranscriptMax = 100000;
+
 
 
 export const GetActiveEditorialResponseItem = zod.object({
@@ -1697,7 +2436,38 @@ export const GetActiveEditorialResponseItem = zod.object({
 })).max(getActiveEditorialResponseContentSourcesMax),
   "seoTitle": zod.string().max(getActiveEditorialResponseContentSeoTitleMax),
   "seoDescription": zod.string().max(getActiveEditorialResponseContentSeoDescriptionMax),
-  "contentLanguage": zod.string().regex(getActiveEditorialResponseContentContentLanguageRegExp)
+  "contentLanguage": zod.string().regex(getActiveEditorialResponseContentContentLanguageRegExp),
+  "guide": zod.object({
+  "episode": zod.number().int().min(1).max(getActiveEditorialResponseContentGuideEpisodeMax),
+  "reviewBasis": zod.enum(['professional', 'ai-assisted-internal']).optional(),
+  "documentaryReview": zod.string().max(getActiveEditorialResponseContentGuideDocumentaryReviewMax).optional(),
+  "technicalHeading": zod.string().max(getActiveEditorialResponseContentGuideTechnicalHeadingMax).optional(),
+  "technicalNotice": zod.string().max(getActiveEditorialResponseContentGuideTechnicalNoticeMax).optional(),
+  "reviewDisclosure": zod.string().max(getActiveEditorialResponseContentGuideReviewDisclosureMax).optional(),
+  "technicalReview": zod.string().max(getActiveEditorialResponseContentGuideTechnicalReviewMax),
+  "editorialReview": zod.string().max(getActiveEditorialResponseContentGuideEditorialReviewMax),
+  "languageReview": zod.string().max(getActiveEditorialResponseContentGuideLanguageReviewMax),
+  "sourcesCurrent": zod.boolean(),
+  "searchConsoleVerified": zod.boolean(),
+  "faq": zod.array(zod.object({
+  "question": zod.string().min(1).max(getActiveEditorialResponseContentGuideFaqItemQuestionMax),
+  "answer": zod.string().min(1).max(getActiveEditorialResponseContentGuideFaqItemAnswerMax)
+})).max(getActiveEditorialResponseContentGuideFaqMax),
+  "video": zod.object({
+  "youtubeId": zod.string().regex(getActiveEditorialResponseContentGuideVideoYoutubeIdRegExp),
+  "title": zod.string().min(1).max(getActiveEditorialResponseContentGuideVideoTitleMax),
+  "description": zod.string().min(1).max(getActiveEditorialResponseContentGuideVideoDescriptionMax),
+  "thumbnail": zod.string().min(1).max(getActiveEditorialResponseContentGuideVideoThumbnailMax),
+  "uploadDate": zod.string().regex(getActiveEditorialResponseContentGuideVideoUploadDateRegExp),
+  "duration": zod.string().regex(getActiveEditorialResponseContentGuideVideoDurationRegExp).optional(),
+  "spokenLanguage": zod.string().regex(getActiveEditorialResponseContentGuideVideoSpokenLanguageRegExp),
+  "author": zod.string().min(1).max(getActiveEditorialResponseContentGuideVideoAuthorMax),
+  "rights": zod.string().min(1).max(getActiveEditorialResponseContentGuideVideoRightsMax),
+  "transcriptLanguage": zod.string().regex(getActiveEditorialResponseContentGuideVideoTranscriptLanguageRegExp),
+  "transcript": zod.string().min(1).max(getActiveEditorialResponseContentGuideVideoTranscriptMax),
+  "transcriptReviewed": zod.boolean()
+}).optional()
+}).optional()
 })
 })
 export const GetActiveEditorialResponse = zod.array(GetActiveEditorialResponseItem)

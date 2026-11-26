@@ -2,9 +2,9 @@ import { Router, type IRouter, type Request, type Response, type NextFunction } 
 import { randomUUID } from 'node:crypto';
 import { CreateEditorialBody, SaveEditorialBody, ActEditorialBody, ListEditorialResponse, GetEditorialResponse, GetActiveEditorialResponse } from '@workspace/api-zod';
 import { requireInternalAccess, requirePermission } from '../middlewares/internalAccess';
-import { EditorialError, revision, transition, validateContent, event } from '../lib/editorial-content';
+import { EditorialError, revision, transition, validateContent, publicContent, reviewedRevision, event } from '../lib/editorial-content';
 import { ensureEditorial, editorialLocales, allRows, publicRows, detail, getRow, normalizedPath, reservedPath, isCatalogPath, sourceFor, summary, withEditorialLock, type Row } from '../lib/editorial-store';
-import { assertNetworkActivation } from '../lib/editorial-store';
+import { assertNetworkActivation, publicEditionPath } from '../lib/editorial-store';
 
 const router: IRouter = Router();
 const handler = (fn: (req: Request, res: Response) => Promise<void>) => async (req: Request, res: Response, _next: NextFunction): Promise<void> => {
@@ -22,7 +22,8 @@ router.get('/editorial/active', handler(async (_req, res) => {
   const rows = await publicRows();
   const active = rows.flatMap(row => {
     const rev = row.data.revisions.find(rev => rev.id === row.data.activeRevisionId);
-    return rev ? [{ aliases: row.data.aliases ?? [], identity: row.identity, locale: row.locale, path: row.path, kind: row.kind, revisionId: rev.id, content: rev.content }] : row.data.withdrawn ? [{ aliases: row.data.aliases ?? [], identity: row.identity, locale: row.locale, path: row.path, kind: row.kind, revisionId: 'withdrawn', content: { title: 'Contenuto ritirato', summary: '', body: '', sources: [], category: '', tags: [], image: '', imageAlt: '', seoTitle: '', seoDescription: '', contentLanguage: row.locale } }] : [];
+    const path = publicEditionPath(row);
+    return rev ? [{ aliases: row.data.aliases ?? [], identity: row.identity, locale: row.locale, path, kind: row.kind, revisionId: rev.id, content: publicContent(rev.content) }] : row.data.withdrawn ? [{ aliases: row.data.aliases ?? [], identity: row.identity, locale: row.locale, path, kind: row.kind, revisionId: 'withdrawn', content: { title: 'Contenuto ritirato', summary: '', body: '', sources: [], category: '', tags: [], image: '', imageAlt: '', seoTitle: '', seoDescription: '', contentLanguage: row.locale } }] : [];
   });
   res.json(GetActiveEditorialResponse.parse(active));
 }));
@@ -66,7 +67,7 @@ router.put('/internal/editorial/:editionId', requirePermission('cms:write'), han
   const result = await withEditorialLock(async client => {
     const rows = await allRows(client); const row = getRow(rows, req.params.editionId);
     if (row.version !== parsed.data.version) throw new EditorialError(409, 'Un’altra persona ha salvato questa edizione. Ricaricare e confrontare prima di salvare.');
-    const rev = revision(content, sourceFor(row,rows)?.hash ?? '', req.internalMember!.email);
+    const rev = revision(reviewedRevision(row.data.revisions.at(-1)!.content,content), sourceFor(row,rows)?.hash ?? '', req.internalMember!.email);
     if (row.locale === 'it') rev.sourceHash = rev.hash;
     row.data.revisions.push(rev); row.data.state = 'draft';
     event(row.data, 'save', rev, req.internalMember!.email);

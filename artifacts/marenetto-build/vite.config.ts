@@ -136,7 +136,7 @@ export default defineConfig(async ({ command, mode }) => {
     },
   },
   server: {
-    proxy: { '/api/editorial/active': { target: 'http://localhost:80', changeOrigin: true } },
+    proxy: { '/api/editorial/active': { target: process.env.EDITORIAL_API_ORIGIN ?? 'http://localhost:80', changeOrigin: true } },
     port,
     strictPort: true,
     host: '0.0.0.0',

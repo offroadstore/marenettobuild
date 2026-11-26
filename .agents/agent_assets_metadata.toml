@@ -882,3 +882,59 @@ mtime_ms = 1795651372446
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/3133695e-4c12-4d0d-b38d-ca59db885672/f9e49b0b-9555-4618-8e20-a5b63aa6215d"
 storage_version_token = "1795651440623906"
 content_type = "application/octet-stream"
+
+[[outputs]]
+id = "YxIlB3kJ01rjTX9VriNmv"
+uri = "file://generated-artifacts/costruire-cefalu-madonie/prime-16-edizioni.html"
+type = "html"
+title = "Prime 16 edizioni — puntate 1, 4, 8 e 10"
+description = "Consegna prioritaria IT, EN, DE e NL, aggiornata secondo l’approvazione interna del 26 novembre."
+logical_id = "19433e12-4f5c-4dd2-8921-604f96a4eac4"
+content_hash = "sha256:93f275594917dbedebd55cec96b0a7805ac01f230021a70404a65dc072a6d654"
+size = 64906
+mtime_ms = 1795670481901
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/19433e12-4f5c-4dd2-8921-604f96a4eac4/2cbf7a1e-e487-4af3-ab8e-bb27adb1c521"
+storage_version_token = "1795670804370754"
+content_type = "text/html"
+
+[[outputs]]
+id = "Ic4TIm3ODZRhdXseXF7Yj"
+uri = "file://generated-artifacts/costruire-cefalu-madonie/serie-completa-120-edizioni.html"
+type = "html"
+title = "Serie completa — 10 puntate in 12 lingue"
+description = "Tutti i testi, FAQ, fonti, avvertenze tecniche e stati video reali. Controllo assistito da IA, non parere professionale."
+logical_id = "88862c9e-1ab1-4ed2-9483-7d4b81a22c14"
+content_hash = "sha256:3a5e1d7686f20a502b3d2a195b9697f204bc0983e61aa8f34e339bc4a0233d1c"
+size = 407864
+mtime_ms = 1795670481905
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/88862c9e-1ab1-4ed2-9483-7d4b81a22c14/68a32063-df4e-4a84-b24a-b5a5bc84bf84"
+storage_version_token = "1795670805030160"
+content_type = "text/html"
+
+[[outputs]]
+id = "DkFtH4v8KZhB3FvLFyNOT"
+uri = "file://generated-artifacts/costruire-cefalu-madonie/matrice-puntate-keyword.csv"
+type = "table"
+title = "Matrice keyword aggiornata delle 120 edizioni"
+description = "Associazioni a puntata, lingua e intento, provenienza dichiarata e integrazione del titolare del 26 novembre. Nessun volume inventato."
+logical_id = "b57856b9-9c7f-437d-af32-2d6747dc33d8"
+content_hash = "sha256:f29df6e4608ac8c9de345760eda92469a4886f55848ff24bd8a3f1c4f1847a25"
+size = 73736
+mtime_ms = 1795670074441
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/b57856b9-9c7f-437d-af32-2d6747dc33d8/f708f447-bdef-4b4a-a9a0-719ee601ef4c"
+storage_version_token = "1795670805792137"
+content_type = "text/csv"
+
+[[outputs]]
+id = "l_BZpEh32tvU1E0avWUDN"
+uri = "file://generated-artifacts/costruire-cefalu-madonie/stato-fonti-verifiche.html"
+type = "html"
+title = "Fonti, approvazione interna e prove della serie"
+description = "Fascicolo aggiornato: limiti della fonte regionale, verifiche superate, materiali video mancanti e Search Console non attestata."
+logical_id = "a56ea884-a963-436d-82a6-48ba79f99cc3"
+content_hash = "sha256:04e4be35f3936f1ae5a36cfac7e632e93d2ec6e2d465346e7eb4cecbb970b763"
+size = 33701
+mtime_ms = 1795670481909
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/a56ea884-a963-436d-82a6-48ba79f99cc3/2d7e04e9-a1e6-4bc1-9179-343c8541a637"
+storage_version_token = "1795670806364440"
+content_type = "text/html"

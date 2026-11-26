@@ -1,5 +1,7 @@
 import { renderDocument } from './seo-document.mjs';
 import { SITE_ICON_HEAD } from './site-icons.mjs';
+import { seriesStructuredData } from '../src/content/series-public.mjs';
+import { SEO_ORIGIN } from './seo-document.mjs';
 // Only server-side configuration. Browser requests still use the shared /api
 // route. Production must name this revision's API service (or internal proxy),
 // never a public domain which could still serve the previous deployment.
@@ -58,10 +60,10 @@ export function withEditorialSnapshot(html, active) {
 }
 export function editorialDocument(template, rendered, edition, active, status = 200) {
   const selected = edition && { ...edition, title: edition.content.seoTitle || edition.content.title, description: edition.content.seoDescription || edition.content.summary, ...rendered.metadata,
-    activeSeoTitle: Boolean(edition.content.seoTitle?.trim()),
-    activeSeoDescription: Boolean(edition.content.seoDescription?.trim()), state: 'reviewed' };
+    activeSeoTitle: Boolean(edition.revisionId && edition.content.seoTitle?.trim()),
+    activeSeoDescription: Boolean(edition.revisionId && edition.content.seoDescription?.trim()), state: 'reviewed' };
   const canonical = edition && new URL(edition.path, 'https://www.marenettobuild.com').href;
-  const structuredData = status === 200 && rendered.structuredData ? rendered.structuredData : status === 200 && edition?.kind === 'article' ? [{
+  const structuredData = status === 200 && edition?.content?.guide ? seriesStructuredData(edition, SEO_ORIGIN) : status === 200 && rendered.structuredData ? rendered.structuredData : status === 200 && edition?.kind === 'article' ? [{
     '@type':'Article', '@id':`${canonical}#article`, url:canonical, mainEntityOfPage:canonical,
     headline:edition.content.title, inLanguage:edition.content.contentLanguage || edition.locale,
     ...(edition.content.image ? { image:new URL(edition.content.image, canonical).href } : {}),

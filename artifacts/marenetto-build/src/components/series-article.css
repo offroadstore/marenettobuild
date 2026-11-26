@@ -1,0 +1,10 @@
+.article-technical-notice {
+  margin-block: 2rem;
+  border-inline-start: 3px solid #244651;
+  padding: 1.25rem 1.5rem;
+  background: #f5f5f2;
+}
+.article-technical-notice h2 { margin-top: 0; }
+.article-technical-notice p:last-child { margin-bottom: 0; }
+[data-testid="series-navigation"] { margin-block: 2rem; }
+[data-testid="series-navigation"] li { margin-block: .6rem; }

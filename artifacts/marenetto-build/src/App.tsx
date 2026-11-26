@@ -3,6 +3,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ArrowRight, Check, ChevronDown, House, Mail, MapPin, Menu, MessageCircle, Phone, X } from 'lucide-react';
 import { useCreateProjectRequest, type ProjectRequestInput } from '@workspace/api-client-react';
 import { browserMarketing } from '@/lib/analytics/marketing';
+import { SeriesArticle } from '@/components/SeriesArticle';
+import { ImageDisclosure } from '@/components/ImageDisclosure';
+import { SeriesImageDisclosure } from '@/components/SeriesImageDisclosure';
+import { seriesStructuredData, sourceLabels } from '@/content/series-public.mjs';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -1265,6 +1269,13 @@ function ActiveEditorialPage({ edition }: { edition: EditorialActive }) {
     }
     document.querySelector('link[rel="canonical"]')?.setAttribute('href',canonical);
     applyPublicReleaseMetadata(edition.path, active);
+    if (content.guide) {
+      document.querySelectorAll('script[type="application/ld+json"]').forEach(node => node.remove());
+      const schema = document.createElement('script');
+      schema.type = 'application/ld+json';
+      schema.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': seriesStructuredData(edition, PUBLIC_SITE_ORIGIN) });
+      document.head.append(schema);
+    }
   }, [edition, active]);
   const core = edition.identity as CorePage;
   return <div className="site-shell" lang={locale} dir={getLocaleDirection(locale)}>
@@ -1273,11 +1284,14 @@ function ActiveEditorialPage({ edition }: { edition: EditorialActive }) {
       {edition.kind === 'article' && <AreaBreadcrumb locale={locale} article={edition.identity} title={content.title} />}
       <h1 className="display-title">{content.title}</h1>
       {content.summary && <p className="section-intro">{content.summary}</p>}
-      {content.image && <img className="historical-cover" src={content.image} alt={content.imageAlt} />}
-      <article className="historical-content article-body" data-active-revision={edition.revisionId} lang={content.contentLanguage} dangerouslySetInnerHTML={{ __html: discloseHTMLImages(content.body.replace(/(<\/?)h1(\b[^>]*>)/gi, '$1h2$2'), edition.locale) }} />
+      {content.image && <figure><img className="historical-cover" src={content.image} alt={content.imageAlt} />{content.guide ? <SeriesImageDisclosure src={content.image} locale={edition.locale} /> : <ImageDisclosure src={content.image} lang={edition.locale} />}</figure>}
+      <article className="historical-content article-body" data-active-revision={edition.revisionId} lang={content.contentLanguage}>
+      <div dangerouslySetInnerHTML={{ __html: discloseHTMLImages(content.body.replace(/(<\/?)h1(\b[^>]*>)/gi, '$1h2$2'), edition.locale) }} />
       {edition.identity === 'articles' && <LibraryLocale.Provider value={locale}><ActiveArticleListing /></LibraryLocale.Provider>}
       {edition.kind === 'article' && <AreaPillarLink locale={locale} article={edition.identity} />}
-      {content.sources.length > 0 && <aside><h2>Fonti</h2><ul>{content.sources.map(source => <li key={source.url}><a href={source.url} rel="noreferrer">{source.title}</a></li>)}</ul></aside>}
+      {content.sources.length > 0 && <aside><h2>{content.guide ? sourceLabels[locale] ?? 'Sources' : 'Fonti'}</h2><ul>{content.sources.map(source => <li key={source.url}><a href={source.url} rel="noreferrer">{source.title}</a></li>)}</ul></aside>}
+      {content.guide && <SeriesArticle guide={content.guide} locale={locale} />}
+      </article>
     </div></section>{core === 'request' && <RequestPage lang={locale} editorial />}</main>
     <Footer lang={locale} />
   </div>;

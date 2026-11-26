@@ -6,12 +6,21 @@ import { createServer, request } from 'node:http';
 const port = Number(process.env.PORT ?? 4188);
 const staticPort = port + 1;
 process.env.PORT = String(staticPort);
+// Archival regressions exercise the immutable pre-CMS baseline, not whichever
+// revisions happen to be activated in the shared development database today.
+// Series activation/withdrawal is tested separately against explicit snapshots.
+process.env.EDITORIAL_API_ORIGIN = `http://127.0.0.1:${port}`;
 await import('../scripts/serve-seo.mjs');
 
 createServer((req, res) => {
   let pathname;
   try { pathname = new URL(req.url, 'http://localhost').pathname; }
   catch { res.writeHead(400); res.end(); return; }
+  if (['GET', 'HEAD'].includes(req.method) && pathname === '/api/editorial/active') {
+    res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+    res.end(req.method === 'HEAD' ? undefined : '[]');
+    return;
+  }
   // This standalone test gateway has no /api artifact routing. Keep Places
   // credential-free in route regressions instead of hitting the static server
   // (404) or forwarding to a possibly configured, billable Google integration.
@@ -27,8 +36,7 @@ createServer((req, res) => {
   const publicImage = ['GET', 'HEAD'].includes(req.method)
     && (/^\/api\/historical-media\/[a-f0-9]{64}\.(?:png|jpe?g|webp|gif)$/.test(pathname)
       || /^\/api\/network-media\/[a-z]+-[0-2]-[a-f0-9]{16}-(?:480|800|1024|1280)\.webp$/.test(pathname));
-  const publicEditorial = ['GET', 'HEAD'].includes(req.method) && pathname === '/api/editorial/active';
-  const targetPort = publicImage || publicEditorial ? 80 : staticPort;
+  const targetPort = publicImage ? 80 : staticPort;
   const headers = { ...req.headers, host: `127.0.0.1:${targetPort}` };
   delete headers.authorization;
   delete headers.cookie;

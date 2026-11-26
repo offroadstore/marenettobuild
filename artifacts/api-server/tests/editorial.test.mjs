@@ -1,16 +1,66 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { randomUUID } from 'node:crypto';
-import { cleanBody, safeUrl, revision, transition } from '../src/lib/editorial-content.ts';
-import { assertNetworkActivation } from '../src/lib/editorial-store.ts';
+import { cleanBody, safeUrl, revision, transition, validateContent, publicContent, reviewedRevision } from '../src/lib/editorial-content.ts';
+import { assertNetworkActivation, assertSeriesRelease, publicEditionPath } from '../src/lib/editorial-store.ts';
 import catalog from 'marenetto-editorial-catalog';
 const content = { title: 'Prova', summary: '', body: '<p>Testo</p>', category: '', tags: [], image: '', imageAlt: '', sources: [], seoTitle: '', seoDescription: '', contentLanguage: 'it' };
+test('series public URLs preserve approved historical spelling without preventing deliberate URL edits',()=>{
+  for(const seed of catalog.seriesDrafts) {
+    const row={identity:seed.identity,locale:seed.locale,path:seed.path.replace(/\/+$/,'')};
+    assert.equal(publicEditionPath(row),seed.path);
+    assert.equal(publicEditionPath({...row,path:'/deliberately-changed'}),'/deliberately-changed');
+  }
+  assert.equal(publicEditionPath({identity:'unrelated',locale:'it',path:'/untouched'}),'/untouched');
+});
+test('owner series approval is bound to the complete exact release, not future text edits',()=>{
+  assert.doesNotThrow(()=>assertSeriesRelease());
+  const first=catalog.seriesDrafts[0].content;
+  const title=first.title;
+  try {
+    first.title='Synthetic unapproved change';
+    assert.throws(()=>assertSeriesRelease(),/non corrispondono alla consegna approvata/);
+  } finally { first.title=title; }
+});
+test('series guides require real review records and Search Console account verification', () => {
+  const guide={episode:1,faq:[],technicalReview:'',editorialReview:'',languageReview:'',sourcesCurrent:false,searchConsoleVerified:false};
+  const make=updates=>{const rev=revision({...content,guide:{...guide,...updates}},'source','test');return {rev,data:{state:'review',activeRevisionId:null,historical:false,correction:false,revisions:[rev],events:[],originals:[]}};};
+  let {rev,data}=make({});
+  assert.throws(()=>transition(data,'approve',rev.id,'source','it','owner',true),e=>e.status===409);
+  ({rev,data}=make({technicalReview:'Synthetic reviewer evidence',editorialReview:'Synthetic evidence',languageReview:'Synthetic evidence',sourcesCurrent:true}));
+  transition(data,'approve',rev.id,'source','it','owner',true);
+  assert.throws(()=>transition(data,'activate',rev.id,'source','it','owner',true),e=>e.status===409);
+  assert.throws(()=>validateContent({...content,guide,body:'<img src=https://i.ytimg.com/vi/test/a.jpg>'},['it']));
+  assert.throws(()=>validateContent({...content,guide:{...guide,video:{thumbnail:'https://i.ytimg.com/fake.jpg'}}},['it']));
+  const privateContent={...content,guide:{...guide,technicalReview:'Private reviewer note',editorialReview:'Private note',languageReview:'Private language note'}};
+  assert.equal(publicContent(privateContent).guide.technicalReview,'');
+  assert.equal(privateContent.guide.technicalReview,'Private reviewer note');
+  assert.equal(reviewedRevision(privateContent,{...privateContent,title:'New text'}).guide.technicalReview,'');
+  assert.equal(reviewedRevision(privateContent,{...privateContent,guide:{...privateContent.guide,editorialReview:'New actual review'}}).guide.technicalReview,'Private reviewer note');
+  assert.throws(()=>reviewedRevision(privateContent,content));
+});
 test('HTML and URLs reject executable/private payloads while preserving text', () => {
   const html = cleanBody('<p onclick="alert(1)">OK<script>alert(2)</script><a href="javascript:alert(1)">link</a><img src="/api/internal/files/secret" onerror="alert(3)"></p>');
   assert.ok(html.includes('OK'));
   assert.doesNotMatch(html, /onclick|onerror|javascript:|<script|secret/);
   for (const url of ['javascript:alert(1)', '//evil.test/x', '/api/internal/x', 'https://x.test/private/x', 'https://x.test/x?X-Goog-Signature=abc', 'https://user:pass@x.test/x']) assert.equal(safeUrl(url,true),false,url);
   assert.equal(safeUrl('/media/articles/test.jpg',true),true);
+});
+test('assisted internal review permits owner activation without inventing professional or Search Console verification', () => {
+  const guide={episode:1,faq:[],technicalReview:'',editorialReview:'AI-assisted fixture',languageReview:'AI-assisted fixture',sourcesCurrent:false,searchConsoleVerified:false,
+    reviewBasis:'ai-assisted-internal',documentaryReview:'Dated documentary fixture, not current-law certification',technicalHeading:'Da verificare con il tecnico incaricato',technicalNotice:'Later amendments and case applicability must be checked.',reviewDisclosure:'AI-assisted, not professional sign-off'};
+  const rev=revision({...content,guide},'source','synthetic-test');
+  const data={state:'review',activeRevisionId:null,historical:false,correction:false,revisions:[rev],events:[],originals:[]};
+  transition(data,'approve',rev.id,'source','it','owner',true);
+  transition(data,'activate',rev.id,'source','it','owner',true);
+  assert.equal(data.activeRevisionId,rev.id);
+  assert.equal(rev.content.guide.searchConsoleVerified,false);
+  assert.equal(rev.content.guide.technicalReview,'');
+  assert.equal(publicContent(rev.content).guide.documentaryReview,'');
+  const changed=reviewedRevision(rev.content,{...rev.content,title:'Changed fixture'});
+  assert.equal(changed.guide.documentaryReview,'');
+  const next=revision(changed,'source','synthetic-test');
+  assert.throws(()=>transition({...data,state:'review',revisions:[next]},'approve',next.id,'source','it','owner',true),e=>e.status===409);
 });
 test('network assets remain illustrative allowlisted media, not arbitrary private object access', () => {
   const src = '/api/network-media/comfort-0-0123456789abcdef-800.webp';
@@ -88,6 +138,13 @@ if (process.env.EDITORIAL_HTTP_TEST === 'true') {
       assert.equal(first.status,200);
       assert.equal((await request('/internal/editorial')).data.length,first.data.length);
       const importedRows = await allRows();
+      const seriesRows=importedRows.filter(row=>row.data.revisions.some(rev=>rev.content.guide));
+      assert.equal(seriesRows.length,120);
+      const releaseEvent=`${catalog.seriesRelease.id}:${catalog.seriesRelease.contentDigest}`;
+      assert.ok(seriesRows.every(row=>row.data.events.filter(e=>e.action===releaseEvent).length===1),'owner release is idempotent');
+      const publicSeries=(await request('/editorial/active')).data.filter(row=>row.content.guide);
+      assert.equal(publicSeries.length,120,'only the hash-bound owner-approved release enters the public snapshot');
+      assert.ok(publicSeries.every(row=>row.content.guide.technicalReview==='' && row.content.guide.documentaryReview==='' && row.content.guide.searchConsoleVerified===false));
       for (const imported of importedRows) assert.doesNotThrow(() => GetEditorialResponse.parse(detail(imported,importedRows)), `${imported.identity}:${imported.locale}`);
       const input={identity,locale:'it',path:`/${identity}`,kind:'article',content};
       assert.equal((await request('/internal/editorial','viewer','POST',input)).status,403);

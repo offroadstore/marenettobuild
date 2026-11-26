@@ -22,6 +22,9 @@ export function mergeActiveMetadata(entries, active) {
       [item.path, ...(item.aliases ?? [])].some(path => normalized(path) === normalized(entry.translationSourcePath)));
     const candidate = translationSourceStale ? { ...entry, translationSourceStale: true } : entry;
     return live?.content ? { ...candidate,
+      // Content activation does not attest ownership in a search-engine account.
+      // Keep the series out of indexing until that separate check is recorded.
+      ...(live.content.guide && !live.content.guide.searchConsoleVerified ? {indexing:'never',sitemap:false} : {}),
       title: live.content.seoTitle || live.content.title || entry.title,
       visibleTitle: live.content.title || entry.visibleTitle,
       visibleImage: live.content.image || '',

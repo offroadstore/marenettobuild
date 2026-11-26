@@ -1,0 +1,106 @@
+{
+  "title": "Costruire a Cefalù e nelle Madonie",
+  "state": "owner-authorized-activation",
+  "publicationApproved": true,
+  "episodeOrder": [1, 4, 8, 10, 2, 3, 5, 6, 7, 9],
+  "localeOrder": ["it", "en", "de", "nl", "fr", "es", "pt", "pl", "ru", "sv", "no", "da"],
+  "mappingMethod": "Associazione editoriale ai cluster approvati, non ricerca di nuove keyword. 84 selezioni letterali dalla fonte; 36 localizzazioni concettuali autorizzate in file separato, da revisionare. L'intento del cluster resta distinto dall'intento informativo della guida.",
+  "episodes": [
+    {
+      "number": 1,
+      "title": "Edilizia libera o permesso?",
+      "cluster": "C5",
+      "primaryIndex": 1,
+      "intent": ["I"],
+      "market": ["L", "E"],
+      "note": "Keyword generale sui permessi; nessuna keyword specifica edilizia libera fornita. Non classificare opere automaticamente e non copiare lo stesso titolo SEO della puntata 2."
+    },
+    {
+      "number": 2,
+      "title": "CILA, SCIA e permesso di costruire spiegati semplice.",
+      "cluster": "C5",
+      "primaryIndex": 0,
+      "intent": ["I"],
+      "market": ["L", "E"],
+      "note": "Spiegazione degli istituti italiani, non tabella universale di equivalenze. Nelle lingue con una sola keyword C5 la distinzione dalle altre puntate dipende dal contenuto, non da keyword inventate."
+    },
+    {
+      "number": 3,
+      "title": "Geometra, architetto, impresa: chi fa cosa.",
+      "cluster": "C10",
+      "primaryIndex": 0,
+      "intent": ["I", "C"],
+      "market": ["L", "E"],
+      "note": "Il cluster ha intento commerciale B2B; la guida risponde a ruoli e incarichi. Non trasformare contractor o Bauleitung in prova di qualifiche interne né introdurre partner non autorizzati."
+    },
+    {
+      "number": 4,
+      "title": "Comprare casa da ristrutturare: i controlli prima del rogito.",
+      "cluster": "C4",
+      "primaryIndex": 1,
+      "intent": ["I", "C"],
+      "market": ["E"],
+      "existingFamily": "/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "archiveAction": "Nuova revisione nella famiglia esistente; conservare tutti gli URL storici e la versione servita. Non creare una nuova identità.",
+      "note": "Dove la fonte contiene una sola keyword si usa quella, senza inventare secondarie. Separare conformità catastale, urbanistica e stato strutturale."
+    },
+    {
+      "number": 5,
+      "title": "Vincolo paesaggistico e centro storico di Cefalù.",
+      "cluster": "C5",
+      "primaryIndex": 1,
+      "intent": ["I"],
+      "market": ["L", "E"],
+      "note": "Associazione tematica ampia: manca una keyword esatta su vincolo/centro storico. La dicitura del titolo è il tema approvato, non un dato di ricerca."
+    },
+    {
+      "number": 6,
+      "title": "Costruire o ristrutturare nel Parco delle Madonie.",
+      "cluster": "C5",
+      "primaryIndex": 1,
+      "contextCluster": "C3",
+      "intent": ["I"],
+      "market": ["L", "E"],
+      "note": "C3 è contesto per immobili nelle Madonie, non prova che un casale ricada nel Parco. Nessuna nuova copertura territoriale; nessuna mappa riprodotta senza diritti."
+    },
+    {
+      "number": 7,
+      "title": "La piscina: cosa si può fare e con quali permessi.",
+      "cluster": "C5",
+      "primaryIndex": 1,
+      "intent": ["I"],
+      "market": ["L", "E"],
+      "existingFamily": "/piscine-e-laghetti-zen",
+      "archiveAction": "Sovrapposizione sostanziale con autorizzazioni e localizzazione nell'articolo esistente: preparare una revisione nella stessa famiglia, non un doppione.",
+      "note": "Nessuna keyword specifica piscine nella matrice. Non introdurre soglie o esenzioni dal riepilogo del 2025 senza verifica della vigenza e dell'applicabilità."
+    },
+    {
+      "number": 8,
+      "title": "Ristrutturare a distanza.",
+      "cluster": "C6",
+      "primaryIndex": 0,
+      "intent": ["C"],
+      "market": ["E"],
+      "note": "Processo confermato dal titolare: computo dell'architetto diviso in SAL, foto e relazione del direttore lavori, WhatsApp intermedio, referente impresa; assistenza IT/EN/NL/FR/ES. Nessuna conferma di videochiamate o frequenze fisse; varianti e pagamenti da definire contrattualmente."
+    },
+    {
+      "number": 9,
+      "title": "Tempi e stagioni di un cantiere in Sicilia.",
+      "cluster": "C8",
+      "primaryIndex": 1,
+      "contextCluster": "C2",
+      "intent": ["I", "C"],
+      "market": ["L", "E"],
+      "note": "C8 copre manutenzione e fuori stagione, non ricerche misurate sulle durate dei cantieri. Non promettere giorni, consegne o divieti estivi generalizzati."
+    },
+    {
+      "number": 10,
+      "title": "Tavoli e arredi su misura in cemento.",
+      "cluster": "C7",
+      "primaryIndex": 0,
+      "intent": ["I", "T"],
+      "market": ["W"],
+      "note": "Finiture e manutenzione dipendono dal prodotto reale. Offerta mondiale con logistica concordata; non estende l'edilizia locale. Nessuna certificazione, proprietà del materiale o lavoro realizzato dedotto dalla keyword."
+    }
+  ]
+}

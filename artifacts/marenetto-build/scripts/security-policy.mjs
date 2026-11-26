@@ -20,7 +20,7 @@ export function setWebSecurityHeaders(res) {
     "font-src 'self'",
     "img-src 'self' data: blob: https://img.clerk.com https://storage.googleapis.com https://www.facebook.com/tr/",
     `connect-src 'self' https://storage.googleapis.com https://www.google-analytics.com https://region1.google-analytics.com ${[clerkProtect, ...[18443, 2082, 8443, 992].map(port => `${clerkProtect}:${port}`)].join(' ')}`,
-    `frame-src 'self'${analytics ? ` ${analytics}` : ''}`,
+    `frame-src 'self' https://www.youtube-nocookie.com${analytics ? ` ${analytics}` : ''}`,
     "worker-src 'self' blob:",
     "object-src 'none'",
     "base-uri 'self'",
