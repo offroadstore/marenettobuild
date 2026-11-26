@@ -12,6 +12,9 @@ import { useActiveEditorial } from '@/lib/editorial-runtime';
 import { useEditorialArticles } from '@/content/editorial-articles';
 import { SeriesImageDisclosure } from '@/components/SeriesImageDisclosure';
 import { seriesCardLabels, seriesLabels } from '@/content/series-public.mjs';
+import { commercialRecord } from '@/content/commercial-release.mjs';
+import { areaCopy } from '@/content/four-areas';
+import '@/styles/commercial-editorial.css';
 
 function LibHero({ eyebrow, title, intro, meta }: { eyebrow: string; title: string; intro: string; meta: string }) {
   const { render } = useLibraryLocale();
@@ -35,15 +38,16 @@ export function ArticleCard({ a, kind = 'archive', index }: { a: Article; kind?:
   const { lang, render, articleHref, date: formatDate } = useLibraryLocale();
   const live = useActiveEditorial().find(e => e.locale === lang && e.identity === a.slug && e.revisionId !== 'withdrawn');
   const guideLabels = live?.content.guide ? seriesCardLabels[lang] : undefined;
+  const released = live && commercialRecord(live);
   const original = !live && !showsTranslatedCopy(lang) ? historicalPage(articleHref(a.slug)) ?? historicalArticleForPreview(articleHref(a.slug)) : undefined;
-  const card = <Link href={withCampaignParams(live?.path ?? articleHref(a.slug))} lang={live?.content.contentLanguage ?? (showsTranslatedCopy(lang) ? lang : 'it')} className="lib-card" data-testid={`card-${kind}-${a.slug}`}>
+  const card = <Link href={withCampaignParams(released?.path ?? live?.path ?? articleHref(a.slug))} lang={live?.content.contentLanguage ?? (showsTranslatedCopy(lang) ? lang : 'it')} className="lib-card" data-testid={`card-${kind}-${a.slug}`}>
     <div className="lib-card-media">{a.image && <img src={a.image} alt={a.imageAlt} loading="lazy" />}<span className="lib-card-index">{String(index + 1).padStart(2, '0')}</span></div>
     <div className="lib-card-body">
       {guideLabels && a.image && <SeriesImageDisclosure src={a.image} locale={lang} />}
-      <div className="lib-card-meta"><span>{a.category}</span><span>{formatDate(a.publishedOn)}</span></div>
+      <div className="lib-card-meta"><span>{a.category}</span>{!released && <span>{formatDate(a.publishedOn)}</span>}</div>
       <h2>{original?.h1 ?? a.title}</h2>
       <p>{original?.description ?? a.summary}</p>
-      <div className="lib-card-foot"><div>{!original && !live && <><StatusPill a={a} /><span className="review-date">Revisione: {a.review.reviewedAt ? formatDate(a.review.reviewedAt) : 'non registrata'}</span></>}{live && <span className="status-pill">{guideLabels?.[0] ?? 'Edizione attiva'}</span>}</div><span className="text-link">{guideLabels?.[1] ?? (live || original || a.reviewStatus === 'documentary-review' ? 'Leggi l’articolo' : 'Leggi la sintesi')}<ArrowRight size={13} /></span></div>
+      <div className="lib-card-foot"><div>{!original && !live && <><StatusPill a={a} /><span className="review-date">Revisione: {a.review.reviewedAt ? formatDate(a.review.reviewedAt) : 'non registrata'}</span></>}{live && !released && <span className="status-pill">{guideLabels?.[0] ?? 'Edizione attiva'}</span>}</div><span className="text-link">{released ? areaCopy(lang).ui.readMore : guideLabels?.[1] ?? (live || original || a.reviewStatus === 'documentary-review' ? 'Leggi l’articolo' : 'Leggi la sintesi')}<ArrowRight size={13} /></span></div>
     </div>
   </Link>;
   return live ? card : render(card);
@@ -100,6 +104,7 @@ export function ArticlesPage() {
 
 export function GuidesPage() {
   const { lang, render, t, articleHref, libraryHref } = useLibraryLocale();
+  const active=useActiveEditorial();
   const articles = useEditorialArticles(lang);
   const activeEditions = useActiveEditorial().filter(e=>e.locale===lang && e.revisionId!=='withdrawn');
   const livePaths = new Map(activeEditions.map(e=>[e.identity,e.path]));
@@ -110,12 +115,15 @@ export function GuidesPage() {
     <LibHero eyebrow="Guide pratiche" title="Domande utili, prima delle risposte." intro="Guide pratiche per proprietari a Cefalù: sintesi riviste su acquisto, manutenzione, infiltrazioni, isolamento e superfici." meta={`${guides.length} ${t('guide')} · ${t('su')} ${articles.length} ${t('articoli')}`} />
     <section className="section">
       <div className="container">
-        <div className="guide-list">{guides.map((a, i) => <Link key={a.slug} href={withCampaignParams(livePaths.get(a.slug) ?? articleHref(a.slug))} className="guide-row" data-testid={`card-guide-${a.slug}`}>
+        <div className="guide-list">{guides.map((a, i) => {
+          const live=active.find(e=>e.identity===a.slug&&e.locale===lang&&e.revisionId!=='withdrawn');
+          const released=live&&commercialRecord(live);
+          return <Link key={a.slug} href={withCampaignParams(released?.path??livePaths.get(a.slug)??articleHref(a.slug))} className={released&&!a.image?'guide-row guide-row--editorial':'guide-row'} data-testid={`card-guide-${a.slug}`}>
           <span className="guide-n">{String(i + 1).padStart(2, '0')}</span>
-          <img src={a.image} alt={a.imageAlt} loading="lazy" />
+          {(!released||a.image) && <img src={a.image} alt={a.imageAlt} loading="lazy" />}
           <div><span className="guide-cat">{a.category}</span><h2>{a.title}</h2><p>{a.summary}</p>{seriesIdentities.has(a.slug) && <SeriesImageDisclosure src={a.image} locale={lang} />}</div>
-          <div className="guide-side">{seriesIdentities.has(a.slug) ? <span className="status-pill">{seriesCardLabels[lang][0]}</span> : <StatusPill a={a} />}<ArrowRight size={18} /></div>
-        </Link>)}</div>
+          <div className="guide-side">{!released && (seriesIdentities.has(a.slug) ? <span className="status-pill">{seriesCardLabels[lang][0]}</span> : <StatusPill a={a} />)}<ArrowRight size={18} /></div>
+        </Link>})}</div>
         <div className="portfolio-note" style={{ marginTop: 56 }}><div><h2>Cerchi un argomento diverso?</h2><p>L’archivio completo raccoglie tutti i 14 articoli storici, ciascuno con il proprio stato di revisione.</p></div><Link href={withCampaignParams(libraryHref('articles'))} className="text-link" data-testid="link-guides-archive">Tutti gli articoli<ArrowRight size={14} /></Link></div>
       </div>
     </section>

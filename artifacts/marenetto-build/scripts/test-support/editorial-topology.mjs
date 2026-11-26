@@ -17,11 +17,13 @@ async function close(server) {
 
 // Real TCP transport: a synthetic API, a path-routing gateway and the actual
 // production HTML process. No fetch monkeypatches or database changes.
-export async function editorialTopology({ snapshot = [], viaProxy = false, publicIndexing = false } = {}) {
+export async function editorialTopology({ snapshot = [], viaProxy = false, publicIndexing = false, publicAssets = new Map() } = {}) {
   let mode = 'available';
   let webOrigin;
   let requests = 0;
   const api = createServer((req, res) => {
+    const asset=req.method==='GET'&&publicAssets.get(req.url);
+    if(asset){res.writeHead(200,{'Content-Type':asset.contentType,'Content-Length':asset.bytes.length,'ETag':`"${asset.sha256}"`});res.end(asset.bytes);return;}
     if (req.url === '/api/healthz') { res.writeHead(200); res.end('{"status":"ok"}'); return; }
     if (req.url !== '/api/editorial/active') { res.writeHead(404); res.end(); return; }
     requests++;

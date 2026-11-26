@@ -47,6 +47,13 @@ export function applyPublicReleaseMetadata(pathname: string, active: Active[]) {
     ['property', 'og:type', candidate.kind === 'article' ? 'article' : 'website'],
     ['name', 'twitter:title', metadata.title], ['name', 'twitter:description', metadata.description],
   ]) setMeta(attribute, key, value);
+  if(candidate.commercialRelease && candidate.visibleImage) {
+    setMeta('property','og:image',PUBLIC_SITE_ORIGIN+candidate.visibleImage);
+    setMeta('name','twitter:image',PUBLIC_SITE_ORIGIN+candidate.visibleImage);
+  } else if(document.querySelector('meta[property="og:image"]')?.getAttribute('content')===PUBLIC_SITE_ORIGIN+'/media/editorial/project-diagram.png') {
+    setMeta('property','og:image',PUBLIC_SITE_ORIGIN+'/media/home/cefalu-hero-left-1672.jpg');
+    setMeta('name','twitter:image',PUBLIC_SITE_ORIGIN+'/media/home/cefalu-hero-left-1672.jpg');
+  }
   let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
   if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.appendChild(canonical); }
   canonical.href = PUBLIC_SITE_ORIGIN + canonicalPath;
@@ -69,7 +76,7 @@ export function applyPublicReleaseMetadata(pathname: string, active: Active[]) {
   }
   updateStructuredData(candidate, PUBLIC_SITE_ORIGIN);
   const live = active.find(e => normalized(e.path) === normalized(pathname) && e.revisionId !== 'withdrawn');
-  if (live?.content.guide) {
+  if (live?.content.guide && !candidate.commercialRelease) {
     document.head.querySelectorAll('script[type="application/ld+json"]').forEach(script => script.remove());
     const script = document.createElement('script');
     script.type = 'application/ld+json';

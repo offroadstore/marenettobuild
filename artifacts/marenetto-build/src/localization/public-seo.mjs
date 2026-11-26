@@ -1,6 +1,7 @@
 import { homeMetadata } from './home-seo.mjs';
 import { libraryMetadata } from './library-seo.mjs';
 import { searchCopy } from './search-copy.mjs';
+import { commercialEntries } from '../content/commercial-release.mjs';
 
 // Language wrappers around Italian copy are not independent translations.
 export function isNativeEdition(edition) {
@@ -15,7 +16,10 @@ export function hasTranslationApproval(edition) {
 }
 
 export function mergeActiveMetadata(entries, active) {
-  return entries.map(entry => {
+  const released = commercialEntries(active);
+  const merged = entries.filter(entry=>!released.some(r=>r.id===entry.id&&r.locale===entry.locale&&r.path!==entry.path)).map(entry => {
+    const releasedEdition=released.find(r=>r.path===entry.path);
+    if(releasedEdition) return releasedEdition;
     const live = active.find(item => item.path === entry.path && item.revisionId !== 'withdrawn');
     const normalized = path => path.replace(/\/+$/, '') || '/';
     const translationSourceStale = entry.translationSourcePath && active.some(item =>
@@ -35,6 +39,7 @@ export function mergeActiveMetadata(entries, active) {
       activeSeoDescription: Boolean(live.content.seoDescription?.trim()),
     } : candidate;
   });
+  return [...merged,...released.filter(r=>!merged.some(e=>e.path===r.path))];
 }
 
 const archiveNames = {
@@ -55,6 +60,7 @@ const text = value => String(value ?? '').replace(/<[^>]+>/g, ' ').replace(/&nbs
   .replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/\s+/g, ' ').trim();
 
 export function releaseMetadata(edition, html = '', entries = []) {
+  if(edition.commercialRelease==='editorial-2026-11-26') return {title:edition.title,description:edition.description};
   // New commercial editions have individually authored, length-checked titles.
   // Appending the brand again would turn a valid title into an overlong one.
   if (String(edition.source).startsWith('four-areas:') && !edition.activeSeoTitle && !edition.activeSeoDescription) {

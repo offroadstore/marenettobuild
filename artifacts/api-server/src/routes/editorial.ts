@@ -1,6 +1,6 @@
 import { Router, type IRouter, type Request, type Response, type NextFunction } from 'express';
 import { randomUUID } from 'node:crypto';
-import { CreateEditorialBody, SaveEditorialBody, ActEditorialBody, ListEditorialResponse, GetEditorialResponse, GetActiveEditorialResponse } from '@workspace/api-zod';
+import { CreateEditorialBody, SaveEditorialBody, ActEditorialBody, ListEditorialResponse, GetEditorialResponse, GetActiveEditorialResponse, type EditorialActive } from '@workspace/api-zod';
 import { requireInternalAccess, requirePermission } from '../middlewares/internalAccess';
 import { EditorialError, revision, transition, validateContent, publicContent, reviewedRevision, event } from '../lib/editorial-content';
 import { ensureEditorial, editorialLocales, allRows, publicRows, detail, getRow, normalizedPath, reservedPath, isCatalogPath, sourceFor, summary, withEditorialLock, type Row } from '../lib/editorial-store';
@@ -20,10 +20,14 @@ const handler = (fn: (req: Request, res: Response) => Promise<void>) => async (r
 };
 router.get('/editorial/active', handler(async (_req, res) => {
   const rows = await publicRows();
-  const active = rows.flatMap(row => {
+  const active = rows.flatMap<EditorialActive>(row => {
     const rev = row.data.revisions.find(rev => rev.id === row.data.activeRevisionId);
     const path = publicEditionPath(row);
-    return rev ? [{ aliases: row.data.aliases ?? [], identity: row.identity, locale: row.locale, path, kind: row.kind, revisionId: rev.id, content: publicContent(rev.content) }] : row.data.withdrawn ? [{ aliases: row.data.aliases ?? [], identity: row.identity, locale: row.locale, path, kind: row.kind, revisionId: 'withdrawn', content: { title: 'Contenuto ritirato', summary: '', body: '', sources: [], category: '', tags: [], image: '', imageAlt: '', seoTitle: '', seoDescription: '', contentLanguage: row.locale } }] : [];
+    const activation = rev && [...row.data.events].reverse().find(event => event.action === 'activate' && event.revisionId === rev.id && event.hash === rev.hash);
+    return rev ? [{ aliases: row.data.aliases ?? [], identity: row.identity, locale: row.locale, path, kind: row.kind, revisionId: rev.id, content: publicContent(rev.content),
+      revisionCreatedAt: rev.createdAt, revisionHash: rev.hash, sourceHash: rev.sourceHash,
+      ...(activation ? { activatedAt: activation.at } : {}),
+    }] : row.data.withdrawn ? [{ aliases: row.data.aliases ?? [], identity: row.identity, locale: row.locale, path, kind: row.kind, revisionId: 'withdrawn', content: { title: 'Contenuto ritirato', summary: '', body: '', sources: [], category: '', tags: [], image: '', imageAlt: '', seoTitle: '', seoDescription: '', contentLanguage: row.locale } }] : [];
   });
   res.json(GetActiveEditorialResponse.parse(active));
 }));

@@ -1,0 +1,2030 @@
+{
+  "id": "editorial-2026-11-26",
+  "rootSHA256": "dea2b40f25e1d52ff10369140b4180cc4036b427bd48999ba095facb7dfc8ca3",
+  "records": [
+    {
+      "identity": "recuperare-casale-masseria-sicilia",
+      "locale": "it",
+      "path": "/recuperare-casale-masseria-sicilia",
+      "cmsPath": "/recuperare-casale-masseria-sicilia",
+      "area": "villas",
+      "hash": "87e5782a0ef7bb538d17cc4b3509547a49c796363dfcdab7d0774537416e1290",
+      "sourceHash": "87e5782a0ef7bb538d17cc4b3509547a49c796363dfcdab7d0774537416e1290",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "ville-vista-mare-chiavi-in-mano-cefalu",
+      "locale": "it",
+      "path": "/ville-vista-mare-chiavi-in-mano-cefalu",
+      "cmsPath": "/ville-vista-mare-chiavi-in-mano-cefalu",
+      "area": "villas",
+      "hash": "59ed59c26897d1e64a068c4e91635485f8a4576e3bb7186ac1e47b8350849b2d",
+      "sourceHash": "59ed59c26897d1e64a068c4e91635485f8a4576e3bb7186ac1e47b8350849b2d",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "palazzi-case-storiche-ristrutturare",
+      "locale": "it",
+      "path": "/palazzi-case-storiche-ristrutturare",
+      "cmsPath": "/palazzi-case-storiche-ristrutturare",
+      "area": "villas",
+      "hash": "e9fd74f7a90e5ead8f56988701c774452cf84f39045d950860aa607442e0a611",
+      "sourceHash": "e9fd74f7a90e5ead8f56988701c774452cf84f39045d950860aa607442e0a611",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "piscine-pool-house-sicilia",
+      "locale": "it",
+      "path": "/piscine-pool-house-sicilia",
+      "cmsPath": "/piscine-pool-house-sicilia",
+      "area": "outdoors",
+      "hash": "c3cf315c3a687aca7ad8cf3a37530d4be0ba2cb45de05226d0972d2260cc22d0",
+      "sourceHash": "c3cf315c3a687aca7ad8cf3a37530d4be0ba2cb45de05226d0972d2260cc22d0",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "terrazze-spazi-aperto-vista-mare",
+      "locale": "it",
+      "path": "/terrazze-spazi-aperto-vista-mare",
+      "cmsPath": "/terrazze-spazi-aperto-vista-mare",
+      "area": "outdoors",
+      "hash": "1f76cf08ae3261f6045aacaa43e1caa8b590f6bbf77628f730011794a921bfc2",
+      "sourceHash": "1f76cf08ae3261f6045aacaa43e1caa8b590f6bbf77628f730011794a921bfc2",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "sopralluogo-tecnico-acquisto-estero",
+      "locale": "it",
+      "path": "/sopralluogo-tecnico-acquisto-estero",
+      "cmsPath": "/sopralluogo-tecnico-acquisto-estero",
+      "area": "investment",
+      "hash": "10cbd8a3fde730720ad0dc7782cf45ead7c1c7219fc45eeca44a24788b7a50ae",
+      "sourceHash": "10cbd8a3fde730720ad0dc7782cf45ead7c1c7219fc45eeca44a24788b7a50ae",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "costo-ristrutturare-casa-sicilia",
+      "locale": "it",
+      "path": "/costo-ristrutturare-casa-sicilia",
+      "cmsPath": "/costo-ristrutturare-casa-sicilia",
+      "area": "investment",
+      "hash": "928d0b73e17d988cb9fd2a5af61633b566adc5163e9defc3b599daba2cd45d64",
+      "sourceHash": "928d0b73e17d988cb9fd2a5af61633b566adc5163e9defc3b599daba2cd45d64",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "casa-vacanza-design-gestione",
+      "locale": "it",
+      "path": "/casa-vacanza-design-gestione",
+      "cmsPath": "/casa-vacanza-design-gestione",
+      "area": "investment",
+      "hash": "f33d1b9c66be239b5cd6461635413a20c84f9ca2db4f04fd571420ccfc054aeb",
+      "sourceHash": "f33d1b9c66be239b5cd6461635413a20c84f9ca2db4f04fd571420ccfc054aeb",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "it",
+      "path": "/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali/",
+      "cmsPath": "/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "area": "investment",
+      "hash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73",
+      "preparedAt": "2026-11-26",
+      "readOnlySeries": true,
+      "presentation": {
+        "seoTitle": "Comprare casa a Cefalù: verifiche prima del rogito",
+        "seoDescription": "Comprare casa a Cefalù: verifiche prima del rogito. Fasi, documenti e verifiche sul caso per chi vive all’estero, senza tempi o risultati garantiti.",
+        "body": "<h2>Separare i controlli</h2><p>Comprare casa da ristrutturare in Sicilia richiede un quadro documentale e materiale, non una sola visita. Chiedi gli atti di provenienza, i dati e le planimetrie catastali, i titoli edilizi disponibili e la documentazione degli interventi precedenti. Notaio e professionisti incaricati svolgono verifiche diverse: chiarisci gli incarichi prima di assumere impegni.</p><h2>Catasto e urbanistica non sono sinonimi</h2><p>Il confronto catastale e la ricostruzione della legittimità urbanistico-edilizia hanno oggetti distinti. Una planimetria catastale corrispondente non dimostra da sola che tutte le opere siano assentite. Il tecnico confronta lo stato dei luoghi con la documentazione pertinente e segnala lacune o difformità; non presumere che una regolarizzazione sia possibile o automatica.</p><h2>Strutture, impianti e vincoli</h2><p>Crepe, umidità o finiture recenti non consentono diagnosi a vista. Chiedi quali sopralluoghi o indagini siano appropriati per strutture, copertura e impianti. Verifica anche localizzazione, strumenti comunali, paesaggio ed eventuale disciplina del Parco: la fattibilità dei lavori desiderati non deriva dal solo annuncio di vendita.</p><h2>Decidere con le informazioni mancanti in evidenza</h2><p>Fai distinguere per iscritto ciò che è stato verificato da ciò che resta da accertare. La stima dei lavori deve dichiarare ipotesi ed esclusioni; per il nostro intervento, preventivo dopo sopralluogo. Questa guida aggiorna la famiglia storica sull’acquisto a Cefalù senza sostituire le verifiche del notaio o del tecnico.</p><h2>Approfondire il caso concreto</h2><p>Il quadro edilizio è il D.P.R. 380/2001 come recepito dalla L.R. Sicilia 16/2016 e successive modifiche: vigenza e applicabilità devono essere controllate per l’intervento e la localizzazione.</p><p>Lavoriamo principalmente entro circa 60 km da Cefalù, Madonie e costa; oltre, solo su richiesta. La guida non estende l’area dei cantieri.</p><p>Questa guida offre orientamento generale e non è una perizia, un’autorizzazione o un preventivo.</p><p><a href=\"/comprare-ristrutturare-mettere-a-reddito\">Comprare e mettere a reddito</a> · <a href=\"/area-servizi-edili\">Per i servizi edili locali</a></p><figure><img src=\"/media/editorial/project-diagram.png\" alt=\"Schema illustrativo di spazi e passaggi di un progetto, senza riferimento a un luogo reale\" width=\"960\" height=\"320\" loading=\"lazy\" /><figcaption>Illustrazione schematica originale: non rappresenta un immobile, un progetto o un lavoro realizzato.</figcaption></figure><h2>Se segui il progetto dall’estero</h2><p>Il progettista predispone un computo metrico articolato per fasi. I SAL, stati di avanzamento lavori, sono documentati con foto e relazione del geometra o architetto incaricato della direzione lavori. Tra le fasi si usano aggiornamenti WhatsApp. Varianti e urgenze si concordano con cliente e direttore lavori, aggiornando il computo e chiarendo gli effetti su costi e programma. Non ne derivano cadenze, scadenze o piani di pagamento; lingua del referente, deleghe e accessi vanno concordati.</p><p>Catasto e regolarità urbanistico-edilizia sono verifiche diverse. Le procedure italiane si spiegano nel loro contesto, senza equivalenze automatiche con quelle estere.</p><p>L’edilizia riguarda prevalentemente Cefalù, le Madonie e la costa circostante; trasferte da valutare sul progetto. L’offerta internazionale di arredi è distinta dai cantieri. Il sito tradotto non dimostra quali lingue parli il referente.</p><p id=\"release-request\"><a href=\"/richiesta?service=local-building&amp;source=editorial-2026-11-26&amp;article=comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali\">Descrivi il tuo progetto</a></p>",
+        "faq": [
+          {
+            "question": "La conformità catastale prova quella urbanistica?",
+            "answer": "No. Sono verifiche distinte; occorre ricostruire i titoli e confrontarli con lo stato effettivo dell’immobile."
+          },
+          {
+            "question": "Una crepa significa che la casa non è sicura?",
+            "answer": "L’aspetto da solo non identifica causa e gravità. Un professionista competente valuta se e quali approfondimenti servano."
+          }
+        ]
+      },
+      "presentationHash": "6f1e10216710a194c6e08d02e62fbdc5ca72642479bf5b6929090bc1cbebec19"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "locale": "it",
+      "path": "/permessi-ristrutturare-sicilia",
+      "cmsPath": "/permessi-ristrutturare-sicilia",
+      "area": "investment",
+      "hash": "a9c9ca2a2cff3006f3ad5c1542721a6f4827993cbf44879ab30a3ae6ad619858",
+      "sourceHash": "a9c9ca2a2cff3006f3ad5c1542721a6f4827993cbf44879ab30a3ae6ad619858",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "locale": "it",
+      "path": "/tempi-ristrutturazione-cefalu-estate",
+      "cmsPath": "/tempi-ristrutturazione-cefalu-estate",
+      "area": "investment",
+      "hash": "b3ae2b50282580e14b4286d5b34ba1ee26846aecfeeacb8e46bd5caba77c6a2c",
+      "sourceHash": "b3ae2b50282580e14b4286d5b34ba1ee26846aecfeeacb8e46bd5caba77c6a2c",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "locale": "it",
+      "path": "/ristrutturare-a-distanza-cefalu",
+      "cmsPath": "/ristrutturare-a-distanza-cefalu",
+      "area": "investment",
+      "hash": "2f46382ce199006b3e2102df3142a8de740619abdc1ec2c888994a6d69f6d7fc",
+      "sourceHash": "2f46382ce199006b3e2102df3142a8de740619abdc1ec2c888994a6d69f6d7fc",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "locale": "it",
+      "path": "/tavoli-arredi-cemento-microcemento",
+      "cmsPath": "/tavoli-arredi-cemento-microcemento",
+      "area": "surfaces",
+      "hash": "cbb86f50ef19154f47feb847f6d7f3c3df71e2d19afc75e8d549015638c285a7",
+      "sourceHash": "cbb86f50ef19154f47feb847f6d7f3c3df71e2d19afc75e8d549015638c285a7",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "locale": "it",
+      "path": "/lavori-case-vacanza-fuori-stagione",
+      "cmsPath": "/lavori-case-vacanza-fuori-stagione",
+      "area": "investment",
+      "hash": "31d967714f0e58484d814de5b0bb93baca99aa2ef1ad01fb96c4e7abc6e84458",
+      "sourceHash": "31d967714f0e58484d814de5b0bb93baca99aa2ef1ad01fb96c4e7abc6e84458",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "recuperare-casale-masseria-sicilia",
+      "locale": "en",
+      "path": "/en/restoring-farmhouse-masseria-sicily",
+      "cmsPath": "/en/restoring-farmhouse-masseria-sicily",
+      "area": "villas",
+      "hash": "c5efba0deee19148c44c10485ba4938ed46578cb5c95a21333a74826f7cdcd52",
+      "sourceHash": "87e5782a0ef7bb538d17cc4b3509547a49c796363dfcdab7d0774537416e1290",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "ville-vista-mare-chiavi-in-mano-cefalu",
+      "locale": "en",
+      "path": "/en/turnkey-sea-view-villas-cefalu",
+      "cmsPath": "/en/turnkey-sea-view-villas-cefalu",
+      "area": "villas",
+      "hash": "21c1d9a84c7b644c38042215c0c047da73c314d0eb228f852b55a4a83a789113",
+      "sourceHash": "59ed59c26897d1e64a068c4e91635485f8a4576e3bb7186ac1e47b8350849b2d",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "palazzi-case-storiche-ristrutturare",
+      "locale": "en",
+      "path": "/en/historic-houses-palazzi-renovation-sicily",
+      "cmsPath": "/en/historic-houses-palazzi-renovation-sicily",
+      "area": "villas",
+      "hash": "395aba169819a3beb14884ca2268fe109f34c451100cfdbb97a031064680e0cd",
+      "sourceHash": "e9fd74f7a90e5ead8f56988701c774452cf84f39045d950860aa607442e0a611",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "piscine-pool-house-sicilia",
+      "locale": "en",
+      "path": "/en/pools-pool-houses-sicily",
+      "cmsPath": "/en/pools-pool-houses-sicily",
+      "area": "outdoors",
+      "hash": "66379a2fcaae1322b17d52e7247bdfa4c7d39b05c2f7d121741eeb205c1a4b3f",
+      "sourceHash": "c3cf315c3a687aca7ad8cf3a37530d4be0ba2cb45de05226d0972d2260cc22d0",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "terrazze-spazi-aperto-vista-mare",
+      "locale": "en",
+      "path": "/en/sea-view-terraces-sicily",
+      "cmsPath": "/en/sea-view-terraces-sicily",
+      "area": "outdoors",
+      "hash": "2cf6c627bb66d7bcfb41e5b1ec1453ff89e7a40ffd2b999a4b4c2004fe2ba793",
+      "sourceHash": "1f76cf08ae3261f6045aacaa43e1caa8b590f6bbf77628f730011794a921bfc2",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "sopralluogo-tecnico-acquisto-estero",
+      "locale": "en",
+      "path": "/en/pre-purchase-technical-visit-overseas-buyers",
+      "cmsPath": "/en/pre-purchase-technical-visit-overseas-buyers",
+      "area": "investment",
+      "hash": "d504fa8915ae891a18f6e71dac5a3663b47a462c8aa1d0ca3e445c1d35b0193e",
+      "sourceHash": "10cbd8a3fde730720ad0dc7782cf45ead7c1c7219fc45eeca44a24788b7a50ae",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "costo-ristrutturare-casa-sicilia",
+      "locale": "en",
+      "path": "/en/sicily-house-renovation-cost-factors",
+      "cmsPath": "/en/sicily-house-renovation-cost-factors",
+      "area": "investment",
+      "hash": "a181f4473eb7055c102d1e4e004209ce364073b510f194b6edaad7e909adcb00",
+      "sourceHash": "928d0b73e17d988cb9fd2a5af61633b566adc5163e9defc3b599daba2cd45d64",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "casa-vacanza-design-gestione",
+      "locale": "en",
+      "path": "/en/holiday-home-design-management-sicily",
+      "cmsPath": "/en/holiday-home-design-management-sicily",
+      "area": "investment",
+      "hash": "1ae97c43a1a6c1c2cb51291854e216cd8be83236369c126c05677d44ea3e7c0b",
+      "sourceHash": "f33d1b9c66be239b5cd6461635413a20c84f9ca2db4f04fd571420ccfc054aeb",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "en",
+      "path": "/en/buying-and-renovating-a-house-in-cefalu-a-technical-guide-to-the-5-essential-checks/",
+      "cmsPath": "/en/buying-and-renovating-a-house-in-cefalu-a-technical-guide-to-the-5-essential-checks",
+      "area": "investment",
+      "hash": "3549c4157a61eb6b6ee6e8026ea67db5c77032c9076159f0806514cfe3f8c659",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73",
+      "preparedAt": "2026-11-26",
+      "readOnlySeries": true,
+      "presentation": {
+        "seoTitle": "Buying a house in Cefalù: checks before the deed",
+        "seoDescription": "Buying a house in Cefalù: checks before the deed. Stages, records and property-specific checks for owners abroad, without promised times or results.",
+        "body": "<h2>Build a complete picture</h2><p>Buying a house to renovate in Sicily calls for documentary and physical checks, not just a viewing. Request ownership records, cadastral details and plans, available building permissions and documents for previous alterations. The notary and appointed technical professionals have different responsibilities: clarify their respective instructions before committing.</p><h2>Cadastral and planning checks differ</h2><p>A matching cadastral plan does not by itself establish that every alteration was lawfully authorised. A qualified professional needs to compare the actual property with the relevant building records and identify missing documents or discrepancies. Do not assume that regularisation is available or automatic.</p><h2>Condition and restrictions</h2><p>Cracks, damp or fresh finishes do not establish a diagnosis. Ask what inspections or investigations are appropriate for the structure, roof and installations. The proposed renovation must also be checked against local planning, landscape protection and any park requirements applicable to that location.</p><h2>Make decisions with the gaps visible</h2><p>Ask for a written distinction between completed checks and unresolved questions. Any cost assessment should state assumptions and exclusions; our quotation follows a site inspection. This guide belongs to the existing Cefalù buying-guide family and does not replace the notary’s or technical professional’s assessment.</p><h2>Assess the specific case</h2><p>The building framework is D.P.R. 380/2001 as received through Sicily’s L.R. 16/2016 and subsequent amendments. Current validity and applicability must be checked for the work and location.</p><p>Our building work focuses mainly on the area within about 60 km of Cefalù, the Madonie and coast; beyond this, on request. This guide does not extend site coverage.</p><p>This guide provides general orientation, not a professional survey, permission or quotation.</p><p><a href=\"/en/buy-renovate-rent-cefalu\">Buy, renovate, rent</a> · <a href=\"/en/local-building-area\">Local building services</a></p><figure><img src=\"/media/editorial/project-diagram.png\" alt=\"Illustrative diagram of project spaces and stages, unrelated to a real location\" width=\"960\" height=\"320\" loading=\"lazy\" /><figcaption>Original schematic illustration: not a property, project or completed work.</figcaption></figure><h2>Following the project from abroad</h2><p>The designer prepares a measured schedule of works divided into stages. SAL, the Italian work-progress statements, are documented with photographs and a report by the geometra or architect appointed to direct the works. WhatsApp updates are used between stages. Changes and urgent decisions are agreed with the client and works director, updating the schedule and clarifying cost and programme implications. This sets no reporting frequency, deadline or payment plan; the contact language, authority to act and access arrangements must be agreed.</p><p>For UK and US buyers: an Italian geometra is not automatically equivalent to a chartered surveyor or home inspector. Italian cadastral records and planning/building compliance are separate checks; a deed before an Italian notary does not replace technical due diligence.</p><p>Building work is mainly around Cefalù, the Madonie and the nearby coast; travel is assessed for each project. The international furniture offer is separate from building services. Website translations do not establish the languages spoken by your contact.</p><p id=\"release-request\"><a href=\"/en/request?service=local-building&amp;source=editorial-2026-11-26&amp;article=comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali\">Describe your project</a></p>",
+        "faq": [
+          {
+            "question": "Does cadastral conformity establish planning legality?",
+            "answer": "No. These are separate checks; the relevant permissions must be reconstructed and compared with the actual property."
+          },
+          {
+            "question": "Does a visible crack prove a building is unsafe?",
+            "answer": "Appearance alone does not establish cause or severity. A competent professional decides what further assessment is appropriate."
+          }
+        ]
+      },
+      "presentationHash": "e18bfb3a75f8ca6dd2aa58461351973ef485e916f07dcc0fda1b6b1427e269a7"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "locale": "en",
+      "path": "/en/renovation-permits-sicily-guide",
+      "cmsPath": "/en/renovation-permits-sicily-guide",
+      "area": "investment",
+      "hash": "66b773ec5f8edc699955846eb06bc9bff07f38ff627f66cfe8a9340e3358e68b",
+      "sourceHash": "a9c9ca2a2cff3006f3ad5c1542721a6f4827993cbf44879ab30a3ae6ad619858",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "locale": "en",
+      "path": "/en/realistic-timelines-for-turnkey-renovations-in-cefalu-why-summer-is-different",
+      "cmsPath": "/en/realistic-timelines-for-turnkey-renovations-in-cefalu-why-summer-is-different",
+      "area": "investment",
+      "hash": "d33addae98f93b28f1f6b2939c0af87b77883cfa940e2f7d52c52383031da2ba",
+      "sourceHash": "b3ae2b50282580e14b4286d5b34ba1ee26846aecfeeacb8e46bd5caba77c6a2c",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "locale": "en",
+      "path": "/en/renovating-from-abroad-managing-the-construction-site-remotely",
+      "cmsPath": "/en/renovating-from-abroad-managing-the-construction-site-remotely",
+      "area": "investment",
+      "hash": "ad0713b98311a2e47f16938ad1876125579f2079417d78a02399dc98f88fa75c",
+      "sourceHash": "2f46382ce199006b3e2102df3142a8de740619abdc1ec2c888994a6d69f6d7fc",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "locale": "en",
+      "path": "/en/bespoke-concrete-microcement-furniture",
+      "cmsPath": "/en/bespoke-concrete-microcement-furniture",
+      "area": "surfaces",
+      "hash": "7d49dd121f8d5fa25654046bbcaf9fdf4070d020d565b0aaee8f8f82feb2c8e7",
+      "sourceHash": "cbb86f50ef19154f47feb847f6d7f3c3df71e2d19afc75e8d549015638c285a7",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "locale": "en",
+      "path": "/en/holiday-home-off-season-renovation-planning",
+      "cmsPath": "/en/holiday-home-off-season-renovation-planning",
+      "area": "investment",
+      "hash": "3541f95fe637927059aa6761a90db73354a6b31b217f56c426dc801fc91821ea",
+      "sourceHash": "31d967714f0e58484d814de5b0bb93baca99aa2ef1ad01fb96c4e7abc6e84458",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "recuperare-casale-masseria-sicilia",
+      "locale": "de",
+      "path": "/de/landhaus-masseria-sizilien-sanieren",
+      "cmsPath": "/de/landhaus-masseria-sizilien-sanieren",
+      "area": "villas",
+      "hash": "54eee900f5f0e6e52ab6d2a206d1f9dbbb540f61ffb78807652ee916c94a416b",
+      "sourceHash": "87e5782a0ef7bb538d17cc4b3509547a49c796363dfcdab7d0774537416e1290",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "ville-vista-mare-chiavi-in-mano-cefalu",
+      "locale": "de",
+      "path": "/de/villen-meerblick-schluesselfertig-cefalu",
+      "cmsPath": "/de/villen-meerblick-schluesselfertig-cefalu",
+      "area": "villas",
+      "hash": "1a387704b76110d8e1bf812ecb0ea0dfb6a85675253496cca84626d1802def73",
+      "sourceHash": "59ed59c26897d1e64a068c4e91635485f8a4576e3bb7186ac1e47b8350849b2d",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "palazzi-case-storiche-ristrutturare",
+      "locale": "de",
+      "path": "/de/historische-haeuser-palazzi-sanieren",
+      "cmsPath": "/de/historische-haeuser-palazzi-sanieren",
+      "area": "villas",
+      "hash": "23f8d7865fd63895067e4f549049dce2563df269fc094106071bbc8b7cdcdd52",
+      "sourceHash": "e9fd74f7a90e5ead8f56988701c774452cf84f39045d950860aa607442e0a611",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "piscine-pool-house-sicilia",
+      "locale": "de",
+      "path": "/de/pool-poolhaus-sizilien-planen",
+      "cmsPath": "/de/pool-poolhaus-sizilien-planen",
+      "area": "outdoors",
+      "hash": "9fedaf913ea4ed5892532b6bc506cccd2f81c2772bc2897ecb9c1aefb856758e",
+      "sourceHash": "c3cf315c3a687aca7ad8cf3a37530d4be0ba2cb45de05226d0972d2260cc22d0",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "terrazze-spazi-aperto-vista-mare",
+      "locale": "de",
+      "path": "/de/terrassen-meerblick-sizilien",
+      "cmsPath": "/de/terrassen-meerblick-sizilien",
+      "area": "outdoors",
+      "hash": "821b96eddc8f950565768dcbe6840a94dffdba27c17c3336b7499a095f2ad58d",
+      "sourceHash": "1f76cf08ae3261f6045aacaa43e1caa8b590f6bbf77628f730011794a921bfc2",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "sopralluogo-tecnico-acquisto-estero",
+      "locale": "de",
+      "path": "/de/technische-besichtigung-hauskauf-ausland",
+      "cmsPath": "/de/technische-besichtigung-hauskauf-ausland",
+      "area": "investment",
+      "hash": "7b8c9dc5e9dec97fa8271f0a6446c392b1fd93774995dc33c6ebf9aa7756d5b4",
+      "sourceHash": "10cbd8a3fde730720ad0dc7782cf45ead7c1c7219fc45eeca44a24788b7a50ae",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "costo-ristrutturare-casa-sicilia",
+      "locale": "de",
+      "path": "/de/sanierungskosten-sizilien-preisfaktoren",
+      "cmsPath": "/de/sanierungskosten-sizilien-preisfaktoren",
+      "area": "investment",
+      "hash": "64d93dfa22cc4a24f3ca74bbe40943805bc2d1f5ec047968fda6baa348f56dad",
+      "sourceHash": "928d0b73e17d988cb9fd2a5af61633b566adc5163e9defc3b599daba2cd45d64",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "casa-vacanza-design-gestione",
+      "locale": "de",
+      "path": "/de/ferienhaus-design-verwaltung-sizilien",
+      "cmsPath": "/de/ferienhaus-design-verwaltung-sizilien",
+      "area": "investment",
+      "hash": "0701591c240ac9ba2b0d4ef44b3c6d33a63406b0b64e67a9962cf34372e85ec2",
+      "sourceHash": "f33d1b9c66be239b5cd6461635413a20c84f9ca2db4f04fd571420ccfc054aeb",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "de",
+      "path": "/de/hauskauf-und-renovierung-in-cefalu-technischer-leitfaden-zu-den-5-wichtigsten-pruefungen/",
+      "cmsPath": "/de/hauskauf-und-renovierung-in-cefalu-technischer-leitfaden-zu-den-5-wichtigsten-pruefungen",
+      "area": "investment",
+      "hash": "df698aa986948ea05d39cc7a17f9342bcd1e4dbafa7496b7810b548a5c83c189",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73",
+      "preparedAt": "2026-11-26",
+      "readOnlySeries": true,
+      "presentation": {
+        "seoTitle": "Hauskauf in Cefalù: Prüfungen vor dem Kaufakt",
+        "seoDescription": "Hauskauf in Cefalù: Prüfungen vor dem Kaufakt. Ablauf, Unterlagen und Einzelfallprüfungen für Eigentümer im Ausland, ohne Zeit- oder Ergebnisgarantie.",
+        "body": "<h2>Unterlagen und Zustand zusammen betrachten</h2><p>Wer ein Haus in Sizilien zum Renovieren kaufen möchte, benötigt mehr als einen Besichtigungseindruck. Fordern Sie Eigentumsunterlagen, Katasterdaten und Pläne, vorhandene Baugenehmigungen sowie Dokumente früherer Umbauten an. Notar und technische Fachpersonen haben unterschiedliche Aufgaben; klären Sie deren Aufträge vor verbindlichen Zusagen.</p><h2>Kataster ist nicht gleich Baurecht</h2><p>Ein passender Katasterplan belegt nicht automatisch die baurechtliche Zulässigkeit aller Veränderungen. Eine befugte Fachperson vergleicht den tatsächlichen Zustand mit den maßgeblichen Bauunterlagen und benennt Lücken oder Abweichungen. Eine nachträgliche Legalisierung darf weder als möglich noch als automatisch vorausgesetzt werden.</p><h2>Tragwerk, Anlagen und Schutzvorschriften</h2><p>Risse, Feuchtigkeit oder neue Oberflächen erlauben für sich genommen keine Diagnose. Lassen Sie geeignete Untersuchungen für Tragwerk, Dach und Anlagen bestimmen. Prüfen Sie außerdem kommunale Planung, Landschaftsschutz und gegebenenfalls Parkregeln: Ein Verkaufsangebot bestätigt nicht die Machbarkeit der gewünschten Renovierung.</p><h2>Mit sichtbaren Wissenslücken entscheiden</h2><p>Lassen Sie schriftlich zwischen geprüften Punkten und offenen Fragen unterscheiden. Kostenschätzungen brauchen Annahmen und Ausschlüsse; unser Angebot erfolgt nach Besichtigung. Dieser Beitrag aktualisiert die bestehende Ratgeberfamilie zum Hauskauf in Cefalù und ersetzt keine notarielle oder technische Prüfung.</p><h2>Den konkreten Fall prüfen</h2><p>Der baurechtliche Rahmen ist der D.P.R. 380/2001, wie durch die sizilianische L.R. 16/2016 und spätere Änderungen übernommen. Geltung und Anwendbarkeit sind für Vorhaben und Standort zu prüfen.</p><p>Bauleistungen erfolgen hauptsächlich im Umkreis von etwa 60 km um Cefalù, in den Madonie und an der Küste; darüber hinaus auf Anfrage. Die Anleitung erweitert das Baustellengebiet nicht.</p><p>Diese Anleitung dient der allgemeinen Orientierung, nicht als Gutachten, Genehmigung oder Angebot.</p><p><a href=\"/de/kaufen-sanieren-vermieten-cefalu\">Kaufen &amp; vermieten</a> · <a href=\"/de/local-building-area\">Örtliche Bauleistungen</a></p><figure><img src=\"/media/editorial/project-diagram.png\" alt=\"Schematische Darstellung von Projektbereichen und Schritten ohne Bezug zu einem realen Ort\" width=\"960\" height=\"320\" loading=\"lazy\" /><figcaption>Eigene schematische Illustration: kein reales Objekt, Projekt oder ausgeführtes Bauvorhaben.</figcaption></figure><h2>Das Projekt aus dem Ausland begleiten</h2><p>Der Planer erstellt ein nach Bauphasen gegliedertes Mengen- und Leistungsverzeichnis. Die SAL, italienische Baufortschrittsfeststellungen, werden mit Fotos und einem Bericht des mit der Bauleitung beauftragten Geometra oder Architekten dokumentiert. Dazwischen erfolgen WhatsApp-Mitteilungen. Änderungen und dringende Entscheidungen werden mit Auftraggeber und Bauleitung vereinbart; Mengenverzeichnis, Kostenfolgen und Ablauf werden entsprechend geklärt. Daraus folgen weder feste Berichtsabstände noch Fristen oder Zahlungspläne. Sprache, Vollmachten und Zugang sind zu vereinbaren.</p><p>Wer aus Deutschland, Österreich oder der Schweiz ein Haus auf Sizilien kaufen möchte, sollte italienische Begriffe nicht mit heimischen Verfahren gleichsetzen. Ein Geometra ist keine automatische Entsprechung eines deutschen, österreichischen oder schweizerischen Berufsbilds. Katasterdaten und baurechtliche Zulässigkeit sind getrennt zu prüfen.</p><p>Bauarbeiten betreffen überwiegend Cefalù, die Madonie und die nahe Küste; weitere Anfahrten werden projektbezogen geprüft. Das internationale Möbelangebot ist davon getrennt. Übersetzungen belegen keine Sprachkenntnisse des Ansprechpartners.</p><p id=\"release-request\"><a href=\"/de/request?service=local-building&amp;source=editorial-2026-11-26&amp;article=comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali\">Beschreiben Sie Ihr Vorhaben</a></p>",
+        "faq": [
+          {
+            "question": "Belegt ein korrekter Katasterplan die baurechtliche Konformität?",
+            "answer": "Nein. Die einschlägigen Genehmigungen und der tatsächliche Zustand müssen gesondert abgeglichen werden."
+          },
+          {
+            "question": "Bedeutet ein Riss automatisch ein Sicherheitsproblem?",
+            "answer": "Das Erscheinungsbild allein klärt Ursache und Bedeutung nicht. Eine kompetente Fachperson entscheidet über weitere Untersuchungen."
+          }
+        ]
+      },
+      "presentationHash": "ccf2dea392ead7f7cf0b46d1e1f97ebd237c87f06ad57a04d68bb54417f094c1"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "locale": "de",
+      "path": "/de/baugenehmigungen-sizilien-leitfaden",
+      "cmsPath": "/de/baugenehmigungen-sizilien-leitfaden",
+      "area": "investment",
+      "hash": "2bcd089a2724c1cbe26fd7aa672707fc674b6788795e010786ca38dbba74ba5f",
+      "sourceHash": "a9c9ca2a2cff3006f3ad5c1542721a6f4827993cbf44879ab30a3ae6ad619858",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "locale": "de",
+      "path": "/de/realistische-zeitplanung-renovierung-cefalu",
+      "cmsPath": "/de/realistische-zeitplanung-renovierung-cefalu",
+      "area": "investment",
+      "hash": "574d7912ede4f93f6770816616c4354c4bb2599c231f378d677abb008ff75d99",
+      "sourceHash": "b3ae2b50282580e14b4286d5b34ba1ee26846aecfeeacb8e46bd5caba77c6a2c",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "locale": "de",
+      "path": "/de/sanierung-aus-der-ferne-baustellenmanagement-fuer-kunden-im-ausland",
+      "cmsPath": "/de/sanierung-aus-der-ferne-baustellenmanagement-fuer-kunden-im-ausland",
+      "area": "investment",
+      "hash": "d477d1a706ea88339a49f5e901a45927dfba47a8142de85fa4815d3198effa6e",
+      "sourceHash": "2f46382ce199006b3e2102df3142a8de740619abdc1ec2c888994a6d69f6d7fc",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "locale": "de",
+      "path": "/de/massgeschneiderte-tische-und-moebel-aus-beton-und-mikrozement",
+      "cmsPath": "/de/massgeschneiderte-tische-und-moebel-aus-beton-und-mikrozement",
+      "area": "surfaces",
+      "hash": "9fff211f1999ed8a8d1dbe59b4a4f214bb826f96169fadab5315dc170c7d913e",
+      "sourceHash": "cbb86f50ef19154f47feb847f6d7f3c3df71e2d19afc75e8d549015638c285a7",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "locale": "de",
+      "path": "/de/ferienhaus-bauarbeiten-vorsaison",
+      "cmsPath": "/de/ferienhaus-bauarbeiten-vorsaison",
+      "area": "investment",
+      "hash": "e8951e8f0ea426e494d1745e16fb12684f03323d71f7d89448ee5629bf108a47",
+      "sourceHash": "31d967714f0e58484d814de5b0bb93baca99aa2ef1ad01fb96c4e7abc6e84458",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "recuperare-casale-masseria-sicilia",
+      "locale": "fr",
+      "path": "/fr/renover-casale-masseria-sicile",
+      "cmsPath": "/fr/renover-casale-masseria-sicile",
+      "area": "villas",
+      "hash": "45ac4b695d27237d682d8ff9ff174e38d83e8c85b42f71c112f482164080101f",
+      "sourceHash": "87e5782a0ef7bb538d17cc4b3509547a49c796363dfcdab7d0774537416e1290",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "ville-vista-mare-chiavi-in-mano-cefalu",
+      "locale": "fr",
+      "path": "/fr/villas-vue-mer-cle-en-main-cefalu",
+      "cmsPath": "/fr/villas-vue-mer-cle-en-main-cefalu",
+      "area": "villas",
+      "hash": "933011b7c75ffc1f2820afe2d03f6259f0ff2a12158256d2ca0140158a007a81",
+      "sourceHash": "59ed59c26897d1e64a068c4e91635485f8a4576e3bb7186ac1e47b8350849b2d",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "palazzi-case-storiche-ristrutturare",
+      "locale": "fr",
+      "path": "/fr/maisons-historiques-palais-renovation",
+      "cmsPath": "/fr/maisons-historiques-palais-renovation",
+      "area": "villas",
+      "hash": "63fa04e2dfbf7ff424f11052e6807d1f3e7d81d5d06b0b5a331d700f73ca5dc6",
+      "sourceHash": "e9fd74f7a90e5ead8f56988701c774452cf84f39045d950860aa607442e0a611",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "piscine-pool-house-sicilia",
+      "locale": "fr",
+      "path": "/fr/piscine-pool-house-sicile",
+      "cmsPath": "/fr/piscine-pool-house-sicile",
+      "area": "outdoors",
+      "hash": "3c194d273cf25feafdde6379c27d0d7f5210ecf6b874925ca9af658203e56b1c",
+      "sourceHash": "c3cf315c3a687aca7ad8cf3a37530d4be0ba2cb45de05226d0972d2260cc22d0",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "terrazze-spazi-aperto-vista-mare",
+      "locale": "fr",
+      "path": "/fr/terrasses-vue-mer-sicile",
+      "cmsPath": "/fr/terrasses-vue-mer-sicile",
+      "area": "outdoors",
+      "hash": "821ea5811b170fd6aa7a64db967fa2df8793e5c06e6500cef7f3de12046951b4",
+      "sourceHash": "1f76cf08ae3261f6045aacaa43e1caa8b590f6bbf77628f730011794a921bfc2",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "sopralluogo-tecnico-acquisto-estero",
+      "locale": "fr",
+      "path": "/fr/visite-technique-avant-achat-etranger",
+      "cmsPath": "/fr/visite-technique-avant-achat-etranger",
+      "area": "investment",
+      "hash": "7810b57a5487c770c58c9a083b28cfe83f9cd292b791657f4be41df07a46a940",
+      "sourceHash": "10cbd8a3fde730720ad0dc7782cf45ead7c1c7219fc45eeca44a24788b7a50ae",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "costo-ristrutturare-casa-sicilia",
+      "locale": "fr",
+      "path": "/fr/cout-renovation-maison-sicile",
+      "cmsPath": "/fr/cout-renovation-maison-sicile",
+      "area": "investment",
+      "hash": "d26406b9afee255553ef57a7fb6cce5dadba7f8d9da6ce6ef340036cdb9a47c0",
+      "sourceHash": "928d0b73e17d988cb9fd2a5af61633b566adc5163e9defc3b599daba2cd45d64",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "casa-vacanza-design-gestione",
+      "locale": "fr",
+      "path": "/fr/maison-vacances-design-gestion-sicile",
+      "cmsPath": "/fr/maison-vacances-design-gestion-sicile",
+      "area": "investment",
+      "hash": "59b724c336393ff21942e2668b5c7d75b5881f414bd64b748e16775c0c9d0d6d",
+      "sourceHash": "f33d1b9c66be239b5cd6461635413a20c84f9ca2db4f04fd571420ccfc054aeb",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "fr",
+      "path": "/fr/acheter-et-renover-une-maison-a-cefalu-guide-technique-des-5-controles-essentiels/",
+      "cmsPath": "/fr/acheter-et-renover-une-maison-a-cefalu-guide-technique-des-5-controles-essentiels",
+      "area": "investment",
+      "hash": "2f76a690877ba2d7fafb03185aa05db6e8a22cabd3cdd169219125bc68207f65",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73",
+      "preparedAt": "2026-11-26",
+      "readOnlySeries": true,
+      "presentation": {
+        "seoTitle": "Acheter à Cefalù : vérifications avant l’acte",
+        "seoDescription": "Acheter à Cefalù : vérifications avant l’acte. Étapes, documents et vérifications pour les propriétaires à l’étranger, sans délai ni résultat garanti.",
+        "body": "<h2>Réunir documents et observations</h2><p>Acheter une maison à rénover en Sicile demande plus qu’une visite. Réunissez titres de propriété, données et plans cadastraux, autorisations de construire disponibles et documents des travaux antérieurs. Notaire et professionnels techniques ont des missions distinctes à préciser avant tout engagement.</p><h2>Ne pas confondre cadastre et urbanisme</h2><p>Un plan cadastral correspondant aux lieux ne prouve pas que toutes les transformations ont été autorisées. Le professionnel compare l’état réel aux titres pertinents et signale les pièces manquantes. Ne présumez pas qu’une régularisation soit possible ou automatique.</p><h2>Évaluer état et faisabilité</h2><p>Fissures, humidité ou finitions récentes ne suffisent pas à poser un diagnostic. Faites définir les investigations adaptées et vérifier les protections, le PRG et, le cas échéant, le Parc. Une estimation doit exposer hypothèses et exclusions ; notre devis suit une visite sur place.</p><h2>Examiner le cas concret</h2><p>Le cadre du bâtiment est le D.P.R. 380/2001 tel que reçu par la L.R. Sicilia 16/2016 et ses modifications. Vigueur et applicabilité doivent être contrôlées pour les travaux et le lieu.</p><p>Nos travaux se concentrent principalement dans un rayon d’environ 60 km autour de Cefalù, dans les Madonie et sur la côte ; au-delà, sur demande. Ce guide n’étend pas la zone des chantiers.</p><p>Ce guide apporte une orientation générale, non une expertise, une autorisation ou un devis.</p><p><a href=\"/fr/acheter-renover-louer-cefalu\">Acheter, rénover, louer</a> · <a href=\"/fr/local-building-area\">Services de bâtiment locaux</a></p><figure><img src=\"/media/editorial/project-diagram.png\" alt=\"Schéma illustratif des espaces et étapes d’un projet sans lieu réel représenté\" width=\"960\" height=\"320\" loading=\"lazy\" /><figcaption>Illustration schématique originale : ni bien réel, ni projet, ni chantier réalisé.</figcaption></figure><h2>Suivre le projet depuis l’étranger</h2><p>Le concepteur établit un métré détaillé par phases. Les SAL, états italiens d’avancement des travaux, sont documentés par des photos et un rapport du geometra ou de l’architecte chargé de la direction des travaux. Des nouvelles sont transmises par WhatsApp entre les phases. Modifications et urgences sont convenues avec le client et le directeur des travaux, en actualisant le métré et en précisant les conséquences sur le coût et le programme. Cela ne fixe ni fréquence, ni échéance, ni plan de paiement. Langue, procurations et accès restent à convenir.</p><p>Pour les lecteurs de France et de Belgique, le geometra italien ne se confond pas automatiquement avec un géomètre-expert français ou un géomètre-expert belge. Le cadastre ne prouve pas à lui seul la régularité urbanistique. L’acte notarié italien ne remplace pas les vérifications techniques.</p><p>Les chantiers concernent principalement Cefalù, les Madonie et la côte voisine ; les déplacements sont étudiés selon le projet. L’offre internationale de mobilier est distincte. Les traductions du site ne prouvent pas les langues parlées par votre interlocuteur.</p><p id=\"release-request\"><a href=\"/fr/request?service=local-building&amp;source=editorial-2026-11-26&amp;article=comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali\">Décrivez votre projet</a></p>",
+        "faq": [
+          {
+            "question": "La conformité cadastrale prouve-t-elle la conformité urbanistique ?",
+            "answer": "Non. Les titres et l’état réel doivent faire l’objet d’une vérification distincte."
+          },
+          {
+            "question": "Une fissure prouve-t-elle un danger ?",
+            "answer": "Son aspect seul ne permet pas d’en connaître la cause ou la gravité ; un professionnel décide des investigations nécessaires."
+          }
+        ]
+      },
+      "presentationHash": "9eb1eb4a4f361bccc45bb988c5e6add042882e7e7727a858f04244c3d15c4e89"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "locale": "fr",
+      "path": "/fr/permis-renovation-sicile-guide",
+      "cmsPath": "/fr/permis-renovation-sicile-guide",
+      "area": "investment",
+      "hash": "8f78cde3a055bd0aa1d50fa2ce09137ea97932edab4f09118decd4e8d947252f",
+      "sourceHash": "a9c9ca2a2cff3006f3ad5c1542721a6f4827993cbf44879ab30a3ae6ad619858",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "locale": "fr",
+      "path": "/fr/delais-renovation-cle-en-main-cefalu",
+      "cmsPath": "/fr/delais-renovation-cle-en-main-cefalu",
+      "area": "investment",
+      "hash": "021d30f3ab1a832a1ed36372def6aa0bdfc282aa4ef32987eec75b52a3fa7a38",
+      "sourceHash": "b3ae2b50282580e14b4286d5b34ba1ee26846aecfeeacb8e46bd5caba77c6a2c",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "locale": "fr",
+      "path": "/fr/renovation-a-distance-suivi-chantier-expatries",
+      "cmsPath": "/fr/renovation-a-distance-suivi-chantier-expatries",
+      "area": "investment",
+      "hash": "03bf68f8dc6857cda40e561900fc8cfc09be1c4060706e4c02f2bb78c9f91dff",
+      "sourceHash": "2f46382ce199006b3e2102df3142a8de740619abdc1ec2c888994a6d69f6d7fc",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "locale": "fr",
+      "path": "/fr/tables-mobilier-sur-mesure-beton-microbeton",
+      "cmsPath": "/fr/tables-mobilier-sur-mesure-beton-microbeton",
+      "area": "surfaces",
+      "hash": "c8a45ad448967a79d66439accd428345b44904dffab89652b6bc26ff89911325",
+      "sourceHash": "cbb86f50ef19154f47feb847f6d7f3c3df71e2d19afc75e8d549015638c285a7",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "locale": "fr",
+      "path": "/fr/maisons-vacances-travaux-hors-saison-reouverture",
+      "cmsPath": "/fr/maisons-vacances-travaux-hors-saison-reouverture",
+      "area": "investment",
+      "hash": "b494c4c916b87a107902bc393bc7bb2e8c9722eb2c4cbb3bd8c5f41f188c0886",
+      "sourceHash": "31d967714f0e58484d814de5b0bb93baca99aa2ef1ad01fb96c4e7abc6e84458",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "recuperare-casale-masseria-sicilia",
+      "locale": "nl",
+      "path": "/nl/casale-masseria-sicilie-herstellen",
+      "cmsPath": "/nl/casale-masseria-sicilie-herstellen",
+      "area": "villas",
+      "hash": "38e0ef2418f462d285046140c8a5a253bbcc3fd94c824443ba451352f659dc1b",
+      "sourceHash": "87e5782a0ef7bb538d17cc4b3509547a49c796363dfcdab7d0774537416e1290",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "ville-vista-mare-chiavi-in-mano-cefalu",
+      "locale": "nl",
+      "path": "/nl/sleutelklare-villas-zeezicht-cefalu",
+      "cmsPath": "/nl/sleutelklare-villas-zeezicht-cefalu",
+      "area": "villas",
+      "hash": "a99772f06dca2147d99bad388dbb4257fa5f684abfef2b3f583944f417a2e9b3",
+      "sourceHash": "59ed59c26897d1e64a068c4e91635485f8a4576e3bb7186ac1e47b8350849b2d",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "palazzi-case-storiche-ristrutturare",
+      "locale": "nl",
+      "path": "/nl/historische-huizen-palazzi-renoveren",
+      "cmsPath": "/nl/historische-huizen-palazzi-renoveren",
+      "area": "villas",
+      "hash": "2ab34c637893655b46254d0d6f0dc2e0495dc7b9eb0ebfd5d6f01bf3b35cf436",
+      "sourceHash": "e9fd74f7a90e5ead8f56988701c774452cf84f39045d950860aa607442e0a611",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "piscine-pool-house-sicilia",
+      "locale": "nl",
+      "path": "/nl/zwembad-poolhouse-sicilie",
+      "cmsPath": "/nl/zwembad-poolhouse-sicilie",
+      "area": "outdoors",
+      "hash": "f6558aafa7be4f9f2eab6d4301047c8342b9c1986f80f2e9ac2625f481659781",
+      "sourceHash": "c3cf315c3a687aca7ad8cf3a37530d4be0ba2cb45de05226d0972d2260cc22d0",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "terrazze-spazi-aperto-vista-mare",
+      "locale": "nl",
+      "path": "/nl/terrassen-zeezicht-sicilie",
+      "cmsPath": "/nl/terrassen-zeezicht-sicilie",
+      "area": "outdoors",
+      "hash": "f6c8503ac4b16743cc24bfda5a6c08e3bdbf67f7d19d0efbaec258f7becd620c",
+      "sourceHash": "1f76cf08ae3261f6045aacaa43e1caa8b590f6bbf77628f730011794a921bfc2",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "sopralluogo-tecnico-acquisto-estero",
+      "locale": "nl",
+      "path": "/nl/technische-bezichtiging-aankoop-buitenland",
+      "cmsPath": "/nl/technische-bezichtiging-aankoop-buitenland",
+      "area": "investment",
+      "hash": "684c3525922625b6c04634705372998f70bc1031c4a18ab1224619bf0e259d08",
+      "sourceHash": "10cbd8a3fde730720ad0dc7782cf45ead7c1c7219fc45eeca44a24788b7a50ae",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "costo-ristrutturare-casa-sicilia",
+      "locale": "nl",
+      "path": "/nl/renovatiekosten-sicilie-prijsfactoren",
+      "cmsPath": "/nl/renovatiekosten-sicilie-prijsfactoren",
+      "area": "investment",
+      "hash": "abf2f02690f24db6e86fc89d473ea7fe69440ba2146f5490a0a46019d74432c2",
+      "sourceHash": "928d0b73e17d988cb9fd2a5af61633b566adc5163e9defc3b599daba2cd45d64",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "casa-vacanza-design-gestione",
+      "locale": "nl",
+      "path": "/nl/design-vakantiehuis-beheer-sicilie",
+      "cmsPath": "/nl/design-vakantiehuis-beheer-sicilie",
+      "area": "investment",
+      "hash": "c13f7b4c1feb1f69bcd19a8a00f3efd108a0955e8163504c29fc29f3047dfc2f",
+      "sourceHash": "f33d1b9c66be239b5cd6461635413a20c84f9ca2db4f04fd571420ccfc054aeb",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "nl",
+      "path": "/nl/een-huis-kopen-en-renoveren-in-cefalu-technische-gids-voor-de-5-essentiele-controles/",
+      "cmsPath": "/nl/een-huis-kopen-en-renoveren-in-cefalu-technische-gids-voor-de-5-essentiele-controles",
+      "area": "investment",
+      "hash": "2713c29d852a5a567b525ff3143f3c8f8ea65ef253450ad06aafeb391e0ca56e",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73",
+      "preparedAt": "2026-11-26",
+      "readOnlySeries": true,
+      "presentation": {
+        "seoTitle": "Huis kopen in Cefalù: controles vóór de koopakte",
+        "seoDescription": "Huis kopen in Cefalù: controles vóór de koopakte. Fasen, documenten en controles voor eigenaars in het buitenland, zonder beloofde tijden of resultaten.",
+        "body": "<h2>Documenten én gebouw onderzoeken</h2><p>Een huis kopen op Sicilië om op te knappen vraagt meer dan een bezichtiging. Vraag eigendomsdocumenten, kadastrale gegevens en plattegronden, beschikbare bouwvergunningen en stukken over eerdere verbouwingen. Notaris en technische deskundigen hebben verschillende taken; maak hun opdrachten duidelijk voordat u verplichtingen aangaat.</p><h2>Kadaster is niet hetzelfde als bouwrecht</h2><p>Een overeenkomende kadastrale plattegrond bewijst niet dat elke verandering rechtsgeldig is toegestaan. Een bevoegde deskundige vergelijkt het werkelijke gebouw met de relevante bouwdocumenten en signaleert ontbrekende stukken of afwijkingen. Veronderstel niet dat legalisatie mogelijk is of automatisch volgt.</p><h2>Constructie, installaties en beperkingen</h2><p>Scheuren, vocht of nieuwe afwerkingen leveren op zichzelf geen diagnose. Laat bepalen welke inspecties geschikt zijn voor draagconstructie, dak en installaties. Beoordeel ook gemeentelijke planning, landschapsbescherming en eventuele parkregels; een verkoopadvertentie bevestigt de haalbaarheid van uw renovatie niet.</p><h2>Beslissen met zicht op onzekerheden</h2><p>Vraag schriftelijk welke punten zijn gecontroleerd en welke nog openstaan. Een kostenraming moet aannames en uitsluitingen vermelden; onze offerte volgt na een plaatsbezoek. Deze gids actualiseert de bestaande gidsfamilie over aankoop in Cefalù en vervangt geen notariële of technische controle.</p><h2>Beoordeel het concrete geval</h2><p>Het bouwrechtelijke kader is D.P.R. 380/2001 zoals overgenomen via L.R. Sicilia 16/2016 en latere wijzigingen. Geldigheid en toepasselijkheid moeten voor werk en locatie worden gecontroleerd.</p><p>Onze bouwactiviteiten liggen voornamelijk binnen circa 60 km van Cefalù, in de Madonie en langs de kust; daarbuiten op aanvraag. Deze gids vergroot het werkgebied niet.</p><p>Deze gids biedt algemene oriëntatie, geen keuring, vergunning of offerte.</p><p><a href=\"/nl/kopen-verbouwen-verhuren-cefalu\">Kopen &amp; verhuren</a> · <a href=\"/nl/local-building-area\">Lokale bouwdiensten</a></p><figure><img src=\"/media/editorial/project-diagram.png\" alt=\"Illustratief schema van projectruimten en stappen zonder een echte locatie af te beelden\" width=\"960\" height=\"320\" loading=\"lazy\" /><figcaption>Eigen schematische illustratie: geen werkelijk pand, project of uitgevoerd werk.</figcaption></figure><h2>Het project vanuit het buitenland volgen</h2><p>De ontwerper maakt een hoeveelhedenstaat, uitgesplitst per fase. De SAL, Italiaanse vaststellingen van de bouwvoortgang, worden vastgelegd met foto’s en een verslag van de geometra of architect die met de bouwleiding is belast. Tussendoor volgen WhatsApp-updates. Wijzigingen en spoedbeslissingen worden met klant en bouwleider afgesproken; de hoeveelhedenstaat en gevolgen voor kosten en planning worden bijgewerkt. Dit bepaalt geen vaste frequentie, termijn of betalingsschema. Taal, volmachten en toegang worden apart afgesproken.</p><p>Wie vanuit Nederland of België een huis op Sicilië overweegt, kan de Italiaanse geometra niet automatisch gelijkstellen aan een Nederlandse bouwkundige of Belgische landmeter-expert. Kadastrale gegevens en stedenbouwkundige regelmatigheid zijn verschillende controles. De Italiaanse notariële akte vervangt geen technisch onderzoek.</p><p>Bouwwerkzaamheden vinden vooral rond Cefalù, de Madonie en de nabijgelegen kust plaats; verdere verplaatsingen worden per project beoordeeld. Het internationale meubelaanbod staat hiervan los. Vertalingen bewijzen niet welke talen de contactpersoon spreekt.</p><p id=\"release-request\"><a href=\"/nl/request?service=local-building&amp;source=editorial-2026-11-26&amp;article=comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali\">Beschrijf uw project</a></p>",
+        "faq": [
+          {
+            "question": "Bewijst een juiste kadastrale plattegrond bouwrechtelijke conformiteit?",
+            "answer": "Nee. Vergunningen en de werkelijke toestand moeten afzonderlijk worden vergeleken."
+          },
+          {
+            "question": "Betekent een scheur dat een huis onveilig is?",
+            "answer": "Het uiterlijk alleen verklaart oorzaak of ernst niet. Een bevoegde deskundige bepaalt welk nader onderzoek nodig is."
+          }
+        ]
+      },
+      "presentationHash": "b5ba33ae8a5a2fb7ce6b8ce87c7b33cc7fb9d07de27650de79a9550a57c06a81"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "locale": "nl",
+      "path": "/nl/bouwvergunningen-sicilie",
+      "cmsPath": "/nl/bouwvergunningen-sicilie",
+      "area": "investment",
+      "hash": "b08d826209c9765bfdea1a1dfc3f557a5f9a72bde118eceedb3d6c84b5359fa4",
+      "sourceHash": "a9c9ca2a2cff3006f3ad5c1542721a6f4827993cbf44879ab30a3ae6ad619858",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "locale": "nl",
+      "path": "/nl/realistische-planning-turnkey-renovatie-cefalu",
+      "cmsPath": "/nl/realistische-planning-turnkey-renovatie-cefalu",
+      "area": "investment",
+      "hash": "77c23c52ea33d635e81b9388d45c6de6931e29777cd63c7c199dc1bdeec91e51",
+      "sourceHash": "b3ae2b50282580e14b4286d5b34ba1ee26846aecfeeacb8e46bd5caba77c6a2c",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "locale": "nl",
+      "path": "/nl/verbouwen-op-afstand-hoe-wij-de-bouwplaats-volgen-voor-wie-in-het-buitenland-woont",
+      "cmsPath": "/nl/verbouwen-op-afstand-hoe-wij-de-bouwplaats-volgen-voor-wie-in-het-buitenland-woont",
+      "area": "investment",
+      "hash": "4be38eeacfa54f6803cd1384b08dffaf7f320aac9d1606b25a39bdc8f73fed3b",
+      "sourceHash": "2f46382ce199006b3e2102df3142a8de740619abdc1ec2c888994a6d69f6d7fc",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "locale": "nl",
+      "path": "/nl/betonnen-meubels-op-maat",
+      "cmsPath": "/nl/betonnen-meubels-op-maat",
+      "area": "surfaces",
+      "hash": "6903fa316b695de75451f730dfd5ce716cbcf4c282e0e8a29b9f4c90910b74a7",
+      "sourceHash": "cbb86f50ef19154f47feb847f6d7f3c3df71e2d19afc75e8d549015638c285a7",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "locale": "nl",
+      "path": "/nl/vakantiewoningen-onderhoud-laagseizoen",
+      "cmsPath": "/nl/vakantiewoningen-onderhoud-laagseizoen",
+      "area": "investment",
+      "hash": "c391bed82ffa5d95f08060d946769aef85ffc20ce2b417f47f381dd772718cc0",
+      "sourceHash": "31d967714f0e58484d814de5b0bb93baca99aa2ef1ad01fb96c4e7abc6e84458",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "recuperare-casale-masseria-sicilia",
+      "locale": "es",
+      "path": "/es/recuperar-casale-masseria-sicilia",
+      "cmsPath": "/es/recuperar-casale-masseria-sicilia",
+      "area": "villas",
+      "hash": "ce9e9a7df3391de8fad6fde0379883af847c2ca00fc232e9458ca8ce0b2fb303",
+      "sourceHash": "87e5782a0ef7bb538d17cc4b3509547a49c796363dfcdab7d0774537416e1290",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "ville-vista-mare-chiavi-in-mano-cefalu",
+      "locale": "es",
+      "path": "/es/villas-vistas-mar-llave-mano-cefalu",
+      "cmsPath": "/es/villas-vistas-mar-llave-mano-cefalu",
+      "area": "villas",
+      "hash": "cf2c579114f0c878b18426000997f8355b96837072a658142b51437a729780b2",
+      "sourceHash": "59ed59c26897d1e64a068c4e91635485f8a4576e3bb7186ac1e47b8350849b2d",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "palazzi-case-storiche-ristrutturare",
+      "locale": "es",
+      "path": "/es/palacios-casas-historicas-reforma",
+      "cmsPath": "/es/palacios-casas-historicas-reforma",
+      "area": "villas",
+      "hash": "51082ceda56a6dd825f139ce1fdcc5e277865605533fb514d10c933048cb89a2",
+      "sourceHash": "e9fd74f7a90e5ead8f56988701c774452cf84f39045d950860aa607442e0a611",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "piscine-pool-house-sicilia",
+      "locale": "es",
+      "path": "/es/piscinas-pool-house-sicilia",
+      "cmsPath": "/es/piscinas-pool-house-sicilia",
+      "area": "outdoors",
+      "hash": "033c2d76671432fd8bdc315fce4da34dab1c1e0b474ec7b27f1aa5541c15e2bd",
+      "sourceHash": "c3cf315c3a687aca7ad8cf3a37530d4be0ba2cb45de05226d0972d2260cc22d0",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "terrazze-spazi-aperto-vista-mare",
+      "locale": "es",
+      "path": "/es/terrazas-vistas-mar-sicilia",
+      "cmsPath": "/es/terrazas-vistas-mar-sicilia",
+      "area": "outdoors",
+      "hash": "fc29bdd5e29dfc75cf67df22e6c35890d8e9802ef5a4c4eef097be26b5fa688a",
+      "sourceHash": "1f76cf08ae3261f6045aacaa43e1caa8b590f6bbf77628f730011794a921bfc2",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "sopralluogo-tecnico-acquisto-estero",
+      "locale": "es",
+      "path": "/es/visita-tecnica-compra-extranjero",
+      "cmsPath": "/es/visita-tecnica-compra-extranjero",
+      "area": "investment",
+      "hash": "ad49feed5dd2d3aa728eb25432b61756732ad0106410b26e203ed253fb1dc95c",
+      "sourceHash": "10cbd8a3fde730720ad0dc7782cf45ead7c1c7219fc45eeca44a24788b7a50ae",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "costo-ristrutturare-casa-sicilia",
+      "locale": "es",
+      "path": "/es/coste-reformar-casa-sicilia",
+      "cmsPath": "/es/coste-reformar-casa-sicilia",
+      "area": "investment",
+      "hash": "7497db36c612094d54f8029864ea191581545f554a12ec91f849dbb8bbc2777a",
+      "sourceHash": "928d0b73e17d988cb9fd2a5af61633b566adc5163e9defc3b599daba2cd45d64",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "casa-vacanza-design-gestione",
+      "locale": "es",
+      "path": "/es/casa-vacacional-diseno-gestion-sicilia",
+      "cmsPath": "/es/casa-vacacional-diseno-gestion-sicilia",
+      "area": "investment",
+      "hash": "cd0c3f1e0307406b663dbbf534276d3be93e0108f06b146f625a4aeefb452a0b",
+      "sourceHash": "f33d1b9c66be239b5cd6461635413a20c84f9ca2db4f04fd571420ccfc054aeb",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "es",
+      "path": "/es/comprar-y-renovar-casa-en-cefalu-guia-tecnica-de-los-5-controles-esenciales/",
+      "cmsPath": "/es/comprar-y-renovar-casa-en-cefalu-guia-tecnica-de-los-5-controles-esenciales",
+      "area": "investment",
+      "hash": "f195fd9d0a6e862f5f30007e261f9cdd06681f6407f2ff6cdffdec2308fd65ed",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73",
+      "preparedAt": "2026-11-26",
+      "readOnlySeries": true,
+      "presentation": {
+        "seoTitle": "Comprar en Cefalù: controles antes de la escritura",
+        "seoDescription": "Comprar en Cefalù: controles antes de la escritura. Fases, documentos y controles para propietarios en el extranjero, sin plazos ni resultados garantizados.",
+        "body": "<h2>Documentos y estado real</h2><p>Comprar casa para reformar en Sicilia requiere más que una visita. Solicita títulos de propiedad, datos y planos catastrales, permisos disponibles y documentos de obras anteriores. El notario y los profesionales técnicos tienen funciones distintas que conviene precisar antes de asumir compromisos.</p><h2>Catastro no equivale a legalidad urbanística</h2><p>Un plano catastral coincidente no demuestra que todas las modificaciones estén autorizadas. El profesional compara el inmueble con los títulos pertinentes y señala carencias o diferencias. No presupongas que una regularización sea posible ni automática.</p><h2>Condiciones y viabilidad</h2><p>Grietas, humedad o acabados nuevos no permiten un diagnóstico por sí solos. Encarga las inspecciones adecuadas y la comprobación de planeamiento, paisaje y eventual Parque. Una estimación debe indicar hipótesis y exclusiones; nuestro presupuesto se prepara después de la visita al inmueble.</p><h2>Evaluar el caso concreto</h2><p>El marco constructivo es el D.P.R. 380/2001 recibido mediante la L.R. Sicilia 16/2016 y sus modificaciones. Vigencia y aplicación deben comprobarse para la intervención y el lugar.</p><p>Trabajamos principalmente en un radio de unos 60 km de Cefalù, las Madonie y la costa; más lejos, bajo solicitud. Esta guía no amplía la zona de obras.</p><p>Esta guía ofrece orientación general, no un peritaje, una autorización ni un presupuesto.</p><p><a href=\"/es/comprar-reformar-alquilar-cefalu\">Comprar y alquilar</a> · <a href=\"/es/local-building-area\">Servicios de construcción locales</a></p><figure><img src=\"/media/editorial/project-diagram.png\" alt=\"Esquema ilustrativo de espacios y etapas de un proyecto sin representar un lugar real\" width=\"960\" height=\"320\" loading=\"lazy\" /><figcaption>Ilustración esquemática original: no representa un inmueble, proyecto u obra realizados.</figcaption></figure><h2>Seguir el proyecto desde el extranjero</h2><p>El proyectista prepara un estado de mediciones dividido en fases. Los SAL, estados italianos de avance de obra, se documentan con fotos e informe del geometra o arquitecto encargado de la dirección de obra. Entre fases se envían novedades por WhatsApp. Cambios y urgencias se acuerdan con el cliente y el director de obra, actualizando las mediciones y aclarando efectos económicos y de programación. No se deducen frecuencias, plazos ni planes de pago; idioma, poderes y acceso deben acordarse.</p><p>El catastro y la regularidad urbanística son comprobaciones distintas. El geometra y los procedimientos italianos deben entenderse en su contexto, sin equivalencias automáticas con profesiones o licencias extranjeras.</p><p>La construcción se concentra principalmente en Cefalù, las Madonie y la costa cercana; los desplazamientos se valoran por proyecto. La oferta internacional de mobiliario es distinta. Las traducciones no prueban los idiomas que habla el interlocutor.</p><p id=\"release-request\"><a href=\"/es/request?service=local-building&amp;source=editorial-2026-11-26&amp;article=comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali\">Describe tu proyecto</a></p>",
+        "faq": [
+          {
+            "question": "¿La conformidad catastral acredita la urbanística?",
+            "answer": "No. Los títulos y el estado real deben comprobarse de forma diferenciada."
+          },
+          {
+            "question": "¿Una grieta demuestra inseguridad?",
+            "answer": "Su aspecto no determina causa o gravedad. Un profesional competente decide los estudios necesarios."
+          }
+        ]
+      },
+      "presentationHash": "2e5e80767931ddafa2b53a78a9430095de6a6e0f141ab6b5f99433718547a818"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "locale": "es",
+      "path": "/es/permisos-para-remodelar-en-sicilia-explicados",
+      "cmsPath": "/es/permisos-para-remodelar-en-sicilia-explicados",
+      "area": "investment",
+      "hash": "2cedb66defe6c36466fa29467ef1b17e894f5aff9614acba3670655cff800d8d",
+      "sourceHash": "a9c9ca2a2cff3006f3ad5c1542721a6f4827993cbf44879ab30a3ae6ad619858",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "locale": "es",
+      "path": "/es/plazos-reforma-llave-en-mano-cefalu",
+      "cmsPath": "/es/plazos-reforma-llave-en-mano-cefalu",
+      "area": "investment",
+      "hash": "f1031a3ac13767f081cd84d8eb40dc9770c37ecbcbe3c1262831497d7279b5d8",
+      "sourceHash": "b3ae2b50282580e14b4286d5b34ba1ee26846aecfeeacb8e46bd5caba77c6a2c",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "locale": "es",
+      "path": "/es/remodelar-a-distancia-gestion-de-obra-para-residentes-en-el-extranjero",
+      "cmsPath": "/es/remodelar-a-distancia-gestion-de-obra-para-residentes-en-el-extranjero",
+      "area": "investment",
+      "hash": "e5b5ab9d20ad2aea329318cd2267006590ab5b7a2b6adcca540692dee220877b",
+      "sourceHash": "2f46382ce199006b3e2102df3142a8de740619abdc1ec2c888994a6d69f6d7fc",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "locale": "es",
+      "path": "/es/mesas-y-mobiliario-a-medida-en-cemento-y-microcemento",
+      "cmsPath": "/es/mesas-y-mobiliario-a-medida-en-cemento-y-microcemento",
+      "area": "surfaces",
+      "hash": "dd6132fbc9f5a0a528b21dcbb9ff384c8751adeba76027bb2f8972f5c6c47825",
+      "sourceHash": "cbb86f50ef19154f47feb847f6d7f3c3df71e2d19afc75e8d549015638c285a7",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "locale": "es",
+      "path": "/es/casa-vacacional-planificacion-fuera-de-temporada",
+      "cmsPath": "/es/casa-vacacional-planificacion-fuera-de-temporada",
+      "area": "investment",
+      "hash": "86ea75da2211651699e7a268b797de95b73a3e50bbdbed4b980532b4831646e5",
+      "sourceHash": "31d967714f0e58484d814de5b0bb93baca99aa2ef1ad01fb96c4e7abc6e84458",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "recuperare-casale-masseria-sicilia",
+      "locale": "pt",
+      "path": "/pt/recuperar-casale-masseria-sicilia",
+      "cmsPath": "/pt/recuperar-casale-masseria-sicilia",
+      "area": "villas",
+      "hash": "2876b3d431b151e33cee831cd912214d6da72609f292bc53f55479975db94228",
+      "sourceHash": "87e5782a0ef7bb538d17cc4b3509547a49c796363dfcdab7d0774537416e1290",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "ville-vista-mare-chiavi-in-mano-cefalu",
+      "locale": "pt",
+      "path": "/pt/moradias-vista-mar-chave-mao-cefalu",
+      "cmsPath": "/pt/moradias-vista-mar-chave-mao-cefalu",
+      "area": "villas",
+      "hash": "38e776f8704fd0de6dcb2a325304f107892c69af467d939aa81227c011c55b98",
+      "sourceHash": "59ed59c26897d1e64a068c4e91635485f8a4576e3bb7186ac1e47b8350849b2d",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "palazzi-case-storiche-ristrutturare",
+      "locale": "pt",
+      "path": "/pt/palacios-casas-historicas-renovar",
+      "cmsPath": "/pt/palacios-casas-historicas-renovar",
+      "area": "villas",
+      "hash": "aa65b96fa2769947ab170cd196ddd6b8be54be124afe0200d2daf0278e4a5bb0",
+      "sourceHash": "e9fd74f7a90e5ead8f56988701c774452cf84f39045d950860aa607442e0a611",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "piscine-pool-house-sicilia",
+      "locale": "pt",
+      "path": "/pt/piscinas-pool-house-sicilia",
+      "cmsPath": "/pt/piscinas-pool-house-sicilia",
+      "area": "outdoors",
+      "hash": "4b2e5ef9b9876fc3e3855cfc0b9c1eafe37e5bb10e7bfcc6d8886f73500652f8",
+      "sourceHash": "c3cf315c3a687aca7ad8cf3a37530d4be0ba2cb45de05226d0972d2260cc22d0",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "terrazze-spazi-aperto-vista-mare",
+      "locale": "pt",
+      "path": "/pt/terracos-vista-mar-sicilia",
+      "cmsPath": "/pt/terracos-vista-mar-sicilia",
+      "area": "outdoors",
+      "hash": "e17dcad4a41446989d929998a322c70a09c730e18d4950024ee76d45f1fc12ab",
+      "sourceHash": "1f76cf08ae3261f6045aacaa43e1caa8b590f6bbf77628f730011794a921bfc2",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "sopralluogo-tecnico-acquisto-estero",
+      "locale": "pt",
+      "path": "/pt/visita-tecnica-compra-estrangeiro",
+      "cmsPath": "/pt/visita-tecnica-compra-estrangeiro",
+      "area": "investment",
+      "hash": "f88ae34a58be7523e8f3599aa4487bdd36a69794c02c1dec293f3bf2ba8b7ae3",
+      "sourceHash": "10cbd8a3fde730720ad0dc7782cf45ead7c1c7219fc45eeca44a24788b7a50ae",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "costo-ristrutturare-casa-sicilia",
+      "locale": "pt",
+      "path": "/pt/custo-renovar-casa-sicilia",
+      "cmsPath": "/pt/custo-renovar-casa-sicilia",
+      "area": "investment",
+      "hash": "9f12c3690794befe61050c42750d0a0f6fe338e5d5cb4f042d44e3ea01025899",
+      "sourceHash": "928d0b73e17d988cb9fd2a5af61633b566adc5163e9defc3b599daba2cd45d64",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "casa-vacanza-design-gestione",
+      "locale": "pt",
+      "path": "/pt/casa-ferias-design-gestao-sicilia",
+      "cmsPath": "/pt/casa-ferias-design-gestao-sicilia",
+      "area": "investment",
+      "hash": "c48d936ab18db852a78dd2d61207d3fcd1e416e0beeb60a77007ff90a761fb19",
+      "sourceHash": "f33d1b9c66be239b5cd6461635413a20c84f9ca2db4f04fd571420ccfc054aeb",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "pt",
+      "path": "/pt/comprar-e-reformar-casa-em-cefalu-guia-tecnica-dos-5-controles-essenciais/",
+      "cmsPath": "/pt/comprar-e-reformar-casa-em-cefalu-guia-tecnica-dos-5-controles-essenciais",
+      "area": "investment",
+      "hash": "81a79ca6bcf1997962fb335605e9448db931e9524b51d5904310ef5b022d9f4b",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73",
+      "preparedAt": "2026-11-26",
+      "readOnlySeries": true,
+      "presentation": {
+        "seoTitle": "Comprar em Cefalù: verificações antes da escritura",
+        "seoDescription": "Comprar em Cefalù: verificações antes da escritura. Fases, documentos e verificações para proprietários no estrangeiro, sem prazos ou resultados garantidos.",
+        "body": "<h2>Reunir documentos e observações</h2><p>Comprar casa para renovar na Sicília exige mais do que uma visita. Peça títulos de propriedade, dados e plantas cadastrais, autorizações disponíveis e documentos de obras anteriores. Notário e profissionais técnicos têm funções distintas, a esclarecer antes de assumir compromissos.</p><h2>Não confundir verificações</h2><p>Uma planta cadastral coincidente não prova a legalidade urbanística de todas as alterações. O técnico compara o estado real com os títulos pertinentes e identifica lacunas. Fissuras e humidade não permitem diagnósticos só pela aparência. Verifique também planeamento, paisagem e eventual Parque; o nosso orçamento segue uma visita ao imóvel.</p><h2>Avaliar o caso concreto</h2><p>O enquadramento é o D.P.R. 380/2001 recebido pela L.R. Sicilia 16/2016 e alterações posteriores. Vigência e aplicação devem ser verificadas para a intervenção e o local.</p><p>Trabalhamos principalmente num raio de cerca de 60 km de Cefalù, Madonie e costa; além disso, mediante pedido. A orientação não alarga a área de obras.</p><p>Este guia oferece orientação geral, não uma perícia, autorização ou orçamento.</p><p><a href=\"/pt/comprar-renovar-arrendar-cefalu\">Comprar e arrendar</a> · <a href=\"/pt/local-building-area\">Serviços de construção locais</a></p><figure><img src=\"/media/editorial/project-diagram.png\" alt=\"Esquema ilustrativo dos espaços e etapas de um projeto sem representar um local real\" width=\"960\" height=\"320\" loading=\"lazy\" /><figcaption>Ilustração esquemática original: não representa um imóvel, projeto ou obra realizados.</figcaption></figure><h2>Acompanhar o projeto a partir do estrangeiro</h2><p>O projetista prepara um mapa de quantidades dividido em fases. Os SAL, estados italianos de avanço dos trabalhos, são documentados com fotografias e relatório do geometra ou arquiteto responsável pela direção dos trabalhos. Entre fases há atualizações por WhatsApp. Alterações e urgências são acordadas com o cliente e o diretor dos trabalhos, atualizando o mapa e esclarecendo efeitos nos custos e no programa. Isto não define periodicidade, prazos ou plano de pagamentos; idioma, procurações e acessos são acordados.</p><p>Os dados cadastrais e a regularidade urbanística são verificações distintas. O geometra e os procedimentos italianos não são automaticamente equivalentes a profissões ou licenças de outros países.</p><p>As obras concentram-se sobretudo em Cefalù, nas Madonie e na costa próxima; deslocações são avaliadas por projeto. A oferta internacional de mobiliário é distinta. As traduções não comprovam os idiomas falados pelo interlocutor.</p><p id=\"release-request\"><a href=\"/pt/request?service=local-building&amp;source=editorial-2026-11-26&amp;article=comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali\">Descreva o seu projeto</a></p>",
+        "faq": [
+          {
+            "question": "A conformidade cadastral prova a urbanística?",
+            "answer": "Não. Os títulos e o estado real exigem uma verificação distinta."
+          },
+          {
+            "question": "É garantida a regularização de alterações antigas?",
+            "answer": "Não. A possibilidade de regularização necessita de avaliação própria e não deve ser presumida."
+          }
+        ]
+      },
+      "presentationHash": "cfff0d76b6c951d4f3f01360642403d98a153df5877e8c7e121d33d2e9e6ad7c"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "locale": "pt",
+      "path": "/pt/permissoes-remodelacao-sicilia",
+      "cmsPath": "/pt/permissoes-remodelacao-sicilia",
+      "area": "investment",
+      "hash": "82b66aa427b0c98a967d9e1bdbd76ed69b8d71480483c3baf83a6d9a3035751b",
+      "sourceHash": "a9c9ca2a2cff3006f3ad5c1542721a6f4827993cbf44879ab30a3ae6ad619858",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "locale": "pt",
+      "path": "/pt/prazos-realistas-remodelacao-chave-na-mao-cefalu",
+      "cmsPath": "/pt/prazos-realistas-remodelacao-chave-na-mao-cefalu",
+      "area": "investment",
+      "hash": "abe8d016ee3fa33aab638bd2542f48b33356be18234b399da2e32e5251708fd5",
+      "sourceHash": "b3ae2b50282580e14b4286d5b34ba1ee26846aecfeeacb8e46bd5caba77c6a2c",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "locale": "pt",
+      "path": "/pt/reformar-a-distancia-gestao-de-obra",
+      "cmsPath": "/pt/reformar-a-distancia-gestao-de-obra",
+      "area": "investment",
+      "hash": "06191e173027a3e6c9ed7231d109ab5c9519f0dc409f0e055f3506de396e6ee4",
+      "sourceHash": "2f46382ce199006b3e2102df3142a8de740619abdc1ec2c888994a6d69f6d7fc",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "locale": "pt",
+      "path": "/pt/mesas-e-mobiliario-por-medida-em-betao-e-microbetao",
+      "cmsPath": "/pt/mesas-e-mobiliario-por-medida-em-betao-e-microbetao",
+      "area": "surfaces",
+      "hash": "c398fd137b283ef04efe0332e93577d609fadcf772c8f1b5479f35171c5c196e",
+      "sourceHash": "cbb86f50ef19154f47feb847f6d7f3c3df71e2d19afc75e8d549015638c285a7",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "locale": "pt",
+      "path": "/pt/casas-de-ferias-planeamento-obras-fora-de-epoca",
+      "cmsPath": "/pt/casas-de-ferias-planeamento-obras-fora-de-epoca",
+      "area": "investment",
+      "hash": "16e3e4362f94f93fa74770387191fb7beb5483fa151b8875fde8faf8a0ea92a0",
+      "sourceHash": "31d967714f0e58484d814de5b0bb93baca99aa2ef1ad01fb96c4e7abc6e84458",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "recuperare-casale-masseria-sicilia",
+      "locale": "ru",
+      "path": "/ru/vosstanovlenie-selskogo-doma-siciliya",
+      "cmsPath": "/ru/vosstanovlenie-selskogo-doma-siciliya",
+      "area": "villas",
+      "hash": "1ead964d0b3a011765fa7925878845a78e134e18c43eaddb3759ebea2971e6d2",
+      "sourceHash": "87e5782a0ef7bb538d17cc4b3509547a49c796363dfcdab7d0774537416e1290",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "ville-vista-mare-chiavi-in-mano-cefalu",
+      "locale": "ru",
+      "path": "/ru/villy-vid-more-pod-klyuch-chefalu",
+      "cmsPath": "/ru/villy-vid-more-pod-klyuch-chefalu",
+      "area": "villas",
+      "hash": "0348ac355b826ed1571c4ce0f6443fcd5b650f3893734e371d134c3c6d4e7ced",
+      "sourceHash": "59ed59c26897d1e64a068c4e91635485f8a4576e3bb7186ac1e47b8350849b2d",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "palazzi-case-storiche-ristrutturare",
+      "locale": "ru",
+      "path": "/ru/istoricheskie-doma-palacco-rekonstrukciya",
+      "cmsPath": "/ru/istoricheskie-doma-palacco-rekonstrukciya",
+      "area": "villas",
+      "hash": "ce2fcd0f7e6493477a6931667b1819f603254d0404d04f46b62af3df1937ee6d",
+      "sourceHash": "e9fd74f7a90e5ead8f56988701c774452cf84f39045d950860aa607442e0a611",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "piscine-pool-house-sicilia",
+      "locale": "ru",
+      "path": "/ru/bassejn-pool-house-siciliya",
+      "cmsPath": "/ru/bassejn-pool-house-siciliya",
+      "area": "outdoors",
+      "hash": "5da63bfb78738193f50ea56afd8d7cf3ac0c9df417cf94c5e84406c2f1fd6587",
+      "sourceHash": "c3cf315c3a687aca7ad8cf3a37530d4be0ba2cb45de05226d0972d2260cc22d0",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "terrazze-spazi-aperto-vista-mare",
+      "locale": "ru",
+      "path": "/ru/terrasy-vid-more-siciliya",
+      "cmsPath": "/ru/terrasy-vid-more-siciliya",
+      "area": "outdoors",
+      "hash": "2a6cd90bd263c5b663fd880c680279c74dd185e71adfd94d56737fd89bfed6b0",
+      "sourceHash": "1f76cf08ae3261f6045aacaa43e1caa8b590f6bbf77628f730011794a921bfc2",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "sopralluogo-tecnico-acquisto-estero",
+      "locale": "ru",
+      "path": "/ru/tehnicheskij-osmotr-pokupka-iz-za-rubezha",
+      "cmsPath": "/ru/tehnicheskij-osmotr-pokupka-iz-za-rubezha",
+      "area": "investment",
+      "hash": "394bb3b14970824661a90bcc34ec60551d1089478ac8f4fd02a26a3e66b1f180",
+      "sourceHash": "10cbd8a3fde730720ad0dc7782cf45ead7c1c7219fc45eeca44a24788b7a50ae",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "costo-ristrutturare-casa-sicilia",
+      "locale": "ru",
+      "path": "/ru/stoimost-remonta-doma-siciliya",
+      "cmsPath": "/ru/stoimost-remonta-doma-siciliya",
+      "area": "investment",
+      "hash": "8e3b61fb68bfd265826b626b702aab5ab3d1edf9254783765f40068b11c639ad",
+      "sourceHash": "928d0b73e17d988cb9fd2a5af61633b566adc5163e9defc3b599daba2cd45d64",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "casa-vacanza-design-gestione",
+      "locale": "ru",
+      "path": "/ru/dom-otdyha-dizajn-upravlenie-siciliya",
+      "cmsPath": "/ru/dom-otdyha-dizajn-upravlenie-siciliya",
+      "area": "investment",
+      "hash": "964881fadb51f4de500ae311e5e2ffaab7af2f15b5582380a8719f86c4c9251c",
+      "sourceHash": "f33d1b9c66be239b5cd6461635413a20c84f9ca2db4f04fd571420ccfc054aeb",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "ru",
+      "path": "/ru/pokupka-i-remont-doma-v-chefalu-tehnicheskoe-rukovodstvo-po-5-osnovnym-proverkam/",
+      "cmsPath": "/ru/pokupka-i-remont-doma-v-chefalu-tehnicheskoe-rukovodstvo-po-5-osnovnym-proverkam",
+      "area": "investment",
+      "hash": "3d2b20c3c484ae016a955355be02ea1352be2bb59bbb6161b48a3b4cc30bbdc8",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73",
+      "preparedAt": "2026-11-26",
+      "readOnlySeries": true,
+      "presentation": {
+        "seoTitle": "Покупка дома в Чефалу: проверки до договора",
+        "seoDescription": "Покупка дома в Чефалу: проверки до договора. Этапы, документы и проверки для владельцев за рубежом, без обещаний сроков или результата.",
+        "body": "<h2>Собрать документы и наблюдения</h2><p>Покупка дома на Сицилии под ремонт требует не только осмотра. Запросите документы о собственности, кадастровые сведения и планы, имеющиеся разрешения и документы прежних работ. У нотариуса и технических специалистов разные задачи, которые нужно определить до принятия обязательств.</p><h2>Не смешивать разные проверки</h2><p>Совпадающий кадастровый план не доказывает законность всех изменений. Специалист сопоставляет фактическое состояние с надлежащими документами и отмечает пробелы. Трещины или влажность сами по себе не дают диагноза. Проверьте также планирование, ландшафт и возможные требования Парка; наше предложение готовится после осмотра.</p><h2>Оценить конкретный случай</h2><p>Основа строительного регулирования — D.P.R. 380/2001, принятый через L.R. Sicilia 16/2016 и последующие изменения. Актуальность и применимость проверяются для работ и места.</p><p>Строительные работы выполняются главным образом примерно в пределах 60 км от Чефалу, в Мадоние и на побережье; дальше — по запросу. Статья не расширяет территорию строек.</p><p>Статья даёт общие ориентиры, а не экспертизу, разрешение или сметное предложение.</p><p><a href=\"/ru/kupit-remontirovat-sdavat-chefalu\">Купить и сдавать</a> · <a href=\"/ru/local-building-area\">Местные строительные услуги</a></p><figure><img src=\"/media/editorial/project-diagram.png\" alt=\"Условная схема пространств и этапов проекта без изображения реального места\" width=\"960\" height=\"320\" loading=\"lazy\" /><figcaption>Оригинальная схематическая иллюстрация: не реальный объект, проект или выполненная работа.</figcaption></figure><h2>Как следить за проектом из-за рубежа</h2><p>Проектировщик составляет ведомость объёмов работ по этапам. SAL, итальянские документы о ходе работ, подтверждаются фотографиями и отчётом geometra или архитектора, назначенного руководителем работ. Между этапами используются сообщения WhatsApp. Изменения и срочные решения согласуются с заказчиком и руководителем работ с обновлением ведомости и уточнением влияния на стоимость и программу. Это не задаёт периодичность, сроки или график платежей; язык общения, доверенности и доступ согласуются отдельно.</p><p>Кадастровые сведения и строительная законность проверяются отдельно. Итальянский geometra и местные процедуры не должны автоматически приравниваться к иностранным профессиям и разрешениям.</p><p>Строительные работы сосредоточены главным образом в Чефалу, Мадоние и на соседнем побережье; выезд оценивается для каждого проекта. Международное предложение мебели рассматривается отдельно. Переводы сайта не подтверждают языки общения сотрудников.</p><p id=\"release-request\"><a href=\"/ru/request?service=local-building&amp;source=editorial-2026-11-26&amp;article=comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali\">Опишите ваш проект</a></p>",
+        "faq": [
+          {
+            "question": "Кадастровое соответствие доказывает строительную законность?",
+            "answer": "Нет. Разрешения и фактическое состояние требуют отдельного сопоставления."
+          },
+          {
+            "question": "Можно ли гарантировать узаконивание старых изменений?",
+            "answer": "Нет. Возможность нужно оценивать отдельно, не предполагая автоматического результата."
+          }
+        ]
+      },
+      "presentationHash": "9e2e013a3c563eb4dc2cd952ede4db01305c53825cd53fb1e06441bb3763fabb"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "locale": "ru",
+      "path": "/ru/razresheniya-na-remont-v-sicily",
+      "cmsPath": "/ru/razresheniya-na-remont-v-sicily",
+      "area": "investment",
+      "hash": "618869b69ee8004a725078c048a3f67ab5735cc9da467eee9252afc7bd7ff033",
+      "sourceHash": "a9c9ca2a2cff3006f3ad5c1542721a6f4827993cbf44879ab30a3ae6ad619858",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "locale": "ru",
+      "path": "/ru/realistichnye-sroki-remonta-pod-klyuch-v-chefalu",
+      "cmsPath": "/ru/realistichnye-sroki-remonta-pod-klyuch-v-chefalu",
+      "area": "investment",
+      "hash": "740aafae94a63bca659bf6295a8de25f5fe27b85868a54ba7f95942d39a71a41",
+      "sourceHash": "b3ae2b50282580e14b4286d5b34ba1ee26846aecfeeacb8e46bd5caba77c6a2c",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "locale": "ru",
+      "path": "/ru/remont-iz-za-granitsy-upravlenie-stroitelstvom",
+      "cmsPath": "/ru/remont-iz-za-granitsy-upravlenie-stroitelstvom",
+      "area": "investment",
+      "hash": "c3e02ef5f8a99dcf6af4f162f027956e6731405c8f495ba3eb79aeb38d75928a",
+      "sourceHash": "2f46382ce199006b3e2102df3142a8de740619abdc1ec2c888994a6d69f6d7fc",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "locale": "ru",
+      "path": "/ru/betonnye-i-mikrotsementnye-stoly-i-mebel-na-zakaz",
+      "cmsPath": "/ru/betonnye-i-mikrotsementnye-stoly-i-mebel-na-zakaz",
+      "area": "surfaces",
+      "hash": "2727872dbc029082291b2ccace05fb83fdd6d71f6033a4f53c9618620c426aec",
+      "sourceHash": "cbb86f50ef19154f47feb847f6d7f3c3df71e2d19afc75e8d549015638c285a7",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "locale": "ru",
+      "path": "/ru/doma-dlya-otpuska-planirovanie-remonta-v-mezhsezone",
+      "cmsPath": "/ru/doma-dlya-otpuska-planirovanie-remonta-v-mezhsezone",
+      "area": "investment",
+      "hash": "c065f9905cf8ff883e0acb355924068ff9dbc88ef3fdc6faef9fa39ad0f0d5ad",
+      "sourceHash": "31d967714f0e58484d814de5b0bb93baca99aa2ef1ad01fb96c4e7abc6e84458",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "recuperare-casale-masseria-sicilia",
+      "locale": "pl",
+      "path": "/pl/odnowienie-casale-masserii-sycylia",
+      "cmsPath": "/pl/odnowienie-casale-masserii-sycylia",
+      "area": "villas",
+      "hash": "04f982751aa631b5c331139351f8a2e5c8565a15276963f1dad8450fb68a3977",
+      "sourceHash": "87e5782a0ef7bb538d17cc4b3509547a49c796363dfcdab7d0774537416e1290",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "ville-vista-mare-chiavi-in-mano-cefalu",
+      "locale": "pl",
+      "path": "/pl/wille-widok-morze-pod-klucz-cefalu",
+      "cmsPath": "/pl/wille-widok-morze-pod-klucz-cefalu",
+      "area": "villas",
+      "hash": "f5bede036e82ddc0210169e5d4bd8c18bf73114bc9535c6798bab06770902f31",
+      "sourceHash": "59ed59c26897d1e64a068c4e91635485f8a4576e3bb7186ac1e47b8350849b2d",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "palazzi-case-storiche-ristrutturare",
+      "locale": "pl",
+      "path": "/pl/historyczne-domy-palazzi-remont",
+      "cmsPath": "/pl/historyczne-domy-palazzi-remont",
+      "area": "villas",
+      "hash": "cfaf89fb2b1903e59903086b3e851849e1775c82fde7d55e06eb5925af170dc2",
+      "sourceHash": "e9fd74f7a90e5ead8f56988701c774452cf84f39045d950860aa607442e0a611",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "piscine-pool-house-sicilia",
+      "locale": "pl",
+      "path": "/pl/basen-pool-house-sycylia",
+      "cmsPath": "/pl/basen-pool-house-sycylia",
+      "area": "outdoors",
+      "hash": "029ad2e35cf11314c0129d7264122e41372f00d888fa91b02f077a5800df7724",
+      "sourceHash": "c3cf315c3a687aca7ad8cf3a37530d4be0ba2cb45de05226d0972d2260cc22d0",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "terrazze-spazi-aperto-vista-mare",
+      "locale": "pl",
+      "path": "/pl/tarasy-widok-morze-sycylia",
+      "cmsPath": "/pl/tarasy-widok-morze-sycylia",
+      "area": "outdoors",
+      "hash": "b754e71e5b1d83f6a822de988e94e2a42ae98a5e3a1bc18c24b9984eda28d5ae",
+      "sourceHash": "1f76cf08ae3261f6045aacaa43e1caa8b590f6bbf77628f730011794a921bfc2",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "sopralluogo-tecnico-acquisto-estero",
+      "locale": "pl",
+      "path": "/pl/ogledziny-techniczne-zakup-zagranica",
+      "cmsPath": "/pl/ogledziny-techniczne-zakup-zagranica",
+      "area": "investment",
+      "hash": "8b71abc7fefcb854b6612d303680c5f525cda934138e8d6e5c70ffd9a2aab5e5",
+      "sourceHash": "10cbd8a3fde730720ad0dc7782cf45ead7c1c7219fc45eeca44a24788b7a50ae",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "costo-ristrutturare-casa-sicilia",
+      "locale": "pl",
+      "path": "/pl/koszt-remontu-domu-sycylia",
+      "cmsPath": "/pl/koszt-remontu-domu-sycylia",
+      "area": "investment",
+      "hash": "4ed8e78444f7d960d150151585eb6fc3a5410b5183c7a3d70bad87d824f2c1fe",
+      "sourceHash": "928d0b73e17d988cb9fd2a5af61633b566adc5163e9defc3b599daba2cd45d64",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "casa-vacanza-design-gestione",
+      "locale": "pl",
+      "path": "/pl/dom-wakacyjny-design-zarzadzanie",
+      "cmsPath": "/pl/dom-wakacyjny-design-zarzadzanie",
+      "area": "investment",
+      "hash": "6adff887710c8a80c5c0a80fc69cb5a997b27a81a94b2e68d3994a92d0b4a3b9",
+      "sourceHash": "f33d1b9c66be239b5cd6461635413a20c84f9ca2db4f04fd571420ccfc054aeb",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "pl",
+      "path": "/pl/kupno-i-remont-domu-w-cefalu-techniczny-przewodnik-po-5-kluczowych-kontrolach/",
+      "cmsPath": "/pl/kupno-i-remont-domu-w-cefalu-techniczny-przewodnik-po-5-kluczowych-kontrolach",
+      "area": "investment",
+      "hash": "2b4f1b84c6379064602db2fa47afa9a5884eca1827b711133881249493ca0c14",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73",
+      "preparedAt": "2026-11-26",
+      "readOnlySeries": true,
+      "presentation": {
+        "seoTitle": "Zakup domu w Cefalù: kontrole przed aktem",
+        "seoDescription": "Zakup domu w Cefalù: kontrole przed aktem. Etapy, dokumenty i kontrole dla właścicieli za granicą, bez obietnic terminów i rezultatów.",
+        "body": "<h2>Zgromadź dokumenty i obserwacje</h2><p>Kupno domu do remontu na Sycylii wymaga więcej niż oględzin. Poproś o dokumenty własności, dane i plany katastralne, dostępne pozwolenia oraz dokumenty wcześniejszych prac. Notariusz i specjaliści techniczni mają różne zadania, które trzeba ustalić przed zobowiązaniem.</p><h2>Nie utożsamiaj kontroli</h2><p>Zgodny plan katastralny nie dowodzi legalności wszystkich zmian budowlanych. Specjalista porównuje stan rzeczywisty z właściwymi dokumentami i wskazuje braki. Pęknięcia lub wilgoć nie wystarczą do diagnozy. Sprawdź też planowanie, krajobraz i ewentualne zasady Parku; nasza wycena następuje po oględzinach.</p><h2>Oceń konkretny przypadek</h2><p>Podstawą jest D.P.R. 380/2001 przyjęty przez L.R. Sicilia 16/2016 i późniejsze zmiany. Aktualność i zastosowanie trzeba sprawdzić dla prac i lokalizacji.</p><p>Prace budowlane wykonujemy głównie w promieniu około 60 km od Cefalù, w Madonie i na wybrzeżu; dalej na zapytanie. Poradnik nie rozszerza obszaru budów.</p><p>Poradnik ma charakter ogólny i nie jest ekspertyzą, pozwoleniem ani wyceną.</p><p><a href=\"/pl/kupic-wyremontowac-wynajac-cefalu\">Kupić i wynająć</a> · <a href=\"/pl/local-building-area\">Lokalne usługi budowlane</a></p><figure><img src=\"/media/editorial/project-diagram.png\" alt=\"Poglądowy schemat przestrzeni i etapów projektu bez odniesienia do rzeczywistego miejsca\" width=\"960\" height=\"320\" loading=\"lazy\" /><figcaption>Oryginalna ilustracja schematyczna: nie przedstawia rzeczywistej nieruchomości, projektu ani wykonanej pracy.</figcaption></figure><h2>Prowadzenie projektu z zagranicy</h2><p>Projektant sporządza przedmiar prac podzielony na etapy. SAL, włoskie dokumenty postępu robót, są dokumentowane zdjęciami i raportem geometra lub architekta powołanego do kierowania pracami. Między etapami przekazywane są informacje przez WhatsApp. Zmiany i pilne decyzje uzgadnia się z klientem i kierującym pracami, aktualizując przedmiar oraz wyjaśniając skutki dla kosztów i programu. Nie określa to częstotliwości, terminów ani planu płatności; język, pełnomocnictwa i dostęp wymagają uzgodnienia.</p><p>Dane katastralne i zgodność urbanistyczno-budowlana to odrębne kontrole. Włoski geometra oraz miejscowe procedury nie są automatycznymi odpowiednikami zagranicznych zawodów i pozwoleń.</p><p>Prace budowlane dotyczą głównie Cefalù, Madonie i pobliskiego wybrzeża; dalsze wyjazdy ocenia się dla danego projektu. Międzynarodowa oferta mebli jest odrębna. Tłumaczenia strony nie potwierdzają języków używanych przez osobę kontaktową.</p><p id=\"release-request\"><a href=\"/pl/request?service=local-building&amp;source=editorial-2026-11-26&amp;article=comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali\">Opisz swój projekt</a></p>",
+        "faq": [
+          {
+            "question": "Czy zgodność katastralna potwierdza budowlaną?",
+            "answer": "Nie. Pozwolenia i stan rzeczywisty wymagają odrębnego porównania."
+          },
+          {
+            "question": "Czy legalizacja dawnych zmian jest gwarantowana?",
+            "answer": "Nie. Jej możliwość trzeba zbadać osobno, bez zakładania automatycznego wyniku."
+          }
+        ]
+      },
+      "presentationHash": "272f2766503de95e2240ad0db813418115c1c3c2c61ba8364e8dc9b99bc6efcd"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "locale": "pl",
+      "path": "/pl/pozwolenia-na-remont-na-sycylii",
+      "cmsPath": "/pl/pozwolenia-na-remont-na-sycylii",
+      "area": "investment",
+      "hash": "e6080538412a37aec64d393a3391534ec4a445858f7ae667c608bced61997ec9",
+      "sourceHash": "a9c9ca2a2cff3006f3ad5c1542721a6f4827993cbf44879ab30a3ae6ad619858",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "locale": "pl",
+      "path": "/pl/realistyczne-terminy-remontu-pod-klucz-w-cefalu",
+      "cmsPath": "/pl/realistyczne-terminy-remontu-pod-klucz-w-cefalu",
+      "area": "investment",
+      "hash": "4eabe9dacc39ff050ba6847d182b73bbd0c06ce8996160ca6600476f9359517f",
+      "sourceHash": "b3ae2b50282580e14b4286d5b34ba1ee26846aecfeeacb8e46bd5caba77c6a2c",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "locale": "pl",
+      "path": "/pl/remont-na-odleglosc-jak-monitorujemy-prace-dla-klientow-zagranicznych",
+      "cmsPath": "/pl/remont-na-odleglosc-jak-monitorujemy-prace-dla-klientow-zagranicznych",
+      "area": "investment",
+      "hash": "8b7cc666c065499d25dd081668a13614cf323119f1f658862299dbaed7c4351b",
+      "sourceHash": "2f46382ce199006b3e2102df3142a8de740619abdc1ec2c888994a6d69f6d7fc",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "locale": "pl",
+      "path": "/pl/stoly-i-meble-na-zamowienie-z-betonu-i-mikrocementu",
+      "cmsPath": "/pl/stoly-i-meble-na-zamowienie-z-betonu-i-mikrocementu",
+      "area": "surfaces",
+      "hash": "dc7c986a934ab1b5d144a943eb68d0cc91b75c04aac08b2747bdee4a59aa6dda",
+      "sourceHash": "cbb86f50ef19154f47feb847f6d7f3c3df71e2d19afc75e8d549015638c285a7",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "locale": "pl",
+      "path": "/pl/domy-wakacyjne-remonty-poza-sezonem",
+      "cmsPath": "/pl/domy-wakacyjne-remonty-poza-sezonem",
+      "area": "investment",
+      "hash": "ec618bd389e728da19a2d9b94b48974c4f623b04741b8ff85f2c45dd3a631a7c",
+      "sourceHash": "31d967714f0e58484d814de5b0bb93baca99aa2ef1ad01fb96c4e7abc6e84458",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "recuperare-casale-masseria-sicilia",
+      "locale": "sv",
+      "path": "/sv/aterstalla-lantstalle-masseria-sicilien",
+      "cmsPath": "/sv/aterstalla-lantstalle-masseria-sicilien",
+      "area": "villas",
+      "hash": "f165723415a086c61a02c947c58db72729a1dbe2e7f665a3a2d4548d33577850",
+      "sourceHash": "87e5782a0ef7bb538d17cc4b3509547a49c796363dfcdab7d0774537416e1290",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "ville-vista-mare-chiavi-in-mano-cefalu",
+      "locale": "sv",
+      "path": "/sv/nyckelfardiga-villor-havsutsikt-cefalu",
+      "cmsPath": "/sv/nyckelfardiga-villor-havsutsikt-cefalu",
+      "area": "villas",
+      "hash": "c29ce77b3cd3cee501d35a4c4b409fdb935fa00e9807a5ea7fa2c46b347ce256",
+      "sourceHash": "59ed59c26897d1e64a068c4e91635485f8a4576e3bb7186ac1e47b8350849b2d",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "palazzi-case-storiche-ristrutturare",
+      "locale": "sv",
+      "path": "/sv/historiska-hus-palazzi-renovering",
+      "cmsPath": "/sv/historiska-hus-palazzi-renovering",
+      "area": "villas",
+      "hash": "fb889e852238fb4adb33ba05100781d60f689185879033d0893d2a342ca96b6b",
+      "sourceHash": "e9fd74f7a90e5ead8f56988701c774452cf84f39045d950860aa607442e0a611",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "piscine-pool-house-sicilia",
+      "locale": "sv",
+      "path": "/sv/pool-poolhus-sicilien",
+      "cmsPath": "/sv/pool-poolhus-sicilien",
+      "area": "outdoors",
+      "hash": "4567439214fd5c9d80661576d9d3a792b14ba966f874eca8f5dab30a10314748",
+      "sourceHash": "c3cf315c3a687aca7ad8cf3a37530d4be0ba2cb45de05226d0972d2260cc22d0",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "terrazze-spazi-aperto-vista-mare",
+      "locale": "sv",
+      "path": "/sv/terrasser-havsutsikt-sicilien",
+      "cmsPath": "/sv/terrasser-havsutsikt-sicilien",
+      "area": "outdoors",
+      "hash": "c6c81955c5a469de7146ea52537ee454b0d920d2e41e014e11eca5ee0e132db1",
+      "sourceHash": "1f76cf08ae3261f6045aacaa43e1caa8b590f6bbf77628f730011794a921bfc2",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "sopralluogo-tecnico-acquisto-estero",
+      "locale": "sv",
+      "path": "/sv/tekniskt-besok-huskop-utlandet",
+      "cmsPath": "/sv/tekniskt-besok-huskop-utlandet",
+      "area": "investment",
+      "hash": "bcb36782b485496f1ee236682e75afc5f76f9622f107c12891e0a2ba0ef4ec59",
+      "sourceHash": "10cbd8a3fde730720ad0dc7782cf45ead7c1c7219fc45eeca44a24788b7a50ae",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "costo-ristrutturare-casa-sicilia",
+      "locale": "sv",
+      "path": "/sv/renoveringskostnad-sicilien-prisfaktorer",
+      "cmsPath": "/sv/renoveringskostnad-sicilien-prisfaktorer",
+      "area": "investment",
+      "hash": "11d3f263acfb2ea3aea465e1df66788192224e0680879d31ffc2dfb78e8d095e",
+      "sourceHash": "928d0b73e17d988cb9fd2a5af61633b566adc5163e9defc3b599daba2cd45d64",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "casa-vacanza-design-gestione",
+      "locale": "sv",
+      "path": "/sv/design-semesterhus-forvaltning-sicilien",
+      "cmsPath": "/sv/design-semesterhus-forvaltning-sicilien",
+      "area": "investment",
+      "hash": "b4f2172620e971c28b4bf293a0078778cc74cd750206f453cffd74d8f1abfc58",
+      "sourceHash": "f33d1b9c66be239b5cd6461635413a20c84f9ca2db4f04fd571420ccfc054aeb",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "sv",
+      "path": "/sv/articles/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "cmsPath": "/sv/articles/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "area": "investment",
+      "hash": "556d05f68a6702c926caa8dbb43983325cdc36450efb5696556179a610bc0f52",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73",
+      "preparedAt": "2026-11-26",
+      "readOnlySeries": true,
+      "presentation": {
+        "seoTitle": "Köpa hus i Cefalù: kontroller före köpehandlingen",
+        "seoDescription": "Köpa hus i Cefalù: kontroller före köpehandlingen. Etapper, handlingar och kontroller för ägare i utlandet, utan löften om tider eller resultat.",
+        "body": "<h2>Samla underlag och iakttagelser</h2><p>Att köpa hus att renovera på Sicilien kräver mer än en visning. Begär ägarhandlingar, katasteruppgifter och planer, tillgängliga byggtillstånd och dokument från tidigare arbeten. Notarien och tekniska fackpersoner har olika uppdrag som bör klargöras före bindande beslut.</p><h2>Blanda inte ihop kontrollerna</h2><p>En överensstämmande katasterplan visar inte att alla ändringar är lagliga. Fackpersonen jämför verkligheten med relevanta tillstånd och redovisar luckor. Sprickor och fukt ger ingen diagnos enbart genom utseendet. Kontrollera även planering, landskap och eventuell parkreglering; vår offert följer efter platsbesök.</p><h2>Bedöm det enskilda fallet</h2><p>Byggramverket är D.P.R. 380/2001 såsom införlivat genom L.R. Sicilia 16/2016 och senare ändringar. Giltighet och tillämpning måste kontrolleras för arbete och läge.</p><p>Vi arbetar främst inom cirka 60 km från Cefalù, i Madonie och längs kusten; längre bort på förfrågan. Guiden utvidgar inte byggområdet.</p><p>Guiden ger allmän vägledning, inte ett besiktningsutlåtande, tillstånd eller offert.</p><p><a href=\"/sv/kopa-renovera-hyra-ut-cefalu\">Köpa och hyra ut</a> · <a href=\"/sv/local-building-area\">Lokala byggtjänster</a></p><figure><img src=\"/media/editorial/project-diagram.png\" alt=\"Illustrativt schema över projektets rum och steg utan koppling till en verklig plats\" width=\"960\" height=\"320\" loading=\"lazy\" /><figcaption>Egen schematisk illustration: ingen verklig fastighet, inget projekt eller utfört arbete.</figcaption></figure><h2>Följ projektet från utlandet</h2><p>Projektören tar fram en mängdförteckning uppdelad i etapper. SAL, italienska handlingar om arbetets framsteg, dokumenteras med foton och en rapport från den geometra eller arkitekt som fått uppdraget att leda arbetena. Mellan etapperna ges uppdateringar via WhatsApp. Ändringar och brådskande beslut avtalas med kunden och arbetsledande fackperson, med uppdaterad mängdförteckning och klargjorda följder för kostnad och planering. Det innebär inga fasta intervall, tidsfrister eller betalningsplaner; språk, fullmakter och tillträde avtalas.</p><p>Uppgifter i det italienska fastighetsregistret och plan- och byggrättslig överensstämmelse är skilda kontroller. Geometra och italienska förfaranden har inga automatiska utländska motsvarigheter.</p><p>Byggarbeten gäller främst Cefalù, Madonie och den närliggande kusten; resor bedöms per projekt. Det internationella möbelerbjudandet är separat. Webbplatsens översättningar bevisar inte vilka språk kontaktpersonen talar.</p><p id=\"release-request\"><a href=\"/sv/request?service=local-building&amp;source=editorial-2026-11-26&amp;article=comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali\">Beskriv ditt projekt</a></p>",
+        "faq": [
+          {
+            "question": "Bevisar katasterenlighet bygglagligheten?",
+            "answer": "Nej. Tillstånden och byggnadens faktiska skick behöver jämföras separat."
+          },
+          {
+            "question": "Är legalisering av gamla ändringar garanterad?",
+            "answer": "Nej. Möjligheten måste utredas särskilt och får inte tas för given."
+          }
+        ]
+      },
+      "presentationHash": "a2e47b25671257930389061d46a36d5b2a1e16a62a450c355b7276beb72c5f84"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "locale": "sv",
+      "path": "/sv/bygglov-renovering-sicilien-guide",
+      "cmsPath": "/sv/bygglov-renovering-sicilien-guide",
+      "area": "investment",
+      "hash": "58bc5d9e20681d9065b3bd20016002300fa4ac525457f5d2daffe4dad6cc2c22",
+      "sourceHash": "a9c9ca2a2cff3006f3ad5c1542721a6f4827993cbf44879ab30a3ae6ad619858",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "locale": "sv",
+      "path": "/sv/realistiska-tidsplaner-renovering-cefalu",
+      "cmsPath": "/sv/realistiska-tidsplaner-renovering-cefalu",
+      "area": "investment",
+      "hash": "c28784aade454e5f18abf7ba66f25b5fdc70fa05835292b531b8419d2edcd20e",
+      "sourceHash": "b3ae2b50282580e14b4286d5b34ba1ee26846aecfeeacb8e46bd5caba77c6a2c",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "locale": "sv",
+      "path": "/sv/renovering-pa-distans",
+      "cmsPath": "/sv/renovering-pa-distans",
+      "area": "investment",
+      "hash": "bb23dde20bb5d498ac6ea9218db39cc60d053206f1c89fff980228648e55c960",
+      "sourceHash": "2f46382ce199006b3e2102df3142a8de740619abdc1ec2c888994a6d69f6d7fc",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "locale": "sv",
+      "path": "/sv/mattanpassade-betongbord",
+      "cmsPath": "/sv/mattanpassade-betongbord",
+      "area": "surfaces",
+      "hash": "0f6dbab61d3aacadac17be5f315172fed639bb96bea0a8b24d8e872ce4de9d6e",
+      "sourceHash": "cbb86f50ef19154f47feb847f6d7f3c3df71e2d19afc75e8d549015638c285a7",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "locale": "sv",
+      "path": "/sv/semesterbostad-planera-underhall-utanfor-sasong",
+      "cmsPath": "/sv/semesterbostad-planera-underhall-utanfor-sasong",
+      "area": "investment",
+      "hash": "00154da385b0ec35f99cb1a496756d9c5db9850d250a9f58069479151a2e3afe",
+      "sourceHash": "31d967714f0e58484d814de5b0bb93baca99aa2ef1ad01fb96c4e7abc6e84458",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "recuperare-casale-masseria-sicilia",
+      "locale": "no",
+      "path": "/no/istandsetting-landsted-masseria-sicilia",
+      "cmsPath": "/no/istandsetting-landsted-masseria-sicilia",
+      "area": "villas",
+      "hash": "adde39673007c9411f8580caf83440b586c6c8ac62be7649e503fbee09dbd888",
+      "sourceHash": "87e5782a0ef7bb538d17cc4b3509547a49c796363dfcdab7d0774537416e1290",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "ville-vista-mare-chiavi-in-mano-cefalu",
+      "locale": "no",
+      "path": "/no/nokkel-ferdig-villa-havutsikt-cefalu",
+      "cmsPath": "/no/nokkel-ferdig-villa-havutsikt-cefalu",
+      "area": "villas",
+      "hash": "fe8aa8ac98549a7d3f2b677123fa3ea51e343d6b487d232bff40186d475b4a29",
+      "sourceHash": "59ed59c26897d1e64a068c4e91635485f8a4576e3bb7186ac1e47b8350849b2d",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "palazzi-case-storiche-ristrutturare",
+      "locale": "no",
+      "path": "/no/historiske-hus-palazzi-oppussing",
+      "cmsPath": "/no/historiske-hus-palazzi-oppussing",
+      "area": "villas",
+      "hash": "d8c24bbb6946762bf6ee5c6357e8a8d4d56bcfd1e9fc7b5d92a940090e7bb3df",
+      "sourceHash": "e9fd74f7a90e5ead8f56988701c774452cf84f39045d950860aa607442e0a611",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "piscine-pool-house-sicilia",
+      "locale": "no",
+      "path": "/no/basseng-poolhus-sicilia",
+      "cmsPath": "/no/basseng-poolhus-sicilia",
+      "area": "outdoors",
+      "hash": "8a8c34bc9dbbe47df1cdc4c7522fcb44a90fd1a63ecaef192570db838bc2b7cd",
+      "sourceHash": "c3cf315c3a687aca7ad8cf3a37530d4be0ba2cb45de05226d0972d2260cc22d0",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "terrazze-spazi-aperto-vista-mare",
+      "locale": "no",
+      "path": "/no/terrasser-havutsikt-sicilia",
+      "cmsPath": "/no/terrasser-havutsikt-sicilia",
+      "area": "outdoors",
+      "hash": "8a6a5a6e2ad2218cf214071817fa2d81c81facf9fa0cc4f221ae3ffd7bca6933",
+      "sourceHash": "1f76cf08ae3261f6045aacaa43e1caa8b590f6bbf77628f730011794a921bfc2",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "sopralluogo-tecnico-acquisto-estero",
+      "locale": "no",
+      "path": "/no/teknisk-befaring-boligkjop-utlandet",
+      "cmsPath": "/no/teknisk-befaring-boligkjop-utlandet",
+      "area": "investment",
+      "hash": "2d8da9a4afb8fb8feb7f8914a84dc3f7d175ae739775935d0c9195417d148161",
+      "sourceHash": "10cbd8a3fde730720ad0dc7782cf45ead7c1c7219fc45eeca44a24788b7a50ae",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "costo-ristrutturare-casa-sicilia",
+      "locale": "no",
+      "path": "/no/oppussingskostnad-sicilia-prisfaktorer",
+      "cmsPath": "/no/oppussingskostnad-sicilia-prisfaktorer",
+      "area": "investment",
+      "hash": "4ed697395bb1971b11acb7bbbd1841101e1fc1bd83d8c5e19f995176824a3f0d",
+      "sourceHash": "928d0b73e17d988cb9fd2a5af61633b566adc5163e9defc3b599daba2cd45d64",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "casa-vacanza-design-gestione",
+      "locale": "no",
+      "path": "/no/design-feriehus-forvaltning-sicilia",
+      "cmsPath": "/no/design-feriehus-forvaltning-sicilia",
+      "area": "investment",
+      "hash": "edddd20158e73c417d5769b35b1024f6193a5eaf2e966ce609a595107275b49e",
+      "sourceHash": "f33d1b9c66be239b5cd6461635413a20c84f9ca2db4f04fd571420ccfc054aeb",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "no",
+      "path": "/no/articles/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "cmsPath": "/no/articles/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "area": "investment",
+      "hash": "5ffadcfdcebda1a4419cecf18941a8a3cf90e54688898574ea114d7819bcef65",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73",
+      "preparedAt": "2026-11-26",
+      "readOnlySeries": true,
+      "presentation": {
+        "seoTitle": "Kjøpe hus i Cefalù: kontroller før kjøpehandlingen",
+        "seoDescription": "Kjøpe hus i Cefalù: kontroller før kjøpehandlingen. Faser, dokumenter og kontroller for eiere i utlandet, uten løfter om tidsfrister eller resultat.",
+        "body": "<h2>Samle dokumenter og observasjoner</h2><p>Å kjøpe hus som må pusses opp på Sicilia krever mer enn en visning. Be om eierskapsdokumenter, katasteropplysninger og planer, tilgjengelige tillatelser og dokumenter fra tidligere arbeid. Notaren og tekniske fagpersoner har forskjellige oppdrag som bør avklares før forpliktelser inngås.</p><h2>Ikke bland ulike kontroller</h2><p>En samsvarende katasterplan beviser ikke at alle endringer er lovlige. Fagpersonen sammenligner faktisk tilstand med relevante tillatelser og viser mangler. Sprekker og fukt gir ingen diagnose bare ved å se. Undersøk også planverk, landskap og eventuelle parkregler; vårt tilbud følger etter befaring.</p><h2>Vurder det konkrete tilfellet</h2><p>Byggeregelverket er D.P.R. 380/2001 som innført gjennom L.R. Sicilia 16/2016 og senere endringer. Gyldighet og anvendelse må kontrolleres for arbeid og plassering.</p><p>Vi arbeider hovedsakelig innen omtrent 60 km fra Cefalù, i Madonie og langs kysten; lenger unna på forespørsel. Guiden utvider ikke byggeområdet.</p><p>Guiden gir generell veiledning, ikke en tilstandsrapport, tillatelse eller et pristilbud.</p><p><a href=\"/no/kjope-pusse-opp-leie-ut-cefalu\">Kjøpe og leie ut</a> · <a href=\"/no/local-building-area\">Lokale byggetjenester</a></p><figure><img src=\"/media/editorial/project-diagram.png\" alt=\"Illustrativ skisse av prosjektrom og trinn uten å vise et virkelig sted\" width=\"960\" height=\"320\" loading=\"lazy\" /><figcaption>Egen skjematisk illustrasjon: ingen virkelig eiendom, prosjekt eller utført arbeid.</figcaption></figure><h2>Følg prosjektet fra utlandet</h2><p>Prosjekterende utarbeider en mengdebeskrivelse delt i faser. SAL, italienske dokumenter om fremdriften, dokumenteres med bilder og rapport fra geometra eller arkitekt med oppdrag som leder av arbeidene. Mellom fasene gis oppdateringer på WhatsApp. Endringer og hastesaker avtales med kunden og den faglige lederen, med oppdatert mengdebeskrivelse og avklarte følger for kostnader og program. Dette fastsetter verken intervaller, frister eller betalingsplan; språk, fullmakter og tilgang må avtales.</p><p>Italienske matrikkeldata og plan- og bygningsrettslig samsvar er ulike kontroller. Geometra og italienske prosedyrer er ikke automatiske motstykker til utenlandske yrker eller tillatelser.</p><p>Byggearbeider gjelder hovedsakelig Cefalù, Madonie og kysten i nærheten; reiser vurderes per prosjekt. Det internasjonale møbeltilbudet er separat. Oversettelser viser ikke hvilke språk kontaktpersonen snakker.</p><p id=\"release-request\"><a href=\"/no/request?service=local-building&amp;source=editorial-2026-11-26&amp;article=comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali\">Beskriv prosjektet ditt</a></p>",
+        "faq": [
+          {
+            "question": "Beviser katastermessig samsvar byggrettslig lovlighet?",
+            "answer": "Nei. Tillatelser og faktisk tilstand må sammenlignes særskilt."
+          },
+          {
+            "question": "Er legalisering av gamle endringer garantert?",
+            "answer": "Nei. Muligheten må vurderes særskilt og skal ikke tas for gitt."
+          }
+        ]
+      },
+      "presentationHash": "2c7171dc99bbb40024a36015d0bbf0013621e0e0428a4aa4d74868fbe187cf9d"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "locale": "no",
+      "path": "/no/byggetillatelser-renovering-sicilia",
+      "cmsPath": "/no/byggetillatelser-renovering-sicilia",
+      "area": "investment",
+      "hash": "58996c39f9d83750a8086ff7b4fddadcf76ae25620b36093e87115c7a8bf53d5",
+      "sourceHash": "a9c9ca2a2cff3006f3ad5c1542721a6f4827993cbf44879ab30a3ae6ad619858",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "locale": "no",
+      "path": "/no/realistisk-tidslinje-oppussing-cefalu",
+      "cmsPath": "/no/realistisk-tidslinje-oppussing-cefalu",
+      "area": "investment",
+      "hash": "8616e19d963ce2392a0cab4c96509fe07177e276c1c783c21e3bfe0d5b210802",
+      "sourceHash": "b3ae2b50282580e14b4286d5b34ba1ee26846aecfeeacb8e46bd5caba77c6a2c",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "locale": "no",
+      "path": "/no/oppussing-pa-avstand-veiledning-for-kunder-i-utlandet",
+      "cmsPath": "/no/oppussing-pa-avstand-veiledning-for-kunder-i-utlandet",
+      "area": "investment",
+      "hash": "78ddec7fef9e572291dccf69fe6eb3b44c9b50d1b08df7e07beed69ae96953ac",
+      "sourceHash": "2f46382ce199006b3e2102df3142a8de740619abdc1ec2c888994a6d69f6d7fc",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "locale": "no",
+      "path": "/no/bord-og-mobler-i-betong-og-mikrosement",
+      "cmsPath": "/no/bord-og-mobler-i-betong-og-mikrosement",
+      "area": "surfaces",
+      "hash": "3f78f001cb35c6d508fcb4199ca888dcad3f537cf9f455531d43520778f465c9",
+      "sourceHash": "cbb86f50ef19154f47feb847f6d7f3c3df71e2d19afc75e8d549015638c285a7",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "locale": "no",
+      "path": "/no/fritidsbolig-planlegging-av-arbeid-utenfor-sesong",
+      "cmsPath": "/no/fritidsbolig-planlegging-av-arbeid-utenfor-sesong",
+      "area": "investment",
+      "hash": "5dfe7885a63d3802856c484d679664ccb036324103bb3e6257e1545f5da0362d",
+      "sourceHash": "31d967714f0e58484d814de5b0bb93baca99aa2ef1ad01fb96c4e7abc6e84458",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "recuperare-casale-masseria-sicilia",
+      "locale": "da",
+      "path": "/da/istandsaette-landsted-masseria-sicilien",
+      "cmsPath": "/da/istandsaette-landsted-masseria-sicilien",
+      "area": "villas",
+      "hash": "41bf829163f8c6592966dde6a0c3e135bf59f0e2540b7e350d1e7cbe54c421b5",
+      "sourceHash": "87e5782a0ef7bb538d17cc4b3509547a49c796363dfcdab7d0774537416e1290",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "ville-vista-mare-chiavi-in-mano-cefalu",
+      "locale": "da",
+      "path": "/da/noeglefaerdige-villaer-havudsigt-cefalu",
+      "cmsPath": "/da/noeglefaerdige-villaer-havudsigt-cefalu",
+      "area": "villas",
+      "hash": "1d87517bef1c683945ad51370960fcb5f7b68a5c23d107b01957816214a57187",
+      "sourceHash": "59ed59c26897d1e64a068c4e91635485f8a4576e3bb7186ac1e47b8350849b2d",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "palazzi-case-storiche-ristrutturare",
+      "locale": "da",
+      "path": "/da/historiske-huse-palazzi-renovering",
+      "cmsPath": "/da/historiske-huse-palazzi-renovering",
+      "area": "villas",
+      "hash": "73c3c608bc82d46fd4548dfe4c3d2164d7901d370ebce8281e0efdf814663e4e",
+      "sourceHash": "e9fd74f7a90e5ead8f56988701c774452cf84f39045d950860aa607442e0a611",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "piscine-pool-house-sicilia",
+      "locale": "da",
+      "path": "/da/pool-poolhus-sicilien",
+      "cmsPath": "/da/pool-poolhus-sicilien",
+      "area": "outdoors",
+      "hash": "8225c59a9c617f4b2a461e85d519bcda1e61738801fb5058fc944eb4cf37e07d",
+      "sourceHash": "c3cf315c3a687aca7ad8cf3a37530d4be0ba2cb45de05226d0972d2260cc22d0",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "terrazze-spazi-aperto-vista-mare",
+      "locale": "da",
+      "path": "/da/terrasser-havudsigt-sicilien",
+      "cmsPath": "/da/terrasser-havudsigt-sicilien",
+      "area": "outdoors",
+      "hash": "42457829e23942de8461843b7e39d41204a290cfbbd2d7ab178f401ef4cea5ca",
+      "sourceHash": "1f76cf08ae3261f6045aacaa43e1caa8b590f6bbf77628f730011794a921bfc2",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "sopralluogo-tecnico-acquisto-estero",
+      "locale": "da",
+      "path": "/da/teknisk-besoeg-boligkoeb-udlandet",
+      "cmsPath": "/da/teknisk-besoeg-boligkoeb-udlandet",
+      "area": "investment",
+      "hash": "e718052b86641a81726d6a203f39d03811476e69cdea8484412e9a645f539bb3",
+      "sourceHash": "10cbd8a3fde730720ad0dc7782cf45ead7c1c7219fc45eeca44a24788b7a50ae",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "costo-ristrutturare-casa-sicilia",
+      "locale": "da",
+      "path": "/da/renoveringspris-sicilien-prisfaktorer",
+      "cmsPath": "/da/renoveringspris-sicilien-prisfaktorer",
+      "area": "investment",
+      "hash": "f3a2a9ce83b0d7f7322e5c42fbc0fe4edca65247b4d9b0d85cf2465622f72982",
+      "sourceHash": "928d0b73e17d988cb9fd2a5af61633b566adc5163e9defc3b599daba2cd45d64",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "casa-vacanza-design-gestione",
+      "locale": "da",
+      "path": "/da/design-feriehus-forvaltning-sicilien",
+      "cmsPath": "/da/design-feriehus-forvaltning-sicilien",
+      "area": "investment",
+      "hash": "67be6d687d76fe628dfbcee2d95a95ab2cbda8eaa7e57df6898ece46a429e1c2",
+      "sourceHash": "f33d1b9c66be239b5cd6461635413a20c84f9ca2db4f04fd571420ccfc054aeb",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "da",
+      "path": "/da/articles/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "cmsPath": "/da/articles/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "area": "investment",
+      "hash": "c5148654158d199f15fa08ec3847a357ecc60811daa3d22fb345e1875557ad38",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73",
+      "preparedAt": "2026-11-26",
+      "readOnlySeries": true,
+      "presentation": {
+        "seoTitle": "Købe hus i Cefalù: kontrol før købshandlingen",
+        "seoDescription": "Købe hus i Cefalù: kontrol før købshandlingen. Faser, dokumenter og kontrol for ejere i udlandet, uden løfter om tidsfrister eller resultat.",
+        "body": "<h2>Saml dokumenter og observationer</h2><p>At købe hus til renovering på Sicilien kræver mere end en fremvisning. Bed om ejerskabsdokumenter, katasteroplysninger og planer, tilgængelige tilladelser og dokumenter fra tidligere arbejde. Notaren og tekniske fagpersoner har forskellige opgaver, som bør afklares før bindende tilsagn.</p><h2>Bland ikke kontrollerne sammen</h2><p>En overensstemmende katasterplan beviser ikke, at alle ændringer er lovlige. Fagpersonen sammenligner virkeligheden med relevante tilladelser og viser mangler. Revner og fugt giver ikke en diagnose alene ved udseendet. Undersøg også planlægning, landskab og eventuelle parkregler; vores tilbud følger efter besigtigelse.</p><h2>Vurdér det konkrete tilfælde</h2><p>Byggereglerne er D.P.R. 380/2001 som indført gennem L.R. Sicilia 16/2016 og senere ændringer. Gyldighed og anvendelse skal kontrolleres for arbejde og placering.</p><p>Vi arbejder primært inden for cirka 60 km fra Cefalù, i Madonie og langs kysten; længere væk på forespørgsel. Guiden udvider ikke byggeområdet.</p><p>Guiden giver generel vejledning, ikke en tilstandsrapport, tilladelse eller et tilbud.</p><p><a href=\"/da/koebe-renovere-udleje-cefalu\">Købe og udleje</a> · <a href=\"/da/local-building-area\">Lokale byggeydelser</a></p><figure><img src=\"/media/editorial/project-diagram.png\" alt=\"Illustrativ skitse af projektets rum og trin uden at vise et virkeligt sted\" width=\"960\" height=\"320\" loading=\"lazy\" /><figcaption>Egen skematisk illustration: ingen virkelig ejendom, projekt eller udført arbejde.</figcaption></figure><h2>Følg projektet fra udlandet</h2><p>Den projekterende udarbejder en mængdebeskrivelse opdelt i faser. SAL, italienske dokumenter om arbejdets fremdrift, dokumenteres med fotos og en rapport fra den geometra eller arkitekt, der er udpeget til at lede arbejderne. Mellem faserne gives opdateringer via WhatsApp. Ændringer og hastesager aftales med kunden og den faglige leder; mængdebeskrivelsen opdateres, og følger for økonomi og program afklares. Det fastlægger ingen intervaller, frister eller betalingsplan; sprog, fuldmagter og adgang skal aftales.</p><p>Italienske matrikeldata og plan- og byggeretlig lovlighed er forskellige kontroller. Geometra og italienske procedurer er ikke automatiske modstykker til udenlandske erhverv eller tilladelser.</p><p>Byggearbejder vedrører især Cefalù, Madonie og den nærliggende kyst; rejser vurderes for hvert projekt. Det internationale møbeltilbud er særskilt. Oversættelser viser ikke, hvilke sprog kontaktpersonen taler.</p><p id=\"release-request\"><a href=\"/da/request?service=local-building&amp;source=editorial-2026-11-26&amp;article=comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali\">Beskriv dit projekt</a></p>",
+        "faq": [
+          {
+            "question": "Beviser katastermæssig overensstemmelse byggeretlig lovlighed?",
+            "answer": "Nej. Tilladelserne og den faktiske tilstand skal sammenlignes særskilt."
+          },
+          {
+            "question": "Er lovliggørelse af gamle ændringer garanteret?",
+            "answer": "Nej. Muligheden skal undersøges særskilt og må ikke tages for givet."
+          }
+        ]
+      },
+      "presentationHash": "eae558fd6fe4259e4d7fd932fb9eb66b537e646f1ce58e10919ec182127f3214"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "locale": "da",
+      "path": "/da/byggetilladelser-paa-sicilien-guide",
+      "cmsPath": "/da/byggetilladelser-paa-sicilien-guide",
+      "area": "investment",
+      "hash": "456d971abde6877f9508a99198167cbac4cb1d5b8467b925f8a93590a2b1da75",
+      "sourceHash": "a9c9ca2a2cff3006f3ad5c1542721a6f4827993cbf44879ab30a3ae6ad619858",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "locale": "da",
+      "path": "/da/realistiske-tidsrammer-renovering-cefalu",
+      "cmsPath": "/da/realistiske-tidsrammer-renovering-cefalu",
+      "area": "investment",
+      "hash": "86580ea10fb7adf9d205c9e03b47d3c78276c4754cc8e9e262b7753d7caa83fb",
+      "sourceHash": "b3ae2b50282580e14b4286d5b34ba1ee26846aecfeeacb8e46bd5caba77c6a2c",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "locale": "da",
+      "path": "/da/renovering-pa-afstand-hvordan-vi-folger-byggeprocessen-for-kunder-i-udlandet",
+      "cmsPath": "/da/renovering-pa-afstand-hvordan-vi-folger-byggeprocessen-for-kunder-i-udlandet",
+      "area": "investment",
+      "hash": "5b71373876785b7bfd7449d8462e22f255deee5f96d9d6e1511a3f75a03ee614",
+      "sourceHash": "2f46382ce199006b3e2102df3142a8de740619abdc1ec2c888994a6d69f6d7fc",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "locale": "da",
+      "path": "/da/skraeddersyede-borde-og-moebler-i-beton-og-mikrocement",
+      "cmsPath": "/da/skraeddersyede-borde-og-moebler-i-beton-og-mikrocement",
+      "area": "surfaces",
+      "hash": "71dbc50f1c8c9bcf9c7ec043b9f5ca907dab6f548da05add48ed3d7bcbb8e437",
+      "sourceHash": "cbb86f50ef19154f47feb847f6d7f3c3df71e2d19afc75e8d549015638c285a7",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "locale": "da",
+      "path": "/da/ferieboliger-planlaegning-uden-for-saeson",
+      "cmsPath": "/da/ferieboliger-planlaegning-uden-for-saeson",
+      "area": "investment",
+      "hash": "0a71a2d3bcb4d6439c0bb0afeea82697c1cc17d4deaf49ed9b3b825579ff4b43",
+      "sourceHash": "31d967714f0e58484d814de5b0bb93baca99aa2ef1ad01fb96c4e7abc6e84458",
+      "preparedAt": "2026-11-25"
+    },
+    {
+      "identity": "recuperare-casale-masseria-sicilia",
+      "locale": "ar",
+      "path": "/ar/restoring-farmhouse-masseria-sicily",
+      "cmsPath": "/ar/restoring-farmhouse-masseria-sicily",
+      "area": "villas",
+      "hash": "1fe58bd104a27fbd3ecd0cd0b9d8be82da55d710fa404c85a45bb0808b062c72",
+      "sourceHash": "87e5782a0ef7bb538d17cc4b3509547a49c796363dfcdab7d0774537416e1290",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "ville-vista-mare-chiavi-in-mano-cefalu",
+      "locale": "ar",
+      "path": "/ar/turnkey-sea-view-villas-cefalu",
+      "cmsPath": "/ar/turnkey-sea-view-villas-cefalu",
+      "area": "villas",
+      "hash": "40321fc068729b67002c5baf806fe9db91804a22c9b165c00526dd7cd85b9c73",
+      "sourceHash": "59ed59c26897d1e64a068c4e91635485f8a4576e3bb7186ac1e47b8350849b2d",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "palazzi-case-storiche-ristrutturare",
+      "locale": "ar",
+      "path": "/ar/historic-houses-palazzi-renovation",
+      "cmsPath": "/ar/historic-houses-palazzi-renovation",
+      "area": "villas",
+      "hash": "b28223c055d0e14702e819b3c37ae4ea12867360457ef76ad13ea811ba5691fa",
+      "sourceHash": "e9fd74f7a90e5ead8f56988701c774452cf84f39045d950860aa607442e0a611",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "piscine-pool-house-sicilia",
+      "locale": "ar",
+      "path": "/ar/pools-pool-houses-sicily",
+      "cmsPath": "/ar/pools-pool-houses-sicily",
+      "area": "outdoors",
+      "hash": "0c984471d397c610a26f9c084c7522e8a3b1d5eb8e6fc4dd6bee98b2cd9c6cdf",
+      "sourceHash": "c3cf315c3a687aca7ad8cf3a37530d4be0ba2cb45de05226d0972d2260cc22d0",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "terrazze-spazi-aperto-vista-mare",
+      "locale": "ar",
+      "path": "/ar/sea-view-terraces-sicily",
+      "cmsPath": "/ar/sea-view-terraces-sicily",
+      "area": "outdoors",
+      "hash": "c941fd1fea641724b582534364445674b74e29e548a613b08f80376c54eaed43",
+      "sourceHash": "1f76cf08ae3261f6045aacaa43e1caa8b590f6bbf77628f730011794a921bfc2",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "sopralluogo-tecnico-acquisto-estero",
+      "locale": "ar",
+      "path": "/ar/pre-purchase-technical-visit-abroad",
+      "cmsPath": "/ar/pre-purchase-technical-visit-abroad",
+      "area": "investment",
+      "hash": "1663475ba216388c8f0b552a93a68db4aec08469fb295d056ff80d06f098c5fe",
+      "sourceHash": "10cbd8a3fde730720ad0dc7782cf45ead7c1c7219fc45eeca44a24788b7a50ae",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "costo-ristrutturare-casa-sicilia",
+      "locale": "ar",
+      "path": "/ar/sicily-house-renovation-cost-factors",
+      "cmsPath": "/ar/sicily-house-renovation-cost-factors",
+      "area": "investment",
+      "hash": "10b0dc6de5a9ce2008876400e642f700f27409209663407bfd051c4e5ae84d04",
+      "sourceHash": "928d0b73e17d988cb9fd2a5af61633b566adc5163e9defc3b599daba2cd45d64",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "casa-vacanza-design-gestione",
+      "locale": "ar",
+      "path": "/ar/holiday-home-design-management-sicily",
+      "cmsPath": "/ar/holiday-home-design-management-sicily",
+      "area": "investment",
+      "hash": "10b58c36f1633249e38628d6fcc46f8facaf6d989a0eaa1731b545a228caba27",
+      "sourceHash": "f33d1b9c66be239b5cd6461635413a20c84f9ca2db4f04fd571420ccfc054aeb",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "ar",
+      "path": "/ar/articles/buying-renovating-five-checks",
+      "cmsPath": "/ar/articles/buying-renovating-five-checks",
+      "area": "investment",
+      "hash": "5ffb771e6cfee82be9d0163e2cf878e5ded4e6b604ed1158ce809b84dbf98255",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "permessi-ristrutturare-sicilia",
+      "locale": "ar",
+      "path": "/ar/renovation-permits-sicily",
+      "cmsPath": "/ar/renovation-permits-sicily",
+      "area": "investment",
+      "hash": "c8b96d640ec6a25e9dd52b0e8d55d485f496e7d66c4d051f5256ed0da545acfb",
+      "sourceHash": "a9c9ca2a2cff3006f3ad5c1542721a6f4827993cbf44879ab30a3ae6ad619858",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "tempi-ristrutturazione-cefalu-estate",
+      "locale": "ar",
+      "path": "/ar/renovation-seasons-cefalu",
+      "cmsPath": "/ar/renovation-seasons-cefalu",
+      "area": "investment",
+      "hash": "4d9da647ad19d7dc27f050c36d0c79d219823ccf54be2e6053b729a17947fb67",
+      "sourceHash": "b3ae2b50282580e14b4286d5b34ba1ee26846aecfeeacb8e46bd5caba77c6a2c",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "ristrutturare-a-distanza-cefalu",
+      "locale": "ar",
+      "path": "/ar/remote-renovation-cefalu",
+      "cmsPath": "/ar/remote-renovation-cefalu",
+      "area": "investment",
+      "hash": "311692b9897bb9157bfcba15eac3bf0314c6c9df53af20e3ed8d8194b01919d7",
+      "sourceHash": "2f46382ce199006b3e2102df3142a8de740619abdc1ec2c888994a6d69f6d7fc",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "tavoli-arredi-cemento-microcemento",
+      "locale": "ar",
+      "path": "/ar/concrete-microcement-furniture",
+      "cmsPath": "/ar/concrete-microcement-furniture",
+      "area": "surfaces",
+      "hash": "ac86057cdce51363235acca36bbbbeafa37f3edf59b311272780af99e1f52c5f",
+      "sourceHash": "cbb86f50ef19154f47feb847f6d7f3c3df71e2d19afc75e8d549015638c285a7",
+      "preparedAt": "2026-11-26"
+    },
+    {
+      "identity": "lavori-case-vacanza-fuori-stagione",
+      "locale": "ar",
+      "path": "/ar/holiday-home-work-off-season",
+      "cmsPath": "/ar/holiday-home-work-off-season",
+      "area": "investment",
+      "hash": "6fc68b78d9a79d7b74ecec01263b76d5f273444216876a264e209bf29e30ece0",
+      "sourceHash": "31d967714f0e58484d814de5b0bb93baca99aa2ef1ad01fb96c4e7abc6e84458",
+      "preparedAt": "2026-11-26"
+    }
+  ]
+}

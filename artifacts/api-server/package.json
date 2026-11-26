@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "test:commercial-release": "node scripts/test-commercial-release.mjs",
     "ai:scheduled": "NODE_ENV=production node ./dist/ai-scheduled.mjs",
     "test:call-requests": "node ./scripts/test-call-requests.mjs",
     "dev": "export NODE_ENV=development && pnpm run build && pnpm run start",

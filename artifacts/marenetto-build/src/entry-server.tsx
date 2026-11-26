@@ -10,6 +10,7 @@ import { mergeActiveMetadata, releaseMetadata } from './localization/public-seo.
 import { arabicEditorialByPath } from './content/arabic-editorial';
 import { editionStructuredData } from './lib/structured-data';
 import { blockedPublicLocale } from './localization/locales';
+import { commercialEntries } from './content/commercial-release.mjs';
 export { editions, redirects, excludedRoutes, equivalentEditions, canonicalEdition, reviewPathForEdition, reviewHubEdition } from './localization/edition-inventory';
 export { companyStructuredData } from './config/contact';
 export { editionStructuredData } from './lib/structured-data';
@@ -63,7 +64,8 @@ export function render(path: string, locale: string, active: EditorialActive[] =
     }
     const live = !blockedPublicLocale(path) && active.find(item => item.revisionId !== 'withdrawn' &&
       [item.path, ...(item.aliases ?? [])].some(candidate => candidate.replace(/\/+$/, '') === path.replace(/\/+$/, '')));
-    const structuredData = live ? editionStructuredData({
+    const released = live ? commercialEntries(active).find(entry=>entry.path.replace(/\/+$/,'')===live.path.replace(/\/+$/,'')) : undefined;
+    const structuredData = live ? editionStructuredData(released ?? {
       id: live.identity, locale: live.locale, path: live.path, kind: live.kind === 'article' ? 'article' : 'core',
       visibleTitle: live.content.title,
       visibleImage: live.content.image,

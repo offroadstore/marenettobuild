@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "prepare:commercial-release": "node scripts/export-editorial.mjs && node scripts/prepare-commercial-release.mjs",
+    "test:commercial-release": "node scripts/commercial-release-matrix.mjs",
     "generate:icons": "node scripts/generate-icons.mjs",
     "test:icons": "node --test scripts/site-icons.test.mjs",
     "dev": "vite --config vite.config.ts --host 0.0.0.0",

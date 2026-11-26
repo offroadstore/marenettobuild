@@ -2422,6 +2422,10 @@ export const GetActiveEditorialResponseItem = zod.object({
   "path": zod.string(),
   "kind": zod.enum(['article', 'page']),
   "revisionId": zod.string(),
+  "revisionCreatedAt": zod.string().optional(),
+  "activatedAt": zod.string().optional(),
+  "revisionHash": zod.string().optional(),
+  "sourceHash": zod.string().optional(),
   "content": zod.object({
   "title": zod.string().max(getActiveEditorialResponseContentTitleMax),
   "summary": zod.string().max(getActiveEditorialResponseContentSummaryMax),

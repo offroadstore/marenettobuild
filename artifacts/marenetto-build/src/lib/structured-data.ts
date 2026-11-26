@@ -15,6 +15,7 @@ import { NETWORK_SERVICE_IDS } from '@/content/network/types';
 import { arabicEditorialSchema } from '@/content/arabic-editorial/schema';
 import { arabicEditorialByPath } from '@/content/arabic-editorial';
 import { areaPageByPath, areaCopy, areaPage, articleArea } from '@/content/four-areas';
+import { commercialFAQ } from '@/content/commercial-release.mjs';
 
 export function editionStructuredData(edition: Edition, origin: string) {
   const canonical = new URL(canonicalEdition(edition).path, origin).href;
@@ -59,8 +60,18 @@ export function editionStructuredData(edition: Edition, origin: string) {
       headline: edition.visibleTitle ?? edition.title, inLanguage: edition.contentLanguage,
       mainEntityOfPage: canonical, url: canonical,
       publisher: { '@id': `${origin}/#organization` },
+      ...(edition.commercialRelease ? {
+        author:{'@type':'Organization',name:'Marenetto Build','@id':`${origin}/#organization`},
+        dateCreated:edition.preparedAt,
+        ...(edition.revisionCreatedAt ? {dateModified:edition.revisionCreatedAt} : {}),
+      } : {}),
       ...(edition.visibleImage ? { image: new URL(edition.visibleImage,origin).href } : {}),
     });
+    if(edition.commercialRelease && edition.editorialBody) {
+      const faq=commercialFAQ(edition.editorialBody,edition.editorialFAQ);
+      if(faq.length) graph.push({'@type':'FAQPage','@id':`${canonical}#faq`,inLanguage:edition.locale,
+        mainEntity:faq.map(f=>({'@type':'Question',name:f.question,acceptedAnswer:{'@type':'Answer',text:f.answer}}))});
+    }
     return graph;
   }
   const arabicArticleGraph = edition.locale === 'ar' ? arabicEditorialSchema(edition.path, origin) : [];

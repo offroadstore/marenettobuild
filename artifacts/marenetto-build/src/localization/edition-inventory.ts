@@ -36,6 +36,11 @@ export type Edition = {
   visibleTitle?: string;
   visibleImage?: string;
   activeEditorialRevision?: string;
+  commercialRelease?: string;
+  editorialBody?: string;
+  editorialFAQ?: {question:string;answer:string}[];
+  preparedAt?: string;
+  revisionCreatedAt?: string;
   translationRevision?: string; translationApprovalRevision?: string; translationSourcePath?: string;
 };
 

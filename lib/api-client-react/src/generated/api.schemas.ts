@@ -952,6 +952,10 @@ export interface EditorialActive {
   path: string;
   kind: EditorialActiveKind;
   revisionId: string;
+  revisionCreatedAt?: string;
+  activatedAt?: string;
+  revisionHash?: string;
+  sourceHash?: string;
   content: EditorialContent;
 }
 

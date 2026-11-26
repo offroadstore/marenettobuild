@@ -13,6 +13,7 @@ import { propertyPath } from '@/content/property-management';
 import { atelierPath } from '@/content/atelier';
 import { professionalCopy } from '@/content/professionals';
 import { useActiveEditorial } from '@/lib/editorial-runtime';
+import { commercialRecord } from '@/content/commercial-release.mjs';
 import '@/styles/four-areas.css';
 
 const firstLink = (locale: string, keys: string[]) => {
@@ -26,6 +27,7 @@ export function FourAreaPillar({ page }: { page: FourAreaPage }) {
   const c = areaCopy(locale);
   const t = c.areas[area];
   const s = AREA_STRUCTURE[area];
+  const releasedArticles = useActiveEditorial().filter(entry=>entry.locale===locale && commercialRecord(entry)?.area===area);
   usePageMeta({ title: page.title, description: page.description, path: page.path });
   return <main className="fa" lang={locale} data-testid={`page-pillar-${area}`}>
     <section className="fa-hero">
@@ -76,6 +78,11 @@ export function FourAreaPillar({ page }: { page: FourAreaPage }) {
       </div>
     </section>
 
+    {releasedArticles.length>0 && <section className="fa-section" aria-labelledby="fa-reading">
+      <div className="fa-wrap"><h2 id="fa-reading" className="fa-h2">{c.ui.readMore}</h2>
+        <ul>{releasedArticles.map(entry=><li key={entry.identity}><Link href={withCampaignParams(entry.path)}>{entry.content.title}</Link></li>)}</ul>
+      </div>
+    </section>}
     <section className="fa-cta" aria-labelledby="fa-cta-h">
       <div className="fa-wrap fa-cta__inner">
         <div><h2 id="fa-cta-h" className="fa-h2">{c.ui.ctaHeading}</h2><p>{c.ui.ctaText}</p></div>

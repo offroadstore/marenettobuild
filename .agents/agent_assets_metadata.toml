@@ -938,3 +938,45 @@ mtime_ms = 1795670481909
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/a56ea884-a963-436d-82a6-48ba79f99cc3/2d7e04e9-a1e6-4bc1-9179-343c8541a637"
 storage_version_token = "1795670806364440"
 content_type = "text/html"
+
+[[outputs]]
+id = "vfiT7Rdjb3W2lcTXHDuB1"
+uri = "file://generated-artifacts/editorial/release-2026-11/RAPPORTO-DEFINITIVO-dea2b40f25e1.html"
+type = "html"
+title = "Rapporto definitivo — 182 edizioni e raccordo con la serie"
+description = "Rapporto italiano aggiornato: candidato PRONTO PER REPUBLISH, prove, limiti e checklist per Claude. Sostituisce le versioni precedenti."
+logical_id = "d15de632-a07e-45b0-b802-c290a52ef969"
+content_hash = "sha256:026380ac0ca989fe8b62ddfb66dfa091f4feec313a5ae0e723325969bf91c7b3"
+size = 663780
+mtime_ms = 1795677668241
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/d15de632-a07e-45b0-b802-c290a52ef969/ec226ec7-504f-4a60-925c-61b3043d4b57"
+storage_version_token = "1795677751798226"
+content_type = "text/html"
+
+[[outputs]]
+id = "GAhG_vBJenh8znCdf72OO"
+uri = "file://generated-artifacts/editorial/release-2026-11/MATRICE-182-dea2b40f25e1.csv"
+type = "table"
+title = "Matrice definitiva delle 182 edizioni"
+description = "Identità, lingue, aree, URL conservati o nuovi, revisioni, autorizzazione e verifiche SEO del candidato."
+logical_id = "2307aeb0-4b5e-46ae-a915-806e03549969"
+content_hash = "sha256:a381f00cb1676bedbdb186461a9d9ce52b40afe2f8fee533729dba51f24a1a77"
+size = 264486
+mtime_ms = 1795677668241
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/2307aeb0-4b5e-46ae-a915-806e03549969/d54651b3-62cd-4bac-83fc-5db91b88550b"
+storage_version_token = "1795677752452823"
+content_type = "text/csv"
+
+[[outputs]]
+id = "FZCEBYNRVcF4QCh71AcVH"
+uri = "file://generated-artifacts/editorial/release-2026-11/MARENETTO-DEFINITIVO-182-dea2b40f25e1.zip"
+type = "unspecified"
+title = "Pacchetto definitivo per il titolare"
+description = "57 file: contenuti esatti, strumento owner, ricevute isolate, CSV, fonti e prove grezze. Radice dea2b40f25e1; usare questa versione, non i pacchetti precedenti."
+logical_id = "c8f43ece-5dc9-4f6b-8791-c44c7856c627"
+content_hash = "sha256:62868c58b153eb103155f8b88a8afe55e4759f0ca03faf5de1f0ed90729ef112"
+size = 4233853
+mtime_ms = 1795677668238
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/c8f43ece-5dc9-4f6b-8791-c44c7856c627/254ccbf1-3c9f-425a-aef3-5823315f93b7"
+storage_version_token = "1795677753094085"
+content_type = "application/octet-stream"

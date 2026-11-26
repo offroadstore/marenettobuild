@@ -1,0 +1,10 @@
+/* New secondary guides have no fictitious project thumbnail. Keep the text
+ * column usable instead of letting it occupy the old image grid column. */
+.guide-row.guide-row--editorial {
+  grid-template-columns: 50px minmax(0, 1fr) auto;
+}
+@media (max-width: 680px) {
+  .guide-row.guide-row--editorial {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

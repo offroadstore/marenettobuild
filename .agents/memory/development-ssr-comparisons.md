@@ -1,6 +1,6 @@
 ---
 name: Development SSR comparisons
-description: Separate raw development evidence, instrumentation and reconstructed production metadata.
+description: Separate raw development evidence, instrumentation, canonical redirects and reconstructed production metadata.
 ---
 
 Do not equate a full development HTML hash change across hot reload/restart
@@ -11,6 +11,18 @@ body comparisons may also exclude the editor's `data-replit-metadata` and
 `data-component-name` attributes when their exact whitelist is documented.
 Keep requested structural additions separately identifiable; never normalize
 away old paragraphs, links, metadata or language changes.
+
+Isolated HTTP checks must reject automatic redirects or explicitly remap their
+targets back through the isolated gateway. A canonical WWW URL in the document
+is expected; following an absolute redirect to that real host is not an isolated
+candidate test.
+
+**Why:** Historical canonical paths can retain trailing slashes while CMS
+identities normalize them away. An unchecked redirect can return a successful
+response from the old public site instead of the candidate under test.
+
+**How to apply:** Test the preserved canonical path, assert the response origin,
+and check redirecting aliases separately without following them to production.
 
 **Why:** A development restart restored the original article HTML while an
 intermediate capture carried Vite's numeric module timestamp. Treating those

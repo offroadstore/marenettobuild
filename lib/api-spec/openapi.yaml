@@ -1559,6 +1559,10 @@ components:
         path: { type: string }
         kind: { type: string, enum: [article, page] }
         revisionId: { type: string }
+        revisionCreatedAt: { type: string }
+        activatedAt: { type: string }
+        revisionHash: { type: string }
+        sourceHash: { type: string }
         content: { $ref: "#/components/schemas/EditorialContent" }
     HealthStatus:
       type: object

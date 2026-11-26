@@ -47,6 +47,7 @@ import { HistoricalContents } from '@/pages/historical';
 import { EditorialRuntime, useActiveEditorial, useEditorialStatus, editorialPathKey } from '@/lib/editorial-runtime';
 import { applyPublicReleaseMetadata } from '@/lib/public-release-meta';
 import type { EditorialActive } from '@workspace/api-client-react';
+import { commercialRecord, commercialEntries } from '@/content/commercial-release.mjs';
 import { usePageMeta } from '@/lib/meta';
 import { AnalyticsPreferences } from '@/components/AnalyticsPreferences';
 import { CookiePreferencesLink } from '@/components/CookiePreferencesLink';
@@ -329,6 +330,9 @@ function ArticleNav({ lang, variant, onNavigate }: { lang: Lang; variant: 'deskt
 }
 
 function Header({ lang, page, articleSlug, editionId }: { lang: Lang; page: Page; articleSlug?: string; editionId?: string }) {
+  const activeEditions = useActiveEditorial();
+  const releasedEditions = commercialEntries(activeEditions);
+  const isReleasedArticle = releasedEditions.some(entry=>entry.id===editionId);
   const [menuOpen, setMenuOpen] = useState(false);
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const [location] = useLocation();
@@ -386,7 +390,8 @@ function Header({ lang, page, articleSlug, editionId }: { lang: Lang; page: Page
               : (current + (event.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
             items[next]?.focus();
           }}>{PUBLISHED_LOCALES.map(locale => {
-            const edition = getEdition(locale.code, editionId ?? articleSlug ?? page);
+            const edition = isReleasedArticle ? releasedEditions.find(entry=>entry.locale===locale.code&&entry.id===editionId)
+              : getEdition(locale.code, editionId ?? articleSlug ?? page);
             if (!edition) return null;
             return <Link key={locale.code} href={withCampaignParams(edition.path)} role="menuitem" lang={locale.code} aria-label={locale.nativeName} aria-current={locale.code === lang ? 'true' : undefined} onClick={() => { saveLanguageChoice(locale.code); setLanguageMenuOpen(false); }}><span className="language-flag" aria-hidden="true">{languageFlag(locale.code)}</span><span className="language-name" dir={locale.direction}>{locale.nativeName}</span>{locale.code === lang && <Check size={15} aria-hidden="true" className="language-selected" />}</Link>;
           })}</div>}
@@ -1249,6 +1254,11 @@ function RoutedErrorBoundary({ children }: { children: ReactNode }) {
 function ActiveEditorialPage({ edition }: { edition: EditorialActive }) {
   const { content, locale } = edition;
   const active = useActiveEditorial();
+  const released = commercialRecord(edition);
+  const body = released ? (released.presentation?.body??content.body).replace(/href="(\/[^"]*)"/g, (_all,href:string) => {
+    const target=withCampaignParams(href.replaceAll('&amp;','&'));
+    return `href="${target.replaceAll('&','&amp;').replaceAll('"','&quot;')}"`;
+  }) : content.body;
   usePageMeta({ title: content.seoTitle || content.title, description: content.seoDescription || content.summary, path: edition.path, type: edition.kind === 'article' ? 'article' : 'website' });
   useEffect(() => {
     document.documentElement.lang = locale;
@@ -1269,7 +1279,7 @@ function ActiveEditorialPage({ edition }: { edition: EditorialActive }) {
     }
     document.querySelector('link[rel="canonical"]')?.setAttribute('href',canonical);
     applyPublicReleaseMetadata(edition.path, active);
-    if (content.guide) {
+    if (content.guide && !released) {
       document.querySelectorAll('script[type="application/ld+json"]').forEach(node => node.remove());
       const schema = document.createElement('script');
       schema.type = 'application/ld+json';
@@ -1279,17 +1289,17 @@ function ActiveEditorialPage({ edition }: { edition: EditorialActive }) {
   }, [edition, active]);
   const core = edition.identity as CorePage;
   return <div className="site-shell" lang={locale} dir={getLocaleDirection(locale)}>
-    <Header lang={locale} page={pageForEditorial(edition)} />
+    <Header lang={locale} page={pageForEditorial(edition)} editionId={released ? edition.identity : undefined} />
     <main><section className="section"><div className="container">
       {edition.kind === 'article' && <AreaBreadcrumb locale={locale} article={edition.identity} title={content.title} />}
       <h1 className="display-title">{content.title}</h1>
       {content.summary && <p className="section-intro">{content.summary}</p>}
       {content.image && <figure><img className="historical-cover" src={content.image} alt={content.imageAlt} />{content.guide ? <SeriesImageDisclosure src={content.image} locale={edition.locale} /> : <ImageDisclosure src={content.image} lang={edition.locale} />}</figure>}
       <article className="historical-content article-body" data-active-revision={edition.revisionId} lang={content.contentLanguage}>
-      <div dangerouslySetInnerHTML={{ __html: discloseHTMLImages(content.body.replace(/(<\/?)h1(\b[^>]*>)/gi, '$1h2$2'), edition.locale) }} />
+      <div dangerouslySetInnerHTML={{ __html: discloseHTMLImages(body.replace(/(<\/?)h1(\b[^>]*>)/gi, '$1h2$2'), edition.locale) }} />
       {edition.identity === 'articles' && <LibraryLocale.Provider value={locale}><ActiveArticleListing /></LibraryLocale.Provider>}
       {edition.kind === 'article' && <AreaPillarLink locale={locale} article={edition.identity} />}
-      {content.sources.length > 0 && <aside><h2>{content.guide ? sourceLabels[locale] ?? 'Sources' : 'Fonti'}</h2><ul>{content.sources.map(source => <li key={source.url}><a href={source.url} rel="noreferrer">{source.title}</a></li>)}</ul></aside>}
+      {(!released || released.readOnlySeries) && content.sources.length > 0 && <aside><h2>{content.guide ? sourceLabels[locale] ?? 'Sources' : 'Fonti'}</h2><ul>{content.sources.map(source => <li key={source.url}><a href={source.url} rel="noreferrer">{source.title}</a></li>)}</ul></aside>}
       {content.guide && <SeriesArticle guide={content.guide} locale={locale} />}
       </article>
     </div></section>{core === 'request' && <RequestPage lang={locale} editorial />}</main>

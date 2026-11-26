@@ -107,20 +107,22 @@ Open indexing only after the canonical WWW domain and permanent redirects have b
 
 **Why:** The owner explicitly ordered the launch this way; a valid certificate alone does not prove the redirect chain is correct. Record edge-managed HTTP redirects separately from application redirects.
 
-The six-guide editorial series has a separate draft/review boundary even though
-general indexing of verified existing public pages is authorised. The owner
-approved its subject list, not publication, and requested missing business
-information as private placeholders. Review the Italian source before adapting
-EN/DE/NL, then FR/ES/PT/PL/RU/SV/NO/DA.
+The earlier six-guide draft-only/twelve-language boundary was superseded on
+2026-11-26 for the six guides plus eight specified commercial articles, in thirteen
+languages including Arabic. The owner authorized AI-assisted review and complete
+isolated candidate activation, not autonomous publication or a professional opinion.
+Do not wait for project photographs: use visibly labelled illustrations without
+activating the portfolio. The separate ten-episode series must remain independent.
 
-**Why:** The owner explicitly asked to proceed with drafts in that order without
-publishing before review; “automatic application” does not waive that boundary.
+**Why:** The owner explicitly approved this limited editorial scope and review
+method, with delivery up to “PRONTO PER REPUBLISH”; the owner publishes through Claude.
 
-**How to apply:** Preserve the purchase-guide family and existing URLs. In the
-remote-renovation and holiday-home guides, link the third-party property-management
-page with Cefalù Apartments only once actually public, using its real canonical
-URL. Never publish placeholders or infer a construction-update process from the
-partner’s rental-management tools.
+**How to apply:** Preserve the purchase-guide identity and historical URLs, respect
+newer revisions and withdrawals, and do not extend this approval to unrelated copy.
+Distinguish tested candidate activation from the authenticated destination action
+and actual public release. Link the real localized Cefalù Apartments partner page,
+keep technical uncertainties visible, remove private editorial placeholders from
+public copy, and never infer building-update practices from rental-management tools.
 
 The owner confirmed on 2026-11-25 that Google shows the Search Console property
 as verified. This is an owner account-status declaration, not an independent
