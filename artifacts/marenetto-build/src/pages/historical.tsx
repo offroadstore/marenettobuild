@@ -12,9 +12,10 @@ import { editionByPath } from '@/localization/edition-inventory';
 import { updateStructuredData } from '@/lib/structured-data';
 import pendingMessages from '@/content/pending-content.json';
 import { withCampaignParams } from '@/lib/campaign';
-import { TravelCoverageBlock, TravelIndexBlock } from '@/pages/phase3/TravelPages';
+import { TravelCoverageBlock } from '@/pages/phase3/TravelPages';
 import { NetworkServicesBlock } from '@/pages/network';
 import { translationCandidate, translationApproved, translationNotices } from '@/localization/phase2';
+import { FourAreasHome, AreaBreadcrumb, AreaPillarLink } from '@/pages/four-areas';
 import { PropertyManagementLink } from '@/pages/property-management';
 import { historicalPresentation } from '@/content/historical-presentation';
 import { imageDescription } from '@/content/image-descriptions';
@@ -81,9 +82,8 @@ export function HistoricalContents({ page, actions }: { page: HistoricalPage; ac
       <BrandMotto locale={page.locale} placement="home" />
       <div data-preserved-ui="">{actions}</div>
     </div></HeroPhoto></section>{' '}
+    <FourAreasHome locale={page.locale} />
     {homeData && <HistoricalHomeSections home={homeData} locale={page.locale} />}
-    <PropertyManagementLink locale={page.locale} />
-    <TravelIndexBlock locale={page.locale} />
   </div>;
   if (page.family === '/recensioni') return <section className="mbx mbx-section" lang={page.locale}>
     <div className="container"><GoogleReviews locale={page.locale} heading="h1" /></div>
@@ -98,8 +98,10 @@ export function HistoricalContents({ page, actions }: { page: HistoricalPage; ac
   </div>;
   return <section className="section"><div className="container">
     {translation && !translationApproved(translation) && <p lang={page.locale} role="note">{translationNotices[page.locale].review}</p>}
+    {page.kind === 'article' && <AreaBreadcrumb locale={page.locale} article={page.family} title={page.h1} />}
     {page.kind === 'article' && <><h1 className="display-title">{page.h1}</h1>{document.dateLabel ? <span>{document.dateLabel}</span> : document.publishedOn && <time dateTime={document.publishedOn}>{document.publishedOn.slice(0, 10)}</time>}{document.image && <figure><img className="historical-cover" src={document.image} alt={imageDescription(document.image, page.locale, document.imageAlt)} loading="eager" /><figcaption><ImageDisclosure src={document.image} lang={page.locale} />{document.imageCaption}</figcaption></figure>}</>}
     {page.locale !== 'it' && page.contentLanguage === 'it' && <p lang={page.locale} data-source-language="it">{sourceLanguageLabels[page.locale] ?? 'Testo in italiano'}</p>}
     <article className={`historical-content${page.kind === 'article' ? ' article-body' : ''}`} data-historical-body="" data-editorial-state={page.state === 'awaiting-confirmation' ? 'review-pending' : undefined} data-correction-state={page.editorialCorrection ? page.locale === 'it' ? 'owner-authorized-preview' : 'translation-draft' : undefined} lang={page.contentLanguage} onClick={preserveCampaign} dangerouslySetInnerHTML={{ __html: historicalPresentation(document.html, page.locale) }} />
+    {page.kind === 'article' && <AreaPillarLink locale={page.locale} article={page.family} />}
   </div>{page.kind !== 'article' && SERVICE_FAMILIES.has(page.family) && <><NetworkServicesBlock locale={page.locale} /><PropertyManagementLink locale={page.locale} /><TravelCoverageBlock locale={page.locale} /></>}</section>;
 }

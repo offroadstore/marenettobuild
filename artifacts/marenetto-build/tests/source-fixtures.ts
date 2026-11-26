@@ -5,6 +5,13 @@ import assert from 'node:assert/strict';
 import type { Page } from '@playwright/test';
 
 export const projectRoot = resolve(import.meta.dirname, '..');
+export function pillarEdition(locale: string, area: 'villas'|'outdoors'|'surfaces'|'investment') {
+  const manifest = JSON.parse(readFileSync(resolve(projectRoot, 'dist/public/route-manifest.json'), 'utf8'));
+  const entry = (Object.values(manifest.editions) as {id:string;locale:string;path:string}[])
+    .find(e => e.locale === locale && e.id === `pillar-${area}`);
+  if (!entry) throw new Error(`Missing built pillar: ${locale}:${area}`);
+  return entry;
+}
 export type SourcePage = {
   path: string; key: string; family: string; locale: string;
   h1: string; kind: string; state: string; contentLanguage: string; editorialCorrection?: unknown;

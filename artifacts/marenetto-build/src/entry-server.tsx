@@ -8,6 +8,8 @@ import type { EditorialActive } from '@workspace/api-client-react';
 import { translationCandidate, translationSourceChanged } from './localization/phase2';
 import { mergeActiveMetadata, releaseMetadata } from './localization/public-seo.mjs';
 import { arabicEditorialByPath } from './content/arabic-editorial';
+import { editionStructuredData } from './lib/structured-data';
+import { blockedPublicLocale } from './localization/locales';
 export { editions, redirects, excludedRoutes, equivalentEditions, canonicalEdition, reviewPathForEdition, reviewHubEdition } from './localization/edition-inventory';
 export { companyStructuredData } from './config/contact';
 export { editionStructuredData } from './lib/structured-data';
@@ -15,6 +17,7 @@ export { historicalInventory } from './content/historical';
 export { blockedPublicLocale } from './localization/locales';
 export { networkPreviewPage, NETWORK_PAGES, networkPublic } from './content/network';
 export { networkStructuredData } from './content/network/schema';
+export { FOUR_AREA_PAGES, PROJECT_PAGES, areaPage, areaCopy, areaRequestPath, ARTICLE_AREA, articleArea, requireArticleArea, professionalPath as professionalEntryPath } from './content/four-areas';
 
 // Translation state is scoped to a document. Serialize server renders so concurrent
 // review/public requests cannot share the transient review selection or findings.
@@ -58,7 +61,18 @@ export function render(path: string, locale: string, active: EditorialActive[] =
       if (translated && text === article.approvedFullText) throw new Error(`Article body is still Italian at ${path}`);
       fullTextProof = { slug: article.slug, contentLocale: translated ? locale : 'it', blocks: blocks.length, missingBlocks: 0, originalDate: article.publishedOn, automatedCheckOnly: true };
     }
-    return { body, metadata: resolvedMetadata, fullTextProof, missingTranslations: translationFindings() };
+    const live = !blockedPublicLocale(path) && active.find(item => item.revisionId !== 'withdrawn' &&
+      [item.path, ...(item.aliases ?? [])].some(candidate => candidate.replace(/\/+$/, '') === path.replace(/\/+$/, '')));
+    const structuredData = live ? editionStructuredData({
+      id: live.identity, locale: live.locale, path: live.path, kind: live.kind === 'article' ? 'article' : 'core',
+      visibleTitle: live.content.title,
+      visibleImage: live.content.image,
+      activeEditorialRevision: live.revisionId,
+      title: live.content.seoTitle || live.content.title, description: live.content.seoDescription || live.content.summary,
+      contentLanguage: live.content.contentLanguage || live.locale, state: 'reviewed', approval: null, sitemap: false,
+      source: 'active-editorial:exact-revision',
+    }, 'https://www.marenettobuild.com') : undefined;
+    return { body, metadata: resolvedMetadata, structuredData, fullTextProof, missingTranslations: translationFindings() };
   });
   renderQueue = result.catch(() => undefined);
   return result;

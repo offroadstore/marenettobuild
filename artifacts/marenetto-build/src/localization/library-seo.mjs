@@ -21,7 +21,7 @@ const copy = {
   fr: [
     'Guides pour rénover une maison à Cefalù',
     'Guides pour les propriétaires à Cefalù sur la rénovation et l’entretien, avec sources, limites et questions à aborder avec les professionnels mandatés.',
-    'Rechercher des articles sur le bâtiment et la rénovation',
+    'Recherche d’articles et guides à Cefalù',
     'Recherchez les articles et guides de Marenetto Build sur la construction, la rénovation et l’entretien des biens à Cefalù.',
   ],
   es: [
@@ -39,7 +39,7 @@ const copy = {
   pt: [
     'Guias para remodelar uma casa em Cefalù',
     'Guias para proprietários em Cefalù sobre remodelação e manutenção, com fontes, limites e perguntas para os profissionais responsáveis.',
-    'Pesquisar artigos sobre construção e remodelação',
+    'Pesquisar artigos e guias em Cefalù',
     'Pesquise artigos e guias da Marenetto Build sobre construção, remodelação e manutenção de imóveis em Cefalù.',
   ],
   ru: [

@@ -23,6 +23,9 @@ export function mergeActiveMetadata(entries, active) {
     const candidate = translationSourceStale ? { ...entry, translationSourceStale: true } : entry;
     return live?.content ? { ...candidate,
       title: live.content.seoTitle || live.content.title || entry.title,
+      visibleTitle: live.content.title || entry.visibleTitle,
+      visibleImage: live.content.image || '',
+      activeEditorialRevision: live.revisionId,
       description: live.content.seoDescription || live.content.summary || entry.description,
       contentLanguage: live.content.contentLanguage || entry.contentLanguage,
       activeSeoTitle: Boolean(live.content.seoTitle?.trim()),
@@ -49,6 +52,11 @@ const text = value => String(value ?? '').replace(/<[^>]+>/g, ' ').replace(/&nbs
   .replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/\s+/g, ' ').trim();
 
 export function releaseMetadata(edition, html = '', entries = []) {
+  // New commercial editions have individually authored, length-checked titles.
+  // Appending the brand again would turn a valid title into an overlong one.
+  if (String(edition.source).startsWith('four-areas:') && !edition.activeSeoTitle && !edition.activeSeoDescription) {
+    return { title: edition.title, description: edition.description };
+  }
   const search = searchCopy(edition);
   if (search && !edition.activeSeoTitle && !edition.activeSeoDescription) return search;
   if (edition.kind === 'legal') return {

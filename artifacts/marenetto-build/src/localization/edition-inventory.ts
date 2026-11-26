@@ -22,6 +22,8 @@ import { ARABIC_EDITORIAL_ARTICLES, arabicEditorialPath } from '@/content/arabic
 import { ARABIC_LIBRARY_PATH, arabicLibraryCopy } from '@/content/arabic-editorial-library';
 import { arabicSeo, arabicPlaceSeo } from './arabic-seo.mjs';
 import { ARABIC_ARCHIVES, arabicArchivePath } from '@/content/arabic-archives';
+import { indexExclusion } from './index-exclusions.mjs';
+import { FOUR_AREA_PAGES, PROJECT_PAGES } from '@/content/four-areas';
 
 export type EditionState = 'draft' | 'translated' | 'reviewed' | 'published';
 export type Edition = {
@@ -31,6 +33,9 @@ export type Edition = {
   /** Explicit non-indexable surfaces cannot inherit legacy/public release approval. */
   indexing?: 'never';
   coreMetadata?: { title: string; description: string };
+  visibleTitle?: string;
+  visibleImage?: string;
+  activeEditorialRevision?: string;
   translationRevision?: string; translationApprovalRevision?: string; translationSourcePath?: string;
 };
 
@@ -268,18 +273,40 @@ for (const edition of editions) {
     edition.sitemap = false;
   }
 }
+// Stable commercial identities are separate from every historical URL/family.
+// The owner approved this complete thirteen-language architecture; linguistic
+// preparation is AI-assisted, not a native-speaker or technical certification.
+for (const page of FOUR_AREA_PAGES) {
+  if (editions.some(e => e.path.replace(/\/+$/, '') === page.path)) throw new Error(`Pillar URL collision: ${page.path}`);
+  editions.push({
+    id: page.id, locale: page.locale, path: page.path, title: page.title, description: page.description,
+    kind: 'core', state: 'published', contentLanguage: page.locale, sitemap: true,
+    approval: 'Owner-approved four-area direction; complete localized commercial copy, AI-assisted preparation',
+    source: 'four-areas:commercial-pillar',
+  });
+}
+for (const page of PROJECT_PAGES) {
+  if (editions.some(e => e.path.replace(/\/+$/, '') === page.path)) throw new Error(`Projects URL collision: ${page.path}`);
+  editions.push({
+    id: page.id, locale: page.locale, path: page.path, title: page.title, description: page.description,
+    kind: 'core', state: 'reviewed', contentLanguage: page.locale, sitemap: false, approval: null,
+    source: 'four-areas:hidden-projects-preparation',
+  });
+}
+for (const edition of editions) if (indexExclusion(edition)) edition.sitemap = false;
 export const editionByPath = new Map(editions.map(edition => [edition.path, edition]));
 export function editionDisplayStatus(edition: Edition) {
   if (edition.translationRevision) return edition.approval ? '' : 'Traduzione confrontata · da approvare';
   return editionStatusLabel(edition, historicalInventory.find(page => page.path === edition.path));
 }
 export function equivalentEditions(id: string) {
-  return editions.filter(edition => edition.id === id && edition.state === 'published' && edition.approval);
+  return editions.filter(edition => edition.id === id && edition.state === 'published' && edition.approval && !indexExclusion(edition));
 }
 export function getEdition(locale: string, id: string) {
   return editions.find(edition => edition.locale === locale && edition.id === id);
 }
 export function reviewPathForEdition(edition: Edition) {
+  if (edition.source.startsWith('four-areas:')) return edition.path;
   // New archive compositions have real localized paths, not routable historical ids.
   // Preserve the existing article/core previews; do not invent /historical:/... URLs.
   if (edition.source.startsWith('arabic-archives:')) return edition.path;
@@ -304,8 +331,9 @@ export function canonicalEdition(edition: Edition) {
 }
 export const redirects: Record<string, string> = {
   ...historicalRedirects,
-  '/progetti': '/servizi',
-  ...Object.fromEntries(LOCALES.filter(locale => locale.code !== 'it').map(locale => [libraryPath(locale.code, 'projects'), pages[locale.code as keyof typeof pages].services.path])),
+  // The thirteen requested Projects paths now serve a hidden, noindex
+  // preparatory document. Keep unrelated historical redirects unchanged.
+  ...Object.fromEntries(LOCALES.filter(locale => !PROJECT_PAGES.some(page => page.locale === locale.code)).map(locale => [libraryPath(locale.code, 'projects'), pages[locale.code as keyof typeof pages].services.path])),
 };
 // Never redirect a recovered native edition to a rewritten Italian article.
 for (const original of historicalInventory.filter(page => page.state === 'restored' || page.state === 'awaiting-confirmation')) delete redirects[original.key];

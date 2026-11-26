@@ -68,14 +68,14 @@ test('current owner-approved notices supersede archived blocks without losing pr
       }
       assert.ok(html.includes('data-testid="illustration-note"'));
       assert.ok(sitemap.includes(`<loc>https://www.marenettobuild.com${legal.path}</loc>`));
-      for (const link of html.matchAll(/hreflang="([^"]+)"/g)) assert.ok(['it-IT', 'x-default', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'ru', 'pl', 'sv', 'no', 'da'].includes(link[1]));
+      for (const link of html.matchAll(/hreflang="([^"]+)"/g)) assert.ok(['it-IT', 'x-default', 'en', 'de', 'fr', 'es', 'nl', 'pt', 'ru', 'pl', 'sv', 'no', 'da', 'ar'].includes(link[1]));
       const preview = await fetch(topology.origin + legal.path, { headers: { ...headers, 'x-forwarded-host': 'preview.replit.dev' } });
       assert.equal(preview.status, 200);
       assert.equal(preview.headers.get('x-robots-tag'), 'noindex, nofollow');
       assert.match(await preview.text(), /name="robots" content="noindex, nofollow"/);
-      for (const locale of ['en', 'de', 'ar']) {
+      for (const locale of ['en', 'de', 'he']) {
         const missing = await fetch(topology.origin + `/${locale}${legal.path}`, { headers, redirect: 'manual' });
-        assert.equal(missing.status, legal.path === '/privacy' && locale !== 'ar' ? 200 : 404);
+        assert.equal(missing.status, legal.path === '/privacy' && ['en','de'].includes(locale) ? 200 : 404);
       }
     }
     const request = await (await fetch(topology.origin + '/richiesta', { headers })).text();

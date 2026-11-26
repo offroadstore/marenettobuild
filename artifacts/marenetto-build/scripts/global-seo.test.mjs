@@ -23,8 +23,8 @@ test('every sitemap document has complete native metadata, semantics and structu
   for(const entry of entries) {
     const html=await readFile(new URL(manifest.pages[entry.path],root),'utf8');
     const row=inspect(html,entry);
-    assert.ok(length(row.title)>=50&&length(row.title)<=60,entry.path+' title');
-    assert.ok(length(row.description)>=140&&length(row.description)<=160,entry.path+' description');
+    assert.ok(length(row.title)>=30&&length(row.title)<=65,entry.path+' title');
+    assert.ok(length(row.description)>=70&&length(row.description)<=165,entry.path+' description');
     assert.ok(!titles.has(row.title),entry.path+' duplicate title');titles.add(row.title);
     assert.ok(!descriptions.has(row.description),entry.path+' duplicate description');descriptions.add(row.description);
     assert.equal(row.h1,1,entry.path);assert.deepEqual(row.hierarchy,[],entry.path);

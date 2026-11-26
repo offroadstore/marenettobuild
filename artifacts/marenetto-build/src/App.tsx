@@ -61,6 +61,7 @@ import { propertyCopy, propertyPageByPath, propertyPath } from '@/content/proper
 import { PropertyManagementPage, PropertyManagementLink } from '@/pages/property-management';
 import '@/styles/property-navigation.css';
 import { requestServiceSelection } from '@/lib/request-service';
+import { ABOUT_EQUIVALENTS } from '@/content/four-areas/about';
 import { NetworkPage, NetworkServicesBlock } from '@/pages/network';
 import { AtelierPage, AtelierLink } from '@/pages/atelier';
 import { ProfessionalsPage, ProfessionalDownloadsPage } from '@/pages/professionals';
@@ -73,6 +74,8 @@ import { ArabicLibraryPage } from '@/pages/arabic-library';
 import { ArabicEditorialPage } from '@/pages/arabic-editorial';
 import { arabicArchiveByPath } from '@/content/arabic-archives';
 import { ArabicArchivePage } from '@/pages/arabic-archive';
+import { AREA_IDS, areaCopy, areaPage, areaPageByPath, isAreaLocale, projectPageByPath } from '@/content/four-areas';
+import { FourAreaPillar, FourAreasHome, ProjectsPage, AreaBreadcrumb, AreaPillarLink } from '@/pages/four-areas';
 import { NETWORK_PUBLIC_PAGES, networkCopy, networkPageByPath, networkPreviewPage, networkPublic } from '@/content/network';
 
 const queryClient = new QueryClient();
@@ -330,7 +333,7 @@ function Header({ lang, page, articleSlug, editionId }: { lang: Lang; page: Page
   const mobileNavRef = useRef<HTMLElement>(null);
   const languageMenuRef = useRef<HTMLDivElement>(null);
   const c = copy[lang].nav;
-  const requestLabel = lang === 'it' || lang === 'en' ? homeCopy[lang].primary : c.request;
+  const requestLabel = isAreaLocale(lang) ? areaCopy(lang).ui.request : lang === 'it' || lang === 'en' ? homeCopy[lang].primary : c.request;
   // Close both menus whenever the route changes (link click, back/forward).
   useEffect(() => { setMenuOpen(false); setLanguageMenuOpen(false); }, [location]);
   // Escape closes the open menu and returns focus to its trigger.
@@ -352,10 +355,9 @@ function Header({ lang, page, articleSlug, editionId }: { lang: Lang; page: Page
       (menu?.querySelector<HTMLElement>('[aria-current="true"]') ?? menu?.querySelector<HTMLElement>('[role="menuitem"]'))?.focus();
     }
   }, [languageMenuOpen]);
-  const items: [Page, string][] = [['services', c.services], ['process', c.process], ['abroad', c.abroad], ['articles', c.articles], ['contact', c.contact]];
-  // Keep the approved primary links and add the recovered historical article menu
-  // only for locales whose original menu and category paths were verified.
-  const desktopItems: [Page, string][] = [['services', c.services], ['process', c.process], ['contact', c.contact]];
+  // Main navigation: the four areas, About, one request button and the language utility.
+  const areaNav: [string, string, string][] = isAreaLocale(lang) ? AREA_IDS.map(area => [areaPage(lang, area)!.path, areaPage(lang, area)!.nav, area]) : [];
+  const aboutLabel = isAreaLocale(lang) ? areaCopy(lang).ui.about : c.process;
   // 'projects' stays routable (/progetti) but is hidden from navigation until approved real work exists.
   return localizeNode(lang, <header className="topbar">
     <div className="container nav-wrap">
@@ -363,12 +365,8 @@ function Header({ lang, page, articleSlug, editionId }: { lang: Lang; page: Page
         <Logo />
       </Link>
       <nav className="nav-links" aria-label={lang === 'it' ? 'Navigazione principale' : 'Main navigation'}>
-        <WhatsAppNavLink lang={lang} />
-        {desktopItems.slice(0, 2).map(([key, label]) => key === 'services' && propertyCopy[lang]
-          ? <div className="property-services-nav" key={key}><PageLink page={key} lang={lang} aria-current={page === key ? 'page' : undefined} data-testid={`nav-${key}`}>{label}</PageLink><details><summary aria-label={label}><ChevronDown size={14} aria-hidden="true" /></summary><div className="property-services-menu"><Link href={withCampaignParams(propertyPath(lang))} data-testid="nav-property-management">{propertyCopy[lang].nav}</Link>{atelierCopy[lang] && <Link href={withCampaignParams(atelierPath(lang))} data-testid="nav-atelier">{atelierCopy[lang].nav}</Link>}{professionalCopy[lang] && <Link href={withCampaignParams(professionalPath(lang))} data-testid="nav-professionals">{professionalCopy[lang].nav}</Link>}</div></details></div>
-          : <PageLink key={key} page={key} lang={lang} aria-current={page === key ? 'page' : undefined} data-testid={`nav-${key}`}>{label}</PageLink>)}
-        {historicalArticleMenu(lang) && <ArticleNav lang={lang} variant="desktop" />}
-        <PageLink page="contact" lang={lang} aria-current={page === 'contact' ? 'page' : undefined} data-testid="nav-contact">{c.contact}</PageLink>
+        {areaNav.map(([href, label, id]) => <Link key={id} href={withCampaignParams(href)} aria-current={location.replace(/\/+$/, '') === href ? 'page' : undefined} data-testid={`nav-area-${id}`}>{label}</Link>)}
+        <PageLink page="process" lang={lang} aria-current={page === 'process' ? 'page' : undefined} data-testid="nav-about">{aboutLabel}</PageLink>
       </nav>
       <div className="nav-actions">
         <div className="language-picker">
@@ -394,18 +392,11 @@ function Header({ lang, page, articleSlug, editionId }: { lang: Lang; page: Page
       </div>
     </div>
     {menuOpen && <nav ref={mobileNavRef} id="mobile-nav" className="mobile-nav" aria-label={lang === 'it' ? 'Menu' : 'Menu'}>
-      {items.map(([key, label]) => key === 'articles'
-        ? <ArticleNav key={key} lang={lang} variant="mobile" onNavigate={() => setMenuOpen(false)} />
-        : <PageLink key={key} page={key} lang={lang} onClick={() => setMenuOpen(false)} data-testid={`mobile-nav-${key}`}>{label}</PageLink>)}
-      {propertyCopy[lang] && <Link href={withCampaignParams(propertyPath(lang))} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-property-management">{propertyCopy[lang].nav}</Link>}
-      {propertyCopy[lang] && atelierCopy[lang] && <Link href={withCampaignParams(atelierPath(lang))} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-atelier">{atelierCopy[lang].nav}</Link>}
-      {professionalCopy[lang] && <Link href={withCampaignParams(professionalPath(lang))} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-professionals">{professionalCopy[lang].nav}</Link>}
-      <PageLink page="guides" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-guides">{lang === 'it' ? 'Guide pratiche' : 'Practical guides'}</PageLink>
-      <PageLink page="search" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-search">{lang === 'it' ? 'Ricerca' : 'Search'}</PageLink>
-      <a href={telHref} data-testid="mobile-nav-phone">{COMPANY_PHONE.display}</a>
+      {areaNav.map(([href, label, id]) => <Link key={id} href={withCampaignParams(href)} onClick={() => setMenuOpen(false)} data-testid={`mobile-nav-area-${id}`}>{label}</Link>)}
+      <PageLink page="process" lang={lang} onClick={() => setMenuOpen(false)} data-testid="mobile-nav-about">{aboutLabel}</PageLink>
       <PageLink page="request" lang={lang} className="button" onClick={() => setMenuOpen(false)}>{requestLabel}<ArrowRight size={14} /></PageLink>
     </nav>}
-    <MobileContactBar hidden={menuOpen || languageMenuOpen || editionId === 'professionals' || editionId === 'professional-downloads'} callLabel={localizeChoice(lang, 'Chiama', 'Phone')} writeLabel={localizeChoice(lang, 'Scrivici', 'Email')}
+    <MobileContactBar hidden={menuOpen || languageMenuOpen || editionId?.startsWith('pillar-') === true || editionId === 'professionals' || editionId === 'professional-downloads'} callLabel={localizeChoice(lang, 'Chiama', 'Phone')} writeLabel={localizeChoice(lang, 'Scrivici', 'Email')}
       emailHref={emailHref(localizeChoice(lang, 'Richiesta informazioni — Marenetto Build', 'Enquiry — Marenetto Build'))} />
   </header>);
 }
@@ -506,6 +497,25 @@ function buildHomeCopy(lang: Lang): HomeCopy {
 }
 
 function HomePage({ lang }: { lang: Lang }) {
+  // The alternate composition must follow the same commercial architecture
+  // as the recovered home, rather than revive its legacy News/care widgets.
+  if (isAreaLocale(lang)) {
+    const h = buildHomeCopy(lang);
+    const ui = areaCopy(lang).ui;
+    return <div className="mb-home mbh">
+      <section className="mbh-opening"><HeroPhoto altLocale={lang}><div className="mbh-hero__copy">
+        <h1 className="mbh-h1">{h.title}</h1>
+        <p className="mbh-hero__lead">{ui.fourAreasIntro}</p>
+        <BrandMotto locale={lang} placement="home" />
+        <div className="mbh-actions">
+          <PageLink lang={lang} page="request" className="mbh-btn mbh-btn--board" data-testid="hero-request">{ui.request}</PageLink>
+          <PageLink lang={lang} page="process" className="mbh-hero__link" data-testid="hero-process">{ui.about}</PageLink>
+        </div>
+      </div></HeroPhoto></section>
+      <FourAreasHome locale={lang} />
+      <section className="mbx mbx-section mbx-story" aria-labelledby="mbx-reviews-h"><div className="mbh-wrap"><GoogleReviews locale={lang} /></div></section>
+    </div>;
+  }
   const it = lang === 'it';
   const h = buildHomeCopy(lang);
   const native = lang === 'it' || lang === 'en';
@@ -552,8 +562,7 @@ function HomePage({ lang }: { lang: Lang }) {
       </div>
     </section>)}
 
-    <TravelIndexBlock locale={lang} />
-    <PropertyManagementLink locale={lang} />
+    <FourAreasHome locale={lang} />
 
     {localizeNode(lang, <section className="mbh-strip" data-testid="section-contact-strip" aria-labelledby="mbh-strip-title">
       <div className="mbh-wrap mbh-strip__inner">
@@ -656,8 +665,13 @@ function ServicesPage({ lang }: { lang: Lang }) {
 function ProcessPage({ lang }: { lang: Lang }) {
   const data = copy[lang].process;
   const it = lang === 'it';
+  const about = ABOUT_EQUIVALENTS[lang];
   return localizeNode(lang, <>
-    <PageHero lang={lang} page="process" />
+    {about ? <section className="page-hero" lang={lang}><div className="container">
+      <h1 className="display-title">{areaCopy(lang).ui.about}</h1>
+      <h2 className="section-heading">{about.heading}</h2>
+      {about.paragraphs.map(text => <p key={text}>{text}</p>)}
+    </div></section> : <PageHero lang={lang} page="process" />}
     <section className="section">
       <div className="container editorial-grid">
         <aside className="editorial-aside"><SectionLabel>{it ? 'Un metodo pratico' : 'A practical approach'}</SectionLabel><h2 className="section-heading display-title">{data.heading}</h2><p className="section-intro">{data.intro}</p></aside>
@@ -997,7 +1011,7 @@ function RecoveredPage({ page, lang }: { page: HistoricalPageRecord; lang: Lang 
   return <div className="site-shell" lang={lang === 'it' ? 'it-IT' : lang} dir={getLocaleDirection(lang)}>
     <Header lang={lang} page={navigationPage} editionId={editionByPath.get(page.path)?.id} articleSlug={page.kind === 'article' ? page.family.slice(1) : undefined} />
     <main><WhatsAppAccess lang={lang} /><HistoricalContents page={page} actions={<div className="mbh-actions">
-      <PageLink lang={lang} page="request" className="mbh-btn mbh-btn--board" data-testid="hero-request">{h.primary}</PageLink>
+      <PageLink lang={lang} page="request" className="mbh-btn mbh-btn--board" data-testid="hero-request">{isAreaLocale(lang) ? areaCopy(lang).ui.request : h.primary}</PageLink>
       <PageLink lang={lang} page="process" className="mbh-hero__link" data-testid="hero-process">{h.secondary}</PageLink>
     </div>} /><CallRequestAccess lang={lang} page={navigationPage} /></main>
     <Footer lang={lang} />
@@ -1051,6 +1065,10 @@ function Router({ pathOverride }: { pathOverride?: string } = {}) {
     return <LocaleGate lang={network.locale}><div className="site-shell" lang={network.locale} dir={getLocaleDirection(network.locale)}><Header lang={network.locale} page="services" editionId={`network-${network.id}`} /><NetworkPage page={network} /><AtelierLink locale={network.locale} /><Footer lang={network.locale} /></div></LocaleGate>;
   }
   if (live) return live.revisionId === 'withdrawn' ? <NotFound lang={live.locale} /> : <LocaleGate lang={live.locale}><ActiveEditorialPage edition={live} /></LocaleGate>;
+  const pillar = areaPageByPath(path);
+  if (pillar) return <LocaleGate lang={pillar.locale}><InformationShell lang={pillar.locale}><FourAreaPillar page={pillar} /></InformationShell></LocaleGate>;
+  const projects = projectPageByPath(path);
+  if (projects) return <LocaleGate lang={projects.locale}><InformationShell lang={projects.locale}><ProjectsPage page={projects} /></InformationShell></LocaleGate>;
   const noticeLocale = SERVICE_LOCALES.find(code => ['privacy', 'cookies', 'ai'].some(kind => legalPath(code, kind as LegalKind) === path.replace(/\/+$/, '')));
   if (noticeLocale) {
     const kind = (['privacy', 'cookies', 'ai'] as const).find(kind => legalPath(noticeLocale, kind) === path.replace(/\/+$/, ''))!;
@@ -1107,7 +1125,6 @@ function Router({ pathOverride }: { pathOverride?: string } = {}) {
       const native = articlePath(libraryLang, slug);
       if ((historicalPage(native) || historicalArticleForPreview(native)) && native.replace(/\/+$/, '') !== trimmed) return <Redirect to={routeRedirect(native)} replace />;
     }
-    if (kind === 'projects') return <Redirect to={withCampaignParams(routes[libraryLang].services)} />;
     if (slug && (kind !== 'articles' || !articleBySlug.has(slug))) return <NotFound lang={libraryLang} />;
     return <RoutedErrorBoundary><LocalizedLibraryPage lang={libraryLang} page={kind as 'articles' | 'guides' | 'search'} articleSlug={slug} /></RoutedErrorBoundary>;
   }
@@ -1253,11 +1270,13 @@ function ActiveEditorialPage({ edition }: { edition: EditorialActive }) {
   return <div className="site-shell" lang={locale} dir={getLocaleDirection(locale)}>
     <Header lang={locale} page={pageForEditorial(edition)} />
     <main><section className="section"><div className="container">
+      {edition.kind === 'article' && <AreaBreadcrumb locale={locale} article={edition.identity} title={content.title} />}
       <h1 className="display-title">{content.title}</h1>
       {content.summary && <p className="section-intro">{content.summary}</p>}
       {content.image && <img className="historical-cover" src={content.image} alt={content.imageAlt} />}
       <article className="historical-content article-body" data-active-revision={edition.revisionId} lang={content.contentLanguage} dangerouslySetInnerHTML={{ __html: discloseHTMLImages(content.body.replace(/(<\/?)h1(\b[^>]*>)/gi, '$1h2$2'), edition.locale) }} />
       {edition.identity === 'articles' && <LibraryLocale.Provider value={locale}><ActiveArticleListing /></LibraryLocale.Provider>}
+      {edition.kind === 'article' && <AreaPillarLink locale={locale} article={edition.identity} />}
       {content.sources.length > 0 && <aside><h2>Fonti</h2><ul>{content.sources.map(source => <li key={source.url}><a href={source.url} rel="noreferrer">{source.title}</a></li>)}</ul></aside>}
     </div></section>{core === 'request' && <RequestPage lang={locale} editorial />}</main>
     <Footer lang={locale} />

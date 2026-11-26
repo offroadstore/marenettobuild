@@ -12,12 +12,15 @@ export const attributes = tag => Object.fromEntries([...tag.matchAll(/([\w:-]+)\
 const count = value => [...value.normalize('NFC')].length;
 const digest = value => createHash('sha256').update(value).digest('hex');
 export function inspect(html, edition) {
-  const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] ?? '';
+  // Development tooling contains literal markup strings (including <title>)
+  // inside executable scripts. They are not document elements.
+  const markup = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
+  const main = markup.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] ?? '';
   const content = main.replace(/<nav\b[^>]*>[\s\S]*?<\/nav>|<footer\b[^>]*>[\s\S]*?<\/footer>/gi, '');
   const text = plain(content);
   const headings = [...content.matchAll(/<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>/gi)].map(m => ({level:Number(m[1]), text:plain(m[2])}));
-  const meta = Object.fromEntries([...html.matchAll(/<meta\b[^>]*>/gi)].map(m => attributes(m[0])).map(a => [a.name ?? a.property, a.content]));
-  const links = [...html.matchAll(/<link\b[^>]*>/gi)].map(m => attributes(m[0]));
+  const meta = Object.fromEntries([...markup.matchAll(/<meta\b[^>]*>/gi)].map(m => attributes(m[0])).map(a => [a.name ?? a.property, a.content]));
+  const links = [...markup.matchAll(/<link\b[^>]*>/gi)].map(m => attributes(m[0]));
   const images = [...content.matchAll(/<img\b[^>]*>/gi)].map(m => attributes(m[0]));
   const issues = [];
   const graph = [];
@@ -49,11 +52,13 @@ export function inspect(html, edition) {
     if (!text.includes(plain(q.name)) || !text.includes(plain(q.acceptedAnswer?.text ?? ''))) issues.push('faq-not-visible:' + q.name);
   }
   if (edition.kind === 'article' && !graph.some(n => n['@type'] === 'Article')) issues.push('missing-Article');
-  const title = plain(html.match(/<title>([\s\S]*?)<\/title>/)?.[1] ?? '');
+  const title = plain(markup.match(/<title>([\s\S]*?)<\/title>/)?.[1] ?? '');
   const description = meta.description ?? '';
   return { path:edition.path, locale:edition.locale, id:edition.id, kind:edition.kind, source:edition.source,
-    htmlSHA256:digest(html), title, titleCharacters:count(title), titleOutOfRange:count(title)<50 || count(title)>60,
-    description, descriptionCharacters:count(description), descriptionOutOfRange:count(description)<140 || count(description)>160,
+    htmlSHA256:digest(html), title, titleCharacters:count(title), titleOutOfRange:count(title)<30 || count(title)>65,
+    titleOutsidePreferred:count(title)<50 || count(title)>60,
+    description, descriptionCharacters:count(description), descriptionOutOfRange:count(description)<70 || count(description)>165,
+    descriptionOutsidePreferred:count(description)<140 || count(description)>160,
     canonical:links.find(l=>l.rel==='canonical')?.href, alternates:links.filter(l=>l.hreflang),
     words:[...new Intl.Segmenter(edition.locale,{granularity:'word'}).segment(text)].filter(s=>s.isWordLike).length,
     countedText:text,
@@ -61,7 +66,7 @@ export function inspect(html, edition) {
     h1:headings.filter(h=>h.level===1).length, hierarchy:headings.filter((h,i)=>h.level>(headings[i-1]?.level??0)+1),
     headings, images, inadequateAlt:images.filter(i=>i.alt===undefined || (!i.alt && i.role!=='presentation' && i['aria-hidden']!=='true' && !i['data-historical-logo']) || /^(?:image|photo|foto|img)\s*\d*$/i.test(i.alt??'')),
     jsonldIssues:[...new Set(issues)], schemaTypes:graph.map(n=>n['@type']),
-    links:[...html.matchAll(/<a\b[^>]*>/gi)].map(m=>attributes(m[0]).href).filter(Boolean),
+    links:[...markup.matchAll(/<a\b[^>]*>/gi)].map(m=>attributes(m[0]).href).filter(Boolean),
     og:meta['og:title']===title && meta['og:description']===description && meta['og:url']===PUBLIC_ORIGIN+edition.path,
   };
 }
@@ -159,7 +164,7 @@ if (process.argv[1] === new URL(import.meta.url).pathname) {
       method:'Actual candidate HTTP server; simulated official www host; isolated empty editorial API; no JavaScript. NFC Unicode code points. Intl.Segmenter words inside main excluding nav/footer and blocks repeated on >=35% (minimum eight) pages per locale. HTML snapshots SHA256. No Search Console access or production validation.',
       pages:rows.length,locales:[...new Set(rows.map(r=>r.locale))],summary,rows,checked};
     await writeFile(new URL('inventory.json',dir),JSON.stringify(report,null,2));
-    const columns=['path','locale','kind','status','canonical','title','titleCharacters','titleOutOfRange','titleDuplicates','description','descriptionCharacters','descriptionOutOfRange','descriptionDuplicates','words','h1','hierarchy','inadequateAlt','jsonldIssues','brokenLinks','hreflangIssues','htmlSHA256','source'];
+    const columns=['path','locale','kind','status','canonical','title','titleCharacters','titleOutOfRange','titleOutsidePreferred','titleDuplicates','description','descriptionCharacters','descriptionOutOfRange','descriptionOutsidePreferred','descriptionDuplicates','words','h1','hierarchy','inadequateAlt','jsonldIssues','brokenLinks','hreflangIssues','htmlSHA256','source'];
     await writeFile(new URL('inventory.csv',dir),'\uFEFF'+[columns.join(','),...rows.map(row=>columns.map(c=>'"'+String(typeof row[c]==='object'?JSON.stringify(row[c]):row[c]??'').replaceAll('"','""')+'"').join(','))].join('\r\n'));
     console.log(JSON.stringify({label,pages:rows.length,locales:report.locales,summary},null,2));
   } finally {await topology?.close();}

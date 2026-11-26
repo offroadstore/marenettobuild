@@ -1,49 +1,28 @@
 import { expect, test } from '@playwright/test';
-import { openPage } from './source-fixtures';
+import { openPage, pillarEdition } from './source-fixtures';
 
-const sourceMenus = [
-  { locale: 'it', home: '/', archive: '/articoli/', categories: ['/general-contractor/', '/edilizia-e-ristrutturazioni/', '/bonus-edilizi-e-permessi/', '/cantieri-e-lavori/', '/outdoor-e-garden-design/', '/assistenza-e-pronto-intervento/'] },
-  { locale: 'en', home: '/en/', archive: '/en/articles/', categories: ['/en/general-contractor/', '/en/construction-and-renovations/', '/en/building-bonuses-and-permits/', '/en/shipyards-and-construction/', '/en/outdoor-and-garden-design/', '/en/support-and-emergency-service/'] },
-  { locale: 'fr', home: '/fr/', archive: '/fr/articles/', categories: ['/fr/entrepreneur-general/', '/fr/construction-et-renovations/', '/fr/bonus-de-construction-et-permis/', '/fr/chantiers-et-travaux/', '/fr/conception-d-exterieur-et-de-jardin/', '/fr/assistance-et-intervention-d-urgence/'] },
-  { locale: 'de', home: '/de/', archive: '/de/artikel/', categories: ['/de/generalunternehmer/', '/de/bau-und-renovierung/', '/de/bau-boni-und-genehmigungen/', '/de/baustellen-und-arbeiten/', '/de/aussenbereich-und-gartengestaltung/', '/de/support-und-notfallhilfe/'] },
-  { locale: 'es', home: '/es/', archive: '/es/articulos/', categories: ['/es/contratista-general/', '/es/construccion-y-renovaciones/', '/es/bonos-de-construccion-y-permisos/', '/es/obras-y-construcciones/', '/es/diseno-de-exteriores-y-jardines/', '/es/asistencia-y-servicio-de-emergencia/'] },
-  { locale: 'nl', home: '/nl/', archive: '/nl/artikelen/', categories: ['/nl/aannemer/', '/nl/bouw-en-renovaties/', '/nl/bouwbonussen-en-vergunningen/', '/nl/scheepswerven-en-werken/', '/nl/buiten-en-tuinontwerp/', '/nl/ondersteuning-en-spoedhulp/'] },
-  { locale: 'ru', home: '/ru/', archive: '/ru/stati/', categories: ['/ru/generalnyj-podrjadchik/', '/ru/stroitelstvo-i-remont/', '/ru/stroitelnye-bonusy-i-razreshenija/', '/ru/stroitelnye-ploschadki-i-raboty/', '/ru/dizajn-ulicy-i-sada/', '/ru/podderzhka-i-ekstrennoe-reagirovanie/'] },
-  { locale: 'pt', home: '/pt/', archive: '/pt/artigos/', categories: ['/pt/empreiteiro-geral/', '/pt/construcao-e-reformas/', '/pt/bonus-de-construcao-e-licencas/', '/pt/construcoes-e-obras/', '/pt/design-para-exterior-e-jardim/', '/pt/assistencia-e-atendimento-imediato/'] },
-  { locale: 'pl', home: '/pl/', archive: '/pl/artykuly/', categories: ['/pl/glowny-wykonawca/', '/pl/budownictwo-i-remonty/', '/pl/bonus-budowlane-i-zezwolenia/', '/pl/budowy-i-prace/', '/pl/projektowanie-przestrzeni-zewnetrznych-i-ogrodow/', '/pl/wsparcie-i-szybka-interwencja/'] },
-];
+const locales = ['it','en','de','fr','nl','es','pt','ru','pl','sv','no','da','ar'];
+const areas = ['villas','outdoors','surfaces','investment'] as const;
 
-test('desktop menus preserve the original article and six category URLs in nine locales', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 900 });
-  for (const menu of sourceMenus) {
-    const response = await openPage(page, menu.home);
-    expect(response?.status(), menu.locale).toBe(200);
-    const archive = page.getByTestId('nav-articles');
-    await expect(archive, menu.locale).toHaveAttribute('href', menu.archive);
-    const disclosure = page.getByTestId('button-desktop-article-categories');
-    await disclosure.click();
-    await expect(disclosure).toHaveAttribute('aria-expanded', 'true');
-
-    const categories = page.locator(`#article-categories-desktop-${menu.locale} a`);
-    await expect(categories).toHaveCount(6);
-    for (let index = 0; index < menu.categories.length; index += 1) {
-      await expect(categories.nth(index)).toHaveAttribute('href', menu.categories[index]);
+for(const locale of locales) {
+  test(`four-area navigation, articles kept in footer: ${locale}`,async({page})=>{
+    await page.setViewportSize({width:1440,height:900});
+    await openPage(page,locale==='it'?'/':`/${locale}/`);
+    const navigation=page.locator('.nav-links');
+    for(const area of areas) {
+      await expect(navigation.locator(`a[href="${pillarEdition(locale,area).path}"]`)).toHaveCount(1);
     }
-    const firstCategoryResponse = await openPage(page, menu.categories[0]);
-    expect(firstCategoryResponse?.status(), menu.categories[0]).toBe(200);
-    await expect(page.locator('main h1').first()).toBeVisible();
-  }
-});
-
-test('mobile article submenu can be opened and its historic links remain visible', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  await openPage(page, '/');
-  await page.getByTestId('button-menu').click();
-  await expect(page.getByTestId('mobile-nav-articles')).toBeVisible();
-  const disclosure = page.getByTestId('button-mobile-article-categories');
-  await disclosure.click();
-  await expect(disclosure).toHaveAttribute('aria-expanded', 'true');
-  const categories = page.locator('#article-categories-mobile-it a');
-  await expect(categories).toHaveCount(6);
-  await expect(categories.first()).toHaveAttribute('href', '/general-contractor/');
-});
+    await expect(navigation.locator('a')).toHaveCount(5);
+    await expect(page.getByTestId('nav-articles')).toHaveCount(0);
+    await expect(page.locator('footer a').filter({hasText: /Articoli|Articles|Artikel|Artikelen|Artykuły|Artikler|Artículos|Artigos|Статьи|مقالات|Artiklar/}).first()).toBeVisible();
+    await page.setViewportSize({width:390,height:844});
+    await page.getByTestId('button-menu').focus();
+    await page.keyboard.press('Enter');
+    const mobile=page.locator('#mobile-nav');
+    for(const area of areas) await expect(mobile.locator(`a[href="${pillarEdition(locale,area).path}"]`)).toBeVisible();
+    await expect(page.getByTestId('mobile-nav-articles')).toHaveCount(0);
+    await page.keyboard.press('Escape');
+    await expect(page.getByTestId('button-menu')).toBeFocused();
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+  });
+}

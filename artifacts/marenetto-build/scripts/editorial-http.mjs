@@ -61,7 +61,7 @@ export function editorialDocument(template, rendered, edition, active, status = 
     activeSeoTitle: Boolean(edition.content.seoTitle?.trim()),
     activeSeoDescription: Boolean(edition.content.seoDescription?.trim()), state: 'reviewed' };
   const canonical = edition && new URL(edition.path, 'https://www.marenettobuild.com').href;
-  const structuredData = status === 200 && edition?.kind === 'article' ? [{
+  const structuredData = status === 200 && rendered.structuredData ? rendered.structuredData : status === 200 && edition?.kind === 'article' ? [{
     '@type':'Article', '@id':`${canonical}#article`, url:canonical, mainEntityOfPage:canonical,
     headline:edition.content.title, inLanguage:edition.content.contentLanguage || edition.locale,
     ...(edition.content.image ? { image:new URL(edition.content.image, canonical).href } : {}),

@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { openPage, sourceHome } from './source-fixtures';
+import { openPage, sourceHome, pillarEdition } from './source-fixtures';
 import { noticeCopy } from '../src/content/legal-notices';
 
 const evidence = resolve(import.meta.dirname, '../../../generated-artifacts/layout-approved/after');
@@ -49,10 +49,25 @@ for (const width of [390, 580, 699, 700, 768, 1000, 1100, 1440, 1920]) {
     expect(current.includes('-mobile-')).toBe(width < 700);
     await expect(hero).toHaveAttribute('loading', 'eager');
     await expect(hero).toHaveAttribute('fetchpriority', 'high');
-    if (width >= 900) {
-      await expect(page.getByTestId('nav-articles')).toBeVisible();
-      await expect(page.locator('#article-categories-desktop-it a')).toHaveCount(6);
+    // Four commercial areas need the compact menu through 1150px: forcing
+    // the old 900px desktop boundary overlaps the language/assessment controls.
+    if (width >= 1151) {
+      await expect(page.locator(`.nav-links a[href="${pillarEdition('it','villas').path}"]`)).toBeVisible();
+      await expect(page.getByTestId('nav-articles')).toHaveCount(0);
       await expect(page.getByTestId('button-menu')).toBeHidden();
+    } else {
+      const menu=page.getByTestId('button-menu');
+      await expect(menu).toBeVisible();
+      await expect(page.getByTestId('nav-area-villas')).toBeHidden();
+      await menu.focus();
+      await page.keyboard.press('Enter');
+      for(const area of ['villas','outdoors','surfaces','investment'] as const) {
+        await expect(page.getByTestId(`mobile-nav-area-${area}`)).toBeVisible();
+        await expect(page.getByTestId(`mobile-nav-area-${area}`)).toHaveAttribute('href',pillarEdition('it',area).path);
+      }
+      await expect(page.getByTestId('mobile-nav-about')).toBeVisible();
+      await page.keyboard.press('Escape');
+      await expect(menu).toBeFocused();
     }
     if ([390, 768, 1440, 1920].includes(width) && testInfo.project.name === 'vite-development') {
       await mkdir(evidence, { recursive: true });
@@ -94,7 +109,7 @@ for (const lang of ['it', 'en', 'de']) {
     await expect(page.getByTestId('link-language')).toBeFocused();
     await page.getByTestId('button-menu').focus();
     await page.keyboard.press('Enter');
-    const services = page.getByTestId('mobile-nav-services');
+    const services = page.locator(`#mobile-nav a[href^="${pillarEdition(lang,'villas').path}"]`);
     const destination = new URL((await services.getAttribute('href'))!, page.url());
     await services.focus();
     await expect(services).toHaveCSS('outline-style', 'solid');

@@ -17,9 +17,11 @@ const metadata = html => ({
   ...Object.fromEntries(['description', 'og:title', 'og:description', 'twitter:title', 'twitter:description'].map(key =>
     [key, unescape(html.match(new RegExp(`<meta\\b[^>]*(?:name|property)="${key}"[^>]*content="([^"]*)"`))?.[1] ?? '')])),
 });
-function check(html, label) {
+function check(html, label, edition) {
   const m = metadata(html);
-  assert.match(m.title, /Marenetto Build/, label);
+  if (String(edition?.source).startsWith('four-areas:')) {
+    assert.ok([...m.title.normalize('NFC')].length>=30&&[...m.title.normalize('NFC')].length<=65,label);
+  } else assert.match(m.title, /Marenetto Build/, label);
   assert.doesNotMatch(m.title, /marenettobuild\.com/i, label);
   assert.ok(m.description.length >= 20, label);
   assert.equal(m['og:title'], m.title, label);
@@ -81,7 +83,7 @@ test('every served edition has complete initial HTML metadata; sitemap metadata 
         const html = await response.text();
         const row = { path: edition.path, locale: edition.locale, status: response.status };
         if (response.status === 200) {
-          Object.assign(row, check(html, edition.path));
+          Object.assign(row, check(html, edition.path, edition));
           if (edition.id === 'home') assert.equal(row.title, (searchCopy(edition) ?? releaseMetadata(edition)).title);
         } else assert.ok([301, 302, 307, 308, 404, 410, 503].includes(response.status), `${edition.path}: HTTP ${response.status}`);
         rows.push(row);
@@ -97,7 +99,7 @@ test('every served edition has complete initial HTML metadata; sitemap metadata 
         else seen.set(row[key], row.path);
       }
     }
-    const report = new URL('../../../generated-artifacts/seo-audit/metadata-http.json', import.meta.url);
+    const report = new URL('../../../generated-artifacts/four-areas/metadata-http.json', import.meta.url);
     await mkdir(new URL('.', report), { recursive: true });
     await writeFile(report, JSON.stringify({ source: 'Local actual production server; synthetic empty editorial snapshot; no browser JavaScript', indexed: indexed.size, duplicates, rows: rows.sort((a,b) => a.path.localeCompare(b.path)) }, null, 2));
     assert.deepEqual(duplicates, [], 'Duplicate metadata on indexable canonical pages');

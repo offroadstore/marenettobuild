@@ -1,3 +1,4 @@
+import { AreaBreadcrumb, AreaPillarLink } from '@/pages/four-areas';
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'wouter';
 import { ArrowLeft, ArrowRight, Search, ShieldAlert, X } from 'lucide-react';
@@ -173,11 +174,13 @@ export function ArticleDetailPage({ a }: { a: Article }) {
   return render(<>
     <section className="article-hero">
       <div className="container">
+        <AreaBreadcrumb locale={lang} article={a.slug} title={a.title} />
         <Link href={withCampaignParams(libraryHref('articles'))} className="text-link back-link" data-testid="link-back-archive"><ArrowLeft size={14} />Tutti gli articoli</Link>
         <div className="article-head">
           <div className="lib-card-meta"><span data-testid="text-category">{a.category}</span><span data-testid="text-date">Pubblicato in origine: {formatDate(a.publishedOn)}</span></div>
           <h1 className="display-title animate-enter" data-testid="text-article-title">{a.title}</h1>
           <p className="article-lede animate-enter delay-1">{a.summary}</p>
+          <AreaPillarLink locale={lang} article={a.slug} />
         </div>
       </div>
       <div className="container"><figure className="article-figure"><img src={a.image} alt={a.imageAlt} data-testid="img-article-hero" /><figcaption>Immagine illustrativa dell’articolo originale, conservata localmente. Non documenta un lavoro verificato.</figcaption></figure></div>

@@ -2,6 +2,7 @@ import { editions, canonicalEdition } from '@/localization/edition-inventory';
 import { isNativeEdition, hasTranslationApproval, releaseMetadata, mergeActiveMetadata } from '@/localization/public-seo.mjs';
 import { updateStructuredData } from './structured-data';
 import { historicalInventory } from '@/content/historical';
+import { indexExclusion } from '@/localization/index-exclusions.mjs';
 
 export const PUBLIC_SITE_ORIGIN = 'https://www.marenettobuild.com';
 import type { EditorialActive } from '@workspace/api-client-react';
@@ -21,7 +22,7 @@ export function applyPublicReleaseMetadata(pathname: string, active: Active[]) {
   const withdrawn = new Set(active.filter(e => e.revisionId === 'withdrawn')
     .flatMap(e => [e.path, ...(e.aliases ?? [])]).map(normalized));
   const allEntries = mergeActiveMetadata(editions, active);
-  const entries = allEntries.filter(e => e.indexing !== 'never' && approved.has(e.locale) && isNativeEdition(e) && hasTranslationApproval(e) && e.kind !== 'search' &&
+  const entries = allEntries.filter(e => e.indexing !== 'never' && approved.has(e.locale) && isNativeEdition(e) && hasTranslationApproval(e) && !indexExclusion(e) && e.kind !== 'search' &&
     e.path !== '/en/articoli/' && !e.path.startsWith('/__localization-review') && !withdrawn.has(normalized(e.path)));
   const edition = entries.find(e => normalized(e.path) === normalized(pathname));
   const candidate = withdrawn.has(normalized(pathname)) ? undefined :

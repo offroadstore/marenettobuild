@@ -4,7 +4,8 @@ description: Owner authorization for verified public editions and the separate e
 ---
 
 The owner's final clarification authorizes indexing complete, verified public
-pages in the twelve active languages without another approval, including
+pages in the twelve original active languages and the subsequently authorized
+Arabic edition without another approval, including
 services, articles, guides, areas and legal notices. Incomplete or unverified
 pages remain noindex. Private access, login and technical/demo/review routes
 remain excluded.

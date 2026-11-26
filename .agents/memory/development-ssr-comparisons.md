@@ -1,12 +1,16 @@
 ---
 name: Development SSR comparisons
-description: Preserve content-sensitive evidence when development hot reload changes module cache tokens.
+description: Separate raw development evidence, instrumentation and reconstructed production metadata.
 ---
 
 Do not equate a full development HTML hash change across hot reload/restart
 with a published article revision change. Preserve raw evidence, compare the
 active editorial snapshot, and exclude only documented development-module
-cache tokens when making a content-identity assertion.
+cache tokens when making a content-identity assertion. Development-to-production
+body comparisons may also exclude the editor's `data-replit-metadata` and
+`data-component-name` attributes when their exact whitelist is documented.
+Keep requested structural additions separately identifiable; never normalize
+away old paragraphs, links, metadata or language changes.
 
 **Why:** A development restart restored the original article HTML while an
 intermediate capture carried Vite's numeric module timestamp. Treating those
@@ -30,3 +34,18 @@ in the canonical root before edits. For post-sync comparisons, a baseline with
 the incoming template in that same root is valid only after proving the frontend
 sources match incoming Main. Do not hide asset-hash or content differences with
 broader normalization.
+
+Executable development scripts can contain literal HTML examples, including
+`<title></title>`. Inspect actual document markup, not those script strings,
+when counting titles, links or headings.
+
+**Why:** The preview error reporter embeds such examples, while the editor
+also injects source-location attributes absent from a production build. A
+regex over the whole response falsely reported empty titles and changed
+article bodies.
+
+**How to apply:** Preserve raw files and hashes. Exclude executable script
+bodies from markup extraction but parse JSON-LD separately. Do not call preview
+noindex-to-production indexable flags an SEO improvement. If comparing old
+production metadata by reconstructing its exact recorded source policy, label
+that as reconstructed evidence, never an old production HTTP capture.

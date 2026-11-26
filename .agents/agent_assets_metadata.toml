@@ -854,3 +854,31 @@ mtime_ms = 1795646045434
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/90c7707a-9d83-4307-8fbe-64ed36e65e65/71708545-5872-4e90-9d6d-c5e4e5ad373a"
 storage_version_token = "1795646057411467"
 content_type = "text/html"
+
+[[outputs]]
+id = "Wh46KsP9gcsXA7dZDLe0K"
+uri = "file://generated-artifacts/four-areas/rapporto-italiano.html"
+type = "html"
+title = "Rapporto finale aggiornato — quattro aree"
+description = "Include l’esito della verifica integrata e i 18 controlli geometrici superati dopo l’allineamento del menu compatto. Nessuna pubblicazione eseguita."
+logical_id = "d4587b8c-1ee9-4869-af01-f21f18f7c995"
+content_hash = "sha256:21d4dfd3d0dc9c8a523629b2fd5b3a83a2d8f8dbea6a7ffe0a5371395304ee9f"
+size = 6898952
+mtime_ms = 1795651363082
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/d4587b8c-1ee9-4869-af01-f21f18f7c995/205e4871-d047-4d71-9cda-4f9238ccd751"
+storage_version_token = "1795651439169195"
+content_type = "text/html"
+
+[[outputs]]
+id = "iW2C5GUE0A45CacB96n6q"
+uri = "file://generated-artifacts/marenetto-quattro-aree-audit.zip"
+type = "unspecified"
+title = "Prove complete aggiornate — quattro aree"
+description = "HTML grezzi prima/dopo, CSV, immagini, risultati della verifica integrata e correzione mirata dei controlli tablet; circa 64 MB."
+logical_id = "3133695e-4c12-4d0d-b38d-ca59db885672"
+content_hash = "sha256:40a9610c83830b06c02c18fef66f3033ee70638b6c8395c7a0e597d5ca70baa4"
+size = 63789491
+mtime_ms = 1795651372446
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/3133695e-4c12-4d0d-b38d-ca59db885672/f9e49b0b-9555-4618-8e20-a5b63aa6215d"
+storage_version_token = "1795651440623906"
+content_type = "application/octet-stream"

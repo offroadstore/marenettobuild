@@ -6,7 +6,7 @@
 - [Internal access testing](internal-access-testing.md) — Temporary development test gates are not release approvals; do not infer an SMTP dependency from an approval flag.
 - [Documentary asset recovery](documentary-asset-recovery.md) — A missing report file after a task merge does not prove it was never delivered; check registered outputs separately.
 - [Business identity and contact](contact-approval.md) — Owner confirmed public email and controller details; these declarations are not independent delivery or registry checks.
-- [Public indexing authorization](public-indexing-authorization.md) — Owner permits all existing public pages in twelve languages; previews, private routes and runtime withdrawals stay excluded.
+- [Public indexing authorization](public-indexing-authorization.md) — Complete public editions include Arabic; previews, private routes and runtime withdrawals stay excluded.
 - [SSR locale dates](ssr-locale-dates.md) — ICU support and browser fallback locales can differ; identical Intl options do not guarantee identical initial text.
 - [Historical fidelity](historical-fidelity.md) — Reworked text is not an original copy; require independent historical-to-served diffs and owner decisions on unverified claims.
 - [Editorial fallback safety](editorial-fallback-safety.md) — Failed state reads must not republish withdrawn static content, including after a cold web restart.
@@ -26,5 +26,6 @@
 - [Contact and direct analytics decisions](contact-and-direct-analytics-decisions.md) — Owner chose email-only enquiries and direct consent-gated GA4; separate plans must precede implementation.
 - [AI visibility budget](ai-visibility-budget.md) — Three search-enabled providers, zero initial budget; keys alone do not authorize paid calls.
 - [Task synchronization](task-synchronization.md) — Completion can flatten merges; preserve functional changes outside merge-only resolutions.
-- [Development SSR comparisons](development-ssr-comparisons.md) — Preserve raw baselines; ignore only documented dev-module cache tokens, never content or SEO changes.
+- [Development SSR comparisons](development-ssr-comparisons.md) — Preserve raw baselines; separate development instrumentation and reconstructed production metadata from real content changes.
 - [Favicon browser transport](favicon-browser-transport.md) — Chromium favicon fetches can fail under Playwright routing before reaching the server; separate harness failures from HTTP failures.
+- [Commercial positioning](commercial-scope.md) — Organic-only high-value acquisition; a photographic commercial home and a portfolio gated by real approved materials.

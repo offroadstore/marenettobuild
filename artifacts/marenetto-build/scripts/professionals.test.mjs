@@ -65,7 +65,10 @@ test('no prices, percentages, invented payers, fairs, emojis or fake files', () 
 
 test('wiring: routes, inventory, sitemap exclusion, structured data, llms', async () => {
   const [app, inv, sd, llms, cra] = await Promise.all(['src/App.tsx', 'src/localization/edition-inventory.ts', 'src/lib/structured-data.ts', 'scripts/llms-document.mjs', 'src/components/CallRequestAccess.tsx'].map(f => readFile(new URL(`../${f}`, import.meta.url), 'utf8')));
-  assert.match(app, /professionalPageByPath/); assert.match(app, /nav-professionals/); assert.match(app, /mobile-nav-professionals/); assert.match(app, /link-footer-professionals/);
+  assert.match(app, /professionalPageByPath/); assert.match(app, /link-footer-professionals/);
+  // The strategic menu intentionally contains only four areas and About.
+  // The thirteen home entries and withdrawal fallback are exercised by four-areas.test.
+  assert.doesNotMatch(app, /data-testid="(?:mobile-)?nav-professionals"/);
   assert.match(inv, /PROFESSIONAL_DOWNLOAD_PAGES[\s\S]*state: 'draft', approval: null[\s\S]*sitemap: false/);
   assert.match(inv, /edition\.id === 'professional-downloads'\) continue/);
   assert.match(inv, /indexing: 'never'/);

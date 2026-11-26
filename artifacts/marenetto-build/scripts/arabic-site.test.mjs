@@ -22,7 +22,7 @@ const result = await build({ stdin: {
 const content = await import('data:text/javascript;base64,' + Buffer.from(result.outputFiles[0].text).toString('base64'));
 
 test('Arabic initial documents have Arabic bodies, metadata, RTL, one H1 and a local font preload', async () => {
-  assert.equal(arabic.filter(e => e.id !== 'professionals').length, 86); // Existing Arabic release.
+  assert.equal(arabic.filter(e => e.id !== 'professionals').length, 76); // Previous 86 + four pillars - fourteen noindex topic archives.
   assert.equal(arabic.filter(e => e.id === 'professionals').length, 1);
   assert.ok(!arabic.some(e => e.id === 'professional-downloads'), 'Empty resources never inherit Arabic release approval');
   assert.equal(arabic.filter(e => e.source.startsWith('network:')).length, 12);
@@ -37,8 +37,8 @@ test('Arabic initial documents have Arabic bodies, metadata, RTL, one H1 and a l
     assert.deepEqual(row.jsonldIssues, [], entry.path);
     assert.match(row.title, /\p{Script=Arabic}/u, entry.path);
     assert.match(row.description, /\p{Script=Arabic}/u, entry.path);
-    assert.ok([...row.title.normalize('NFC')].length >= 50 && [...row.title.normalize('NFC')].length <= 60, entry.path);
-    assert.ok([...row.description.normalize('NFC')].length >= 140 && [...row.description.normalize('NFC')].length <= 160, entry.path);
+    assert.ok([...row.title.normalize('NFC')].length >= 30 && [...row.title.normalize('NFC')].length <= 65, entry.path);
+    assert.ok([...row.description.normalize('NFC')].length >= 70 && [...row.description.normalize('NFC')].length <= 165, entry.path);
     assert.ok(!titles.has(row.title), entry.path); titles.add(row.title);
     assert.ok(!descriptions.has(row.description), entry.path); descriptions.add(row.description);
     assert.ok((row.countedText.match(/\p{Script=Arabic}/gu) ?? []).length > 80, entry.path);

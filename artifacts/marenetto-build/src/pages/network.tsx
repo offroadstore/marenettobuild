@@ -13,6 +13,7 @@ import { networkGuideLinks } from '@/content/network/guide-links';
 import { getEdition } from '@/localization/edition-inventory';
 import '@/styles/network.css';
 import { AtelierLink } from './atelier';
+import { AreaBreadcrumb, AreaPillarLink } from './four-areas';
 
 export type { NetworkPageRecord };
 const previewPath = networkPreviewPath;
@@ -74,13 +75,7 @@ export function NetworkPage({ page }: { page: NetworkPageRecord }) {
 
       <header className="mbn-head">
         <div className="mbh-wrap">
-          <nav aria-label={t.breadcrumb} className="mbn-crumbs" data-testid="nav-network-breadcrumb">
-            <ol>
-              <li><Link href={homePath(page.locale)}>{c.home}</Link></li>
-              {!isPillar && <li><Link href={hrefFor(page, 'network')}>{c.nav}</Link></li>}
-              <li aria-current="page">{isPillar ? c.nav : a.title}</li>
-            </ol>
-          </nav>
+          <AreaBreadcrumb locale={page.locale} article={`network-${page.id}`} title={a.title} />
           <p className="mbh-kicker">{isPillar ? 'Marenetto Build' : c.nav}</p>
           <h1 className="mbh-h1 mbn-title" data-testid="text-network-title">{a.title}</h1>
           <p className="mbn-lead">{a.lead}</p>
@@ -179,6 +174,7 @@ export function NetworkPage({ page }: { page: NetworkPageRecord }) {
           </ul>
         </div>
       </section>
+      <AreaPillarLink locale={page.locale} article={`network-${page.id}`} />
     </main>
   );
 }

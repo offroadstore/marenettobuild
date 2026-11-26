@@ -101,7 +101,7 @@ export const proItEn: Record<string, ProCopy> = {
     title: 'Lava stone and majolica for architects | Marenetto Build',
     description: 'Glazed lava stone, Sicilian natural stone and hand-painted majolica cut to your drawings: samples, block selection and installation worldwide.',
     dlTitle: 'Downloads for studios: files coming soon | Marenetto Build',
-    dlDescription: 'Download area for architects and designers, no login needed. Technical sheets, CAD files, palettes and specification texts are being prepared; no file is available yet.',
+    dlDescription: 'Downloads for architects and designers, without login. Technical sheets, CAD files, palettes and specification texts are being prepared; no files available yet.',
     breadcrumbHome: 'Home', breadcrumbServices: 'Services',
     kicker: 'For architects and interior designers',
     h1: 'Glazed lava stone, natural stone and Sicilian majolica, cut to your drawings and installed worldwide',

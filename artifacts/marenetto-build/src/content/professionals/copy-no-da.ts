@@ -101,7 +101,7 @@ export const proNoDa: Record<string, ProCopy> = {
     title: 'Lavasten og majolika til arkitekter | Marenetto Build',
     description: 'Glaseret lavasten, siciliansk natursten og håndmalet majolika skåret efter jeres tegninger: prøver, valg af blok og montering over hele verden.',
     dlTitle: 'Downloads til tegnestuer: filer på vej | Marenetto Build',
-    dlDescription: 'Downloadområde for arkitekter og designere uden login. Tekniske datablade, CAD-filer, paletter og beskrivelsestekster er under forberedelse; ingen filer er klar endnu.',
+    dlDescription: 'Downloads for arkitekter og designere uden login. Datablade, CAD-filer, paletter og beskrivelsestekster er under forberedelse; ingen filer endnu.',
     breadcrumbHome: 'Forside', breadcrumbServices: 'Ydelser',
     kicker: 'Til arkitekter og indretningsarkitekter',
     h1: 'Glaseret lavasten, natursten og siciliansk majolika, skåret efter jeres tegninger og monteret i hele verden',

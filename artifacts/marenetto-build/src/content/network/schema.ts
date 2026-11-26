@@ -1,4 +1,5 @@
 import { NETWORK_LOCALES, networkCopy, networkImages, networkPath, networkPublic, networkReviews, type NetworkPageRecord } from './index';
+import { areaPage, requireArticleArea } from '@/content/four-areas';
 
 /**
  * Candidate audits may inspect schema without making it public. Real Article
@@ -24,8 +25,9 @@ export function networkStructuredData(page: NetworkPageRecord, origin: string) {
       mainEntity: a.faq.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) },
     { '@type': 'BreadcrumbList', itemListElement: [
       { '@type': 'ListItem', position: 1, name: c.home, item: `${origin}${page.locale === 'it' ? '/' : `/${page.locale}/`}` },
-      ...(page.id === 'network' ? [] : [{ '@type': 'ListItem', position: 2, name: c.nav, item: pillar }]),
-      { '@type': 'ListItem', position: page.id === 'network' ? 2 : 3, name: page.id === 'network' ? c.nav : a.title, item: canonical },
+      { '@type': 'ListItem', position: 2, name: areaPage(page.locale, requireArticleArea(`network-${page.id}`))!.nav,
+        item: origin + areaPage(page.locale, requireArticleArea(`network-${page.id}`))!.path },
+      { '@type': 'ListItem', position: 3, name: a.title, item: canonical },
     ] },
   ];
 }

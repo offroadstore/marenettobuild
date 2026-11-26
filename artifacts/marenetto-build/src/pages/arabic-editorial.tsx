@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { type ArabicEditorialArticle } from '@/content/arabic-editorial';
 import { ARABIC_LIBRARY_PATH, arabicLibraryCopy } from '@/content/arabic-editorial-library';
 import { withCampaignParams } from '@/lib/campaign';
+import { AreaBreadcrumb, AreaPillarLink } from '@/pages/four-areas';
 import { historicalPending } from '@/content/historical';
 
 /** All text comes from the reviewed Arabic composition; no source-language fallback. */
@@ -12,6 +13,7 @@ export function ArabicEditorialPage({ article }: { article: ArabicEditorialArtic
   return <main lang="ar" dir="rtl" data-testid="page-arabic-article">
     <section className="page-hero article-hero">
       <div className="container">
+        <AreaBreadcrumb locale="ar" article={article.id} title={article.h1} />
         <Link href={withCampaignParams(ARABIC_LIBRARY_PATH)} className="text-link back-link">
           <ArrowRight size={14} aria-hidden="true" />جميع المقالات
         </Link>
@@ -33,6 +35,7 @@ export function ArabicEditorialPage({ article }: { article: ArabicEditorialArtic
             <h2 id="arabic-faq-title">أسئلة شائعة</h2>
             {article.faq.map(([question, answer]) => <div key={question}><h3>{question}</h3><p>{answer}</p></div>)}
           </section>}
+          <AreaPillarLink locale="ar" article={article.id} />
           <section className="review-note" aria-labelledby="arabic-source-title">
             <h2 id="arabic-source-title">المصدر وحدود النص</h2>
             <p>{arabicLibraryCopy.note}</p>

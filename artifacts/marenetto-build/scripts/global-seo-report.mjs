@@ -64,7 +64,7 @@ for(const file of ['before/inventory.json','after/inventory.json','before/browse
   await copyFile(new URL(file,dir),new URL(file.replace('/','-'),out));
 
 const metrics=[
-  ['Title fuori 50–60 caratteri','titleOutOfRange'],['Description fuori 140–160 caratteri','descriptionOutOfRange'],
+  ['Title fuori soglia 30–65 caratteri','titleOutOfRange'],['Description fuori soglia 70–165 caratteri','descriptionOutOfRange'],
   ['Title duplicati','titleDuplicates'],['Description duplicate','descriptionDuplicates'],
   ['Pagine con immagini di contenuto senza alt adeguato','inadequateAlt'],['Pagine con salti di livello nei titoli','hierarchy'],
   ['Pagine senza un unico H1','h1Errors'],['Pagine con problemi nei controlli JSON-LD','jsonldIssues'],
@@ -107,7 +107,7 @@ ${table(['Controllo','Prima','Dopo'],metrics.map(([label,key])=>[label,before.su
 <li>Il collegamento persistente alle preferenze conserva l’apertura del pannello e, senza JavaScript, porta ora all’informativa cookie valida anziché a un frammento inesistente. Nessuna modifica alle scelte salvate, alle categorie o alle regole di consenso.</li>
 </ul>
 <h2>Metodo, immagini, collegamenti e contenuto</h2>
-<p>Caratteri: punti di codice Unicode dopo normalizzazione NFC, inclusi spazi e punteggiatura, non byte UTF-8. Intervalli richiesti: 50–60 e 140–160; nessuna eccezione per i metadati statici delle 699 URL. Non garantiscono come Google mostrerà titolo e descrizione.</p>
+<p>Caratteri: punti di codice Unicode dopo normalizzazione NFC, inclusi spazi e punteggiatura, non byte UTF-8. Soglie bloccanti attuali: title 30–65 e description 70–165. Obiettivi preferenziali, non errori: 50–60 e 140–160 quando naturali. I CSV distinguono le due misure; nessuna soglia garantisce come Google mostrerà titolo e descrizione.</p>
 <p>Parole: Intl.Segmenter per lingua, nel main, esclusi nav/footer e blocchi testuali ripetuti in almeno il 35% delle pagine della stessa lingua, minimo otto. I CSV riportano anche il conteggio grezzo e i blocchi esclusi. I conteggi non equiparano profondità editoriale e qualità; non vengono applicati a indici, contatti, ricerca e informative.</p>
 <p>Link: tutte le ancore nell’HTML, inclusi header/footer, con controllo HTTP delle destinazioni interne, redirect e frammenti. Nel baseline alcuni link esterni al main non erano stati richiesti: sono marcati “non misurati”, non dichiarati sani. Per quelli in sitemap si è riutilizzata la risposta GET già archiviata. Nel candidato finale tutti i link interni rilevati risultano verificati.</p>
 <p>JSON-LD: parsing di ogni blocco, escaping sicuro, tipi usati, URL, riferimenti, Article e presenza letterale delle domande/risposte nel contenuto visibile. Sono controlli locali mirati, non una certificazione completa dell’intero vocabolario Schema.org, né una prova di rich result o di convalida Google.</p>

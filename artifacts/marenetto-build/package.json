@@ -37,6 +37,8 @@
     "test:arabic": "node --experimental-strip-types --test scripts/arabic-site.test.mjs scripts/arabic-client-seo.test.mjs",
     "audit:arabic": "node scripts/arabic-coverage.mjs",
     "test:hero-alt": "node --test scripts/home-hero-alt.test.mjs",
+    "test:four-areas": "node --test scripts/four-areas.test.mjs",
+    "audit:four-areas": "node scripts/four-areas-audit.mjs",
     "audit:seo-global": "node scripts/global-seo-audit.mjs",
     "audit:seo-client": "node scripts/global-seo-browser.mjs",
     "test:routes": "PORT=4188 BASE_PATH=/ pnpm run build && playwright test --config=playwright.config.ts",

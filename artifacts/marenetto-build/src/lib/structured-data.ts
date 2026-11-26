@@ -13,6 +13,8 @@ import { networkPageByPath } from '@/content/network';
 import { networkStructuredData, networkServiceCatalog } from '@/content/network/schema';
 import { NETWORK_SERVICE_IDS } from '@/content/network/types';
 import { arabicEditorialSchema } from '@/content/arabic-editorial/schema';
+import { arabicEditorialByPath } from '@/content/arabic-editorial';
+import { areaPageByPath, areaCopy, areaPage, articleArea } from '@/content/four-areas';
 
 export function editionStructuredData(edition: Edition, origin: string) {
   const canonical = new URL(canonicalEdition(edition).path, origin).href;
@@ -21,8 +23,52 @@ export function editionStructuredData(edition: Edition, origin: string) {
     { '@type': 'WebSite', '@id': `${origin}/#website`, name: 'Marenetto Build', url: `${origin}/`, publisher: { '@id': `${origin}/#organization` } },
     { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: edition.locale === 'ar' ? 'الرئيسية' : 'Marenetto Build', item: `${origin}${edition.locale === 'ar' ? '/ar/' : '/'}` }, ...(edition.path === '/' || edition.path === '/ar/' ? [] : [{ '@type': 'ListItem', position: 2, name: edition.title.split(' | ')[0], item: canonical }])] },
   ];
+  const pillar = areaPageByPath(edition.path);
+  if (pillar && !edition.activeEditorialRevision && !edition.source.startsWith('active-editorial:')) {
+    const text = areaCopy(pillar.locale);
+    const offer = text.areas[pillar.area];
+    graph.push({
+      '@type': 'Service', '@id': `${canonical}#service`, url: canonical, inLanguage: edition.locale,
+      name: offer.h1, description: offer.lede, serviceType: offer.offer.map(([name]) => name).join(', '),
+      provider: { '@id': `${origin}/#organization` }, areaServed: localBuildingArea,
+    });
+    graph.push({ '@type': 'FAQPage', '@id': `${canonical}#faq`, inLanguage: edition.locale,
+      mainEntity: offer.faq.map(([name, answer]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text: answer } })) });
+    const crumb = graph.findIndex(item => item['@type'] === 'BreadcrumbList');
+    graph[crumb] = { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: text.ui.home, item: `${origin}${edition.locale === 'it' ? '/' : `/${edition.locale}/`}` },
+      { '@type': 'ListItem', position: 2, name: offer.nav, item: canonical },
+    ] };
+    return graph;
+  }
+  const assigned = edition.kind === 'article' ? articleArea(edition.id) : undefined;
+  const articlePillar = assigned ? areaPage(edition.locale, assigned) : undefined;
+  const articleVisibleTitle = edition.visibleTitle ?? arabicEditorialByPath(edition.path)?.h1 ??
+    historicalInventory.find(page => page.path === edition.path)?.h1 ?? articleBySlug.get(edition.id)?.title ?? edition.title.split(' | ')[0];
+  const articleBreadcrumb = articlePillar ? { '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: areaCopy(edition.locale).ui.home, item: `${origin}${edition.locale === 'it' ? '/' : `/${edition.locale}/`}` },
+    { '@type': 'ListItem', position: 2, name: articlePillar.nav, item: `${origin}${articlePillar.path}` },
+    { '@type': 'ListItem', position: 3, name: articleVisibleTitle, item: canonical },
+  ] } : undefined;
+  if (articleBreadcrumb) graph[graph.findIndex(item => item['@type'] === 'BreadcrumbList')] = articleBreadcrumb;
+  // A selected live revision is not the old static composition. In particular,
+  // do not retain Arabic FAQs or images that the live body no longer displays.
+  if (edition.activeEditorialRevision || edition.source.startsWith('active-editorial:')) {
+    if (edition.kind === 'article') graph.push({
+      '@type': 'Article', '@id': `${canonical}#article`,
+      headline: edition.visibleTitle ?? edition.title, inLanguage: edition.contentLanguage,
+      mainEntityOfPage: canonical, url: canonical,
+      publisher: { '@id': `${origin}/#organization` },
+      ...(edition.visibleImage ? { image: new URL(edition.visibleImage,origin).href } : {}),
+    });
+    return graph;
+  }
   const arabicArticleGraph = edition.locale === 'ar' ? arabicEditorialSchema(edition.path, origin) : [];
-  if (arabicArticleGraph.length) return [...graph.filter(item => item['@type'] !== 'BreadcrumbList'), ...arabicArticleGraph];
+  if (arabicArticleGraph.length) return [
+    ...graph.filter(item => item['@type'] !== 'BreadcrumbList'),
+    ...arabicArticleGraph.filter(item => !articleBreadcrumb || item['@type'] !== 'BreadcrumbList'),
+    ...(articleBreadcrumb ? [articleBreadcrumb] : []),
+  ];
   const article = articleBySlug.get(edition.id);
   if (edition.id === 'property-management') {
     const text = propertyCopy[edition.locale];
@@ -118,7 +164,7 @@ export function editionStructuredData(edition: Edition, origin: string) {
     const date = document?.publishedOn ?? article?.publishedOn;
     graph.push({
       '@type': 'Article', '@id': `${canonical}#article`,
-      headline: historical?.h1 ?? article?.title ?? edition.title.split(' | ')[0],
+      headline: edition.visibleTitle ?? historical?.h1 ?? article?.title ?? edition.title.split(' | ')[0],
       inLanguage: edition.contentLanguage, mainEntityOfPage: canonical, url: canonical,
       publisher: { '@id': `${origin}/#organization` },
       ...(image ? { image: new URL(image, origin).href } : {}),

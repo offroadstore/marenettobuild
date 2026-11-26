@@ -57,7 +57,8 @@ for (const vp of viewports) {
       context.on('page', p => popups.push(p.url()));
       await page.getByTestId('whatsapp-float-close').click();
       await expect(page.getByTestId('whatsapp-float')).toHaveCount(0);
-      const inHeader = vp.width >= 900;
+      // Contact is intentionally secondary to the four-area primary menu.
+      const inHeader = false;
       const dock = page.getByTestId(inHeader ? 'whatsapp-nav-link' : 'whatsapp-dock-link');
       await expect(dock).toBeVisible();
       await expect(dock).toHaveText('Scrivici su WhatsApp');
@@ -145,20 +146,20 @@ test('keyboard: × closes without opening chat; dock link is focusable; storage 
   await page.keyboard.press('Enter');
   await expect(page.getByTestId('whatsapp-float')).toHaveCount(0);
   expect(popups).toEqual([]);
-  await expect(page.getByTestId('whatsapp-nav-link')).toBeFocused();
+  await expect(page.getByTestId('whatsapp-dock-link')).toBeFocused();
   const stored = await page.evaluate(() => JSON.stringify([...Object.keys(localStorage), ...Object.keys(sessionStorage)]).toLowerCase() + document.cookie.toLowerCase());
   expect(stored).not.toContain('whatsapp');
 });
 
-test('a page without a hero still shows the header link', async ({ page }) => {
+test('a page without a hero keeps WhatsApp reachable below the primary navigation', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await openPage(page, '/richiesta');
   await page.getByTestId('whatsapp-float-close').click();
-  const dock = page.getByTestId('whatsapp-nav-link');
+  const dock = page.getByTestId('whatsapp-dock-link');
   await expect(dock).toBeVisible();
   const [d, h] = await Promise.all([dock.boundingBox(), page.locator('header').first().boundingBox()]);
-  expect(d!.y).toBeGreaterThanOrEqual(h!.y);
-  expect(d!.y + d!.height).toBeLessThanOrEqual(h!.y + h!.height);
+  expect(d!.y).toBeGreaterThanOrEqual(h!.y + h!.height);
+  await expect(page.getByTestId('whatsapp-nav-link')).toHaveCount(0);
 });
 
 test('English public and Arabic review labels, one WhatsApp float per page', async ({ page }) => {

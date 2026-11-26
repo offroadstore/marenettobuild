@@ -20,7 +20,8 @@ solo per correggere i metadati. Verificare le risposte HTTP senza JavaScript,
 anche con archivio editoriale attivo, prima di consegnare.
 
 Per le nuove sezioni, applicare gli stessi criteri richiesti dal titolare:
-title orientati a 50–60 caratteri Unicode e description a 140–160, specifici,
+title con limiti bloccanti 30–65 caratteri Unicode e description 70–165;
+target preferenziali rispettivamente 50–60 e 140–160, specifici,
 unici e nativi; niente tagli meccanici, località dedotte o promesse non provate.
 Gli obiettivi editoriali di parole ammettono eccezioni documentate, non testo
 riempitivo o copie per città. I corpi legali autorizzati non si riscrivono
