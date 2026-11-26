@@ -1,0 +1,1212 @@
+{
+  "id": "deployment-owner-2026-11-26",
+  "decisionDate": "2026-11-26",
+  "scope": "Exact 182-edition package (12 read-only shared, 170 promotions), 120 series editions, authorized URL/SEO-only refinements; next normal deployment, not publication by agent.",
+  "seriesDigest": "1dd9d90422515b715a125e4798aec6736948bb53f452258d5ee2bad8a081fe44",
+  "commercialDigest": "dea2b40f25e1d52ff10369140b4180cc4036b427bd48999ba095facb7dfc8ca3",
+  "seriesPayloadDigest": "48bc27d78446c6a2c4ff1b5d80a45b5d1e323634936b1286c7109b4e341d52a5",
+  "commercialPayloadDigest": "8765d61848f734acea67c634fd67a2ddf966ecef66d5fe8596ced836749054b2",
+  "privateImportsDigest": "eb264992623245c39fc0867bf312c0d5af1fa20caa3d8d550e3a7b32211832f0",
+  "evidence": [
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "it",
+      "oldPath": "/costruire-cefalu-madonie/puntata-1/",
+      "path": "/costruire-cefalu-madonie/edilizia-libera-o-permesso/",
+      "beforeHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547",
+      "hash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547",
+      "beforeTitle": "Edilizia libera o permesso? Orientarsi prima dei lavori a Cefalù | Marenetto Build",
+      "title": "Edilizia libera o permesso? Guida per Cefalù"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "en",
+      "oldPath": "/en/costruire-cefalu-madonie/puntata-1/",
+      "path": "/en/building-cefalu-madonie/building-work-planning-permission/",
+      "beforeHash": "788a277c823b32b350ccc74c158dcc66bf5ec228165c915cf56c436b9e67d60e",
+      "hash": "788a277c823b32b350ccc74c158dcc66bf5ec228165c915cf56c436b9e67d60e",
+      "beforeTitle": "Building work in Cefalù: exempt work or a permit? | Marenetto Build",
+      "title": "Building work in Cefalù: when is permission needed?"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "de",
+      "oldPath": "/de/costruire-cefalu-madonie/puntata-1/",
+      "path": "/de/bauen-cefalu-madonie/bauarbeiten-genehmigung/",
+      "beforeHash": "7075e22f66eb243e9e4ac0971780d8ba4fea86986745325e2988e6884465930e",
+      "hash": "7075e22f66eb243e9e4ac0971780d8ba4fea86986745325e2988e6884465930e",
+      "beforeTitle": "Bauen in Cefalù: genehmigungsfrei oder genehmigungspflichtig? | Marenetto Build",
+      "title": "Bauen in Cefalù: genehmigungsfrei oder mit Erlaubnis?"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "nl",
+      "oldPath": "/nl/costruire-cefalu-madonie/puntata-1/",
+      "path": "/nl/bouwen-cefalu-madonie/bouwwerk-vergunningsvrij-of-vergunning/",
+      "beforeHash": "f6a0e2dbd4a9c82ad22273d932caf14281e62bdc9bba3e1f60203bcd57e353fa",
+      "hash": "f6a0e2dbd4a9c82ad22273d932caf14281e62bdc9bba3e1f60203bcd57e353fa",
+      "beforeTitle": "Bouwen in Cefalù: vergunningsvrij of toch toestemming nodig? | Marenetto Build",
+      "title": "Bouwen in Cefalù: vergunningsvrij of met vergunning?"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "it",
+      "oldPath": "/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali/",
+      "path": "/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali/",
+      "beforeHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73",
+      "hash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73",
+      "beforeTitle": "Comprare casa da ristrutturare a Cefalù: i controlli prima del rogito | Marenetto Build",
+      "title": "Comprare casa da ristrutturare a Cefalù: i controlli prima del rogito | Marenetto Build"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "en",
+      "oldPath": "/en/buying-and-renovating-a-house-in-cefalu-a-technical-guide-to-the-5-essential-checks/",
+      "path": "/en/buying-and-renovating-a-house-in-cefalu-a-technical-guide-to-the-5-essential-checks/",
+      "beforeHash": "3549c4157a61eb6b6ee6e8026ea67db5c77032c9076159f0806514cfe3f8c659",
+      "hash": "3549c4157a61eb6b6ee6e8026ea67db5c77032c9076159f0806514cfe3f8c659",
+      "beforeTitle": "Buying a house to renovate in Sicily: checks before the deed | Marenetto Build",
+      "title": "Buying a house to renovate in Sicily: checks before the deed | Marenetto Build"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "de",
+      "oldPath": "/de/hauskauf-und-renovierung-in-cefalu-technischer-leitfaden-zu-den-5-wichtigsten-pruefungen/",
+      "path": "/de/hauskauf-und-renovierung-in-cefalu-technischer-leitfaden-zu-den-5-wichtigsten-pruefungen/",
+      "beforeHash": "df698aa986948ea05d39cc7a17f9342bcd1e4dbafa7496b7810b548a5c83c189",
+      "hash": "df698aa986948ea05d39cc7a17f9342bcd1e4dbafa7496b7810b548a5c83c189",
+      "beforeTitle": "Ein Haus zum Renovieren in Sizilien kaufen: Prüfungen vor dem Kaufvertrag | Marenetto Build",
+      "title": "Ein Haus zum Renovieren in Sizilien kaufen: Prüfungen vor dem Kaufvertrag | Marenetto Build"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "nl",
+      "oldPath": "/nl/een-huis-kopen-en-renoveren-in-cefalu-technische-gids-voor-de-5-essentiele-controles/",
+      "path": "/nl/een-huis-kopen-en-renoveren-in-cefalu-technische-gids-voor-de-5-essentiele-controles/",
+      "beforeHash": "2713c29d852a5a567b525ff3143f3c8f8ea65ef253450ad06aafeb391e0ca56e",
+      "hash": "2713c29d852a5a567b525ff3143f3c8f8ea65ef253450ad06aafeb391e0ca56e",
+      "beforeTitle": "Een huis kopen op Sicilië om op te knappen: controles vóór de akte | Marenetto Build",
+      "title": "Een huis kopen op Sicilië om op te knappen: controles vóór de akte | Marenetto Build"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "it",
+      "oldPath": "/costruire-cefalu-madonie/puntata-8/",
+      "path": "/costruire-cefalu-madonie/ristrutturare-a-distanza-fasi-controlli/",
+      "beforeHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780",
+      "hash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780",
+      "beforeTitle": "Ristrutturare a distanza: seguire il cantiere a Cefalù vivendo all’estero | Marenetto Build",
+      "title": "Ristrutturare a distanza: fasi e controlli a Cefalù"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "en",
+      "oldPath": "/en/costruire-cefalu-madonie/puntata-8/",
+      "path": "/en/building-cefalu-madonie/renovating-from-abroad-stages-checks/",
+      "beforeHash": "f850eb9c4e34aa0ad41ede98f5db40ccbf1e05762f9104290777031ba5505699",
+      "hash": "f850eb9c4e34aa0ad41ede98f5db40ccbf1e05762f9104290777031ba5505699",
+      "beforeTitle": "Renovating a house in Italy from abroad: following a Cefalù site | Marenetto Build",
+      "title": "Renovating Cefalù from abroad: progress checks and SAL"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "de",
+      "oldPath": "/de/costruire-cefalu-madonie/puntata-8/",
+      "path": "/de/bauen-cefalu-madonie/sanieren-aus-dem-ausland-ablauf-kontrolle/",
+      "beforeHash": "4f83b39d71db7add9c0ecc0df926cbf98ac02ae78b619198898846afe6cf11a7",
+      "hash": "4f83b39d71db7add9c0ecc0df926cbf98ac02ae78b619198898846afe6cf11a7",
+      "beforeTitle": "Renovierung aus der Ferne: einen Bau in Cefalù begleiten | Marenetto Build",
+      "title": "Aus dem Ausland in Cefalù sanieren: Ablauf und Kontrolle"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "nl",
+      "oldPath": "/nl/costruire-cefalu-madonie/puntata-8/",
+      "path": "/nl/bouwen-cefalu-madonie/renoveren-op-afstand-fasen-controles/",
+      "beforeHash": "4ce5889edb087ad4f592783ea0c4d3969333e298d3d388a5898ddc8fe868af78",
+      "hash": "4ce5889edb087ad4f592783ea0c4d3969333e298d3d388a5898ddc8fe868af78",
+      "beforeTitle": "Op afstand verbouwen in Italië: uw bouwplaats in Cefalù volgen | Marenetto Build",
+      "title": "Verbouwen op afstand in Cefalù: voortgang en SAL"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "it",
+      "oldPath": "/costruire-cefalu-madonie/puntata-10/",
+      "path": "/costruire-cefalu-madonie/tavoli-arredi-su-misura-cemento/",
+      "beforeHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43",
+      "hash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43",
+      "beforeTitle": "Tavoli e arredi su misura in cemento: progetto, finiture e cura | Marenetto Build",
+      "title": "Tavoli e arredi su misura in cemento: come scegliere"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "en",
+      "oldPath": "/en/costruire-cefalu-madonie/puntata-10/",
+      "path": "/en/building-cefalu-madonie/bespoke-concrete-tables-furniture/",
+      "beforeHash": "10a5023579400b5997819c93ea831ff913317bc401ab5fae95c73a8c0814f7b1",
+      "hash": "10a5023579400b5997819c93ea831ff913317bc401ab5fae95c73a8c0814f7b1",
+      "beforeTitle": "Bespoke concrete dining tables and furniture: finishes and care | Marenetto Build",
+      "title": "Bespoke concrete tables and furniture: choosing well"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "de",
+      "oldPath": "/de/costruire-cefalu-madonie/puntata-10/",
+      "path": "/de/bauen-cefalu-madonie/betontische-moebel-nach-mass/",
+      "beforeHash": "9571756d98689f2272e06d6e51041d56c923a6c0ffc4204042571ca754a47174",
+      "hash": "9571756d98689f2272e06d6e51041d56c923a6c0ffc4204042571ca754a47174",
+      "beforeTitle": "Betontisch nach Maß: Möbel, Oberflächen und Pflege | Marenetto Build",
+      "title": "Tische und Möbel aus Beton nach Maß: die Auswahl"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "nl",
+      "oldPath": "/nl/costruire-cefalu-madonie/puntata-10/",
+      "path": "/nl/bouwen-cefalu-madonie/betonnen-tafels-meubels-op-maat/",
+      "beforeHash": "811abd0418ae5b24d2071ec4a266056bb82897a26562df9f36ca0762e60d95d3",
+      "hash": "811abd0418ae5b24d2071ec4a266056bb82897a26562df9f36ca0762e60d95d3",
+      "beforeTitle": "Een betonnen tafel op maat: afwerking, onderhoud en levering | Marenetto Build",
+      "title": "Betonnen tafels en meubels op maat: bewust kiezen"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "fr",
+      "oldPath": "/fr/costruire-cefalu-madonie/puntata-1/",
+      "path": "/fr/construire-cefalu-madonie/travaux-libres-ou-autorisation/",
+      "beforeHash": "67849255ebbbe74f079b312ce9f2911615cd6fe8ec0d2272f7ba25acf7bd5abe",
+      "hash": "67849255ebbbe74f079b312ce9f2911615cd6fe8ec0d2272f7ba25acf7bd5abe",
+      "beforeTitle": "Travaux à Cefalù : edilizia libera ou autorisation ? | Marenetto Build",
+      "title": "Travaux à Cefalù : libres ou soumis à autorisation ?"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "es",
+      "oldPath": "/es/costruire-cefalu-madonie/puntata-1/",
+      "path": "/es/construir-cefalu-madonie/obras-libres-o-permiso/",
+      "beforeHash": "717c9b1a8f0dc0724e4cef24c073c9f4b354982f515d70e4509dd6dc92e41989",
+      "hash": "717c9b1a8f0dc0724e4cef24c073c9f4b354982f515d70e4509dd6dc92e41989",
+      "beforeTitle": "Obras en Cefalù: ¿edilizia libera o permiso? | Marenetto Build",
+      "title": "Obras en Cefalù: ¿libres o sujetas a permiso?"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "pt",
+      "oldPath": "/pt/costruire-cefalu-madonie/puntata-1/",
+      "path": "/pt/construir-cefalu-madonie/obras-livres-ou-licenca/",
+      "beforeHash": "f18b1d8693f0802242c1989f8ded89633b3a1885d917585782f63247c4f1cef8",
+      "hash": "f18b1d8693f0802242c1989f8ded89633b3a1885d917585782f63247c4f1cef8",
+      "beforeTitle": "Obras em Cefalù: edilizia libera ou licença? | Marenetto Build",
+      "title": "Obras em Cefalù: livres ou sujeitas a licença?"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "pl",
+      "oldPath": "/pl/costruire-cefalu-madonie/puntata-1/",
+      "path": "/pl/budowa-cefalu-madonie/roboty-bez-pozwolenia-czy-z-pozwoleniem/",
+      "beforeHash": "c73065bcd50fb4423f478e6ca25bd43109b83f98f1aea8fdf6e7209a844eccec",
+      "hash": "c73065bcd50fb4423f478e6ca25bd43109b83f98f1aea8fdf6e7209a844eccec",
+      "beforeTitle": "Prace budowlane w Cefalù: edilizia libera czy pozwolenie? | Marenetto Build",
+      "title": "Roboty w Cefalù: kiedy potrzebne jest pozwolenie?"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "ru",
+      "oldPath": "/ru/costruire-cefalu-madonie/puntata-1/",
+      "path": "/ru/stroitelstvo-chefalu-madonie/raboty-bez-razresheniya-ili-s-razresheniem/",
+      "beforeHash": "9e40f6f8f9e89dd20ba874c500eca3150ee7bd2c067bf321c3697d3851c3cd30",
+      "hash": "9e40f6f8f9e89dd20ba874c500eca3150ee7bd2c067bf321c3697d3851c3cd30",
+      "beforeTitle": "Работы в Чефалу: edilizia libera или разрешение? | Marenetto Build",
+      "title": "Работы в Чефалу: когда нужно разрешение?"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "sv",
+      "oldPath": "/sv/costruire-cefalu-madonie/puntata-1/",
+      "path": "/sv/bygga-cefalu-madonie/byggarbete-utan-lov-eller-med-tillstand/",
+      "beforeHash": "d2404aa2e50227ed3b63bf85a3bb52fd55d3ada7dfae9024455d2f879c1aecbd",
+      "hash": "d2404aa2e50227ed3b63bf85a3bb52fd55d3ada7dfae9024455d2f879c1aecbd",
+      "beforeTitle": "Bygga i Cefalù: edilizia libera eller tillstånd? | Marenetto Build",
+      "title": "Byggarbete i Cefalù: när krävs tillstånd?"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "no",
+      "oldPath": "/no/costruire-cefalu-madonie/puntata-1/",
+      "path": "/no/bygge-cefalu-madonie/byggearbeid-med-eller-uten-tillatelse/",
+      "beforeHash": "2d11c8dff04a9667e13cf9f2c31b2c54bb4369e31897aba8c6d64eff07f1de52",
+      "hash": "2d11c8dff04a9667e13cf9f2c31b2c54bb4369e31897aba8c6d64eff07f1de52",
+      "beforeTitle": "Byggearbeid i Cefalù: edilizia libera eller tillatelse? | Marenetto Build",
+      "title": "Byggearbeid i Cefalù: når trengs tillatelse?"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "da",
+      "oldPath": "/da/costruire-cefalu-madonie/puntata-1/",
+      "path": "/da/bygge-cefalu-madonie/byggearbejde-med-eller-uden-tilladelse/",
+      "beforeHash": "e04e588c7b2fbe6b27de8229887e2024038f97d84dbc6a38a855496217a69d63",
+      "hash": "e04e588c7b2fbe6b27de8229887e2024038f97d84dbc6a38a855496217a69d63",
+      "beforeTitle": "Byggearbejde i Cefalù: edilizia libera eller tilladelse? | Marenetto Build",
+      "title": "Byggearbejde i Cefalù: hvornår kræves tilladelse?"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "fr",
+      "oldPath": "/fr/acheter-et-renover-une-maison-a-cefalu-guide-technique-des-5-controles-essentiels/",
+      "path": "/fr/acheter-et-renover-une-maison-a-cefalu-guide-technique-des-5-controles-essentiels/",
+      "beforeHash": "2f76a690877ba2d7fafb03185aa05db6e8a22cabd3cdd169219125bc68207f65",
+      "hash": "2f76a690877ba2d7fafb03185aa05db6e8a22cabd3cdd169219125bc68207f65",
+      "beforeTitle": "Acheter une maison à rénover en Sicile : contrôles avant l’acte | Marenetto Build",
+      "title": "Acheter une maison à rénover en Sicile : contrôles avant l’acte | Marenetto Build"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "es",
+      "oldPath": "/es/comprar-y-renovar-casa-en-cefalu-guia-tecnica-de-los-5-controles-esenciales/",
+      "path": "/es/comprar-y-renovar-casa-en-cefalu-guia-tecnica-de-los-5-controles-esenciales/",
+      "beforeHash": "f195fd9d0a6e862f5f30007e261f9cdd06681f6407f2ff6cdffdec2308fd65ed",
+      "hash": "f195fd9d0a6e862f5f30007e261f9cdd06681f6407f2ff6cdffdec2308fd65ed",
+      "beforeTitle": "Comprar casa para reformar en Sicilia: comprobaciones antes de la escritura | Marenetto Build",
+      "title": "Comprar casa para reformar en Sicilia: comprobaciones antes de la escritura | Marenetto Build"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "pt",
+      "oldPath": "/pt/comprar-e-reformar-casa-em-cefalu-guia-tecnica-dos-5-controles-essenciais/",
+      "path": "/pt/comprar-e-reformar-casa-em-cefalu-guia-tecnica-dos-5-controles-essenciais/",
+      "beforeHash": "81a79ca6bcf1997962fb335605e9448db931e9524b51d5904310ef5b022d9f4b",
+      "hash": "81a79ca6bcf1997962fb335605e9448db931e9524b51d5904310ef5b022d9f4b",
+      "beforeTitle": "Comprar casa para renovar na Sicília: verificações antes da escritura | Marenetto Build",
+      "title": "Comprar casa para renovar na Sicília: verificações antes da escritura | Marenetto Build"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "pl",
+      "oldPath": "/pl/kupno-i-remont-domu-w-cefalu-techniczny-przewodnik-po-5-kluczowych-kontrolach/",
+      "path": "/pl/kupno-i-remont-domu-w-cefalu-techniczny-przewodnik-po-5-kluczowych-kontrolach/",
+      "beforeHash": "2b4f1b84c6379064602db2fa47afa9a5884eca1827b711133881249493ca0c14",
+      "hash": "2b4f1b84c6379064602db2fa47afa9a5884eca1827b711133881249493ca0c14",
+      "beforeTitle": "Kupno domu do remontu na Sycylii: kontrole przed aktem | Marenetto Build",
+      "title": "Kupno domu do remontu na Sycylii: kontrole przed aktem | Marenetto Build"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "ru",
+      "oldPath": "/ru/pokupka-i-remont-doma-v-chefalu-tehnicheskoe-rukovodstvo-po-5-osnovnym-proverkam/",
+      "path": "/ru/pokupka-i-remont-doma-v-chefalu-tehnicheskoe-rukovodstvo-po-5-osnovnym-proverkam/",
+      "beforeHash": "3d2b20c3c484ae016a955355be02ea1352be2bb59bbb6161b48a3b4cc30bbdc8",
+      "hash": "3d2b20c3c484ae016a955355be02ea1352be2bb59bbb6161b48a3b4cc30bbdc8",
+      "beforeTitle": "Купить дом на Сицилии под ремонт: проверки до сделки | Marenetto Build",
+      "title": "Купить дом на Сицилии под ремонт: проверки до сделки | Marenetto Build"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "sv",
+      "oldPath": "/sv/articles/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "path": "/sv/articles/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "beforeHash": "556d05f68a6702c926caa8dbb43983325cdc36450efb5696556179a610bc0f52",
+      "hash": "556d05f68a6702c926caa8dbb43983325cdc36450efb5696556179a610bc0f52",
+      "beforeTitle": "Köpa hus att renovera på Sicilien: kontroller före köpehandlingen | Marenetto Build",
+      "title": "Köpa hus att renovera på Sicilien: kontroller före köpehandlingen | Marenetto Build"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "no",
+      "oldPath": "/no/articles/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "path": "/no/articles/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "beforeHash": "5ffadcfdcebda1a4419cecf18941a8a3cf90e54688898574ea114d7819bcef65",
+      "hash": "5ffadcfdcebda1a4419cecf18941a8a3cf90e54688898574ea114d7819bcef65",
+      "beforeTitle": "Kjøpe hus som må pusses opp på Sicilia: kontroller før kjøpeakten | Marenetto Build",
+      "title": "Kjøpe hus som må pusses opp på Sicilia: kontroller før kjøpeakten | Marenetto Build"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "da",
+      "oldPath": "/da/articles/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "path": "/da/articles/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "beforeHash": "c5148654158d199f15fa08ec3847a357ecc60811daa3d22fb345e1875557ad38",
+      "hash": "c5148654158d199f15fa08ec3847a357ecc60811daa3d22fb345e1875557ad38",
+      "beforeTitle": "Købe hus til renovering på Sicilien: kontroller før skødet | Marenetto Build",
+      "title": "Købe hus til renovering på Sicilien: kontroller før skødet | Marenetto Build"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "fr",
+      "oldPath": "/fr/costruire-cefalu-madonie/puntata-8/",
+      "path": "/fr/construire-cefalu-madonie/renover-distance-etapes-controles/",
+      "beforeHash": "41871cc8015b3f0de69faf0b24a5d5ea715a557995e89c313814ca10ce643564",
+      "hash": "41871cc8015b3f0de69faf0b24a5d5ea715a557995e89c313814ca10ce643564",
+      "beforeTitle": "Rénover une maison en Italie à distance : suivre le chantier à Cefalù | Marenetto Build",
+      "title": "Rénover à distance à Cefalù : étapes et contrôles"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "es",
+      "oldPath": "/es/costruire-cefalu-madonie/puntata-8/",
+      "path": "/es/construir-cefalu-madonie/reformar-distancia-fases-controles/",
+      "beforeHash": "09aa52feda33b5d0591c68baddc0125bb912b618ac6fe523f52246f4b9dda4aa",
+      "hash": "09aa52feda33b5d0591c68baddc0125bb912b618ac6fe523f52246f4b9dda4aa",
+      "beforeTitle": "Reformar una casa en Italia a distancia: seguir la obra en Cefalù | Marenetto Build",
+      "title": "Reformar en Cefalù desde el extranjero: seguimiento y SAL"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "pt",
+      "oldPath": "/pt/costruire-cefalu-madonie/puntata-8/",
+      "path": "/pt/construir-cefalu-madonie/renovar-distancia-fases-controlo/",
+      "beforeHash": "3240f5a3eedd40d68a1bfb7efc9f8c60ace1bb1ea1287623c3de3a8c5ed28638",
+      "hash": "3240f5a3eedd40d68a1bfb7efc9f8c60ace1bb1ea1287623c3de3a8c5ed28638",
+      "beforeTitle": "Renovar uma casa em Itália à distância: acompanhar a obra | Marenetto Build",
+      "title": "Renovar em Cefalù a partir do estrangeiro: obra e SAL"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "pl",
+      "oldPath": "/pl/costruire-cefalu-madonie/puntata-8/",
+      "path": "/pl/budowa-cefalu-madonie/remont-z-zagranicy-etapy-kontrola/",
+      "beforeHash": "026cafbca902eb2649b5daac452eeac5579511a55acd2a9fe046261ea7079f29",
+      "hash": "026cafbca902eb2649b5daac452eeac5579511a55acd2a9fe046261ea7079f29",
+      "beforeTitle": "Remont we Włoszech na odległość: śledzenie budowy w Cefalù | Marenetto Build",
+      "title": "Remont w Cefalù z zagranicy: etapy i kontrola"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "ru",
+      "oldPath": "/ru/costruire-cefalu-madonie/puntata-8/",
+      "path": "/ru/stroitelstvo-chefalu-madonie/remont-iz-za-rubezha-etapy-kontrol/",
+      "beforeHash": "03dd7cc555e2a185c5dc8f39595dca72e02675533218ce411879125bf30cfd59",
+      "hash": "03dd7cc555e2a185c5dc8f39595dca72e02675533218ce411879125bf30cfd59",
+      "beforeTitle": "Ремонт в Италии дистанционно: как следить за работами в Чефалу | Marenetto Build",
+      "title": "Ремонт в Чефалу из-за рубежа: этапы и контроль"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "sv",
+      "oldPath": "/sv/costruire-cefalu-madonie/puntata-8/",
+      "path": "/sv/bygga-cefalu-madonie/renovera-fran-utlandet-etapper-kontroll/",
+      "beforeHash": "9aae2f85468919b5112eb969d036712dcfe05f808f7b1ac5b0a8f1dedfc992c1",
+      "hash": "9aae2f85468919b5112eb969d036712dcfe05f808f7b1ac5b0a8f1dedfc992c1",
+      "beforeTitle": "Renovera i Italien på distans: följ arbetet i Cefalù | Marenetto Build",
+      "title": "Renovera i Cefalù från utlandet: uppföljning och SAL"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "no",
+      "oldPath": "/no/costruire-cefalu-madonie/puntata-8/",
+      "path": "/no/bygge-cefalu-madonie/pusse-opp-fra-utlandet-faser-kontroll/",
+      "beforeHash": "93d0b435c817b0dde5c73d932f63e450dbfc2c6d5216e5768f8b79cf1f479a24",
+      "hash": "93d0b435c817b0dde5c73d932f63e450dbfc2c6d5216e5768f8b79cf1f479a24",
+      "beforeTitle": "Oppussing i Italia på avstand: følg arbeidet i Cefalù | Marenetto Build",
+      "title": "Pusse opp i Cefalù fra utlandet: fremdrift og SAL"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "da",
+      "oldPath": "/da/costruire-cefalu-madonie/puntata-8/",
+      "path": "/da/bygge-cefalu-madonie/renovere-fra-udlandet-faser-kontrol/",
+      "beforeHash": "0d4004b7c9da00fc4b1edb434e143e6f52e2402db25bbdcf140d9474d84dd4e7",
+      "hash": "0d4004b7c9da00fc4b1edb434e143e6f52e2402db25bbdcf140d9474d84dd4e7",
+      "beforeTitle": "Renovering i Italien på afstand: følg arbejdet i Cefalù | Marenetto Build",
+      "title": "Renovere i Cefalù fra udlandet: fremdrift og SAL"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "fr",
+      "oldPath": "/fr/costruire-cefalu-madonie/puntata-10/",
+      "path": "/fr/construire-cefalu-madonie/tables-mobilier-beton-sur-mesure/",
+      "beforeHash": "5f7919e7f5900418cf6e364beafb28f91d10f20072f45f50368139938c8b3e09",
+      "hash": "5f7919e7f5900418cf6e364beafb28f91d10f20072f45f50368139938c8b3e09",
+      "beforeTitle": "Table en béton sur mesure : finitions, entretien et livraison | Marenetto Build",
+      "title": "Tables et mobilier en béton sur mesure : les choix"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "es",
+      "oldPath": "/es/costruire-cefalu-madonie/puntata-10/",
+      "path": "/es/construir-cefalu-madonie/mesas-muebles-cemento-medida/",
+      "beforeHash": "e98168acd0200bd5837145a6bbfef6a9fe7c70ccac2c93d6d793966499c70f42",
+      "hash": "e98168acd0200bd5837145a6bbfef6a9fe7c70ccac2c93d6d793966499c70f42",
+      "beforeTitle": "Mesa de hormigón a medida: acabados, cuidado y entrega | Marenetto Build",
+      "title": "Mesas y muebles de cemento a medida: cómo elegir"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "pt",
+      "oldPath": "/pt/costruire-cefalu-madonie/puntata-10/",
+      "path": "/pt/construir-cefalu-madonie/mesas-moveis-cimento-medida/",
+      "beforeHash": "726716312818c5a281e1a721fcb4483a9da2c70b5dd20755e52c67e5a855ee12",
+      "hash": "726716312818c5a281e1a721fcb4483a9da2c70b5dd20755e52c67e5a855ee12",
+      "beforeTitle": "Mesa de betão por medida: acabamentos, cuidados e entrega | Marenetto Build",
+      "title": "Mesas e móveis de cimento por medida: como escolher"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "pl",
+      "oldPath": "/pl/costruire-cefalu-madonie/puntata-10/",
+      "path": "/pl/budowa-cefalu-madonie/stoly-meble-betonowe-na-wymiar/",
+      "beforeHash": "11d8aeca5e2a548e700f50f207bda5551b496c7a8b7b0a82aee4afb3583f6d9c",
+      "hash": "11d8aeca5e2a548e700f50f207bda5551b496c7a8b7b0a82aee4afb3583f6d9c",
+      "beforeTitle": "Stół z betonu na wymiar: wykończenie, pielęgnacja i dostawa | Marenetto Build",
+      "title": "Stoły i meble betonowe na wymiar: świadomy wybór"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "ru",
+      "oldPath": "/ru/costruire-cefalu-madonie/puntata-10/",
+      "path": "/ru/stroitelstvo-chefalu-madonie/stoly-mebel-beton-na-zakaz/",
+      "beforeHash": "5895c8d07f94d6c2bb8d55a7365a2446c31034b258304e097815b351b4deafa7",
+      "hash": "5895c8d07f94d6c2bb8d55a7365a2446c31034b258304e097815b351b4deafa7",
+      "beforeTitle": "Бетонный стол на заказ: отделка, уход и доставка | Marenetto Build",
+      "title": "Столы и мебель из бетона на заказ: как выбирать"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "sv",
+      "oldPath": "/sv/costruire-cefalu-madonie/puntata-10/",
+      "path": "/sv/bygga-cefalu-madonie/bord-mobler-betong-specialmatt/",
+      "beforeHash": "ddab5deb17bdc597814d5b148b928dd4018fd6d58dad78b5c36109809ee2d8bb",
+      "hash": "ddab5deb17bdc597814d5b148b928dd4018fd6d58dad78b5c36109809ee2d8bb",
+      "beforeTitle": "Betongbord på beställning: ytor, skötsel och leverans | Marenetto Build",
+      "title": "Måttbeställda bord och möbler i betong: att välja"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "no",
+      "oldPath": "/no/costruire-cefalu-madonie/puntata-10/",
+      "path": "/no/bygge-cefalu-madonie/bord-mobler-betong-spesialmal/",
+      "beforeHash": "3d4ce5f948d21f189e048b75a7c3cac204fba3795ccf7a58a72cf38df1892fe6",
+      "hash": "3d4ce5f948d21f189e048b75a7c3cac204fba3795ccf7a58a72cf38df1892fe6",
+      "beforeTitle": "Betongbord på bestilling: overflater, vedlikehold og levering | Marenetto Build",
+      "title": "Bord og møbler i betong på spesialmål: gode valg"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "da",
+      "oldPath": "/da/costruire-cefalu-madonie/puntata-10/",
+      "path": "/da/bygge-cefalu-madonie/borde-mobler-beton-specialmal/",
+      "beforeHash": "3a441a3043e88f18e5e22c5fc229b66e20fabf148212b8801eccaa43e664b6e4",
+      "hash": "3a441a3043e88f18e5e22c5fc229b66e20fabf148212b8801eccaa43e664b6e4",
+      "beforeTitle": "Betonbord efter mål: overflader, pleje og levering | Marenetto Build",
+      "title": "Borde og møbler i beton på specialmål: gode valg"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "it",
+      "oldPath": "/costruire-cefalu-madonie/puntata-2/",
+      "path": "/costruire-cefalu-madonie/cila-scia-permesso-costruire/",
+      "beforeHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66",
+      "hash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66",
+      "beforeTitle": "CILA, SCIA e permesso di costruire in Sicilia, spiegati semplice | Marenetto Build",
+      "title": "CILA, SCIA e permesso di costruire: le differenze"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "en",
+      "oldPath": "/en/costruire-cefalu-madonie/puntata-2/",
+      "path": "/en/building-cefalu-madonie/cila-scia-building-permits/",
+      "beforeHash": "19dcb814859b223405aa1fd61f82aa7809c65cf520222deb68a6893ac2f60c21",
+      "hash": "19dcb814859b223405aa1fd61f82aa7809c65cf520222deb68a6893ac2f60c21",
+      "beforeTitle": "CILA, SCIA and permesso di costruire: understanding Sicily’s procedures | Marenetto Build",
+      "title": "CILA, SCIA and building permits in Sicily explained"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "de",
+      "oldPath": "/de/costruire-cefalu-madonie/puntata-2/",
+      "path": "/de/bauen-cefalu-madonie/cila-scia-baugenehmigung/",
+      "beforeHash": "33a698b42ed137bfcf2d2eeaa2b84a52e2d9e66a0f57f68d04587c5f3beb02fc",
+      "hash": "33a698b42ed137bfcf2d2eeaa2b84a52e2d9e66a0f57f68d04587c5f3beb02fc",
+      "beforeTitle": "CILA, SCIA und permesso di costruire in Sizilien verstehen | Marenetto Build",
+      "title": "CILA, SCIA und Baugenehmigung auf Sizilien erklärt"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "nl",
+      "oldPath": "/nl/costruire-cefalu-madonie/puntata-2/",
+      "path": "/nl/bouwen-cefalu-madonie/cila-scia-bouwvergunning/",
+      "beforeHash": "f0e29e6123f33c6e4cdfaba144c0bd8ba97a6da4e70bb9909e39039d290fab78",
+      "hash": "f0e29e6123f33c6e4cdfaba144c0bd8ba97a6da4e70bb9909e39039d290fab78",
+      "beforeTitle": "CILA, SCIA en permesso di costruire in Sicilië uitgelegd | Marenetto Build",
+      "title": "CILA, SCIA en bouwvergunningen op Sicilië uitgelegd"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "fr",
+      "oldPath": "/fr/costruire-cefalu-madonie/puntata-2/",
+      "path": "/fr/construire-cefalu-madonie/cila-scia-permis-construire/",
+      "beforeHash": "ca4e9add4b78b2274a58217d3ef5d1364fc0fa32072c51c34b916869657608ea",
+      "hash": "ca4e9add4b78b2274a58217d3ef5d1364fc0fa32072c51c34b916869657608ea",
+      "beforeTitle": "Comprendre CILA, SCIA et permesso di costruire en Sicile | Marenetto Build",
+      "title": "CILA, SCIA et permis de construire en Sicile"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "es",
+      "oldPath": "/es/costruire-cefalu-madonie/puntata-2/",
+      "path": "/es/construir-cefalu-madonie/cila-scia-permiso-construccion/",
+      "beforeHash": "4501cf9f7838335fe5651da0e7004b376b2deab27a3f91e997ee8e80a77a58ac",
+      "hash": "4501cf9f7838335fe5651da0e7004b376b2deab27a3f91e997ee8e80a77a58ac",
+      "beforeTitle": "CILA, SCIA y permesso di costruire en Sicilia, sin complicaciones | Marenetto Build",
+      "title": "CILA, SCIA y permiso de construcción en Sicilia"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "pt",
+      "oldPath": "/pt/costruire-cefalu-madonie/puntata-2/",
+      "path": "/pt/construir-cefalu-madonie/cila-scia-licenca-construcao/",
+      "beforeHash": "65bb43646a8fd0eb2777524a1cf2e39a197dd669bb9f4f7450568ebc31d6c98d",
+      "hash": "65bb43646a8fd0eb2777524a1cf2e39a197dd669bb9f4f7450568ebc31d6c98d",
+      "beforeTitle": "CILA, SCIA e permesso di costruire na Sicília | Marenetto Build",
+      "title": "CILA, SCIA e licença de construção na Sicília"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "pl",
+      "oldPath": "/pl/costruire-cefalu-madonie/puntata-2/",
+      "path": "/pl/budowa-cefalu-madonie/cila-scia-pozwolenie-na-budowe/",
+      "beforeHash": "f4bd0e0db9507a087bdd2956e17cccba58a035699477eb57d63ba063e20bc1f7",
+      "hash": "f4bd0e0db9507a087bdd2956e17cccba58a035699477eb57d63ba063e20bc1f7",
+      "beforeTitle": "CILA, SCIA i permesso di costruire na Sycylii | Marenetto Build",
+      "title": "CILA, SCIA i pozwolenie na budowę na Sycylii"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "ru",
+      "oldPath": "/ru/costruire-cefalu-madonie/puntata-2/",
+      "path": "/ru/stroitelstvo-chefalu-madonie/cila-scia-razreshenie-na-stroitelstvo/",
+      "beforeHash": "03f0ef4e3a49a729cd12ddc276f0ba572a12fb4e4dc7c85452139ff69807c744",
+      "hash": "03f0ef4e3a49a729cd12ddc276f0ba572a12fb4e4dc7c85452139ff69807c744",
+      "beforeTitle": "CILA, SCIA и permesso di costruire на Сицилии | Marenetto Build",
+      "title": "CILA, SCIA и разрешение на строительство в Сицилии"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "sv",
+      "oldPath": "/sv/costruire-cefalu-madonie/puntata-2/",
+      "path": "/sv/bygga-cefalu-madonie/cila-scia-bygglov/",
+      "beforeHash": "97bb30149de1724dc61a34811a975c82501b35dbaaf377bd36c5cfadc0f8c57e",
+      "hash": "97bb30149de1724dc61a34811a975c82501b35dbaaf377bd36c5cfadc0f8c57e",
+      "beforeTitle": "CILA, SCIA och permesso di costruire på Sicilien | Marenetto Build",
+      "title": "CILA, SCIA och bygglov på Sicilien förklarade"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "no",
+      "oldPath": "/no/costruire-cefalu-madonie/puntata-2/",
+      "path": "/no/bygge-cefalu-madonie/cila-scia-byggetillatelse/",
+      "beforeHash": "45bcfd5f241767591f9a7d550d2c077d2b272f1d7da3949277f2d55f652f3493",
+      "hash": "45bcfd5f241767591f9a7d550d2c077d2b272f1d7da3949277f2d55f652f3493",
+      "beforeTitle": "CILA, SCIA og permesso di costruire på Sicilia | Marenetto Build",
+      "title": "CILA, SCIA og byggetillatelse på Sicilia forklart"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "da",
+      "oldPath": "/da/costruire-cefalu-madonie/puntata-2/",
+      "path": "/da/bygge-cefalu-madonie/cila-scia-byggetilladelse/",
+      "beforeHash": "54ccafdff42ddd2af5db3e6fdff2fb3584542aa541e2e4e9d268d041c260d2ed",
+      "hash": "54ccafdff42ddd2af5db3e6fdff2fb3584542aa541e2e4e9d268d041c260d2ed",
+      "beforeTitle": "CILA, SCIA og permesso di costruire på Sicilien | Marenetto Build",
+      "title": "CILA, SCIA og byggetilladelse på Sicilien forklaret"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "it",
+      "oldPath": "/costruire-cefalu-madonie/puntata-3/",
+      "path": "/costruire-cefalu-madonie/geometra-architetto-impresa-ruoli/",
+      "beforeHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486",
+      "hash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486",
+      "beforeTitle": "Geometra, architetto e impresa: ruoli da chiarire prima del cantiere | Marenetto Build",
+      "title": "Geometra, architetto e impresa: ruoli in cantiere"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "en",
+      "oldPath": "/en/costruire-cefalu-madonie/puntata-3/",
+      "path": "/en/building-cefalu-madonie/surveyor-architect-contractor-roles/",
+      "beforeHash": "52137b9379cc8a84f297517cd7c0e001af31a3fa3f97f1964466d99059e838ff",
+      "hash": "52137b9379cc8a84f297517cd7c0e001af31a3fa3f97f1964466d99059e838ff",
+      "beforeTitle": "Geometra, architect and contractor: who does what? | Marenetto Build",
+      "title": "Surveyor, architect and contractor: who does what?"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "de",
+      "oldPath": "/de/costruire-cefalu-madonie/puntata-3/",
+      "path": "/de/bauen-cefalu-madonie/geometer-architekt-bauunternehmen-aufgaben/",
+      "beforeHash": "bc6b8d7b3bd39f657c16793727432c2344a24688ab144fbab91cc5b4d1bf0b9f",
+      "hash": "bc6b8d7b3bd39f657c16793727432c2344a24688ab144fbab91cc5b4d1bf0b9f",
+      "beforeTitle": "Geometra, Architekt und Bauunternehmen: Aufgaben richtig trennen | Marenetto Build",
+      "title": "Geometer, Architekt und Baufirma: Aufgaben im Bau"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "nl",
+      "oldPath": "/nl/costruire-cefalu-madonie/puntata-3/",
+      "path": "/nl/bouwen-cefalu-madonie/landmeter-architect-aannemer-taken/",
+      "beforeHash": "55b13c4a2a01a32aca0a4542a9a6407632cd3ba5cb9ffb50f114d856ed608813",
+      "hash": "55b13c4a2a01a32aca0a4542a9a6407632cd3ba5cb9ffb50f114d856ed608813",
+      "beforeTitle": "Geometra, architect en aannemer: wie doet wat? | Marenetto Build",
+      "title": "Landmeter, architect en aannemer: taken bij de bouw"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "fr",
+      "oldPath": "/fr/costruire-cefalu-madonie/puntata-3/",
+      "path": "/fr/construire-cefalu-madonie/geometre-architecte-entreprise-roles/",
+      "beforeHash": "f4e6a3bf95eccbb8f785b6c3de65a12b3e566d68e0961de609980d6646786293",
+      "hash": "f4e6a3bf95eccbb8f785b6c3de65a12b3e566d68e0961de609980d6646786293",
+      "beforeTitle": "Geometra, architecte et entreprise : qui fait quoi ? | Marenetto Build",
+      "title": "Géomètre, architecte et entreprise : rôles au chantier"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "es",
+      "oldPath": "/es/costruire-cefalu-madonie/puntata-3/",
+      "path": "/es/construir-cefalu-madonie/aparejador-arquitecto-constructora-funciones/",
+      "beforeHash": "bb12cc25770b6d85fe3cfd19c6a88b4d1565af680d5458eb05f085d6dd9c0935",
+      "hash": "bb12cc25770b6d85fe3cfd19c6a88b4d1565af680d5458eb05f085d6dd9c0935",
+      "beforeTitle": "Geometra, arquitecto y empresa: quién hace qué | Marenetto Build",
+      "title": "Aparejador, arquitecto y constructora: sus funciones"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "pt",
+      "oldPath": "/pt/costruire-cefalu-madonie/puntata-3/",
+      "path": "/pt/construir-cefalu-madonie/topografo-arquiteto-empreiteiro-funcoes/",
+      "beforeHash": "55073db45ce212a8370fc90d24cf38ac86e715d8b26582d29b37874cf8e957ea",
+      "hash": "55073db45ce212a8370fc90d24cf38ac86e715d8b26582d29b37874cf8e957ea",
+      "beforeTitle": "Geometra, arquiteto e empresa: quem faz o quê? | Marenetto Build",
+      "title": "Topógrafo, arquiteto e empreiteiro: funções na obra"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "pl",
+      "oldPath": "/pl/costruire-cefalu-madonie/puntata-3/",
+      "path": "/pl/budowa-cefalu-madonie/geometra-architekt-wykonawca-role/",
+      "beforeHash": "df1e0b1dbaa8e505c623e2ac83e87e7e8ec74305659fee5bf42fe22f4b58951b",
+      "hash": "df1e0b1dbaa8e505c623e2ac83e87e7e8ec74305659fee5bf42fe22f4b58951b",
+      "beforeTitle": "Geometra, architekt i wykonawca: podział zadań | Marenetto Build",
+      "title": "Geometra, architekt i wykonawca: podział zadań"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "ru",
+      "oldPath": "/ru/costruire-cefalu-madonie/puntata-3/",
+      "path": "/ru/stroitelstvo-chefalu-madonie/geometr-arhitektor-podryadchik-roli/",
+      "beforeHash": "64969e5a1de5741e535da2b39aa90c0c5cd49071dccb3d8b218a66e0c097555f",
+      "hash": "64969e5a1de5741e535da2b39aa90c0c5cd49071dccb3d8b218a66e0c097555f",
+      "beforeTitle": "Geometra, архитектор и подрядчик: распределение ролей | Marenetto Build",
+      "title": "Геометр, архитектор и подрядчик: роли на стройке"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "sv",
+      "oldPath": "/sv/costruire-cefalu-madonie/puntata-3/",
+      "path": "/sv/bygga-cefalu-madonie/geometer-arkitekt-byggforetag-roller/",
+      "beforeHash": "92b03d52fa422697918c5b7d73f37560e92dc28edde7cb16cab630c0c6062a41",
+      "hash": "92b03d52fa422697918c5b7d73f37560e92dc28edde7cb16cab630c0c6062a41",
+      "beforeTitle": "Geometra, arkitekt och byggföretag: vem gör vad? | Marenetto Build",
+      "title": "Geometer, arkitekt och byggföretag: vem gör vad?"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "no",
+      "oldPath": "/no/costruire-cefalu-madonie/puntata-3/",
+      "path": "/no/bygge-cefalu-madonie/geometer-arkitekt-entreprenor-roller/",
+      "beforeHash": "33fba0cce29a220525ed8e7ecdd621e15c0bd40b9fbd788b78f414821af81334",
+      "hash": "33fba0cce29a220525ed8e7ecdd621e15c0bd40b9fbd788b78f414821af81334",
+      "beforeTitle": "Geometra, arkitekt og entreprenør: hvem gjør hva? | Marenetto Build",
+      "title": "Geometer, arkitekt og entreprenør: hvem gjør hva?"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "da",
+      "oldPath": "/da/costruire-cefalu-madonie/puntata-3/",
+      "path": "/da/bygge-cefalu-madonie/geometer-arkitekt-entreprenor-roller/",
+      "beforeHash": "20800191b1165304ed478c24897c62047e403d50b8939f300d5bb372031dbc27",
+      "hash": "20800191b1165304ed478c24897c62047e403d50b8939f300d5bb372031dbc27",
+      "beforeTitle": "Geometra, arkitekt og entreprenør: hvem gør hvad? | Marenetto Build",
+      "title": "Geometer, arkitekt og entreprenør: hvem gør hvad?"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "it",
+      "oldPath": "/costruire-cefalu-madonie/puntata-5/",
+      "path": "/costruire-cefalu-madonie/vincolo-paesaggistico-centro-storico/",
+      "beforeHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353",
+      "hash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353",
+      "beforeTitle": "Vincolo paesaggistico e centro storico di Cefalù: verifiche distinte | Marenetto Build",
+      "title": "Vincoli paesaggistici e centro storico di Cefalù"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "en",
+      "oldPath": "/en/costruire-cefalu-madonie/puntata-5/",
+      "path": "/en/building-cefalu-madonie/landscape-restrictions-historic-centre/",
+      "beforeHash": "4d8017a2be3f2a01e6f71a3093491e09dfd00b036bd8992aeeaeb710d12cf01b",
+      "hash": "4d8017a2be3f2a01e6f71a3093491e09dfd00b036bd8992aeeaeb710d12cf01b",
+      "beforeTitle": "Landscape protection and Cefalù’s historic centre: separate checks | Marenetto Build",
+      "title": "Landscape restrictions in Cefalù’s historic centre"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "de",
+      "oldPath": "/de/costruire-cefalu-madonie/puntata-5/",
+      "path": "/de/bauen-cefalu-madonie/landschaftsschutz-altstadt/",
+      "beforeHash": "84cbb2c52bee1108fb24d90381980f5ea8210ee0410077051c2cb5be752d8a71",
+      "hash": "84cbb2c52bee1108fb24d90381980f5ea8210ee0410077051c2cb5be752d8a71",
+      "beforeTitle": "Landschaftsschutz und Altstadt von Cefalù getrennt prüfen | Marenetto Build",
+      "title": "Landschaftsschutz und Altstadt von Cefalù"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "nl",
+      "oldPath": "/nl/costruire-cefalu-madonie/puntata-5/",
+      "path": "/nl/bouwen-cefalu-madonie/landschapsbescherming-historisch-centrum/",
+      "beforeHash": "f81559b7335a421ebcdee450ace38aaebdfab8d478e655294296da8b088a344c",
+      "hash": "f81559b7335a421ebcdee450ace38aaebdfab8d478e655294296da8b088a344c",
+      "beforeTitle": "Landschapsbescherming en het historische centrum van Cefalù | Marenetto Build",
+      "title": "Landschapsbescherming en het oude centrum van Cefalù"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "fr",
+      "oldPath": "/fr/costruire-cefalu-madonie/puntata-5/",
+      "path": "/fr/construire-cefalu-madonie/protection-paysagere-centre-historique/",
+      "beforeHash": "88c862f7195277033500753b0226db64f5b6d5fcb858b21e2493d69c4011be66",
+      "hash": "88c862f7195277033500753b0226db64f5b6d5fcb858b21e2493d69c4011be66",
+      "beforeTitle": "Protection paysagère et centre historique de Cefalù | Marenetto Build",
+      "title": "Paysage protégé et centre historique de Cefalù"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "es",
+      "oldPath": "/es/costruire-cefalu-madonie/puntata-5/",
+      "path": "/es/construir-cefalu-madonie/proteccion-paisaje-centro-historico/",
+      "beforeHash": "86c0dd199f25bfc15b641fe3a99dd8b26c1510b44ee0c8b79e94913be4b0de30",
+      "hash": "86c0dd199f25bfc15b641fe3a99dd8b26c1510b44ee0c8b79e94913be4b0de30",
+      "beforeTitle": "Protección paisajística y casco histórico de Cefalù | Marenetto Build",
+      "title": "Protección del paisaje y casco histórico de Cefalù"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "pt",
+      "oldPath": "/pt/costruire-cefalu-madonie/puntata-5/",
+      "path": "/pt/construir-cefalu-madonie/protecao-paisagem-centro-historico/",
+      "beforeHash": "000fe2c88f68a42317453f0b21744d13259e148f48996a06bd9af26d96b7cfee",
+      "hash": "000fe2c88f68a42317453f0b21744d13259e148f48996a06bd9af26d96b7cfee",
+      "beforeTitle": "Proteção paisagística e centro histórico de Cefalù | Marenetto Build",
+      "title": "Paisagem protegida e centro histórico de Cefalù"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "pl",
+      "oldPath": "/pl/costruire-cefalu-madonie/puntata-5/",
+      "path": "/pl/budowa-cefalu-madonie/ochrona-krajobrazu-stare-miasto/",
+      "beforeHash": "1094db8f3ac0d0f074566b8e7c8a6cec57bfff4d1fd4c496c07342e6fee4a109",
+      "hash": "1094db8f3ac0d0f074566b8e7c8a6cec57bfff4d1fd4c496c07342e6fee4a109",
+      "beforeTitle": "Ochrona krajobrazu i historyczne centrum Cefalù | Marenetto Build",
+      "title": "Ochrona krajobrazu i stare miasto w Cefalù"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "ru",
+      "oldPath": "/ru/costruire-cefalu-madonie/puntata-5/",
+      "path": "/ru/stroitelstvo-chefalu-madonie/ohrana-landshafta-istoricheskiy-centr/",
+      "beforeHash": "961cf2f98e48cabccb9636e8fc0d6ae29ee69f1d701074bfa49ed6a3ccdd6106",
+      "hash": "961cf2f98e48cabccb9636e8fc0d6ae29ee69f1d701074bfa49ed6a3ccdd6106",
+      "beforeTitle": "Охрана ландшафта и исторический центр Чефалу | Marenetto Build",
+      "title": "Охрана ландшафта и исторический центр Чефалу"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "sv",
+      "oldPath": "/sv/costruire-cefalu-madonie/puntata-5/",
+      "path": "/sv/bygga-cefalu-madonie/landskapsskydd-historiska-stadskarnan/",
+      "beforeHash": "d4119726812614d1359d7dd72fddc9bef775315ca60f6143f7067a9a4156a020",
+      "hash": "d4119726812614d1359d7dd72fddc9bef775315ca60f6143f7067a9a4156a020",
+      "beforeTitle": "Landskapsskydd och Cefalùs historiska centrum | Marenetto Build",
+      "title": "Landskapsskydd och Cefalùs historiska stadskärna"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "no",
+      "oldPath": "/no/costruire-cefalu-madonie/puntata-5/",
+      "path": "/no/bygge-cefalu-madonie/landskapsvern-historisk-sentrum/",
+      "beforeHash": "32b46eb4f2607e73b1b350235be97bb8981d8f241862ca6e371ff3e86bc3786a",
+      "hash": "32b46eb4f2607e73b1b350235be97bb8981d8f241862ca6e371ff3e86bc3786a",
+      "beforeTitle": "Landskapsvern og Cefalùs historiske sentrum | Marenetto Build",
+      "title": "Landskapsvern og det historiske sentrum i Cefalù"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "da",
+      "oldPath": "/da/costruire-cefalu-madonie/puntata-5/",
+      "path": "/da/bygge-cefalu-madonie/landskabsbeskyttelse-historisk-centrum/",
+      "beforeHash": "cdfa149230031c63beefa30f8e5565d0487a543ad5a9b3afc828a4356150b458",
+      "hash": "cdfa149230031c63beefa30f8e5565d0487a543ad5a9b3afc828a4356150b458",
+      "beforeTitle": "Landskabsbeskyttelse og Cefalùs historiske centrum | Marenetto Build",
+      "title": "Landskabsbeskyttelse og Cefalùs historiske centrum"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "it",
+      "oldPath": "/costruire-cefalu-madonie/puntata-6/",
+      "path": "/costruire-cefalu-madonie/costruire-ristrutturare-parco-madonie/",
+      "beforeHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea",
+      "hash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea",
+      "beforeTitle": "Costruire o ristrutturare nel Parco delle Madonie: da dove partire | Marenetto Build",
+      "title": "Costruire e ristrutturare nel Parco delle Madonie"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "en",
+      "oldPath": "/en/costruire-cefalu-madonie/puntata-6/",
+      "path": "/en/building-cefalu-madonie/building-renovating-madonie-park/",
+      "beforeHash": "f1522665bb92aa0c391854c8b03041948d22abfa8265bc7bc56f66b247a3537a",
+      "hash": "f1522665bb92aa0c391854c8b03041948d22abfa8265bc7bc56f66b247a3537a",
+      "beforeTitle": "Building or renovating in the Madonie Park: where to start | Marenetto Build",
+      "title": "Building and renovating in the Madonie Park"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "de",
+      "oldPath": "/de/costruire-cefalu-madonie/puntata-6/",
+      "path": "/de/bauen-cefalu-madonie/bauen-sanieren-madonien-park/",
+      "beforeHash": "0636e81cd514ad6d11ffccbc2289f323cedc52e1bbe43cf7e25e0a264f4e49ef",
+      "hash": "0636e81cd514ad6d11ffccbc2289f323cedc52e1bbe43cf7e25e0a264f4e49ef",
+      "beforeTitle": "Bauen und Renovieren im Madonie-Park: erste Prüfungen | Marenetto Build",
+      "title": "Bauen und Sanieren im Naturpark Madonien"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "nl",
+      "oldPath": "/nl/costruire-cefalu-madonie/puntata-6/",
+      "path": "/nl/bouwen-cefalu-madonie/bouwen-renoveren-madonie-park/",
+      "beforeHash": "8a48bfb0176a6d08e43b737c69c25e2b65620c9d832bde52b91076e222e193ab",
+      "hash": "8a48bfb0176a6d08e43b737c69c25e2b65620c9d832bde52b91076e222e193ab",
+      "beforeTitle": "Bouwen of renoveren in het Madoniepark: eerste controles | Marenetto Build",
+      "title": "Bouwen en renoveren in het Madoniepark"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "fr",
+      "oldPath": "/fr/costruire-cefalu-madonie/puntata-6/",
+      "path": "/fr/construire-cefalu-madonie/construire-renover-parc-madonie/",
+      "beforeHash": "d3258ae4b5d7c5e3c3842e2122fb9e1102731fc3c70c30531afbc167f839135a",
+      "hash": "d3258ae4b5d7c5e3c3842e2122fb9e1102731fc3c70c30531afbc167f839135a",
+      "beforeTitle": "Construire ou rénover dans le Parc des Madonie | Marenetto Build",
+      "title": "Construire et rénover dans le parc des Madonie"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "es",
+      "oldPath": "/es/costruire-cefalu-madonie/puntata-6/",
+      "path": "/es/construir-cefalu-madonie/construir-reformar-parque-madonie/",
+      "beforeHash": "1fe2890bd9c51acd977d8b04c54b5a4314eade352ed54d00fe341412264d00b7",
+      "hash": "1fe2890bd9c51acd977d8b04c54b5a4314eade352ed54d00fe341412264d00b7",
+      "beforeTitle": "Construir o reformar en el Parque de las Madonie | Marenetto Build",
+      "title": "Construir y reformar en el parque de las Madonie"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "pt",
+      "oldPath": "/pt/costruire-cefalu-madonie/puntata-6/",
+      "path": "/pt/construir-cefalu-madonie/construir-renovar-parque-madonie/",
+      "beforeHash": "26212f63a55342b4480b94fd3cbd246d3035f8a4160635abaadf54b915abe422",
+      "hash": "26212f63a55342b4480b94fd3cbd246d3035f8a4160635abaadf54b915abe422",
+      "beforeTitle": "Construir ou renovar no Parque das Madonie | Marenetto Build",
+      "title": "Construir e renovar no parque das Madonie"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "pl",
+      "oldPath": "/pl/costruire-cefalu-madonie/puntata-6/",
+      "path": "/pl/budowa-cefalu-madonie/budowa-remont-park-madonie/",
+      "beforeHash": "6a5f8d9fb980b1a33cf97e0ef858d8f94eaeb2acd93195dc4e5ae0fa3bebe424",
+      "hash": "6a5f8d9fb980b1a33cf97e0ef858d8f94eaeb2acd93195dc4e5ae0fa3bebe424",
+      "beforeTitle": "Budowa lub remont w Parku Madonie | Marenetto Build",
+      "title": "Budowa i remont w parku Madonie"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "ru",
+      "oldPath": "/ru/costruire-cefalu-madonie/puntata-6/",
+      "path": "/ru/stroitelstvo-chefalu-madonie/stroitelstvo-remont-park-madonie/",
+      "beforeHash": "1f48190b8379038dd14b9529a7ecd579f409d9b8083d07ddd4bcb7328a1e48a2",
+      "hash": "1f48190b8379038dd14b9529a7ecd579f409d9b8083d07ddd4bcb7328a1e48a2",
+      "beforeTitle": "Строительство или ремонт в Парке Мадоние | Marenetto Build",
+      "title": "Строительство и ремонт в парке Мадоние"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "sv",
+      "oldPath": "/sv/costruire-cefalu-madonie/puntata-6/",
+      "path": "/sv/bygga-cefalu-madonie/bygga-renovera-madonieparken/",
+      "beforeHash": "2112aea42599367bf3ee9ad01161acff1ace21441c1d181088204f940788ca3e",
+      "hash": "2112aea42599367bf3ee9ad01161acff1ace21441c1d181088204f940788ca3e",
+      "beforeTitle": "Bygga eller renovera i Madonieparken | Marenetto Build",
+      "title": "Bygga och renovera i Madonieparken"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "no",
+      "oldPath": "/no/costruire-cefalu-madonie/puntata-6/",
+      "path": "/no/bygge-cefalu-madonie/bygge-pusse-opp-madonieparken/",
+      "beforeHash": "0f78b2854baeeb0caa5cec88bfb033f91a08f203fbe204741b92c4200de57541",
+      "hash": "0f78b2854baeeb0caa5cec88bfb033f91a08f203fbe204741b92c4200de57541",
+      "beforeTitle": "Bygge eller pusse opp i Madonieparken | Marenetto Build",
+      "title": "Bygge og pusse opp i Madonieparken"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "da",
+      "oldPath": "/da/costruire-cefalu-madonie/puntata-6/",
+      "path": "/da/bygge-cefalu-madonie/bygge-renovere-madonieparken/",
+      "beforeHash": "3dbf75bf1050740d386469f63b198a7c504c74191c2367b6999c3915a344a816",
+      "hash": "3dbf75bf1050740d386469f63b198a7c504c74191c2367b6999c3915a344a816",
+      "beforeTitle": "Bygge eller renovere i Madonieparken | Marenetto Build",
+      "title": "Bygge og renovere i Madonieparken"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "it",
+      "oldPath": "/piscine-e-laghetti-zen/",
+      "path": "/piscine-e-laghetti-zen/",
+      "beforeHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa",
+      "hash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa",
+      "beforeTitle": "Piscine a Cefalù: fattibilità e permessi prima di scegliere la vasca | Marenetto Build",
+      "title": "Piscine a Cefalù: vincoli e permessi da verificare"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "en",
+      "oldPath": "/en/zen-pools-and-ponds/",
+      "path": "/en/zen-pools-and-ponds/",
+      "beforeHash": "7f02149338c1f434d42fe0eb3818e0de3197ec2ba25fe994b6d2f492fecae9b0",
+      "hash": "7f02149338c1f434d42fe0eb3818e0de3197ec2ba25fe994b6d2f492fecae9b0",
+      "beforeTitle": "Swimming pools in Cefalù: feasibility and permissions | Marenetto Build",
+      "title": "Swimming pools in Cefalù: restrictions and permits"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "de",
+      "oldPath": "/de/zen-pools-und-teiche/",
+      "path": "/de/zen-pools-und-teiche/",
+      "beforeHash": "e148aa59fd11c914c3248dc091bfb6fb337306ed7f5f6470c1ad673267bcb01e",
+      "hash": "e148aa59fd11c914c3248dc091bfb6fb337306ed7f5f6470c1ad673267bcb01e",
+      "beforeTitle": "Pool in Cefalù: Machbarkeit und Genehmigungen vor der Auswahl | Marenetto Build",
+      "title": "Pools in Cefalù: Auflagen und Genehmigungen prüfen"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "nl",
+      "oldPath": "/nl/zen-zwembaden-en-vijvers/",
+      "path": "/nl/zen-zwembaden-en-vijvers/",
+      "beforeHash": "c2adec07aabacd716e850057318f446402d8ed8dfa56431e46bf9b967e054f85",
+      "hash": "c2adec07aabacd716e850057318f446402d8ed8dfa56431e46bf9b967e054f85",
+      "beforeTitle": "Een zwembad in Cefalù: haalbaarheid en vergunningen | Marenetto Build",
+      "title": "Zwembaden in Cefalù: beperkingen en vergunningen"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "fr",
+      "oldPath": "/fr/piscines-et-etangs-zen/",
+      "path": "/fr/piscines-et-etangs-zen/",
+      "beforeHash": "2f45681e058fc37c0f72a30ad3f4a7ce9d6b7924489b8c361d106db6ee6fb59e",
+      "hash": "2f45681e058fc37c0f72a30ad3f4a7ce9d6b7924489b8c361d106db6ee6fb59e",
+      "beforeTitle": "Piscine à Cefalù : faisabilité et autorisations | Marenetto Build",
+      "title": "Piscines à Cefalù : contraintes et autorisations"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "es",
+      "oldPath": "/es/piscinas-y-estanques-zen/",
+      "path": "/es/piscinas-y-estanques-zen/",
+      "beforeHash": "2bd39cca74831ab4ad1a924368b499e3a4912693f88a79c616a1c2426f71c08c",
+      "hash": "2bd39cca74831ab4ad1a924368b499e3a4912693f88a79c616a1c2426f71c08c",
+      "beforeTitle": "Piscina en Cefalù: viabilidad y permisos antes de elegir | Marenetto Build",
+      "title": "Piscinas en Cefalù: restricciones y permisos"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "pt",
+      "oldPath": "/pt/piscinas-e-lagos-zen/",
+      "path": "/pt/piscinas-e-lagos-zen/",
+      "beforeHash": "2af4cb448e30161f394363fd6c2bdbfe723af883216d3c4c5ef1a99c60327336",
+      "hash": "2af4cb448e30161f394363fd6c2bdbfe723af883216d3c4c5ef1a99c60327336",
+      "beforeTitle": "Piscina em Cefalù: viabilidade e autorizações | Marenetto Build",
+      "title": "Piscinas em Cefalù: restrições e licenças"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "pl",
+      "oldPath": "/pl/baseny-i-stawy-zen/",
+      "path": "/pl/baseny-i-stawy-zen/",
+      "beforeHash": "b49e650c6ee45d80d45b90cc4a3a50d4a7f1b520cebad1bda39a90368730ad7b",
+      "hash": "b49e650c6ee45d80d45b90cc4a3a50d4a7f1b520cebad1bda39a90368730ad7b",
+      "beforeTitle": "Basen w Cefalù: wykonalność i pozwolenia | Marenetto Build",
+      "title": "Baseny w Cefalù: ograniczenia i pozwolenia"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "ru",
+      "oldPath": "/ru/zen-bassejny-i-prudy/",
+      "path": "/ru/zen-bassejny-i-prudy/",
+      "beforeHash": "1299cafbef5e923f6561ff8a7a874a4891559c8b159c7b1988ab2847bf91cbd2",
+      "hash": "1299cafbef5e923f6561ff8a7a874a4891559c8b159c7b1988ab2847bf91cbd2",
+      "beforeTitle": "Бассейн в Чефалу: осуществимость и разрешения | Marenetto Build",
+      "title": "Бассейны в Чефалу: ограничения и разрешения"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "sv",
+      "oldPath": "/sv/articles/piscine-e-laghetti-zen",
+      "path": "/sv/articles/piscine-e-laghetti-zen",
+      "beforeHash": "36ba645b50161488cf293ff3352bb5d7db3b5dd0b65748e2e36c4a1724adcb43",
+      "hash": "36ba645b50161488cf293ff3352bb5d7db3b5dd0b65748e2e36c4a1724adcb43",
+      "beforeTitle": "Pool i Cefalù: genomförbarhet och tillstånd | Marenetto Build",
+      "title": "Pooler i Cefalù: begränsningar och tillstånd"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "no",
+      "oldPath": "/no/articles/piscine-e-laghetti-zen",
+      "path": "/no/articles/piscine-e-laghetti-zen",
+      "beforeHash": "fbdd227e54324032da41852eb840972e1b16355e2cd6b8f3e8212b7bf2c54993",
+      "hash": "fbdd227e54324032da41852eb840972e1b16355e2cd6b8f3e8212b7bf2c54993",
+      "beforeTitle": "Basseng i Cefalù: gjennomførbarhet og tillatelser | Marenetto Build",
+      "title": "Basseng i Cefalù: begrensninger og tillatelser"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "da",
+      "oldPath": "/da/articles/piscine-e-laghetti-zen",
+      "path": "/da/articles/piscine-e-laghetti-zen",
+      "beforeHash": "89305e5b1d7d4abfc597f63201384508e489b498204c18c60c633a8f1a099ace",
+      "hash": "89305e5b1d7d4abfc597f63201384508e489b498204c18c60c633a8f1a099ace",
+      "beforeTitle": "Pool i Cefalù: gennemførlighed og tilladelser | Marenetto Build",
+      "title": "Pools i Cefalù: begrænsninger og tilladelser"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "it",
+      "oldPath": "/costruire-cefalu-madonie/puntata-9/",
+      "path": "/costruire-cefalu-madonie/cantiere-sicilia-tempi-stagioni/",
+      "beforeHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b",
+      "hash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b",
+      "beforeTitle": "Tempi e stagioni di un cantiere in Sicilia: pianificare le dipendenze | Marenetto Build",
+      "title": "Cantieri in Sicilia: tempi, stagioni e verifiche"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "en",
+      "oldPath": "/en/costruire-cefalu-madonie/puntata-9/",
+      "path": "/en/building-cefalu-madonie/sicily-building-work-timing-seasons/",
+      "beforeHash": "08d3b61e7393f14fe34c21514a427dfd6b747658d2d9d2c6bbf049024238cd62",
+      "hash": "08d3b61e7393f14fe34c21514a427dfd6b747658d2d9d2c6bbf049024238cd62",
+      "beforeTitle": "Renovation timing and seasons in Sicily: plan the dependencies | Marenetto Build",
+      "title": "Building work in Sicily: timing and seasonal factors"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "de",
+      "oldPath": "/de/costruire-cefalu-madonie/puntata-9/",
+      "path": "/de/bauen-cefalu-madonie/baustelle-sizilien-zeiten-jahreszeiten/",
+      "beforeHash": "5f8fde582293fafdee358c395d58d1717a4c5dbabc3f875e4f18583d395dbb78",
+      "hash": "5f8fde582293fafdee358c395d58d1717a4c5dbabc3f875e4f18583d395dbb78",
+      "beforeTitle": "Bauzeiten und Jahreszeiten in Sizilien: Abhängigkeiten planen | Marenetto Build",
+      "title": "Bauarbeiten auf Sizilien: Zeiten und Jahreszeiten"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "nl",
+      "oldPath": "/nl/costruire-cefalu-madonie/puntata-9/",
+      "path": "/nl/bouwen-cefalu-madonie/bouwplaats-sicilie-planning-seizoenen/",
+      "beforeHash": "d40e0b0d4d85e4bcf8cd0c49b2c2b757e735d752859628cf9d83750fe00c81c1",
+      "hash": "d40e0b0d4d85e4bcf8cd0c49b2c2b757e735d752859628cf9d83750fe00c81c1",
+      "beforeTitle": "Bouwtijd en seizoenen op Sicilië: afhankelijkheden plannen | Marenetto Build",
+      "title": "Bouwwerk op Sicilië: planning en seizoensinvloeden"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "fr",
+      "oldPath": "/fr/costruire-cefalu-madonie/puntata-9/",
+      "path": "/fr/construire-cefalu-madonie/chantier-sicile-delais-saisons/",
+      "beforeHash": "c2c6d6bde9780427dd7ec7eeddb1e2555a412f132aa23960fc2417e68978143e",
+      "hash": "c2c6d6bde9780427dd7ec7eeddb1e2555a412f132aa23960fc2417e68978143e",
+      "beforeTitle": "Délais et saisons d’un chantier en Sicile | Marenetto Build",
+      "title": "Chantiers en Sicile : délais, saisons et contraintes"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "es",
+      "oldPath": "/es/costruire-cefalu-madonie/puntata-9/",
+      "path": "/es/construir-cefalu-madonie/obras-sicilia-plazos-estaciones/",
+      "beforeHash": "9f70a6cd12bff63829bf2305b4822f55d8cea7ddaba4b662431d3a47ff6b97d8",
+      "hash": "9f70a6cd12bff63829bf2305b4822f55d8cea7ddaba4b662431d3a47ff6b97d8",
+      "beforeTitle": "Tiempos y estaciones de una obra en Sicilia | Marenetto Build",
+      "title": "Obras en Sicilia: plazos y factores estacionales"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "pt",
+      "oldPath": "/pt/costruire-cefalu-madonie/puntata-9/",
+      "path": "/pt/construir-cefalu-madonie/obras-sicilia-prazos-estacoes/",
+      "beforeHash": "c1dc48fd98bbf7153df8102132096a9faef2cab57a291d262143d52e6c99cdee",
+      "hash": "c1dc48fd98bbf7153df8102132096a9faef2cab57a291d262143d52e6c99cdee",
+      "beforeTitle": "Prazos e estações de uma obra na Sicília | Marenetto Build",
+      "title": "Obras na Sicília: prazos e fatores sazonais"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "pl",
+      "oldPath": "/pl/costruire-cefalu-madonie/puntata-9/",
+      "path": "/pl/budowa-cefalu-madonie/budowa-sycylia-terminy-pory-roku/",
+      "beforeHash": "cd017bb176b0c684db3e8395fdce5690784a86d62cd573f3b7723dc24ce0eb35",
+      "hash": "cd017bb176b0c684db3e8395fdce5690784a86d62cd573f3b7723dc24ce0eb35",
+      "beforeTitle": "Terminy i pory roku na budowie na Sycylii | Marenetto Build",
+      "title": "Budowa na Sycylii: terminy i pory roku"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "ru",
+      "oldPath": "/ru/costruire-cefalu-madonie/puntata-9/",
+      "path": "/ru/stroitelstvo-chefalu-madonie/stroyka-siciliya-sroki-sezony/",
+      "beforeHash": "b92629351ba9f566673cb598e89f545701bf1d2785951a3237d781225ecac564",
+      "hash": "b92629351ba9f566673cb598e89f545701bf1d2785951a3237d781225ecac564",
+      "beforeTitle": "Сроки и сезоны стройки на Сицилии | Marenetto Build",
+      "title": "Стройка на Сицилии: сроки и сезонные факторы"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "sv",
+      "oldPath": "/sv/costruire-cefalu-madonie/puntata-9/",
+      "path": "/sv/bygga-cefalu-madonie/byggarbete-sicilien-tider-arstider/",
+      "beforeHash": "a0a32424f217cee55a39cc5854383716eb57c8df395f560ff82c078b96390f01",
+      "hash": "a0a32424f217cee55a39cc5854383716eb57c8df395f560ff82c078b96390f01",
+      "beforeTitle": "Byggtider och årstider på Sicilien | Marenetto Build",
+      "title": "Byggarbete på Sicilien: tider och årstider"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "no",
+      "oldPath": "/no/costruire-cefalu-madonie/puntata-9/",
+      "path": "/no/bygge-cefalu-madonie/byggearbeid-sicilia-tid-arstider/",
+      "beforeHash": "8858a2b535d9b45b53e9e5d765e53ee3d5260adcab891dee8b2b24baf638eac2",
+      "hash": "8858a2b535d9b45b53e9e5d765e53ee3d5260adcab891dee8b2b24baf638eac2",
+      "beforeTitle": "Byggetid og årstider på Sicilia | Marenetto Build",
+      "title": "Byggearbeid på Sicilia: tid og årstider"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "da",
+      "oldPath": "/da/costruire-cefalu-madonie/puntata-9/",
+      "path": "/da/bygge-cefalu-madonie/byggearbejde-sicilien-tid-arstider/",
+      "beforeHash": "2eb294e66a33637ddb89e58c8e61afb5b4d124378764dabb1481261516e4f77e",
+      "hash": "2eb294e66a33637ddb89e58c8e61afb5b4d124378764dabb1481261516e4f77e",
+      "beforeTitle": "Byggetid og årstider på Sicilien | Marenetto Build",
+      "title": "Byggearbejde på Sicilien: tid og årstider"
+    }
+  ]
+}

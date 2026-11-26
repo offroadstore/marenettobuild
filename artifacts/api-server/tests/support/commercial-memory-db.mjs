@@ -8,6 +8,10 @@ async function query(sql,params=[]) {
   if(sql==='COMMIT') {transaction=undefined;return {rows:[]};}
   if(sql==='ROLLBACK') {rows.splice(0,rows.length,...transaction);transaction=undefined;return {rows:[]};}
   if(sql.includes('pg_advisory')) return {rows:[]};
+  if(sql==='DELETE FROM editorial_editions WHERE identity=$1') {
+    for(let i=rows.length-1;i>=0;i--)if(rows[i].identity===params[0])rows.splice(i,1);
+    return {rows:[]};
+  }
   if(sql.startsWith('INSERT INTO editorial_editions')) {
     const [id,identity,locale,path,kind]=params;
     if(rows.some(r=>r.id===id||r.path===path||r.identity===identity&&r.locale===locale)) return {rows:[]};
@@ -22,7 +26,8 @@ async function query(sql,params=[]) {
     const row=rows.find(r=>r.id===params.at(-1));
     if(!row) throw new Error('Missing row');
     row.data=clone(params[0]);
-    row.version=params.length===3?params[1]:row.version+1;
+    if(sql.includes('path=$2')){row.path=params[1];row.version++;}
+    else row.version=params.length===3?params[1]:row.version+1;
     return {rows:[]};
   }
   if(sql.startsWith('SELECT * FROM editorial_editions')) {

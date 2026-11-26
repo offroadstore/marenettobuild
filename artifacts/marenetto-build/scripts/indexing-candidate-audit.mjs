@@ -7,6 +7,8 @@ import { editorialTopology } from './test-support/editorial-topology.mjs';
 import { seriesRelease } from '../src/content/series-release.mjs';
 import { releaseReadiness } from './release-readiness.mjs';
 import { commercialRecord } from '../src/content/commercial-release.mjs';
+import commercial from '../src/content/commercial-release-index.json' with {type:'json'};
+import {seriesRedirects} from '../src/content/series-redirects.mjs';
 const out='generated-artifacts/indexing-recovery';
 const active=JSON.parse(await readFile(out+'/candidate-active.json','utf8'));
 const manifest=JSON.parse(await readFile(new URL('../dist/public/route-manifest.json',import.meta.url),'utf8'));
@@ -55,6 +57,15 @@ try {
         assert.equal(robots,'index, follow',path);assert.equal(response.headers.get('x-robots-tag'),'index, follow',path);
         assert.ok(alternates.every(a=>locations.includes(a.url)),path);
         const record=seriesRelease.records.find(r=>r.path===path);
+        const liveEdition=active.find(r=>r.path===path);
+        const commercialEdition=liveEdition&&commercialRecord(liveEdition);
+        if(commercialEdition) {
+          const expected=commercialEdition.presentation?.body??liveEdition.content.body;
+          const main=html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1]??'';
+          for(const block of expected.matchAll(/<(p|h[1-6]|li|figcaption)\b[^>]*>([\s\S]*?)<\/\1>/g))
+            assert.ok(decode(main).includes(decode(block[2])),`Commercial body ${path}`);
+          assert.ok([...title].length<65,`Title <65 ${path}`);
+        }
         let series={};
         if(record) {
           const edition=active.find(r=>r.path===path);
@@ -98,7 +109,7 @@ try {
   }
   for(const link of localLinks) {
     const response=await fetch(topology.origin+link,{headers,redirect:'manual'});
-    if(![200,308].includes(response.status))failures.push({path:link,error:`link HTTP ${response.status}`});
+    if(![200,301,308].includes(response.status))failures.push({path:link,error:`link HTTP ${response.status}`});
     await response.body?.cancel();
   }
   const edition=active[0],saved=structuredClone(edition);
@@ -116,12 +127,56 @@ try {
 }finally{await topology.close();}
 const series=results.filter(r=>r.episode);
 const historical=series.filter(r=>[4,7].includes(r.episode));
-const compare=rows=>rows.map(r=>({...r,before:live.rows.find(b=>b.path===r.path),
+const compare=rows=>rows.map(r=>({...r,before:live.rows.find(b=>b.path===(seriesRelease.records.find(s=>s.path===r.path)?.oldPath??r.path)),
   beforeRevisionId:observed.find(e=>e.path===r.path)?.revisionId??'',
   beforeRevisionHash:observed.find(e=>e.path===r.path)?.revisionHash??'non esposto dalla vecchia API',
   beforeSitemap:before.locations.includes(r.url),afterSitemap:true}));
 const prior=new Set(before.locations),after=new Set(locations);
 const diff={added:locations.filter(u=>!prior.has(u)),removed:before.locations.filter(u=>!after.has(u))};
+const redirects=[];
+const topologyRedirects=await editorialTopology({snapshot:active,publicIndexing:true});
+try {
+ for(const [oldPath,path] of Object.entries(seriesRedirects))for(const variant of [oldPath,oldPath+'/']) {
+  const response=await fetch(topologyRedirects.origin+variant+'?utm_source=release&custom=retained',{headers,redirect:'manual'});
+  const location=response.headers.get('location');
+  redirects.push({oldPath:variant,path,http:response.status,location});
+  assert.equal(response.status,301);assert.equal(location,path+'?utm_source=release&custom=retained');
+  assert.equal((await fetch(topologyRedirects.origin+path,{headers,redirect:'manual'})).status,200);
+ }
+} finally{await topologyRedirects.close();}
+await writeFile(out+'/redirects.csv',csv(redirects));
+const matrix=commercial.records.map(r=>{
+ const a=active.find(e=>e.identity===r.identity&&e.locale===r.locale);
+ const page=results.find(e=>e.path===r.path);
+ return {identity:r.identity,locale:r.locale,path:r.path,sharedSeries:Boolean(r.readOnlySeries),
+   operation:r.readOnlySeries?'retain-read-only-series':'activate',active:Boolean(a),http:page?.http,indexable:page?.robots==='index, follow',
+   revisionHash:a?.revisionHash,sourceHash:a?.sourceHash,presentationHash:r.presentationHash??''};
+});
+await writeFile(out+'/commercial-matrix.csv',csv(matrix));
+// Prove the local Guide archive and exactly the relevant local pillar expose
+// every family. No private/withdrawn edition is manufactured as a link.
+const topologyLinks=await editorialTopology({snapshot:active,publicIndexing:true});
+try {
+ for(const locale of new Set(matrix.map(r=>r.locale))) {
+  const guidePath=locale==='it'?'/guide':`/${locale}/guides`;
+  const html=await(await fetch(topologyLinks.origin+guidePath,{headers})).text();
+  for(const r of commercial.records.filter(r=>r.locale===locale))
+   assert.ok(html.includes(`href="${r.path}"`),`Guide archive ${locale}/${r.identity}`);
+  for(const area of ['villas','outdoors','investment','surfaces']) {
+   const pillar=Object.values(manifest.editions).find(e=>e.locale===locale&&e.id===`pillar-${area}`);
+   assert.ok(pillar);
+   const body=await(await fetch(topologyLinks.origin+pillar.path,{headers})).text();
+   for(const r of commercial.records.filter(r=>r.locale===locale&&r.area===area))
+    assert.ok(body.includes(`href="${r.path}"`),`Pillar ${locale}/${area}/${r.identity}`);
+  }
+ }
+}finally{await topologyLinks.close();}
+await writeFile(out+'/candidate/collection-failures.json',JSON.stringify(failures,null,2));
+for(const edition of matrix) {
+ assert.equal(edition.active,true);assert.equal(edition.http,200,edition.path);assert.equal(edition.indexable,true,edition.path);
+ const row=results.find(r=>r.path===edition.path);
+ assert.equal(row.alternates.length,14,edition.path);
+}
 const duplicates=key=>Object.entries(Object.groupBy(series,r=>r[key])).filter(([,v])=>v.length>1).map(([value,rows])=>({value,paths:rows.map(r=>r.path)}));
 if(duplicates('title').length||duplicates('description').length)failures.push({error:'Metadati duplicati nelle 120 edizioni',titles:duplicates('title'),descriptions:duplicates('description')});
 await writeFile(out+'/candidate/inventory.csv',csv(results));
@@ -136,4 +191,5 @@ const audit={checkedAt,revision:execFileSync('git',['rev-parse','HEAD'],{encodin
 await writeFile(out+'/candidate/audit.json',JSON.stringify(audit,null,2));
 console.log(JSON.stringify({...audit,results:undefined,diff:{added:diff.added.length,removed:diff.removed.length}},null,2));
 assert.equal(failures.length,0);assert.equal(series.length,120);assert.equal(historical.length,24);
-assert.equal(diff.removed.length,0);assert.ok(locations.length>=930);
+assert.ok(diff.removed.every(url=>seriesRedirects[new URL(url).pathname.replace(/\/+$/,'')]),'Only explicitly migrated series URLs may leave the baseline');
+assert.equal(matrix.length,182);assert.ok(locations.length>=930);

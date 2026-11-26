@@ -7,9 +7,10 @@ import { fingerprint, validateContent } from '../src/lib/editorial-content';
 // Development-only compiler: no db/auth imports, no production side effects.
 if (process.env.NODE_ENV === 'production') throw new Error('Preparazione privata disabilitata in produzione.');
 const root = process.cwd();
-const out = path.join(root,'generated-artifacts/editorial/release-2026-11');
+const outputRoot=process.env.EDITORIAL_BUILD_ROOT??path.join(root,'generated-artifacts/editorial');
+const out = path.join(outputRoot,'release-2026-11');
 const pack = JSON.parse(await readFile(path.join(out,'package.json'),'utf8'));
-const catalog = JSON.parse(await readFile(path.join(root,'generated-artifacts/editorial/catalog.json'),'utf8'));
+const catalog = JSON.parse(await readFile(path.join(outputRoot,'catalog.json'),'utf8'));
 const prior = JSON.parse(await readFile(path.join(out,'previous-guides.json'),'utf8'));
 if(createHash('sha256').update(JSON.stringify(catalog.seriesDrafts)).digest('hex')!==catalog.seriesRelease?.contentDigest)
   throw new Error('La serie integrata non corrisponde alla sua autorizzazione: nessuna sostituzione.');
@@ -53,32 +54,20 @@ for (const record of pack.records) record.sourceContentSHA256 = pack.records.fin
 if(pack.records.filter((r:any)=>r.readOnlySeries).length!==12)throw new Error('Attese dodici edizioni acquisto della serie, da conservare senza mutazioni.');
 pack.rootSHA256 = fingerprint(pack.records.map((r:any)=>[r.identity,r.locale,r.path,r.canonicalPath,r.candidateContentSHA256,r.sourceContentSHA256,r.presentationSHA256??null]));
 await writeFile(path.join(out,'package.json'),JSON.stringify(pack,null,2));
-const ownerModule=await readFile(path.join(root,'docs/editorial/release-2026-11/owner-apply.mjs'),'utf8');
-const ownerConsole=`/* Private owner console; never served by the public app. */
-(async()=>{
-${ownerModule.replaceAll('export async function','async function')}
-if(!location.pathname.startsWith('/internal'))throw new Error('Aprire prima il CMS interno nella sessione del titolare.');
-const file=await new Promise((resolve,reject)=>{
-  const input=document.createElement('input');input.type='file';input.accept='application/json';
-  input.onchange=()=>input.files[0]?resolve(input.files[0]):reject(new Error('Nessun file'));
-  input.oncancel=()=>reject(new Error('Selezione annullata'));input.click();
-});
-const pack=JSON.parse(await file.text());
-if(pack.rootSHA256!==${JSON.stringify(pack.rootSHA256)})throw new Error('Non è il pacchetto esatto collaudato.');
-const preview=await applyRelease({pack,transport:ownerBrowserTransport});
-console.table(preview.report);
-if(!confirm('Sono state confrontate 182 edizioni. Procedere con salvataggio, revisione approvata e attivazione tramite la sessione del titolare? Questa azione modifica il CMS di destinazione; non esegue Republish. Non certifica un parere tecnico né una revisione madrelingua.'))return;
-const result=await applyRelease({pack,transport:ownerBrowserTransport,apply:true,onProgress:(r,n)=>console.info(n+'/182',r.locale,r.path)});
-const link=document.createElement('a');link.href=URL.createObjectURL(new Blob([JSON.stringify(result,null,2)],{type:'application/json'}));link.download='owner-activation-receipt.json';link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000);
-console.info('182 edizioni attive nel CMS. Conservare la ricevuta. Republish resta un’azione separata del titolare tramite Claude.');
-})().catch(error=>{console.error('Pacchetto fermato, nessun aggiramento dei controlli:',error);});
+const ownerConsole=`/* Retired: no owner browser session is required for this exact package. */
+throw new Error('Procedura sostituita: il prossimo normale deploy verifica e attiva automaticamente il pacchetto esatto del 26/11/2026. Seguire HANDOFF.md; non eseguire attivazioni manuali dalla console.');
 `;
 await writeFile(path.join(out,'owner-activate-console.js'),ownerConsole);
 const index = {
   id:pack.id, rootSHA256:pack.rootSHA256,
   records:pack.records.map((r:any)=>({identity:r.identity,locale:r.locale,path:r.canonicalPath,cmsPath:r.path,area:r.area,hash:r.candidateContentSHA256,sourceHash:r.sourceContentSHA256,preparedAt:r.preparedAt,...(r.readOnlySeries?{readOnlySeries:true,presentation:r.presentation,presentationHash:r.presentationSHA256}:{})})),
 };
-await writeFile(path.join(root,'artifacts/marenetto-build/src/content/commercial-release-index.json'),JSON.stringify(index,null,2)+'\n');
+const indexPath=path.join(root,'artifacts/marenetto-build/src/content/commercial-release-index.json');
+const compiled=JSON.stringify(index,null,2)+'\n';
+if (await readFile(indexPath,'utf8') !== compiled) {
+  if(process.argv.includes('--check'))throw new Error('Indice commerciale non allineato; rigenerazione esplicita richiesta.');
+  await writeFile(indexPath,compiled);
+}
 // Preserve protected source hashes before any renderer changes. Git provides
 // the immutable baseline even when generated files have not been retained.
 const base = 'f68745fbddc8e31fb8fbbb9e3bb038797236ac85';

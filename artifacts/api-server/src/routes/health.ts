@@ -9,7 +9,7 @@ router.get("/healthz", async (_req, res) => {
     // Same-deployment startup, before promotion. Never probe the public domain.
     await ensureEditorial();
     const ready = await seriesReady();
-    if (!ready) { res.status(503).json({ error:'Serie approvata incompleta o in conflitto; rilascio non pronto.' }); return; }
+    if (!ready) { res.status(503).json({ error:'Pacchetto editoriale o serie incompleti o in conflitto; rilascio non pronto.' }); return; }
     res.json(HealthCheckResponse.parse({ status: "ok" }));
   } catch {
     res.status(503).json({ error:'Stato editoriale non verificabile; rilascio non pronto.' });

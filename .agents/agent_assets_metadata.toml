@@ -1050,3 +1050,73 @@ mtime_ms = 1795680361468
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/7c32b23f-9f54-4a14-ab31-b84fb91d630c/89ea9294-1f27-49ea-af15-cbea3d05404e"
 storage_version_token = "1795680377149368"
 content_type = "application/octet-stream"
+
+[[outputs]]
+id = "aTL-GYhJJGWWvQ9nGEdV5"
+uri = "file://generated-artifacts/release-152-tests/conflitti-sviluppo.csv"
+type = "table"
+title = "Dieci import privati da riconciliare"
+description = "Inventario in sola lettura del database di sviluppo: nove bozze acquisto non coincidono con le basi consentite; l’edizione araba ha la base nota ma un vecchio percorso privato. Nessuna revisione attiva e nessuna scrittura."
+logical_id = "37b8a97a-0aff-4236-a314-854b4ef4111c"
+content_hash = "sha256:b6ac673e41e9a77dc5e062be921bf3a49e71ea05cf4892b1aede4602144047a1"
+size = 4687
+mtime_ms = 1795686078399
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/37b8a97a-0aff-4236-a314-854b4ef4111c/3ef9a9c1-3d6d-4605-9847-57ba0c0755f8"
+storage_version_token = "1795686087575155"
+content_type = "text/csv"
+
+[[outputs]]
+id = "ICP9qc4yIRot-49K1iKps"
+uri = "file://generated-artifacts/release-152-delivery/rapporto-candidato.html"
+type = "html"
+title = "Rapporto finale — PRONTO PER REPUBLISH"
+description = "Rapporto italiano aggiornato, CSV scaricabili, dieci riconciliazioni autorizzate e cronologia conservata. Candidato verificato; produzione non modificata."
+logical_id = "7564eac2-b361-425c-828e-209a27b84464"
+content_hash = "sha256:35a6e22159224c58a8c90e6a5303f563251a78042d70d1ae9433c1d97bec5d15"
+size = 2271405
+mtime_ms = 1795690176476
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/7564eac2-b361-425c-828e-209a27b84464/26e82378-dee4-4c4d-b84e-b2286df0d74e"
+storage_version_token = "1795690225967005"
+content_type = "text/html"
+
+[[outputs]]
+id = "5fmCdr0C2SzvNM8P3Ogrh"
+uri = "file://generated-artifacts/release-152-delivery/url-prima-dopo.csv"
+type = "table"
+title = "Inventario URL prima e dopo"
+description = "1.099 destinazioni: 834 conservate, 96 rinominate e 169 nuove; confronto con le 930 URL osservate sul sito vivo."
+logical_id = "11c63449-9298-4cc6-b6f7-b1e953a18a8c"
+content_hash = "sha256:cfaf608b66f89ef149cb04507c0fd273562584eeb4effb1052c1751ca0a3d095"
+size = 985386
+mtime_ms = 1795686910219
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/11c63449-9298-4cc6-b6f7-b1e953a18a8c/db1accf8-7456-45ea-b487-f17e8bca2dd4"
+storage_version_token = "1795686925173680"
+content_type = "text/csv"
+
+[[outputs]]
+id = "0izmsWWUTnUvwNttKzBcY"
+uri = "file://generated-artifacts/release-152-delivery/evidenze-verificabili.tar.xz"
+type = "unspecified"
+title = "Evidenze grezze del collaudo"
+description = "Baseline, risposte candidate, 1.099 HTML, log, matrici e screenshot. Le risposte gzip sono decompresse senza perdita e tracciate nel manifest SHA-256; nessun database incluso."
+logical_id = "cb2a476f-838e-4f3a-b9b8-8d52a391e421"
+content_hash = "sha256:86e620a32360a23c6ad0f57c0c8eb70037efa7a329310c492b413566ad0b5837"
+size = 31530400
+mtime_ms = 1795686867931
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/cb2a476f-838e-4f3a-b9b8-8d52a391e421/9dd64204-5317-4e25-ac17-c853f49655f5"
+storage_version_token = "1795686926068270"
+content_type = "application/octet-stream"
+
+[[outputs]]
+id = "UUxlThZt6qSNs-qVHdylf"
+uri = "file://generated-artifacts/release-152-delivery/consegna-pronto-republish.zip"
+type = "unspecified"
+title = "Consegna completa con evidenze e checklist Claude"
+description = "Baseline, 1.099 HTML, matrici 182/120, 192 redirect, log, screenshot, risorse responsive e prove finali dei dieci import. Include la distinzione fra timeout iniziale e ripetizione riuscita."
+logical_id = "87e4a9a9-d3c6-4fe4-9fee-ff5b9db3be74"
+content_hash = "sha256:54abd91ace502dafed3905eda8236e581b0305082bee7b837963e95314303ed4"
+size = 42537653
+mtime_ms = 1795690176976
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/87e4a9a9-d3c6-4fe4-9fee-ff5b9db3be74/1019a814-2b50-4ec5-a16a-e2a5683b9afe"
+storage_version_token = "1795690227030128"
+content_type = "application/octet-stream"

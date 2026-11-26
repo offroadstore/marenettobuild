@@ -3,6 +3,7 @@ import { withFontPreload } from './font-preloads.mjs';
 import { siteIconResources } from './site-icons.mjs';
 import { renderDocument, resolveRoute, redirectQuery, SEO_ORIGIN } from './seo-document.mjs';
 import { readActiveEditorial, editorialDocument, editorialUnavailableHTML, withEditorialSnapshot, key } from './editorial-http.mjs';
+import { seriesRedirect } from '../src/content/series-redirects.mjs';
 
 export function seoPreviewPlugin() {
   return {
@@ -17,6 +18,11 @@ export function seoPreviewPlugin() {
       server.middlewares.use(async (req, res, next) => {
         const url = new URL(req.url, 'http://preview.invalid');
         const pathname = url.pathname;
+        const migrated=seriesRedirect(pathname);
+        if(migrated&&['GET','HEAD'].includes(req.method)) {
+          res.writeHead(301,{Location:migrated+url.search,'Cache-Control':'no-cache','X-Robots-Tag':'noindex, nofollow'});
+          return res.end();
+        }
         const icon = siteIconResources.get(pathname);
         if (icon && ['GET', 'HEAD'].includes(req.method)) {
           const bytes = await readFile(`${server.config.root}/public${pathname}`);

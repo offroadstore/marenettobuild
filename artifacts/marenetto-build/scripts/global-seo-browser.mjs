@@ -11,9 +11,12 @@ const label=process.argv[2]??'after';
 if (!['before','after'].includes(label)) throw new Error('Use before or after');
 const directory=new URL(`../../../generated-artifacts/global-seo/${label}/`,import.meta.url);
 const inventory=JSON.parse(await readFile(new URL('inventory.json',directory)));
+const snapshotArg=process.argv.indexOf('--snapshot');
+const snapshot=snapshotArg<0?[]:JSON.parse(await readFile(process.argv[snapshotArg+1],'utf8'));
+const resources=JSON.parse(await readFile(new URL('resources/index.json',directory),'utf8')).results;
 const root=new URL('../dist/public/',import.meta.url);
 const browser=await chromium.launch({...(existsSync('/repl/tools/bin/chromium')?{executablePath:'/repl/tools/bin/chromium'}:{}),args:['--no-sandbox','--disable-dev-shm-usage']});
-const report={at:new Date().toISOString(),method:'Local production assets and saved HTTP HTML; virtual official www; all external requests aborted; synthetic API; enforced CSP; client History navigation per locale',pages:[],errors:[],cspViolations:[],externalRequests:[]};
+const report={at:new Date().toISOString(),method:'Local production assets and saved HTTP HTML; virtual official www; all external requests aborted; synthetic API; enforced CSP; client History navigation per locale',pages:[],errors:[],cspViolations:[],externalRequests:[],resourceErrors:[]};
 try {
   const context=await browser.newContext({locale:'it-IT',viewport:{width:1365,height:900}});
   await context.route('**/*',async route=>{
@@ -23,7 +26,13 @@ try {
       return route.abort();
     }
     if(!['GET','HEAD'].includes(request.method())) return route.fulfill({status:405,body:'No mutations in audit'});
-    if(url.pathname==='/api/editorial/active')return route.fulfill({json:[]});
+    const image=resources.find(r=>r.path===url.pathname);
+    if(image)return route.fulfill({body:await readFile(new URL('resources/'+image.file,directory)),contentType:image.type});
+    if(/^\/api\/(?:network-media|historical-media)\//.test(url.pathname)) {
+      report.resourceErrors.push(url.pathname);
+      return route.fulfill({status:503,body:'Missing captured public image'});
+    }
+    if(url.pathname==='/api/editorial/active')return route.fulfill({json:snapshot});
     if(url.pathname==='/api/monitoring/public')return route.fulfill({json:{enabled:false}});
     if(url.pathname.startsWith('/api/'))return route.fulfill({json:{enabled:false,status:'unavailable',reviews:[]}});
     try {
@@ -92,5 +101,6 @@ if(label==='after') {
   assert.equal(report.pages.filter(p=>p.issues.length).length,0,'Initial HTML / client navigation mismatch');
   assert.deepEqual(report.cspViolations,[],'Candidate CSP violations');
   assert.deepEqual(report.errors,[],'Uncaught browser errors');
+  assert.deepEqual(report.resourceErrors,[],'Uncaptured public image variants');
   assert.deepEqual(report.externalRequests,[],'Unexpected external requests before consent');
 }

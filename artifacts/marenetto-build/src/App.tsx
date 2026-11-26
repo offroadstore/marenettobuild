@@ -49,6 +49,7 @@ import { applyPublicReleaseMetadata } from '@/lib/public-release-meta';
 import type { EditorialActive } from '@workspace/api-client-react';
 import { commercialRecord, commercialEntries } from '@/content/commercial-release.mjs';
 import { seriesEntries } from '@/content/series-release.mjs';
+import { seriesRedirect } from '@/content/series-redirects.mjs';
 import { usePageMeta } from '@/lib/meta';
 import { AnalyticsPreferences } from '@/components/AnalyticsPreferences';
 import { CookiePreferencesLink } from '@/components/CookiePreferencesLink';
@@ -1054,6 +1055,8 @@ function Router({ pathOverride }: { pathOverride?: string } = {}) {
   setTranslationReviewMode(rawPath.startsWith('/__localization-review/'));
   useHashFragmentNavigation(path);
   const lang = getLang(path);
+  const migratedSeriesPath=seriesRedirect(path);
+  if(migratedSeriesPath) return <Redirect to={`${migratedSeriesPath}${typeof window==='undefined'?'':window.location.search+window.location.hash}`} replace />;
   const page = getPage(path);
   const blockedLocale = blockedPublicLocale(path);
   if (arabicPreview && !pathOverride) return <LocaleGate lang="ar"><div lang="ar" dir="rtl"><p className="container translation-review-status" role="note">معاينة خاصة غير مفهرسة للنسخة العربية · Arabic review preview (noindex)</p><Router pathOverride={arabicPreview} /></div></LocaleGate>;

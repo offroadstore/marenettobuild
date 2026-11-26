@@ -29,7 +29,7 @@ async function capture(path) {
 }
 const sitemap = await capture('/sitemap.xml');
 await writeFile(`${directory}/sitemap.json`,JSON.stringify(sitemap,null,2));
-const queue=[...new Set([...catalog.map(d=>d.path),...historical.map(h=>h.path)])], rows=[];
+const queue=[...new Set(['/robots.txt',...sitemap.locations.map(u=>new URL(u).pathname),...catalog.map(d=>d.path),...historical.map(h=>h.path)])], rows=[];
 await Promise.all(Array.from({length:4},async()=>{while(queue.length){const path=queue.shift();try{rows.push(await capture(path));}catch(e){rows.push({path,error:e.message});}}}));
 await writeFile(`${directory}/baseline.json`,JSON.stringify({startedAt,finishedAt:new Date().toISOString(),origin,
   revision:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),historical:historical.map(h=>h.path),sitemapCount:sitemap.locations?.length,rows},null,2));

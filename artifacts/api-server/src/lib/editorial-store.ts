@@ -2,12 +2,13 @@ import { pool } from '@workspace/db';
 import type { PoolClient } from 'pg';
 import { createHash } from 'node:crypto';
 import catalogJSON from 'marenetto-editorial-catalog';
-import { cleanBody, event, fingerprint, revision, transition, validateContent, type EditorialData, EditorialError } from './editorial-content';
+import { cleanBody, event, fingerprint, revision, validateContent, type EditorialData, EditorialError } from './editorial-content';
 import type { EditorialContent } from '@workspace/api-zod';
-import { verifySeries, releaseSeries, hasExactEvent, sameEditorialContent } from './series-release';
+import { verifySeries, hasExactEvent, sameEditorialContent } from './series-release';
+import { planDeployment, verifyDeployment, deploymentTargets, intactRevision, type DeploymentCatalog } from './deployment-release';
 
 type SeedRecord = { identity: string; locale: string; path: string; kind: string; historical: boolean; correction: boolean; content: EditorialContent; aliases?: string[]; originalBody?: string; originalMetadata?: Record<string, unknown>; rework?: EditorialContent; releaseReady?: boolean };
-const catalog = catalogJSON as unknown as { locales: string[]; records: SeedRecord[]; reservedPaths?: string[]; seriesDrafts?: SeedRecord[]; seriesRelease?: {id:string; decisionDate:string; contentDigest:string} };
+const catalog = catalogJSON as unknown as DeploymentCatalog & { records: SeedRecord[]; reservedPaths?: string[] };
 
 export function assertSeriesRelease() {
   const seeds = catalog.seriesDrafts ?? [];
@@ -17,7 +18,7 @@ export const editorialLocales = catalog.locales;
 export const isCatalogPath = (path: string) => (catalog.reservedPaths ?? []).some(reserved => normalizedPath(reserved) === normalizedPath(path));
 export function assertNetworkActivation(row: Row, content: EditorialContent) {
   if (!row.identity.startsWith('network-')) return;
-  const seed = catalog.records.find(record => record.identity === row.identity && record.locale === row.locale && normalizedPath(record.path) === normalizedPath(row.path));
+  const seed = (catalog.records as SeedRecord[]).find(record => record.identity === row.identity && record.locale === row.locale && normalizedPath(record.path) === normalizedPath(row.path));
   if (!seed?.releaseReady || fingerprint({ ...seed.content, body: cleanBody(seed.content.body) }) !== fingerprint(content)) {
     throw new EditorialError(409, 'Rete di professionisti: questa revisione richiede ancora le verifiche linguistiche, tecniche, SEO e immagini. L’approvazione resta conservata; nessuna attivazione automatica.');
   }
@@ -27,7 +28,7 @@ export const normalizedPath = (path: string) => path.replace(/\/+$/, '') || '/';
 // Storage keys are normalized; public canonical URLs keep the approved spelling.
 // A later deliberate URL edit must still win over the original seed.
 export function publicEditionPath(row: Pick<Row, 'identity' | 'locale' | 'path'>) {
-  const seed = catalog.seriesDrafts?.find(record => record.identity === row.identity && record.locale === row.locale && normalizedPath(record.path) === normalizedPath(row.path));
+  const seed = deploymentTargets(catalog).find(record => record.identity === row.identity && record.locale === row.locale && normalizedPath(record.path) === normalizedPath(row.path));
   return seed?.path ?? row.path;
 }
 let imported: Promise<void> | undefined;
@@ -97,19 +98,17 @@ export async function importCatalog() {
         rows.push({id,identity:seed.identity,locale:seed.locale,path:normalizedPath(seed.path),kind:'article',data,version:1});
       }
     }
-    // Dated, owner-authorized release. This is not an evergreen permission to
-    // activate future edits: the complete 120-edition payload is hash-bound.
-    const release = assertSeriesRelease();
-    // A conflict blocks this release, not reads of the preceding valid public
-    // revision. Readiness independently checks all exact expected active hashes.
-    let operations: ReturnType<typeof releaseSeries> = [];
-    try { operations = releaseSeries(rows, catalog.seriesDrafts ?? [], release, catalog.records); }
-    catch (error) {
-      if (!(error instanceof Error) || !/^Serie: (?:identità\/percorso in conflitto|collisione percorso\/alias|revisione\/sorgente successiva)/.test(error.message)) throw error;
-    }
-    for (const operation of operations.filter(o => o.operation === 'activate')) {
-      const row = rows.find(r => r.identity === operation.identity && r.locale === operation.locale)!;
-      await client.query('UPDATE editorial_editions SET data=$1,version=version+1 WHERE id=$2', [row.data,row.id]);
+    // Full plan on clones before any release writes. Both packages and route
+    // migration share this transaction and the normal editorial advisory lock.
+    const plan = planDeployment(rows, catalog);
+    for (const row of plan.rows) {
+      const previous=rows.find(r=>r.id===row.id);
+      if(!previous) {
+        await client.query('INSERT INTO editorial_editions(id,identity,locale,path,kind,data) VALUES($1,$2,$3,$4,$5,$6)',
+          [row.id,row.identity,row.locale,row.path,row.kind,row.data]);
+      } else if(previous.path!==row.path||!sameEditorialContent(previous.data,row.data)) {
+        await client.query('UPDATE editorial_editions SET data=$1,path=$2,version=version+1 WHERE id=$3', [row.data,row.path,row.id]);
+      }
     }
     await client.query('COMMIT');
   } catch (error) { await client.query('ROLLBACK'); throw error; }
@@ -129,9 +128,10 @@ export async function publicRows(): Promise<Row[]> {
       const active = row.data.revisions.find(r => r.id === row.data.activeRevisionId);
       if (!active || !hasExactEvent(row.data,'approve',active) || !hasExactEvent(row.data,'activate',active))
         throw new EditorialError(503,'Stato della revisione attiva non verificabile; nessuna copia statica sostitutiva.');
-      const seed = catalog.seriesDrafts?.find(s => s.identity === row.identity && s.locale === row.locale);
+      const seed = deploymentTargets(catalog).find(s => s.identity === row.identity && s.locale === row.locale);
       const expected = seed && validateContent(seed.content, catalog.locales);
-      if (expected && active.hash === fingerprint(expected) && !sameEditorialContent(active.content, expected))
+      if (expected && ((active.hash === fingerprint(expected) && !sameEditorialContent(active.content, expected)) ||
+          !intactRevision(row.data,active,expected)))
         throw new EditorialError(503,'Contenuto della serie non coincidente con la revisione registrata.');
       // Keep stale active translations in the verified snapshot. Omitting them
       // would restore a historical fallback at exactly the same URL. The shared
@@ -148,16 +148,17 @@ export async function publicRows(): Promise<Row[]> {
   });
 }
 export async function seriesReady() {
-  assertSeriesRelease();
+  verifyDeployment(catalog);
   const rows = await publicRows();
-  return (catalog.seriesDrafts ?? []).every(seed => {
+  return deploymentTargets(catalog).every(seed => {
     const row = rows.find(r => r.identity === seed.identity && r.locale === seed.locale);
     const active = row?.data.revisions.find(rev => rev.id === row.data.activeRevisionId);
-    const italian = catalog.seriesDrafts!.find(s => s.identity === seed.identity && s.locale === 'it')!;
+    const italian = rows.find(s => s.identity === seed.identity && s.locale === 'it');
+    const source = italian?.data.revisions.find(r=>r.id===italian.data.activeRevisionId);
     const expected = validateContent(seed.content, catalog.locales);
     return row && !row.data.withdrawn && publicEditionPath(row) === seed.path &&
-      active?.hash === fingerprint(expected) && sameEditorialContent(active.content, expected) &&
-      active?.sourceHash === fingerprint(validateContent(italian.content, catalog.locales));
+      active && intactRevision(row.data,active,expected) &&
+      active.sourceHash === source?.hash;
   });
 }
 export function sourceFor(row: Row, rows: Row[]) {

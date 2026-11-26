@@ -83,6 +83,12 @@ export class EditorialError extends Error {
 }
 export function event(data: EditorialData, action: string, rev: EditorialRevision, actor: string) {
   data.events.push({ action, revisionId: rev.id, actor, at: new Date().toISOString(), hash: rev.hash, sourceHash: rev.sourceHash });
+  if(action==='approve') {
+    const semantic=(v:unknown):unknown=>Array.isArray(v)?v.map(semantic):v&&typeof v==='object'?
+      Object.fromEntries(Object.entries(v).sort(([a],[b])=>a.localeCompare(b)).map(([k,value])=>[k,semantic(value)])):v;
+    data.events.push({action:`semantic-content:${fingerprint(semantic(rev.content))}`,revisionId:rev.id,actor,
+      at:new Date().toISOString(),hash:rev.hash,sourceHash:rev.sourceHash});
+  }
 }
 export function transition(data: EditorialData, action: string, revisionId: string, sourceHash: string, locale: string, actor: string, owner: boolean) {
   const rev = data.revisions.find(rev => rev.id === revisionId);

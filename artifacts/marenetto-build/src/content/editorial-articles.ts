@@ -16,7 +16,7 @@ export function useEditorialArticles(locale: string): Article[] {
     const previous = catalog.get(edition.identity);
     const released = commercialRecord(edition);
     const category = released ? areaCopy(locale).areas[released.area as AreaId].title : c.category;
-    catalog.set(edition.identity, { ...previous, slug: edition.identity, title: c.title, originalTitle: previous?.originalTitle ?? c.title, summary: c.summary, category: category as Article['category'], publishedOn: previous?.publishedOn ?? null, reviewStatus: previous?.reviewStatus ?? 'summary-reviewed', review: previous?.review ?? { responsible: null, reviewedAt: null, sources: [] }, approvedFullText: null, isGuide: released ? released.readOnlySeries || c.tags.includes('secondary-guide') : Boolean(c.guide) || previous?.isGuide || false, image: c.image, imageAlt: c.imageAlt, overview: [c.body.replace(/<[^>]*>/g,' ')], questions: [], claimsToReview: [] });
+    catalog.set(edition.identity, { ...previous, slug: edition.identity, title: c.title, originalTitle: previous?.originalTitle ?? c.title, summary: c.summary, category: category as Article['category'], publishedOn: previous?.publishedOn ?? null, reviewStatus: previous?.reviewStatus ?? 'summary-reviewed', review: previous?.review ?? { responsible: null, reviewedAt: null, sources: [] }, approvedFullText: null, isGuide: Boolean(released) || Boolean(c.guide) || previous?.isGuide || false, image: c.image, imageAlt: c.imageAlt, overview: [c.body.replace(/<[^>]*>/g,' ')], questions: [], claimsToReview: [] });
   }
   return [...catalog.values()];
 }

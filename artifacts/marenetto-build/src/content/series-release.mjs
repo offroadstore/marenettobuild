@@ -15,7 +15,7 @@ export function seriesEntries(active) {
     if (!record || !sources.has(live.identity) || live.sourceHash !== sources.get(live.identity)) return [];
     return [{
       id: live.identity, locale: live.locale, path: record.path, kind: 'article',
-      title: live.content.seoTitle || live.content.title, description: live.content.seoDescription || live.content.summary,
+      title: (live.revisionHash===record.hash ? record.seoTitle : '') || live.content.seoTitle || live.content.title, description: live.content.seoDescription || live.content.summary,
       visibleTitle: live.content.title, visibleImage: live.content.image, contentLanguage: live.locale,
       activeEditorialRevision: live.revisionId, activeSeoTitle: Boolean(live.content.seoTitle),
       activeSeoDescription: Boolean(live.content.seoDescription), state: 'published', sitemap: true,

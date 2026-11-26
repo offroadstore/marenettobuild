@@ -17,7 +17,7 @@ test('all 24 existing family URLs remain indexable without an active override',(
 });
 test('all 120 exact authorized active editions join sitemap and reciprocal alternate sets',()=>{
   assert.equal(seriesEntries(active).length,120);
-  assert.equal(releaseReadiness(manifest,active).ready,true);
+  assert.equal(releaseReadiness(manifest,active).ready,false,'Series alone cannot prove the entire commercial release ready');
   const entries=publicEditions(manifest,active);
   for(const r of seriesRelease.records) {
     const e=entries.find(e=>e.path===r.path);

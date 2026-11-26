@@ -1,93 +1,60 @@
-# Consegna verificata — PRONTO PER REPUBLISH
+# Passaggio a Claude — prossimo normale Republish
 
-## Risultato
+## Istruzioni sostitutive del precedente handoff
 
-182 edizioni complete: quattordici famiglie nelle tredici lingue autorizzate.
-169 percorsi previsti per la prima attivazione pubblica e tredici indirizzi acquisto conservati,
-compresi percorsi storici localizzati, arabo e canonical con slash finali.
-Non sono 169 nuove definizioni: 109 sono nuove e 60 erano già percorsi candidati
-privati delle guide, conservati esattamente.
+La richiesta del titolare del **26/11/2026** autorizza l’attivazione automatica
+circoscritta a questo esatto pacchetto durante il prossimo avvio del deploy.
+**Non occorrono una sessione owner, una console del browser o una seconda
+attivazione manuale.** Il vecchio percorso autenticato non è più un prerequisito.
+L’agente non pubblica e non modifica il database di produzione.
 
-L’attivazione effettiva è stata collaudata tramite il router e le transizioni
-CMS reali con adattatore SQL in memoria e identità dichiaratamente sintetiche.
-Non è una sessione owner reale; non è una mutazione del CMS di destinazione.
+Lo stato di consegna e le verifiche effettivamente concluse sono nel
+[rapporto finale](FINAL-REPORT.md). Non dedurre lo stato della produzione da
+un test del candidato o dalla sola integrazione del codice.
 
-Impronta esatta del pacchetto:
+## Cosa esegue l’avvio
 
-`dea2b40f25e1d52ff10369140b4180cc4036b427bd48999ba095facb7dfc8ca3`
+Un’unica transazione PostgreSQL, con il lock editoriale già esistente, verifica:
 
-## Raccordo verificato con la serie arrivata durante l’integrazione
+- 182 coppie identità/lingua del pacchetto, 14 famiglie × 13 lingue;
+- 120 edizioni della serie, senza estenderla all’arabo;
+- sovrapposizione di 12 acquisto in sola lettura: **290 edizioni distinte**;
+- digest storici originali, payload completo, sorgenti italiane attive,
+  contenuti dopo jsonb, approvazioni e presentazioni separate;
+- 96 migrazioni URL descrittive (otto puntate × dodici lingue), senza cambiare
+  alcun URL delle puntate 4 e 7 né i tredici indirizzi acquisto;
+- ritiri, collisioni, revisioni successive, idempotenza e concorrenza.
 
-Le dodici edizioni acquisto della serie sono conservate in sola lettura:
-nessun salvataggio, revisione, video o approvazione viene sostituito.
-Le altre 108 edizioni della serie restano identiche, comprese versioni ed eventi.
-L’arabo acquisto è collegato all’hash della vera sorgente italiana più recente.
-Il candidato contiene quindi 182 edizioni interessate, di cui 12 già attive
-conservate e 170 attivate dal pacchetto; le 108 edizioni estranee non fanno
-parte delle 182. Lo snapshot di prova complessivo contiene 290 edizioni.
+Le revisioni acquisto e le altre 108 revisioni della serie non vengono
+reimportate per cambiare un URL o un title. I title corretti sono una
+presentazione SEO autorizzata separatamente dal manoscritto immutato.
+Una composizione successiva realmente approvata conserva i propri testi,
+metadati e sorgente italiana, non la vecchia presentazione.
 
-Per le sole dodici edizioni condivise lo strato pubblico autorizzato aggiunge
-SAL, illustrazione dichiarata e richiesta conclusiva al modulo locale, al posto
-del precedente contatto mailto nel corpo. I testi di origine e la scheda della
-serie restano immutati nel CMS. I metadati brevi e questa presentazione hanno
-un’impronta distinta inclusa nella radice del pacchetto. Nessuna revisione
-professionale o verifica Search Console è stata inventata; l’autorizzazione
-SEO di questa consegna riguarda solo le quattordici famiglie.
+Readiness API e web controllano **questo stesso deployment** dopo la
+transazione, mai il vecchio sito pubblico. Un errore non viene trasformato in
+un successo; ritiri e indisponibilità non ripristinano copie statiche.
 
-## Verifiche consegnate
+## Checklist del titolare tramite Claude
 
-- Matrice SSR: 182/182, metadati, H1, alt, FAQ e schema, canonical WWW,
-  tredici hreflang reciproci più x-default e sitemap.
-- Dieci prove CMS: permessi, contenuto esatto e sorgente, approvazione assente,
-  collisioni/alias, revisioni più recenti, ripetibilità, gate e ritiri.
-- 52 regressioni pertinenti superate; build di produzione e typecheck workspace.
-- 169 confronti SSR con la versione principale comprendente la serie; 107 file protetti e 809 metadati
-  estranei invariati. Solo lista informativa autorizzata nelle pillar.
-- Archivi guide delle dodici lingue già presenti: tutte e sei le guide con
-  destinazione canonica corretta. Biblioteca araba preesistente invariata;
-  sei nuove guide arabe disponibili dalle pillar locali.
-- Browser desktop/mobile IT → DE → AR → EN, ritorno pillar/dettaglio, RTL → LTR,
-  FAQ visibili, nessun overflow e richiesta con provenienza/UTM conservata.
-  Nessun modulo è stato inviato. Non è una revisione madrelingua.
+I dieci import privati inizialmente discordanti sono stati riconciliati con
+autorizzazione separata del titolare, «Autorizza i dieci casi esatti».
+Le vecchie revisioni sono conservate; non servono una nuova sessione owner
+né un'applicazione manuale. Non estendere questa eccezione a casi diversi.
 
-I risultati completi, le limitazioni e le prove grezze sono nel rapporto italiano,
-nella matrice CSV e nell’archivio privato consegnato come file. I comandi in
-README.md permettono di rigenerare il candidato senza usare database reali.
-Gli UUID isolati cambiano a ogni esecuzione; gli hash del contenuto e la radice
-rimangono deterministici.
+1. Confrontare il rapporto finale e le matrici con la revisione integrata.
+   Non rigenerare autorizzazioni per far passare un contenuto diverso.
+2. Eseguire soltanto il normale Republish quando il candidato è dichiarato
+   **PRONTO PER REPUBLISH** nel rapporto. Non usare `owner-activate-console.js`.
+3. Se la readiness non passa, non forzare il rilascio, non eliminare ritiri e
+   non cambiare flag generali. Esaminare il conflitto e conservare l’ultima
+   versione pubblica valida. La transazione incompleta viene annullata.
+4. Dopo il Republish, svolgere il controllo produttivo separato già previsto:
+   URL reali WWW/HTTPS, 182 edizioni, 120 puntate, 301 diretti, robots, sitemap,
+   canonical, hreflang anche arabi, cache e navigazione.
+5. Conservare gli esiti produttivi con data e revisione effettivamente servita.
+   Non presentare le prove isolate allegate come controlli già fatti sul vivo.
 
-## Unico passaggio owner residuo e rilascio
-
-L’ordine dipende dall’esecuzione, non dal solo merge, del codice della serie.
-Se le dodici sorgenti esatte sono già attive nel CMS di destinazione, applicare
-il pacchetto e poi il normale Republish del codice finale del titolare. In caso
-contrario il titolare esegue prima il Republish del codice integrato tramite
-Claude e poi l’attivazione autenticata delle 170 edizioni runtime: non serve
-un secondo Republish dei dati. Non dichiarare finite le 182 edizioni finché
-entrambe le operazioni non sono concluse. Il preflight non crea/forza le dodici
-sorgenti mancanti: si ferma prima di qualsiasi scrittura del pacchetto.
-
-Seguire la checklist in README.md: nella vera sessione del titolare, eseguire il
-file privato `owner-activate-console.js`, scegliere il `package.json` esatto,
-esaminare il preflight e confermare le normali operazioni CMS owner-only.
-Non usare l’importer di sole bozze, non aggirare i controlli di rilascio e non
-forzare revisioni più recenti o ritiri. Conservare la ricevuta delle 182 edizioni,
-che distingue 170 attivazioni da dodici revisioni della serie conservate.
-
-L’autorizzazione editoriale dichiarata è quella del titolare del 26/11/2026:
-non serve simulare un nuovo parere professionale. L’autenticazione owner resta
-un’azione reale, distinta dal collaudo e distinta dal successivo Republish del
-titolare tramite Claude. **Nessun Republish è stato eseguito in questa consegna.**
-
-La serie separata di dieci puntate risultava IN_PROGRESS nei controlli iniziale
-e finale del 26/11/2026. Nessuno dei suoi file isolati è stato dato per integrato.
-L’identità della guida acquisto è condivisa: confrontare eventuali revisioni
-successive, senza sostituirle automaticamente.
-
-## Controlli possibili solo dopo il rilascio
-
-Verificare pubblicamente HTTPS/WWW e redirect, 182 destinazioni e URL storici,
-canonical/hreflang/sitemap dopo propagazione e cache, stato dei ritiri e hash
-delle revisioni nel CMS reale. Non certificare questi controlli dal candidato.
-Nessun invio IndexNow/Search Console è stato fatto e nessun risultato dei motori
-di ricerca viene promesso.
+Nessun invio Search Console/IndexNow, email, API a pagamento o modifica a
+Secrets/account/DNS fa parte di questa procedura. Nessun risultato Google,
+parere professionale o revisione madrelingua viene dichiarato.

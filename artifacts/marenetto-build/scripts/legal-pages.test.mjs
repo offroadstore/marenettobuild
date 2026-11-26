@@ -41,7 +41,7 @@ test('current owner-approved notices supersede archived blocks without losing pr
       const response = await fetch(topology.origin + legal.path, { headers, redirect: 'manual' });
       assert.equal(response.status, 200);
       assert.equal(response.headers.get('location'), null);
-      assert.equal(response.headers.get('x-robots-tag'), null);
+      assert.equal(response.headers.get('x-robots-tag'), 'index, follow');
       const html = await response.text();
       assert.match(html, /<html[^>]*lang="it-IT"[^>]*dir="ltr"/);
       assert.match(html, /name="robots" content="index, follow"/);

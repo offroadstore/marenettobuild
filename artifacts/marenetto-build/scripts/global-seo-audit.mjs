@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { editorialTopology } from './test-support/editorial-topology.mjs';
-import { PUBLIC_ORIGIN } from './public-release.mjs';
+import { PUBLIC_ORIGIN,publicEditions } from './public-release.mjs';
 
 export const decode = value => String(value ?? '').replace(/&#(?:x([a-f0-9]+)|(\d+));/gi, (_, hex, dec) => String.fromCodePoint(parseInt(hex ?? dec, hex ? 16 : 10)))
   .replaceAll('&nbsp;', ' ').replaceAll('&quot;', '"').replaceAll('&#x27;', "'").replaceAll('&apos;', "'")
@@ -33,7 +33,7 @@ export function inspect(html, edition) {
   }
   // The existing network models actual direct work/coordination in a Service catalog.
   // These valid types do not imply a Product, price or an Atelier commercial offer.
-  const allowed = new Set(['GeneralContractor','Organization','WebSite','BreadcrumbList','Service','FAQPage','Article','WebPage','Place','City','Country','AdministrativeArea','PostalAddress','ListItem','Question','Answer','OfferCatalog','Offer','BusinessAudience']);
+  const allowed = new Set(['GeneralContractor','Organization','WebSite','BreadcrumbList','Service','FAQPage','Article','WebPage','Place','City','Country','AdministrativeArea','PostalAddress','ListItem','Question','Answer','OfferCatalog','Offer','BusinessAudience','CreativeWorkSeries','VideoObject']);
   const ids = new Set(graph.map(n => n['@id']).filter(Boolean));
   function walk(node) {
     if (!node || typeof node !== 'object') return;
@@ -79,19 +79,27 @@ if (process.argv[1] === new URL(import.meta.url).pathname) {
   const manifest = JSON.parse(await readFile(new URL('../dist/public/route-manifest.json',import.meta.url)));
   const saved=process.argv.includes('--saved');
   const previous=saved ? JSON.parse(await readFile(new URL('inventory.json',dir))) : undefined;
-  const topology = saved ? undefined : await editorialTopology({ publicIndexing:true });
+  const snapshotArg=process.argv.indexOf('--snapshot');
+  const snapshot=snapshotArg<0?[]:JSON.parse(await readFile(process.argv[snapshotArg+1],'utf8'));
+  const topology = saved ? undefined : await editorialTopology({ publicIndexing:true,snapshot });
+  const effective=publicEditions(manifest,snapshot);
   const headers = {'x-forwarded-host':'www.marenettobuild.com','x-forwarded-proto':'https'};
   const rows = [], documents = new Map(), targets = new Map();
   try {
     const sitemap = saved ? await readFile(new URL('sitemap.xml',dir),'utf8') : await (await fetch(topology.origin+'/sitemap.xml',{headers})).text();
     await writeFile(new URL('sitemap.xml',dir),sitemap);
     const paths = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>new URL(decode(m[1])).pathname);
-    for (const path of paths) {
+    const queue=[...paths];
+    await Promise.all(Array.from({length:4},async()=>{
+     while(queue.length) {
+      const path=queue.shift();
       const response = saved ? undefined : await fetch(topology.origin+path,{headers,redirect:'manual'});
       const html = saved ? await readFile(new URL('html/'+digest(path)+'.html',dir),'utf8') : await response.text();
-      const edition = previous?.rows.find(row=>row.path===path) ?? manifest.editions[path];
+      const edition = previous?.rows.find(row=>row.path===path) ?? effective.find(e=>e.path===path);
       if (!edition) throw new Error('Unregistered sitemap page '+path);
       const row = {...inspect(html,edition), status:response?.status??edition.status,
+        headerRobots:response?.headers.get('x-robots-tag'),
+        metaRobots:html.match(/<meta\b[^>]*name="robots"[^>]*content="([^"]*)"/)?.[1],
         csp:response ? response.headers.get('content-security-policy')??response.headers.get('content-security-policy-report-only') : edition.csp,
         cspMode:response ? response.headers.has('content-security-policy')?'enforce':'report-only' : edition.cspMode};
       rows.push(row); documents.set(path,html);
@@ -100,10 +108,19 @@ if (process.argv[1] === new URL(import.meta.url).pathname) {
         let url; try { url = new URL(href,PUBLIC_ORIGIN+path); } catch { continue; }
         if (url.origin===PUBLIC_ORIGIN) targets.set(url.pathname+url.search+url.hash,url);
       }
-    }
+     }
+    }));
+    rows.sort((a,b)=>a.path.localeCompare(b.path));
     const checked = previous?.checked ?? {};
     for (const [key,url] of targets) {
       if(saved && checked[key])continue;
+      if(!saved&&documents.has(url.pathname)) {
+        const body=documents.get(url.pathname);
+        checked[key]={status:rows.find(r=>r.path===url.pathname).status,fragment:!url.hash||
+          [...body.matchAll(/\b(?:id|name)="([^"]*)"/g)].some(m=>decode(m[1])===decodeURIComponent(url.hash.slice(1))),
+          target:url.pathname,method:'Already captured initial HTTP response; query does not change editorial routing'};
+        continue;
+      }
       if(saved) {
         const peer=previous.rows.find(row=>row.path===url.pathname);
         if (!peer) {checked[key]={status:null,fragment:null,target:url.pathname,method:'Not measured in baseline snapshot'};continue;}
@@ -161,7 +178,8 @@ if (process.argv[1] === new URL(import.meta.url).pathname) {
     const report={at:previous?.at??new Date().toISOString(),revision:previous?.revision??execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),
       workingTreeDiffSHA256:previous?.workingTreeDiffSHA256??digest(saved&&label==='before'?'':execFileSync('git',['diff','HEAD'],{encoding:'utf8',maxBuffer:10000000})),
       auditorSHA256:digest(await readFile(new URL(import.meta.url),'utf8')),
-      method:'Actual candidate HTTP server; simulated official www host; isolated empty editorial API; no JavaScript. NFC Unicode code points. Intl.Segmenter words inside main excluding nav/footer and blocks repeated on >=35% (minimum eight) pages per locale. HTML snapshots SHA256. No Search Console access or production validation.',
+      activeSnapshotEditions:snapshot.length,
+      method:'Actual candidate HTTP server; simulated official www host; explicit isolated active editorial snapshot. No JavaScript. NFC Unicode code points. Intl.Segmenter words inside main excluding nav/footer and blocks repeated on >=35% (minimum eight) pages per locale. HTML snapshots SHA256. No Search Console access or production validation.',
       pages:rows.length,locales:[...new Set(rows.map(r=>r.locale))],summary,rows,checked};
     await writeFile(new URL('inventory.json',dir),JSON.stringify(report,null,2));
     const columns=['path','locale','kind','status','canonical','title','titleCharacters','titleOutOfRange','titleOutsidePreferred','titleDuplicates','description','descriptionCharacters','descriptionOutOfRange','descriptionOutsidePreferred','descriptionDuplicates','words','h1','hierarchy','inadequateAlt','jsonldIssues','brokenLinks','hreflangIssues','htmlSHA256','source'];

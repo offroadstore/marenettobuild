@@ -1,0 +1,119 @@
+{
+  "id": "owner-private-import-reconciliation-2026-11-26",
+  "decisionDate": "2026-11-26",
+  "decision": "Autorizza i dieci casi esatti",
+  "scope": "Ten exact private imports from the delivered conflict CSV only; retain their revisions, append only the already approved editions, reconcile the Arabic private path. No publication or immediate production mutation.",
+  "records": [
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "it",
+      "path": "/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "hash": "358d2fff56a263edfb5a7620986a87f10d9d62931b2dbaecf77c5bc1ee0091f3",
+      "sourceHash": "358d2fff56a263edfb5a7620986a87f10d9d62931b2dbaecf77c5bc1ee0091f3",
+      "importSourceHash": "",
+      "contentSHA256": "0b8404e8fdb0cfb5efe2158edc1be542220f5217ab1ce281322b41e54b72ec51",
+      "targetPath": "/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali/",
+      "targetHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "en",
+      "path": "/en/buying-and-renovating-a-house-in-cefalu-a-technical-guide-to-the-5-essential-checks",
+      "hash": "645e476f70bc9dd90f3009337af23df4ba76f1601f512058f593db74cfe2ba93",
+      "sourceHash": "358d2fff56a263edfb5a7620986a87f10d9d62931b2dbaecf77c5bc1ee0091f3",
+      "importSourceHash": "",
+      "contentSHA256": "b2c3692c6a2da0922a2f92d524aaa6c0d71e2c97f14f516ffadb1ec005975b4c",
+      "targetPath": "/en/buying-and-renovating-a-house-in-cefalu-a-technical-guide-to-the-5-essential-checks/",
+      "targetHash": "3549c4157a61eb6b6ee6e8026ea67db5c77032c9076159f0806514cfe3f8c659"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "de",
+      "path": "/de/hauskauf-und-renovierung-in-cefalu-technischer-leitfaden-zu-den-5-wichtigsten-pruefungen",
+      "hash": "aa1203040ff0b288fda4bddf4d1527ca6c25b2aaba3bedd1b287e249aa403bee",
+      "sourceHash": "358d2fff56a263edfb5a7620986a87f10d9d62931b2dbaecf77c5bc1ee0091f3",
+      "importSourceHash": "",
+      "contentSHA256": "4a127f7f46e866f02d0503d3e5c9fbdd56ae5ec2790ee7c864220d2279b0bfbc",
+      "targetPath": "/de/hauskauf-und-renovierung-in-cefalu-technischer-leitfaden-zu-den-5-wichtigsten-pruefungen/",
+      "targetHash": "df698aa986948ea05d39cc7a17f9342bcd1e4dbafa7496b7810b548a5c83c189"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "nl",
+      "path": "/nl/een-huis-kopen-en-renoveren-in-cefalu-technische-gids-voor-de-5-essentiele-controles",
+      "hash": "589f4e780c2c5bff63a1f0746036a0c219426cb7458c5d588922531f32854008",
+      "sourceHash": "358d2fff56a263edfb5a7620986a87f10d9d62931b2dbaecf77c5bc1ee0091f3",
+      "importSourceHash": "",
+      "contentSHA256": "d5ff9a12bb852c577c0da3c958f1c3a5f41d5ea6bb88708a7f14c3b6414c46fc",
+      "targetPath": "/nl/een-huis-kopen-en-renoveren-in-cefalu-technische-gids-voor-de-5-essentiele-controles/",
+      "targetHash": "2713c29d852a5a567b525ff3143f3c8f8ea65ef253450ad06aafeb391e0ca56e"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "fr",
+      "path": "/fr/acheter-et-renover-une-maison-a-cefalu-guide-technique-des-5-controles-essentiels",
+      "hash": "d916022b200a3ba7070779511f4659ca85e619687ac73c048575043beaf32688",
+      "sourceHash": "358d2fff56a263edfb5a7620986a87f10d9d62931b2dbaecf77c5bc1ee0091f3",
+      "importSourceHash": "",
+      "contentSHA256": "87dac52163eea76e7edce33ebf6d2d75fa1969bf94080381ef035e8e3cf93c61",
+      "targetPath": "/fr/acheter-et-renover-une-maison-a-cefalu-guide-technique-des-5-controles-essentiels/",
+      "targetHash": "2f76a690877ba2d7fafb03185aa05db6e8a22cabd3cdd169219125bc68207f65"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "es",
+      "path": "/es/comprar-y-renovar-casa-en-cefalu-guia-tecnica-de-los-5-controles-esenciales",
+      "hash": "385f354314246e419ca6e53a7eef7f55b17982e4ac4bbfe86d86b29983576c18",
+      "sourceHash": "358d2fff56a263edfb5a7620986a87f10d9d62931b2dbaecf77c5bc1ee0091f3",
+      "importSourceHash": "",
+      "contentSHA256": "6b7fbfb64805a23329e55a6100885faadf4a4462a65e84b1164d97ef3b8bff66",
+      "targetPath": "/es/comprar-y-renovar-casa-en-cefalu-guia-tecnica-de-los-5-controles-esenciales/",
+      "targetHash": "f195fd9d0a6e862f5f30007e261f9cdd06681f6407f2ff6cdffdec2308fd65ed"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "pt",
+      "path": "/pt/comprar-e-reformar-casa-em-cefalu-guia-tecnica-dos-5-controles-essenciais",
+      "hash": "14399a21f5029a3abb216853134ebc8ace8730bb1511505eec60b3666ea37834",
+      "sourceHash": "358d2fff56a263edfb5a7620986a87f10d9d62931b2dbaecf77c5bc1ee0091f3",
+      "importSourceHash": "",
+      "contentSHA256": "20f7c90b92b529e6b81ffa9cd3af8f044212af638bbe45e45ab43839a2f6c343",
+      "targetPath": "/pt/comprar-e-reformar-casa-em-cefalu-guia-tecnica-dos-5-controles-essenciais/",
+      "targetHash": "81a79ca6bcf1997962fb335605e9448db931e9524b51d5904310ef5b022d9f4b"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "pl",
+      "path": "/pl/kupno-i-remont-domu-w-cefalu-techniczny-przewodnik-po-5-kluczowych-kontrolach",
+      "hash": "2de2ca094da057681b161d3f1eb78f329781f64a95af9e234fb919574fbd99ee",
+      "sourceHash": "358d2fff56a263edfb5a7620986a87f10d9d62931b2dbaecf77c5bc1ee0091f3",
+      "importSourceHash": "",
+      "contentSHA256": "9df1cb887568d0497093f0ca9c8eef70b04fb5eb699f658a4f14c8eff3f64fa3",
+      "targetPath": "/pl/kupno-i-remont-domu-w-cefalu-techniczny-przewodnik-po-5-kluczowych-kontrolach/",
+      "targetHash": "2b4f1b84c6379064602db2fa47afa9a5884eca1827b711133881249493ca0c14"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "ru",
+      "path": "/ru/pokupka-i-remont-doma-v-chefalu-tehnicheskoe-rukovodstvo-po-5-osnovnym-proverkam",
+      "hash": "a6565ca7ab724446ff07615b8a6008144379fa010dbe2a4011d33a6cdca03523",
+      "sourceHash": "358d2fff56a263edfb5a7620986a87f10d9d62931b2dbaecf77c5bc1ee0091f3",
+      "importSourceHash": "",
+      "contentSHA256": "8aa0b7daa45889f989b0c8d70cf964bfa9b32997eba0d605a590744d81b30d5e",
+      "targetPath": "/ru/pokupka-i-remont-doma-v-chefalu-tehnicheskoe-rukovodstvo-po-5-osnovnym-proverkam/",
+      "targetHash": "3d2b20c3c484ae016a955355be02ea1352be2bb59bbb6161b48a3b4cc30bbdc8"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "ar",
+      "path": "/ar/articles/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "hash": "1d5001b4ca36da5ae6524e2bc5136754ec39d6cbee7f39b8277a498a184c0975",
+      "sourceHash": "358d2fff56a263edfb5a7620986a87f10d9d62931b2dbaecf77c5bc1ee0091f3",
+      "importSourceHash": "",
+      "contentSHA256": "37a2c55276e806e825caf86e61717b36582d95657264a9c7cd027dd0075dfd42",
+      "targetPath": "/ar/articles/buying-renovating-five-checks",
+      "targetHash": "5ffb771e6cfee82be9d0163e2cf878e5ded4e6b604ed1158ce809b84dbf98255"
+    }
+  ],
+  "digest": "ce977c4f9ebb189815228fdf9ed937c95849befa5963e34bdde47ac8a1a33fd3"
+}

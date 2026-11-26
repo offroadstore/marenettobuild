@@ -74,7 +74,7 @@ test('Arabic client navigation retains indexability, reciprocal verified peers a
     const {seriesRelease}=await vite.ssrLoadModule('/src/content/series-release.mjs');
     const active=catalog.seriesDrafts.map(seed=>{
       const record=seriesRelease.records.find(r=>r.identity===seed.identity&&r.locale===seed.locale);
-      return {...seed,revisionId:`synthetic-${seed.identity}-${seed.locale}`,revisionHash:record.hash,sourceHash:record.sourceHash};
+      return {...seed,path:record.path,revisionId:`synthetic-${seed.identity}-${seed.locale}`,revisionHash:record.hash,sourceHash:record.sourceHash};
     });
     for(const locale of ['it','de','it']) {
       const edition=active.find(e=>e.locale===locale&&e.content.guide.episode===1);

@@ -6,7 +6,7 @@ import { assertNetworkActivation, assertSeriesRelease, publicEditionPath } from 
 import catalog from 'marenetto-editorial-catalog';
 const content = { title: 'Prova', summary: '', body: '<p>Testo</p>', category: '', tags: [], image: '', imageAlt: '', sources: [], seoTitle: '', seoDescription: '', contentLanguage: 'it' };
 test('series public URLs preserve approved historical spelling without preventing deliberate URL edits',()=>{
-  for(const seed of catalog.seriesDrafts) {
+  for(const seed of catalog.deploymentSeries) {
     const row={identity:seed.identity,locale:seed.locale,path:seed.path.replace(/\/+$/,'')};
     assert.equal(publicEditionPath(row),seed.path);
     assert.equal(publicEditionPath({...row,path:'/deliberately-changed'}),'/deliberately-changed');
@@ -140,7 +140,7 @@ if (process.env.EDITORIAL_HTTP_TEST === 'true') {
       const importedRows = await allRows();
       const seriesRows=importedRows.filter(row=>row.data.revisions.some(rev=>rev.content.guide));
       assert.equal(seriesRows.length,120);
-      const releaseEvent=`${catalog.seriesRelease.id}:${catalog.seriesRelease.contentDigest}`;
+      const releaseEvent='deployment-owner-2026-11-26';
       assert.ok(seriesRows.every(row=>row.data.events.filter(e=>e.action===releaseEvent).length===1),'owner release is idempotent');
       const publicSeries=(await request('/editorial/active')).data.filter(row=>row.content.guide);
       assert.equal(publicSeries.length,120,'only the hash-bound owner-approved release enters the public snapshot');

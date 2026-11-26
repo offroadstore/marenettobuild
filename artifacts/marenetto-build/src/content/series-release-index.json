@@ -10,34 +10,42 @@
     {
       "identity": "costruire-cefalu-madonie/01",
       "locale": "it",
-      "path": "/costruire-cefalu-madonie/puntata-1/",
+      "path": "/costruire-cefalu-madonie/edilizia-libera-o-permesso/",
       "episode": 1,
       "hash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547",
-      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547",
+      "seoTitle": "Edilizia libera o permesso? Guida per Cefalù",
+      "oldPath": "/costruire-cefalu-madonie/puntata-1/"
     },
     {
       "identity": "costruire-cefalu-madonie/01",
       "locale": "en",
-      "path": "/en/costruire-cefalu-madonie/puntata-1/",
+      "path": "/en/building-cefalu-madonie/building-work-planning-permission/",
       "episode": 1,
       "hash": "788a277c823b32b350ccc74c158dcc66bf5ec228165c915cf56c436b9e67d60e",
-      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547",
+      "seoTitle": "Building work in Cefalù: when is permission needed?",
+      "oldPath": "/en/costruire-cefalu-madonie/puntata-1/"
     },
     {
       "identity": "costruire-cefalu-madonie/01",
       "locale": "de",
-      "path": "/de/costruire-cefalu-madonie/puntata-1/",
+      "path": "/de/bauen-cefalu-madonie/bauarbeiten-genehmigung/",
       "episode": 1,
       "hash": "7075e22f66eb243e9e4ac0971780d8ba4fea86986745325e2988e6884465930e",
-      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547",
+      "seoTitle": "Bauen in Cefalù: genehmigungsfrei oder mit Erlaubnis?",
+      "oldPath": "/de/costruire-cefalu-madonie/puntata-1/"
     },
     {
       "identity": "costruire-cefalu-madonie/01",
       "locale": "nl",
-      "path": "/nl/costruire-cefalu-madonie/puntata-1/",
+      "path": "/nl/bouwen-cefalu-madonie/bouwwerk-vergunningsvrij-of-vergunning/",
       "episode": 1,
       "hash": "f6a0e2dbd4a9c82ad22273d932caf14281e62bdc9bba3e1f60203bcd57e353fa",
-      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547",
+      "seoTitle": "Bouwen in Cefalù: vergunningsvrij of met vergunning?",
+      "oldPath": "/nl/costruire-cefalu-madonie/puntata-1/"
     },
     {
       "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
@@ -74,130 +82,162 @@
     {
       "identity": "costruire-cefalu-madonie/08",
       "locale": "it",
-      "path": "/costruire-cefalu-madonie/puntata-8/",
+      "path": "/costruire-cefalu-madonie/ristrutturare-a-distanza-fasi-controlli/",
       "episode": 8,
       "hash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780",
-      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780",
+      "seoTitle": "Ristrutturare a distanza: fasi e controlli a Cefalù",
+      "oldPath": "/costruire-cefalu-madonie/puntata-8/"
     },
     {
       "identity": "costruire-cefalu-madonie/08",
       "locale": "en",
-      "path": "/en/costruire-cefalu-madonie/puntata-8/",
+      "path": "/en/building-cefalu-madonie/renovating-from-abroad-stages-checks/",
       "episode": 8,
       "hash": "f850eb9c4e34aa0ad41ede98f5db40ccbf1e05762f9104290777031ba5505699",
-      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780",
+      "seoTitle": "Renovating Cefalù from abroad: progress checks and SAL",
+      "oldPath": "/en/costruire-cefalu-madonie/puntata-8/"
     },
     {
       "identity": "costruire-cefalu-madonie/08",
       "locale": "de",
-      "path": "/de/costruire-cefalu-madonie/puntata-8/",
+      "path": "/de/bauen-cefalu-madonie/sanieren-aus-dem-ausland-ablauf-kontrolle/",
       "episode": 8,
       "hash": "4f83b39d71db7add9c0ecc0df926cbf98ac02ae78b619198898846afe6cf11a7",
-      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780",
+      "seoTitle": "Aus dem Ausland in Cefalù sanieren: Ablauf und Kontrolle",
+      "oldPath": "/de/costruire-cefalu-madonie/puntata-8/"
     },
     {
       "identity": "costruire-cefalu-madonie/08",
       "locale": "nl",
-      "path": "/nl/costruire-cefalu-madonie/puntata-8/",
+      "path": "/nl/bouwen-cefalu-madonie/renoveren-op-afstand-fasen-controles/",
       "episode": 8,
       "hash": "4ce5889edb087ad4f592783ea0c4d3969333e298d3d388a5898ddc8fe868af78",
-      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780",
+      "seoTitle": "Verbouwen op afstand in Cefalù: voortgang en SAL",
+      "oldPath": "/nl/costruire-cefalu-madonie/puntata-8/"
     },
     {
       "identity": "costruire-cefalu-madonie/10",
       "locale": "it",
-      "path": "/costruire-cefalu-madonie/puntata-10/",
+      "path": "/costruire-cefalu-madonie/tavoli-arredi-su-misura-cemento/",
       "episode": 10,
       "hash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43",
-      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43",
+      "seoTitle": "Tavoli e arredi su misura in cemento: come scegliere",
+      "oldPath": "/costruire-cefalu-madonie/puntata-10/"
     },
     {
       "identity": "costruire-cefalu-madonie/10",
       "locale": "en",
-      "path": "/en/costruire-cefalu-madonie/puntata-10/",
+      "path": "/en/building-cefalu-madonie/bespoke-concrete-tables-furniture/",
       "episode": 10,
       "hash": "10a5023579400b5997819c93ea831ff913317bc401ab5fae95c73a8c0814f7b1",
-      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43",
+      "seoTitle": "Bespoke concrete tables and furniture: choosing well",
+      "oldPath": "/en/costruire-cefalu-madonie/puntata-10/"
     },
     {
       "identity": "costruire-cefalu-madonie/10",
       "locale": "de",
-      "path": "/de/costruire-cefalu-madonie/puntata-10/",
+      "path": "/de/bauen-cefalu-madonie/betontische-moebel-nach-mass/",
       "episode": 10,
       "hash": "9571756d98689f2272e06d6e51041d56c923a6c0ffc4204042571ca754a47174",
-      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43",
+      "seoTitle": "Tische und Möbel aus Beton nach Maß: die Auswahl",
+      "oldPath": "/de/costruire-cefalu-madonie/puntata-10/"
     },
     {
       "identity": "costruire-cefalu-madonie/10",
       "locale": "nl",
-      "path": "/nl/costruire-cefalu-madonie/puntata-10/",
+      "path": "/nl/bouwen-cefalu-madonie/betonnen-tafels-meubels-op-maat/",
       "episode": 10,
       "hash": "811abd0418ae5b24d2071ec4a266056bb82897a26562df9f36ca0762e60d95d3",
-      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43",
+      "seoTitle": "Betonnen tafels en meubels op maat: bewust kiezen",
+      "oldPath": "/nl/costruire-cefalu-madonie/puntata-10/"
     },
     {
       "identity": "costruire-cefalu-madonie/01",
       "locale": "fr",
-      "path": "/fr/costruire-cefalu-madonie/puntata-1/",
+      "path": "/fr/construire-cefalu-madonie/travaux-libres-ou-autorisation/",
       "episode": 1,
       "hash": "67849255ebbbe74f079b312ce9f2911615cd6fe8ec0d2272f7ba25acf7bd5abe",
-      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547",
+      "seoTitle": "Travaux à Cefalù : libres ou soumis à autorisation ?",
+      "oldPath": "/fr/costruire-cefalu-madonie/puntata-1/"
     },
     {
       "identity": "costruire-cefalu-madonie/01",
       "locale": "es",
-      "path": "/es/costruire-cefalu-madonie/puntata-1/",
+      "path": "/es/construir-cefalu-madonie/obras-libres-o-permiso/",
       "episode": 1,
       "hash": "717c9b1a8f0dc0724e4cef24c073c9f4b354982f515d70e4509dd6dc92e41989",
-      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547",
+      "seoTitle": "Obras en Cefalù: ¿libres o sujetas a permiso?",
+      "oldPath": "/es/costruire-cefalu-madonie/puntata-1/"
     },
     {
       "identity": "costruire-cefalu-madonie/01",
       "locale": "pt",
-      "path": "/pt/costruire-cefalu-madonie/puntata-1/",
+      "path": "/pt/construir-cefalu-madonie/obras-livres-ou-licenca/",
       "episode": 1,
       "hash": "f18b1d8693f0802242c1989f8ded89633b3a1885d917585782f63247c4f1cef8",
-      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547",
+      "seoTitle": "Obras em Cefalù: livres ou sujeitas a licença?",
+      "oldPath": "/pt/costruire-cefalu-madonie/puntata-1/"
     },
     {
       "identity": "costruire-cefalu-madonie/01",
       "locale": "pl",
-      "path": "/pl/costruire-cefalu-madonie/puntata-1/",
+      "path": "/pl/budowa-cefalu-madonie/roboty-bez-pozwolenia-czy-z-pozwoleniem/",
       "episode": 1,
       "hash": "c73065bcd50fb4423f478e6ca25bd43109b83f98f1aea8fdf6e7209a844eccec",
-      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547",
+      "seoTitle": "Roboty w Cefalù: kiedy potrzebne jest pozwolenie?",
+      "oldPath": "/pl/costruire-cefalu-madonie/puntata-1/"
     },
     {
       "identity": "costruire-cefalu-madonie/01",
       "locale": "ru",
-      "path": "/ru/costruire-cefalu-madonie/puntata-1/",
+      "path": "/ru/stroitelstvo-chefalu-madonie/raboty-bez-razresheniya-ili-s-razresheniem/",
       "episode": 1,
       "hash": "9e40f6f8f9e89dd20ba874c500eca3150ee7bd2c067bf321c3697d3851c3cd30",
-      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547",
+      "seoTitle": "Работы в Чефалу: когда нужно разрешение?",
+      "oldPath": "/ru/costruire-cefalu-madonie/puntata-1/"
     },
     {
       "identity": "costruire-cefalu-madonie/01",
       "locale": "sv",
-      "path": "/sv/costruire-cefalu-madonie/puntata-1/",
+      "path": "/sv/bygga-cefalu-madonie/byggarbete-utan-lov-eller-med-tillstand/",
       "episode": 1,
       "hash": "d2404aa2e50227ed3b63bf85a3bb52fd55d3ada7dfae9024455d2f879c1aecbd",
-      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547",
+      "seoTitle": "Byggarbete i Cefalù: när krävs tillstånd?",
+      "oldPath": "/sv/costruire-cefalu-madonie/puntata-1/"
     },
     {
       "identity": "costruire-cefalu-madonie/01",
       "locale": "no",
-      "path": "/no/costruire-cefalu-madonie/puntata-1/",
+      "path": "/no/bygge-cefalu-madonie/byggearbeid-med-eller-uten-tillatelse/",
       "episode": 1,
       "hash": "2d11c8dff04a9667e13cf9f2c31b2c54bb4369e31897aba8c6d64eff07f1de52",
-      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547",
+      "seoTitle": "Byggearbeid i Cefalù: når trengs tillatelse?",
+      "oldPath": "/no/costruire-cefalu-madonie/puntata-1/"
     },
     {
       "identity": "costruire-cefalu-madonie/01",
       "locale": "da",
-      "path": "/da/costruire-cefalu-madonie/puntata-1/",
+      "path": "/da/bygge-cefalu-madonie/byggearbejde-med-eller-uden-tilladelse/",
       "episode": 1,
       "hash": "e04e588c7b2fbe6b27de8229887e2024038f97d84dbc6a38a855496217a69d63",
-      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547",
+      "seoTitle": "Byggearbejde i Cefalù: hvornår kræves tilladelse?",
+      "oldPath": "/da/costruire-cefalu-madonie/puntata-1/"
     },
     {
       "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
@@ -266,514 +306,642 @@
     {
       "identity": "costruire-cefalu-madonie/08",
       "locale": "fr",
-      "path": "/fr/costruire-cefalu-madonie/puntata-8/",
+      "path": "/fr/construire-cefalu-madonie/renover-distance-etapes-controles/",
       "episode": 8,
       "hash": "41871cc8015b3f0de69faf0b24a5d5ea715a557995e89c313814ca10ce643564",
-      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780",
+      "seoTitle": "Rénover à distance à Cefalù : étapes et contrôles",
+      "oldPath": "/fr/costruire-cefalu-madonie/puntata-8/"
     },
     {
       "identity": "costruire-cefalu-madonie/08",
       "locale": "es",
-      "path": "/es/costruire-cefalu-madonie/puntata-8/",
+      "path": "/es/construir-cefalu-madonie/reformar-distancia-fases-controles/",
       "episode": 8,
       "hash": "09aa52feda33b5d0591c68baddc0125bb912b618ac6fe523f52246f4b9dda4aa",
-      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780",
+      "seoTitle": "Reformar en Cefalù desde el extranjero: seguimiento y SAL",
+      "oldPath": "/es/costruire-cefalu-madonie/puntata-8/"
     },
     {
       "identity": "costruire-cefalu-madonie/08",
       "locale": "pt",
-      "path": "/pt/costruire-cefalu-madonie/puntata-8/",
+      "path": "/pt/construir-cefalu-madonie/renovar-distancia-fases-controlo/",
       "episode": 8,
       "hash": "3240f5a3eedd40d68a1bfb7efc9f8c60ace1bb1ea1287623c3de3a8c5ed28638",
-      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780",
+      "seoTitle": "Renovar em Cefalù a partir do estrangeiro: obra e SAL",
+      "oldPath": "/pt/costruire-cefalu-madonie/puntata-8/"
     },
     {
       "identity": "costruire-cefalu-madonie/08",
       "locale": "pl",
-      "path": "/pl/costruire-cefalu-madonie/puntata-8/",
+      "path": "/pl/budowa-cefalu-madonie/remont-z-zagranicy-etapy-kontrola/",
       "episode": 8,
       "hash": "026cafbca902eb2649b5daac452eeac5579511a55acd2a9fe046261ea7079f29",
-      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780",
+      "seoTitle": "Remont w Cefalù z zagranicy: etapy i kontrola",
+      "oldPath": "/pl/costruire-cefalu-madonie/puntata-8/"
     },
     {
       "identity": "costruire-cefalu-madonie/08",
       "locale": "ru",
-      "path": "/ru/costruire-cefalu-madonie/puntata-8/",
+      "path": "/ru/stroitelstvo-chefalu-madonie/remont-iz-za-rubezha-etapy-kontrol/",
       "episode": 8,
       "hash": "03dd7cc555e2a185c5dc8f39595dca72e02675533218ce411879125bf30cfd59",
-      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780",
+      "seoTitle": "Ремонт в Чефалу из-за рубежа: этапы и контроль",
+      "oldPath": "/ru/costruire-cefalu-madonie/puntata-8/"
     },
     {
       "identity": "costruire-cefalu-madonie/08",
       "locale": "sv",
-      "path": "/sv/costruire-cefalu-madonie/puntata-8/",
+      "path": "/sv/bygga-cefalu-madonie/renovera-fran-utlandet-etapper-kontroll/",
       "episode": 8,
       "hash": "9aae2f85468919b5112eb969d036712dcfe05f808f7b1ac5b0a8f1dedfc992c1",
-      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780",
+      "seoTitle": "Renovera i Cefalù från utlandet: uppföljning och SAL",
+      "oldPath": "/sv/costruire-cefalu-madonie/puntata-8/"
     },
     {
       "identity": "costruire-cefalu-madonie/08",
       "locale": "no",
-      "path": "/no/costruire-cefalu-madonie/puntata-8/",
+      "path": "/no/bygge-cefalu-madonie/pusse-opp-fra-utlandet-faser-kontroll/",
       "episode": 8,
       "hash": "93d0b435c817b0dde5c73d932f63e450dbfc2c6d5216e5768f8b79cf1f479a24",
-      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780",
+      "seoTitle": "Pusse opp i Cefalù fra utlandet: fremdrift og SAL",
+      "oldPath": "/no/costruire-cefalu-madonie/puntata-8/"
     },
     {
       "identity": "costruire-cefalu-madonie/08",
       "locale": "da",
-      "path": "/da/costruire-cefalu-madonie/puntata-8/",
+      "path": "/da/bygge-cefalu-madonie/renovere-fra-udlandet-faser-kontrol/",
       "episode": 8,
       "hash": "0d4004b7c9da00fc4b1edb434e143e6f52e2402db25bbdcf140d9474d84dd4e7",
-      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780",
+      "seoTitle": "Renovere i Cefalù fra udlandet: fremdrift og SAL",
+      "oldPath": "/da/costruire-cefalu-madonie/puntata-8/"
     },
     {
       "identity": "costruire-cefalu-madonie/10",
       "locale": "fr",
-      "path": "/fr/costruire-cefalu-madonie/puntata-10/",
+      "path": "/fr/construire-cefalu-madonie/tables-mobilier-beton-sur-mesure/",
       "episode": 10,
       "hash": "5f7919e7f5900418cf6e364beafb28f91d10f20072f45f50368139938c8b3e09",
-      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43",
+      "seoTitle": "Tables et mobilier en béton sur mesure : les choix",
+      "oldPath": "/fr/costruire-cefalu-madonie/puntata-10/"
     },
     {
       "identity": "costruire-cefalu-madonie/10",
       "locale": "es",
-      "path": "/es/costruire-cefalu-madonie/puntata-10/",
+      "path": "/es/construir-cefalu-madonie/mesas-muebles-cemento-medida/",
       "episode": 10,
       "hash": "e98168acd0200bd5837145a6bbfef6a9fe7c70ccac2c93d6d793966499c70f42",
-      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43",
+      "seoTitle": "Mesas y muebles de cemento a medida: cómo elegir",
+      "oldPath": "/es/costruire-cefalu-madonie/puntata-10/"
     },
     {
       "identity": "costruire-cefalu-madonie/10",
       "locale": "pt",
-      "path": "/pt/costruire-cefalu-madonie/puntata-10/",
+      "path": "/pt/construir-cefalu-madonie/mesas-moveis-cimento-medida/",
       "episode": 10,
       "hash": "726716312818c5a281e1a721fcb4483a9da2c70b5dd20755e52c67e5a855ee12",
-      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43",
+      "seoTitle": "Mesas e móveis de cimento por medida: como escolher",
+      "oldPath": "/pt/costruire-cefalu-madonie/puntata-10/"
     },
     {
       "identity": "costruire-cefalu-madonie/10",
       "locale": "pl",
-      "path": "/pl/costruire-cefalu-madonie/puntata-10/",
+      "path": "/pl/budowa-cefalu-madonie/stoly-meble-betonowe-na-wymiar/",
       "episode": 10,
       "hash": "11d8aeca5e2a548e700f50f207bda5551b496c7a8b7b0a82aee4afb3583f6d9c",
-      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43",
+      "seoTitle": "Stoły i meble betonowe na wymiar: świadomy wybór",
+      "oldPath": "/pl/costruire-cefalu-madonie/puntata-10/"
     },
     {
       "identity": "costruire-cefalu-madonie/10",
       "locale": "ru",
-      "path": "/ru/costruire-cefalu-madonie/puntata-10/",
+      "path": "/ru/stroitelstvo-chefalu-madonie/stoly-mebel-beton-na-zakaz/",
       "episode": 10,
       "hash": "5895c8d07f94d6c2bb8d55a7365a2446c31034b258304e097815b351b4deafa7",
-      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43",
+      "seoTitle": "Столы и мебель из бетона на заказ: как выбирать",
+      "oldPath": "/ru/costruire-cefalu-madonie/puntata-10/"
     },
     {
       "identity": "costruire-cefalu-madonie/10",
       "locale": "sv",
-      "path": "/sv/costruire-cefalu-madonie/puntata-10/",
+      "path": "/sv/bygga-cefalu-madonie/bord-mobler-betong-specialmatt/",
       "episode": 10,
       "hash": "ddab5deb17bdc597814d5b148b928dd4018fd6d58dad78b5c36109809ee2d8bb",
-      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43",
+      "seoTitle": "Måttbeställda bord och möbler i betong: att välja",
+      "oldPath": "/sv/costruire-cefalu-madonie/puntata-10/"
     },
     {
       "identity": "costruire-cefalu-madonie/10",
       "locale": "no",
-      "path": "/no/costruire-cefalu-madonie/puntata-10/",
+      "path": "/no/bygge-cefalu-madonie/bord-mobler-betong-spesialmal/",
       "episode": 10,
       "hash": "3d4ce5f948d21f189e048b75a7c3cac204fba3795ccf7a58a72cf38df1892fe6",
-      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43",
+      "seoTitle": "Bord og møbler i betong på spesialmål: gode valg",
+      "oldPath": "/no/costruire-cefalu-madonie/puntata-10/"
     },
     {
       "identity": "costruire-cefalu-madonie/10",
       "locale": "da",
-      "path": "/da/costruire-cefalu-madonie/puntata-10/",
+      "path": "/da/bygge-cefalu-madonie/borde-mobler-beton-specialmal/",
       "episode": 10,
       "hash": "3a441a3043e88f18e5e22c5fc229b66e20fabf148212b8801eccaa43e664b6e4",
-      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43",
+      "seoTitle": "Borde og møbler i beton på specialmål: gode valg",
+      "oldPath": "/da/costruire-cefalu-madonie/puntata-10/"
     },
     {
       "identity": "costruire-cefalu-madonie/02",
       "locale": "it",
-      "path": "/costruire-cefalu-madonie/puntata-2/",
+      "path": "/costruire-cefalu-madonie/cila-scia-permesso-costruire/",
       "episode": 2,
       "hash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66",
-      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66",
+      "seoTitle": "CILA, SCIA e permesso di costruire: le differenze",
+      "oldPath": "/costruire-cefalu-madonie/puntata-2/"
     },
     {
       "identity": "costruire-cefalu-madonie/02",
       "locale": "en",
-      "path": "/en/costruire-cefalu-madonie/puntata-2/",
+      "path": "/en/building-cefalu-madonie/cila-scia-building-permits/",
       "episode": 2,
       "hash": "19dcb814859b223405aa1fd61f82aa7809c65cf520222deb68a6893ac2f60c21",
-      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66",
+      "seoTitle": "CILA, SCIA and building permits in Sicily explained",
+      "oldPath": "/en/costruire-cefalu-madonie/puntata-2/"
     },
     {
       "identity": "costruire-cefalu-madonie/02",
       "locale": "de",
-      "path": "/de/costruire-cefalu-madonie/puntata-2/",
+      "path": "/de/bauen-cefalu-madonie/cila-scia-baugenehmigung/",
       "episode": 2,
       "hash": "33a698b42ed137bfcf2d2eeaa2b84a52e2d9e66a0f57f68d04587c5f3beb02fc",
-      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66",
+      "seoTitle": "CILA, SCIA und Baugenehmigung auf Sizilien erklärt",
+      "oldPath": "/de/costruire-cefalu-madonie/puntata-2/"
     },
     {
       "identity": "costruire-cefalu-madonie/02",
       "locale": "nl",
-      "path": "/nl/costruire-cefalu-madonie/puntata-2/",
+      "path": "/nl/bouwen-cefalu-madonie/cila-scia-bouwvergunning/",
       "episode": 2,
       "hash": "f0e29e6123f33c6e4cdfaba144c0bd8ba97a6da4e70bb9909e39039d290fab78",
-      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66",
+      "seoTitle": "CILA, SCIA en bouwvergunningen op Sicilië uitgelegd",
+      "oldPath": "/nl/costruire-cefalu-madonie/puntata-2/"
     },
     {
       "identity": "costruire-cefalu-madonie/02",
       "locale": "fr",
-      "path": "/fr/costruire-cefalu-madonie/puntata-2/",
+      "path": "/fr/construire-cefalu-madonie/cila-scia-permis-construire/",
       "episode": 2,
       "hash": "ca4e9add4b78b2274a58217d3ef5d1364fc0fa32072c51c34b916869657608ea",
-      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66",
+      "seoTitle": "CILA, SCIA et permis de construire en Sicile",
+      "oldPath": "/fr/costruire-cefalu-madonie/puntata-2/"
     },
     {
       "identity": "costruire-cefalu-madonie/02",
       "locale": "es",
-      "path": "/es/costruire-cefalu-madonie/puntata-2/",
+      "path": "/es/construir-cefalu-madonie/cila-scia-permiso-construccion/",
       "episode": 2,
       "hash": "4501cf9f7838335fe5651da0e7004b376b2deab27a3f91e997ee8e80a77a58ac",
-      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66",
+      "seoTitle": "CILA, SCIA y permiso de construcción en Sicilia",
+      "oldPath": "/es/costruire-cefalu-madonie/puntata-2/"
     },
     {
       "identity": "costruire-cefalu-madonie/02",
       "locale": "pt",
-      "path": "/pt/costruire-cefalu-madonie/puntata-2/",
+      "path": "/pt/construir-cefalu-madonie/cila-scia-licenca-construcao/",
       "episode": 2,
       "hash": "65bb43646a8fd0eb2777524a1cf2e39a197dd669bb9f4f7450568ebc31d6c98d",
-      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66",
+      "seoTitle": "CILA, SCIA e licença de construção na Sicília",
+      "oldPath": "/pt/costruire-cefalu-madonie/puntata-2/"
     },
     {
       "identity": "costruire-cefalu-madonie/02",
       "locale": "pl",
-      "path": "/pl/costruire-cefalu-madonie/puntata-2/",
+      "path": "/pl/budowa-cefalu-madonie/cila-scia-pozwolenie-na-budowe/",
       "episode": 2,
       "hash": "f4bd0e0db9507a087bdd2956e17cccba58a035699477eb57d63ba063e20bc1f7",
-      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66",
+      "seoTitle": "CILA, SCIA i pozwolenie na budowę na Sycylii",
+      "oldPath": "/pl/costruire-cefalu-madonie/puntata-2/"
     },
     {
       "identity": "costruire-cefalu-madonie/02",
       "locale": "ru",
-      "path": "/ru/costruire-cefalu-madonie/puntata-2/",
+      "path": "/ru/stroitelstvo-chefalu-madonie/cila-scia-razreshenie-na-stroitelstvo/",
       "episode": 2,
       "hash": "03f0ef4e3a49a729cd12ddc276f0ba572a12fb4e4dc7c85452139ff69807c744",
-      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66",
+      "seoTitle": "CILA, SCIA и разрешение на строительство в Сицилии",
+      "oldPath": "/ru/costruire-cefalu-madonie/puntata-2/"
     },
     {
       "identity": "costruire-cefalu-madonie/02",
       "locale": "sv",
-      "path": "/sv/costruire-cefalu-madonie/puntata-2/",
+      "path": "/sv/bygga-cefalu-madonie/cila-scia-bygglov/",
       "episode": 2,
       "hash": "97bb30149de1724dc61a34811a975c82501b35dbaaf377bd36c5cfadc0f8c57e",
-      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66",
+      "seoTitle": "CILA, SCIA och bygglov på Sicilien förklarade",
+      "oldPath": "/sv/costruire-cefalu-madonie/puntata-2/"
     },
     {
       "identity": "costruire-cefalu-madonie/02",
       "locale": "no",
-      "path": "/no/costruire-cefalu-madonie/puntata-2/",
+      "path": "/no/bygge-cefalu-madonie/cila-scia-byggetillatelse/",
       "episode": 2,
       "hash": "45bcfd5f241767591f9a7d550d2c077d2b272f1d7da3949277f2d55f652f3493",
-      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66",
+      "seoTitle": "CILA, SCIA og byggetillatelse på Sicilia forklart",
+      "oldPath": "/no/costruire-cefalu-madonie/puntata-2/"
     },
     {
       "identity": "costruire-cefalu-madonie/02",
       "locale": "da",
-      "path": "/da/costruire-cefalu-madonie/puntata-2/",
+      "path": "/da/bygge-cefalu-madonie/cila-scia-byggetilladelse/",
       "episode": 2,
       "hash": "54ccafdff42ddd2af5db3e6fdff2fb3584542aa541e2e4e9d268d041c260d2ed",
-      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66",
+      "seoTitle": "CILA, SCIA og byggetilladelse på Sicilien forklaret",
+      "oldPath": "/da/costruire-cefalu-madonie/puntata-2/"
     },
     {
       "identity": "costruire-cefalu-madonie/03",
       "locale": "it",
-      "path": "/costruire-cefalu-madonie/puntata-3/",
+      "path": "/costruire-cefalu-madonie/geometra-architetto-impresa-ruoli/",
       "episode": 3,
       "hash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486",
-      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486",
+      "seoTitle": "Geometra, architetto e impresa: ruoli in cantiere",
+      "oldPath": "/costruire-cefalu-madonie/puntata-3/"
     },
     {
       "identity": "costruire-cefalu-madonie/03",
       "locale": "en",
-      "path": "/en/costruire-cefalu-madonie/puntata-3/",
+      "path": "/en/building-cefalu-madonie/surveyor-architect-contractor-roles/",
       "episode": 3,
       "hash": "52137b9379cc8a84f297517cd7c0e001af31a3fa3f97f1964466d99059e838ff",
-      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486",
+      "seoTitle": "Surveyor, architect and contractor: who does what?",
+      "oldPath": "/en/costruire-cefalu-madonie/puntata-3/"
     },
     {
       "identity": "costruire-cefalu-madonie/03",
       "locale": "de",
-      "path": "/de/costruire-cefalu-madonie/puntata-3/",
+      "path": "/de/bauen-cefalu-madonie/geometer-architekt-bauunternehmen-aufgaben/",
       "episode": 3,
       "hash": "bc6b8d7b3bd39f657c16793727432c2344a24688ab144fbab91cc5b4d1bf0b9f",
-      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486",
+      "seoTitle": "Geometer, Architekt und Baufirma: Aufgaben im Bau",
+      "oldPath": "/de/costruire-cefalu-madonie/puntata-3/"
     },
     {
       "identity": "costruire-cefalu-madonie/03",
       "locale": "nl",
-      "path": "/nl/costruire-cefalu-madonie/puntata-3/",
+      "path": "/nl/bouwen-cefalu-madonie/landmeter-architect-aannemer-taken/",
       "episode": 3,
       "hash": "55b13c4a2a01a32aca0a4542a9a6407632cd3ba5cb9ffb50f114d856ed608813",
-      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486",
+      "seoTitle": "Landmeter, architect en aannemer: taken bij de bouw",
+      "oldPath": "/nl/costruire-cefalu-madonie/puntata-3/"
     },
     {
       "identity": "costruire-cefalu-madonie/03",
       "locale": "fr",
-      "path": "/fr/costruire-cefalu-madonie/puntata-3/",
+      "path": "/fr/construire-cefalu-madonie/geometre-architecte-entreprise-roles/",
       "episode": 3,
       "hash": "f4e6a3bf95eccbb8f785b6c3de65a12b3e566d68e0961de609980d6646786293",
-      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486",
+      "seoTitle": "Géomètre, architecte et entreprise : rôles au chantier",
+      "oldPath": "/fr/costruire-cefalu-madonie/puntata-3/"
     },
     {
       "identity": "costruire-cefalu-madonie/03",
       "locale": "es",
-      "path": "/es/costruire-cefalu-madonie/puntata-3/",
+      "path": "/es/construir-cefalu-madonie/aparejador-arquitecto-constructora-funciones/",
       "episode": 3,
       "hash": "bb12cc25770b6d85fe3cfd19c6a88b4d1565af680d5458eb05f085d6dd9c0935",
-      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486",
+      "seoTitle": "Aparejador, arquitecto y constructora: sus funciones",
+      "oldPath": "/es/costruire-cefalu-madonie/puntata-3/"
     },
     {
       "identity": "costruire-cefalu-madonie/03",
       "locale": "pt",
-      "path": "/pt/costruire-cefalu-madonie/puntata-3/",
+      "path": "/pt/construir-cefalu-madonie/topografo-arquiteto-empreiteiro-funcoes/",
       "episode": 3,
       "hash": "55073db45ce212a8370fc90d24cf38ac86e715d8b26582d29b37874cf8e957ea",
-      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486",
+      "seoTitle": "Topógrafo, arquiteto e empreiteiro: funções na obra",
+      "oldPath": "/pt/costruire-cefalu-madonie/puntata-3/"
     },
     {
       "identity": "costruire-cefalu-madonie/03",
       "locale": "pl",
-      "path": "/pl/costruire-cefalu-madonie/puntata-3/",
+      "path": "/pl/budowa-cefalu-madonie/geometra-architekt-wykonawca-role/",
       "episode": 3,
       "hash": "df1e0b1dbaa8e505c623e2ac83e87e7e8ec74305659fee5bf42fe22f4b58951b",
-      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486",
+      "seoTitle": "Geometra, architekt i wykonawca: podział zadań",
+      "oldPath": "/pl/costruire-cefalu-madonie/puntata-3/"
     },
     {
       "identity": "costruire-cefalu-madonie/03",
       "locale": "ru",
-      "path": "/ru/costruire-cefalu-madonie/puntata-3/",
+      "path": "/ru/stroitelstvo-chefalu-madonie/geometr-arhitektor-podryadchik-roli/",
       "episode": 3,
       "hash": "64969e5a1de5741e535da2b39aa90c0c5cd49071dccb3d8b218a66e0c097555f",
-      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486",
+      "seoTitle": "Геометр, архитектор и подрядчик: роли на стройке",
+      "oldPath": "/ru/costruire-cefalu-madonie/puntata-3/"
     },
     {
       "identity": "costruire-cefalu-madonie/03",
       "locale": "sv",
-      "path": "/sv/costruire-cefalu-madonie/puntata-3/",
+      "path": "/sv/bygga-cefalu-madonie/geometer-arkitekt-byggforetag-roller/",
       "episode": 3,
       "hash": "92b03d52fa422697918c5b7d73f37560e92dc28edde7cb16cab630c0c6062a41",
-      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486",
+      "seoTitle": "Geometer, arkitekt och byggföretag: vem gör vad?",
+      "oldPath": "/sv/costruire-cefalu-madonie/puntata-3/"
     },
     {
       "identity": "costruire-cefalu-madonie/03",
       "locale": "no",
-      "path": "/no/costruire-cefalu-madonie/puntata-3/",
+      "path": "/no/bygge-cefalu-madonie/geometer-arkitekt-entreprenor-roller/",
       "episode": 3,
       "hash": "33fba0cce29a220525ed8e7ecdd621e15c0bd40b9fbd788b78f414821af81334",
-      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486",
+      "seoTitle": "Geometer, arkitekt og entreprenør: hvem gjør hva?",
+      "oldPath": "/no/costruire-cefalu-madonie/puntata-3/"
     },
     {
       "identity": "costruire-cefalu-madonie/03",
       "locale": "da",
-      "path": "/da/costruire-cefalu-madonie/puntata-3/",
+      "path": "/da/bygge-cefalu-madonie/geometer-arkitekt-entreprenor-roller/",
       "episode": 3,
       "hash": "20800191b1165304ed478c24897c62047e403d50b8939f300d5bb372031dbc27",
-      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486",
+      "seoTitle": "Geometer, arkitekt og entreprenør: hvem gør hvad?",
+      "oldPath": "/da/costruire-cefalu-madonie/puntata-3/"
     },
     {
       "identity": "costruire-cefalu-madonie/05",
       "locale": "it",
-      "path": "/costruire-cefalu-madonie/puntata-5/",
+      "path": "/costruire-cefalu-madonie/vincolo-paesaggistico-centro-storico/",
       "episode": 5,
       "hash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353",
-      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353",
+      "seoTitle": "Vincoli paesaggistici e centro storico di Cefalù",
+      "oldPath": "/costruire-cefalu-madonie/puntata-5/"
     },
     {
       "identity": "costruire-cefalu-madonie/05",
       "locale": "en",
-      "path": "/en/costruire-cefalu-madonie/puntata-5/",
+      "path": "/en/building-cefalu-madonie/landscape-restrictions-historic-centre/",
       "episode": 5,
       "hash": "4d8017a2be3f2a01e6f71a3093491e09dfd00b036bd8992aeeaeb710d12cf01b",
-      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353",
+      "seoTitle": "Landscape restrictions in Cefalù’s historic centre",
+      "oldPath": "/en/costruire-cefalu-madonie/puntata-5/"
     },
     {
       "identity": "costruire-cefalu-madonie/05",
       "locale": "de",
-      "path": "/de/costruire-cefalu-madonie/puntata-5/",
+      "path": "/de/bauen-cefalu-madonie/landschaftsschutz-altstadt/",
       "episode": 5,
       "hash": "84cbb2c52bee1108fb24d90381980f5ea8210ee0410077051c2cb5be752d8a71",
-      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353",
+      "seoTitle": "Landschaftsschutz und Altstadt von Cefalù",
+      "oldPath": "/de/costruire-cefalu-madonie/puntata-5/"
     },
     {
       "identity": "costruire-cefalu-madonie/05",
       "locale": "nl",
-      "path": "/nl/costruire-cefalu-madonie/puntata-5/",
+      "path": "/nl/bouwen-cefalu-madonie/landschapsbescherming-historisch-centrum/",
       "episode": 5,
       "hash": "f81559b7335a421ebcdee450ace38aaebdfab8d478e655294296da8b088a344c",
-      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353",
+      "seoTitle": "Landschapsbescherming en het oude centrum van Cefalù",
+      "oldPath": "/nl/costruire-cefalu-madonie/puntata-5/"
     },
     {
       "identity": "costruire-cefalu-madonie/05",
       "locale": "fr",
-      "path": "/fr/costruire-cefalu-madonie/puntata-5/",
+      "path": "/fr/construire-cefalu-madonie/protection-paysagere-centre-historique/",
       "episode": 5,
       "hash": "88c862f7195277033500753b0226db64f5b6d5fcb858b21e2493d69c4011be66",
-      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353",
+      "seoTitle": "Paysage protégé et centre historique de Cefalù",
+      "oldPath": "/fr/costruire-cefalu-madonie/puntata-5/"
     },
     {
       "identity": "costruire-cefalu-madonie/05",
       "locale": "es",
-      "path": "/es/costruire-cefalu-madonie/puntata-5/",
+      "path": "/es/construir-cefalu-madonie/proteccion-paisaje-centro-historico/",
       "episode": 5,
       "hash": "86c0dd199f25bfc15b641fe3a99dd8b26c1510b44ee0c8b79e94913be4b0de30",
-      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353",
+      "seoTitle": "Protección del paisaje y casco histórico de Cefalù",
+      "oldPath": "/es/costruire-cefalu-madonie/puntata-5/"
     },
     {
       "identity": "costruire-cefalu-madonie/05",
       "locale": "pt",
-      "path": "/pt/costruire-cefalu-madonie/puntata-5/",
+      "path": "/pt/construir-cefalu-madonie/protecao-paisagem-centro-historico/",
       "episode": 5,
       "hash": "000fe2c88f68a42317453f0b21744d13259e148f48996a06bd9af26d96b7cfee",
-      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353",
+      "seoTitle": "Paisagem protegida e centro histórico de Cefalù",
+      "oldPath": "/pt/costruire-cefalu-madonie/puntata-5/"
     },
     {
       "identity": "costruire-cefalu-madonie/05",
       "locale": "pl",
-      "path": "/pl/costruire-cefalu-madonie/puntata-5/",
+      "path": "/pl/budowa-cefalu-madonie/ochrona-krajobrazu-stare-miasto/",
       "episode": 5,
       "hash": "1094db8f3ac0d0f074566b8e7c8a6cec57bfff4d1fd4c496c07342e6fee4a109",
-      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353",
+      "seoTitle": "Ochrona krajobrazu i stare miasto w Cefalù",
+      "oldPath": "/pl/costruire-cefalu-madonie/puntata-5/"
     },
     {
       "identity": "costruire-cefalu-madonie/05",
       "locale": "ru",
-      "path": "/ru/costruire-cefalu-madonie/puntata-5/",
+      "path": "/ru/stroitelstvo-chefalu-madonie/ohrana-landshafta-istoricheskiy-centr/",
       "episode": 5,
       "hash": "961cf2f98e48cabccb9636e8fc0d6ae29ee69f1d701074bfa49ed6a3ccdd6106",
-      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353",
+      "seoTitle": "Охрана ландшафта и исторический центр Чефалу",
+      "oldPath": "/ru/costruire-cefalu-madonie/puntata-5/"
     },
     {
       "identity": "costruire-cefalu-madonie/05",
       "locale": "sv",
-      "path": "/sv/costruire-cefalu-madonie/puntata-5/",
+      "path": "/sv/bygga-cefalu-madonie/landskapsskydd-historiska-stadskarnan/",
       "episode": 5,
       "hash": "d4119726812614d1359d7dd72fddc9bef775315ca60f6143f7067a9a4156a020",
-      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353",
+      "seoTitle": "Landskapsskydd och Cefalùs historiska stadskärna",
+      "oldPath": "/sv/costruire-cefalu-madonie/puntata-5/"
     },
     {
       "identity": "costruire-cefalu-madonie/05",
       "locale": "no",
-      "path": "/no/costruire-cefalu-madonie/puntata-5/",
+      "path": "/no/bygge-cefalu-madonie/landskapsvern-historisk-sentrum/",
       "episode": 5,
       "hash": "32b46eb4f2607e73b1b350235be97bb8981d8f241862ca6e371ff3e86bc3786a",
-      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353",
+      "seoTitle": "Landskapsvern og det historiske sentrum i Cefalù",
+      "oldPath": "/no/costruire-cefalu-madonie/puntata-5/"
     },
     {
       "identity": "costruire-cefalu-madonie/05",
       "locale": "da",
-      "path": "/da/costruire-cefalu-madonie/puntata-5/",
+      "path": "/da/bygge-cefalu-madonie/landskabsbeskyttelse-historisk-centrum/",
       "episode": 5,
       "hash": "cdfa149230031c63beefa30f8e5565d0487a543ad5a9b3afc828a4356150b458",
-      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353",
+      "seoTitle": "Landskabsbeskyttelse og Cefalùs historiske centrum",
+      "oldPath": "/da/costruire-cefalu-madonie/puntata-5/"
     },
     {
       "identity": "costruire-cefalu-madonie/06",
       "locale": "it",
-      "path": "/costruire-cefalu-madonie/puntata-6/",
+      "path": "/costruire-cefalu-madonie/costruire-ristrutturare-parco-madonie/",
       "episode": 6,
       "hash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea",
-      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea",
+      "seoTitle": "Costruire e ristrutturare nel Parco delle Madonie",
+      "oldPath": "/costruire-cefalu-madonie/puntata-6/"
     },
     {
       "identity": "costruire-cefalu-madonie/06",
       "locale": "en",
-      "path": "/en/costruire-cefalu-madonie/puntata-6/",
+      "path": "/en/building-cefalu-madonie/building-renovating-madonie-park/",
       "episode": 6,
       "hash": "f1522665bb92aa0c391854c8b03041948d22abfa8265bc7bc56f66b247a3537a",
-      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea",
+      "seoTitle": "Building and renovating in the Madonie Park",
+      "oldPath": "/en/costruire-cefalu-madonie/puntata-6/"
     },
     {
       "identity": "costruire-cefalu-madonie/06",
       "locale": "de",
-      "path": "/de/costruire-cefalu-madonie/puntata-6/",
+      "path": "/de/bauen-cefalu-madonie/bauen-sanieren-madonien-park/",
       "episode": 6,
       "hash": "0636e81cd514ad6d11ffccbc2289f323cedc52e1bbe43cf7e25e0a264f4e49ef",
-      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea",
+      "seoTitle": "Bauen und Sanieren im Naturpark Madonien",
+      "oldPath": "/de/costruire-cefalu-madonie/puntata-6/"
     },
     {
       "identity": "costruire-cefalu-madonie/06",
       "locale": "nl",
-      "path": "/nl/costruire-cefalu-madonie/puntata-6/",
+      "path": "/nl/bouwen-cefalu-madonie/bouwen-renoveren-madonie-park/",
       "episode": 6,
       "hash": "8a48bfb0176a6d08e43b737c69c25e2b65620c9d832bde52b91076e222e193ab",
-      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea",
+      "seoTitle": "Bouwen en renoveren in het Madoniepark",
+      "oldPath": "/nl/costruire-cefalu-madonie/puntata-6/"
     },
     {
       "identity": "costruire-cefalu-madonie/06",
       "locale": "fr",
-      "path": "/fr/costruire-cefalu-madonie/puntata-6/",
+      "path": "/fr/construire-cefalu-madonie/construire-renover-parc-madonie/",
       "episode": 6,
       "hash": "d3258ae4b5d7c5e3c3842e2122fb9e1102731fc3c70c30531afbc167f839135a",
-      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea",
+      "seoTitle": "Construire et rénover dans le parc des Madonie",
+      "oldPath": "/fr/costruire-cefalu-madonie/puntata-6/"
     },
     {
       "identity": "costruire-cefalu-madonie/06",
       "locale": "es",
-      "path": "/es/costruire-cefalu-madonie/puntata-6/",
+      "path": "/es/construir-cefalu-madonie/construir-reformar-parque-madonie/",
       "episode": 6,
       "hash": "1fe2890bd9c51acd977d8b04c54b5a4314eade352ed54d00fe341412264d00b7",
-      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea",
+      "seoTitle": "Construir y reformar en el parque de las Madonie",
+      "oldPath": "/es/costruire-cefalu-madonie/puntata-6/"
     },
     {
       "identity": "costruire-cefalu-madonie/06",
       "locale": "pt",
-      "path": "/pt/costruire-cefalu-madonie/puntata-6/",
+      "path": "/pt/construir-cefalu-madonie/construir-renovar-parque-madonie/",
       "episode": 6,
       "hash": "26212f63a55342b4480b94fd3cbd246d3035f8a4160635abaadf54b915abe422",
-      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea",
+      "seoTitle": "Construir e renovar no parque das Madonie",
+      "oldPath": "/pt/costruire-cefalu-madonie/puntata-6/"
     },
     {
       "identity": "costruire-cefalu-madonie/06",
       "locale": "pl",
-      "path": "/pl/costruire-cefalu-madonie/puntata-6/",
+      "path": "/pl/budowa-cefalu-madonie/budowa-remont-park-madonie/",
       "episode": 6,
       "hash": "6a5f8d9fb980b1a33cf97e0ef858d8f94eaeb2acd93195dc4e5ae0fa3bebe424",
-      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea",
+      "seoTitle": "Budowa i remont w parku Madonie",
+      "oldPath": "/pl/costruire-cefalu-madonie/puntata-6/"
     },
     {
       "identity": "costruire-cefalu-madonie/06",
       "locale": "ru",
-      "path": "/ru/costruire-cefalu-madonie/puntata-6/",
+      "path": "/ru/stroitelstvo-chefalu-madonie/stroitelstvo-remont-park-madonie/",
       "episode": 6,
       "hash": "1f48190b8379038dd14b9529a7ecd579f409d9b8083d07ddd4bcb7328a1e48a2",
-      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea",
+      "seoTitle": "Строительство и ремонт в парке Мадоние",
+      "oldPath": "/ru/costruire-cefalu-madonie/puntata-6/"
     },
     {
       "identity": "costruire-cefalu-madonie/06",
       "locale": "sv",
-      "path": "/sv/costruire-cefalu-madonie/puntata-6/",
+      "path": "/sv/bygga-cefalu-madonie/bygga-renovera-madonieparken/",
       "episode": 6,
       "hash": "2112aea42599367bf3ee9ad01161acff1ace21441c1d181088204f940788ca3e",
-      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea",
+      "seoTitle": "Bygga och renovera i Madonieparken",
+      "oldPath": "/sv/costruire-cefalu-madonie/puntata-6/"
     },
     {
       "identity": "costruire-cefalu-madonie/06",
       "locale": "no",
-      "path": "/no/costruire-cefalu-madonie/puntata-6/",
+      "path": "/no/bygge-cefalu-madonie/bygge-pusse-opp-madonieparken/",
       "episode": 6,
       "hash": "0f78b2854baeeb0caa5cec88bfb033f91a08f203fbe204741b92c4200de57541",
-      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea",
+      "seoTitle": "Bygge og pusse opp i Madonieparken",
+      "oldPath": "/no/costruire-cefalu-madonie/puntata-6/"
     },
     {
       "identity": "costruire-cefalu-madonie/06",
       "locale": "da",
-      "path": "/da/costruire-cefalu-madonie/puntata-6/",
+      "path": "/da/bygge-cefalu-madonie/bygge-renovere-madonieparken/",
       "episode": 6,
       "hash": "3dbf75bf1050740d386469f63b198a7c504c74191c2367b6999c3915a344a816",
-      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea",
+      "seoTitle": "Bygge og renovere i Madonieparken",
+      "oldPath": "/da/costruire-cefalu-madonie/puntata-6/"
     },
     {
       "identity": "piscine-e-laghetti-zen",
@@ -781,7 +949,8 @@
       "path": "/piscine-e-laghetti-zen/",
       "episode": 7,
       "hash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa",
-      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa",
+      "seoTitle": "Piscine a Cefalù: vincoli e permessi da verificare"
     },
     {
       "identity": "piscine-e-laghetti-zen",
@@ -789,7 +958,8 @@
       "path": "/en/zen-pools-and-ponds/",
       "episode": 7,
       "hash": "7f02149338c1f434d42fe0eb3818e0de3197ec2ba25fe994b6d2f492fecae9b0",
-      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa",
+      "seoTitle": "Swimming pools in Cefalù: restrictions and permits"
     },
     {
       "identity": "piscine-e-laghetti-zen",
@@ -797,7 +967,8 @@
       "path": "/de/zen-pools-und-teiche/",
       "episode": 7,
       "hash": "e148aa59fd11c914c3248dc091bfb6fb337306ed7f5f6470c1ad673267bcb01e",
-      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa",
+      "seoTitle": "Pools in Cefalù: Auflagen und Genehmigungen prüfen"
     },
     {
       "identity": "piscine-e-laghetti-zen",
@@ -805,7 +976,8 @@
       "path": "/nl/zen-zwembaden-en-vijvers/",
       "episode": 7,
       "hash": "c2adec07aabacd716e850057318f446402d8ed8dfa56431e46bf9b967e054f85",
-      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa",
+      "seoTitle": "Zwembaden in Cefalù: beperkingen en vergunningen"
     },
     {
       "identity": "piscine-e-laghetti-zen",
@@ -813,7 +985,8 @@
       "path": "/fr/piscines-et-etangs-zen/",
       "episode": 7,
       "hash": "2f45681e058fc37c0f72a30ad3f4a7ce9d6b7924489b8c361d106db6ee6fb59e",
-      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa",
+      "seoTitle": "Piscines à Cefalù : contraintes et autorisations"
     },
     {
       "identity": "piscine-e-laghetti-zen",
@@ -821,7 +994,8 @@
       "path": "/es/piscinas-y-estanques-zen/",
       "episode": 7,
       "hash": "2bd39cca74831ab4ad1a924368b499e3a4912693f88a79c616a1c2426f71c08c",
-      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa",
+      "seoTitle": "Piscinas en Cefalù: restricciones y permisos"
     },
     {
       "identity": "piscine-e-laghetti-zen",
@@ -829,7 +1003,8 @@
       "path": "/pt/piscinas-e-lagos-zen/",
       "episode": 7,
       "hash": "2af4cb448e30161f394363fd6c2bdbfe723af883216d3c4c5ef1a99c60327336",
-      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa",
+      "seoTitle": "Piscinas em Cefalù: restrições e licenças"
     },
     {
       "identity": "piscine-e-laghetti-zen",
@@ -837,7 +1012,8 @@
       "path": "/pl/baseny-i-stawy-zen/",
       "episode": 7,
       "hash": "b49e650c6ee45d80d45b90cc4a3a50d4a7f1b520cebad1bda39a90368730ad7b",
-      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa",
+      "seoTitle": "Baseny w Cefalù: ograniczenia i pozwolenia"
     },
     {
       "identity": "piscine-e-laghetti-zen",
@@ -845,7 +1021,8 @@
       "path": "/ru/zen-bassejny-i-prudy/",
       "episode": 7,
       "hash": "1299cafbef5e923f6561ff8a7a874a4891559c8b159c7b1988ab2847bf91cbd2",
-      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa",
+      "seoTitle": "Бассейны в Чефалу: ограничения и разрешения"
     },
     {
       "identity": "piscine-e-laghetti-zen",
@@ -853,7 +1030,8 @@
       "path": "/sv/articles/piscine-e-laghetti-zen",
       "episode": 7,
       "hash": "36ba645b50161488cf293ff3352bb5d7db3b5dd0b65748e2e36c4a1724adcb43",
-      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa",
+      "seoTitle": "Pooler i Cefalù: begränsningar och tillstånd"
     },
     {
       "identity": "piscine-e-laghetti-zen",
@@ -861,7 +1039,8 @@
       "path": "/no/articles/piscine-e-laghetti-zen",
       "episode": 7,
       "hash": "fbdd227e54324032da41852eb840972e1b16355e2cd6b8f3e8212b7bf2c54993",
-      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa",
+      "seoTitle": "Basseng i Cefalù: begrensninger og tillatelser"
     },
     {
       "identity": "piscine-e-laghetti-zen",
@@ -869,103 +1048,128 @@
       "path": "/da/articles/piscine-e-laghetti-zen",
       "episode": 7,
       "hash": "89305e5b1d7d4abfc597f63201384508e489b498204c18c60c633a8f1a099ace",
-      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa",
+      "seoTitle": "Pools i Cefalù: begrænsninger og tilladelser"
     },
     {
       "identity": "costruire-cefalu-madonie/09",
       "locale": "it",
-      "path": "/costruire-cefalu-madonie/puntata-9/",
+      "path": "/costruire-cefalu-madonie/cantiere-sicilia-tempi-stagioni/",
       "episode": 9,
       "hash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b",
-      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b",
+      "seoTitle": "Cantieri in Sicilia: tempi, stagioni e verifiche",
+      "oldPath": "/costruire-cefalu-madonie/puntata-9/"
     },
     {
       "identity": "costruire-cefalu-madonie/09",
       "locale": "en",
-      "path": "/en/costruire-cefalu-madonie/puntata-9/",
+      "path": "/en/building-cefalu-madonie/sicily-building-work-timing-seasons/",
       "episode": 9,
       "hash": "08d3b61e7393f14fe34c21514a427dfd6b747658d2d9d2c6bbf049024238cd62",
-      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b",
+      "seoTitle": "Building work in Sicily: timing and seasonal factors",
+      "oldPath": "/en/costruire-cefalu-madonie/puntata-9/"
     },
     {
       "identity": "costruire-cefalu-madonie/09",
       "locale": "de",
-      "path": "/de/costruire-cefalu-madonie/puntata-9/",
+      "path": "/de/bauen-cefalu-madonie/baustelle-sizilien-zeiten-jahreszeiten/",
       "episode": 9,
       "hash": "5f8fde582293fafdee358c395d58d1717a4c5dbabc3f875e4f18583d395dbb78",
-      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b",
+      "seoTitle": "Bauarbeiten auf Sizilien: Zeiten und Jahreszeiten",
+      "oldPath": "/de/costruire-cefalu-madonie/puntata-9/"
     },
     {
       "identity": "costruire-cefalu-madonie/09",
       "locale": "nl",
-      "path": "/nl/costruire-cefalu-madonie/puntata-9/",
+      "path": "/nl/bouwen-cefalu-madonie/bouwplaats-sicilie-planning-seizoenen/",
       "episode": 9,
       "hash": "d40e0b0d4d85e4bcf8cd0c49b2c2b757e735d752859628cf9d83750fe00c81c1",
-      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b",
+      "seoTitle": "Bouwwerk op Sicilië: planning en seizoensinvloeden",
+      "oldPath": "/nl/costruire-cefalu-madonie/puntata-9/"
     },
     {
       "identity": "costruire-cefalu-madonie/09",
       "locale": "fr",
-      "path": "/fr/costruire-cefalu-madonie/puntata-9/",
+      "path": "/fr/construire-cefalu-madonie/chantier-sicile-delais-saisons/",
       "episode": 9,
       "hash": "c2c6d6bde9780427dd7ec7eeddb1e2555a412f132aa23960fc2417e68978143e",
-      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b",
+      "seoTitle": "Chantiers en Sicile : délais, saisons et contraintes",
+      "oldPath": "/fr/costruire-cefalu-madonie/puntata-9/"
     },
     {
       "identity": "costruire-cefalu-madonie/09",
       "locale": "es",
-      "path": "/es/costruire-cefalu-madonie/puntata-9/",
+      "path": "/es/construir-cefalu-madonie/obras-sicilia-plazos-estaciones/",
       "episode": 9,
       "hash": "9f70a6cd12bff63829bf2305b4822f55d8cea7ddaba4b662431d3a47ff6b97d8",
-      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b",
+      "seoTitle": "Obras en Sicilia: plazos y factores estacionales",
+      "oldPath": "/es/costruire-cefalu-madonie/puntata-9/"
     },
     {
       "identity": "costruire-cefalu-madonie/09",
       "locale": "pt",
-      "path": "/pt/costruire-cefalu-madonie/puntata-9/",
+      "path": "/pt/construir-cefalu-madonie/obras-sicilia-prazos-estacoes/",
       "episode": 9,
       "hash": "c1dc48fd98bbf7153df8102132096a9faef2cab57a291d262143d52e6c99cdee",
-      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b",
+      "seoTitle": "Obras na Sicília: prazos e fatores sazonais",
+      "oldPath": "/pt/costruire-cefalu-madonie/puntata-9/"
     },
     {
       "identity": "costruire-cefalu-madonie/09",
       "locale": "pl",
-      "path": "/pl/costruire-cefalu-madonie/puntata-9/",
+      "path": "/pl/budowa-cefalu-madonie/budowa-sycylia-terminy-pory-roku/",
       "episode": 9,
       "hash": "cd017bb176b0c684db3e8395fdce5690784a86d62cd573f3b7723dc24ce0eb35",
-      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b",
+      "seoTitle": "Budowa na Sycylii: terminy i pory roku",
+      "oldPath": "/pl/costruire-cefalu-madonie/puntata-9/"
     },
     {
       "identity": "costruire-cefalu-madonie/09",
       "locale": "ru",
-      "path": "/ru/costruire-cefalu-madonie/puntata-9/",
+      "path": "/ru/stroitelstvo-chefalu-madonie/stroyka-siciliya-sroki-sezony/",
       "episode": 9,
       "hash": "b92629351ba9f566673cb598e89f545701bf1d2785951a3237d781225ecac564",
-      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b",
+      "seoTitle": "Стройка на Сицилии: сроки и сезонные факторы",
+      "oldPath": "/ru/costruire-cefalu-madonie/puntata-9/"
     },
     {
       "identity": "costruire-cefalu-madonie/09",
       "locale": "sv",
-      "path": "/sv/costruire-cefalu-madonie/puntata-9/",
+      "path": "/sv/bygga-cefalu-madonie/byggarbete-sicilien-tider-arstider/",
       "episode": 9,
       "hash": "a0a32424f217cee55a39cc5854383716eb57c8df395f560ff82c078b96390f01",
-      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b",
+      "seoTitle": "Byggarbete på Sicilien: tider och årstider",
+      "oldPath": "/sv/costruire-cefalu-madonie/puntata-9/"
     },
     {
       "identity": "costruire-cefalu-madonie/09",
       "locale": "no",
-      "path": "/no/costruire-cefalu-madonie/puntata-9/",
+      "path": "/no/bygge-cefalu-madonie/byggearbeid-sicilia-tid-arstider/",
       "episode": 9,
       "hash": "8858a2b535d9b45b53e9e5d765e53ee3d5260adcab891dee8b2b24baf638eac2",
-      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b",
+      "seoTitle": "Byggearbeid på Sicilia: tid og årstider",
+      "oldPath": "/no/costruire-cefalu-madonie/puntata-9/"
     },
     {
       "identity": "costruire-cefalu-madonie/09",
       "locale": "da",
-      "path": "/da/costruire-cefalu-madonie/puntata-9/",
+      "path": "/da/bygge-cefalu-madonie/byggearbejde-sicilien-tid-arstider/",
       "episode": 9,
       "hash": "2eb294e66a33637ddb89e58c8e61afb5b4d124378764dabb1481261516e4f77e",
-      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b",
+      "seoTitle": "Byggearbejde på Sicilien: tid og årstider",
+      "oldPath": "/da/costruire-cefalu-madonie/puntata-9/"
     }
   ]
 }

@@ -76,7 +76,7 @@ test('182 exact editions pass the actual CMS routes in isolated memory only', as
       await assert.rejects(()=>api(`/internal/editorial/${row.id}/action`,'POST',{
         version:row.version,revisionId:row.revisions.at(-1).id,action:'activate',
       }),e=>e.status===409);
-      assert.equal((await api('/editorial/active')).length,120,'Only the separate series is already active');
+       assert.equal((await api('/editorial/active')).length,290,'Exact series and commercial package already activated automatically at startup');
       assert.ok((await api('/editorial/active')).every(e=>e.indexingAuthorized===true));
     });
     let activated;
@@ -116,7 +116,7 @@ test('182 exact editions pass the actual CMS routes in isolated memory only', as
       await run(pack,true);
       assert.deepEqual(await allRows(),before);
       const row=before.find(r=>r.identity===pack.records[0].identity&&r.locale==='it');
-      await assert.rejects(()=>api(`/internal/editorial/${row.id}/action`,'POST',{version:row.version-1,revisionId:row.data.activeRevisionId,action:'submit'}),e=>e.status===409);
+       await assert.rejects(()=>api(`/internal/editorial/${row.id}/action`,'POST',{version:row.version+1,revisionId:row.data.activeRevisionId,action:'submit'}),e=>e.status===409);
       const live=(await allRows()).find(r=>r.id===row.id);
       const rev=live.data.revisions.at(-1);
       transition(live.data,'submit',rev.id,rev.sourceHash,'it','synthetic-owner',true);

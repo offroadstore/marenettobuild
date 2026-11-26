@@ -8,7 +8,8 @@ import { render } from '../dist/server/entry-server.mjs';
 import { mergeActiveMetadata } from '../src/localization/public-seo.mjs';
 import { editorialTopology } from './test-support/editorial-topology.mjs';
 import { seriesRelease } from '../src/content/series-release.mjs';
-const drafts = await buildSeriesDrafts();
+const historicalDrafts = await buildSeriesDrafts();
+const drafts=historicalDrafts.map(d=>({...d,path:seriesRelease.records.find(r=>r.identity===d.identity&&r.locale===d.locale).path}));
 // These are synthetic test values, never imported into the CMS or served publicly.
 const video = {youtubeId:'TEST_ONLY01',title:'Synthetic test video',description:'Test fixture only',thumbnail:'/media/test-only.jpg',uploadDate:'2025-01-10',spokenLanguage:'it',author:'Synthetic test credit',rights:'Synthetic permission fixture',transcriptLanguage:'en',transcript:'Actual transcript fixture for automated tests only.',transcriptReviewed:true};
 const edition = (draft, withVideo=false) => ({...draft,revisionId:'synthetic-active',

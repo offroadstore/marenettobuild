@@ -8,6 +8,7 @@ await mkdir(path.dirname(out),{recursive:true});
 await build({ entryPoints:[path.join(root,'artifacts/api-server/tests/editorial.test.mjs')], outfile:out, bundle:true, platform:'node',format:'esm',external:['pg-native'],
   banner:{js:"import { createRequire } from 'node:module'; const require=createRequire(import.meta.url);"},
   plugins:[{name:'test-only-auth',setup(build){
+    build.onResolve({filter:/^@workspace\/db$/},()=>({path:path.join(root,'artifacts/api-server/tests/support/commercial-memory-db.mjs')}));
     build.onResolve({filter:/^marenetto-editorial-catalog$/},()=>({path:path.join(root,'generated-artifacts/editorial/catalog.json')}));
     build.onResolve({filter:/middlewares\/internalAccess$/},()=>({path:'auth',namespace:'test-auth'}));
     build.onLoad({filter:/.*/,namespace:'test-auth'},()=>({loader:'js',contents:`

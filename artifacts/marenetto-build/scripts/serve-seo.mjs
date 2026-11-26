@@ -10,6 +10,7 @@ import { blockedPublicLocale, render, companyStructuredData } from '../dist/serv
 import { llmsDocument } from './llms-document.mjs';
 import { siteIconResources } from './site-icons.mjs';
 import { releaseReadiness } from './release-readiness.mjs';
+import { seriesRedirect } from '../src/content/series-redirects.mjs';
 
 const root = path.resolve(import.meta.dirname, '../dist/public');
 const manifest = JSON.parse(await readFile(path.join(root, 'route-manifest.json'), 'utf8'));
@@ -22,6 +23,14 @@ export const server = createServer(async (req, res) => {
   try {
     const url = new URL(req.url, 'http://localhost');
     const pathname = decodeURIComponent(url.pathname);
+    const migrated=seriesRedirect(pathname);
+    if(migrated) {
+      // Only this explicit migration uses 301; unrelated historical redirects
+      // keep their existing status. Browsers inherit the original fragment.
+      const target=publicHost(req)==='marenettobuild.com'?PUBLIC_ORIGIN+migrated:migrated;
+      res.writeHead(301,{Location:target+url.search,'Cache-Control':'no-cache'});
+      return res.end();
+    }
     // Defence in depth: generated maps and technical asset notes are not public.
     if (/(?:\.map|\/README(?:\.md)?)$/i.test(pathname)) {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' });
