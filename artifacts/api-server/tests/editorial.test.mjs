@@ -19,17 +19,17 @@ test('owner series approval is bound to the complete exact release, not future t
   const title=first.title;
   try {
     first.title='Synthetic unapproved change';
-    assert.throws(()=>assertSeriesRelease(),/non corrispondono alla consegna approvata/);
+    assert.throws(()=>assertSeriesRelease(),/autorizzazione o digest non valido/);
   } finally { first.title=title; }
 });
-test('series guides require real review records and Search Console account verification', () => {
+test('series guides require review evidence but not Search Console account verification', () => {
   const guide={episode:1,faq:[],technicalReview:'',editorialReview:'',languageReview:'',sourcesCurrent:false,searchConsoleVerified:false};
   const make=updates=>{const rev=revision({...content,guide:{...guide,...updates}},'source','test');return {rev,data:{state:'review',activeRevisionId:null,historical:false,correction:false,revisions:[rev],events:[],originals:[]}};};
   let {rev,data}=make({});
   assert.throws(()=>transition(data,'approve',rev.id,'source','it','owner',true),e=>e.status===409);
   ({rev,data}=make({technicalReview:'Synthetic reviewer evidence',editorialReview:'Synthetic evidence',languageReview:'Synthetic evidence',sourcesCurrent:true}));
   transition(data,'approve',rev.id,'source','it','owner',true);
-  assert.throws(()=>transition(data,'activate',rev.id,'source','it','owner',true),e=>e.status===409);
+  assert.doesNotThrow(()=>transition(data,'activate',rev.id,'source','it','owner',true));
   assert.throws(()=>validateContent({...content,guide,body:'<img src=https://i.ytimg.com/vi/test/a.jpg>'},['it']));
   assert.throws(()=>validateContent({...content,guide:{...guide,video:{thumbnail:'https://i.ytimg.com/fake.jpg'}}},['it']));
   const privateContent={...content,guide:{...guide,technicalReview:'Private reviewer note',editorialReview:'Private note',languageReview:'Private language note'}};

@@ -1,0 +1,971 @@
+{
+  "id": "series-owner-2026-11-26",
+  "decisionDate": "2026-11-26",
+  "authorization": "Titolare: completare la serie, revisione documentale e linguistica assistita da IA con approvazione interna, attivazione approvata. Pronto per Republish; nessuna pubblicazione automatica.",
+  "professionalOpinion": false,
+  "searchConsoleVerified": false,
+  "regionalReferenceValidAt": "2025-02-28",
+  "contentDigest": "1dd9d90422515b715a125e4798aec6736948bb53f452258d5ee2bad8a081fe44",
+  "records": [
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "it",
+      "path": "/costruire-cefalu-madonie/puntata-1/",
+      "episode": 1,
+      "hash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547",
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "en",
+      "path": "/en/costruire-cefalu-madonie/puntata-1/",
+      "episode": 1,
+      "hash": "788a277c823b32b350ccc74c158dcc66bf5ec228165c915cf56c436b9e67d60e",
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "de",
+      "path": "/de/costruire-cefalu-madonie/puntata-1/",
+      "episode": 1,
+      "hash": "7075e22f66eb243e9e4ac0971780d8ba4fea86986745325e2988e6884465930e",
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "nl",
+      "path": "/nl/costruire-cefalu-madonie/puntata-1/",
+      "episode": 1,
+      "hash": "f6a0e2dbd4a9c82ad22273d932caf14281e62bdc9bba3e1f60203bcd57e353fa",
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "it",
+      "path": "/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali/",
+      "episode": 4,
+      "hash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "en",
+      "path": "/en/buying-and-renovating-a-house-in-cefalu-a-technical-guide-to-the-5-essential-checks/",
+      "episode": 4,
+      "hash": "3549c4157a61eb6b6ee6e8026ea67db5c77032c9076159f0806514cfe3f8c659",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "de",
+      "path": "/de/hauskauf-und-renovierung-in-cefalu-technischer-leitfaden-zu-den-5-wichtigsten-pruefungen/",
+      "episode": 4,
+      "hash": "df698aa986948ea05d39cc7a17f9342bcd1e4dbafa7496b7810b548a5c83c189",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "nl",
+      "path": "/nl/een-huis-kopen-en-renoveren-in-cefalu-technische-gids-voor-de-5-essentiele-controles/",
+      "episode": 4,
+      "hash": "2713c29d852a5a567b525ff3143f3c8f8ea65ef253450ad06aafeb391e0ca56e",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "it",
+      "path": "/costruire-cefalu-madonie/puntata-8/",
+      "episode": 8,
+      "hash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780",
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "en",
+      "path": "/en/costruire-cefalu-madonie/puntata-8/",
+      "episode": 8,
+      "hash": "f850eb9c4e34aa0ad41ede98f5db40ccbf1e05762f9104290777031ba5505699",
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "de",
+      "path": "/de/costruire-cefalu-madonie/puntata-8/",
+      "episode": 8,
+      "hash": "4f83b39d71db7add9c0ecc0df926cbf98ac02ae78b619198898846afe6cf11a7",
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "nl",
+      "path": "/nl/costruire-cefalu-madonie/puntata-8/",
+      "episode": 8,
+      "hash": "4ce5889edb087ad4f592783ea0c4d3969333e298d3d388a5898ddc8fe868af78",
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "it",
+      "path": "/costruire-cefalu-madonie/puntata-10/",
+      "episode": 10,
+      "hash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43",
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "en",
+      "path": "/en/costruire-cefalu-madonie/puntata-10/",
+      "episode": 10,
+      "hash": "10a5023579400b5997819c93ea831ff913317bc401ab5fae95c73a8c0814f7b1",
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "de",
+      "path": "/de/costruire-cefalu-madonie/puntata-10/",
+      "episode": 10,
+      "hash": "9571756d98689f2272e06d6e51041d56c923a6c0ffc4204042571ca754a47174",
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "nl",
+      "path": "/nl/costruire-cefalu-madonie/puntata-10/",
+      "episode": 10,
+      "hash": "811abd0418ae5b24d2071ec4a266056bb82897a26562df9f36ca0762e60d95d3",
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "fr",
+      "path": "/fr/costruire-cefalu-madonie/puntata-1/",
+      "episode": 1,
+      "hash": "67849255ebbbe74f079b312ce9f2911615cd6fe8ec0d2272f7ba25acf7bd5abe",
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "es",
+      "path": "/es/costruire-cefalu-madonie/puntata-1/",
+      "episode": 1,
+      "hash": "717c9b1a8f0dc0724e4cef24c073c9f4b354982f515d70e4509dd6dc92e41989",
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "pt",
+      "path": "/pt/costruire-cefalu-madonie/puntata-1/",
+      "episode": 1,
+      "hash": "f18b1d8693f0802242c1989f8ded89633b3a1885d917585782f63247c4f1cef8",
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "pl",
+      "path": "/pl/costruire-cefalu-madonie/puntata-1/",
+      "episode": 1,
+      "hash": "c73065bcd50fb4423f478e6ca25bd43109b83f98f1aea8fdf6e7209a844eccec",
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "ru",
+      "path": "/ru/costruire-cefalu-madonie/puntata-1/",
+      "episode": 1,
+      "hash": "9e40f6f8f9e89dd20ba874c500eca3150ee7bd2c067bf321c3697d3851c3cd30",
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "sv",
+      "path": "/sv/costruire-cefalu-madonie/puntata-1/",
+      "episode": 1,
+      "hash": "d2404aa2e50227ed3b63bf85a3bb52fd55d3ada7dfae9024455d2f879c1aecbd",
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "no",
+      "path": "/no/costruire-cefalu-madonie/puntata-1/",
+      "episode": 1,
+      "hash": "2d11c8dff04a9667e13cf9f2c31b2c54bb4369e31897aba8c6d64eff07f1de52",
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/01",
+      "locale": "da",
+      "path": "/da/costruire-cefalu-madonie/puntata-1/",
+      "episode": 1,
+      "hash": "e04e588c7b2fbe6b27de8229887e2024038f97d84dbc6a38a855496217a69d63",
+      "sourceHash": "7111821dfd93934e7c1053dca574a3ace998af3c077edbcd853e164e70eba547"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "fr",
+      "path": "/fr/acheter-et-renover-une-maison-a-cefalu-guide-technique-des-5-controles-essentiels/",
+      "episode": 4,
+      "hash": "2f76a690877ba2d7fafb03185aa05db6e8a22cabd3cdd169219125bc68207f65",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "es",
+      "path": "/es/comprar-y-renovar-casa-en-cefalu-guia-tecnica-de-los-5-controles-esenciales/",
+      "episode": 4,
+      "hash": "f195fd9d0a6e862f5f30007e261f9cdd06681f6407f2ff6cdffdec2308fd65ed",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "pt",
+      "path": "/pt/comprar-e-reformar-casa-em-cefalu-guia-tecnica-dos-5-controles-essenciais/",
+      "episode": 4,
+      "hash": "81a79ca6bcf1997962fb335605e9448db931e9524b51d5904310ef5b022d9f4b",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "pl",
+      "path": "/pl/kupno-i-remont-domu-w-cefalu-techniczny-przewodnik-po-5-kluczowych-kontrolach/",
+      "episode": 4,
+      "hash": "2b4f1b84c6379064602db2fa47afa9a5884eca1827b711133881249493ca0c14",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "ru",
+      "path": "/ru/pokupka-i-remont-doma-v-chefalu-tehnicheskoe-rukovodstvo-po-5-osnovnym-proverkam/",
+      "episode": 4,
+      "hash": "3d2b20c3c484ae016a955355be02ea1352be2bb59bbb6161b48a3b4cc30bbdc8",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "sv",
+      "path": "/sv/articles/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "episode": 4,
+      "hash": "556d05f68a6702c926caa8dbb43983325cdc36450efb5696556179a610bc0f52",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "no",
+      "path": "/no/articles/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "episode": 4,
+      "hash": "5ffadcfdcebda1a4419cecf18941a8a3cf90e54688898574ea114d7819bcef65",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73"
+    },
+    {
+      "identity": "comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "locale": "da",
+      "path": "/da/articles/comprare-e-ristrutturare-casa-a-cefalu-guida-tecnica-ai-5-controlli-essenziali",
+      "episode": 4,
+      "hash": "c5148654158d199f15fa08ec3847a357ecc60811daa3d22fb345e1875557ad38",
+      "sourceHash": "220a2503f00b5d46743845fccf1f212ec3ff87781818546b4817b291e12e7f73"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "fr",
+      "path": "/fr/costruire-cefalu-madonie/puntata-8/",
+      "episode": 8,
+      "hash": "41871cc8015b3f0de69faf0b24a5d5ea715a557995e89c313814ca10ce643564",
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "es",
+      "path": "/es/costruire-cefalu-madonie/puntata-8/",
+      "episode": 8,
+      "hash": "09aa52feda33b5d0591c68baddc0125bb912b618ac6fe523f52246f4b9dda4aa",
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "pt",
+      "path": "/pt/costruire-cefalu-madonie/puntata-8/",
+      "episode": 8,
+      "hash": "3240f5a3eedd40d68a1bfb7efc9f8c60ace1bb1ea1287623c3de3a8c5ed28638",
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "pl",
+      "path": "/pl/costruire-cefalu-madonie/puntata-8/",
+      "episode": 8,
+      "hash": "026cafbca902eb2649b5daac452eeac5579511a55acd2a9fe046261ea7079f29",
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "ru",
+      "path": "/ru/costruire-cefalu-madonie/puntata-8/",
+      "episode": 8,
+      "hash": "03dd7cc555e2a185c5dc8f39595dca72e02675533218ce411879125bf30cfd59",
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "sv",
+      "path": "/sv/costruire-cefalu-madonie/puntata-8/",
+      "episode": 8,
+      "hash": "9aae2f85468919b5112eb969d036712dcfe05f808f7b1ac5b0a8f1dedfc992c1",
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "no",
+      "path": "/no/costruire-cefalu-madonie/puntata-8/",
+      "episode": 8,
+      "hash": "93d0b435c817b0dde5c73d932f63e450dbfc2c6d5216e5768f8b79cf1f479a24",
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/08",
+      "locale": "da",
+      "path": "/da/costruire-cefalu-madonie/puntata-8/",
+      "episode": 8,
+      "hash": "0d4004b7c9da00fc4b1edb434e143e6f52e2402db25bbdcf140d9474d84dd4e7",
+      "sourceHash": "70b3a16931f59037ac35a9dc728dd5a252a216ceb268b7314e871a1caae0f780"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "fr",
+      "path": "/fr/costruire-cefalu-madonie/puntata-10/",
+      "episode": 10,
+      "hash": "5f7919e7f5900418cf6e364beafb28f91d10f20072f45f50368139938c8b3e09",
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "es",
+      "path": "/es/costruire-cefalu-madonie/puntata-10/",
+      "episode": 10,
+      "hash": "e98168acd0200bd5837145a6bbfef6a9fe7c70ccac2c93d6d793966499c70f42",
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "pt",
+      "path": "/pt/costruire-cefalu-madonie/puntata-10/",
+      "episode": 10,
+      "hash": "726716312818c5a281e1a721fcb4483a9da2c70b5dd20755e52c67e5a855ee12",
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "pl",
+      "path": "/pl/costruire-cefalu-madonie/puntata-10/",
+      "episode": 10,
+      "hash": "11d8aeca5e2a548e700f50f207bda5551b496c7a8b7b0a82aee4afb3583f6d9c",
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "ru",
+      "path": "/ru/costruire-cefalu-madonie/puntata-10/",
+      "episode": 10,
+      "hash": "5895c8d07f94d6c2bb8d55a7365a2446c31034b258304e097815b351b4deafa7",
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "sv",
+      "path": "/sv/costruire-cefalu-madonie/puntata-10/",
+      "episode": 10,
+      "hash": "ddab5deb17bdc597814d5b148b928dd4018fd6d58dad78b5c36109809ee2d8bb",
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "no",
+      "path": "/no/costruire-cefalu-madonie/puntata-10/",
+      "episode": 10,
+      "hash": "3d4ce5f948d21f189e048b75a7c3cac204fba3795ccf7a58a72cf38df1892fe6",
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/10",
+      "locale": "da",
+      "path": "/da/costruire-cefalu-madonie/puntata-10/",
+      "episode": 10,
+      "hash": "3a441a3043e88f18e5e22c5fc229b66e20fabf148212b8801eccaa43e664b6e4",
+      "sourceHash": "7156ba828a0319befc55b1b2f3c0390c2d1aced0fe68d3ffae074556749c3e43"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "it",
+      "path": "/costruire-cefalu-madonie/puntata-2/",
+      "episode": 2,
+      "hash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66",
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "en",
+      "path": "/en/costruire-cefalu-madonie/puntata-2/",
+      "episode": 2,
+      "hash": "19dcb814859b223405aa1fd61f82aa7809c65cf520222deb68a6893ac2f60c21",
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "de",
+      "path": "/de/costruire-cefalu-madonie/puntata-2/",
+      "episode": 2,
+      "hash": "33a698b42ed137bfcf2d2eeaa2b84a52e2d9e66a0f57f68d04587c5f3beb02fc",
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "nl",
+      "path": "/nl/costruire-cefalu-madonie/puntata-2/",
+      "episode": 2,
+      "hash": "f0e29e6123f33c6e4cdfaba144c0bd8ba97a6da4e70bb9909e39039d290fab78",
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "fr",
+      "path": "/fr/costruire-cefalu-madonie/puntata-2/",
+      "episode": 2,
+      "hash": "ca4e9add4b78b2274a58217d3ef5d1364fc0fa32072c51c34b916869657608ea",
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "es",
+      "path": "/es/costruire-cefalu-madonie/puntata-2/",
+      "episode": 2,
+      "hash": "4501cf9f7838335fe5651da0e7004b376b2deab27a3f91e997ee8e80a77a58ac",
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "pt",
+      "path": "/pt/costruire-cefalu-madonie/puntata-2/",
+      "episode": 2,
+      "hash": "65bb43646a8fd0eb2777524a1cf2e39a197dd669bb9f4f7450568ebc31d6c98d",
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "pl",
+      "path": "/pl/costruire-cefalu-madonie/puntata-2/",
+      "episode": 2,
+      "hash": "f4bd0e0db9507a087bdd2956e17cccba58a035699477eb57d63ba063e20bc1f7",
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "ru",
+      "path": "/ru/costruire-cefalu-madonie/puntata-2/",
+      "episode": 2,
+      "hash": "03f0ef4e3a49a729cd12ddc276f0ba572a12fb4e4dc7c85452139ff69807c744",
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "sv",
+      "path": "/sv/costruire-cefalu-madonie/puntata-2/",
+      "episode": 2,
+      "hash": "97bb30149de1724dc61a34811a975c82501b35dbaaf377bd36c5cfadc0f8c57e",
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "no",
+      "path": "/no/costruire-cefalu-madonie/puntata-2/",
+      "episode": 2,
+      "hash": "45bcfd5f241767591f9a7d550d2c077d2b272f1d7da3949277f2d55f652f3493",
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/02",
+      "locale": "da",
+      "path": "/da/costruire-cefalu-madonie/puntata-2/",
+      "episode": 2,
+      "hash": "54ccafdff42ddd2af5db3e6fdff2fb3584542aa541e2e4e9d268d041c260d2ed",
+      "sourceHash": "3cbefe220901eaa2a5761a769f38577eeb5ff62595d1cf365176c249d3cfad66"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "it",
+      "path": "/costruire-cefalu-madonie/puntata-3/",
+      "episode": 3,
+      "hash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486",
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "en",
+      "path": "/en/costruire-cefalu-madonie/puntata-3/",
+      "episode": 3,
+      "hash": "52137b9379cc8a84f297517cd7c0e001af31a3fa3f97f1964466d99059e838ff",
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "de",
+      "path": "/de/costruire-cefalu-madonie/puntata-3/",
+      "episode": 3,
+      "hash": "bc6b8d7b3bd39f657c16793727432c2344a24688ab144fbab91cc5b4d1bf0b9f",
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "nl",
+      "path": "/nl/costruire-cefalu-madonie/puntata-3/",
+      "episode": 3,
+      "hash": "55b13c4a2a01a32aca0a4542a9a6407632cd3ba5cb9ffb50f114d856ed608813",
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "fr",
+      "path": "/fr/costruire-cefalu-madonie/puntata-3/",
+      "episode": 3,
+      "hash": "f4e6a3bf95eccbb8f785b6c3de65a12b3e566d68e0961de609980d6646786293",
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "es",
+      "path": "/es/costruire-cefalu-madonie/puntata-3/",
+      "episode": 3,
+      "hash": "bb12cc25770b6d85fe3cfd19c6a88b4d1565af680d5458eb05f085d6dd9c0935",
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "pt",
+      "path": "/pt/costruire-cefalu-madonie/puntata-3/",
+      "episode": 3,
+      "hash": "55073db45ce212a8370fc90d24cf38ac86e715d8b26582d29b37874cf8e957ea",
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "pl",
+      "path": "/pl/costruire-cefalu-madonie/puntata-3/",
+      "episode": 3,
+      "hash": "df1e0b1dbaa8e505c623e2ac83e87e7e8ec74305659fee5bf42fe22f4b58951b",
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "ru",
+      "path": "/ru/costruire-cefalu-madonie/puntata-3/",
+      "episode": 3,
+      "hash": "64969e5a1de5741e535da2b39aa90c0c5cd49071dccb3d8b218a66e0c097555f",
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "sv",
+      "path": "/sv/costruire-cefalu-madonie/puntata-3/",
+      "episode": 3,
+      "hash": "92b03d52fa422697918c5b7d73f37560e92dc28edde7cb16cab630c0c6062a41",
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "no",
+      "path": "/no/costruire-cefalu-madonie/puntata-3/",
+      "episode": 3,
+      "hash": "33fba0cce29a220525ed8e7ecdd621e15c0bd40b9fbd788b78f414821af81334",
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/03",
+      "locale": "da",
+      "path": "/da/costruire-cefalu-madonie/puntata-3/",
+      "episode": 3,
+      "hash": "20800191b1165304ed478c24897c62047e403d50b8939f300d5bb372031dbc27",
+      "sourceHash": "48a898ece953d7491fb4d07fd1ddca7c1b57da36bf407234240a4bc48f8f1486"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "it",
+      "path": "/costruire-cefalu-madonie/puntata-5/",
+      "episode": 5,
+      "hash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353",
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "en",
+      "path": "/en/costruire-cefalu-madonie/puntata-5/",
+      "episode": 5,
+      "hash": "4d8017a2be3f2a01e6f71a3093491e09dfd00b036bd8992aeeaeb710d12cf01b",
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "de",
+      "path": "/de/costruire-cefalu-madonie/puntata-5/",
+      "episode": 5,
+      "hash": "84cbb2c52bee1108fb24d90381980f5ea8210ee0410077051c2cb5be752d8a71",
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "nl",
+      "path": "/nl/costruire-cefalu-madonie/puntata-5/",
+      "episode": 5,
+      "hash": "f81559b7335a421ebcdee450ace38aaebdfab8d478e655294296da8b088a344c",
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "fr",
+      "path": "/fr/costruire-cefalu-madonie/puntata-5/",
+      "episode": 5,
+      "hash": "88c862f7195277033500753b0226db64f5b6d5fcb858b21e2493d69c4011be66",
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "es",
+      "path": "/es/costruire-cefalu-madonie/puntata-5/",
+      "episode": 5,
+      "hash": "86c0dd199f25bfc15b641fe3a99dd8b26c1510b44ee0c8b79e94913be4b0de30",
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "pt",
+      "path": "/pt/costruire-cefalu-madonie/puntata-5/",
+      "episode": 5,
+      "hash": "000fe2c88f68a42317453f0b21744d13259e148f48996a06bd9af26d96b7cfee",
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "pl",
+      "path": "/pl/costruire-cefalu-madonie/puntata-5/",
+      "episode": 5,
+      "hash": "1094db8f3ac0d0f074566b8e7c8a6cec57bfff4d1fd4c496c07342e6fee4a109",
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "ru",
+      "path": "/ru/costruire-cefalu-madonie/puntata-5/",
+      "episode": 5,
+      "hash": "961cf2f98e48cabccb9636e8fc0d6ae29ee69f1d701074bfa49ed6a3ccdd6106",
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "sv",
+      "path": "/sv/costruire-cefalu-madonie/puntata-5/",
+      "episode": 5,
+      "hash": "d4119726812614d1359d7dd72fddc9bef775315ca60f6143f7067a9a4156a020",
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "no",
+      "path": "/no/costruire-cefalu-madonie/puntata-5/",
+      "episode": 5,
+      "hash": "32b46eb4f2607e73b1b350235be97bb8981d8f241862ca6e371ff3e86bc3786a",
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/05",
+      "locale": "da",
+      "path": "/da/costruire-cefalu-madonie/puntata-5/",
+      "episode": 5,
+      "hash": "cdfa149230031c63beefa30f8e5565d0487a543ad5a9b3afc828a4356150b458",
+      "sourceHash": "9c25de221da52d3062f903025dd4fd7a622a9e92de4ee42926a1a008ed43d353"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "it",
+      "path": "/costruire-cefalu-madonie/puntata-6/",
+      "episode": 6,
+      "hash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea",
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "en",
+      "path": "/en/costruire-cefalu-madonie/puntata-6/",
+      "episode": 6,
+      "hash": "f1522665bb92aa0c391854c8b03041948d22abfa8265bc7bc56f66b247a3537a",
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "de",
+      "path": "/de/costruire-cefalu-madonie/puntata-6/",
+      "episode": 6,
+      "hash": "0636e81cd514ad6d11ffccbc2289f323cedc52e1bbe43cf7e25e0a264f4e49ef",
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "nl",
+      "path": "/nl/costruire-cefalu-madonie/puntata-6/",
+      "episode": 6,
+      "hash": "8a48bfb0176a6d08e43b737c69c25e2b65620c9d832bde52b91076e222e193ab",
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "fr",
+      "path": "/fr/costruire-cefalu-madonie/puntata-6/",
+      "episode": 6,
+      "hash": "d3258ae4b5d7c5e3c3842e2122fb9e1102731fc3c70c30531afbc167f839135a",
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "es",
+      "path": "/es/costruire-cefalu-madonie/puntata-6/",
+      "episode": 6,
+      "hash": "1fe2890bd9c51acd977d8b04c54b5a4314eade352ed54d00fe341412264d00b7",
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "pt",
+      "path": "/pt/costruire-cefalu-madonie/puntata-6/",
+      "episode": 6,
+      "hash": "26212f63a55342b4480b94fd3cbd246d3035f8a4160635abaadf54b915abe422",
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "pl",
+      "path": "/pl/costruire-cefalu-madonie/puntata-6/",
+      "episode": 6,
+      "hash": "6a5f8d9fb980b1a33cf97e0ef858d8f94eaeb2acd93195dc4e5ae0fa3bebe424",
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "ru",
+      "path": "/ru/costruire-cefalu-madonie/puntata-6/",
+      "episode": 6,
+      "hash": "1f48190b8379038dd14b9529a7ecd579f409d9b8083d07ddd4bcb7328a1e48a2",
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "sv",
+      "path": "/sv/costruire-cefalu-madonie/puntata-6/",
+      "episode": 6,
+      "hash": "2112aea42599367bf3ee9ad01161acff1ace21441c1d181088204f940788ca3e",
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "no",
+      "path": "/no/costruire-cefalu-madonie/puntata-6/",
+      "episode": 6,
+      "hash": "0f78b2854baeeb0caa5cec88bfb033f91a08f203fbe204741b92c4200de57541",
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/06",
+      "locale": "da",
+      "path": "/da/costruire-cefalu-madonie/puntata-6/",
+      "episode": 6,
+      "hash": "3dbf75bf1050740d386469f63b198a7c504c74191c2367b6999c3915a344a816",
+      "sourceHash": "b66f7d7f8cf384152b2f93fbbf938d59dfb95633059feeb95b4e26fff7c99dea"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "it",
+      "path": "/piscine-e-laghetti-zen/",
+      "episode": 7,
+      "hash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa",
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "en",
+      "path": "/en/zen-pools-and-ponds/",
+      "episode": 7,
+      "hash": "7f02149338c1f434d42fe0eb3818e0de3197ec2ba25fe994b6d2f492fecae9b0",
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "de",
+      "path": "/de/zen-pools-und-teiche/",
+      "episode": 7,
+      "hash": "e148aa59fd11c914c3248dc091bfb6fb337306ed7f5f6470c1ad673267bcb01e",
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "nl",
+      "path": "/nl/zen-zwembaden-en-vijvers/",
+      "episode": 7,
+      "hash": "c2adec07aabacd716e850057318f446402d8ed8dfa56431e46bf9b967e054f85",
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "fr",
+      "path": "/fr/piscines-et-etangs-zen/",
+      "episode": 7,
+      "hash": "2f45681e058fc37c0f72a30ad3f4a7ce9d6b7924489b8c361d106db6ee6fb59e",
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "es",
+      "path": "/es/piscinas-y-estanques-zen/",
+      "episode": 7,
+      "hash": "2bd39cca74831ab4ad1a924368b499e3a4912693f88a79c616a1c2426f71c08c",
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "pt",
+      "path": "/pt/piscinas-e-lagos-zen/",
+      "episode": 7,
+      "hash": "2af4cb448e30161f394363fd6c2bdbfe723af883216d3c4c5ef1a99c60327336",
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "pl",
+      "path": "/pl/baseny-i-stawy-zen/",
+      "episode": 7,
+      "hash": "b49e650c6ee45d80d45b90cc4a3a50d4a7f1b520cebad1bda39a90368730ad7b",
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "ru",
+      "path": "/ru/zen-bassejny-i-prudy/",
+      "episode": 7,
+      "hash": "1299cafbef5e923f6561ff8a7a874a4891559c8b159c7b1988ab2847bf91cbd2",
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "sv",
+      "path": "/sv/articles/piscine-e-laghetti-zen",
+      "episode": 7,
+      "hash": "36ba645b50161488cf293ff3352bb5d7db3b5dd0b65748e2e36c4a1724adcb43",
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "no",
+      "path": "/no/articles/piscine-e-laghetti-zen",
+      "episode": 7,
+      "hash": "fbdd227e54324032da41852eb840972e1b16355e2cd6b8f3e8212b7bf2c54993",
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+    },
+    {
+      "identity": "piscine-e-laghetti-zen",
+      "locale": "da",
+      "path": "/da/articles/piscine-e-laghetti-zen",
+      "episode": 7,
+      "hash": "89305e5b1d7d4abfc597f63201384508e489b498204c18c60c633a8f1a099ace",
+      "sourceHash": "ee2093a21c1333ea0af547e9d1d9ae783dc74a6faf2e045b003b08f4c324d6aa"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "it",
+      "path": "/costruire-cefalu-madonie/puntata-9/",
+      "episode": 9,
+      "hash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b",
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "en",
+      "path": "/en/costruire-cefalu-madonie/puntata-9/",
+      "episode": 9,
+      "hash": "08d3b61e7393f14fe34c21514a427dfd6b747658d2d9d2c6bbf049024238cd62",
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "de",
+      "path": "/de/costruire-cefalu-madonie/puntata-9/",
+      "episode": 9,
+      "hash": "5f8fde582293fafdee358c395d58d1717a4c5dbabc3f875e4f18583d395dbb78",
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "nl",
+      "path": "/nl/costruire-cefalu-madonie/puntata-9/",
+      "episode": 9,
+      "hash": "d40e0b0d4d85e4bcf8cd0c49b2c2b757e735d752859628cf9d83750fe00c81c1",
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "fr",
+      "path": "/fr/costruire-cefalu-madonie/puntata-9/",
+      "episode": 9,
+      "hash": "c2c6d6bde9780427dd7ec7eeddb1e2555a412f132aa23960fc2417e68978143e",
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "es",
+      "path": "/es/costruire-cefalu-madonie/puntata-9/",
+      "episode": 9,
+      "hash": "9f70a6cd12bff63829bf2305b4822f55d8cea7ddaba4b662431d3a47ff6b97d8",
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "pt",
+      "path": "/pt/costruire-cefalu-madonie/puntata-9/",
+      "episode": 9,
+      "hash": "c1dc48fd98bbf7153df8102132096a9faef2cab57a291d262143d52e6c99cdee",
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "pl",
+      "path": "/pl/costruire-cefalu-madonie/puntata-9/",
+      "episode": 9,
+      "hash": "cd017bb176b0c684db3e8395fdce5690784a86d62cd573f3b7723dc24ce0eb35",
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "ru",
+      "path": "/ru/costruire-cefalu-madonie/puntata-9/",
+      "episode": 9,
+      "hash": "b92629351ba9f566673cb598e89f545701bf1d2785951a3237d781225ecac564",
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "sv",
+      "path": "/sv/costruire-cefalu-madonie/puntata-9/",
+      "episode": 9,
+      "hash": "a0a32424f217cee55a39cc5854383716eb57c8df395f560ff82c078b96390f01",
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "no",
+      "path": "/no/costruire-cefalu-madonie/puntata-9/",
+      "episode": 9,
+      "hash": "8858a2b535d9b45b53e9e5d765e53ee3d5260adcab891dee8b2b24baf638eac2",
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+    },
+    {
+      "identity": "costruire-cefalu-madonie/09",
+      "locale": "da",
+      "path": "/da/costruire-cefalu-madonie/puntata-9/",
+      "episode": 9,
+      "hash": "2eb294e66a33637ddb89e58c8e61afb5b4d124378764dabb1481261516e4f77e",
+      "sourceHash": "948da4cb01fc6569354283b12d2cca7a11dffe88de882d6ac9dbfee327eac83b"
+    }
+  ]
+}

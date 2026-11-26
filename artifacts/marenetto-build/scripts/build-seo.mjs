@@ -11,7 +11,7 @@ const reports = path.resolve(root, '../../generated-artifacts/seo-audit');
 await mkdir(reports, { recursive: true });
 const template = await readFile(path.join(output, 'index.html'), 'utf8');
 process.env.NODE_ENV = 'production';
-const vite = await createServer({ configFile: path.join(root, 'vite.config.ts'), server: { middlewareMode: true }, appType: 'custom' });
+const vite = await createServer({ configFile: path.join(root, 'vite.config.ts'), server: { middlewareMode: true, watch: null, hmr: false }, appType: 'custom' });
 try {
   const { render, editions, companyStructuredData, redirects: allRedirects, blockedPublicLocale, excludedRoutes, equivalentEditions, canonicalEdition, editionStructuredData, reviewPathForEdition, reviewHubEdition, historicalInventory: originalInventory } = await vite.ssrLoadModule('/src/entry-server.tsx');
   const redirects = Object.fromEntries(Object.entries(allRedirects).filter(([source, target]) => !blockedPublicLocale(source) && !blockedPublicLocale(target)));

@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "test:indexing-continuity": "node --test scripts/indexing-continuity.test.mjs",
+    "audit:indexing-candidate": "node scripts/indexing-candidate-audit.mjs",
     "prepare:commercial-release": "node scripts/export-editorial.mjs && node scripts/prepare-commercial-release.mjs",
     "test:commercial-release": "node scripts/commercial-release-matrix.mjs",
     "generate:icons": "node scripts/generate-icons.mjs",

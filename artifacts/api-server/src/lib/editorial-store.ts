@@ -4,17 +4,14 @@ import { createHash } from 'node:crypto';
 import catalogJSON from 'marenetto-editorial-catalog';
 import { cleanBody, event, fingerprint, revision, transition, validateContent, type EditorialData, EditorialError } from './editorial-content';
 import type { EditorialContent } from '@workspace/api-zod';
+import { verifySeries, releaseSeries, hasExactEvent, sameEditorialContent } from './series-release';
 
 type SeedRecord = { identity: string; locale: string; path: string; kind: string; historical: boolean; correction: boolean; content: EditorialContent; aliases?: string[]; originalBody?: string; originalMetadata?: Record<string, unknown>; rework?: EditorialContent; releaseReady?: boolean };
 const catalog = catalogJSON as unknown as { locales: string[]; records: SeedRecord[]; reservedPaths?: string[]; seriesDrafts?: SeedRecord[]; seriesRelease?: {id:string; decisionDate:string; contentDigest:string} };
 
 export function assertSeriesRelease() {
   const seeds = catalog.seriesDrafts ?? [];
-  const digest = createHash('sha256').update(JSON.stringify(seeds)).digest('hex');
-  if (seeds.length !== 120 || catalog.seriesRelease?.contentDigest !== digest) {
-    throw new Error('Serie Cefalù-Madonie: i testi non corrispondono alla consegna approvata. Registrare una nuova approvazione interna prima dell’attivazione.');
-  }
-  return catalog.seriesRelease;
+  return verifySeries(seeds, catalog.seriesRelease);
 }
 export const editorialLocales = catalog.locales;
 export const isCatalogPath = (path: string) => (catalog.reservedPaths ?? []).some(reserved => normalizedPath(reserved) === normalizedPath(path));
@@ -38,7 +35,7 @@ export function ensureEditorial() {
   if (!imported) imported = importCatalog().catch(error => { imported = undefined; throw error; });
   return imported;
 }
-async function importCatalog() {
+export async function importCatalog() {
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
@@ -84,19 +81,15 @@ async function importCatalog() {
     const rows = await allRows(client);
     for (const seed of catalog.seriesDrafts ?? []) {
       const existing = rows.find(row => row.identity === seed.identity && row.locale === seed.locale);
-      if (existing?.data.revisions.some(rev => rev.content.guide?.episode === seed.content.guide?.episode)) continue;
+      // Activation is the only writer of series revisions. Keep newer candidates,
+      // active revisions and withdrawal markers untouched until full preflight.
+      if (existing) continue;
       // Never take over an unrelated route or silently relocate an existing family.
       if (!existing && rows.some(row => normalizedPath(row.path) === normalizedPath(seed.path))) throw new Error('Series draft path collision');
       const source = rows.find(row => row.identity === seed.identity && row.locale === 'it')?.data.revisions.at(-1);
       const draft = revision(validateContent(seed.content, catalog.locales), seed.locale === 'it' ? '' : source?.hash ?? '', 'Preparazione serie; revisioni umane non registrate');
       if (seed.locale === 'it') draft.sourceHash = draft.hash;
-      if (existing) {
-        // Prior drafts, originals and activeRevisionId all remain intact.
-        existing.data.revisions.push(draft);
-        existing.data.state = 'draft';
-        event(existing.data, 'series-draft', draft, draft.actor);
-        await client.query('UPDATE editorial_editions SET data=$1,version=version+1 WHERE id=$2', [existing.data, existing.id]);
-      } else {
+      {
         const data: EditorialData = { state: 'draft', historical: false, correction: false, activeRevisionId: null, revisions: [draft], events: [], originals: [] };
         event(data, 'series-draft', draft, draft.actor);
         const id = createHash('sha256').update(`${seed.identity}:${seed.locale}`).digest('hex').slice(0,32);
@@ -107,24 +100,15 @@ async function importCatalog() {
     // Dated, owner-authorized release. This is not an evergreen permission to
     // activate future edits: the complete 120-edition payload is hash-bound.
     const release = assertSeriesRelease();
-    const releaseEvent = `${release.id}:${release.contentDigest}`;
-    for (const seed of catalog.seriesDrafts ?? []) {
-      const row = rows.find(row => row.identity === seed.identity && row.locale === seed.locale)!;
-      if (row.data.events.some(e => e.action === releaseEvent) || row.data.withdrawn) continue;
-      const last = row.data.revisions.at(-1)!;
-      // Never replace work subsequently edited by a person in the CMS.
-      if (last.actor !== 'Preparazione serie; revisioni umane non registrate' &&
-          last.actor !== `Approvazione interna del titolare ${release.decisionDate}; controllo assistito da IA, non parere professionale`) continue;
-      const source = rows.find(source => source.identity === seed.identity && source.locale === 'it')?.data.revisions.at(-1);
-      const actor = `Approvazione interna del titolare ${release.decisionDate}; controllo assistito da IA, non parere professionale`;
-      const approved = revision(validateContent(seed.content, catalog.locales), seed.locale === 'it' ? '' : source?.hash ?? '', actor);
-      if (seed.locale === 'it') approved.sourceHash = approved.hash;
-      row.data.revisions.push(approved);
-      row.data.state = 'draft';
-      transition(row.data, 'submit', approved.id, approved.sourceHash, seed.locale, actor, true);
-      transition(row.data, 'approve', approved.id, approved.sourceHash, seed.locale, actor, true);
-      transition(row.data, 'activate', approved.id, approved.sourceHash, seed.locale, actor, true);
-      event(row.data, releaseEvent, approved, actor);
+    // A conflict blocks this release, not reads of the preceding valid public
+    // revision. Readiness independently checks all exact expected active hashes.
+    let operations: ReturnType<typeof releaseSeries> = [];
+    try { operations = releaseSeries(rows, catalog.seriesDrafts ?? [], release, catalog.records); }
+    catch (error) {
+      if (!(error instanceof Error) || !/^Serie: (?:identità\/percorso in conflitto|collisione percorso\/alias|revisione\/sorgente successiva)/.test(error.message)) throw error;
+    }
+    for (const operation of operations.filter(o => o.operation === 'activate')) {
+      const row = rows.find(r => r.identity === operation.identity && r.locale === operation.locale)!;
       await client.query('UPDATE editorial_editions SET data=$1,version=version+1 WHERE id=$2', [row.data,row.id]);
     }
     await client.query('COMMIT');
@@ -141,6 +125,18 @@ export async function publicRows(): Promise<Row[]> {
     WHERE data->>'activeRevisionId' IS NOT NULL OR data->>'withdrawn'='true'
     ORDER BY identity,locale`)).rows;
   return rows.filter(row => {
+    if (!row.data.withdrawn && row.data.activeRevisionId) {
+      const active = row.data.revisions.find(r => r.id === row.data.activeRevisionId);
+      if (!active || !hasExactEvent(row.data,'approve',active) || !hasExactEvent(row.data,'activate',active))
+        throw new EditorialError(503,'Stato della revisione attiva non verificabile; nessuna copia statica sostitutiva.');
+      const seed = catalog.seriesDrafts?.find(s => s.identity === row.identity && s.locale === row.locale);
+      const expected = seed && validateContent(seed.content, catalog.locales);
+      if (expected && active.hash === fingerprint(expected) && !sameEditorialContent(active.content, expected))
+        throw new EditorialError(503,'Contenuto della serie non coincidente con la revisione registrata.');
+      // Keep stale active translations in the verified snapshot. Omitting them
+      // would restore a historical fallback at exactly the same URL. The shared
+      // SEO policy compares ACTIVE source hashes and excludes stale editions.
+    }
     if (!row.identity.startsWith('network-') || row.data.withdrawn || !row.data.activeRevisionId) return true;
     const active = row.data.revisions.find(rev => rev.id === row.data.activeRevisionId);
     if (!active) return false;
@@ -149,6 +145,19 @@ export async function publicRows(): Promise<Row[]> {
       if (error instanceof EditorialError && error.status === 409) return false;
       throw error;
     }
+  });
+}
+export async function seriesReady() {
+  assertSeriesRelease();
+  const rows = await publicRows();
+  return (catalog.seriesDrafts ?? []).every(seed => {
+    const row = rows.find(r => r.identity === seed.identity && r.locale === seed.locale);
+    const active = row?.data.revisions.find(rev => rev.id === row.data.activeRevisionId);
+    const italian = catalog.seriesDrafts!.find(s => s.identity === seed.identity && s.locale === 'it')!;
+    const expected = validateContent(seed.content, catalog.locales);
+    return row && !row.data.withdrawn && publicEditionPath(row) === seed.path &&
+      active?.hash === fingerprint(expected) && sameEditorialContent(active.content, expected) &&
+      active?.sourceHash === fingerprint(validateContent(italian.content, catalog.locales));
   });
 }
 export function sourceFor(row: Row, rows: Row[]) {

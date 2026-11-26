@@ -16,6 +16,20 @@ import { arabicEditorialSchema } from '@/content/arabic-editorial/schema';
 import { arabicEditorialByPath } from '@/content/arabic-editorial';
 import { areaPageByPath, areaCopy, areaPage, articleArea } from '@/content/four-areas';
 import { commercialFAQ } from '@/content/commercial-release.mjs';
+import { seriesStructuredData } from '@/content/series-public.mjs';
+import type { EditorialActive } from '@workspace/api-client-react';
+
+// Match the SSR's series graph plus its separate company graph. Do not lose
+// the factual organization when a page-specific graph replaces generic schema.
+export function updateSeriesStructuredData(edition: EditorialActive, origin: string) {
+  document.head.querySelectorAll('script[type="application/ld+json"]').forEach(script => script.remove());
+  for (const graph of [seriesStructuredData(edition, origin), [companyStructuredData(origin)]]) {
+    const element=document.createElement('script');
+    element.type='application/ld+json';
+    element.textContent=JSON.stringify({'@context':'https://schema.org','@graph':graph});
+    document.head.appendChild(element);
+  }
+}
 
 export function editionStructuredData(edition: Edition, origin: string) {
   const canonical = new URL(canonicalEdition(edition).path, origin).href;

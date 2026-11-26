@@ -9,10 +9,10 @@ export function commercialRecord(live) {
     (r.readOnlySeries || live.content?.tags?.includes(inventory.id)) ? r : undefined;
 }
 export function commercialEntries(active) {
-  const italian = new Set(active.filter(live=>live.locale==='it'&&commercialRecord(live)).map(live=>live.identity));
+  const italian = new Map(active.filter(live=>live.locale==='it'&&commercialRecord(live)).map(live=>[live.identity,live.revisionHash]));
   return active.flatMap(live=>{
     const r=commercialRecord(live);
-    if(!r||(live.locale!=='it'&&!italian.has(live.identity))) return [];
+    if(!r||(live.locale!=='it'&&italian.get(live.identity)!==live.sourceHash)) return [];
     return [{
       id:live.identity,locale:live.locale,path:r.path,kind:'article',
       title:r.presentation?.seoTitle??live.content.seoTitle,description:r.presentation?.seoDescription??live.content.seoDescription,

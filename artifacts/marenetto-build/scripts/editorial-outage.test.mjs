@@ -35,7 +35,9 @@ test('server origin is environment-aware and never guesses a deployment proxy po
   const apiConfig = await readFile(path.join(root, '../api-server/.replit-artifact/artifact.toml'), 'utf8');
   const apiPort = apiConfig.match(/localPort\s*=\s*(\d+)/)[1];
   assert.ok(webConfig.includes(`EDITORIAL_API_ORIGIN = "http://127.0.0.1:${apiPort}"`), 'origin tracks the declared API service listener');
-  assert.match(webConfig, /\[services.production.health.startup\]\s+path = "\/"/);
+  assert.match(webConfig, /\[services.production.health.startup\]\s+path = "\/__release-readiness"/);
+  const handler = await readFile(path.join(root,'scripts/serve-seo.mjs'),'utf8');
+  assert.ok(handler.includes("await render('/', 'it', active)"), 'readiness still renders the real homepage using the verified same-deployment snapshot');
 });
 
 for (const viaProxy of [false, true]) {

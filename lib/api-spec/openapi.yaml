@@ -1563,6 +1563,9 @@ components:
         activatedAt: { type: string }
         revisionHash: { type: string }
         sourceHash: { type: string }
+        indexingAuthorized:
+          type: boolean
+          description: Exact active revision has verified approval and activation events. Does not override withdrawals, source freshness, locale approval, or private exclusions.
         content: { $ref: "#/components/schemas/EditorialContent" }
     HealthStatus:
       type: object

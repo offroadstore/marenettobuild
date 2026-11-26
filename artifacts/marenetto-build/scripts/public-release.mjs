@@ -41,7 +41,7 @@ export function publicEditions(manifest, active = []) {
   const withdrawn = new Set(active.filter(e => e.revisionId === 'withdrawn')
     .flatMap(e => [e.path, ...(e.aliases ?? [])]).map(path => path.replace(/\/+$/, '') || '/'));
   return mergeActiveMetadata(Object.values(manifest.editions), active).filter(e =>
-    e.indexing !== 'never' && APPROVED_LOCALES.has(e.locale) && isNativeEdition(e) && hasTranslationApproval(e) && !indexExclusion(e) && e.kind !== 'search' && (manifest.pages[e.path] || e.commercialRelease==='editorial-2026-11-26') &&
+     e.indexing !== 'never' && APPROVED_LOCALES.has(e.locale) && isNativeEdition(e) && hasTranslationApproval(e) && !indexExclusion(e) && e.kind !== 'search' && (manifest.pages[e.path] || e.commercialRelease==='editorial-2026-11-26' || e.source==='active-editorial:authorized-series') &&
     e.path !== '/en/articoli/' && !e.path.startsWith('/__localization-review') &&
     !withdrawn.has(e.path.replace(/\/+$/, '') || '/'));
 }

@@ -956,6 +956,8 @@ export interface EditorialActive {
   activatedAt?: string;
   revisionHash?: string;
   sourceHash?: string;
+  /** Exact active revision has verified approval and activation events. Does not override withdrawals, source freshness, locale approval, or private exclusions. */
+  indexingAuthorized?: boolean;
   content: EditorialContent;
 }
 

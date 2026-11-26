@@ -1,9 +1,9 @@
 import { editions, canonicalEdition } from '@/localization/edition-inventory';
 import { isNativeEdition, hasTranslationApproval, releaseMetadata, mergeActiveMetadata } from '@/localization/public-seo.mjs';
-import { updateStructuredData } from './structured-data';
+import { updateStructuredData, updateSeriesStructuredData } from './structured-data';
 import { historicalInventory } from '@/content/historical';
 import { indexExclusion } from '@/localization/index-exclusions.mjs';
-import { seriesStructuredData } from '@/content/series-public.mjs';
+import { getLocaleDirection } from '@/localization/locale-direction.mjs';
 
 export const PUBLIC_SITE_ORIGIN = 'https://www.marenettobuild.com';
 import type { EditorialActive } from '@workspace/api-client-react';
@@ -38,6 +38,9 @@ export function applyPublicReleaseMetadata(pathname: string, active: Active[]) {
   setMeta('name', 'robots', edition && canIndex ? 'index, follow' : 'noindex, nofollow');
   document.head.querySelectorAll('link[rel="alternate"][hreflang]').forEach(link => link.remove());
   if (!candidate) return false;
+  document.documentElement.lang = candidate.locale === 'it' ? 'it-IT' : candidate.locale;
+  document.documentElement.dir = getLocaleDirection(candidate.locale);
+  setMeta('property','og:locale',candidate.locale === 'it' ? 'it_IT' : candidate.locale);
   const metadata = releaseMetadata(candidate, document.querySelector('main')?.outerHTML ?? '', entries);
   const canonicalPath = edition?.path ?? canonicalEdition(candidate).path;
   document.title = metadata.title;
@@ -77,11 +80,7 @@ export function applyPublicReleaseMetadata(pathname: string, active: Active[]) {
   updateStructuredData(candidate, PUBLIC_SITE_ORIGIN);
   const live = active.find(e => normalized(e.path) === normalized(pathname) && e.revisionId !== 'withdrawn');
   if (live?.content.guide && !candidate.commercialRelease) {
-    document.head.querySelectorAll('script[type="application/ld+json"]').forEach(script => script.remove());
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': seriesStructuredData(live, PUBLIC_SITE_ORIGIN) });
-    document.head.append(script);
+    updateSeriesStructuredData(live, PUBLIC_SITE_ORIGIN);
   }
   return true;
 }

@@ -26,6 +26,7 @@ router.get('/editorial/active', handler(async (_req, res) => {
     const activation = rev && [...row.data.events].reverse().find(event => event.action === 'activate' && event.revisionId === rev.id && event.hash === rev.hash);
     return rev ? [{ aliases: row.data.aliases ?? [], identity: row.identity, locale: row.locale, path, kind: row.kind, revisionId: rev.id, content: publicContent(rev.content),
       revisionCreatedAt: rev.createdAt, revisionHash: rev.hash, sourceHash: rev.sourceHash,
+      indexingAuthorized: true, // publicRows verified exact approval/activation; not an account-verification claim.
       ...(activation ? { activatedAt: activation.at } : {}),
     }] : row.data.withdrawn ? [{ aliases: row.data.aliases ?? [], identity: row.identity, locale: row.locale, path, kind: row.kind, revisionId: 'withdrawn', content: { title: 'Contenuto ritirato', summary: '', body: '', sources: [], category: '', tags: [], image: '', imageAlt: '', seoTitle: '', seoDescription: '', contentLanguage: row.locale } }] : [];
   });

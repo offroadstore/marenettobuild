@@ -980,3 +980,73 @@ mtime_ms = 1795677668238
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/c8f43ece-5dc9-4f6b-8791-c44c7856c627/254ccbf1-3c9f-425a-aef3-5823315f93b7"
 storage_version_token = "1795677753094085"
 content_type = "application/octet-stream"
+
+[[outputs]]
+id = "ZkM86rM9KUyzrjq9X_oBL"
+uri = "file://generated-artifacts/indexing-recovery-delivery/rapporto-indicizzazione.html"
+type = "html"
+title = "Rapporto italiano — pronto per Republish"
+description = "930 URL verificati nel candidato, 24 indirizzi storici recuperati, 120 edizioni approvate. Include CSV e checklist; produzione non modificata."
+logical_id = "070488bc-7bdc-40cf-8949-217b294a95ea"
+content_hash = "sha256:f24c961957ece9f631f566518954a3b9b8e4a52b92f27f1b7532773a82974b97"
+size = 3077852
+mtime_ms = 1795680360752
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/070488bc-7bdc-40cf-8949-217b294a95ea/bcde3af8-2668-459d-8520-6ecf8e5c3428"
+storage_version_token = "1795680372976067"
+content_type = "text/html"
+
+[[outputs]]
+id = "a7UkzIZZ-01tkwxvHuk5c"
+uri = "file://generated-artifacts/indexing-recovery/historical-before-after.csv"
+type = "table"
+title = "CSV delle 24 pagine storiche"
+description = "Confronto per URL di risposte HTTP, robots, canonical, hreflang e sitemap."
+logical_id = "c9b93666-5664-4795-901b-ed93ad33e9f5"
+content_hash = "sha256:2a26fe90941deb922c8cb1b1a63a7b9a6e08e1fcf0d14f6cf41ac3c26909a96a"
+size = 75589
+mtime_ms = 1795680099633
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/c9b93666-5664-4795-901b-ed93ad33e9f5/fbd8150a-edab-4efb-9302-9257ad9dddd3"
+storage_version_token = "1795680373612304"
+content_type = "text/csv"
+
+[[outputs]]
+id = "yFaKQp3EXzT7rOHNSOdyM"
+uri = "file://generated-artifacts/indexing-recovery/series-before-after.csv"
+type = "table"
+title = "CSV delle 120 edizioni della serie"
+description = "Identità, puntata, lingua, URL, revisione/hash, sorgente italiana, autorizzazione e stato nel candidato."
+logical_id = "2f6aab89-106b-460b-b037-5d641d81eea6"
+content_hash = "sha256:0338408d1c7feaa539b8ae13093e55fddbf0d348c1af0134e3f41d8a9b5b5c7a"
+size = 331211
+mtime_ms = 1795680099633
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/2f6aab89-106b-460b-b037-5d641d81eea6/dcab7a33-f2eb-422e-b6a7-82ec6e32e456"
+storage_version_token = "1795680374201591"
+content_type = "text/csv"
+
+[[outputs]]
+id = "4tpgWVzW62YMPqO8H-RIs"
+uri = "file://generated-artifacts/indexing-recovery-delivery/evidenze-indicizzazione-01.zip"
+type = "unspecified"
+title = "Evidenze grezze — archivio 1 di 2"
+description = "Baseline, controlli, browser, inventari e prima parte delle risposte complete. Estrarre insieme al secondo archivio."
+logical_id = "41c21188-1364-44f2-bc1c-7bff9bdddaf3"
+content_hash = "sha256:d4a8ba387964810697ee7b4980aa7c4dec3ad4c34885c4a31c2bf9e4238a1b51"
+size = 94559966
+mtime_ms = 1795680361188
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/41c21188-1364-44f2-bc1c-7bff9bdddaf3/94b80d55-5845-4eeb-8fb8-049aab0c6ffb"
+storage_version_token = "1795680375802829"
+content_type = "application/octet-stream"
+
+[[outputs]]
+id = "MufdlS94qENTZ_SWwtHSP"
+uri = "file://generated-artifacts/indexing-recovery-delivery/evidenze-indicizzazione-02.zip"
+type = "unspecified"
+title = "Evidenze grezze — archivio 2 di 2"
+description = "Restanti risposte HTML e header del candidato. Estrarre nella stessa cartella del primo archivio."
+logical_id = "7c32b23f-9f54-4a14-ab31-b84fb91d630c"
+content_hash = "sha256:9eb4d7d64f8685918b8963200fc6bf764915ed0249144d89965ef73345c3f3b9"
+size = 72875223
+mtime_ms = 1795680361468
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:265ff1b7-9981-4290-8d5a-24b3b84cd40a/7c32b23f-9f54-4a14-ab31-b84fb91d630c/89ea9294-1f27-49ea-af15-cbea3d05404e"
+storage_version_token = "1795680377149368"
+content_type = "application/octet-stream"

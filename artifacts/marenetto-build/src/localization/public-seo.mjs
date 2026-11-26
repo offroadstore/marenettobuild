@@ -2,6 +2,7 @@ import { homeMetadata } from './home-seo.mjs';
 import { libraryMetadata } from './library-seo.mjs';
 import { searchCopy } from './search-copy.mjs';
 import { commercialEntries } from '../content/commercial-release.mjs';
+import { seriesEntries } from '../content/series-release.mjs';
 
 // Language wrappers around Italian copy are not independent translations.
 export function isNativeEdition(edition) {
@@ -16,7 +17,10 @@ export function hasTranslationApproval(edition) {
 }
 
 export function mergeActiveMetadata(entries, active) {
-  const released = commercialEntries(active);
+  // Exact active, internally authorized revisions only. Search Console account
+  // verification is factual account state, never an indexing permission.
+  const commercial = commercialEntries(active);
+  const released = [...commercial, ...seriesEntries(active).filter(e => !commercial.some(c => c.path === e.path))];
   const merged = entries.filter(entry=>!released.some(r=>r.id===entry.id&&r.locale===entry.locale&&r.path!==entry.path)).map(entry => {
     const releasedEdition=released.find(r=>r.path===entry.path);
     if(releasedEdition) return releasedEdition;
@@ -24,11 +28,15 @@ export function mergeActiveMetadata(entries, active) {
     const normalized = path => path.replace(/\/+$/, '') || '/';
     const translationSourceStale = entry.translationSourcePath && active.some(item =>
       [item.path, ...(item.aliases ?? [])].some(path => normalized(path) === normalized(entry.translationSourcePath)));
-    const candidate = translationSourceStale ? { ...entry, translationSourceStale: true } : entry;
+    const source = live && active.find(item => item.identity === live.identity && item.locale === 'it' && item.revisionId !== 'withdrawn');
+    const activeSourceStale = live?.locale !== 'it' && Boolean(live?.sourceHash) &&
+      (!source || source.revisionHash !== live.sourceHash);
+    // Active translations follow the active source hash, not the mere presence
+    // of an Italian override. Static source-file invalidation is static-only.
+    const candidate = (!live && translationSourceStale) || activeSourceStale ? { ...entry, translationSourceStale: true } : entry;
     return live?.content ? { ...candidate,
-      // Content activation does not attest ownership in a search-engine account.
-      // Keep the series out of indexing until that separate check is recorded.
-      ...(live.content.guide && !live.content.guide.searchConsoleVerified ? {indexing:'never',sitemap:false} : {}),
+      // An unknown guide composition cannot inherit a historical authorization.
+      ...(live.content.guide ? {indexing:'never',sitemap:false} : {}),
       title: live.content.seoTitle || live.content.title || entry.title,
       visibleTitle: live.content.title || entry.visibleTitle,
       visibleImage: live.content.image || '',
@@ -61,6 +69,12 @@ const text = value => String(value ?? '').replace(/<[^>]+>/g, ' ').replace(/&nbs
 
 export function releaseMetadata(edition, html = '', entries = []) {
   if(edition.commercialRelease==='editorial-2026-11-26') return {title:edition.title,description:edition.description};
+  if (edition.source === 'active-editorial:authorized-series') {
+    // Keep the approved, localized topic intact. Omit only the redundant brand
+    // suffix when it would exceed the search-display target; never cut a sentence.
+    return { title: [...edition.title].length > 60 ? edition.title.replace(/ \| Marenetto Build$/, '') : edition.title,
+      description: edition.description };
+  }
   // New commercial editions have individually authored, length-checked titles.
   // Appending the brand again would turn a valid title into an overlong one.
   if (String(edition.source).startsWith('four-areas:') && !edition.activeSeoTitle && !edition.activeSeoDescription) {

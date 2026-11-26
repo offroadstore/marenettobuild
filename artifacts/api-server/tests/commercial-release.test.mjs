@@ -57,11 +57,17 @@ test('182 exact editions pass the actual CMS routes in isolated memory only', as
       const summary=imported.find(r=>r.identity===pack.records.find(r=>r.mode==='revise-existing').identity&&r.locale==='it');
       const row=(await allRows()).find(r=>r.id===summary.id);
       const before=structuredClone(row);
-      row.data.revisions.at(-1).actor='synthetic-later-owner-edit';
-      row.data.revisions.at(-1).content.title+=' — later';
-      row.data.revisions.at(-1).hash=fingerprint(row.data.revisions.at(-1).content);
-      await assert.rejects(()=>run(),/Revisione successiva/);
-      Object.assign(row,before);
+      // A real later edit appends a candidate; it never mutates the immutable
+      // approved active revision in place (which now correctly fails closed).
+      const later=structuredClone(row.data.revisions.at(-1));
+      later.id+='-synthetic-later';
+      later.actor='synthetic-later-owner-edit';
+      later.content.title+=' — later';
+      later.hash=fingerprint(later.content);
+      later.sourceHash=later.hash;
+      row.data.revisions.push(later);row.data.state='draft';
+      try { await assert.rejects(()=>run(),/Revisione successiva/); }
+      finally { Object.assign(row,before); }
     });
     await t.test('drafts and missing approval never become public',async()=>{
       const purchase=pack.records.find(r=>r.mode==='revise-existing'&&r.locale==='it');
@@ -71,6 +77,7 @@ test('182 exact editions pass the actual CMS routes in isolated memory only', as
         version:row.version,revisionId:row.revisions.at(-1).id,action:'activate',
       }),e=>e.status===409);
       assert.equal((await api('/editorial/active')).length,120,'Only the separate series is already active');
+      assert.ok((await api('/editorial/active')).every(e=>e.indexingAuthorized===true));
     });
     let activated;
     await t.test('real submit, approve and activate transitions persist exact source links',async()=>{

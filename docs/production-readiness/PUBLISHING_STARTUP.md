@@ -73,3 +73,16 @@ confirm that the new revision passes its `/` startup check against its own API
 and production editorial database. Any future failure can now be distinguished
 as configuration, connection, timeout, upstream HTTP status or invalid response.
 Do not replace the homepage probe with API liveness to bypass that failure.
+
+## Extension on 26 November 2026: exact public-series readiness
+
+The web startup path is now `/__release-readiness`. This is stricter than the
+previous homepage-only check: it reads the same deployment's editorial API,
+requires all 120 authorized series identities/paths to be indexable (including
+the 24 pre-existing purchase/pool URLs), **and renders the real homepage using
+that same verified snapshot**. API startup `/api/healthz` now initializes the
+existing transactional importer and checks exact active revision/source hashes.
+A missing edition, withdrawal, conflict or unavailable state returns 503.
+Neither probe reads the old public deployment, and neither is an always-200
+process-liveness substitute. See `INDEXING_RECOVERY_2026-11-26.md` for the
+isolated PostgreSQL tests, raw public baseline and release verification.

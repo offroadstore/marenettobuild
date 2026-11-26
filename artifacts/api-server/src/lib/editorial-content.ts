@@ -115,7 +115,8 @@ export function transition(data: EditorialData, action: string, revisionId: stri
     if (!approval || data.state !== 'approved' || rev.sourceHash !== sourceHash) throw new EditorialError(409, 'Occorre una nuova approvazione del titolare su questi testi esatti.');
     // The owner's dated internal-review policy authorizes content activation,
     // not a claim that Search Console ownership has been verified.
-    if (rev.content.guide && rev.content.guide.reviewBasis !== 'ai-assisted-internal' && !rev.content.guide.searchConsoleVerified) throw new EditorialError(409, 'Verifica Search Console non attestata: il solo file Google non prova la proprietà verificata.');
+    // Search Console property status never grants or blocks publication.
+    // The exact owner approval and factual/linguistic review gates above do.
     data.activeRevisionId = rev.id; data.state = 'active'; data.withdrawn = false;
   } else if (action === 'withdraw') {
     // Imported catalog content can still be served by the immutable fallback.

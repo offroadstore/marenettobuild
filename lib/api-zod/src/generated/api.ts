@@ -2426,6 +2426,7 @@ export const GetActiveEditorialResponseItem = zod.object({
   "activatedAt": zod.string().optional(),
   "revisionHash": zod.string().optional(),
   "sourceHash": zod.string().optional(),
+  "indexingAuthorized": zod.boolean().optional().describe('Exact active revision has verified approval and activation events. Does not override withdrawals, source freshness, locale approval, or private exclusions.'),
   "content": zod.object({
   "title": zod.string().max(getActiveEditorialResponseContentTitleMax),
   "summary": zod.string().max(getActiveEditorialResponseContentSummaryMax),

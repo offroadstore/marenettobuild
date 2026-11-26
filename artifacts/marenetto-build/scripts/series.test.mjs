@@ -7,10 +7,14 @@ import { readyVideo, seriesStructuredData, seriesLabels } from '../src/content/s
 import { render } from '../dist/server/entry-server.mjs';
 import { mergeActiveMetadata } from '../src/localization/public-seo.mjs';
 import { editorialTopology } from './test-support/editorial-topology.mjs';
+import { seriesRelease } from '../src/content/series-release.mjs';
 const drafts = await buildSeriesDrafts();
 // These are synthetic test values, never imported into the CMS or served publicly.
 const video = {youtubeId:'TEST_ONLY01',title:'Synthetic test video',description:'Test fixture only',thumbnail:'/media/test-only.jpg',uploadDate:'2025-01-10',spokenLanguage:'it',author:'Synthetic test credit',rights:'Synthetic permission fixture',transcriptLanguage:'en',transcript:'Actual transcript fixture for automated tests only.',transcriptReviewed:true};
-const edition = (draft, withVideo=false) => ({...draft,revisionId:'synthetic-active',content:{...draft.content,guide:{...draft.content.guide,...(withVideo?{video}:{})}}});
+const edition = (draft, withVideo=false) => ({...draft,revisionId:'synthetic-active',
+  revisionHash:seriesRelease.records.find(r=>r.identity===draft.identity&&r.locale===draft.locale)?.hash,
+  sourceHash:seriesRelease.records.find(r=>r.identity===draft.identity&&r.locale===draft.locale)?.sourceHash,
+  content:{...draft.content,guide:{...draft.content.guide,...(withVideo?{video}:{})}}});
 
 test('120 complete internally approved editions, requested priority, separate sources and honest review states', () => {
   assert.equal(drafts.length,120);
@@ -39,11 +43,12 @@ test('all historical purchase/pool URLs and identities are retained', async () =
     if(original) assert.equal(d.path,original.path);
   }
 });
-test('activation does not claim Search Console ownership or enable indexing without that separate check',()=>{
+test('exact authorized active series can index without claiming Search Console ownership',()=>{
   const d=edition(drafts[0]);
   const [entry]=mergeActiveMetadata([{path:d.path,locale:d.locale,indexing:'allowed',sitemap:true}],[d]);
-  assert.equal(entry.indexing,'never');
-  assert.equal(entry.sitemap,false);
+  assert.notEqual(entry.indexing,'never');
+  assert.equal(entry.sitemap,true);
+  assert.equal(d.content.guide.searchConsoleVerified,false);
 });
 test('placeholder has Article and visible FAQ schema, never fabricated VideoObject', () => {
   for(const d of drafts) {
@@ -127,11 +132,11 @@ test('a real active snapshot does not change authored pillar metadata or indexin
       const escape=value=>value.replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;');
       assert.ok(html.includes(`<title>${escape(pillar.title)}</title>`),`${locale}: authored title with active series`);
       assert.match(html,/<meta name="robots" content="index, follow"/);
-      assert.equal(response.headers.get('x-robots-tag'),null);
+      assert.equal(response.headers.get('x-robots-tag'),'index, follow');
     }
     const response=await fetch(topology.origin+active[0].path,{headers:{'x-forwarded-host':'www.marenettobuild.com','x-forwarded-proto':'https'}});
     const html=await response.text();
-    assert.match(html,/<meta name="robots" content="noindex, nofollow"/);
+    assert.match(html,/<meta name="robots" content="index, follow"/);
     assert.ok(html.includes(seriesLabels.it[7]));
     assert.ok(!html.includes('<iframe'));
   }finally{await topology.close();}

@@ -45,6 +45,8 @@ test('Arabic client navigation retains indexability, reciprocal verified peers a
     assert.equal(graph.find(n => n['@type'] === 'Service').areaServed.name, 'Worldwide');
     assert.ok(!graph.some(n => ['Offer', 'Product'].includes(n['@type'])));
     applyPublicReleaseMetadata('/ar/how-we-work', []);
+    assert.equal(document.documentElement.lang,'ar');
+    assert.equal(document.documentElement.dir,'rtl');
     links = head.querySelectorAll('link[rel="alternate"][hreflang]');
     const manifest = JSON.parse(await readFile(new URL('../dist/public/route-manifest.json', import.meta.url), 'utf8'));
     const initial = await readFile(new URL('../dist/public/' + manifest.pages['/ar/how-we-work'], import.meta.url), 'utf8');
@@ -67,6 +69,27 @@ test('Arabic client navigation retains indexability, reciprocal verified peers a
     applyPublicReleaseMetadata(path, []);
     assert.equal(head.querySelector('meta[name="robots"]').getAttribute('content'), 'noindex, nofollow');
     assert.equal(head.querySelectorAll('link[rel="alternate"][hreflang]').length, 0);
+    window.location.hostname = 'www.marenettobuild.com';
+    const catalog=JSON.parse(await readFile(new URL('../../../generated-artifacts/editorial/catalog.json',import.meta.url),'utf8'));
+    const {seriesRelease}=await vite.ssrLoadModule('/src/content/series-release.mjs');
+    const active=catalog.seriesDrafts.map(seed=>{
+      const record=seriesRelease.records.find(r=>r.identity===seed.identity&&r.locale===seed.locale);
+      return {...seed,revisionId:`synthetic-${seed.identity}-${seed.locale}`,revisionHash:record.hash,sourceHash:record.sourceHash};
+    });
+    for(const locale of ['it','de','it']) {
+      const edition=active.find(e=>e.locale===locale&&e.content.guide.episode===1);
+      assert.equal(applyPublicReleaseMetadata(edition.path,active),true);
+      assert.equal(document.documentElement.lang,locale==='it'?'it-IT':locale);
+      assert.equal(document.documentElement.dir,'ltr');
+      assert.equal(head.querySelector('meta[property="og:locale"]').getAttribute('content'),locale==='it'?'it_IT':locale);
+      assert.equal(head.querySelector('meta[name="robots"]').getAttribute('content'),'index, follow');
+      assert.equal(head.querySelector('link[rel="canonical"]').href,'https://www.marenettobuild.com'+edition.path);
+      const graphs=head.querySelectorAll('script[type="application/ld+json"]').flatMap(s=>JSON.parse(s.textContent)['@graph']);
+      assert.equal(graphs.filter(s=>s['@type']==='GeneralContractor').length,1);
+      assert.equal(graphs.filter(s=>s['@type']==='Article').length,1);
+      assert.equal(graphs.filter(s=>s['@type']==='FAQPage').length,1);
+      assert.equal(head.querySelectorAll('link[rel="alternate"][hreflang]').length,13);
+    }
   } finally {
     if (savedDocument === undefined) delete globalThis.document; else globalThis.document = savedDocument;
     if (savedWindow === undefined) delete globalThis.window; else globalThis.window = savedWindow;

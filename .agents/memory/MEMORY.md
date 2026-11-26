@@ -31,3 +31,4 @@
 - [Commercial positioning](commercial-scope.md) — Organic-only high-value acquisition; a photographic commercial home and a portfolio gated by real approved materials.
 - [Remote renovation process](remote-renovation-process.md) — Owner-confirmed SAL evidence, interim WhatsApp updates, one company contact and five assistance languages.
 - [Assisted editorial review](assisted-editorial-review.md) — Owner permits AI-assisted review plus internal approval for guides; show uncertainties and labeled illustrations, never professional sign-off.
+- [Editorial hash boundaries](editorial-hash-boundaries.md) — Preserve approval digests across jsonb key reordering; compare real content and keep parallel build indexes immutable.

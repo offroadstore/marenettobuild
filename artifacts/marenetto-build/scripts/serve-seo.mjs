@@ -9,6 +9,7 @@ import { readActiveEditorial, editorialDocument, editorialUnavailableHTML, withE
 import { blockedPublicLocale, render, companyStructuredData } from '../dist/server/entry-server.mjs';
 import { llmsDocument } from './llms-document.mjs';
 import { siteIconResources } from './site-icons.mjs';
+import { releaseReadiness } from './release-readiness.mjs';
 
 const root = path.resolve(import.meta.dirname, '../dist/public');
 const manifest = JSON.parse(await readFile(path.join(root, 'route-manifest.json'), 'utf8'));
@@ -34,6 +35,14 @@ export const server = createServer(async (req, res) => {
       return res.end();
     }
     const released = indexingEnabled(req);
+     if (pathname === '/__release-readiness') {
+       const active = await readActiveEditorial();
+       const result = releaseReadiness(manifest, active);
+       const homepage = result.ready ? await render('/', 'it', active) : undefined;
+       result.ready = result.ready && Boolean(homepage?.body?.includes('<h1'));
+       res.writeHead(result.ready ? 200 : 503, { 'Content-Type':'application/json', 'Cache-Control':'no-store' });
+       return res.end(req.method === 'HEAD' ? undefined : JSON.stringify(result));
+     }
     // Permanent ownership proof: exact static response, outside page/locale routing.
     if (pathname === '/googledaf4e170f04727ce.html') {
       const content = await readFile(path.join(root, 'googledaf4e170f04727ce.html'), 'utf8');
@@ -52,7 +61,8 @@ export const server = createServer(async (req, res) => {
         (siteIconResources.has(pathname) || ['/robots.txt', '/sitemap.xml', '/llms.txt'].includes(pathname));
       if (released && status === 200 && (publicResource ||
         (String(contentType ?? '').startsWith('text/html') && releaseEntries?.some(e => e.path === pathname)))) {
-        res.removeHeader('X-Robots-Tag');
+         if (publicResource) res.removeHeader('X-Robots-Tag');
+         else res.setHeader('X-Robots-Tag', 'index, follow');
       }
       return writeHead(status, ...args);
     };

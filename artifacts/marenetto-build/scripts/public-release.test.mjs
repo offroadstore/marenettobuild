@@ -141,12 +141,12 @@ test('actual release handler: canonical, robots, XML sitemap, reciprocal alterna
       const res = await get(home.path);
       const html = await res.text();
       assert.equal(res.status, 200, home.path);
-      assert.equal(res.headers.get('x-robots-tag'), null);
+      assert.equal(res.headers.get('x-robots-tag'), 'index, follow');
       assert.match(html, /name="robots" content="index, follow"/);
       assert.match(html, /hreflang="x-default"/);
       assert.ok(html.includes(`rel="canonical" href="${PUBLIC_ORIGIN}${home.path}"`));
       const head = await get(home.path, { method: 'HEAD' });
-      assert.equal(head.headers.get('x-robots-tag'), null);
+      assert.equal(head.headers.get('x-robots-tag'), 'index, follow');
     }
     for (const host of ['preview.replit.app', 'preview.replit.dev']) {
       const preview = await get('/', { headers: { ...headers, 'x-forwarded-host': host } });
