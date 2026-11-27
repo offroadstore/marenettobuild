@@ -97,7 +97,7 @@ test('the existing guide archive and series navigation link all ten actual activ
     const archive=await render(path,locale,active);
     const detail=await render(peers[0].path,locale,active);
     assert.ok(detail.body.includes('data-testid="series-navigation"'));
-    assert.ok((archive.body.match(/data-image-disclosure="ai-generated"/g)??[]).length>=10,`${locale}: individual image labels in guide archive`);
+    assert.equal((archive.body.match(/data-image-disclosure=/g)??[]).length,0,`${locale}: no per-image labels in guide archive`);
     for(const peer of peers){
       assert.ok(archive.body.includes(`href="${peer.path}"`),`${locale}: archive ${peer.path}`);
       assert.ok(detail.body.includes(`href="${peer.path}"`),`${locale}: series ${peer.path}`);

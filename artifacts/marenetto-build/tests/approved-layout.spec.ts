@@ -34,7 +34,7 @@ for (const width of [390, 580, 699, 700, 768, 1000, 1100, 1440, 1920]) {
     // Phase 4 replaces the former footer-only statement: distinguish known AI
     // illustrations from uncertain historical sources, without inventing review.
     await expect(page.locator('footer [data-testid="illustration-note"]')).toHaveText(`${noticeCopy.it.footer} ${noticeCopy.it.ai}`);
-    await expect(page.locator('.mbh-image-note [data-image-disclosure="ai-edited"]')).toHaveText(noticeCopy.it.aiLabel);
+    await expect(page.locator('[data-image-disclosure]')).toHaveCount(0);
     await expect(page.locator('footer [data-testid="illustration-note"]')).toHaveCSS('font-size', '13px');
     await expect(page.locator('main h1')).toHaveCount(1);
     const hero = page.locator('.mbh-hero img');

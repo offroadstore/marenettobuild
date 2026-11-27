@@ -20,7 +20,6 @@ type ProImage = ReturnType<typeof proImages>[number];
 function ProFigure({ image, eager, className }: { image: ProImage; eager?: boolean; className?: string }) {
   return <figure className={`pro-figure ${className ?? ''}`} data-testid={`img-pro-${image.id}-${image.n}`}>
     <img src={image.src} srcSet={image.srcSet} sizes="(max-width: 860px) 100vw, 45vw" width={image.width} height={image.height} alt={image.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
-    <figcaption className="pro-figure__label">{image.label}</figcaption>
   </figure>;
 }
 
