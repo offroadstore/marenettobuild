@@ -200,7 +200,7 @@ export function ArticleDetailPage({ a }: { a: Article }) {
           <AreaPillarLink locale={lang} article={a.slug} />
         </div>
       </div>
-      <div className="container"><figure className="article-figure"><img src={a.image} alt={a.imageAlt} data-testid="img-article-hero" /><figcaption>Immagine illustrativa dell’articolo originale, conservata localmente. Non documenta un lavoro verificato.</figcaption></figure></div>
+      <div className="container"><figure className="article-figure"><img src={a.image} alt={a.imageAlt} data-testid="img-article-hero" /></figure></div>
     </section>
     <section className="section tight">
       <div className="container article-layout">

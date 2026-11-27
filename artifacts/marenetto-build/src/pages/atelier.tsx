@@ -19,7 +19,6 @@ function atelierImages(locale: string) {
 function AtelierFigure({ image, className, eager }: { image: ReturnType<typeof atelierImages>[number]; className?: string; eager?: boolean }) {
   return <figure className={`mat-figure ${className ?? ''}`} data-testid={`img-atelier-${image.id}-${image.n}`}>
     <img src={image.src} srcSet={image.srcSet} sizes="(max-width: 860px) 100vw, 40vw" width={image.width} height={image.height} alt={image.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
-    <figcaption className="mat-figure__label">{image.label}</figcaption>
   </figure>;
 }
 

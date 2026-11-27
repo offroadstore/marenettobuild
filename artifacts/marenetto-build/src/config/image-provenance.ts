@@ -1,4 +1,3 @@
-import { noticeCopy } from '@/content/legal-notices';
 
 /** Evidence: public/media/home/README.md. Encoding alone is not AI editing. */
 export function imageClassification(url: string) {
@@ -11,16 +10,7 @@ export function imageClassification(url: string) {
   if (/\/brand\/|\/favicon(?:\.|\/)/i.test(url)) return 'brand';
   return 'uncertain';
 }
-export function discloseHTMLImages(html: string, locale: string) {
-  const copy = noticeCopy[locale];
-  if (!copy) return html;
-  return html.replace(/<img\b[^>]*>/gi, tag => {
-    if (tag.includes('data-historical-logo') || tag.includes('data-image-labelled')) return tag;
-    const src = tag.match(/\bsrc=["']([^"']+)["']/i)?.[1];
-    if (!src || imageClassification(src) === 'brand') return tag;
-    const classification = imageClassification(src);
-    const text = classification.startsWith('ai-') ? copy.aiLabel : copy.unknownLabel;
-    return tag.replace(/^<img\b/i, '<img data-image-labelled=""') +
-      `<span class="image-disclosure" lang="${locale}" data-image-disclosure="${classification}">${text}</span>`;
-  });
+export function discloseHTMLImages(html: string, _locale: string) {
+  // Per-image labels removed at the owner's request; footer note remains.
+  return html;
 }

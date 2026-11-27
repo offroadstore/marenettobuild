@@ -46,6 +46,16 @@ export function companyServiceAreas() {
   ];
 }
 
+/**
+ * Opening hours as published on the Google Business Profile. The owner asked
+ * (27 Nov 2026) that the site use exactly the same hours as the profile.
+ * Leave empty until copied from the profile: nothing is published while empty.
+ * Example: { days: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '09:00', closes: '18:00' }
+ */
+export const COMPANY_OPENING_HOURS: ReadonlyArray<{ days: string[]; opens: string; closes: string }> = [];
+/** Public profile URLs of the same business (Google Maps listing, Houzz, …). */
+export const COMPANY_PROFILES: ReadonlyArray<string> = [];
+
 export function companyStructuredData(origin: string) {
   return {
     '@type': 'GeneralContractor', '@id': `${origin}/#organization`,
@@ -58,7 +68,12 @@ export function companyStructuredData(origin: string) {
       addressLocality: 'Cefalù', addressRegion: 'PA', postalCode: '90015', addressCountry: 'IT',
     },
     additionalType: 'https://schema.org/LocalBusiness',
+    vatID: COMPANY_CONTACT.vatId,
     areaServed: companyServiceAreas(),
+    ...(COMPANY_OPENING_HOURS.length ? { openingHoursSpecification: COMPANY_OPENING_HOURS.map(h => ({
+      '@type': 'OpeningHoursSpecification', dayOfWeek: h.days.map(d => `https://schema.org/${d}`), opens: h.opens, closes: h.closes,
+    })) } : {}),
+    ...(COMPANY_PROFILES.length ? { sameAs: [...COMPANY_PROFILES] } : {}),
   };
 }
 

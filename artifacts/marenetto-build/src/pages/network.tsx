@@ -51,7 +51,6 @@ function Figure({ id, index, alt, caption, eager }: { id: NetworkId; index: numb
     <figure className="mbn-figure" data-testid={`img-network-${id}-${index}`}>
       <img src={img.src} srcSet={img.srcSet} sizes={eager ? '100vw' : '(min-width: 1100px) 760px, 100vw'} width={img.width} height={img.height} alt={alt}
         loading={eager ? 'eager' : 'lazy'} decoding="async" />
-      <figcaption>{caption}</figcaption>
     </figure>
   );
 }

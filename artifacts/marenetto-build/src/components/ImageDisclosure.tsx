@@ -1,15 +1,8 @@
-import { useContext } from 'react';
-import { useLocation } from 'wouter';
-import { noticeCopy } from '@/content/legal-notices';
-import { LibraryLocale } from '@/localization/library-context';
-import { imageClassification } from '@/config/image-provenance';
-export function ImageDisclosure({src, lang, className = ''}: {src: string; lang?: string; className?: string}) {
-  const contextLocale = useContext(LibraryLocale);
-  const [path] = useLocation();
-  const locale = lang ?? path.match(/^\/(?:__localization-review\/)?([a-z]{2})(?:-site)?(?:\/|$)/)?.[1] ?? contextLocale;
-  const copy = noticeCopy[locale];
-  if (!copy || imageClassification(src) === 'brand') return null;
-  return <span className={`image-disclosure ${className}`} lang={locale} data-image-disclosure={imageClassification(src)}>
-    {imageClassification(src).startsWith('ai-') ? copy.aiLabel : copy.unknownLabel}
-  </span>;
+/**
+ * Per-image AI/provenance labels removed at the owner's request (27 Nov 2026).
+ * The site-wide disclosure stays in the footer (IllustrationNote) and on the
+ * "Uso dell'intelligenza artificiale" page. Kept as a no-op so callers compile.
+ */
+export function ImageDisclosure(_props: {src: string; lang?: string; className?: string}) {
+  return null;
 }

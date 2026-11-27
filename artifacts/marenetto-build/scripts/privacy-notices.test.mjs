@@ -38,19 +38,17 @@ test('all 39 owner-authorized notices render in their own language with accurate
   const manifest={editions:Object.fromEntries(editions.map(e=>[e.path,e])),pages:Object.fromEntries(editions.map(e=>[e.path,'test.html']))};
   assert.equal(publicEditions(manifest).filter(e=>e.source.startsWith('phase4:')).length,39,'owner-authorized notices are public');
 });
-test('hero is individually labelled, historic provenance remains uncertain, originals are not changed',async()=>{
+test('per-image labels are removed; the footer AI note and AI page link remain',async()=>{
   const {render}=await vite.ssrLoadModule('/src/entry-server.tsx');
   const {noticeCopy,legalPath}=await vite.ssrLoadModule('/src/content/legal-notices.ts');
   const {imageClassification,discloseHTMLImages}=await vite.ssrLoadModule('/src/config/image-provenance.ts');
   assert.equal(imageClassification('/media/home/cefalu-hero-left-1672.jpg'),'ai-edited');
   assert.equal(imageClassification('/media/home/construction-960.webp'),'uncertain');
-  const labelled=discloseHTMLImages('<img src="/media/example.webp">','fr');
-  assert.ok(labelled.includes(noticeCopy.fr.unknownLabel));
-  assert.equal(discloseHTMLImages(labelled,'fr'),labelled,'idempotent');
+  const plain='<img src="/media/example.webp">';
+  assert.equal(discloseHTMLImages(plain,'fr'),plain,'no per-image label');
   for(const locale of Object.keys(noticeCopy)) {
     const {body}=await render(locale==='it'?'/':`/${locale}/`,locale);
-    assert.ok(body.includes('image-disclosure--hero'),locale);
-    assert.ok(body.includes(escaped(noticeCopy[locale].aiLabel)),locale);
+    assert.ok(!body.includes('data-image-disclosure'),locale);
     assert.ok(body.includes('footer-legal-links'),locale);
     const note=body.match(/<p\b[^>]*data-testid="illustration-note"[\s\S]*?<\/p>/)?.[0];
     assert.ok(note?.includes(`href="${legalPath(locale,'ai')}"`),`${locale}: AI link belongs to the disclosure note`);
