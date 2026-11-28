@@ -1033,3 +1033,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 @media (max-width: 600px) {
   .site-shell .footer-logo-band .mb-logo { --logo-h: 30px; }
 }
+
+/* Audit 2026-11-28: indicatore di focus da tastiera ben visibile (WCAG 2.2, 2.4.7 e 1.4.11) */
+.field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+.search-box:focus-within { outline:2px solid var(--ink); outline-offset:2px; }

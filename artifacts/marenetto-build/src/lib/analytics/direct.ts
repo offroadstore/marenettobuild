@@ -40,6 +40,8 @@ export function directPort(clearCookies: () => void, reload = () => window.locat
         send_page_view: false, anonymize_ip: true, allow_google_signals: false,
         allow_ad_personalization_signals: false, allow_enhanced_conversions: false,
         ads_data_redaction: true, url_passthrough: false,
+        // _ga/_ga_<id> default to 2 years; align them with the 180-day consent validity.
+        cookie_expires: 180 * 86400, cookie_update: false,
         // Never hand Google the URL query/hash, title, referrer or submitted data.
         page_location: next.origin + path,
         page_referrer: '', page_title: '',
